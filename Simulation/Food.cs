@@ -16,6 +16,7 @@ public sealed class BerryBush
 }
 public sealed class FoodState
 {
+    public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
     public int Grain { get; set; }
     public int Bread { get; set; }
@@ -199,7 +200,7 @@ public sealed partial class World
         void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
         Check(Food.Berries >= 0 && Food.Grain >= ReservedGrain && Food.Bread >= 0, "Negative or over-reserved food");
-        Check(Food.Berries + Cargo(Resource.Berries) + Food.EatenBerries == 24 + Food.GatheredBerries, "Berry conservation failed");
+        Check(Food.InitialBerries >= 0 && Food.Berries + Cargo(Resource.Berries) + Food.EatenBerries == Food.InitialBerries + Food.GatheredBerries, "Berry conservation failed");
         Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Sum(c => c.Harvest + c.InputGrain) + Food.UsedGrain == Food.GrownGrain, "Grain conservation failed");
         Check(Food.Bread + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread, "Bread conservation failed");
         Check(Food.BakedBread == Food.UsedGrain * 2, "Recipe conversion failed");

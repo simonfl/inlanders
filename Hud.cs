@@ -153,13 +153,15 @@ public partial class Game
     }
     private void MakeGoalsMenu(VBoxContainer column)
     {
-        column.AddChild(Text("The first village supper", 20, true));
-        column.AddChild(Text("Give eight neighbors a home and enough bread to celebrate together.", 15, true));
+        _goalTitle = Text("", 20, true); column.AddChild(_goalTitle);
+        _goalArrival = Text("", 15, true); column.AddChild(_goalArrival);
         _objective = Text("", 18, true); column.AddChild(_objective);
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 8) }; column.AddChild(_progress);
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
-        column.AddChild(Text("GETTING THERE", 12));
-        column.AddChild(Text("Forager hut → berries\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use 8 food per day, berries first. Grain must be baked. Four cottages or two lodges house everyone.", 15, true));
+        _standaloneGuide = new(); column.AddChild(_standaloneGuide);
+        _standaloneGuide.AddChild(Text("GETTING THERE", 12));
+        _standaloneGuide.AddChild(Text("Forager hut → berries\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use 8 food per day, berries first. Grain must be baked. Four cottages or two lodges house everyone.", 15, true));
+        MakeCampaignUi(column);
     }
     private void MakeOptionsMenu(VBoxContainer column)
     {
@@ -234,5 +236,6 @@ public partial class Game
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;
         _inspector.Size = new(308, 0);
+        UpdateCampaignUi();
     }
 }

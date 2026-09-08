@@ -19,6 +19,19 @@ Setup downloads portable Godot 4.6 and .NET SDK 8.0.424 from their official dist
 
 The launcher runs the Godot project directly; this repository does not contain an exported standalone executable. Downloaded tools, generated build files, test artifacts, and player saves are excluded from Git.
 
+## Campaign: the first two settlements
+
+Open **Goals [G]**, scroll to **Campaign**, and choose a settlement. Both levels keep every building and tool available:
+
+1. **A place to stay:** a staffed berry camp supports eight arrivals while you build housing. Four cottages are the suggested route; lodges also count.
+2. **The berry clearing:** a hamlet already has homes. Build and staff a forager hut, then deliver 24 fresh berries. Starting supplies and carried berries do not count; eating delivered berries never removes progress.
+
+Each settlement starts paused with 64 berries and its own starting buildings and jobs. Goals provides contextual hints that change as you build and assign workers. Dismiss a hint, turn guidance off, or show hints again without affecting objectives. There are no deadlines or building unlocks.
+
+Completion saves progress and leaves the village running. Goals offers **Continue playing**, **Next settlement** after level 1, and **Replay this settlement**. The level picker resumes saved settlements. **Restore village before replay** swaps between the latest replay and its preceding village, keeping completion records. **Return to standalone supper** restores the standalone village you left. Levels 3–5 remain planned.
+
+Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Launching resumes an active saved campaign, paused. Save with F5 before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
+
 ## The first village supper
 
 Eight villagers arrive with 24 berries. The objective is to **house all eight people and stock 16 loaves**, then click **Host supper** to gather everyone. The game continues after the celebration.
@@ -94,9 +107,9 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | Speed | Cycle 1×, 3×, 6× |
 | F5 / Save | Save the current settlement |
 | F9 / Load | Restore the saved settlement, paused |
-| Start again | Start a new settlement without deleting the save |
+| Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The manual save is `saves/settlement.json`; the previous save is retained as `.bak`. Saves preserve simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. There is no autosave.
+The standalone manual save is `saves/settlement.json`; the previous save is retained as `.bak`. Saves preserve simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no autosave; campaign transitions and completion save automatically as described above. Older standalone saves remain supported.
 
 ## Development
 
@@ -109,6 +122,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
 | `Simulation/Sawmill.cs` | Sawyers, log-to-plank production, stock target, plank accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
+| `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
@@ -143,5 +157,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Play.ps1 -HudSmokeTest
 Tests cover legal placements, competing workers, scarce timber, priorities, reassignment, cancellation/salvage, seeded stress runs, food conservation, hunger recovery, supper completion, exact save/load continuation through every food-production phase, corrupted saves, and disk backups. The rendered check exercises the UI, all building types, active-batch save/load, the supper gathering, and restoration of a completed scenario. Its saves and screenshots go to `artifacts/`, separate from player saves.
 
 Audio checks inspect live Godot mixer output, muted silence, volume persistence, pause suppression, voice/cadence limits, PCM bounds, and the wind loop seam. They export WAV previews to `artifacts/f10-audio/` and use an isolated preferences file in `artifacts/`.
+
+Campaign checks complete both levels, exercise alternative housing and interrupted food deliveries, and preserve progress through meals, saves, replay, and startup resume. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
 
 Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.

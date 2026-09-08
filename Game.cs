@@ -25,14 +25,17 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
+        if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _campaignPath = "artifacts/campaign-smoke.json";
         GetWindow().MinSize = new(960, 640);
         MakeLandscape(); MakeAudio(); MakeUi();
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
+        if (!OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) ResumeCampaignOnLaunch();
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
     }
     private void CreateActors()
     {
@@ -48,6 +51,7 @@ public partial class Game : Node3D
     }
     private void Reset()
     {
+        if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
         _world = World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
         _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();

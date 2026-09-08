@@ -10,18 +10,27 @@ public partial class Game
     private void Notice(string message) { _notice = message; _noticeUntil = _uiTime + 8; }
     private void SaveWorld()
     {
-        try { _world.SaveFile(_savePath); Notice("Settlement saved. F9 restores this save."); }
+        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(_savePath); Notice("Settlement saved. F9 restores this save."); }
         catch (Exception e) { Notice("Could not save: " + e.Message); }
     }
     private void LoadWorld()
     {
         try
         {
-            var restored = World.LoadFile(_savePath); // Validate fully before replacing the current game.
+            World restored;
+            if (_world.Campaign != null)
+            {
+                var book = CampaignBook.LoadFile(_campaignPath);
+                restored = World.LoadJson(book.Settlements[book.ActiveLevel]);
+                if (_campaignBook != null) book.Completed.UnionWith(_campaignBook.Completed);
+                _campaignBook = book;
+            }
+            else restored = World.LoadFile(_savePath); // Validate fully before replacing the current game.
             _world = restored; CloseManagementUi(); _placing = false; _accumulator = 0;
             _paused = true; _pauseButton.Text = "Resume  [Space]";
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
             Notice("Settlement restored and paused. Press Space to continue.");
+            _completionAnnounced = _world.Campaign?.Complete == true;
         }
         catch (Exception e) { Notice("Could not load; current game kept. " + e.Message); }
     }

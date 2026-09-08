@@ -24,14 +24,14 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. | — |
 | F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
-| F11 | Campaign mode and objectives — Planned | Five authored settlements with distinct goals and saved progress; build the first two as the first playable slice. See the joint F11/F18 plan below. | — |
+| F11 | Campaign mode and objectives — First two levels done | Five authored settlements planned; the opening pair, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
 | F12 | Landscape and exploration | A larger authored map with water, a bridge, and another useful area to settle. Terrain height TBD. | F11 suggested |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
 | F16 | Free-build mode | An open-ended scenario with optional objectives and enough renewable resources to keep expanding. | F02, F06 suggested |
 | F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
-| F18 | Campaign tutorial — Planned | Teach through all five campaign settlements, introducing a building or building group per level, with optional contextual guidance. See the joint F11/F18 plan below. | F11 |
+| F18 | Campaign tutorial — Opening pair done | Optional contextual guidance ships with levels 1–2. Continue teaching through later campaign settlements, introducing a building or building group per level. | F11 |
 | F19 | Main menu | A title screen with Continue, New campaign, and settings for sound/music; add scenario/free-build selection as those modes arrive. | Campaign entry depends on F11 |
 | F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
 | F21 | UI and interaction — High priority; F21a/b done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
@@ -69,7 +69,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 ## Where to start
 
-**F11a + F18a — Campaign foundation and the first two guided levels** is the next campaign implementation slice. The five-level design below is planned, not implemented. Build and play the opening pair before tuning the rest.
+**F11a + F18a — Campaign foundation and the first two guided levels** is playable. Try the opening pair before tuning the rest; **F11b + F18b — Production lessons** (levels 3–4) is the next campaign slice. The finale and its square remain planned.
 
 F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** can build on the contextual inspector independently. UI remains a major priority; further refinements should follow play feedback.
 
@@ -79,7 +79,7 @@ F21a and F21b establish the UI direction and clearer building placement. **F21c 
 
 ### F11 + F18 — First campaign and integrated tutorial
 
-Status: Planned — design only; level names, quantities, layouts, and pacing are provisional.
+Status: F11a + F18a done; levels 1–2 playable. Levels 3–5 remain planned. Quantities, layouts, and pacing are provisional.
 
 Want to play: Help five small settlements take shape, learning one new building or connected group at a time. Each has a modest local purpose and a warm closing moment. Aim for roughly 10–20 minutes per level, with a shorter opening; tune after playing rather than adding timers to enforce this.
 
@@ -143,13 +143,15 @@ A small established settlement has the essentials but no shared center. Choose w
 
 | Chunk | Scope | Playable when |
 | --- | --- | --- |
-| F11a + F18a — Opening pair | Authored level setup, level-aware objectives, campaign progress, replay/next/continue controls, contextual hints, and levels 1–2. A simple campaign entry/level picker can live in the existing UI; the polished title screen stays in F19. | Complete housing, move to a fresh berry settlement, save/load midway through its delivery goal, and finish it with guidance on or off. |
+| F11a + F18a — Opening pair — Done | Authored level setups, reusable objectives, saved campaign progress, replay/next/continue controls, contextual hints, and levels 1–2. Entry/level picker lives in Goals; the polished title screen stays in F19. | Complete housing, move to a fresh berry settlement, save/load midway through its delivery goal, and finish it with guidance on or off. |
 | F11b + F18b — Production lessons | Levels 3–4, cumulative production/planting milestones, and contextual food, plank, and regrowth hints. | Both levels work when players follow the suggested order or build ahead; consuming goods does not lose earned progress. |
 | F04a + F11c + F18c — Campaign finale | Build/place the square, validate gathering space, adapt supper to its destination, author level 5, and show campaign completion. | All eight reach the square, supper is consumed once, the celebration completes, and play can continue. |
 
 F11 owns scenario setup, objectives, transitions, and saved campaign progress. F18 owns the teaching sequence and contextual hints; ship each level's guidance with its gameplay. Keep level definitions and objective types reusable instead of adding a separate hard-coded victory flow for each map. Exact data format is an implementation decision.
 
-Save the active level, objective counters, tutorial state, and full settlement together; keep the completion record so replaying an earlier level does not erase later progress. Existing standalone saves should still open as standalone settlements. Next/replay must preserve a resumable copy of the village being left. Exact save-slot UI is TBD.
+Implemented persistence: campaign.json holds the active level, full settlement snapshots, tutorial state, and completion record. Berry delivery progress derives from conserved inventory plus consumption minus starting supply. Transitions preserve a snapshot per settlement; replay additionally retains the previous village, with a restore/swap control. F5 saves, F9 loads, completion and transitions save automatically, and launch resumes an active saved campaign paused. Existing standalone saves remain standalone; broader save-slot UI is TBD.
+
+Opening-pair verification: simulation playthroughs complete both levels with action-aware or disabled guidance; cottages and lodges both satisfy level 1. Checks cover interrupted berry deliveries, meals, exact save continuation, replay records, legacy saves, and disk backups. Rendered checks exercise campaign entry, both levels, hints, next/replay/restore, startup resume, invalid-save recovery, standalone return, and a 960×640 layout. Screenshots reviewed. Initial supplies are 64 berries and 48 harvestable logs per level, plus prebuilt infrastructure; pacing and player feedback remain TBD.
 
 Relevant checks when implementing: save/load mid-objective and mid-celebration; goals already satisfied before hints appear; alternative housing; consumed goods versus cumulative deliveries; no double-counting carried or redelivered goods; replay without losing progress; all tools available in every level; and a complete playthrough of each authored starting setup. Tune food buffers, tree placement, walking distances, and objective quantities from those playthroughs.
 
@@ -263,3 +265,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - F10, first chunk: synthesized village sounds, wind/birds, positional playback, and persistent audio controls.
 - F21a: compact HUD, responsive menus, and contextual inspector.
 - F21b: building descriptions and supply guidance, recognizable placement previews, entrance/rotation feedback, and specific placement rejection reasons. Verified with simulation checks and rendered HUD checks, including repeat tree planting and preview state isolation. Visual style and description wording remain open to play feedback.
+- F11a + F18a: the first two campaign settlements, integrated optional guidance, reusable goals, campaign saves/resume/replay, and preserved standalone play.

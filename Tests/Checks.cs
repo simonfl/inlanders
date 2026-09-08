@@ -103,3 +103,4 @@ FoodChecks.Run();
 WoodlandChecks.Run();
 SawmillChecks.Run();
 PlacementChecks.Run();
+CampaignChecks.Run();

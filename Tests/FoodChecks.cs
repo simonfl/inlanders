@@ -73,9 +73,13 @@ public static class FoodChecks
         node["Version"] = 1; node["Food"]!["Bread"] = -1;
         refused = false; try { World.LoadJson(node.ToJsonString()); } catch (InvalidOperationException) { refused = true; }
         Check(refused, "Corrupt inventory save accepted");
-        const string path = "artifacts/m3-save-tests/settlement.json";
-        stock.SaveFile(path); string first = File.ReadAllText(path); Step(stock, 10); stock.SaveFile(path);
-        Check(File.ReadAllText(path + ".bak") == first && World.LoadFile(path).SaveJson() == stock.SaveJson(), "File replacement/backup failed");
+        string path = Path.Combine(Path.GetTempPath(), "inlanders-save-" + Guid.NewGuid() + ".json");
+        try
+        {
+            stock.SaveFile(path); string first = File.ReadAllText(path); Step(stock, 10); stock.SaveFile(path);
+            Check(File.ReadAllText(path + ".bak") == first && World.LoadFile(path).SaveJson() == stock.SaveJson(), "File replacement/backup failed");
+        }
+        finally { foreach (string suffix in new[] { "", ".bak", ".tmp" }) if (File.Exists(path + suffix)) File.Delete(path + suffix); }
         Console.WriteLine("PASS: version/corruption rejection, disk save/load, and previous-save backup.");
     }
 }

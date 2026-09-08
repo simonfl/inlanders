@@ -279,6 +279,7 @@ public sealed partial class World
                 default: if (!TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }
+        UpdateCampaign();
     }
     public void Validate()
     {
