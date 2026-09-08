@@ -22,10 +22,10 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F06 | More villagers | A small group arrives when spare housing is available; grow beyond the original eight. | — |
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
 | F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
-| F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. | — |
+| F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. Coordinate outdoor decoration with F12c landscaping. | — |
 | F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
 | F11 | Campaign mode and objectives — First two levels done | Five authored settlements planned; the opening pair, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
-| F12 | Landscape and exploration | A larger authored map with water, a bridge, and another useful area to settle. Terrain height TBD. | F11 suggested |
+| F12 | Map expansion, landscape, and exploration — Planned | Larger configurable maps, irregular boundaries, water/crossings, player landscaping, and eventually elevation. Start with F12a before authoring more campaign levels; see chunks below. | — |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
@@ -69,13 +69,45 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 ## Where to start
 
-**F11a + F18a — Campaign foundation and the first two guided levels** is playable. Try the opening pair before tuning the rest; **F11b + F18b — Production lessons** (levels 3–4) is the next campaign slice. The finale and its square remain planned.
+**F12a — More room and varied map shapes** is the recommended next foundation before authoring more campaign levels. The current compact rectangular board limits village layouts and how different the settlements can feel. Keep the opening levels compact if that teaches better; give later ones room to spread out.
+
+**F11a + F18a — Campaign foundation and the first two guided levels** is playable. Try the opening pair before tuning the rest; **F11b + F18b — Production lessons** (levels 3–4) is the next campaign slice after map expansion. The finale and its square remain planned.
 
 F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** can build on the contextual inspector independently. UI remains a major priority; further refinements should follow play feedback.
 
 **F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
+
+### F12 — Map expansion and landscaping
+
+Status: Planned. Expand in small playable chunks; sizes, terrain tools, and visual treatment remain provisional.
+
+Want to play: Build a village that can spread into groves, clearings, and distinct neighborhoods, on land that feels like a place rather than a small square board. Arrange the surrounding landscape as well as the buildings. Larger maps should offer interesting choices and useful space, not just longer walks across empty grass.
+
+| Chunk | Player experience | First scope |
+| --- | --- | --- |
+| F12a — More room and varied map shapes | Pan across a larger settlement and choose between several building areas. | Configurable map dimensions and a buildable/walkable cell layout; support rectangular and irregular outlines. Author one larger test map, tentatively around 32×32 cells, with several clearings and resource groups. Keep flat terrain and the current grid underneath. Fit camera pan/zoom limits and map framing to the actual landscape. |
+| F12b — Water and crossings | Build beside a pond or stream, then connect another useful area. | Authored water tiles, visible banks, and a simple bridge across a narrow crossing. Water blocks ordinary walking/building; bridges provide routes. Keep initial shores and crossing positions simple. Exact bridge cost, width, and construction rules TBD. |
+| F12c — Player landscaping | Shape the spaces between homes and workplaces. | A landscaping palette for grass/earth patches, flowers, shrubs, and decorative trees; reuse F09 assets and F02 productive tree planting. Add deliberate clearing of trees and exhausted stumps so earlier woodland does not permanently prevent building. Keep productive trees distinct from cosmetic planting; clearing tasks, costs, and salvage rules TBD. |
+| F12d — Hills and terrain shaping | Settle a valley or hillside and make room for a building. | Start with authored gentle elevation, readable slopes, and clear building rules. Later consider player raise/lower/level tools, terraces, ramps, and retaining walls. Decide height steps, accessibility, and construction costs when this chunk begins. |
+| F12e — Exploring a larger settlement | Find workers and understand distant work areas without losing the village. | Better camera framing, useful location jumps, and potentially a small overview map. Fog of war or hidden discoveries are optional later ideas, not requirements for using a larger map. |
+
+F12a should make map bounds, terrain occupancy, and authored resource placement part of the scenario/map definition, shared by rendering, placement, pathfinding, and saves. Avoid simply enlarging the visible ground while leaving simulation or camera bounds fixed. An irregular outline can still use the existing grid: cells outside the land are unavailable rather than forcing the player to see a rectangular board. Exact data representation and edge rendering are implementation choices.
+
+The first larger map needs enough timber and food near its starting yard to get established, plus worthwhile space farther away. Size and population are separate choices: start with eight villagers, without requiring F06 arrivals. Retain the current maps for old saves and introductory lessons; save new map layouts with their settlements so loading cannot shift buildings or resources onto different terrain.
+
+Coordinate with existing features:
+
+- **F01 paths:** connect neighborhoods and make the longer trips satisfying. Paint/remove paths separately from cosmetic ground cover.
+- **F07 storage and hauling:** add local stockpiles when distance becomes a useful logistical choice. Do not stretch early objectives into long waits before this exists.
+- **F09 village character:** supplies decorations for landscaping; avoid two separate palettes for the same objects.
+- **F02 woodland:** productive planting and regrowth remain simulation features. Clearing should respect workers, carried timber, and resource accounting; moving mature productive trees is a later decision.
+- **F11/F18 campaign:** use authored geography to distinguish later settlements. Revisit levels 3–5 layouts after F12a; rivers, bridges, and hills can become later lessons without making every terrain feature a prerequisite for those levels.
+
+Playable when, for F12a: start a larger authored settlement, pan and zoom across its full extent, build and harvest in separated clearings, and save/load without changing the map. Placement and routes respect irregular boundaries; all resource access remains usable; the village remains responsive at normal and fast speed. Review how the landscape looks at its edges as well as how much room it provides.
+
+Later / TBD: Exact map sizes, terrain art, procedural generation and seeds, map editor, water reshaping, terraforming costs, undo rules for landscaping, and map expansion during an existing game. Start with larger maps selected at scenario creation; an infinite world or dynamically purchased land is not required.
 
 ### F11 + F18 — First campaign and integrated tutorial
 
