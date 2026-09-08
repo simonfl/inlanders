@@ -9,8 +9,7 @@ public partial class Game : Node3D
 {
     private World _world = World.NewScenario();
     private Camera3D _camera = null!;
-    private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!, _arm = null!, _carry = null!;
-    private sealed record PersonView(Node3D Body, Node3D Arm, Node3D Carry, Node3D Marker);
+    private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!;
     private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1, Stage = -1; }
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
@@ -39,9 +38,8 @@ public partial class Game : Node3D
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
         {
-            var body = MakePerson(p.Id); _dynamic.AddChild(body); body.Position = new(p.Position.X, 0, p.Position.Y);
-            var marker = Cylinder(body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
-            _people.Add(new(body, _arm, _carry, marker));
+            var view = MakeVillager(p.Id); _dynamic.AddChild(view.Body); view.Body.Position = new(p.Position.X, 0, p.Position.Y);
+            _people.Add(view);
         }
     }
     private void Reset()
@@ -141,13 +139,7 @@ public partial class Game : Node3D
             var movement = target - view.Body.Position; movement.Y = 0;
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
             view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
-            bool walking = v.Route.Count > 0;
-            if (walking && !_paused) view.Body.Position += new Vector3(0, MathF.Abs(MathF.Sin(_clock * 9 + v.Id)) * 0.055f, 0);
-            view.Arm.Rotation = new(MathF.Sin(_clock * 8 + v.Id) * (v.Task is Work.Chopping or Work.PlantingTree or Work.Building or Work.Foraging or Work.Harvesting or Work.Planting or Work.Baking or Work.Supper ? 1.1f : walking ? 0.3f : 0), 0, 0);
-            view.Carry.Visible = v.Carried > 0; view.Marker.Visible = v.Id == _selectedPerson;
-            for (int i = 0; i < view.Carry.GetChildCount(); i++) ((Node3D)view.Carry.GetChild(i)).Visible = i < v.Carried * 2;
-            Color cargoColor = v.Cargo switch { Resource.Berries => new("9c4866"), Resource.Grain => new("d7b765"), Resource.Bread => new("c98a4e"), _ => _wood };
-            foreach (var item in view.Carry.GetChildren().OfType<MeshInstance3D>()) ((StandardMaterial3D)item.MaterialOverride).AlbedoColor = cargoColor;
+            AnimateVillager(view, v);
         }
         foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
         {

@@ -16,7 +16,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | --- | --- | --- | --- |
 | F01 | Paths and village layout | Paint/remove simple paths; villagers prefer them and walk faster on them. | — |
 | F02 | Renewable woodland — Done (first chunk) | Plant trees that grow into harvestable timber, making continued building possible. | — |
-| F03 | A village that feels alive | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
+| F03 | A village that feels alive — Done (first chunk) | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
 | F04 | Gathering places | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
 | F05 | New food choices | Add one alternative food chain, such as vegetables or an orchard, with its own building and visible harvest. Exact choice TBD. | — |
 | F06 | More villagers | A small group arrives when spare housing is available; grow beyond the original eight. | — |
@@ -56,6 +56,20 @@ Playable when: Mark a tree, watch a logger plant it, save/load during growth, ha
 
 Verification: Simulation checks cover repeated growth/harvest cycles, using renewed logs in construction, job interruption, dense placement, and save compatibility. Rendered checks cover controls, sapling growth, save/load, harvesting, and stump replanting. Three days and eight logs remain starting values; player feedback TBD.
 
+### F03 — Villager motions and cargo
+
+Status: Done
+
+Want to play: Understand what villagers are doing by watching them, and enjoy a little more life in the settlement.
+
+First version: Stepping legs, carrying poses, distinct logging/building/planting/foraging/baking motions and tools, berry baskets/grain sheaves/loaves, and idle head turns and hat adjustments. Workers face their work, and animation follows pause and speed.
+
+Later / TBD: Tree-falling animation, particles, smoother transitions between poses, social interactions, and more character variation.
+
+Playable when: Watch workers chop, build, farm, forage, bake, and haul recognizable goods; pause freezes their poses and loading restores the appropriate tools/cargo.
+
+Verification: Build and rendered scenario/woodland checks pass, including restored baker tools and frozen poses while paused. Reviewed normal village and closer baking views. Player feedback TBD; this is a first procedural animation pass.
+
 ## How we take a chunk
 
 1. Pick an ID and mark it **Next**, then **In progress** when work starts.
@@ -93,3 +107,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - Milestone 2: eight villagers, work assignments, reservations, and construction priorities.
 - Milestone 3: food production, meals, the village supper, and save/load.
 - F02, first chunk: logger planting, visible tree growth, renewable timber, and stump replanting.
+- F03, first chunk: stepping feet, work tools and motions, recognizable cargo, and idle gestures.

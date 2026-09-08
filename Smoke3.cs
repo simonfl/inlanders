@@ -63,7 +63,18 @@ public partial class Game
                     await Press(Key.Space); await Press(Key.F5); string inFlight = File.ReadAllText(_savePath);
                     await Press(Key.Space); for (int i = 0; i < 8; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
                     await Press(Key.F9); Check(_paused && _world.SaveJson() == inFlight, "F5/F9 lost active batch, cargo, routes, or reservations");
-                    await Capture("artifacts/m3-baking.png"); await Press(Key.Space); reloaded = true;
+                    await Capture("artifacts/m3-baking.png");
+                    var baker = _world.People.First(v => v.Task == Work.Baking);
+                    var bakerView = _people[baker.Id];
+                    Check(bakerView.Peel.Visible && !bakerView.Axe.Visible && !bakerView.Hammer.Visible, "Baker tool did not match job");
+                    var pose = bakerView.Arm.Rotation;
+                    for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    Check(bakerView.Arm.Rotation == pose && _world.SaveJson() == inFlight, "Paused pose or simulation changed");
+                    var previousFocus = _focus; float previousSize = _camera.Size;
+                    _focus = bakerView.Body.Position; _camera.Size = 12; UpdateCamera();
+                    await Capture("artifacts/f03-baker.png");
+                    _focus = previousFocus; _camera.Size = previousSize; UpdateCamera();
+                    await Press(Key.Space); reloaded = true;
                 }
             }
             Check(_world.CanCelebrate && harvested && reloaded && _world.Food.EatenBerries > 24, "Rendered food economy did not qualify for supper");

@@ -56,6 +56,8 @@ Once all logs have been collected, you can mark the stump again for another cycl
 
 ## Controls and saves
 
+Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
+
 | Control | Action |
 | --- | --- |
 | Left click | Place a plan or select a villager/building |
@@ -86,6 +88,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
+| `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `Hud.cs`, `PersistenceUi.cs` | Workforce, construction queue, inspectors, save/load feedback |
 | `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs` | Rendered interaction checks |
 | `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs` | Simulation and persistence tests |

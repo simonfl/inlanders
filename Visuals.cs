@@ -64,22 +64,6 @@ public partial class Game : Node3D
         Mesh(tree, new SphereMesh { Radius = 0.65f, Height = 1.3f, RadialSegments = 6, Rings = 3 }, new(0.5f, 1.7f, 0.1f), leaves.Lightened(0.05f));
         return tree;
     }
-    private Node3D MakePerson(int id)
-    {
-        var person = new Node3D();
-        Box(person, new(-0.13f, 0.20f, 0), new(0.16f, 0.4f, 0.18f), new("494d45"));
-        Box(person, new(0.13f, 0.20f, 0), new(0.16f, 0.4f, 0.18f), new("494d45"));
-        var shirts = new[] { "bf714d", "5c8390", "a19358", "7c6c92", "7a9161", "bd8a68", "af6971", "588c83" };
-        Cylinder(person, new(0, 0.64f, 0), 0.26f, 0.48f, new(shirts[id]), 0.21f);
-        Mesh(person, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, new(0, 1.01f, 0), new("e7bd8e"));
-        Cylinder(person, new(0, 1.2f, 0), 0.30f, 0.07f, new("dbc28c"));
-        Cylinder(person, new(0, 1.27f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
-        _arm = new Node3D { Position = new(0.28f, 0.79f, 0) }; person.AddChild(_arm);
-        Box(_arm, new(0, -0.17f, 0), new(0.13f, 0.4f, 0.14f), new("e7bd8e"));
-        _carry = new Node3D { Position = new(0, 0.62f, -0.32f) }; person.AddChild(_carry);
-        Log(_carry, new(0, 0, 0), 0.7f); Log(_carry, new(0, 0.19f, 0), 0.7f);
-        return person;
-    }
     private void Log(Node3D parent, Vector3 at, float length = 0.85f)
     {
         var log = Cylinder(parent, at, 0.13f, length, _wood); log.RotationDegrees = new(0, 0, 90);
