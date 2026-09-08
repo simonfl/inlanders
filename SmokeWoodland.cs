@@ -10,10 +10,10 @@ public partial class Game
     private async Task SmokeWoodland()
     {
         void Check(bool value, string message) { if (!value) throw new Exception(message); }
-        await Click(_resetButton.GetGlobalRect().GetCenter()); await Press(Key.Space);
+        await UiClick(_resetButton); await Press(Key.Space);
         Check(_paused, "Woodland setup must be paused");
         _savePath = "artifacts/f02-rendered-save.json";
-        await Click(_plantTreeButton.GetGlobalRect().GetCenter());
+        await UiClick(_plantTreeButton);
         Check(_placing && _plantingTrees, "Tree planting button failed");
         await Click(_camera.UnprojectPosition(new(-3,0,-1)));
         Check(_world.Trees.Count == 6, "Planted over a living tree");

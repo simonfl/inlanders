@@ -23,12 +23,12 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 Eight villagers arrive with 24 berries. The objective is to **house all eight people and stock 16 loaves**, then click **Host supper** to gather everyone. The game continues after the celebration.
 
-1. In the **Build** tab, select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
+1. Open **Build** (button or **B**), select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
 2. Build a **Farm** and a **Bakery**. A farmer sows grain, waits for it to ripen, harvests it, and hauls it to the pantry. A baker collects grain, bakes it, and carries bread back.
 3. Build four **Cottages**, each housing two villagers. Cottages and production buildings cost six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand. A **Lodge** is an alternative with four beds, costing eight planks from a sawmill.
-4. When everyone has shelter and 16 loaves are in the pantry, host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs.
+4. When everyone has shelter and 16 loaves are in the pantry, open **Goals** and host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs. The Goals button shows **Ready** when you qualify.
 
-The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in the **Workforce** tab. Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager to inspect their task, waiting reason, cargo, and claims; the assignment button cycles that individual's role.
+The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in **People** (button or **V**). Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager on the map or in People to inspect their task, waiting reason, and cargo; the assignment button cycles that individual's role.
 
 ### Food and work
 
@@ -40,7 +40,7 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 ### Construction management
 
-Select a building in the queue to change its **Low / Normal / High** construction priority. New job claims favor higher priorities, then older plans. Already committed deliveries finish before workers choose another job.
+Select a building on the map or in the **Build** menu's building list to open its inspector and change **Low / Normal / High** construction priority. New job claims favor higher priorities, then older plans. Already committed deliveries finish before workers choose another job.
 
 Cancel an unfinished plan to release its claims. Carried timber returns to the yard; delivered timber remains as a salvage pile for loggers to collect. After collection, the site can be reused. Completed buildings cannot be cancelled.
 
@@ -48,15 +48,15 @@ Pale placement cells are legal; red cells are blocked. The separate small square
 
 ### Renewable woodland
 
-In the **Build** tab, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.
+In **Build**, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.
 
-Loggers plant marked spots before taking new harvesting jobs. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game. Saplings visibly grow, and the resource header counts waiting planting jobs and growing trees.
+Loggers plant marked spots before taking new harvesting jobs. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game. Saplings visibly grow; hover over Logs in the top bar for planting, growth, and reservation counts.
 
 Once all logs have been collected, you can mark the stump again for another cycle. Replanting is manual; there is no automatic forestry zone or planting cancellation yet. Planting jobs, growth, and new timber are saved, and saves from before this feature still load.
 
 ### Sawmill and lodges
 
-Build a **Sawmill** for six logs, then assign a **Sawyer** in the Workforce tab. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
+Build a **Sawmill** for six logs, then assign a **Sawyer** in People. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
 
 Mills aim for a shared stock of eight planks, counting batches and shipments already on the way. They start another four-plank batch when that total falls to four or less. Reassign the sawyer when you want to stop production; carried materials return to storage and unfinished batches remain at the mill.
 
@@ -66,19 +66,26 @@ Plank inventories, shipments, reservations, and sawmill batches survive save/loa
 
 ## Controls and saves
 
+The compact top bar shows stored resources, housing, day, hunger, pause, and speed. The bottom bar opens **Build**, **People**, **Goals**, and **Options**; click the active menu again or press **Esc** to close it. Selecting a villager or building opens a single contextual inspector with the relevant actions. **Move camera here** centers the selected entity.
+
+The default view has no open side panels. At widths below 1100 pixels, opening a menu replaces the inspector and selecting an entity replaces the menu. Menus scroll when needed. The interface keeps its text size as the window resizes, with a minimum window size of 960×640; layouts are checked at 960×640, 1280×720, and 1440×900.
+
 Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
 
-The top-right **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute both, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
+In **Options**, the **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute both, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
 
 Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. This first audio pass uses synthesized effects; music remains future work (F17).
 
 | Control | Action |
 | --- | --- |
 | Left click | Place a plan or select a villager/building |
-| B | Toggle placement for the selected building type |
+| B | Open/close Build |
+| V | Open/close People and workforce assignments |
+| G | Open/close Goals and the supper objective |
+| O | Open/close Options: save, load, restart, audio, and controls |
 | T | Toggle repeat tree planting on open ground or exhausted stumps |
 | R | Rotate the unplaced building |
-| Esc | Cancel placement preview |
+| Esc | Cancel preview first; otherwise close the menu or inspector |
 | WASD | Pan |
 | Q / E | Orbit in quarter turns |
 | Mouse wheel | Zoom |
@@ -107,9 +114,10 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
-| `Hud.cs`, `PersistenceUi.cs` | Workforce, construction queue, inspectors, save/load feedback |
+| `Hud.cs`, `HudLayout.cs`, `PersistenceUi.cs` | Compact HUD, menus, responsive layout, contextual inspector, save/load feedback |
 | `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs`, `SmokeSawmill.cs` | Rendered interaction checks |
 | `SmokeAudio.cs` | Live mixer, mute, volume persistence, PCM, and audio lifecycle checks |
+| `SmokeHud.cs` | Window resizing, menu/inspector flows, scrolling, and input isolation |
 | `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs`, `Tests/SawmillChecks.cs` | Simulation and persistence tests |
 
 Simulation advances in fixed 0.1-second steps on one thread. Job claims reserve resources and destination capacity together. Harvesting, construction, and food production have explicit ownership/worker limits. Reassignment releases claims and returns cargo physically. `World.Validate()` checks resource accounting, ownership, capacity, live targets, and routes. The C# simulation has no Godot dependencies.
@@ -127,6 +135,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Test.ps1 -Rendered
 
 # Only build and run the focused audio checks
 powershell -NoProfile -ExecutionPolicy Bypass -File Play.ps1 -AudioSmokeTest
+
+# Only build and run the responsive HUD checks
+powershell -NoProfile -ExecutionPolicy Bypass -File Play.ps1 -HudSmokeTest
 ```
 
 Tests cover legal placements, competing workers, scarce timber, priorities, reassignment, cancellation/salvage, seeded stress runs, food conservation, hunger recovery, supper completion, exact save/load continuation through every food-production phase, corrupted saves, and disk backups. The rendered check exercises the UI, all building types, active-batch save/load, the supper gathering, and restoration of a completed scenario. Its saves and screenshots go to `artifacts/`, separate from player saves.

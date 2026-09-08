@@ -25,7 +25,7 @@ public partial class Game
 
     private void MakeAudio()
     {
-        if (OS.GetCmdlineUserArgs().Any(a => a is "--smoke-test" or "--audio-smoke-test")) _audioSettingsPath = "artifacts/f10-audio.cfg";
+        if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _audioSettingsPath = "artifacts/f10-audio.cfg";
         foreach (var name in new[] { EffectsBus, AmbienceBus })
         {
             if (AudioServer.GetBusIndex(name) >= 0) continue;

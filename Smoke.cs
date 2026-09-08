@@ -6,6 +6,23 @@ using System.Threading.Tasks;
 
 public partial class Game
 {
+    private async Task OpenMenu(int index)
+    {
+        if (!_drawer.Visible || _tabs.CurrentTab != index) await UiClick(_menuButtons[index]);
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+    private async Task UiClick(Button button)
+    {
+        for (int i = 0; i < _drawerPages.Count; i++)
+            if (_drawerPages[i].IsAncestorOf(button))
+            {
+                await OpenMenu(i); _drawerPages[i].EnsureControlVisible(button);
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); break;
+            }
+        await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+        if (!button.IsVisibleInTree()) throw new Exception("Cannot click hidden control: " + button.Text);
+        await Click(button.GetGlobalRect().GetCenter());
+    }
     private async Task Capture(string path)
     {
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);

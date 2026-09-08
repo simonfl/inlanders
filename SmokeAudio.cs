@@ -36,7 +36,7 @@ public partial class Game
         }
         await Wait(0.2f); capture.ClearBuffer(); UiCue(Cue.Place); await Wait(0.4f);
         float audible = Peak(); Check(audible > 0.0001f && audible < 0.95f, $"Mixer silent or clipping: {audible}");
-        await Click(_muteSoundButton.GetGlobalRect().GetCenter()); Check(_soundMuted, "Mute button failed");
+        await UiClick(_muteSoundButton); Check(_soundMuted, "Mute button failed");
         await Wait(0.25f); capture.ClearBuffer(); UiCue(Cue.Place); await Wait(0.25f);
         Check(Peak() < 0.00001f, "Mute did not silence the mixer");
         await Press(Key.M); Check(!_soundMuted, "M did not unmute");

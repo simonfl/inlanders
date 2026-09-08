@@ -18,7 +18,7 @@ public partial class Game
         try
         {
             var restored = World.LoadFile(_savePath); // Validate fully before replacing the current game.
-            _world = restored; _selectedSite = -1; _selectedPerson = 0; _placing = false; _accumulator = 0;
+            _world = restored; CloseManagementUi(); _placing = false; _accumulator = 0;
             _paused = true; _pauseButton.Text = "Resume  [Space]";
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
             Notice("Settlement restored and paused. Press Space to continue.");

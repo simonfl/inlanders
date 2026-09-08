@@ -10,26 +10,26 @@ public partial class Game
     private async Task SmokeSawmill()
     {
         void Check(bool value, string message) { if (!value) throw new Exception(message); }
-        await Click(_resetButton.GetGlobalRect().GetCenter()); await Press(Key.Space);
+        await UiClick(_resetButton); await Press(Key.Space);
         Check(_paused, "Sawmill fixture must be paused"); _savePath = "artifacts/f08-rendered-save.json";
-        await Click(_kindButtons[BuildingKind.Sawmill].GetGlobalRect().GetCenter());
+        await UiClick(_kindButtons[BuildingKind.Sawmill]);
         await Click(_camera.UnprojectPosition(new(3,0,0)));
         Check(_world.Cottages.Count == 1 && _world.Cottages[0].Kind == BuildingKind.Sawmill, "Sawmill selector failed");
-        await Click(_kindButtons[BuildingKind.Lodge].GetGlobalRect().GetCenter()); await Press(Key.R);
+        await UiClick(_kindButtons[BuildingKind.Lodge]); await Press(Key.R);
         await Click(_camera.UnprojectPosition(new(6,0,0)));
         Check(_world.Cottages.Count == 2 && _world.Cottages[1].Required == 8 && _world.Cottages[1].Material == Inlanders.Simulation.Resource.Planks, "Lodge selector/cost failed");
-        var bar = _tabs.GetTabBar(); await Click(bar.GlobalPosition + bar.GetTabRect(0).GetCenter());
-        await Click(_allocationButtons[(Role.Sawyer, 1)].GetGlobalRect().GetCenter());
+        await OpenMenu(0);
+        await UiClick(_allocationButtons[(Role.Sawyer, 1)]);
         Check(_world.People.Count(v => v.Role == Role.Sawyer) == 1, "Sawyer allocation failed");
         await Capture("artifacts/f08-workforce.png");
-        await Click(bar.GlobalPosition + bar.GetTabRect(1).GetCenter());
+        await OpenMenu(1);
         for (int i = 0; i < 15000 && !_world.People.Any(v => v.Task == Work.Sawing); i++) { _world.Tick(0.1f); _world.Validate(); }
         Check(_world.People.Any(v => v.Task == Work.Sawing), "Sawmill never started a batch");
-        _selectedSite = _world.Cottages[0].Id;
+        SelectBuilding(_world.Cottages[0].Id);
         await Press(Key.F5); string batch = File.ReadAllText(_savePath);
         for (int i = 0; i < 30; i++) _world.Tick(0.1f);
         await Press(Key.F9); Check(_world.SaveJson() == batch && _paused, "Sawmill batch restore failed");
-        _selectedSite = _world.Cottages[0].Id; _selectedPerson = _world.People.First(v => v.Role == Role.Sawyer).Id;
+        SelectBuilding(_world.Cottages[0].Id); _selectedPerson = _world.People.First(v => v.Role == Role.Sawyer).Id;
         _focus = new(3,0,0); _camera.Size = 17; UpdateCamera();
         for (int i = 0; i < 8; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
@@ -43,7 +43,7 @@ public partial class Game
         for (int i = 0; i < 15000 && _world.Housed != 4; i++) { _world.Tick(0.1f); _world.Validate(); }
         Check(_world.Housed == 4, "Lodge never completed");
         await Press(Key.F5); await Press(Key.F9);
-        _selectedSite = _world.Cottages[1].Id;
+        SelectBuilding(_world.Cottages[1].Id);
         await Capture("artifacts/f08-lodge.png");
         Check(_siteInfo.Text.Contains("4 beds ready"), "Lodge inspector not restored");
         GD.Print("SMOKE PASS: sawmill/lodge placement, sawyer staffing, saved sawing batch, saw tool, plank cargo, and four-bed lodge completion/load.");

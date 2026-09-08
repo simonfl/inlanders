@@ -10,4 +10,5 @@ $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 if ($LASTEXITCODE -ne 0) { throw 'Simulation tests failed' }
 if ($Rendered) {
     & ./Play.ps1 -SmokeTest
+    & ./Play.ps1 -HudSmokeTest
 }

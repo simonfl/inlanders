@@ -14,7 +14,7 @@ public partial class Game : Node3D
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
-    private int _lastStored = -1, _lastPlanks = -1, _selectedPerson, _selectedSite = -1;
+    private int _lastStored = -1, _lastPlanks = -1, _selectedPerson = -1, _selectedSite = -1;
     private bool _placing, _plantingTrees, _rotated, _paused, _ghostValid;
     private float _speed = 1, _clock, _accumulator, _angle = 0.72f;
     private Vector3 _focus = new(0, 0, 0);
@@ -25,12 +25,14 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
+        GetWindow().MinSize = new(960, 640);
         MakeLandscape(); MakeAudio(); MakeUi();
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
     }
     private void CreateActors()
     {
@@ -46,7 +48,7 @@ public partial class Game : Node3D
     }
     private void Reset()
     {
-        _world = World.NewScenario(); _selectedPerson = 0; _selectedSite = -1; _buildKind = BuildingKind.Cottage;
+        _world = World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
         _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
     }
@@ -84,7 +86,7 @@ public partial class Game : Node3D
         }
         var site = _world.Place(at, _rotated, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
-        _selectedSite = site.Id; _placing = false; RefreshGhost(); RefreshSelection(); RebuildQueue();
+        SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
     private bool PlacementValid(Cell cell) => _plantingTrees ? _world.CanPlantTree(cell) : _world.CanPlace(cell, _rotated);
     private void ToggleTreePlanting()
@@ -101,9 +103,12 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.R) { _rotated = !_rotated; RefreshGhost(); }
-            if (key.Keycode == Key.Escape) { _placing = false; RefreshGhost(); }
-            if (key.Keycode == Key.B) { _placing = !_placing || _plantingTrees; _plantingTrees = false; RefreshGhost(); }
-            if (key.Keycode == Key.T) ToggleTreePlanting();
+            if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
+            if (key.Keycode == Key.B) ToggleDrawer(1);
+            if (key.Keycode == Key.V) ToggleDrawer(0);
+            if (key.Keycode == Key.G) ToggleDrawer(2);
+            if (key.Keycode == Key.O) ToggleDrawer(3);
+            if (key.Keycode == Key.T) { ToggleTreePlanting(); ClearSelection(); }
             if (key.Keycode == Key.Q) { _angle -= Mathf.Pi / 2; UpdateCamera(); }
             if (key.Keycode == Key.E) { _angle += Mathf.Pi / 2; UpdateCamera(); }
         }
@@ -114,11 +119,11 @@ public partial class Game : Node3D
             if (mouse.ButtonIndex != MouseButton.Left) return;
             if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
             var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
-            if (closest.Distance < 25) _selectedPerson = closest.Index;
+            if (closest.Distance < 25) SelectPerson(closest.Index);
             else if (Ground(mouse.Position) is Vector3 p)
             {
                 var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-                if (site != null) { _selectedSite = site.Id; RefreshSelection(); }
+                if (site != null) SelectBuilding(site.Id); else ClearSelection();
             }
         }
     }
