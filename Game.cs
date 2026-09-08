@@ -78,6 +78,7 @@ public partial class Game : Node3D
     private void PlaceCottage(Cell at)
     {
         _hover = at;
+        if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }
         if (_clearingTrees) { MarkClearing(at); return; }
         if (_plantingTrees)
         {
@@ -91,6 +92,7 @@ public partial class Game : Node3D
     }
     private void ToggleTreePlanting()
     {
+        _pathTool = 0;
         _clearingTrees = false;
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
     }
@@ -104,7 +106,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
-            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.B) ToggleDrawer(1);
             if (key.Keycode == Key.V) ToggleDrawer(0);
@@ -112,6 +114,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.O) ToggleDrawer(3);
             if (key.Keycode == Key.T) { ToggleTreePlanting(); ClearSelection(); }
             if (key.Keycode == Key.C) ToggleClearing();
+            if (key.Keycode == Key.P) TogglePaths(key.ShiftPressed ? 2 : 1);
             if (key.Keycode == Key.Q) { _angle -= Mathf.Pi / 2; UpdateCamera(); }
             if (key.Keycode == Key.E) { _angle += Mathf.Pi / 2; UpdateCamera(); }
         }
@@ -147,6 +150,7 @@ public partial class Game : Node3D
     }
     private void RenderActors(float dt)
     {
+        RenderPaths();
         foreach (var v in _world.People)
         {
             var view = _people[v.Id]; var target = new Vector3(v.Position.X, 0, v.Position.Y);

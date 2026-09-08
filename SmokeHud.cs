@@ -60,5 +60,6 @@ public partial class Game
         await Capture("artifacts/f21a-building.png");
         await UiClick(_cancelButton); Check(!_inspector.Visible && _world.Cottages.Count == 0, "Cancellation did not clear inspector");
         await Press(Key.Escape); Check(!_drawer.Visible && !_inspector.Visible, "Esc did not clear panels");
+        await CheckPathsUi();
     }
 }

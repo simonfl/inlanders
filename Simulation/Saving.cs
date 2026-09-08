@@ -8,7 +8,8 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 6;
+    public int Version { get; set; } = 7;
+    public HashSet<Cell> Paths { get; set; } = new();
     public MapLayout? Map { get; set; }
     public CampaignState? Campaign { get; set; }
     public int Planks { get; set; }
@@ -35,14 +36,14 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
+            Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History
         }, SaveOptions);
     }
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7)) throw new InvalidDataException($"Unsupported save version {s.Version}");
         if (s.Version >= 5 && s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && (s.Campaign.Level is < 1 or > 2 || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
@@ -67,6 +68,8 @@ public sealed partial class World
         w.People.Clear(); w.People.AddRange(s.People); w.Trees.Clear(); w.Trees.AddRange(s.Trees);
         w.Cottages.AddRange(s.Buildings); w.Bushes.Clear(); w.Bushes.AddRange(s.Bushes);
         w.MeetingSpots.AddRange(s.MeetingSpots); w.History.AddRange(s.History);
+        if (s.Paths == null || s.Paths.Any(w.Blocked)) throw new InvalidDataException("Invalid path tiles");
+        w.Paths = s.Paths;
         w.Validate(); w.ValidateMapOccupancy(); return w;
     }
     public void SaveFile(string path)

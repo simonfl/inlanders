@@ -14,7 +14,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 
 | ID | Feature | First playable chunk | Depends on |
 | --- | --- | --- | --- |
-| F01 | Paths and village layout | Paint/remove simple paths; villagers prefer them and walk faster on them. | — |
+| F01 | Paths and village layout — Done (first chunk) | Paint/remove connected dirt paths; villagers choose faster routes and gain a 25% walking bonus toward paved tiles. | — |
 | F02 | Renewable woodland — Done (first chunk) | Plant trees that grow into harvestable timber, making continued building possible. | — |
 | F03 | A village that feels alive — Done (first chunk) | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
 | F04 | Gathering places | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
@@ -78,6 +78,16 @@ F21a and F21b establish the UI direction and clearer building placement. **F21c 
 **F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
+
+### F01 — Paths and village layout
+
+Status: Done (first chunk).
+
+First version: Build menu / P paints free paths on clear land; Shift+P removes them. Click or drag, with intervening tiles filled and Esc to finish. Adjacent tiles join visually. Entrances and resource access points can be paved. Weighted routing compares travel time rather than always choosing the fewest cells, with a 25% speed bonus toward paved tiles. Live edits replan travel while preserving job claims and cargo. Building footprints and new planting replace covered paths. Paths persist with each map; old saves load with none.
+
+Verification: Simulation checks cover blocked targets, path preference and faster travel, route edits without lost claims, exact save continuation, building/planting replacement, and old saves. Rendered HUD checks exercise dragging, joined geometry, erasing, saved-path rendering, and switching tools. Full gameplay regression checked. Starting speed and free immediate placement remain tuning choices.
+
+Later / TBD: More path styles, worker-built roads and costs, stronger route/traffic feedback, and visual blending with future landscaping. Try paths in larger settlements before tuning the bonus.
 
 ### F12 — Map expansion and landscaping
 

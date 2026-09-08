@@ -14,6 +14,7 @@ public sealed partial class World
     public TimberTree? PlantTree(Cell cell)
     {
         if (!CanPlantTree(cell)) return null;
+        RemovePaths(new[] { cell });
         var tree = Trees.FirstOrDefault(t => t.Cell == cell);
         if (tree == null) { tree = new TimberTree { Id = _nextTree++, Cell = cell }; Trees.Add(tree); }
         tree.Felled = false; tree.Growth = 0; tree.NeedsPlanting = true;

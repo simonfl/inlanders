@@ -126,6 +126,7 @@ public sealed partial class World
     {
         if (!Enum.IsDefined(kind) || !CanPlace(cell, rotated)) return null;
         var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind }; Cottages.Add(site);
+        RemovePaths(Footprint(cell, rotated));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         History.Add($"{kind} {site.Id} planned"); _retry = 0; return site;
     }
@@ -243,8 +244,9 @@ public sealed partial class World
             if (v.Route.TryPeek(out var waypoint))
             {
                 var offset = waypoint.Point - v.Position; float distance = offset.Length();
-                if (distance <= 1.8f * dt) { v.Position = waypoint.Point; v.Route.Dequeue(); }
-                else v.Position += offset / distance * 1.8f * dt;
+                float travel = 1.8f * dt * (Paths.Contains(waypoint) ? 1.25f : 1);
+                if (distance <= travel) { v.Position = waypoint.Point; v.Route.Dequeue(); }
+                else v.Position += offset / distance * travel;
                 continue;
             }
             v.Timer += dt;
@@ -322,7 +324,7 @@ public sealed partial class World
             Check(v.SiteId == null || Cottages.Any(c => c.Id == v.SiteId), "Job targets cancelled site");
         }
     }
-    private static List<Cell>? FindPath(Cell start, Cell goal, Func<Cell, bool> blocked)
+    private List<Cell>? FindPath(Cell start, Cell goal, Func<Cell, bool> blocked)
     {
         if (blocked(goal)) return null;
         var frontier = new PriorityQueue<Cell, int>(); frontier.Enqueue(start, 0);
@@ -338,10 +340,10 @@ public sealed partial class World
             foreach (var next in new[] { new Cell(current.X + 1, current.Z), new Cell(current.X - 1, current.Z), new Cell(current.X, current.Z + 1), new Cell(current.X, current.Z - 1) })
             {
                 if (blocked(next)) continue;
-                int cost = costs[current] + 1;
+                int cost = costs[current] + (Paths.Contains(next) ? 4 : 5);
                 if (costs.TryGetValue(next, out int old) && old <= cost) continue;
                 costs[next] = cost; previous[next] = current;
-                frontier.Enqueue(next, cost + Math.Abs(next.X - goal.X) + Math.Abs(next.Z - goal.Z));
+                frontier.Enqueue(next, cost + 4 * (Math.Abs(next.X - goal.X) + Math.Abs(next.Z - goal.Z)));
             }
         }
         return null;

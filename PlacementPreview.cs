@@ -13,6 +13,10 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
+        if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
+        if (input is InputEventMouseButton button && button.ButtonIndex == MouseButton.Left && !button.Pressed) { _pathStroke = false; _lastPathCell = null; }
+        if (input is InputEventMouseMotion && _pathStroke && _placing && _pathTool > 0 && !PointerOverHud(_pointerPosition) && Ground(_pointerPosition) is Vector3 p)
+            PaintPath(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z)));
     }
     private static string BuildingDescription(BuildingKind kind) => kind switch
     {
@@ -24,7 +28,7 @@ public partial class Game
         BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated)) ?? "";
+    private string PlacementProblem(Cell cell) => (_pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated)) ?? "";
     private bool PointerOverHud(Vector2 point) =>
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
@@ -38,6 +42,7 @@ public partial class Game
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (!_placing) return;
         _placementProblem = PlacementProblem(_hover); _ghostValid = _placementProblem.Length == 0;
+        if (_pathTool > 0) { RefreshPathGhost(); return; }
         if (_clearingTrees) { RefreshClearingGhost(); return; }
         var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
         string key = _plantingTrees ? "tree" : _buildKind.ToString();
@@ -79,6 +84,7 @@ public partial class Game
     }
     private void UpdateBuildDescription()
     {
+        if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {
             _buildDescription.Text = "CLEAR TREES & STUMPS\nLoggers prioritize marked trees, recover existing timber, then remove roots. Land becomes usable when the roots are gone. Saplings yield no timber. Click a marked tree again to cancel.\n\n" +

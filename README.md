@@ -93,6 +93,12 @@ A **Lodge** costs eight planks and houses four villagers on the same footprint a
 
 Plank inventories, shipments, reservations, and sawmill batches survive save/load. Older saves load with no planks or sawmill production.
 
+### Paths
+
+Choose **Build → Paint paths**, or press **P**, then click or drag across clear land. **Shift+P** selects removal; **Esc** finishes. Paths are free and appear immediately, with visible connections between neighboring tiles.
+
+Villagers choose routes by travel cost and walk 25% faster toward paved tiles. Editing a path updates active routes without canceling jobs or changing cargo. Paths can cover entrances and collection points; they cannot cover trees, bushes, buildings, or missing land. Building or planting on a path replaces the covered tiles. Paths are saved with each settlement; older saves start without paths.
+
 ## Controls and saves
 
 The compact top bar shows stored resources, housing, day, hunger, pause, and speed. The bottom bar opens **Build**, **People**, **Goals**, and **Options**; click the active menu again or press **Esc** to close it. Selecting a villager or building opens a single contextual inspector with the relevant actions. **Move camera here** centers the selected entity.
@@ -114,6 +120,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | O | Open/close Options: save, load, restart, audio, and controls |
 | T | Toggle repeat tree planting on open ground or exhausted stumps |
 | C | Toggle clearing orders; click trees/stumps to mark or cancel |
+| P / Shift+P | Paint / remove paths by clicking or dragging |
 | R | Rotate the unplaced building |
 | Esc | Cancel preview first; otherwise close the menu or inspector |
 | WASD | Pan |

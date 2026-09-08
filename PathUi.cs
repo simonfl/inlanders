@@ -1,0 +1,59 @@
+using Godot;
+using Inlanders.Simulation;
+using System.Linq;
+
+public partial class Game
+{
+    private int _pathTool;
+    private bool _pathStroke;
+    private Cell? _lastPathCell;
+    private Node3D _pathView = null!;
+    private World? _pathWorld;
+    private int _pathRevision = -1;
+    private void TogglePaths(int tool)
+    {
+        _placing = !(_placing && _pathTool == tool); _pathTool = tool;
+        _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null;
+        ClearSelection(); RefreshGhost();
+    }
+    private void PaintPath(Cell cell)
+    {
+        if (_lastPathCell == cell) return;
+        bool applied = false;
+        if (_lastPathCell is Cell previous)
+        {
+            int steps = System.Math.Max(System.Math.Abs(cell.X - previous.X), System.Math.Abs(cell.Z - previous.Z));
+            var cursor = previous;
+            for (int i = 1; i <= steps; i++)
+            {
+                var next = new Cell(previous.X + (int)System.Math.Round((cell.X - previous.X) * i / (double)steps), previous.Z + (int)System.Math.Round((cell.Z - previous.Z) * i / (double)steps));
+                if (cursor.X != next.X && cursor.Z != next.Z) applied |= _world.SetPath(new(next.X, cursor.Z), _pathTool == 1);
+                applied |= _world.SetPath(next, _pathTool == 1); cursor = next;
+            }
+        }
+        else applied = _world.SetPath(cell, _pathTool == 1);
+        _lastPathCell = cell;
+        if (applied) UiCue(Cue.Click);
+        else UiCue(Cue.Reject);
+        RefreshGhost();
+    }
+    private void RenderPaths()
+    {
+        if (_pathView == null) { _pathView = new(); AddChild(_pathView); }
+        if (_pathWorld == _world && _pathRevision == _world.PathsRevision) return;
+        Clear(_pathView); _pathWorld = _world; _pathRevision = _world.PathsRevision;
+        foreach (var cell in _world.Paths)
+        {
+            var center = new Vector3(cell.X, 0.035f, cell.Z);
+            Box(_pathView, center, new(0.66f, 0.04f, 0.66f), new("b8a17b"));
+            foreach (var offset in new[] { new Cell(1, 0), new(-1, 0), new(0, 1), new(0, -1) })
+                if (_world.Paths.Contains(new(cell.X + offset.X, cell.Z + offset.Z)))
+                    Box(_pathView, center + new Vector3(offset.X * 0.4f, 0, offset.Z * 0.4f), new(offset.X != 0 ? 0.34f : 0.66f, 0.04f, offset.Z != 0 ? 0.34f : 0.66f), new("b8a17b"));
+        }
+    }
+    private void RefreshPathGhost()
+    {
+        Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = "path"; Clear(_ghostCells);
+        Box(_ghostCells, new(_hover.X, 0.09f, _hover.Z), new(0.72f, 0.05f, 0.72f), _ghostValid ? new("e2c795") : new("e38673"));
+    }
+}

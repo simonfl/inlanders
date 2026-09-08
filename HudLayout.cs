@@ -50,5 +50,5 @@ public partial class Game
     private void SelectPerson(int id) { _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
-    private void BeginPlacement(BuildingKind kind) { ClearSelection(); _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
+    private void BeginPlacement(BuildingKind kind) { ClearSelection(); _pathTool = 0; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }
