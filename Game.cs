@@ -1,0 +1,172 @@
+using Godot;
+using Inlanders.Simulation;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using Resource = Inlanders.Simulation.Resource;
+
+public partial class Game : Node3D
+{
+    private World _world = World.NewScenario();
+    private Camera3D _camera = null!;
+    private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!, _arm = null!, _carry = null!;
+    private sealed record PersonView(Node3D Body, Node3D Arm, Node3D Carry, Node3D Marker);
+    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1; }
+    private readonly List<PersonView> _people = new();
+    private readonly Dictionary<int, TreeView> _trees = new();
+    private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
+    private int _lastStored = -1, _selectedPerson, _selectedSite = -1;
+    private bool _placing, _rotated, _paused, _ghostValid;
+    private float _speed = 1, _clock, _accumulator, _angle = 0.72f;
+    private Vector3 _focus = new(0, 0, 0);
+    private Cell _hover = new(3, 0);
+    private BuildingKind _buildKind;
+    private readonly Color _wood = new("80553c"), _cream = new("f1ddb3"), _roof = new("ac5844");
+    private static readonly string[] PriorityNames = { "Low", "Normal", "High" };
+
+    public override void _Ready()
+    {
+        MakeLandscape(); MakeUi();
+        _dynamic = new(); AddChild(_dynamic);
+        _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
+        CreateActors(); UpdateCamera(); RefreshGhost();
+        if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
+    }
+    private void CreateActors()
+    {
+        Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1;
+        CreateFoodViews();
+        _stored = new(); _dynamic.AddChild(_stored);
+        foreach (var p in _world.People)
+        {
+            var body = MakePerson(p.Id); _dynamic.AddChild(body); body.Position = new(p.Position.X, 0, p.Position.Y);
+            var marker = Cylinder(body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
+            _people.Add(new(body, _arm, _carry, marker));
+        }
+    }
+    private void Reset()
+    {
+        _world = World.NewScenario(); _selectedPerson = 0; _selectedSite = -1; _buildKind = BuildingKind.Cottage;
+        _placing = false; _rotated = false; _paused = false; _accumulator = 0;
+        _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
+    }
+    private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
+    private void UpdateCamera()
+    {
+        _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * 25, 24, MathF.Cos(_angle) * 25); _camera.LookAt(_focus);
+    }
+    private void RefreshGhost()
+    {
+        Clear(_ghost); _ghost.Visible = _placing; if (!_placing) return;
+        bool valid = _world.CanPlace(_hover, _rotated); _ghostValid = valid;
+        foreach (var c in World.Footprint(_hover, _rotated)) Box(_ghost, new(c.X, 0.08f, c.Z), new(0.93f, 0.08f, 0.93f), valid ? new("d8dfab") : new("cc7965"));
+        var door = World.Door(_hover, _rotated); Box(_ghost, new(door.X, 0.06f, door.Z), new(0.35f, 0.05f, 0.35f), _cream);
+    }
+    private void RefreshSelection()
+    {
+        Clear(_selection);
+        if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
+        foreach (var c in World.Footprint(site.Cell, site.Rotated)) Box(_selection, new(c.X, 0.02f, c.Z), new(1.04f, 0.03f, 1.04f), new("e8c688"));
+    }
+    private void PlaceCottage(Cell at)
+    {
+        var site = _world.Place(at, _rotated, _buildKind); if (site == null) { RefreshGhost(); return; }
+        _selectedSite = site.Id; _placing = false; RefreshGhost(); RefreshSelection(); RebuildQueue();
+    }
+    private Vector3? Ground(Vector2 screen) => new Plane(Vector3.Up, 0).IntersectsRay(_camera.ProjectRayOrigin(screen), _camera.ProjectRayNormal(screen));
+    public override void _UnhandledInput(InputEvent input)
+    {
+        if (input is InputEventKey key && key.Pressed && !key.Echo)
+        {
+            if (key.Keycode == Key.Space) TogglePause();
+            if (key.Keycode == Key.F5) SaveWorld();
+            if (key.Keycode == Key.F9) LoadWorld();
+            if (key.Keycode == Key.R) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.Escape) { _placing = false; RefreshGhost(); }
+            if (key.Keycode == Key.B) { _placing = !_placing; RefreshGhost(); }
+            if (key.Keycode == Key.Q) { _angle -= Mathf.Pi / 2; UpdateCamera(); }
+            if (key.Keycode == Key.E) { _angle += Mathf.Pi / 2; UpdateCamera(); }
+        }
+        if (input is InputEventMouseButton mouse && mouse.Pressed)
+        {
+            if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
+            if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(32, _camera.Size + 1);
+            if (mouse.ButtonIndex != MouseButton.Left) return;
+            if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
+            var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
+            if (closest.Distance < 25) _selectedPerson = closest.Index;
+            else if (Ground(mouse.Position) is Vector3 p)
+            {
+                var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+                if (site != null) { _selectedSite = site.Id; RefreshSelection(); }
+            }
+        }
+    }
+    public override void _Process(double delta)
+    {
+        float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
+        var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
+            (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
+        if (pan != Vector3.Zero) { _focus += pan.Rotated(Vector3.Up, _angle) * dt * 7; _focus.X = Mathf.Clamp(_focus.X, -7, 7); _focus.Z = Mathf.Clamp(_focus.Z, -7, 7); UpdateCamera(); }
+        if (_placing && Ground(GetViewport().GetMousePosition()) is Vector3 p)
+        {
+            var cell = new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
+            if (cell != _hover || _ghostValid != _world.CanPlace(cell, _rotated)) { _hover = cell; RefreshGhost(); }
+        }
+        if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
+        RenderActors(dt); RenderFoodViews(); UpdateHud();
+    }
+    private void RenderActors(float dt)
+    {
+        foreach (var v in _world.People)
+        {
+            var view = _people[v.Id]; var target = new Vector3(v.Position.X, 0, v.Position.Y);
+            var movement = target - view.Body.Position; movement.Y = 0;
+            if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
+            view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
+            bool walking = v.Route.Count > 0;
+            if (walking && !_paused) view.Body.Position += new Vector3(0, MathF.Abs(MathF.Sin(_clock * 9 + v.Id)) * 0.055f, 0);
+            view.Arm.Rotation = new(MathF.Sin(_clock * 8 + v.Id) * (v.Task is Work.Chopping or Work.Building or Work.Foraging or Work.Harvesting or Work.Planting or Work.Baking or Work.Supper ? 1.1f : walking ? 0.3f : 0), 0, 0);
+            view.Carry.Visible = v.Carried > 0; view.Marker.Visible = v.Id == _selectedPerson;
+            for (int i = 0; i < view.Carry.GetChildCount(); i++) ((Node3D)view.Carry.GetChild(i)).Visible = i < v.Carried * 2;
+            Color cargoColor = v.Cargo switch { Resource.Berries => new("9c4866"), Resource.Grain => new("d7b765"), Resource.Bread => new("c98a4e"), _ => _wood };
+            foreach (var item in view.Carry.GetChildren().OfType<MeshInstance3D>()) ((StandardMaterial3D)item.MaterialOverride).AlbedoColor = cargoColor;
+        }
+        foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
+        {
+            _trees[id].Top.QueueFree(); _trees[id].Pile.QueueFree(); _trees.Remove(id);
+        }
+        foreach (var t in _world.Trees)
+        {
+            if (!_trees.TryGetValue(t.Id, out var view))
+            {
+                var top = MakeTree(new(t.Cell.X, 0, t.Cell.Z), 0.9f, new("6e8b50")); top.Reparent(_dynamic);
+                var pile = new Node3D { Position = new(t.Cell.X, 0, t.Cell.Z) }; _dynamic.AddChild(pile);
+                view = new TreeView { Top = top, Pile = pile }; _trees[t.Id] = view;
+            }
+            view.Top.Visible = !t.Felled && t.Logs > 0;
+            if (view.Logs == t.Logs) continue;
+            view.Logs = t.Logs; Clear(view.Pile);
+            if (!t.Felled) continue;
+            if (!t.Salvage) Cylinder(view.Pile, new(0, 0.12f, 0), 0.17f, 0.24f, _wood);
+            for (int i = 0; i < t.Logs; i++) Log(view.Pile, new(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f), 0.65f);
+        }
+        if (_lastStored != _world.Stored)
+        {
+            _lastStored = _world.Stored; Clear(_stored);
+            for (int i = 0; i < _world.Stored; i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
+        }
+        foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
+        foreach (var h in _world.Cottages)
+        {
+            int stage = h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered > 0 ? 1 : 0;
+            if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
+            if (view.Stage != stage)
+            {
+                Clear(view.Body); MakeBuilding(view.Body, h, stage);
+                view.Body.Position = new(h.Cell.X + (h.Rotated ? -0.5f : 0), 0, h.Cell.Z + (h.Rotated ? 0 : -0.5f));
+                view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, stage);
+            }
+        }
+    }
+}
