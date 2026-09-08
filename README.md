@@ -25,7 +25,7 @@ Eight villagers arrive with 24 berries. The objective is to **house all eight pe
 
 1. In the **Build** tab, select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
 2. Build a **Farm** and a **Bakery**. A farmer sows grain, waits for it to ripen, harvests it, and hauls it to the pantry. A baker collects grain, bakes it, and carries bread back.
-3. Build four **Cottages**, each housing two villagers. Every building costs six logs; the six harvestable alders provide 48 logs total.
+3. Build four **Cottages**, each housing two villagers. Every building costs six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand.
 4. When everyone has shelter and 16 loaves are in the pantry, host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs.
 
 The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in the **Workforce** tab. Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager to inspect their task, waiting reason, cargo, and claims; the assignment button cycles that individual's role.
@@ -46,12 +46,21 @@ Cancel an unfinished plan to release its claims. Carried timber returns to the y
 
 Pale placement cells are legal; red cells are blocked. The separate small square marks the entrance. Placement protects workers, entrances, and resource access, and recalculates routes around new plans. Border trees are decorative. Villagers can pass through one another.
 
+### Renewable woodland
+
+In the **Build** tab, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.
+
+Loggers plant marked spots before taking new harvesting jobs. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game. Saplings visibly grow, and the resource header counts waiting planting jobs and growing trees.
+
+Once all logs have been collected, you can mark the stump again for another cycle. Replanting is manual; there is no automatic forestry zone or planting cancellation yet. Planting jobs, growth, and new timber are saved, and saves from before this feature still load.
+
 ## Controls and saves
 
 | Control | Action |
 | --- | --- |
 | Left click | Place a plan or select a villager/building |
 | B | Toggle placement for the selected building type |
+| T | Toggle repeat tree planting on open ground or exhausted stumps |
 | R | Rotate the unplaced building |
 | Esc | Cancel placement preview |
 | WASD | Pan |
@@ -73,12 +82,13 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | --- | --- |
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
 | `Simulation/Food.cs` | Foraging, farming, baking, meals, hunger, supper |
+| `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `Hud.cs`, `PersistenceUi.cs` | Workforce, construction queue, inspectors, save/load feedback |
-| `Smoke.cs`, `Smoke3.cs` | Rendered interaction checks |
-| `Tests/Checks.cs`, `Tests/FoodChecks.cs` | Simulation and persistence tests |
+| `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs` | Rendered interaction checks |
+| `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs` | Simulation and persistence tests |
 
 Simulation advances in fixed 0.1-second steps on one thread. Job claims reserve resources and destination capacity together. Harvesting, construction, and food production have explicit ownership/worker limits. Reassignment releases claims and returns cargo physically. `World.Validate()` checks resource accounting, ownership, capacity, live targets, and routes. The C# simulation has no Godot dependencies.
 

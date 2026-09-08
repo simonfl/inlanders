@@ -15,7 +15,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | ID | Feature | First playable chunk | Depends on |
 | --- | --- | --- | --- |
 | F01 | Paths and village layout | Paint/remove simple paths; villagers prefer them and walk faster on them. | — |
-| F02 | Renewable woodland | Plant trees that grow into harvestable timber, making continued building possible. | — |
+| F02 | Renewable woodland — Done (first chunk) | Plant trees that grow into harvestable timber, making continued building possible. | — |
 | F03 | A village that feels alive | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
 | F04 | Gathering places | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
 | F05 | New food choices | Add one alternative food chain, such as vegetables or an orchard, with its own building and visible harvest. Exact choice TBD. | — |
@@ -23,19 +23,38 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
 | F08 | More construction materials | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. | — |
-| F10 | Sound and atmosphere | Ambient village/nature sounds and a few work sounds; explore a gentle visual day/night cycle. | — |
-| F11 | Scenarios and objectives | Choose between the current supper scenario and one new authored challenge with different resources and goals. | — |
+| F10 | Sound effects | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
+| F11 | Campaign mode and objectives | A sequence of authored settlements with distinct goals and saved progress. Start with two linked scenarios, including the current supper. | — |
 | F12 | Landscape and exploration | A larger authored map with water, a bridge, and another useful area to settle. Terrain height TBD. | F11 suggested |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
 | F16 | Free-build mode | An open-ended scenario with optional objectives and enough renewable resources to keep expanding. | F02, F06 suggested |
+| F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
+| F18 | Campaign tutorial | Make the opening campaign settlement teach camera controls, building, jobs, and food through small objectives that advance as the player acts. | F11 |
+| F19 | Main menu | A title screen with Continue, New campaign, and settings for sound/music; add scenario/free-build selection as those modes arrive. | Campaign entry depends on F11 |
 
 ## Where to start
 
 Suggested next pick: **F01 — Paths**, because arranging the settlement is a big part of the fun and this gives layout an immediate purpose.
 
-Other good independent picks: **F03** for more charm, **F02** for continued expansion, or **F11** for a new reason to play. These are alternatives, not a required sequence.
+Other good independent picks: **F03** for more charm or **F11** for a new reason to play. These are alternatives, not a required sequence.
+
+## Selected chunks
+
+### F02 — Renewable woodland / planting and regrowth
+
+Status: Done
+
+Want to play: Keep expanding after the original woodland runs out, and shape a new grove around the village.
+
+First version: Mark open ground or exhausted stumps for free planting. Loggers plant before taking new harvest jobs; saplings grow over three game days and yield eight logs. Show planting markers, growing trees, and job/growth counts. Save the entire cycle.
+
+Later / TBD: Automatic replanting zones, cancelling planting spots, a dedicated forester, tree species, and different growth/yield tradeoffs.
+
+Playable when: Mark a tree, watch a logger plant it, save/load during growth, harvest and haul its timber into construction, then replant its stump.
+
+Verification: Simulation checks cover repeated growth/harvest cycles, using renewed logs in construction, job interruption, dense placement, and save compatibility. Rendered checks cover controls, sapling growth, save/load, harvesting, and stump replanting. Three days and eight logs remain starting values; player feedback TBD.
 
 ## How we take a chunk
 
@@ -73,3 +92,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - Milestone 1: harvesting, hauling, and the first cottage.
 - Milestone 2: eight villagers, work assignments, reservations, and construction priorities.
 - Milestone 3: food production, meals, the village supper, and save/load.
+- F02, first chunk: logger planting, visible tree growth, renewable timber, and stump replanting.

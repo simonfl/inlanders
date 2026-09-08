@@ -11,7 +11,8 @@ public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker }
 public enum Resource { Logs, Berries, Grain, Bread }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
-    ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper }
+    ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
+    ToSapling, PlantingTree }
 
 public sealed class Villager
 {
@@ -41,6 +42,8 @@ public sealed class TimberTree
     [JsonInclude]    public bool Felled { get; internal set; }
     public bool Salvage { get; init; }
     [JsonInclude]    public int? Owner { get; internal set; }
+    [JsonInclude]    public float Growth { get; internal set; } = 1;
+    [JsonInclude]    public bool NeedsPlanting { get; internal set; }
     public Cell Access => new(Cell.X + 1, Cell.Z);
 }
 public sealed class Cottage
@@ -198,9 +201,16 @@ public sealed partial class World
         if (v.Role == Role.Unassigned) { v.Status = "Unassigned — choose a job"; return; }
         if (v.Role == Role.Logger)
         {
+            var planting = Trees.Where(t => t.NeedsPlanting && t.Owner == null)
+                .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
+            if (planting != null)
+            {
+                planting.Owner = v.Id; v.TreeId = planting.Id;
+                Go(v, planting.Access, Work.ToSapling, "Walking to plant an alder"); return;
+            }
             var tree = Trees.Where(t => t.Logs > 0 && t.Owner == null)
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
-            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0) ? "Waiting — remaining trees claimed by other loggers" : "No timber left to harvest"; return; }
+            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting) ? "Waiting — timber work claimed by other loggers" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
@@ -226,6 +236,7 @@ public sealed partial class World
     {
         if (dt <= 0 || !float.IsFinite(dt)) return;
         AdvanceFoodTime(dt);
+        AdvanceWoodland(dt);
         dt *= Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
         foreach (var v in People)
@@ -241,6 +252,11 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToSapling: v.Task = Work.PlantingTree; v.Timer = 0; v.Status = "Planting an alder"; break;
+                case Work.PlantingTree:
+                    if (v.Timer < 4) break;
+                    var sapling = Trees.Single(t => t.Id == v.TreeId);
+                    sapling.NeedsPlanting = false; sapling.Owner = null; Finish(v); break;
                 case Work.ToTree: v.Task = Work.Chopping; v.Timer = 0; v.Status = "Cutting and collecting timber"; break;
                 case Work.Chopping:
                     var tree = Trees.Single(t => t.Id == v.TreeId);
@@ -268,7 +284,8 @@ public sealed partial class World
     {
         void Check(bool condition, string error) { if (!condition) throw new InvalidOperationException(error); }
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
-        Check(Trees.Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Sum(c => c.Delivered) == InitialLogs, "Timber conservation failed");
+        Check(Trees.Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Sum(c => c.Delivered) == InitialLogs + GrownLogs, "Timber conservation failed");
+        Check(GrownLogs >= 0, "Invalid grown timber total");
         ValidateFood();
         foreach (var site in Cottages)
         {
@@ -279,6 +296,9 @@ public sealed partial class World
         }
         foreach (var t in Trees)
         {
+            Check(float.IsFinite(t.Growth) && t.Growth >= 0 && t.Growth <= 1 &&
+                (!t.NeedsPlanting || t.Growth == 0) &&
+                (t.Growth == 1 || (t.Logs == 0 && !t.Felled && !t.Salvage)), "Invalid tree growth state");
             var owners = People.Where(v => v.TreeId == t.Id).ToArray();
             Check(t.Logs >= 0 && owners.Length == (t.Owner.HasValue ? 1 : 0) && (owners.Length == 0 || owners[0].Id == t.Owner), "Tree ownership mismatch");
         }

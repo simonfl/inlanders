@@ -11,12 +11,12 @@ public partial class Game : Node3D
     private Camera3D _camera = null!;
     private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!, _arm = null!, _carry = null!;
     private sealed record PersonView(Node3D Body, Node3D Arm, Node3D Carry, Node3D Marker);
-    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1; }
+    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1, Stage = -1; }
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
     private int _lastStored = -1, _selectedPerson, _selectedSite = -1;
-    private bool _placing, _rotated, _paused, _ghostValid;
+    private bool _placing, _plantingTrees, _rotated, _paused, _ghostValid;
     private float _speed = 1, _clock, _accumulator, _angle = 0.72f;
     private Vector3 _focus = new(0, 0, 0);
     private Cell _hover = new(3, 0);
@@ -47,7 +47,7 @@ public partial class Game : Node3D
     private void Reset()
     {
         _world = World.NewScenario(); _selectedPerson = 0; _selectedSite = -1; _buildKind = BuildingKind.Cottage;
-        _placing = false; _rotated = false; _paused = false; _accumulator = 0;
+        _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
     }
     private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
@@ -58,7 +58,13 @@ public partial class Game : Node3D
     private void RefreshGhost()
     {
         Clear(_ghost); _ghost.Visible = _placing; if (!_placing) return;
-        bool valid = _world.CanPlace(_hover, _rotated); _ghostValid = valid;
+        bool valid = PlacementValid(_hover); _ghostValid = valid;
+        if (_plantingTrees)
+        {
+            Box(_ghost, new(_hover.X, 0.08f, _hover.Z), new(0.93f, 0.08f, 0.93f), valid ? new("d8dfab") : new("cc7965"));
+            Cylinder(_ghost, new(_hover.X, 0.4f, _hover.Z), 0.07f, 0.7f, _wood);
+            return;
+        }
         foreach (var c in World.Footprint(_hover, _rotated)) Box(_ghost, new(c.X, 0.08f, c.Z), new(0.93f, 0.08f, 0.93f), valid ? new("d8dfab") : new("cc7965"));
         var door = World.Door(_hover, _rotated); Box(_ghost, new(door.X, 0.06f, door.Z), new(0.35f, 0.05f, 0.35f), _cream);
     }
@@ -70,8 +76,18 @@ public partial class Game : Node3D
     }
     private void PlaceCottage(Cell at)
     {
+        if (_plantingTrees)
+        {
+            if (_world.PlantTree(at) != null) Notice("Planting marked. Loggers plant first; trees grow for 3 days and yield 8 logs.");
+            RefreshGhost(); return;
+        }
         var site = _world.Place(at, _rotated, _buildKind); if (site == null) { RefreshGhost(); return; }
         _selectedSite = site.Id; _placing = false; RefreshGhost(); RefreshSelection(); RebuildQueue();
+    }
+    private bool PlacementValid(Cell cell) => _plantingTrees ? _world.CanPlantTree(cell) : _world.CanPlace(cell, _rotated);
+    private void ToggleTreePlanting()
+    {
+        _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
     }
     private Vector3? Ground(Vector2 screen) => new Plane(Vector3.Up, 0).IntersectsRay(_camera.ProjectRayOrigin(screen), _camera.ProjectRayNormal(screen));
     public override void _UnhandledInput(InputEvent input)
@@ -83,7 +99,8 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.R) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { _placing = false; RefreshGhost(); }
-            if (key.Keycode == Key.B) { _placing = !_placing; RefreshGhost(); }
+            if (key.Keycode == Key.B) { _placing = !_placing || _plantingTrees; _plantingTrees = false; RefreshGhost(); }
+            if (key.Keycode == Key.T) ToggleTreePlanting();
             if (key.Keycode == Key.Q) { _angle -= Mathf.Pi / 2; UpdateCamera(); }
             if (key.Keycode == Key.E) { _angle += Mathf.Pi / 2; UpdateCamera(); }
         }
@@ -111,7 +128,7 @@ public partial class Game : Node3D
         if (_placing && Ground(GetViewport().GetMousePosition()) is Vector3 p)
         {
             var cell = new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
-            if (cell != _hover || _ghostValid != _world.CanPlace(cell, _rotated)) { _hover = cell; RefreshGhost(); }
+            if (cell != _hover || _ghostValid != PlacementValid(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
         RenderActors(dt); RenderFoodViews(); UpdateHud();
@@ -126,7 +143,7 @@ public partial class Game : Node3D
             view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
             bool walking = v.Route.Count > 0;
             if (walking && !_paused) view.Body.Position += new Vector3(0, MathF.Abs(MathF.Sin(_clock * 9 + v.Id)) * 0.055f, 0);
-            view.Arm.Rotation = new(MathF.Sin(_clock * 8 + v.Id) * (v.Task is Work.Chopping or Work.Building or Work.Foraging or Work.Harvesting or Work.Planting or Work.Baking or Work.Supper ? 1.1f : walking ? 0.3f : 0), 0, 0);
+            view.Arm.Rotation = new(MathF.Sin(_clock * 8 + v.Id) * (v.Task is Work.Chopping or Work.PlantingTree or Work.Building or Work.Foraging or Work.Harvesting or Work.Planting or Work.Baking or Work.Supper ? 1.1f : walking ? 0.3f : 0), 0, 0);
             view.Carry.Visible = v.Carried > 0; view.Marker.Visible = v.Id == _selectedPerson;
             for (int i = 0; i < view.Carry.GetChildCount(); i++) ((Node3D)view.Carry.GetChild(i)).Visible = i < v.Carried * 2;
             Color cargoColor = v.Cargo switch { Resource.Berries => new("9c4866"), Resource.Grain => new("d7b765"), Resource.Bread => new("c98a4e"), _ => _wood };
@@ -144,9 +161,16 @@ public partial class Game : Node3D
                 var pile = new Node3D { Position = new(t.Cell.X, 0, t.Cell.Z) }; _dynamic.AddChild(pile);
                 view = new TreeView { Top = top, Pile = pile }; _trees[t.Id] = view;
             }
-            view.Top.Visible = !t.Felled && t.Logs > 0;
-            if (view.Logs == t.Logs) continue;
-            view.Logs = t.Logs; Clear(view.Pile);
+            view.Top.Visible = !t.Felled && !t.NeedsPlanting && (t.Logs > 0 || t.Growth < 1);
+            view.Top.Scale = Vector3.One * 0.9f * (0.2f + 0.8f * t.Growth);
+            int treeStage = t.NeedsPlanting ? 0 : t.Felled ? 2 : 1;
+            if (view.Logs == t.Logs && view.Stage == treeStage) continue;
+            view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);
+            if (t.NeedsPlanting)
+            {
+                Cylinder(view.Pile, new(0, 0.025f, 0), 0.35f, 0.05f, new("805f42"));
+                Box(view.Pile, new(0, 0.3f, 0), new(0.07f, 0.6f, 0.07f), _cream);
+            }
             if (!t.Felled) continue;
             if (!t.Salvage) Cylinder(view.Pile, new(0, 0.12f, 0), 0.17f, 0.24f, _wood);
             for (int i = 0; i < t.Logs; i++) Log(view.Pile, new(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f), 0.65f);

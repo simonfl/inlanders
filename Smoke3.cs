@@ -80,6 +80,7 @@ public partial class Game
             Check(_paused && _world.Food.SupperComplete && _world.Housed == 8, "Completed scenario not restored");
             _noticeUntil = 0; await Capture("artifacts/m3-complete.png");
             GD.Print("SMOKE PASS: all building types, food staffing, construction priorities, save/load buttons and F5/F9, invalid-save recovery, exact active-batch restoration, regrowth/harvest/baking/meals, supper gathering, and completed-save restoration.");
+            await SmokeWoodland();
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("SMOKE FAIL: " + e); GetTree().Quit(1); }
