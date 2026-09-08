@@ -23,7 +23,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
 | F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. | — |
-| F10 | Sound effects | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
+| F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
 | F11 | Campaign mode and objectives | A sequence of authored settlements with distinct goals and saved progress. Start with two linked scenarios, including the current supper. | — |
 | F12 | Landscape and exploration | A larger authored map with water, a bridge, and another useful area to settle. Terrain height TBD. | F11 suggested |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
@@ -46,7 +46,7 @@ This is a presentation milestone spanning several features; **F04 is the separat
 | Carry poses and tools | F03 | First pass done; smoother transitions and more reactions remain possible. |
 | Construction stages | F22 | Basic stages exist; make them specific to each building. |
 | Growing crops and trees | F22, F02 | Both grow visibly; crop variety and harvest feedback can develop further. |
-| Sound effects and ambience | F10 | Planned; add recognizable work sounds and quiet outdoor ambience. |
+| Sound effects and ambience | F10 | First synthesized pass done: positional work sounds, UI cues, wind/birds, volume and mute controls. |
 | Music | F17 | Planned separately from sound effects. |
 | Lighting | F20 | Planned; develop the village's visual mood. |
 | Restrained, useful UI | F21 | A major priority with several selectable chunks, detailed below. |
@@ -71,7 +71,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 Suggested next pick: **F21a — HUD and layout**, establishing the UI direction and giving the village more screen space. UI is a major priority, not just a final polish pass.
 
-**F10 — Sound effects** is the next strong presentation pick, followed by **F20 — Lighting and atmosphere**. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
+**F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
 
@@ -117,6 +117,18 @@ Playable when: Build and staff the mill, watch logs become planks, finish a lodg
 
 Verification: Simulation checks cover the production chain, stock target, reservations, interruption, cancellation with plank salvage, and save compatibility. Rendered checks cover placement/staffing, the saw tool and plank cargo, saved batches, and lodge completion. Player feedback TBD; stock target, recipe, and housing costs are initial values.
 
+### F10 — Village sounds and audio controls
+
+Status: Done
+
+Want to play: Hear the village working, with a quiet outdoor background and simple sound controls.
+
+First version: Original synthesized footsteps, chopping, hammering, crop/plant rustles, sawing, oven crackle, cargo drops, placement/UI feedback, and completion cues. Positional work sounds with bounded voices and repetition; wind and occasional birds. Separate Effects/Nature volumes and M to mute, with preferences saved independently of the village. Work stops sounding when paused; nature continues.
+
+Later / TBD: More organic recordings or richer synthesis, extra variations, mixing by zoom level, tighter motion/impact synchronization, and ambient details. Music stays in F17.
+
+Verification: Build and rendered gameplay checks pass. Focused audio checks verify live mixer output, muted silence, settings persistence, pause suppression, bounded playback, simulation independence, PCM levels, and wind loop continuity. Subjective sound/mix feedback TBD.
+
 ## How we take a chunk
 
 1. Pick an ID and mark it **Next**, then **In progress** when work starts.
@@ -156,3 +168,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - F02, first chunk: logger planting, visible tree growth, renewable timber, and stump replanting.
 - F03, first chunk: stepping feet, work tools and motions, recognizable cargo, and idle gestures.
 - F08, first chunk: sawmill, sawyer role, planks, and four-bed lodge.
+- F10, first chunk: synthesized village sounds, wind/birds, positional playback, and persistent audio controls.

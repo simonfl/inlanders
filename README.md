@@ -1,6 +1,6 @@
 # Inlanders
 
-A personal Windows town-building game inspired by Outlanders, built with **Godot 4.6 and C# / .NET 8**. All visuals are original procedural geometry.
+A personal Windows town-building game inspired by Outlanders, built with **Godot 4.6 and C# / .NET 8**. Visuals and sound effects are generated procedurally, with no downloaded art or audio assets.
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
@@ -68,6 +68,10 @@ Plank inventories, shipments, reservations, and sawmill batches survive save/loa
 
 Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
 
+The top-right **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute both, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
+
+Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. This first audio pass uses synthesized effects; music remains future work (F17).
+
 | Control | Action |
 | --- | --- |
 | Left click | Place a plan or select a villager/building |
@@ -79,6 +83,7 @@ Villagers have stepping feet, distinct work motions and tools, and occasional id
 | Q / E | Orbit in quarter turns |
 | Mouse wheel | Zoom |
 | Space / Pause | Pause or resume |
+| M | Mute/unmute effects and nature ambience |
 | Speed | Cycle 1×, 3×, 6× |
 | F5 / Save | Save the current settlement |
 | F9 / Load | Restore the saved settlement, paused |
@@ -101,8 +106,10 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
+| `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
 | `Hud.cs`, `PersistenceUi.cs` | Workforce, construction queue, inspectors, save/load feedback |
 | `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs`, `SmokeSawmill.cs` | Rendered interaction checks |
+| `SmokeAudio.cs` | Live mixer, mute, volume persistence, PCM, and audio lifecycle checks |
 | `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs`, `Tests/SawmillChecks.cs` | Simulation and persistence tests |
 
 Simulation advances in fixed 0.1-second steps on one thread. Job claims reserve resources and destination capacity together. Harvesting, construction, and food production have explicit ownership/worker limits. Reassignment releases claims and returns cargo physically. `World.Validate()` checks resource accounting, ownership, capacity, live targets, and routes. The C# simulation has no Godot dependencies.
@@ -117,8 +124,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Test.ps1
 
 # Also compile and exercise the actual rendered game
 powershell -NoProfile -ExecutionPolicy Bypass -File Test.ps1 -Rendered
+
+# Only build and run the focused audio checks
+powershell -NoProfile -ExecutionPolicy Bypass -File Play.ps1 -AudioSmokeTest
 ```
 
 Tests cover legal placements, competing workers, scarce timber, priorities, reassignment, cancellation/salvage, seeded stress runs, food conservation, hunger recovery, supper completion, exact save/load continuation through every food-production phase, corrupted saves, and disk backups. The rendered check exercises the UI, all building types, active-batch save/load, the supper gathering, and restoration of a completed scenario. Its saves and screenshots go to `artifacts/`, separate from player saves.
 
-Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Population growth, seasons, sound, and further animation/presentation polish remain future work.
+Audio checks inspect live Godot mixer output, muted silence, volume persistence, pause suppression, voice/cadence limits, PCM bounds, and the wind loop seam. They export WAV previews to `artifacts/f10-audio/` and use an isolated preferences file in `artifacts/`.
+
+Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.

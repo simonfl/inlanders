@@ -25,14 +25,16 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
-        MakeLandscape(); MakeUi();
+        MakeLandscape(); MakeAudio(); MakeUi();
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
     }
     private void CreateActors()
     {
+        ResetWorldAudio();
         Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
         CreateFoodViews();
         _stored = new(); _dynamic.AddChild(_stored);
@@ -76,10 +78,12 @@ public partial class Game : Node3D
     {
         if (_plantingTrees)
         {
-            if (_world.PlantTree(at) != null) Notice("Planting marked. Loggers plant first; trees grow for 3 days and yield 8 logs.");
+            if (_world.PlantTree(at) != null) { UiCue(Cue.Place); Notice("Planting marked. Loggers plant first; trees grow for 3 days and yield 8 logs."); }
+            else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
-        var site = _world.Place(at, _rotated, _buildKind); if (site == null) { RefreshGhost(); return; }
+        var site = _world.Place(at, _rotated, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
+        UiCue(Cue.Place);
         _selectedSite = site.Id; _placing = false; RefreshGhost(); RefreshSelection(); RebuildQueue();
     }
     private bool PlacementValid(Cell cell) => _plantingTrees ? _world.CanPlantTree(cell) : _world.CanPlace(cell, _rotated);
@@ -93,6 +97,7 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (key.Keycode == Key.Space) TogglePause();
+            if (key.Keycode == Key.M) ToggleSoundMute();
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.R) { _rotated = !_rotated; RefreshGhost(); }
@@ -129,7 +134,7 @@ public partial class Game : Node3D
             if (cell != _hover || _ghostValid != PlacementValid(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        RenderActors(dt); RenderFoodViews(); UpdateHud();
+        RenderActors(dt); RenderFoodViews(); UpdateHud(); UpdateAudio(dt);
     }
     private void RenderActors(float dt)
     {

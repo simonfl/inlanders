@@ -36,7 +36,7 @@ public partial class Game
     private Button Button(string text, Action pressed, float width = 0)
     {
         var button = new Button { Text = text, CustomMinimumSize = new(width, 34), FocusMode = Control.FocusModeEnum.None };
-        button.Pressed += pressed; return button;
+        button.Pressed += () => { UiCue(Cue.Click); pressed(); }; return button;
     }
     private Label Text(string text, int size = 16, bool wrap = false)
     {
@@ -60,6 +60,7 @@ public partial class Game
     {
         var layer = new CanvasLayer(); AddChild(layer);
         var root = new Control { MouseFilter = Control.MouseFilterEnum.Ignore }; layer.AddChild(root); root.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        MakeAudioUi(root);
         var title = Text("INLANDERS", 32); title.Position = new(28, 23); title.Modulate = _cream; root.AddChild(title);
         var subtitle = Text("T H E   F I R S T   V I L L A G E   S U P P E R", 12); subtitle.Position = new(31, 68); root.AddChild(subtitle);
         _resources = Text("", 17); _resources.Position = new(30, 105); root.AddChild(_resources);
