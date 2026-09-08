@@ -11,6 +11,7 @@ public sealed partial class World
     public string? PlantingProblem(Cell cell)
     {
         var tree = Trees.FirstOrDefault(t => t.Cell == cell);
+        if (tree?.ClearRequested == true) return "This spot is marked for clearing. Cancel its clearing order before replanting.";
         if (Food.Celebrating) return "Wait until the village supper is over.";
         if (tree != null && (tree.Salvage || !tree.Felled || tree.Logs > 0 || tree.Owner != null))
             return tree.NeedsPlanting ? "This spot is already marked for planting." : tree.Growth < 1 ? "A sapling is already growing here." :
@@ -24,7 +25,7 @@ public sealed partial class World
         if (footprint.Any(c => !Inside(c)) || !Inside(entrance)) return "Keep the footprint and its entrance inside the buildable map.";
         if (footprint.Contains(Stockpile)) return "The timber yard occupies this spot.";
         var tree = Trees.FirstOrDefault(t => t != reusableStump && footprint.Contains(t.Cell));
-        if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.Felled ? "A stump occupies this spot. It can be replanted, but cannot hold a building." : "A tree or planting spot occupies this footprint.";
+        if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
         if (Bushes.Any(b => footprint.Contains(b.Cell))) return "Berry bushes occupy this footprint.";
         var site = Cottages.FirstOrDefault(c => Footprint(c.Cell, c.Rotated).Any(footprint.Contains));
         if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";

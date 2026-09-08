@@ -1,4 +1,4 @@
-param([switch]$SmokeTest, [switch]$AudioSmokeTest, [switch]$HudSmokeTest, [switch]$CampaignSmokeTest, [switch]$MapSmokeTest)
+param([switch]$SmokeTest, [switch]$AudioSmokeTest, [switch]$HudSmokeTest, [switch]$CampaignSmokeTest, [switch]$MapSmokeTest, [switch]$ClearingSmokeTest)
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 $env:DOTNET_ROOT = Join-Path $PSScriptRoot '.tools\dotnet'
@@ -9,9 +9,9 @@ $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 & "$env:DOTNET_ROOT\dotnet.exe" build Inlanders.csproj --nologo
 if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
 $engine = Join-Path $PSScriptRoot '.tools\godot\Godot_v4.6-stable_mono_win64\Godot_v4.6-stable_mono_win64.exe'
-if ($SmokeTest -or $AudioSmokeTest -or $HudSmokeTest -or $CampaignSmokeTest -or $MapSmokeTest) {
+if ($SmokeTest -or $AudioSmokeTest -or $HudSmokeTest -or $CampaignSmokeTest -or $MapSmokeTest -or $ClearingSmokeTest) {
     $engine = $engine.Replace('_win64.exe', '_win64_console.exe')
-    $testArgument = if ($MapSmokeTest) { '--map-smoke-test' } elseif ($CampaignSmokeTest) { '--campaign-smoke-test' } elseif ($HudSmokeTest) { '--hud-smoke-test' } elseif ($AudioSmokeTest) { '--audio-smoke-test' } else { '--smoke-test' }
+    $testArgument = if ($ClearingSmokeTest) { '--clearing-smoke-test' } elseif ($MapSmokeTest) { '--map-smoke-test' } elseif ($CampaignSmokeTest) { '--campaign-smoke-test' } elseif ($HudSmokeTest) { '--hud-smoke-test' } elseif ($AudioSmokeTest) { '--audio-smoke-test' } else { '--smoke-test' }
     & $engine --path $PSScriptRoot -- $testArgument
     if ($LASTEXITCODE -ne 0) { throw 'Rendered smoke test failed' }
 } else {

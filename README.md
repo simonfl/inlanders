@@ -36,7 +36,7 @@ Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous writ
 
 Open **Options [O] → Explore larger map** to start or resume a separate 32×32 landscape with an irregular outline, open building areas, 20 harvestable trees, and six berry patches. Eight villagers arrive with 64 berries. All buildings are available; the existing supper objective can give you a goal while you explore.
 
-**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Water, bridges, landscaping tools, and elevation remain future features.
+**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; water, bridges, decorative landscaping, and elevation remain future features.
 
 F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, choose **Explore larger map** again. Existing saves retain their original terrain rather than expanding automatically.
 
@@ -71,9 +71,17 @@ The Build menu explains each building's purpose, staffing, recipes, and availabl
 
 In **Build**, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.
 
-Loggers plant marked spots before taking new harvesting jobs. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game. Saplings visibly grow; hover over Logs in the top bar for planting, growth, and reservation counts.
+Loggers take clearing orders first, then plant marked spots before ordinary harvesting jobs. Already committed work and deliveries finish first. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game or while marked for clearing. Saplings visibly grow; hover over Logs in the top bar for clearing, planting, growth, and reservation counts.
 
-Once all logs have been collected, you can mark the stump again for another cycle. Replanting is manual; there is no automatic forestry zone or planting cancellation yet. Planting jobs, growth, and new timber are saved, and saves from before this feature still load.
+Once all logs have been collected, you can mark the stump again for another cycle. Replanting is manual; there is no automatic forestry zone. You can remove an unwanted planting marker with a clearing order. Planting jobs, growth, and new timber are saved, and saves from before this feature still load.
+
+### Clear trees and stumps
+
+Open **Build → Clear trees & stumps**, or press **C**. Click a tree, sapling, planting marker, or exhausted stump to queue clearing. Amber crosses mark orders. Click a marked target again to cancel its order; **Esc** finishes using the tool without canceling queued work.
+
+Assigned loggers prioritize these orders, harvest and physically haul existing timber, then spend four work seconds removing roots. The cell stays blocked until root work finishes; afterward it can be built on or replanted, subject to normal placement rules. Timber already being carried still travels to storage normally. Saplings and empty planting markers produce no timber. Clearing costs worker time, with no material charge.
+
+Cancellation stops root removal or conflicting planting work, but does not undo cutting or an active timber delivery. Reassignment and save/load preserve orders and physical goods. Berry bushes, decorative border trees, buildings, and salvage piles are outside this tool; loggers already collect salvage automatically. Clearing is available on both original and larger maps.
 
 ### Sawmill and lodges
 
@@ -105,6 +113,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | G | Open/close Goals and the supper objective |
 | O | Open/close Options: save, load, restart, audio, and controls |
 | T | Toggle repeat tree planting on open ground or exhausted stumps |
+| C | Toggle clearing orders; click trees/stumps to mark or cancel |
 | R | Rotate the unplaced building |
 | Esc | Cancel preview first; otherwise close the menu or inspector |
 | WASD | Pan |
@@ -129,6 +138,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
 | `Simulation/Food.cs` | Foraging, farming, baking, meals, hunger, supper |
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
+| `Simulation/Clearing.cs`, `ClearingUi.cs` | Logger clearing orders, cancellation, root work, and clearing previews |
 | `Simulation/Sawmill.cs` | Sawyers, log-to-plank production, stock target, plank accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |
@@ -171,5 +181,7 @@ Audio checks inspect live Godot mixer output, muted silence, volume persistence,
 Campaign checks complete both levels, exercise alternative housing and interrupted food deliveries, and preserve progress through meals, saves, replay, and startup resume. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
 
 Map checks build in three distant clearings, harvest the outer groves, preserve exact saves, and reject invalid terrain. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -MapSmokeTest` for overview/camera, distant placement, fast simulation, and map-switching checks at 1440×900 and 960×640. This is also included in `Test.ps1 -Rendered`.
+
+Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and legacy saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
 
 Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.

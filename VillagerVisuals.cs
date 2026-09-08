@@ -132,7 +132,7 @@ public partial class Game
                 view.Torso.Rotation = new(felling ? -0.10f : -0.35f, swing * 0.08f, 0); break;
             case Work.Building:
                 view.Hammer.Visible = true; view.Arm.Rotation = new(1.1f + MathF.Sin(cycle * 1.5f) * 0.55f, 0, 0); break;
-            case Work.PlantingTree: case Work.Planting: case Work.Harvesting:
+            case Work.ClearingStump: case Work.PlantingTree: case Work.Planting: case Work.Harvesting:
                 view.Spade.Visible = true; view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;
             case Work.Foraging:

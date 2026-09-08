@@ -105,3 +105,4 @@ SawmillChecks.Run();
 PlacementChecks.Run();
 CampaignChecks.Run();
 MapChecks.Run();
+ClearingChecks.Run();

@@ -12,7 +12,7 @@ public enum Resource { Logs, Berries, Grain, Bread, Planks }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump }
 
 public sealed class Villager
 {
@@ -45,6 +45,7 @@ public sealed class TimberTree
     [JsonInclude]    public int? Owner { get; internal set; }
     [JsonInclude]    public float Growth { get; internal set; } = 1;
     [JsonInclude]    public bool NeedsPlanting { get; internal set; }
+    [JsonInclude]    public bool ClearRequested { get; internal set; }
     public Cell Access => new(Cell.X + 1, Cell.Z);
 }
 public sealed class Cottage
@@ -197,6 +198,7 @@ public sealed partial class World
         if (v.Role == Role.Unassigned) { v.Status = "Unassigned — choose a job"; return; }
         if (v.Role == Role.Logger)
         {
+            if (ClaimClearing(v)) return;
             var planting = Trees.Where(t => t.NeedsPlanting && t.Owner == null)
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
             if (planting != null)
@@ -206,7 +208,7 @@ public sealed partial class World
             }
             var tree = Trees.Where(t => t.Logs > 0 && t.Owner == null)
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
-            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting) ? "Waiting — timber work claimed by other loggers" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
+            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting || t.ClearRequested) ? "Waiting — timber work claimed by other loggers" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
@@ -249,6 +251,12 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
+                case Work.ClearingStump:
+                    if (v.Timer < 4) break;
+                    var cleared = Trees.Single(t => t.Id == v.TreeId);
+                    if (!cleared.ClearRequested || cleared.Logs != 0) throw new InvalidOperationException("Invalid clearing claim");
+                    Trees.Remove(cleared); Finish(v); History.Add("Ground cleared for building or planting"); break;
                 case Work.ToSapling: v.Task = Work.PlantingTree; v.Timer = 0; v.Status = "Planting an alder"; break;
                 case Work.PlantingTree:
                     if (v.Timer < 4) break;
@@ -298,6 +306,7 @@ public sealed partial class World
         }
         foreach (var t in Trees)
         {
+            Check(!t.ClearRequested || !t.Salvage, "Salvage cannot have a root-clearing order");
             Check(float.IsFinite(t.Growth) && t.Growth >= 0 && t.Growth <= 1 &&
                 (!t.NeedsPlanting || t.Growth == 0) &&
                 (t.Growth == 1 || (t.Logs == 0 && !t.Felled && !t.Salvage)), "Invalid tree growth state");
@@ -306,6 +315,8 @@ public sealed partial class World
         }
         foreach (var v in People)
         {
+            if (v.Task is Work.ToClearStump or Work.ClearingStump)
+                Check(Trees.Any(t => t.Id == v.TreeId && t.Owner == v.Id && t.ClearRequested && t.Logs == 0), "Invalid root-clearing worker");
             Check(v.Carried is >= 0 and <= 2, "Carry capacity exceeded");
             Check(!Blocked(At(v)) && v.Route.All(c => !Blocked(c)), "Worker route intersects obstacle");
             Check(v.SiteId == null || Cottages.Any(c => c.Id == v.SiteId), "Job targets cancelled site");

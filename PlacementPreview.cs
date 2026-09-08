@@ -1,6 +1,7 @@
 using Godot;
 using Inlanders.Simulation;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class Game
 {
@@ -23,7 +24,7 @@ public partial class Game
         BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated)) ?? "";
+    private string PlacementProblem(Cell cell) => (_clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated)) ?? "";
     private bool PointerOverHud(Vector2 point) =>
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
@@ -37,6 +38,7 @@ public partial class Game
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (!_placing) return;
         _placementProblem = PlacementProblem(_hover); _ghostValid = _placementProblem.Length == 0;
+        if (_clearingTrees) { RefreshClearingGhost(); return; }
         var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
         string key = _plantingTrees ? "tree" : _buildKind.ToString();
         if (_ghostModelKey != key)
@@ -77,6 +79,12 @@ public partial class Game
     }
     private void UpdateBuildDescription()
     {
+        if (_clearingTrees && _placing)
+        {
+            _buildDescription.Text = "CLEAR TREES & STUMPS\nLoggers prioritize marked trees, recover existing timber, then remove roots. Land becomes usable when the roots are gone. Saplings yield no timber. Click a marked tree again to cancel.\n\n" +
+                $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers";
+            return;
+        }
         int available = _buildKind == BuildingKind.Lodge ? _world.AvailablePlanks : _world.Available;
         int cost = _buildKind == BuildingKind.Lodge ? 8 : World.Cost;
         string material = _buildKind == BuildingKind.Lodge ? "planks" : "logs";

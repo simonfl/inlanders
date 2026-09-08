@@ -24,7 +24,7 @@ public sealed partial class World
 
     private void AdvanceWoodland(float dt)
     {
-        foreach (var tree in Trees.Where(t => !t.NeedsPlanting && t.Growth < 1))
+        foreach (var tree in Trees.Where(t => !t.ClearRequested && !t.NeedsPlanting && t.Growth < 1))
         {
             tree.Growth = Math.Min(1, tree.Growth + dt / TreeGrowthSeconds);
             if (tree.Growth < 1) continue;

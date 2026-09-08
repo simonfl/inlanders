@@ -25,7 +25,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. Coordinate outdoor decoration with F12c landscaping. | — |
 | F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
 | F11 | Campaign mode and objectives — First two levels done | Five authored settlements planned; the opening pair, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
-| F12 | Map expansion, landscape, and exploration — F12a done | Larger configurable maps and irregular boundaries are playable. Water/crossings, player landscaping, and elevation remain planned; see chunks below. | — |
+| F12 | Map expansion, landscape, and exploration — F12a and clearing done | Larger maps, irregular boundaries, and tree/stump clearing are playable. Water/crossings, decorative landscaping, and elevation remain planned; see chunks below. | — |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
@@ -69,7 +69,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 ## Where to start
 
-**F12a — More room and varied map shapes** is playable through Options → Explore larger map. Try Three clearings before authoring later campaign layouts. Keep the opening levels compact if that teaches better; give later ones room to spread out. F12b water/crossings or F12c landscaping can be selected independently as the next landscape feature.
+**F12a — More room and varied map shapes** is playable through Options → Explore larger map. F12c's first clearing pass lets loggers reclaim trees and stumps for building. Try these before authoring later campaign layouts. F12b water/crossings or F12c's decorative landscaping follow-up can be selected independently next.
 
 **F11a + F18a — Campaign foundation and the first two guided levels** is playable. Try the opening pair before tuning the rest; **F11b + F18b — Production lessons** (levels 3–4) is the next campaign slice after map expansion. The finale and its square remain planned.
 
@@ -81,7 +81,7 @@ F21a and F21b establish the UI direction and clearer building placement. **F21c 
 
 ### F12 — Map expansion and landscaping
 
-Status: F12a done; F12b–e planned. Expand in small playable chunks; terrain tools and visual treatment remain provisional.
+Status: F12a done; F12c clearing done as a first chunk. Other landscape work remains planned; terrain tools and visual treatment remain provisional.
 
 Want to play: Build a village that can spread into groves, clearings, and distinct neighborhoods, on land that feels like a place rather than a small square board. Arrange the surrounding landscape as well as the buildings. Larger maps should offer interesting choices and useful space, not just longer walks across empty grass.
 
@@ -89,7 +89,7 @@ Want to play: Build a village that can spread into groves, clearings, and distin
 | --- | --- | --- |
 | F12a — More room and varied map shapes — Done | Pan across a larger settlement and choose between several building areas. | Saved map dimensions and land exclusions support rectangular/irregular layouts. Three clearings is a flat 32×32 authored map with 20 trees, six berry patches, and eight villagers. Options starts/resumes it separately; camera limits scale with terrain and Home frames the map. |
 | F12b — Water and crossings | Build beside a pond or stream, then connect another useful area. | Authored water tiles, visible banks, and a simple bridge across a narrow crossing. Water blocks ordinary walking/building; bridges provide routes. Keep initial shores and crossing positions simple. Exact bridge cost, width, and construction rules TBD. |
-| F12c — Player landscaping | Shape the spaces between homes and workplaces. | A landscaping palette for grass/earth patches, flowers, shrubs, and decorative trees; reuse F09 assets and F02 productive tree planting. Add deliberate clearing of trees and exhausted stumps so earlier woodland does not permanently prevent building. Keep productive trees distinct from cosmetic planting; clearing tasks, costs, and salvage rules TBD. |
+| F12c — Player landscaping — Clearing done | Reclaim woodland for building, then shape the outdoor spaces. | First chunk: C / Build clearing tool, cancelable orders, logger priority, physical timber recovery, four-second root removal, and reusable land. Later: grass/earth painting, flowers, shrubs, and decorative trees coordinated with F09. |
 | F12d — Hills and terrain shaping | Settle a valley or hillside and make room for a building. | Start with authored gentle elevation, readable slopes, and clear building rules. Later consider player raise/lower/level tools, terraces, ramps, and retaining walls. Decide height steps, accessibility, and construction costs when this chunk begins. |
 | F12e — Exploring a larger settlement | Find workers and understand distant work areas without losing the village. | Better camera framing, useful location jumps, and potentially a small overview map. Fog of war or hidden discoveries are optional later ideas, not requirements for using a larger map. |
 
@@ -108,6 +108,10 @@ Coordinate with existing features:
 Playable when, for F12a: start a larger authored settlement, pan and zoom across its full extent, build and harvest in separated clearings, and save/load without changing the map. Placement and routes respect irregular boundaries; all resource access remains usable; the village remains responsive at normal and fast speed. Review how the landscape looks at its edges as well as how much room it provides.
 
 F12a verification: simulation checks complete construction in three distant clearings, harvest every outer grove, preserve exact map/worker saves, support a larger rectangle, and reject malformed terrain or blocked access. Legacy saves load with the original outline. Rendered checks cover instanced terrain, full-map framing at 1440×900 and 960×640, camera limits, distant previews/building, 6× simulation, separate save files, and switching back to the original village. Placement connectivity uses a single reachability pass. Overview and distant-preview screenshots reviewed; natural-looking edges, resource density, and travel pacing remain open to play feedback.
+
+F12c first chunk: click trees, saplings, planting markers, or exhausted stumps to mark clearing orders; click again to cancel. Amber crosses persist until cancellation or completion. Loggers take clearing orders before planting and ordinary harvesting, while finishing committed jobs/deliveries. Existing timber remains physical cargo; roots take four work seconds to remove, with a digging motion and rustling sound. Land stays blocked until removal. Young trees yield no timber and stop growing while marked. Cancellation releases root/planting work but does not undo logging; salvage piles and berry bushes are excluded. No material cost. Clearing orders and active work persist in saves, including old-map settlements.
+
+F12c verification: simulation checks cover timber conservation, clearing priority, all five saved/interrupted phases, cancellation and replanting, immature trees, several loggers on the larger map, and old saves. Rendered checks cover C/Esc and Build controls, repeated marking/canceling, invalid-target guidance, saved markers, visible root work, and building on reclaimed land at 960×640. Screenshots reviewed. Decorative landscaping, drag/area selection, and clearing-time tuning remain open.
 
 Later / TBD: Exact map sizes, terrain art, procedural generation and seeds, map editor, water reshaping, terraforming costs, undo rules for landscaping, and map expansion during an existing game. Start with larger maps selected at scenario creation; an infinite world or dynamically purchased land is not required.
 
@@ -197,7 +201,7 @@ Status: Done
 
 Want to play: Keep expanding after the original woodland runs out, and shape a new grove around the village.
 
-First version: Mark open ground or exhausted stumps for free planting. Loggers plant before taking new harvest jobs; saplings grow over three game days and yield eight logs. Show planting markers, growing trees, and job/growth counts. Save the entire cycle.
+First version: Mark open ground or exhausted stumps for free planting. Loggers plant before taking new harvest jobs (after explicit clearing orders added in F12c); saplings grow over three game days and yield eight logs. Show planting markers, growing trees, and job/growth counts. Save the entire cycle.
 
 Later / TBD: Automatic replanting zones, cancelling planting spots, a dedicated forester, tree species, and different growth/yield tradeoffs.
 
@@ -301,3 +305,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - F21b: building descriptions and supply guidance, recognizable placement previews, entrance/rotation feedback, and specific placement rejection reasons. Verified with simulation checks and rendered HUD checks, including repeat tree planting and preview state isolation. Visual style and description wording remain open to play feedback.
 - F11a + F18a: the first two campaign settlements, integrated optional guidance, reusable goals, campaign saves/resume/replay, and preserved standalone play.
 - F12a: configurable saved map layouts, Three clearings with an irregular 32×32 outline, distant resource access, scalable camera bounds, Home overview, and separate map saves.
+- F12c, first chunk: cancelable tree/stump clearing orders, logger timber recovery and root removal, visible markers/work, and reusable building ground.

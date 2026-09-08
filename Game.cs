@@ -37,6 +37,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
     }
     private void CreateActors()
     {
@@ -77,9 +78,10 @@ public partial class Game : Node3D
     private void PlaceCottage(Cell at)
     {
         _hover = at;
+        if (_clearingTrees) { MarkClearing(at); return; }
         if (_plantingTrees)
         {
-            if (_world.PlantTree(at) != null) { UiCue(Cue.Place); Notice("Planting marked. Loggers plant first; trees grow for 3 days and yield 8 logs."); }
+            if (_world.PlantTree(at) != null) { UiCue(Cue.Place); Notice("Planting marked. Loggers plant after clearing orders; trees grow for 3 days and yield 8 logs."); }
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
@@ -89,6 +91,7 @@ public partial class Game : Node3D
     }
     private void ToggleTreePlanting()
     {
+        _clearingTrees = false;
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
     }
     private Vector3? Ground(Vector2 screen) => new Plane(Vector3.Up, 0).IntersectsRay(_camera.ProjectRayOrigin(screen), _camera.ProjectRayNormal(screen));
@@ -101,13 +104,14 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
-            if (key.Keycode == Key.R && _placing && !_plantingTrees) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.B) ToggleDrawer(1);
             if (key.Keycode == Key.V) ToggleDrawer(0);
             if (key.Keycode == Key.G) ToggleDrawer(2);
             if (key.Keycode == Key.O) ToggleDrawer(3);
             if (key.Keycode == Key.T) { ToggleTreePlanting(); ClearSelection(); }
+            if (key.Keycode == Key.C) ToggleClearing();
             if (key.Keycode == Key.Q) { _angle -= Mathf.Pi / 2; UpdateCamera(); }
             if (key.Keycode == Key.E) { _angle += Mathf.Pi / 2; UpdateCamera(); }
         }
@@ -165,9 +169,15 @@ public partial class Game : Node3D
             }
             view.Top.Visible = !t.Felled && !t.NeedsPlanting && (t.Logs > 0 || t.Growth < 1);
             view.Top.Scale = Vector3.One * 0.9f * (0.2f + 0.8f * t.Growth);
-            int treeStage = t.NeedsPlanting ? 0 : t.Felled ? 2 : 1;
+            int treeStage = (t.NeedsPlanting ? 0 : t.Felled ? 2 : 1) + (t.ClearRequested ? 10 : 0);
             if (view.Logs == t.Logs && view.Stage == treeStage) continue;
             view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);
+            if (t.ClearRequested)
+            {
+                ClearingCross(view.Pile, new(0, 0.10f, 0), new("f0bd70"), 1.25f);
+                view.Pile.AddChild(new Label3D { Text = "×", Position = new(0, t.Felled || t.NeedsPlanting ? 0.6f : 3.1f * (0.2f + 0.8f * t.Growth), 0),
+                    FontSize = 48, PixelSize = 0.014f, Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = new("f0bd70"), OutlineSize = 5 });
+            }
             if (t.NeedsPlanting)
             {
                 Cylinder(view.Pile, new(0, 0.025f, 0), 0.35f, 0.05f, new("805f42"));
