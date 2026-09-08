@@ -21,7 +21,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F05 | New food choices | Add one alternative food chain, such as vegetables or an orchard, with its own building and visible harvest. Exact choice TBD. | — |
 | F06 | More villagers | A small group arrives when spare housing is available; grow beyond the original eight. | — |
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
-| F08 | More construction materials | Add a sawmill and planks, then one building that uses them. | F02 suggested |
+| F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. | — |
 | F10 | Sound effects | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
 | F11 | Campaign mode and objectives | A sequence of authored settlements with distinct goals and saved progress. Start with two linked scenarios, including the current supper. | — |
@@ -103,6 +103,20 @@ Playable when: Watch workers chop, build, farm, forage, bake, and haul recogniza
 
 Verification: Build and rendered scenario/woodland checks pass, including restored baker tools and frozen poses while paused. Reviewed normal village and closer baking views. Player feedback TBD; this is a first procedural animation pass.
 
+### F08 — Sawmill, planks, and lodge
+
+Status: Done
+
+Want to play: Turn renewable timber into a new building material and use it for better housing.
+
+First version: A six-log sawmill with one sawyer slot; two logs become four planks in ten work seconds. Haul both input and output physically, with a shared stock target of eight planks. Build an eight-plank lodge with four beds. Preserve reservations, batches, and plank salvage through interruption and save/load.
+
+Later / TBD: Mixed-material recipes, more plank buildings, adjustable stock targets, upgrades, and other materials.
+
+Playable when: Build and staff the mill, watch logs become planks, finish a lodge, and restore an active batch from a save.
+
+Verification: Simulation checks cover the production chain, stock target, reservations, interruption, cancellation with plank salvage, and save compatibility. Rendered checks cover placement/staffing, the saw tool and plank cargo, saved batches, and lodge completion. Player feedback TBD; stock target, recipe, and housing costs are initial values.
+
 ## How we take a chunk
 
 1. Pick an ID and mark it **Next**, then **In progress** when work starts.
@@ -141,3 +155,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - Milestone 3: food production, meals, the village supper, and save/load.
 - F02, first chunk: logger planting, visible tree growth, renewable timber, and stump replanting.
 - F03, first chunk: stepping feet, work tools and motions, recognizable cargo, and idle gestures.
+- F08, first chunk: sawmill, sawyer role, planks, and four-bed lodge.

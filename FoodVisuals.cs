@@ -22,6 +22,8 @@ public partial class Game
     }
     private void MakeBuilding(Node3D parent, Cottage site, int stage)
     {
+        if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, stage); return; }
+        if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
         if (site.Kind == BuildingKind.Cottage || stage < 3) { MakeCottage(parent, stage); return; }
         if (site.Kind == BuildingKind.Farm)
         {

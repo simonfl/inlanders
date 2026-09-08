@@ -9,7 +9,7 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), Hammer = new(), Spade = new(), Peel = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), Hammer = new(), Spade = new(), Peel = new(), Saw = new();
         public Resource Cargo;
         public int Count = -1;
     }
@@ -44,6 +44,9 @@ public partial class Game
         Box(v.Hammer, new(0, 0.1f, -0.37f), new(0.24f, 0.14f, 0.14f), new("737d7b"));
         Box(v.Spade, new(0, 0.1f, -0.43f), new(0.21f, 0.05f, 0.25f), new("89938a"));
         Box(v.Peel, new(0, 0.1f, -0.48f), new(0.32f, 0.04f, 0.34f), new("cba36d"));
+        v.Arm.AddChild(v.Saw); v.Saw.Position = new(0, -0.32f, 0);
+        Box(v.Saw, new(0, 0, -0.3f), new(0.04f, 0.18f, 0.6f), new("a3aaa4"));
+        Box(v.Saw, new(0, 0, 0.02f), new(0.09f, 0.22f, 0.14f), _wood);
         v.Torso.AddChild(v.Carry); v.Carry.Position = new(0, 0.12f, -0.43f);
         v.Marker = Cylinder(v.Body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
         return v;
@@ -55,6 +58,11 @@ public partial class Game
         if (view.Count == worker.Carried && view.Cargo == worker.Cargo) return;
         view.Count = worker.Carried; view.Cargo = worker.Cargo; Clear(view.Carry);
         if (worker.Carried == 0) return;
+        if (worker.Cargo == Resource.Planks)
+        {
+            for (int i = 0; i < worker.Carried; i++) Plank(view.Carry, new(0, i * 0.14f, 0));
+            return;
+        }
         if (worker.Cargo == Resource.Logs)
         {
             for (int i = 0; i < worker.Carried; i++) Log(view.Carry, new(0, i * 0.22f, 0), 0.72f);
@@ -97,7 +105,7 @@ public partial class Game
         view.RightLeg.Rotation = -view.LeftLeg.Rotation;
         view.Arm.Rotation = new(walking ? -swing * 0.35f : 0, 0, 0);
         view.LeftArm.Rotation = -view.Arm.Rotation;
-        view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = false;
+        view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = view.Saw.Visible = false;
         if (v.Carried > 0)
         {
             view.Arm.Rotation = view.LeftArm.Rotation = new(1.05f, 0, 0);
@@ -114,6 +122,9 @@ public partial class Game
         }
         switch (v.Task)
         {
+            case Work.Sawing:
+                view.Saw.Visible = true; view.Arm.Rotation = new(0.8f + swing * 0.25f, 0, 0);
+                view.Torso.Rotation = new(-0.18f, 0, 0); view.LeftArm.Rotation = new(0.9f, 0, 0); break;
             case Work.Chopping:
                 bool felling = _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled);
                 view.Axe.Visible = felling;

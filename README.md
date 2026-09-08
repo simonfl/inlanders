@@ -25,7 +25,7 @@ Eight villagers arrive with 24 berries. The objective is to **house all eight pe
 
 1. In the **Build** tab, select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
 2. Build a **Farm** and a **Bakery**. A farmer sows grain, waits for it to ripen, harvests it, and hauls it to the pantry. A baker collects grain, bakes it, and carries bread back.
-3. Build four **Cottages**, each housing two villagers. Every building costs six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand.
+3. Build four **Cottages**, each housing two villagers. Cottages and production buildings cost six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand. A **Lodge** is an alternative with four beds, costing eight planks from a sawmill.
 4. When everyone has shelter and 16 loaves are in the pantry, host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs.
 
 The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in the **Workforce** tab. Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager to inspect their task, waiting reason, cargo, and claims; the assignment button cycles that individual's role.
@@ -53,6 +53,16 @@ In the **Build** tab, choose **Plant alders**, or press **T**. Click open ground
 Loggers plant marked spots before taking new harvesting jobs. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game. Saplings visibly grow, and the resource header counts waiting planting jobs and growing trees.
 
 Once all logs have been collected, you can mark the stump again for another cycle. Replanting is manual; there is no automatic forestry zone or planting cancellation yet. Planting jobs, growth, and new timber are saved, and saves from before this feature still load.
+
+### Sawmill and lodges
+
+Build a **Sawmill** for six logs, then assign a **Sawyer** in the Workforce tab. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
+
+Mills aim for a shared stock of eight planks, counting batches and shipments already on the way. They start another four-plank batch when that total falls to four or less. Reassign the sawyer when you want to stop production; carried materials return to storage and unfinished batches remain at the mill.
+
+A **Lodge** costs eight planks and houses four villagers on the same footprint as a cottage. Builders reserve and deliver planks before construction starts. Lodges count toward the supper's housing objective. Cancelling an unfinished lodge leaves delivered planks as salvage for loggers to recover; this does not turn them back into logs.
+
+Plank inventories, shipments, reservations, and sawmill batches survive save/load. Older saves load with no planks or sawmill production.
 
 ## Controls and saves
 
@@ -85,13 +95,15 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
 | `Simulation/Food.cs` | Foraging, farming, baking, meals, hunger, supper |
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
+| `Simulation/Sawmill.cs` | Sawyers, log-to-plank production, stock target, plank accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
+| `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `Hud.cs`, `PersistenceUi.cs` | Workforce, construction queue, inspectors, save/load feedback |
-| `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs` | Rendered interaction checks |
-| `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs` | Simulation and persistence tests |
+| `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs`, `SmokeSawmill.cs` | Rendered interaction checks |
+| `Tests/Checks.cs`, `Tests/FoodChecks.cs`, `Tests/WoodlandChecks.cs`, `Tests/SawmillChecks.cs` | Simulation and persistence tests |
 
 Simulation advances in fixed 0.1-second steps on one thread. Job claims reserve resources and destination capacity together. Harvesting, construction, and food production have explicit ownership/worker limits. Reassignment releases claims and returns cargo physically. `World.Validate()` checks resource accounting, ownership, capacity, live targets, and routes. The C# simulation has no Godot dependencies.
 

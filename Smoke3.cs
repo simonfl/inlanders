@@ -21,7 +21,7 @@ public partial class Game
             Check(_world.People.Count(v => v.Role == Role.Logger) == 2, "Logger plus failed");
             await Click(_roster[6].GetGlobalRect().GetCenter()); Check(_selectedPerson == 6, "Roster failed");
             await Click(_assignButton.GetGlobalRect().GetCenter()); Check(_world.People[6].Role == Role.Baker, "Individual food assignment failed");
-            for (int i = 0; i < 5; i++) await Click(_assignButton.GetGlobalRect().GetCenter());
+            for (int i = 0; i < Enum.GetValues<Role>().Length - 1; i++) await Click(_assignButton.GetGlobalRect().GetCenter());
             Check(_world.People[6].Role == Role.Farmer, "Restore farmer failed");
             var bar = _tabs.GetTabBar(); await Click(bar.GlobalPosition + bar.GetTabRect(1).GetCenter());
             Check(_tabs.CurrentTab == 1, "Build tab failed");
@@ -92,6 +92,7 @@ public partial class Game
             _noticeUntil = 0; await Capture("artifacts/m3-complete.png");
             GD.Print("SMOKE PASS: all building types, food staffing, construction priorities, save/load buttons and F5/F9, invalid-save recovery, exact active-batch restoration, regrowth/harvest/baking/meals, supper gathering, and completed-save restoration.");
             await SmokeWoodland();
+            await SmokeSawmill();
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("SMOKE FAIL: " + e); GetTree().Quit(1); }

@@ -14,7 +14,7 @@ public partial class Game : Node3D
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
-    private int _lastStored = -1, _selectedPerson, _selectedSite = -1;
+    private int _lastStored = -1, _lastPlanks = -1, _selectedPerson, _selectedSite = -1;
     private bool _placing, _plantingTrees, _rotated, _paused, _ghostValid;
     private float _speed = 1, _clock, _accumulator, _angle = 0.72f;
     private Vector3 _focus = new(0, 0, 0);
@@ -33,7 +33,7 @@ public partial class Game : Node3D
     }
     private void CreateActors()
     {
-        Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1;
+        Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
         CreateFoodViews();
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
@@ -165,12 +165,17 @@ public partial class Game : Node3D
             }
             if (!t.Felled) continue;
             if (!t.Salvage) Cylinder(view.Pile, new(0, 0.12f, 0), 0.17f, 0.24f, _wood);
-            for (int i = 0; i < t.Logs; i++) Log(view.Pile, new(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f), 0.65f);
+            for (int i = 0; i < t.Logs; i++)
+            {
+                var at = new Vector3(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f);
+                if (t.Material == Resource.Planks) Plank(view.Pile, at); else Log(view.Pile, at, 0.65f);
+            }
         }
-        if (_lastStored != _world.Stored)
+        if (_lastStored != _world.Stored || _lastPlanks != _world.Planks)
         {
-            _lastStored = _world.Stored; Clear(_stored);
+            _lastStored = _world.Stored; _lastPlanks = _world.Planks; Clear(_stored);
             for (int i = 0; i < _world.Stored; i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
+            for (int i = 0; i < _world.Planks; i++) Plank(_stored, new(-3, 0.18f + i / 3 * 0.12f, 4.5f + i % 3 * 0.22f));
         }
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)

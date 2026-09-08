@@ -20,11 +20,14 @@ public partial class Game
     private readonly Dictionary<BuildingKind, Button> _kindButtons = new();
 
     private static string RoleName(Role role) => role.ToString();
+    private static Role NextRole(Role role) => (Role)(((int)role + 1) % Enum.GetValues<Role>().Length);
+    private static string BuildCost(BuildingKind kind) => kind == BuildingKind.Lodge ? "8 planks · 4 beds" : "6 logs";
     private static string BuildingName(BuildingKind kind) => kind == BuildingKind.ForagerHut ? "Forager hut" : kind.ToString();
     private static string TaskName(Work task) => task switch
     {
         Work.ToTree => "To timber", Work.Chopping => "Logging", Work.ToStockpile => "Hauling",
         Work.ToSapling or Work.PlantingTree => "Planting tree",
+        Work.ToSawLogs => "Fetching logs", Work.ToSawmill or Work.Sawing => "Sawing", Work.ToPlanks => "Collecting planks",
         Work.ToMaterials => "Fetching", Work.ToCottage => "Delivering", Work.ToBuild => "To site", Work.Building => "Building",
         Work.ToBush or Work.Foraging => "Foraging", Work.ToFarm or Work.Planting => "Sowing", Work.Harvesting => "Harvesting",
         Work.ToGrain => "Fetching", Work.ToOven or Work.Baking => "Baking", Work.ToBread or Work.ToPantry => "Hauling food",
@@ -51,7 +54,7 @@ public partial class Game
             BgColor = new("283c38ef"), CornerRadiusTopLeft = 12, CornerRadiusTopRight = 12, CornerRadiusBottomLeft = 12, CornerRadiusBottomRight = 12,
             ContentMarginLeft = 16, ContentMarginRight = 16, ContentMarginTop = 16, ContentMarginBottom = 16
         });
-        var column = new VBoxContainer(); column.AddThemeConstantOverride("separation", right ? 9 : 7); panel.AddChild(column); return column;
+        var column = new VBoxContainer(); column.AddThemeConstantOverride("separation", right ? 9 : 5); panel.AddChild(column); return column;
     }
     private void MakeUi()
     {
@@ -67,11 +70,11 @@ public partial class Game
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 7) }; left.AddChild(_progress);
         _supperButton = Button("Host supper · 16 loaves", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); Notice("The villagers are gathering for supper."); } }); left.AddChild(_supperButton);
         _tabs = new TabContainer(); left.AddChild(_tabs);
-        var workforce = new VBoxContainer { Name = "Workforce" }; workforce.AddThemeConstantOverride("separation", 7); _tabs.AddChild(workforce);
-        var construction = new VBoxContainer { Name = "Build" }; construction.AddThemeConstantOverride("separation", 7); _tabs.AddChild(construction);
+        var workforce = new VBoxContainer { Name = "Workforce" }; workforce.AddThemeConstantOverride("separation", 5); _tabs.AddChild(workforce);
+        var construction = new VBoxContainer { Name = "Build" }; construction.AddThemeConstantOverride("separation", 5); _tabs.AddChild(construction);
         left = workforce;
         left.AddChild(Text("WORKFORCE", 13));
-        foreach (var role in new[] { Role.Logger, Role.Builder, Role.Forager, Role.Farmer, Role.Baker })
+        foreach (var role in Enum.GetValues<Role>().Where(r => r != Role.Unassigned))
         {
             var row = new HBoxContainer(); left.AddChild(row);
             _counts[role] = Text(""); _counts[role].SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; row.AddChild(_counts[role]);
@@ -89,13 +92,13 @@ public partial class Game
         foreach (var kind in Enum.GetValues<BuildingKind>())
         {
             var button = Button(BuildingName(kind), () => { _buildKind = kind; _plantingTrees = false; _placing = true; RefreshGhost(); }, 110);
-            button.TooltipText = "Plan a " + BuildingName(kind).ToLowerInvariant() + " · 6 logs"; kinds.AddChild(button); _kindButtons[kind] = button;
+            button.TooltipText = "Plan a " + BuildingName(kind).ToLowerInvariant() + " · " + BuildCost(kind); kinds.AddChild(button); _kindButtons[kind] = button;
         }
         _buildButton = Button("Plan cottage  ·  6 logs  [B]", () => { if (_placing) _placing = false; else { _plantingTrees = false; _placing = true; } RefreshGhost(); }); left.AddChild(_buildButton);
         _plantTreeButton = Button("Plant alders · free  [T]", ToggleTreePlanting); left.AddChild(_plantTreeButton);
         _plantTreeButton.TooltipText = "Mark open ground or an exhausted stump. Loggers plant before harvesting. Trees grow for 3 days, then yield 8 logs. Esc finishes marking.";
         left.AddChild(Text("CONSTRUCTION QUEUE", 13));
-        var scroll = new ScrollContainer { CustomMinimumSize = new(234, 64), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; left.AddChild(scroll);
+        var scroll = new ScrollContainer { CustomMinimumSize = new(234, 48), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; left.AddChild(scroll);
         _queue = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; scroll.AddChild(_queue);
         _siteInfo = Text("Select a building to inspect.", 14, true); _siteInfo.CustomMinimumSize = new(234, 56); left.AddChild(_siteInfo);
         var priorities = new HBoxContainer(); left.AddChild(priorities);
@@ -107,7 +110,7 @@ public partial class Game
         _cancelButton = Button("Cancel selected plan", () =>
         {
             if (_world.Cancel(_selectedSite)) { _selectedSite = -1; RefreshSelection(); RebuildQueue(); }
-        }); _cancelButton.TooltipText = "Releases claims. Carried logs return to storage; delivered logs remain as salvage for loggers."; left.AddChild(_cancelButton);
+        }); _cancelButton.TooltipText = "Releases claims. Carried materials return to storage; delivered materials remain as salvage for loggers."; left.AddChild(_cancelButton);
 
         var right = Panel(root, true); var peopleTitle = Text("THE VILLAGERS", 17); peopleTitle.Modulate = _cream; right.AddChild(peopleTitle);
         foreach (var v in _world.People)
@@ -118,7 +121,7 @@ public partial class Game
         _inspect = Text("", 14, true); _inspect.CustomMinimumSize = new(258, 110); right.AddChild(_inspect);
         _assignButton = Button("", () =>
         {
-            var v = _world.People[_selectedPerson]; _world.Assign(v.Id, (Role)(((int)v.Role + 1) % 6));
+            var v = _world.People[_selectedPerson]; _world.Assign(v.Id, NextRole(v.Role));
         }); right.AddChild(_assignButton);
         var note = Text("Click a villager to inspect.\nJob changes return carried goods first.", 12, true); note.Modulate = new("bccbbc"); right.AddChild(note);
 
@@ -146,7 +149,7 @@ public partial class Game
     }
     private void UpdateHud()
     {
-        _resources.Text = $"Day {_world.Food.Day}   /   8 villagers   /   {_world.Stored} logs ({_world.ReservedStorage} reserved)   /   {_world.Trees.Count(t => t.NeedsPlanting)} to plant · {_world.Trees.Count(t => !t.NeedsPlanting && t.Growth < 1)} growing";
+        _resources.Text = $"Day {_world.Food.Day} · 8 villagers · {_world.Stored} logs ({_world.ReservedStorage} reserved) · {_world.Planks} planks ({_world.ReservedPlanks} reserved) · {_world.Trees.Count(t => t.NeedsPlanting)} to plant · {_world.Trees.Count(t => !t.NeedsPlanting && t.Growth < 1)} growing";
         _foodStatus.Text = $"Berries {_world.Food.Berries}   ·   Grain {_world.Food.Grain}   ·   Bread {_world.Food.Bread}   /   {(_world.Food.Hunger > 0 ? $"Hungry — work at {_world.Food.WorkEfficiency:P0}" : "Well fed")}";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : Colors.White;
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Shelter: {_world.Housed} / 8 neighbors\nSupper bread: {Math.Min(16, _world.Food.Bread)} / 16";
@@ -162,6 +165,7 @@ public partial class Game
         _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nBuilders haul supplies and construct.";
         _buildButton.Text = _placing ? "Cancel placement  [Esc]" : $"Plan {BuildingName(_buildKind).ToLowerInvariant()}  [B]";
         _buildButton.Disabled = _world.Food.Celebrating;
+        _buildButton.TooltipText = BuildCost(_buildKind);
         _plantTreeButton.Disabled = _world.Food.Celebrating;
         _plantTreeButton.Modulate = _placing && _plantingTrees ? _cream : Colors.White;
         foreach (var (kind, button) in _kindButtons) { button.Modulate = !_plantingTrees && kind == _buildKind ? _cream : Colors.White; button.Disabled = _world.Food.Celebrating; }
@@ -176,7 +180,9 @@ public partial class Game
         var selected = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
         _siteInfo.Text = selected == null ? "Select a building to inspect." :
             $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n" + (selected.Complete ? selected.Kind switch {
-                BuildingKind.Cottage => "2 beds ready", BuildingKind.ForagerHut => "2 forager slots · berries regrow", BuildingKind.Farm => $"Crop {selected.Growth:P0} · {selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain · {selected.OutputBread} loaves" } : $"{selected.Construction:P0} built · {selected.Delivered}/6 logs\n{selected.Incoming} logs on the way");
+                BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
+                BuildingKind.Sawmill => $"1 sawyer · {selected.SawProgress:P0} · target 8\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
+                BuildingKind.ForagerHut => "2 forager slots · berries regrow", BuildingKind.Farm => $"Crop {selected.Growth:P0} · {selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain · {selected.OutputBread} loaves" } : $"{selected.Construction:P0} built · {selected.Delivered}/{selected.Required} {selected.Material.ToString().ToLowerInvariant()}\n{selected.Incoming} on the way");
         for (int i = 0; i < 3; i++) { _priorityButtons[i].Disabled = selected == null || selected.Complete; _priorityButtons[i].Modulate = selected?.Priority == i ? _cream : Colors.White; }
         _cancelButton.Disabled = selected == null || selected.Complete;
         foreach (var v in _world.People)
@@ -185,8 +191,8 @@ public partial class Game
             _roster[v.Id].TooltipText = v.Status; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White;
         }
         var person = _world.People[_selectedPerson];
-        _inspect.Text = $"{person.Name.ToUpperInvariant()} · {RoleName(person.Role)}\n{person.Status}\nCargo: {person.Carried} {person.Cargo.ToString().ToLowerInvariant()}\nClaims: {person.Reserved} logs / {person.FoodReserved} grain";
-        _assignButton.Text = $"Assign {person.Name}: {RoleName((Role)(((int)person.Role + 1) % 6))}";
+        _inspect.Text = $"{person.Name.ToUpperInvariant()} · {RoleName(person.Role)}\n{person.Status}\nCargo: {person.Carried} {person.Cargo.ToString().ToLowerInvariant()}\nClaims: {person.Reserved} {person.Cargo.ToString().ToLowerInvariant()} / {person.FoodReserved} grain";
+        _assignButton.Text = $"Assign {person.Name}: {RoleName(NextRole(person.Role))}";
         _assignButton.Disabled = _world.Food.Celebrating;
         _hint.Text = _placing ? (_ghostValid ? "Click to plan · R rotates · pale square marks the entrance" : "Keep trees, workers, entrances, and routes accessible") :
             _world.Food.SupperComplete ? "Good food, good neighbors. Keep playing, or save your village." : "Build a forager hut, farm, and bakery. House everyone and save 16 loaves for supper.";

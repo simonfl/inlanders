@@ -101,3 +101,4 @@ for (int seed = 0; seed < 12; seed++)
 Console.WriteLine("PASS: 12 seeded stress runs with live placement, reassignment, cancellation, and reprioritization.");
 FoodChecks.Run();
 WoodlandChecks.Run();
+SawmillChecks.Run();

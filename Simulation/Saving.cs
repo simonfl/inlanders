@@ -8,7 +8,9 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 2;
+    public int Version { get; set; } = 3;
+    public int Planks { get; set; }
+    public int SawnLogs { get; set; }
     public int GrownLogs { get; set; }
     public int InitialLogs { get; set; }
     public int Stored { get; set; }
@@ -31,14 +33,14 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
+            InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History
         }, SaveOptions);
     }
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3)) throw new InvalidDataException($"Unsupported save version {s.Version}");
         if (s.People == null || s.People.Count != 8 || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,8)) ||
             s.Trees == null || s.Buildings == null || s.Bushes == null || s.Bushes.Count != 3 || s.Food == null || s.MeetingSpots == null || s.History == null)
             throw new InvalidDataException("Save is missing settlement data");
@@ -55,7 +57,7 @@ public sealed partial class World
         foreach (var b in s.Buildings)
             if (!Enum.IsDefined(b.Kind) || !Finite(b.Construction) || b.Construction > 1 || !Finite(b.Growth) || b.Growth > 1 ||
                 !Finite(b.BakeProgress) || b.BakeProgress > 1 || b.Priority is < 0 or > 2) throw new InvalidDataException("Invalid building state");
-        var w = new World(0) { InitialLogs = s.InitialLogs, GrownLogs = s.GrownLogs, Stored = s.Stored, _nextSite = s.NextSite, _nextTree = s.NextTree, _retry = s.Retry, Food = s.Food };
+        var w = new World(0) { InitialLogs = s.InitialLogs, GrownLogs = s.GrownLogs, Stored = s.Stored, Planks = s.Planks, SawnLogs = s.SawnLogs, _nextSite = s.NextSite, _nextTree = s.NextTree, _retry = s.Retry, Food = s.Food };
         w.People.Clear(); w.People.AddRange(s.People); w.Trees.Clear(); w.Trees.AddRange(s.Trees);
         w.Cottages.AddRange(s.Buildings); w.Bushes.Clear(); w.Bushes.AddRange(s.Bushes);
         w.MeetingSpots.AddRange(s.MeetingSpots); w.History.AddRange(s.History);
