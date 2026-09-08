@@ -57,19 +57,6 @@ public partial class Game : Node3D
     {
         _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * 25, 24, MathF.Cos(_angle) * 25); _camera.LookAt(_focus);
     }
-    private void RefreshGhost()
-    {
-        Clear(_ghost); _ghost.Visible = _placing; if (!_placing) return;
-        bool valid = PlacementValid(_hover); _ghostValid = valid;
-        if (_plantingTrees)
-        {
-            Box(_ghost, new(_hover.X, 0.08f, _hover.Z), new(0.93f, 0.08f, 0.93f), valid ? new("d8dfab") : new("cc7965"));
-            Cylinder(_ghost, new(_hover.X, 0.4f, _hover.Z), 0.07f, 0.7f, _wood);
-            return;
-        }
-        foreach (var c in World.Footprint(_hover, _rotated)) Box(_ghost, new(c.X, 0.08f, c.Z), new(0.93f, 0.08f, 0.93f), valid ? new("d8dfab") : new("cc7965"));
-        var door = World.Door(_hover, _rotated); Box(_ghost, new(door.X, 0.06f, door.Z), new(0.35f, 0.05f, 0.35f), _cream);
-    }
     private void RefreshSelection()
     {
         Clear(_selection);
@@ -78,6 +65,7 @@ public partial class Game : Node3D
     }
     private void PlaceCottage(Cell at)
     {
+        _hover = at;
         if (_plantingTrees)
         {
             if (_world.PlantTree(at) != null) { UiCue(Cue.Place); Notice("Planting marked. Loggers plant first; trees grow for 3 days and yield 8 logs."); }
@@ -88,7 +76,6 @@ public partial class Game : Node3D
         UiCue(Cue.Place);
         SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
-    private bool PlacementValid(Cell cell) => _plantingTrees ? _world.CanPlantTree(cell) : _world.CanPlace(cell, _rotated);
     private void ToggleTreePlanting()
     {
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
@@ -102,7 +89,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.M) ToggleSoundMute();
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
-            if (key.Keycode == Key.R) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.B) ToggleDrawer(1);
             if (key.Keycode == Key.V) ToggleDrawer(0);
@@ -133,10 +120,11 @@ public partial class Game : Node3D
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
         if (pan != Vector3.Zero) { _focus += pan.Rotated(Vector3.Up, _angle) * dt * 7; _focus.X = Mathf.Clamp(_focus.X, -7, 7); _focus.Z = Mathf.Clamp(_focus.Z, -7, 7); UpdateCamera(); }
-        if (_placing && Ground(GetViewport().GetMousePosition()) is Vector3 p)
+        _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
+        if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {
             var cell = new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
-            if (cell != _hover || _ghostValid != PlacementValid(cell)) { _hover = cell; RefreshGhost(); }
+            if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
         RenderActors(dt); RenderFoodViews(); UpdateHud(); UpdateAudio(dt);

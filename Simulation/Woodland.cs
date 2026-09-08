@@ -9,18 +9,7 @@ public sealed partial class World
     public const int TreeYield = 8;
     public int GrownLogs { get; private set; }
 
-    public bool CanPlantTree(Cell cell)
-    {
-        if (Food.Celebrating || !Inside(cell)) return false;
-        var existing = Trees.FirstOrDefault(t => t.Cell == cell);
-        if (existing != null && (existing.Salvage || !existing.Felled || existing.Logs != 0 || existing.Owner != null)) return false;
-        if (existing == null && Blocked(cell)) return false;
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access))
-            .Concat(Cottages.Select(c => c.Entrance)).Append(YardAccess).Append(new Cell(cell.X + 1, cell.Z)).ToArray();
-        if (access.Contains(cell) || People.Any(v => At(v) == cell || (v.Route.TryPeek(out var next) && next == cell))) return false;
-        bool Obstacle(Cell c) => c == cell || Blocked(c);
-        return access.Concat(People.Select(At)).All(c => FindPath(YardAccess, c, Obstacle) != null);
-    }
+    public bool CanPlantTree(Cell cell) => PlantingProblem(cell) == null;
 
     public TimberTree? PlantTree(Cell cell)
     {

@@ -120,18 +120,7 @@ public sealed partial class World
     private bool Blocked(Cell c) => !Inside(c) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
         Cottages.Any(h => Footprint(h.Cell, h.Rotated).Contains(c));
 
-    public bool CanPlace(Cell cell, bool rotated)
-    {
-        if (Food.Celebrating) return false;
-        var footprint = Footprint(cell, rotated).ToHashSet();
-        if (footprint.Any(Blocked) || !Inside(Door(cell, rotated))) return false;
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(h => h.Entrance))
-            .Append(YardAccess).Append(Door(cell, rotated)).ToArray();
-        if (access.Any(footprint.Contains) || People.Any(v => footprint.Contains(At(v)) ||
-            (v.Route.TryPeek(out var next) && footprint.Contains(next)))) return false;
-        bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
-        return access.Concat(People.Select(At)).All(c => FindPath(YardAccess, c, Obstacle) != null);
-    }
+    public bool CanPlace(Cell cell, bool rotated) => PlacementProblem(cell, rotated) == null;
     public Cottage? Place(Cell cell, bool rotated = false, BuildingKind kind = BuildingKind.Cottage)
     {
         if (!Enum.IsDefined(kind) || !CanPlace(cell, rotated)) return null;

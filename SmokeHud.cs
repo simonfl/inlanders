@@ -8,7 +8,7 @@ public partial class Game
 {
     private async void RunHudSmoke()
     {
-        try { await CheckHud(); GD.Print("SMOKE PASS: responsive HUD, clear default view, menu toggles, context selection, scrolling, world input isolation, and keyboard controls."); GetTree().Quit(); }
+        try { await CheckHud(); GD.Print("SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("HUD SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckHud()
@@ -51,6 +51,7 @@ public partial class Game
             CloseManagementUi();
         }
         GetWindow().Size = originalSize; await Settle();
+        await CheckPlacementPreview();
         // Exercise actual ground selection and its replacement by villager selection.
         var plan = _world.Place(new(3,0)) ?? throw new Exception("HUD building fixture rejected");
         await Settle(); await Click(_camera.UnprojectPosition(new(3,0,0))); await Settle();

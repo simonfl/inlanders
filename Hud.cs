@@ -142,10 +142,12 @@ public partial class Game
         {
             var b = Button(BuildingName(kind) + "\n" + BuildCost(kind), () => BeginPlacement(kind));
             b.AddThemeFontSizeOverride("font_size", 14); b.CustomMinimumSize = new(128, 60); b.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+            b.TooltipText = BuildingDescription(kind);
             kinds.AddChild(b); _kindButtons[kind] = b;
         }
         _plantTreeButton = Button("Plant alders · free [T]", () => { ToggleTreePlanting(); ClearSelection(); }); column.AddChild(_plantTreeButton);
         _plantTreeButton.TooltipText = "Mark open ground or exhausted stumps. Loggers plant; trees grow for three days and yield eight logs.";
+        _buildDescription = Text("", 14, true); column.AddChild(_buildDescription);
         _buildButton = Button("", () => { if (_placing) { _placing = false; RefreshGhost(); } else BeginPlacement(_buildKind); }); column.AddChild(_buildButton);
         column.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); _queue = new VBoxContainer(); column.AddChild(_queue);
     }
@@ -226,9 +228,10 @@ public partial class Game
             var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\nCarrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}";
             _assignButton.Text = $"Assign: {RoleName(NextRole(p.Role))}"; _assignButton.Disabled = _world.Food.Celebrating;
         }
-        _hint.Text = _placing ? (_plantingTrees ? "Plant alders · click open ground or an empty stump · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · click to place · R rotates · Esc cancels") : "";
-        if (_placing && !_ghostValid) _hint.Text += "\nKeep workers, entrances, and routes accessible.";
-        if (_uiTime < _noticeUntil) _hint.Text = _notice;
+        UpdateBuildDescription();
+        _hint.Text = _placing ? (_plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
+        if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? "Clear spot · click to place" : _placementProblem);
+        else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;
         _inspector.Size = new(308, 0);
     }

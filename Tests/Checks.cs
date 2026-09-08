@@ -102,3 +102,4 @@ Console.WriteLine("PASS: 12 seeded stress runs with live placement, reassignment
 FoodChecks.Run();
 WoodlandChecks.Run();
 SawmillChecks.Run();
+PlacementChecks.Run();

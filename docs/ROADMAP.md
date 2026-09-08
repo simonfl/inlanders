@@ -34,7 +34,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F18 | Campaign tutorial | Make the opening campaign settlement teach camera controls, building, jobs, and food through small objectives that advance as the player acts. | F11 |
 | F19 | Main menu | A title screen with Continue, New campaign, and settings for sound/music; add scenario/free-build selection as those modes arrive. | Campaign entry depends on F11 |
 | F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
-| F21 | UI and interaction — High priority; F21a done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
+| F21 | UI and interaction — High priority; F21a/b done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
 | F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
 
 ## Original milestone 4 — Make it enjoyable to watch
@@ -60,7 +60,7 @@ These are provisional chunks, **Idea** unless marked otherwise. Pick one and ref
 | Chunk | Player experience | Initial scope |
 | --- | --- | --- |
 | F21a — HUD and layout — Done | See the village clearly and find essential controls quickly. | Compact top/bottom bars; Build/People/Goals/Options menus; one contextual inspector; scrolling and responsive layouts down to 960×640. |
-| F21b — Building and placement | Browse buildings and place them with confidence. | Clear building choices, costs and descriptions, recognizable previews, rotation feedback, and specific explanations for rejected placements. |
+| F21b — Building and placement — Done | Browse buildings and place them with confidence. | Building descriptions, staffing/recipes, available materials, translucent building/tree previews, entrance arrows, rotation feedback, and specific rejection explanations. |
 | F21c — Selection and management | Click something and immediately understand it. | Contextual villager/building details, clear selection feedback, convenient job assignments, and accessible construction priorities. |
 | F21d — Economy and feedback | Understand shortages and know what needs attention. | Useful inventory/production information, actionable waiting reasons, and unobtrusive notifications. Exact metrics TBD. |
 | F21e — Watching the village | Set management aside and enjoy the settlement. | Collapse panels or hide the HUD, keep pause/speed easy to reach, and restore the management view easily. Camera conveniences TBD. |
@@ -69,7 +69,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 ## Where to start
 
-F21a establishes the UI direction and gives the village more screen space. Play it before choosing the next UI chunk; **F21b — Building and placement** is a natural follow-up. F21c can build on the contextual inspector introduced in F21a. UI remains a major priority.
+F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** can build on the contextual inspector next. UI remains a major priority; further refinements should follow play feedback.
 
 **F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
@@ -137,7 +137,7 @@ Want to play: Keep the village visible while making management controls easy to 
 
 First version: Compact resource/housing/day/pause/speed bar; bottom navigation for Build, People, Goals, and Options; one inspector for the selected villager or building. Building costs on cards, scrollable menus, contextual construction/job controls, and a camera-focus action. Menu shortcuts B/V/G/O and layered Esc handling. Narrow windows show either a menu or inspector, keeping text readable instead of scaling the whole HUD down.
 
-Later / TBD: Richer building previews and placement explanations (F21b), deeper management controls (F21c), economy feedback (F21d), and full HUD hiding (F21e).
+Follow-up: Building previews and placement explanations delivered in F21b. Deeper management controls (F21c), economy feedback (F21d), and full HUD hiding (F21e) remain open.
 
 Verification: Rendered gameplay, woodland, sawmill/lodge, save/load, and audio checks pass through the new menus. Focused HUD checks cover 1440×900, 1280×720, and 960×640, menu/inspector switching, scrolling, keyboard controls, and preventing UI clicks from placing buildings. Player feedback TBD.
 
@@ -182,3 +182,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - F08, first chunk: sawmill, sawyer role, planks, and four-bed lodge.
 - F10, first chunk: synthesized village sounds, wind/birds, positional playback, and persistent audio controls.
 - F21a: compact HUD, responsive menus, and contextual inspector.
+- F21b: building descriptions and supply guidance, recognizable placement previews, entrance/rotation feedback, and specific placement rejection reasons. Verified with simulation checks and rendered HUD checks, including repeat tree planting and preview state isolation. Visual style and description wording remain open to play feedback.
