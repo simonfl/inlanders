@@ -26,35 +26,47 @@ public partial class Game : Node3D
         AddChild(new DirectionalLight3D { RotationDegrees = new(-52, -30, 0), LightColor = new("fffaf1"), LightEnergy = 0.65f, ShadowEnabled = true, DirectionalShadowMaxDistance = 70 });
         _camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = 23, Far = 120, Current = true };
         AddChild(_camera);
-        Box(this, new(0, -1.4f, 0), new(20, 2.3f, 18), new("877d62"));
-        Box(this, new(0, -0.22f, 0), new(20, 0.35f, 18), new("a5ac75"));
-        var backdrop = Box(this, new(0, -2.65f, 0), new(200, 0.1f, 200), new("8caaa6"));
+        RebuildLandscape();
+    }
+    private Node3D _landscape = null!;
+    private void RebuildLandscape()
+    {
+        if (_landscape == null) { _landscape = new(); AddChild(_landscape); }
+        else Clear(_landscape);
+        if (!_world.Map.OriginalOutline) { MakeExpandedLandscape(); MakeYard(); return; }
+        Box(_landscape, new(0, -1.4f, 0), new(20, 2.3f, 18), new("877d62"));
+        Box(_landscape, new(0, -0.22f, 0), new(20, 0.35f, 18), new("a5ac75"));
+        var backdrop = Box(_landscape, new(0, -2.65f, 0), new(200, 0.1f, 200), new("8caaa6"));
         ((StandardMaterial3D)backdrop.MaterialOverride).ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
         var random = new Random(17);
         for (int x = -9; x <= 9; x++) for (int z = -8; z <= 8; z++)
         {
             float tint = (float)random.NextDouble() * 0.045f;
-            Box(this, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), new Color(0.42f + tint, 0.51f + tint, 0.30f + tint));
+            Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), new Color(0.42f + tint, 0.51f + tint, 0.30f + tint));
         }
         foreach (var p in new[] { new Vector3(-9,0,-8), new(-6,0,-8), new(-9,0,-4), new(9,0,-7), new(9,0,-3), new(6,0,-8), new(-9,0,8), new(9,0,8) })
-            MakeTree(p, 0.8f + (float)random.NextDouble() * 0.35f, new("698458"));
+            MakeTree(p, 0.8f + (float)random.NextDouble() * 0.35f, new("698458")).Reparent(_landscape);
         for (int i = 0; i < 65; i++)
         {
             float x = (float)random.NextDouble() * 18 - 9, z = (float)random.NextDouble() * 16 - 8;
             if (Math.Abs(x) < 7.5f && Math.Abs(z) < 6.5f) continue;
-            var rock = Mesh(this, new SphereMesh { Radius = 0.22f, Height = 0.36f, RadialSegments = 5, Rings = 3 }, new(x, 0.04f, z), new("b7b299"));
+            var rock = Mesh(_landscape, new SphereMesh { Radius = 0.22f, Height = 0.36f, RadialSegments = 5, Rings = 3 }, new(x, 0.04f, z), new("b7b299"));
             rock.Scale = new(1.5f, 0.8f, 1);
         }
-        Box(this, new(-3, 0.04f, 3), new(1.5f, 0.08f, 1.5f), new("bda47c"));
-        for (int i = 0; i < 4; i++) Box(this, new(-3.65f + i * 0.43f, 0.11f, 3), new(0.10f, 0.12f, 1.5f), _wood);
+        MakeYard();
+    }
+    private void MakeYard()
+    {
+        Box(_landscape, new(-3, 0.04f, 3), new(1.5f, 0.08f, 1.5f), new("bda47c"));
+        for (int i = 0; i < 4; i++) Box(_landscape, new(-3.65f + i * 0.43f, 0.11f, 3), new(0.10f, 0.12f, 1.5f), _wood);
         Sign(new(-3, 0, 4), "TIMBER YARD");
     }
     private void Sign(Vector3 at, string text)
     {
-        Box(this, at + new Vector3(0, 0.35f, 0), new(0.07f, 0.7f, 0.07f), _wood);
+        Box(_landscape, at + new Vector3(0, 0.35f, 0), new(0.07f, 0.7f, 0.07f), _wood);
         var label = new Label3D { Text = text, Position = at + new Vector3(0, 0.85f, 0), FontSize = 32, PixelSize = 0.008f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 5 };
-        AddChild(label);
+        _landscape.AddChild(label);
     }
     private Node3D MakeTree(Vector3 at, float scale, Color leaves)
     {

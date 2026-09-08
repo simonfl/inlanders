@@ -32,6 +32,14 @@ Completion saves progress and leaves the village running. Goals offers **Continu
 
 Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Launching resumes an active saved campaign, paused. Save with F5 before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
 
+## A larger map: Three clearings
+
+Open **Options [O] → Explore larger map** to start or resume a separate 32×32 landscape with an irregular outline, open building areas, 20 harvestable trees, and six berry patches. Eight villagers arrive with 64 berries. All buildings are available; the existing supper objective can give you a goal while you explore.
+
+**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Water, bridges, landscaping tools, and elevation remain future features.
+
+F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, choose **Explore larger map** again. Existing saves retain their original terrain rather than expanding automatically.
+
 ## The first village supper
 
 Eight villagers arrive with 24 berries. The objective is to **house all eight people and stock 16 loaves**, then click **Host supper** to gather everyone. The game continues after the celebration.
@@ -106,10 +114,11 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | M | Mute/unmute effects and nature ambience |
 | Speed | Cycle 1×, 3×, 6× |
 | F5 / Save | Save the current settlement |
+| Home | Frame the full map |
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The standalone manual save is `saves/settlement.json`; the previous save is retained as `.bak`. Saves preserve simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no autosave; campaign transitions and completion save automatically as described above. Older standalone saves remain supported.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Older standalone saves remain supported.
 
 ## Development
 
@@ -123,6 +132,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Sawmill.cs` | Sawyers, log-to-plank production, stock target, plank accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |
+| `Simulation/Maps.cs`, `MapVisuals.cs` | Saved map dimensions/land cells, larger authored map, terrain instancing, camera overview and map switching |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
@@ -159,5 +169,7 @@ Tests cover legal placements, competing workers, scarce timber, priorities, reas
 Audio checks inspect live Godot mixer output, muted silence, volume persistence, pause suppression, voice/cadence limits, PCM bounds, and the wind loop seam. They export WAV previews to `artifacts/f10-audio/` and use an isolated preferences file in `artifacts/`.
 
 Campaign checks complete both levels, exercise alternative housing and interrupted food deliveries, and preserve progress through meals, saves, replay, and startup resume. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
+
+Map checks build in three distant clearings, harvest the outer groves, preserve exact saves, and reject invalid terrain. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -MapSmokeTest` for overview/camera, distant placement, fast simulation, and map-switching checks at 1440×900 and 960×640. This is also included in `Test.ps1 -Rendered`.
 
 Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.

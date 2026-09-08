@@ -8,7 +8,8 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 4;
+    public int Version { get; set; } = 5;
+    public MapLayout? Map { get; set; }
     public CampaignState? Campaign { get; set; }
     public int Planks { get; set; }
     public int SawnLogs { get; set; }
@@ -34,19 +35,21 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
+            Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = Stored, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History
         }, SaveOptions);
     }
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2 or 3 or 4)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3 or 4 or 5)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version >= 5 && s.Map == null) throw new InvalidDataException("Save is missing map layout");
+        var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && (s.Campaign.Level is < 1 or > 2 || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
         if (s.People == null || s.People.Count != 8 || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,8)) ||
-            s.Trees == null || s.Buildings == null || s.Bushes == null || s.Bushes.Count != 3 || s.Food == null || s.MeetingSpots == null || s.History == null)
+            s.Trees == null || s.Buildings == null || s.Bushes == null || s.Bushes.Count == 0 || s.Food == null || s.MeetingSpots == null || s.History == null)
             throw new InvalidDataException("Save is missing settlement data");
-        if (s.Trees.Select(t => t.Id).Distinct().Count() != s.Trees.Count || s.Buildings.Select(c => c.Id).Distinct().Count() != s.Buildings.Count ||
+        if (s.Bushes.Select(b => b.Id).Distinct().Count() != s.Bushes.Count || s.Trees.Select(t => t.Id).Distinct().Count() != s.Trees.Count || s.Buildings.Select(c => c.Id).Distinct().Count() != s.Buildings.Count ||
             s.NextSite <= s.Buildings.Select(c => c.Id).DefaultIfEmpty(0).Max() || s.NextTree <= s.Trees.Select(t => t.Id).DefaultIfEmpty(-1).Max())
             throw new InvalidDataException("Invalid entity identifiers");
         bool Finite(float n) => float.IsFinite(n) && n >= 0;
@@ -60,11 +63,11 @@ public sealed partial class World
             if (!Enum.IsDefined(b.Kind) || !Finite(b.Construction) || b.Construction > 1 || !Finite(b.Growth) || b.Growth > 1 ||
                 !Finite(b.BakeProgress) || b.BakeProgress > 1 || b.Priority is < 0 or > 2) throw new InvalidDataException("Invalid building state");
         var w = new World(0) { InitialLogs = s.InitialLogs, GrownLogs = s.GrownLogs, Stored = s.Stored, Planks = s.Planks, SawnLogs = s.SawnLogs, _nextSite = s.NextSite, _nextTree = s.NextTree, _retry = s.Retry, Food = s.Food };
-        w.Campaign = s.Campaign;
+        w.Campaign = s.Campaign; w.Map = map;
         w.People.Clear(); w.People.AddRange(s.People); w.Trees.Clear(); w.Trees.AddRange(s.Trees);
         w.Cottages.AddRange(s.Buildings); w.Bushes.Clear(); w.Bushes.AddRange(s.Bushes);
         w.MeetingSpots.AddRange(s.MeetingSpots); w.History.AddRange(s.History);
-        w.Validate(); return w;
+        w.Validate(); w.ValidateMapOccupancy(); return w;
     }
     public void SaveFile(string path)
     {

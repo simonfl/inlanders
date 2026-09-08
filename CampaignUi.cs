@@ -56,9 +56,11 @@ public partial class Game
     }
     private void AdoptWorld(World world)
     {
+        bool mapChanged = !ReferenceEquals(_world.Map, world.Map);
         _world = world; CloseManagementUi(); _placing = false; _accumulator = 0; _paused = true;
         _completionAnnounced = world.Campaign?.Complete == true;
         CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
+        if (mapChanged) FrameMap();
     }
     private void SwitchCampaign(int level, bool replay)
     {

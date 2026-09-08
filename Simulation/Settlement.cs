@@ -116,7 +116,7 @@ public sealed partial class World
             for (int z = -1; z <= (rotated ? 1 : 0); z++) yield return new(c.X + x, c.Z + z);
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
-    private static bool Inside(Cell c) => c.X >= -8 && c.X <= 8 && c.Z >= -7 && c.Z <= 7;
+    private bool Inside(Cell c) => Map.Contains(c);
     private bool Blocked(Cell c) => !Inside(c) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
         Cottages.Any(h => Footprint(h.Cell, h.Rotated).Contains(c));
 

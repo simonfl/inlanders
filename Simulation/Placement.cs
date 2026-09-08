@@ -36,7 +36,8 @@ public sealed partial class World
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
         bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
         var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(c => c.Entrance)).Append(YardAccess).Append(entrance);
-        if (access.Concat(People.Select(At)).Any(c => FindPath(YardAccess, c, Obstacle) == null))
+        var reached = Reachable(YardAccess, Obstacle);
+        if (access.Concat(People.Select(At)).Any(c => !reached.Contains(c)))
             return "This would cut off a route between villagers, resources, or buildings and the timber yard.";
         return null;
     }

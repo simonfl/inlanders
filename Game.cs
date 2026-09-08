@@ -36,9 +36,12 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
     }
     private void CreateActors()
     {
+        RebuildLandscape();
+        _camera.Size = Math.Min(_camera.Size, MaximumZoom); UpdateCamera();
         ResetWorldAudio();
         Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
         CreateFoodViews();
@@ -52,14 +55,18 @@ public partial class Game : Node3D
     private void Reset()
     {
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
-        _world = World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
+        _world = _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
         _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
     }
     private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
     private void UpdateCamera()
     {
-        _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * 25, 24, MathF.Cos(_angle) * 25); _camera.LookAt(_focus);
+        var map = _world.Map;
+        _focus.X = Mathf.Clamp(_focus.X, map.MinX, map.MaxX); _focus.Z = Mathf.Clamp(_focus.Z, map.MinZ, map.MaxZ);
+        float distance = Math.Max(25, Math.Max(map.Width, map.Depth) * 1.5f);
+        _camera.Far = distance * 4;
+        _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * 0.96f, MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
     }
     private void RefreshSelection()
     {
@@ -93,6 +100,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.M) ToggleSoundMute();
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
+            if (key.Keycode == Key.Home) FrameMap();
             if (key.Keycode == Key.R && _placing && !_plantingTrees) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.B) ToggleDrawer(1);
@@ -106,7 +114,7 @@ public partial class Game : Node3D
         if (input is InputEventMouseButton mouse && mouse.Pressed)
         {
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
-            if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(32, _camera.Size + 1);
+            if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
             if (mouse.ButtonIndex != MouseButton.Left) return;
             if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
             var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
@@ -123,7 +131,7 @@ public partial class Game : Node3D
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
-        if (pan != Vector3.Zero) { _focus += pan.Rotated(Vector3.Up, _angle) * dt * 7; _focus.X = Mathf.Clamp(_focus.X, -7, 7); _focus.Z = Mathf.Clamp(_focus.Z, -7, 7); UpdateCamera(); }
+        if (pan != Vector3.Zero) { _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {

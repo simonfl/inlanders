@@ -104,3 +104,4 @@ WoodlandChecks.Run();
 SawmillChecks.Run();
 PlacementChecks.Run();
 CampaignChecks.Run();
+MapChecks.Run();

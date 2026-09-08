@@ -185,9 +185,10 @@ public sealed partial class World
         if (!CanCelebrate) return false;
         MeetingSpots.Clear();
         var cells = new List<Cell>();
-        for (int x = -8; x <= 8; x++) for (int z = -7; z <= 7; z++)
+        var reachable = Reachable(YardAccess, Blocked);
+        foreach (var c in Map.Land)
         {
-            var c = new Cell(x,z); if (!Blocked(c) && FindPath(YardAccess, c, Blocked) != null) cells.Add(c);
+            if (reachable.Contains(c)) cells.Add(c);
         }
         MeetingSpots.AddRange(cells.OrderBy(c => (c.Point - YardAccess.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X).Take(8));
         if (MeetingSpots.Count != 8) return false;
