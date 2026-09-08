@@ -67,6 +67,8 @@ The manual save is `saves/settlement.json`; the previous save is retained as `.b
 
 ## Development
 
+See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work chunks. Pick a feature ID; flesh out its first playable version when we start it.
+
 | File | Responsibility |
 | --- | --- |
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
