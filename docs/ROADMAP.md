@@ -33,12 +33,45 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
 | F18 | Campaign tutorial | Make the opening campaign settlement teach camera controls, building, jobs, and food through small objectives that advance as the player acts. | F11 |
 | F19 | Main menu | A title screen with Continue, New campaign, and settings for sound/music; add scenario/free-build selection as those modes arrive. | Campaign entry depends on F11 |
+| F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
+| F21 | UI and interaction — High priority | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Start with F21a below. | — |
+| F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
+
+## Original milestone 4 — Make it enjoyable to watch
+
+This is a presentation milestone spanning several features; **F04 is the separate gathering-places feature**.
+
+| Part of the original milestone | Track here | Current state / next opportunity |
+| --- | --- | --- |
+| Carry poses and tools | F03 | First pass done; smoother transitions and more reactions remain possible. |
+| Construction stages | F22 | Basic stages exist; make them specific to each building. |
+| Growing crops and trees | F22, F02 | Both grow visibly; crop variety and harvest feedback can develop further. |
+| Sound effects and ambience | F10 | Planned; add recognizable work sounds and quiet outdoor ambience. |
+| Music | F17 | Planned separately from sound effects. |
+| Lighting | F20 | Planned; develop the village's visual mood. |
+| Restrained, useful UI | F21 | A major priority with several selectable chunks, detailed below. |
+
+### F21 — UI and interaction
+
+UI improvement is a substantial part of the game roadmap. Make building and managing the settlement intuitive while leaving room to watch village life. A watch mode is only one part of this work.
+
+These are provisional chunks, all **Idea**. Pick one and refine its details when we start.
+
+| Chunk | Player experience | Initial scope |
+| --- | --- | --- |
+| F21a — HUD and layout | See the village clearly and find essential controls quickly. | Compact resource/objective/time controls, a consistent visual hierarchy, and panels that open when needed. Support different window sizes and readable text. |
+| F21b — Building and placement | Browse buildings and place them with confidence. | Clear building choices, costs and descriptions, recognizable previews, rotation feedback, and specific explanations for rejected placements. |
+| F21c — Selection and management | Click something and immediately understand it. | Contextual villager/building details, clear selection feedback, convenient job assignments, and accessible construction priorities. |
+| F21d — Economy and feedback | Understand shortages and know what needs attention. | Useful inventory/production information, actionable waiting reasons, and unobtrusive notifications. Exact metrics TBD. |
+| F21e — Watching the village | Set management aside and enjoy the settlement. | Collapse panels or hide the HUD, keep pause/speed easy to reach, and restore the management view easily. Camera conveniences TBD. |
+
+Style, layout, icons, and interaction details remain open. Start with a playable UI pass and adjust after using it; the main menu stays under F19 and tutorial guidance under F18.
 
 ## Where to start
 
-Suggested next pick: **F01 — Paths**, because arranging the settlement is a big part of the fun and this gives layout an immediate purpose.
+Suggested next pick: **F21a — HUD and layout**, establishing the UI direction and giving the village more screen space. UI is a major priority, not just a final polish pass.
 
-Other good independent picks: **F03** for more charm or **F11** for a new reason to play. These are alternatives, not a required sequence.
+**F10 — Sound effects** is the next strong presentation pick, followed by **F20 — Lighting and atmosphere**. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
 
