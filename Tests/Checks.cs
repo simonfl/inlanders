@@ -109,3 +109,4 @@ MapChecks.Run();
 WaterChecks.Run();
 ClearingChecks.Run();
 PathChecks.Run();
+PopulationChecks.Run();

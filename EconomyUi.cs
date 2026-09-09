@@ -32,10 +32,7 @@ public partial class Game
             var label=Text("",14,true); column.AddChild(label); _economyStocks[resource]=label;
         }
         column.AddChild(Text("IDLE WORKERS · SELECT TO INSPECT",12));
-        for(int i=0;i<World.Population;i++) {
-            int id=i;var button=Button("",()=>SelectPerson(id));button.AutowrapMode=TextServer.AutowrapMode.WordSmart;
-            button.Alignment=HorizontalAlignment.Left;button.AddThemeFontSizeOverride("font_size",14);column.AddChild(button);_idleLinks.Add(button);
-        }
+        _idleContainer = new VBoxContainer(); column.AddChild(_idleContainer);
         column.AddChild(Text("Growing crops, regrowing berries, and a stocked sawmill can leave workers idle normally. Inspect their current task before changing jobs.",14,true));
     }
     private void ActOnEconomyIssue(int index)
@@ -54,7 +51,7 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
-        _economyFood.Text=$"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n8 food per meal · berries first\nAssumes no new deliveries; grain is not edible.";
+        _economyFood.Text=$"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries first\nAssumes no new deliveries; grain is not edible.";
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
         _economySummary.Text=count==0?"No immediate shortages detected.":"Select a message to open the relevant controls.";

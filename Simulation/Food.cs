@@ -39,12 +39,12 @@ public sealed class FoodState
 
 public sealed partial class World
 {
-    public const int SupperCost = 16;
+    public int SupperCost => Population * 2;
     public FoodState Food { get; private set; } = new();
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
-    public bool CanCelebrate => Housed == 8 && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == 8;
+    public bool CanCelebrate => Housed == Population && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
     {
@@ -175,9 +175,9 @@ public sealed partial class World
         Food.MealClock += dt;
         while (Food.MealClock >= 60)
         {
-            Food.MealClock -= 60; int berries = Math.Min(8, Food.Berries); Food.Berries -= berries; Food.EatenBerries += berries;
-            int bread = Math.Min(8 - berries, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
-            Food.Hunger = (8 - berries - bread) / 8f;
+            Food.MealClock -= 60; int berries = Math.Min(Population, Food.Berries); Food.Berries -= berries; Food.EatenBerries += berries;
+            int bread = Math.Min(Population - berries, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
+            Food.Hunger = (Population - berries - bread) / (float)Population;
         }
     }
     private List<Cell> SupperSpots()
@@ -186,14 +186,14 @@ public sealed partial class World
         var center = square?.Entrance ?? YardAccess;
         var reachable = Reachable(YardAccess, Blocked);
         return reachable.Where(c => square == null || (c.Point - center.Point).LengthSquared() <= 16)
-            .OrderBy(c => (c.Point - center.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X).Take(8).ToList();
+            .OrderBy(c => (c.Point - center.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X).Take(Population).ToList();
     }
     public bool BeginSupper()
     {
         if (!CanCelebrate) return false;
         MeetingSpots.Clear();
         MeetingSpots.AddRange(SupperSpots());
-        if (MeetingSpots.Count != 8) return false;
+        if (MeetingSpots.Count != Population) return false;
         Food.Bread -= SupperCost; Food.SupperBread += SupperCost;
         foreach (var v in People) Interrupt(v);
         Food.Celebrating = true; Food.MeetingClock = 0; _retry = 0; return true;

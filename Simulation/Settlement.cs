@@ -80,7 +80,8 @@ public sealed class Cottage
 public sealed partial class World
 {
     public const int Cost = 6;
-    public const int Population = 8;
+    public const int InitialPopulation = 8;
+    public int Population => People.Count;
     public List<Villager> People { get; } = new();
     public List<TimberTree> Trees { get; } = new();
     public List<Cottage> Cottages { get; } = new();
@@ -90,7 +91,9 @@ public sealed partial class World
     public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task == Work.ToSawLogs).Sum(v => v.Reserved);
     public int Available => Stored - ReservedStorage;
     public int InitialLogs { get; private set; }
-    public int Housed => Math.Min(Population, Cottages.Where(c => c.Complete).Sum(c => c.Kind == BuildingKind.Cottage ? 2 : c.Kind == BuildingKind.Lodge ? 4 : 0));
+    public int Beds => Cottages.Where(c => c.Complete).Sum(c => c.Kind == BuildingKind.Cottage ? 2 : c.Kind == BuildingKind.Lodge ? 4 : 0);
+    public int Housed => Math.Min(Population, Beds);
+    public int SpareBeds => Math.Max(0, Beds - Population);
     public List<string> History { get; } = new();
     private int _nextSite = 1;
     private int _nextTree;
@@ -104,7 +107,7 @@ public sealed partial class World
         _nextTree = Trees.Count;
         InitialLogs = Trees.Sum(t => t.Logs);
         var names = new[] { "Mara", "Ivo", "Nell", "Otis", "Ada", "Finn", "Bea", "Sol" };
-        for (int i = 0; i < Population; i++) People.Add(new Villager
+        for (int i = 0; i < InitialPopulation; i++) People.Add(new Villager
         {
             Id = i, Name = names[i], Position = new Vector2(-1 + i % 4, 3 + i / 4),
             Role = i < 4 ? Role.Logger : Role.Builder
@@ -304,6 +307,7 @@ public sealed partial class World
     public void Validate()
     {
         void Check(bool condition, string error) { if (!condition) throw new InvalidOperationException(error); }
+        Check(Population >= InitialPopulation && People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0, Population)), "Invalid population identifiers");
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");

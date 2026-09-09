@@ -22,7 +22,7 @@ public partial class Game
     private static string BuildingDescription(BuildingKind kind) => kind switch
     {
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing. Costs 6 logs.",
-        BuildingKind.Square => "A gathering place for village supper. No staff. Leave eight walkable tiles within four tiles of the entrance.",
+        BuildingKind.Square => "A gathering place for village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",

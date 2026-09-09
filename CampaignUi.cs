@@ -103,7 +103,7 @@ public partial class Game
         var campaign = _world.Campaign;
         _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
-        _goalArrival.Text = campaign == null ? "Give eight neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
+        _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
         _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : "Four settlements to learn at your own pace.";
         if (campaign == null) return;
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;

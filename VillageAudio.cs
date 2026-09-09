@@ -77,7 +77,8 @@ public partial class Game
         if (_paused) { foreach (var voice in _voices) voice.Stop(); return; }
         foreach (var v in _world.People)
         {
-            if (!_soundTraces.TryGetValue(v.Id, out var trace)) continue;
+            if (!_soundTraces.TryGetValue(v.Id, out var trace))
+                _soundTraces[v.Id] = trace = new SoundTrace { Position = v.Position, Cargo = v.Carried, Next = _soundTime + 0.1f };
             trace.Distance += System.Numerics.Vector2.Distance(trace.Position, v.Position); trace.Position = v.Position;
             if (trace.Cargo > v.Carried) WorldCue(Cue.Drop, new(v.Position.X, 0.5f, v.Position.Y), v.Id);
             trace.Cargo = v.Carried;

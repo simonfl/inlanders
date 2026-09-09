@@ -48,10 +48,6 @@ public partial class Game
         _staffMinus = Button("− Worker",()=>Staff(-1)); _staffPlus = Button("+ Worker",()=>Staff(1));
         _staffMinus.SizeFlagsHorizontal = _staffPlus.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         row.AddChild(_staffMinus); row.AddChild(_staffPlus);
-        for(int i=0;i<World.Population;i++) {
-            int id=i; var button=Button("",()=>SelectPerson(id)); button.AddThemeFontSizeOverride("font_size",14);
-            _buildingDetails.AddChild(button); _workerLinks.Add(button);
-        }
     }
     private void UpdateManagementControls()
     {
@@ -73,7 +69,7 @@ public partial class Game
             int capacity=site.Kind==BuildingKind.ForagerHut?2:1;
             _workplaceStaff.Text=$"{active}/{capacity} working here · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nWorkers share workplaces; + uses a spare worker or transfers one from another job.";
             _staffMinus.Disabled=_world.Food.Celebrating || assigned==0;
-            _staffPlus.Disabled=_world.Food.Celebrating || assigned==World.Population;
+            _staffPlus.Disabled=_world.Food.Celebrating || assigned==_world.Population;
         }
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];

@@ -66,5 +66,6 @@ public partial class Game
         await CheckWatchUi();
         await CheckAtmosphereUi();
         await CheckGrowthUi();
+        await CheckPopulationUi();
     }
 }

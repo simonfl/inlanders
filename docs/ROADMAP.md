@@ -6,7 +6,7 @@ A living menu of things we might build. Pick one chunk at a time; details, numbe
 
 A small, peaceful settlement that is satisfying to arrange and watch. Villagers carry real goods, buildings depend on one another, and short scenarios give the village a purpose. Keep Windows, local play, Godot, and C# as the starting point.
 
-Current baseline: milestones 1–3 are playable, with eight workers, timber and construction, foraging/farming/baking, housing, a village supper, and save/load.
+Current baseline: milestones 1–3 are playable, with eight starting workers and optional newcomer pairs, timber and construction, foraging/farming/baking, housing, a village supper, and save/load.
 
 ## Feature menu
 
@@ -19,7 +19,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F03 | A village that feels alive — Done (first chunk) | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
 | F04 | Gathering places — Supper square done | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
 | F05 | New food choices | Add one alternative food chain, such as vegetables or an orchard, with its own building and visible harvest. Exact choice TBD. | — |
-| F06 | More villagers | A small group arrives when spare housing is available; grow beyond the original eight. | — |
+| F06 | More villagers — Done (first chunk) | Invite pairs with two spare beds and two meals for the enlarged village; population, staffing, meals, supper, and saves scale. | — |
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
 | F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. Coordinate outdoor decoration with F12c landscaping. | — |
@@ -160,7 +160,7 @@ Each settlement starts fresh, paused, with eight villagers. No deadlines, deaths
 
 F18 guidance covers camera/pause/building, staffing and waiting, food production, planks, planting, and gathering. One contextual hint appears at a time; dismiss, disable, or reopen guidance without affecting objectives. Earlier food lessons provide working support buildings in later levels.
 
-**F04a — Village square: implemented for the finale.** Costs six logs, standard 3×2 footprint, no staff. A table and benches provide the supper destination. Hosting requires eight reachable gathering cells within four tiles of its entrance. All eight walk there, 16 loaves are consumed once, and the celebration finishes after everyone arrives. Daily leisure and happiness effects remain future F04 work.
+**F04a — Village square: implemented for the finale.** Costs six logs, standard 3×2 footprint, no staff. A table and benches provide the supper destination. Hosting requires one reachable gathering cell per villager within four tiles of its entrance. Everyone walks there, two loaves per villager are consumed once, and the celebration finishes after everyone arrives. Daily leisure and happiness effects remain future F04 work.
 
 Campaign completion offers continued play, next settlement (except the finale), or replay. Main menu and Goals list all four levels. Campaign saves include snapshots, completed levels, dismissed guidance, delivery/planting progress, and in-flight supper state. Replay keeps the preceding village with a restore/swap control. Save compatibility is not a project requirement at this stage; start fresh when formats change.
 
@@ -259,7 +259,7 @@ Later / TBD: permanent workplace assignments, richer production diagnostics (F21
 
 Status: Done (first chunk).
 
-Open Economy with I, its bottom-bar button, or any top-bar resource. The inventory separates available, stored, reserved, carried, and workplace goods. Construction demand excludes material already delivered or committed to incoming shipments. Food coverage counts full eight-person meals using berries and bread in storage, with time until the next meal; it explicitly assumes no new deliveries.
+Open Economy with I, its bottom-bar button, or any top-bar resource. The inventory separates available, stored, reserved, carried, and workplace goods. Construction demand excludes material already delivered or committed to incoming shipments. Food coverage counts full meals for the current population using berries and bread in storage, with time until the next meal; it explicitly assumes no new deliveries.
 
 A quiet issue-count badge replaces repeated shortage pop-ups. Messages diagnose low food, missing production buildings, unstaffed workplaces, missing builders/loggers, and exhausted timber. Selecting one opens building placement, the relevant People allocation, or tree planting. Warnings refresh from current state and disappear when resolved. Idle workers link to their inspector and show actual waiting reasons; growing crops, regrowth, and full stock targets are explained as normal waits.
 
@@ -302,6 +302,20 @@ Wheat grows through short green shoots, taller leaves, green-gold ears, and ripe
 Verification: rendered gameplay and focused checks cover growth stages, progressive harvesting, rotation, paused state, and restoring a partial harvest.
 
 Later / TBD: material piles and scaffolding, smoother growth transitions, richer harvesting motions, and distinct future crops.
+### F06 — More villagers
+
+Status: Done (first chunk).
+
+People → Invite 2 newcomers welcomes a pair near the timber yard when there are at least two spare completed beds, two clear reachable arrival cells, and stored berries/bread for two meals after arrival. For the first pair that means ten beds and 20 food. Grain, carried food, and workplace output do not count. The reserve stays in storage; inviting has no separate food cost. The button explains unmet requirements.
+
+Arrivals are optional in every settlement, start unassigned, and can be invited repeatedly as housing and food allow. Rosters, actor views, job controls, worker links, housing information, and economy coverage grow with the village and shrink correctly when switching settlements. Newcomers have persistent identities and ordinary work/audio behavior.
+
+Meals consume one food per current villager per day. Supper requires everyone housed, two loaves per person, and one reachable gathering spot per person; invitations pause during the celebration. Authored campaign targets remain unchanged and need no arrivals; choosing to grow increases the food and gathering space needed for supper. Save/load preserves the whole enlarged workforce and active jobs.
+
+Verification: repeated 8→10→12 arrivals, rejected commands without mutation, edible reserve and bed limits, dynamic meals/hunger/economy, exact work and supper continuation, invalid IDs, rendered arrivals and assignment, audio registration, 1440/960 menus, and switching back to eight people.
+
+Later / TBD: arrival journeys and timing, larger-scale balancing/performance, families, population preferences, and more names/appearance variations.
+
 ### Chunk template
 
 Copy this when we choose a feature; no need to fill it out for every idea upfront.

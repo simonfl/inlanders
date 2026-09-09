@@ -8,7 +8,7 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 8;
+    public int Version { get; set; } = 9;
     public HashSet<Cell> Paths { get; set; } = new();
     public MapLayout? Map { get; set; }
     public CampaignState? Campaign { get; set; }
@@ -44,11 +44,11 @@ public sealed partial class World
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9)) throw new InvalidDataException($"Unsupported save version {s.Version}");
         if (s.Version >= 5 && s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && (s.Campaign.Level is < 1 or > 4 || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
-        if (s.People == null || s.People.Count != 8 || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,8)) ||
+        if (s.People == null || s.People.Count < InitialPopulation || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,s.People.Count)) ||
             s.Trees == null || s.Buildings == null || s.Bushes == null || s.Bushes.Count == 0 || s.Food == null || s.MeetingSpots == null || s.History == null)
             throw new InvalidDataException("Save is missing settlement data");
         if (s.Bushes.Select(b => b.Id).Distinct().Count() != s.Bushes.Count || s.Trees.Select(t => t.Id).Distinct().Count() != s.Trees.Count || s.Buildings.Select(c => c.Id).Distinct().Count() != s.Buildings.Count ||
@@ -56,7 +56,7 @@ public sealed partial class World
             throw new InvalidDataException("Invalid entity identifiers");
         bool Finite(float n) => float.IsFinite(n) && n >= 0;
         if (!Finite(s.Food.Time) || !Finite(s.Food.MealClock) || s.Food.MealClock >= 60 || !Finite(s.Food.MeetingClock) ||
-            !Finite(s.Food.Hunger) || s.Food.Hunger > 1 || !float.IsFinite(s.Retry) || (s.Food.Celebrating && s.MeetingSpots.Count != 8))
+            !Finite(s.Food.Hunger) || s.Food.Hunger > 1 || !float.IsFinite(s.Retry) || (s.Food.Celebrating && s.MeetingSpots.Count != s.People.Count))
             throw new InvalidDataException("Invalid clock or celebration state");
         foreach (var p in s.People)
             if (p.Route == null || p.Name == null || !float.IsFinite(p.Position.X) || !float.IsFinite(p.Position.Y) || !Finite(p.Timer) ||

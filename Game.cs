@@ -164,6 +164,11 @@ public partial class Game : Node3D
     private void RenderActors(float dt)
     {
         RenderPaths();
+        while (_people.Count < _world.Population)
+        {
+            var p = _world.People[_people.Count]; var view = MakeVillager(p.Id);
+            _dynamic.AddChild(view.Body); view.Body.Position = new(p.Position.X, 0, p.Position.Y); _people.Add(view);
+        }
         foreach (var v in _world.People)
         {
             var view = _people[v.Id]; var target = new Vector3(v.Position.X, 0, v.Position.Y);

@@ -134,11 +134,8 @@ public partial class Game
         }
         _staffing = Text("", 13, true); column.AddChild(_staffing); column.AddChild(Text("VILLAGERS · SELECT TO INSPECT", 12));
         var roster = new GridContainer { Columns = 2 }; column.AddChild(roster);
-        foreach (var v in _world.People)
-        {
-            int id = v.Id; var b = Button(v.Name, () => SelectPerson(id)); b.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; b.Alignment = HorizontalAlignment.Left;
-            roster.AddChild(b); _roster.Add(b);
-        }
+        _rosterContainer = roster;
+        MakeArrivalControls(column);
     }
     private void MakeBuildMenu(VBoxContainer column)
     {
@@ -169,7 +166,7 @@ public partial class Game
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
         _standaloneGuide = new(); column.AddChild(_standaloneGuide);
         _standaloneGuide.AddChild(Text("GETTING THERE", 12));
-        _standaloneGuide.AddChild(Text("Forager hut → berries\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use 8 food per day, berries first. Grain must be baked. Four cottages or two lodges house everyone.", 15, true));
+        _standaloneGuide.AddChild(Text("Forager hut → berries\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use one food per person daily, berries first. Grain must be baked. Cottages house two; lodges four. Invite newcomers from People when you have spare beds and food.", 15, true));
         MakeCampaignUi(column);
     }
     private void MakeOptionsMenu(VBoxContainer column)
@@ -201,7 +198,8 @@ public partial class Game
     private void UpdateHud()
     {
         if (_hudSize != _hud.Size) LayoutHud();
-        _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / 8";
+        UpdatePopulationUi();
+        _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
         _foodStatus.Text = _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
         _foodStatus.GetParent<Control>().TooltipText = $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Villagers eat berries first, then bread.";
@@ -210,16 +208,16 @@ public partial class Game
             label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Grain => _world.Food.Grain, _ => _world.Food.Bread }).ToString();
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
         _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · sawmills aim for stock of 8";
-        _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / 8\nBread for supper  {Math.Min(16, _world.Food.Bread)} / 16";
-        _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / 8f * 50 + Math.Min(16, _world.Food.Bread) / 16f * 50;
+        _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.Food.Bread)} / {_world.SupperCost}";
+        _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.Food.Bread) / (float)_world.SupperCost * 50;
         _supperButton.Disabled = !_world.CanCelebrate;
-        _supperButton.Text = _world.Food.SupperComplete ? "Supper complete" : _world.Food.Celebrating ? "Gathering…" : "Host supper · 16 loaves";
+        _supperButton.Text = _world.Food.SupperComplete ? "Supper complete" : _world.Food.Celebrating ? "Gathering…" : $"Host supper · {_world.SupperCost} loaves";
         for (int i = 0; i < _menuButtons.Count; i++)
         { _menuButtons[i].Modulate = _drawer.Visible && _tabs.CurrentTab == i ? _cream : Colors.White; _menuButtons[i].Text = i == 2 && _world.CanCelebrate ? "Goals · Ready" : MenuNames[i]; }
         foreach (var role in _counts.Keys)
         {
             int count = _world.People.Count(v => v.Role == role); _counts[role].Text = $"{RoleName(role)}s  {count}";
-            _allocationButtons[(role, -1)].Disabled = count == 0 || _world.Food.Celebrating; _allocationButtons[(role, 1)].Disabled = count == 8 || _world.Food.Celebrating;
+            _allocationButtons[(role, -1)].Disabled = count == 0 || _world.Food.Celebrating; _allocationButtons[(role, 1)].Disabled = count == _world.Population || _world.Food.Celebrating;
         }
         _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle";
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
@@ -234,7 +232,7 @@ public partial class Game
         {
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
-            BuildingKind.Square => "Gathering place · no staff\nHouse everyone and stock 16 bread, then host supper in Goals. Leave 8 nearby walkable tiles.",
+            BuildingKind.Square => $"Gathering place · no staff\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: 8 planks",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.Farm => $"Crop {selected.Growth:P0}\n{selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain\n{selected.OutputBread} loaves ready"

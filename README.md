@@ -38,9 +38,9 @@ Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
 3. **Room among the trees:** build a sawmill and lodge, house eight, and have loggers plant four trees. Marking spots alone does not count; maturity is not required.
-4. **A place for everyone:** build a village square, house eight, stock 16 bread, then host supper from Goals. Everyone gathers near the square before the campaign finishes.
+4. **A place for everyone:** build a village square, house eight, stock two loaves per person, then host supper from Goals. Everyone gathers near the square before the campaign finishes.
 
-The square costs six logs and needs no staff. Leave eight walkable tiles within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
+The square costs six logs and needs no staff. Leave one walkable tile per villager within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
 Save compatibility is not guaranteed during prototyping; use a fresh campaign for this revised sequence. If an old campaign cannot load, the Campaign menu offers **Start fresh campaign**.
 
@@ -64,16 +64,24 @@ You can cancel unfinished bridges; delivered logs become recoverable salvage on 
 
 ## The first village supper
 
-Eight villagers arrive with 24 berries. The objective is to **house all eight people and stock 16 loaves**, then click **Host supper** to gather everyone. The game continues after the celebration.
+Eight villagers arrive with 24 berries. The objective is to **house everyone and stock two loaves per person** (16 for the starting eight), then click **Host supper** to gather everyone. The game continues after the celebration.
 
 1. Open **Build** (button or **B**), select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
 2. Build a **Farm** and a **Bakery**. A farmer sows grain, waits for it to ripen, harvests it, and hauls it to the pantry. A baker collects grain, bakes it, and carries bread back.
 3. Build four **Cottages**, each housing two villagers. Cottages and production buildings cost six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand. A **Lodge** is an alternative with four beds, costing eight planks from a sawmill.
-4. When everyone has shelter and 16 loaves are in the pantry, open **Goals** and host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs. The Goals button shows **Ready** when you qualify.
+4. When everyone has shelter and two loaves per person are in the pantry, open **Goals** and host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs. The Goals button shows **Ready** when you qualify.
 
 The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in **People** (button or **V**). Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager on the map or in People to inspect their task, waiting reason, and cargo; choose any role in the inspector's job picker and press Assign. **Follow villager** tracks them until you pan, press Home, or clear selection. **Inspect workplace** opens their current work site.
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
+
+### Welcoming newcomers
+
+Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
+
+The pair joins near the timber yard, unassigned. Select them in People and choose their jobs. Keep adding housing and food to invite more pairs. Arrivals are optional in campaigns and free play; every new settlement still starts with eight people.
+
+Meals scale with population, as do Economy coverage and supper requirements. Supper needs two loaves and one clear reachable gathering tile per person, with everyone housed. Invitations are unavailable during supper. Save/load preserves newcomers and their work.
 
 ### Lighting and atmosphere
 
@@ -95,7 +103,7 @@ The Economy badge counts current issues. Click a shortage message to open the re
 
 ### Food and work
 
-- One game day lasts 60 simulation seconds. Eight food units are consumed each day, using berries before bread. Raw grain is not edible.
+- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, using berries before bread. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
 - Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
 - Wheat grows from green shoots to golden ears. Each harvested load leaves two columns of stubble, making the remaining crop visible.

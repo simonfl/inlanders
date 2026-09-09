@@ -30,7 +30,7 @@ public sealed partial class World
             new(CampaignGoalKind.Farm, "Farm", 1), new(CampaignGoalKind.Bakery, "Bakery", 1), new(CampaignGoalKind.DeliveredBread, "Loaves delivered", 16)),
         new(3, "Room among the trees", "Four neighbors still need beds. Turn timber into planks for a lodge, and plant the next generation of woodland.",
             new(CampaignGoalKind.Sawmill, "Sawmill", 1), new(CampaignGoalKind.Lodge, "Lodge", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.TreesPlanted, "Trees planted by loggers", 4)),
-        new(4, "A place for everyone", "Build a village square, house everyone, and set aside 16 loaves. Host supper from Goals and watch everyone gather.",
+        new(4, "A place for everyone", "Build a village square, house everyone, and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
             new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1))
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries - Food.InitialBerries;
@@ -116,9 +116,9 @@ public sealed partial class World
         }
         if (Campaign.Level == 4)
         {
-            Hint("square", "Build a village square. Leave eight walkable tiles within four tiles of its entrance for guests.", !HasBuilding(BuildingKind.Square));
-            Hint("final-homes", "Finish housing for all eight before hosting supper.", Housed < 8);
-            Hint("supper", "Stock 16 loaves, then press Host supper in Goals. Everyone walks to the square; the meal finishes after all eight arrive.");
+            Hint("square", "Build a village square. Leave one walkable tile per villager within four tiles of its entrance for guests.", !HasBuilding(BuildingKind.Square));
+            Hint("final-homes", "Finish housing for everyone before hosting supper.", Housed < Population);
+            Hint("supper", $"Stock {SupperCost} loaves, then press Host supper in Goals. Leave {Population} clear nearby tiles. The meal finishes after everyone arrives.");
         }
         return hints.FirstOrDefault(h => !Campaign.Dismissed.Contains(h.Id));
     }

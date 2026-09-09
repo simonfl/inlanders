@@ -19,7 +19,7 @@ public partial class Game
         var v = new PersonView();
         v.Body.AddChild(v.Rig); v.Rig.AddChild(v.Torso); v.Torso.Position = new(0, 0.43f, 0);
         var shirts = new[] { "bf714d", "5c8390", "a19358", "7c6c92", "7a9161", "bd8a68", "af6971", "588c83" };
-        Cylinder(v.Torso, new(0, 0.21f, 0), 0.26f, 0.48f, new(shirts[id]), 0.21f);
+        Cylinder(v.Torso, new(0, 0.21f, 0), 0.26f, 0.48f, new(shirts[id % shirts.Length]), 0.21f);
         v.Torso.AddChild(v.Head); v.Head.Position = new(0, 0.58f, 0);
         Mesh(v.Head, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, Vector3.Zero, new("e7bd8e"));
         Cylinder(v.Head, new(0, 0.19f, 0), 0.30f, 0.07f, new("dbc28c"));

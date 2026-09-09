@@ -36,7 +36,7 @@ public sealed partial class World
         }
         if(!Food.Celebrating)
         {
-            if(Food.Berries+Food.Bread<16)
+            if(Food.Berries+Food.Bread<Population*2)
                 issues.Add(new("food-low",$"Food reserve is below two meals. Villagers eat {Population} berries/bread per day; grain must be baked.",
                     Build: !Planned(BuildingKind.ForagerHut) ? BuildingKind.ForagerHut : null, Staff: !Planned(BuildingKind.ForagerHut) ? null : HasForagerHut ? Role.Forager : Role.Builder));
         }
