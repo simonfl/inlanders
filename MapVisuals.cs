@@ -8,6 +8,7 @@ public partial class Game
     private float MaximumZoom => Math.Max(32, (_world.Map.Width + _world.Map.Depth) * 0.95f);
     private void FrameMap()
     {
+        _followPerson = false;
         var map = _world.Map;
         _focus = new((map.MinX + map.MaxX) / 2f, 0, (map.MinZ + map.MaxZ) / 2f);
         _camera.Size = map.OriginalOutline ? 23 : Math.Min(MaximumZoom, (map.Width + map.Depth) * 0.76f);

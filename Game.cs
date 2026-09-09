@@ -73,7 +73,12 @@ public partial class Game : Node3D
     }
     private void RefreshSelection()
     {
-        Clear(_selection);
+        Clear(_selection); _selection.Position = Vector3.Zero;
+        if (_selectedPerson >= 0)
+        {
+            for (int i=0;i<12;i++) { float a=i*Mathf.Tau/12; var mark=Box(_selection,new(MathF.Cos(a)*0.4f,0.035f,MathF.Sin(a)*0.4f),new(0.12f,0.03f,0.05f),new("f1d292")); mark.Rotation=new(0,-a,0); }
+            return;
+        }
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
         foreach (var c in World.Footprint(site.Cell, site.Rotated, site.Kind)) Box(_selection, new(c.X, 0.02f, c.Z), new(1.04f, 0.03f, 1.04f), new("e8c688"));
     }
@@ -142,7 +147,7 @@ public partial class Game : Node3D
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
-        if (pan != Vector3.Zero) { _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
+        if (pan != Vector3.Zero) { _followPerson = false; _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {
@@ -150,7 +155,7 @@ public partial class Game : Node3D
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        RenderActors(dt); RenderFoodViews(); UpdateHud(); UpdateAudio(dt);
+        RenderActors(dt); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateAudio(dt);
     }
     private void RenderActors(float dt)
     {

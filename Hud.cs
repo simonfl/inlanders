@@ -89,13 +89,14 @@ public partial class Game
         _tabs = new TabContainer { TabsVisible = false, SizeFlagsVertical = Control.SizeFlags.ExpandFill }; drawerColumn.AddChild(_tabs);
         var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options");
         MakePeopleMenu(people); MakeBuildMenu(build); MakeGoalsMenu(goals); MakeOptionsMenu(options);
-        _inspector = HudPanel(_hud); var inspection = new VBoxContainer(); inspection.AddThemeConstantOverride("separation", 12); _inspector.AddChild(inspection);
+        _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
+        var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
         var inspectHeading = new HBoxContainer(); inspection.AddChild(inspectHeading);
         var inspectLabel = Text("SELECTED", 12); inspectLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; inspectLabel.Modulate = new("a8bcb0"); inspectHeading.AddChild(inspectLabel);
         inspectHeading.AddChild(Button("×", ClearSelection, 32));
         _personDetails = new VBoxContainer(); _personDetails.AddThemeConstantOverride("separation", 12); inspection.AddChild(_personDetails);
-        _inspect = Text("", 16, true); _personDetails.AddChild(_inspect);
-        _assignButton = Button("Assign", () => { if (_selectedPerson >= 0) _world.Assign(_selectedPerson, NextRole(_world.People[_selectedPerson].Role)); }); _personDetails.AddChild(_assignButton);
+        _inspect = Text("", 16, true); _personDetails.AddChild(_inspect); MakeJobChoice();
+        _assignButton = Button("Assign", () => { if (_selectedPerson >= 0) _world.Assign(_selectedPerson, (Role)_jobChoice.GetSelectedId()); }); _personDetails.AddChild(_assignButton);
         _buildingDetails = new VBoxContainer(); _buildingDetails.AddThemeConstantOverride("separation", 12); inspection.AddChild(_buildingDetails);
         _siteInfo = Text("", 16, true); _buildingDetails.AddChild(_siteInfo);
         var priorities = new HBoxContainer(); _buildingDetails.AddChild(priorities);
@@ -106,6 +107,7 @@ public partial class Game
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton);
+        MakeManagementControls();
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
@@ -239,15 +241,16 @@ public partial class Game
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)
         {
-            var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\nCarrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}";
-            _assignButton.Text = $"Assign: {RoleName(NextRole(p.Role))}"; _assignButton.Disabled = _world.Food.Celebrating;
+            var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
+
         }
         UpdateBuildDescription();
         _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;
-        _inspector.Size = new(308, 0);
+        _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
+        UpdateManagementControls();
         UpdateCampaignUi();
     }
 }

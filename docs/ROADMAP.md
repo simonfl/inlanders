@@ -34,7 +34,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F18 | Campaign tutorial — First campaign done | Optional contextual guidance ships with all four levels, introducing a building or connected group per settlement. | F11 |
 | F19 | Main menu — Done (first chunk) | Title screen with Continue, Campaign start/resume/replay, both Free play maps, sound settings, Quit, and save-on-return from gameplay. | F11 |
 | F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
-| F21 | UI and interaction — High priority; F21a/b done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
+| F21 | UI and interaction — High priority; F21a/b/c done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
 | F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
 
 ## Original milestone 4 — Make it enjoyable to watch
@@ -61,7 +61,7 @@ These are provisional chunks, **Idea** unless marked otherwise. Pick one and ref
 | --- | --- | --- |
 | F21a — HUD and layout — Done | See the village clearly and find essential controls quickly. | Compact top/bottom bars; Build/People/Goals/Options menus; one contextual inspector; scrolling and responsive layouts down to 960×640. |
 | F21b — Building and placement — Done | Browse buildings and place them with confidence. | Building descriptions, staffing/recipes, available materials, translucent building/tree previews, entrance arrows, rotation feedback, and specific rejection explanations. |
-| F21c — Selection and management | Click something and immediately understand it. | Contextual villager/building details, clear selection feedback, convenient job assignments, and accessible construction priorities. |
+| F21c — Selection and management — Done (first chunk) | Click something and immediately understand it. | Direct job picker, scrolling inspector, moving villager marker, camera follow, workplace staffing and worker links, plus construction priority/cancel controls. |
 | F21d — Economy and feedback | Understand shortages and know what needs attention. | Useful inventory/production information, actionable waiting reasons, and unobtrusive notifications. Exact metrics TBD. |
 | F21e — Watching the village | Set management aside and enjoy the settlement. | Collapse panels or hide the HUD, keep pause/speed easy to reach, and restore the management view easily. Camera conveniences TBD. |
 
@@ -73,7 +73,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 **F11/F18 — First campaign** is complete: combined opening lesson, bread production, woodland, and village-square finale. Playtest pacing before expanding the campaign.
 
-F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** can build on the contextual inspector independently. UI remains a major priority; further refinements should follow play feedback.
+F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** now adds direct jobs, workplace links/staffing, and camera follow. F21d economy feedback is the next UI slice. UI remains a major priority; further refinements should follow play feedback.
 
 **F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
@@ -242,6 +242,18 @@ Verification: Rendered gameplay, woodland, sawmill/lodge, save/load, and audio c
 4. Play it, record what we learned, and mark it **Done** or split out a follow-up.
 
 Keep refactors and supporting UI inside the feature that needs them. A broad feature can have several small chunks; finishing its first chunk does not commit us to every possible extension.
+
+### F21c — Selection and management
+
+Status: Done (first chunk).
+
+Select a villager to choose any role directly, including Unassigned, then apply it. The moving ground marker makes the selection visible. Follow keeps the camera on that villager; manual WASD pan, Home, closing selection, or switching to a building stops following. Inspect workplace jumps to the current production or construction site.
+
+Production inspectors show active workers and village-wide job counts, offer +/− staffing, and link to workers currently using that site. Jobs remain shared across workplaces: these controls adjust the village workforce, not permanent per-building assignments. Construction inspectors retain delivered/incoming material counts, priorities, cancellation, and now links to committed builders.
+
+The inspector scrolls within the available screen height. These controls are view state; ordinary assignment commands preserve the existing cargo/claim behavior. Verification covers direct assignment/unassignment, staffing, worker/workplace links, follow/manual-pan cancellation, selection clearing, and 960×640 inspection.
+
+Later / TBD: permanent workplace assignments, richer production diagnostics (F21d), resource inspectors, and route overlays.
 
 ### Chunk template
 

@@ -34,7 +34,7 @@ public partial class Game
         _topBar.Position = new(16, 12); _topBar.Size = new(width - 32, 68);
         _bottomBar.Position = new(16, height - 76); _bottomBar.Size = new(width - 32, 64);
         _drawer.Position = new(16, 92); _drawer.Size = new(316, Math.Max(260, height - 184));
-        _inspector.Position = new(width - 324, 92); _inspector.Size = new(308, 0);
+        _inspector.Position = new(width - 324, 92); _inspector.Size = new(308, Math.Min(620, height - 184));
         _hintPanel.Position = new(Math.Max(16, (width - 650) / 2), height - 140); _hintPanel.Size = new(Math.Min(650, width - 32), 0);
         if (width < 1100 && _drawer.Visible && _inspector.Visible) _inspector.Hide();
     }
@@ -45,10 +45,10 @@ public partial class Game
         if (_hud.Size.X < 1100) _inspector.Hide();
     }
     private void CloseDrawer() => _drawer.Hide();
-    private void ClearSelection() { _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
+    private void ClearSelection() { _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
     private void CloseManagementUi() { CloseDrawer(); ClearSelection(); }
-    private void SelectPerson(int id) { _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
-    private void SelectBuilding(int id) { _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
+    private void SelectPerson(int id) { _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
+    private void SelectBuilding(int id) { _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
     private void BeginPlacement(BuildingKind kind) { ClearSelection(); _pathTool = 0; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }

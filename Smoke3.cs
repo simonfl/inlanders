@@ -20,8 +20,8 @@ public partial class Game
             await UiClick(_allocationButtons[(Role.Logger, 1)]);
             Check(_world.People.Count(v => v.Role == Role.Logger) == 2, "Logger plus failed");
             await UiClick(_roster[6]); Check(_selectedPerson == 6, "Roster failed");
-            await UiClick(_assignButton); Check(_world.People[6].Role == Role.Baker, "Individual food assignment failed");
-            for (int i = 0; i < Enum.GetValues<Role>().Length - 1; i++) await UiClick(_assignButton);
+            _jobChoice.Select((int)Role.Baker); await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); await UiClick(_assignButton); Check(_world.People[6].Role == Role.Baker, "Individual food assignment failed");
+            _jobChoice.Select((int)Role.Farmer); await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); await UiClick(_assignButton);
             Check(_world.People[6].Role == Role.Farmer, "Restore farmer failed");
             await OpenMenu(1);
             Check(_tabs.CurrentTab == 1, "Build tab failed");
