@@ -26,7 +26,7 @@ public partial class Game
     private void MakeAudio()
     {
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _audioSettingsPath = "artifacts/f10-audio.cfg";
-        foreach (var name in new[] { EffectsBus, AmbienceBus })
+        foreach (var name in new[] { EffectsBus, AmbienceBus, MusicBus })
         {
             if (AudioServer.GetBusIndex(name) >= 0) continue;
             AudioServer.AddBus(); AudioServer.SetBusName(AudioServer.BusCount - 1, name);
@@ -40,7 +40,7 @@ public partial class Game
         _uiSound = new AudioStreamPlayer { Bus = EffectsBus, VolumeDb = -8 }; AddChild(_uiSound);
         _wind = new AudioStreamPlayer { Bus = AmbienceBus, Stream = _sounds[Cue.Wind], VolumeDb = -6 }; AddChild(_wind);
         _bird = new AudioStreamPlayer3D { Bus = AmbienceBus, Stream = _sounds[Cue.Bird], UnitSize = 25, MaxDistance = 90, VolumeDb = -12 };
-        AddChild(_bird); ReadAudioSettings(); ApplyAudioSettings(); _wind.Play();
+        AddChild(_bird); MakeMusic(); ReadAudioSettings(); ApplyAudioSettings(); _wind.Play();
     }
 
     private void ResetWorldAudio()
@@ -108,10 +108,16 @@ public partial class Game
         double ambience = config.GetValue("audio", "ambience", 40.0).AsDouble();
         _effectsVolume = double.IsFinite(effects) ? (float)Math.Clamp(effects, 0, 100) : 65;
         _ambienceVolume = double.IsFinite(ambience) ? (float)Math.Clamp(ambience, 0, 100) : 40;
+        double music = config.GetValue("audio", "music", 35.0).AsDouble();
+        _musicVolume = double.IsFinite(music) ? (float)Math.Clamp(music, 0, 100) : 35;
+        _musicMuted = config.GetValue("audio", "musicMuted", false).AsBool();
         _soundMuted = config.GetValue("audio", "muted", false).AsBool();
     }
     private void ApplyAudioSettings()
     {
+        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(MusicBus), Mathf.LinearToDb(Math.Max(.0001f, _musicVolume / 100)));
+        AudioServer.SetBusMute(AudioServer.GetBusIndex(MusicBus), _soundMuted || _musicMuted || _musicVolume == 0);
+        if (_muteMusicButton != null) _muteMusicButton.Text = _musicMuted ? "Unmute music" : "Mute music";
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(EffectsBus), Mathf.LinearToDb(Math.Max(0.0001f, _effectsVolume / 100)));
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(AmbienceBus), Mathf.LinearToDb(Math.Max(0.0001f, _ambienceVolume / 100)));
         AudioServer.SetBusMute(AudioServer.GetBusIndex(EffectsBus), _soundMuted || _effectsVolume == 0);
@@ -124,6 +130,7 @@ public partial class Game
     {
         _audioSettingsDirty = false;
         var config = new ConfigFile(); config.SetValue("audio", "effects", _effectsVolume);
+        config.SetValue("audio", "music", _musicVolume); config.SetValue("audio", "musicMuted", _musicMuted);
         config.SetValue("audio", "ambience", _ambienceVolume); config.SetValue("audio", "muted", _soundMuted);
         try
         {

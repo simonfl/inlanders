@@ -33,7 +33,12 @@ public partial class Game
             }
             await MenuClick("Settings"); bool muted = _soundMuted;
             await MenuClick(muted ? "Unmute sound" : "Mute sound"); Check(_soundMuted != muted, "Menu mute failed");
-            await MenuClick(muted ? "Mute sound" : "Unmute sound"); await MenuClick("Back");
+            await MenuClick(muted ? "Mute sound" : "Unmute sound");
+            bool musicMuted=_musicMuted;
+            await MenuClick(musicMuted ? "Unmute music" : "Mute music"); Check(_musicMuted!=musicMuted,"Menu music mute failed");
+            await MenuClick(musicMuted ? "Mute music" : "Unmute music");
+            Check(_music.Playing,"Menu stopped music");
+            await Capture("artifacts/f17-menu-settings.png"); await MenuClick("Back");
             await MenuClick("Free play"); await MenuClick("New Original clearing");
             Check(!_atMainMenu && _hud.Visible && _world.Map.OriginalOutline && _paused, "New free play failed");
             _world.SetPath(new(3, 0), true); _world.Tick(0.1f); string original = _world.SaveJson();

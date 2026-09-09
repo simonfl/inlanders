@@ -159,6 +159,8 @@ public partial class Game
         }
         Slider("Effects", _effectsVolume, n => { _effectsVolume = n; _effectsSlider.SetValueNoSignal(n); });
         Slider("Nature", _ambienceVolume, n => { _ambienceVolume = n; _ambienceSlider.SetValueNoSignal(n); });
+        Slider("Music", _musicVolume, n => { _musicVolume = n; _musicSlider.SetValueNoSignal(n); });
+        MenuButton(_musicMuted ? "Unmute music" : "Mute music", () => { ToggleMusicMute(); MainSettings(); });
         MenuButton("Back", () => { SaveAudioSettings(); ShowMainMenu(); });
     }
 }

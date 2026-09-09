@@ -24,9 +24,9 @@ The launcher runs the Godot project directly; this repository does not contain a
 Launching opens a quiet, paused village behind the title screen:
 
 - **Continue** restores the last settlement saved or opened, whether campaign, original map, or Three clearings. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
-- **Campaign** starts, resumes, or replays either available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
+- **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
 - **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
-- **Settings** controls Effects, Nature, and mute; these are shared with in-game sound settings.
+- **Settings** controls Effects, Nature, Music, music-only mute, and master mute; these are shared with in-game sound settings.
 - **Quit** exits the game.
 
 In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
@@ -279,3 +279,5 @@ Milestones 1–3 are implemented: the first cottage, eight competing workers, an
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 
 **Decorative landscaping:** Build → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click repeatedly on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Cottages use three stable roof colours.
+
+**Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It loops gently and continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.

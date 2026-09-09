@@ -6,21 +6,20 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F17 — Music.** The village now has recurring leisure and a decorative palette. Add gentle music with independent controls to complete the remaining audio part of the watching experience.
+**Next: F14 — Village happiness.** Food variety and recurring square visits now provide concrete inputs for a small, readable satisfaction system. Start with clear reasons and gentle villager reactions; avoid punitive spirals.
 
 The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F17 | **Music.** A gentle soundtrack with independent volume/mute controls in game and on the main menu. Source, tracks, and transitions TBD. | Complete another part of the original “enjoyable to watch” milestone. |
-| 2 | F14 | **Village happiness.** A small satisfaction system using food variety and leisure, with readable villager reactions. Effects TBD. | Build on F05 and F04 once their basic loops are fun. |
-| 3 | F12e | **Navigating a larger settlement.** Useful location jumps, camera bookmarks, or a small overview map. Pick what actual play needs. | Help players move between established neighborhoods; coordinate with F21. |
-| 4 | F15 | **Small events and choices.** One visitor or request with a modest reward or tradeoff. | Add occasional variety to the established village loop. |
-| 5 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
-| 6 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
-| 7 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F14 | **Village happiness.** A small satisfaction system using food variety and leisure, with readable villager reactions. Effects TBD. | Build on F05 and F04 once their basic loops are fun. |
+| 2 | F12e | **Navigating a larger settlement.** Useful location jumps, camera bookmarks, or a small overview map. Pick what actual play needs. | Help players move between established neighborhoods; coordinate with F21. |
+| 3 | F15 | **Small events and choices.** One visitor or request with a modest reward or tradeoff. | Add occasional variety to the established village loop. |
+| 4 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
+| 5 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
+| 6 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
-Music and decorative work can move earlier when we want a presentation-focused chunk. Campaign pacing and UI feedback can be addressed at any time.
+Campaign pacing and UI feedback can be addressed at any time. Music and landscaping now have first passes; happiness is the next gameplay addition.
 
 ## Already playable
 
@@ -43,6 +42,7 @@ Music and decorative work can move earlier when we want a presentation-focused c
 | F12a | Irregular 32×32 Three clearings map, distant resources, scalable camera bounds, and Home overview. |
 | F12b | Water and one-tile bridges, construction from a reachable bank, and access to the far side. |
 | F12c | Cancelable tree/stump clearing, physical timber recovery, root removal, and reusable building ground. Decorative landscaping shares the F09 palette. |
+| F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |
 | F20 | Soft daylight/golden-hour presets, grass variation, subtle pause-aware foliage, and persistent visual preferences. |
 | F21a | Compact HUD, responsive menus, scrolling, and a contextual inspector down to 960×640. |
@@ -83,7 +83,7 @@ These are possibilities within existing features, not additional commitments or 
 | F07 — Storage and hauling | Food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
 | F08 — Materials | More plank buildings, mixed-material recipes, adjustable stock targets, upgrades, and other materials. |
 | F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
-| F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, and music transitions. |
+| F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores, wider bridges, islands, water animation, bridge variants, and demolition rules. |
 | F12c / F12d — Landscaping | Area selection, clearing-time tuning, grass/earth painting, terraces, ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
@@ -91,7 +91,7 @@ These are possibilities within existing features, not additional commitments or 
 | F21 — Management | Permanent workplace assignments, route overlays, resource filters, production/consumption history, rates, richer workplace diagnostics, and configurable alerts. |
 | F21e — Watching | Fully clean screenshots, optional label hiding, slow camera orbit, and scenic camera bookmarks shared with F12e. |
 
-The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. Most have a first pass; music remains unstarted. **F04 is the separate gathering-places feature.**
+The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
 
 ## How we take a chunk
 

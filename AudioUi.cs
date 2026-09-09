@@ -22,6 +22,7 @@ public partial class Game
         row.AddChild(_ambienceSlider); _ambienceSlider.TooltipText = "Wind and birds; continues while paused";
         _ambienceSlider.ValueChanged += value => { _ambienceVolume = (float)value; AudioVolumeChanged(); };
         _ambienceSlider.DragEnded += changed => { if (changed) SaveAudioSettings(); };
+        MakeMusicUi(column);
         ApplyAudioSettings();
     }
 }
