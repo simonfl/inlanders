@@ -40,8 +40,10 @@ public partial class Game
         await Wait(0.25f); capture.ClearBuffer(); UiCue(Cue.Place); await Wait(0.25f);
         Check(Peak() < 0.00001f, "Mute did not silence the mixer");
         await Press(Key.M); Check(!_soundMuted, "M did not unmute");
+        _drawerPages[3].EnsureControlVisible(_effectsSlider); await Wait(0.1f);
         var rect = _effectsSlider.GetGlobalRect(); await Click(rect.Position + new Vector2(rect.Size.X * 0.35f, rect.Size.Y / 2));
         Check(_effectsVolume > 0 && _effectsVolume < 65, "Effects slider did not respond");
+        _drawerPages[3].EnsureControlVisible(_ambienceSlider); await Wait(0.1f);
         rect = _ambienceSlider.GetGlobalRect(); await Click(rect.Position + new Vector2(rect.Size.X * 0.55f, rect.Size.Y / 2));
         Check(_ambienceVolume > 0, "Nature slider did not respond");
         await Wait(0.65f);

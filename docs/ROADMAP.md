@@ -35,7 +35,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F19 | Main menu — Done (first chunk) | Title screen with Continue, Campaign start/resume/replay, both Free play maps, sound settings, Quit, and save-on-return from gameplay. | F11 |
 | F20 | Lighting and atmosphere — Done (first chunk) | Soft daylight/golden-hour light, muted grass variation, and subtle pause-aware foliage motion with saved visual settings. Day/night changes TBD. | — |
 | F21 | UI and interaction — High priority; F21a–e first chunks done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
-| F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
+| F22 | Construction and growth presentation — Done (first chunk) | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
 
 ## Original milestone 4 — Make it enjoyable to watch
 
@@ -44,8 +44,8 @@ This is a presentation milestone spanning several features; **F04 is the separat
 | Part of the original milestone | Track here | Current state / next opportunity |
 | --- | --- | --- |
 | Carry poses and tools | F03 | First pass done; smoother transitions and more reactions remain possible. |
-| Construction stages | F22 | Basic stages exist; make them specific to each building. |
-| Growing crops and trees | F22, F02 | Both grow visibly; crop variety and harvest feedback can develop further. |
+| Construction stages | F22 | Building-specific stages now include farm beds and the forager canopy. |
+| Growing crops and trees | F22, F02 | Wheat grows from shoots to golden ears; harvested rows become stubble. More crops TBD. |
 | Sound effects and ambience | F10 | First synthesized pass done: positional work sounds, UI cues, wind/birds, volume and mute controls. |
 | Music | F17 | Planned separately from sound effects. |
 | Lighting | F20 | Soft daylight and golden hour are playable, with subtle foliage motion. |
@@ -291,6 +291,17 @@ Verification: rendered preset comparisons, unchanged settlement state, paused/mo
 
 Later / TBD: day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. Light mood is a player-controlled visual preset in this first pass.
 
+### F22 — Construction and growth presentation
+
+Status: Done (first chunk).
+
+Farms now progress from staked soil through dug beds to timber edging. Forager huts progress from a deck through posts and rafters to a green canopy, counter, and berry baskets. Both keep their own silhouette during construction instead of using cottage walls and roofs.
+
+Wheat grows through short green shoots, taller leaves, green-gold ears, and ripe golden stalks. Harvesting clears two of six columns per load, leaving short stubble until the field is fully harvested and ready for sowing. Rotated fields and restored saves show the same remaining crop. Production, costs, footprints, and growth timing are unchanged.
+
+Verification: rendered gameplay and focused checks cover growth stages, progressive harvesting, rotation, paused state, and restoring a partial harvest.
+
+Later / TBD: material piles and scaffolding, smoother growth transitions, richer harvesting motions, and distinct future crops.
 ### Chunk template
 
 Copy this when we choose a feature; no need to fill it out for every idea upfront.

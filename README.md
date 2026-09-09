@@ -97,6 +97,8 @@ The Economy badge counts current issues. Click a shortage message to open the re
 
 - One game day lasts 60 simulation seconds. Eight food units are consumed each day, using berries before bread. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
+- Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
+- Wheat grows from green shoots to golden ears. Each harvested load leaves two columns of stubble, making the remaining crop visible.
 - A planted crop takes 45 seconds to ripen and yields six grain. Two grain bake into four loaves in ten seconds.
 - Missed meals reduce movement and work speed, down to 50% when everyone goes hungry. Nobody dies; food production can recover the settlement.
 - Food physically travels from source to storage and from storage to production buildings. Goods in transit or still inside a bakery cannot be eaten or used for the supper.
@@ -193,7 +195,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |
 | `Simulation/Maps.cs`, `MapVisuals.cs` | Saved map dimensions/land cells, larger authored map, terrain instancing, camera overview and map switching |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
-| `Visuals.cs`, `FoodVisuals.cs` | Procedural geometry, lighting, crops, pantry |
+| `Visuals.cs`, `FoodVisuals.cs`, `FieldVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
