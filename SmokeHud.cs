@@ -68,5 +68,6 @@ public partial class Game
         await CheckGrowthUi();
         await CheckPopulationUi();
         await CheckStorageUi();
+        await CheckDirectoryUi();
     }
 }

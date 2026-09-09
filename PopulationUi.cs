@@ -19,6 +19,7 @@ public partial class Game
             RenderActors(0); UpdateHud();
             Notice($"{_world.People[^2].Name} and {_world.People[^1].Name} have arrived at the timber yard. Choose their jobs in People.");
         });
+        _inviteButton.TooltipText = "Optional: newcomers start unassigned. Keep two meals for the enlarged village in storage; inviting does not spend that food.";
         column.AddChild(_inviteButton);
     }
 
@@ -44,12 +45,11 @@ public partial class Game
         Resize(_roster, _rosterContainer, false);
         Resize(_workerLinks, _buildingDetails, false);
         Resize(_idleLinks, _idleContainer, true);
-        foreach (var p in _world.People) _roster[p.Id].Text = p.Name;
+        foreach (var p in _world.People) _roster[p.Id].Text = p.Name + "\n" + RoleName(p.Role);
         string? problem = _world.InvitationProblem();
         _inviteButton.Disabled = problem != null;
         _arrivalInfo.Text = $"{_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare\n" +
-            (problem ?? $"Ready for two newcomers. {_world.ArrivalFoodRequired} stored food covers two meals after arrival.") +
-            "\nOptional. Newcomers start unassigned; food stays in storage for meals.";
+            (problem ?? $"Ready for two newcomers. {_world.ArrivalFoodRequired} stored food covers two meals after arrival.");
         _housing.GetParent<Control>().TooltipText = $"{_world.Housed} housed of {_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare";
     }
 }

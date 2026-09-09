@@ -32,6 +32,7 @@ public partial class Game
             var label=Text("",14,true); column.AddChild(label); _economyStocks[resource]=label;
         }
         _logLocations = Text("", 14, true); column.AddChild(_logLocations);
+        MakeStorageDirectory(column);
         column.AddChild(Text("IDLE WORKERS · SELECT TO INSPECT",12));
         _idleContainer = new VBoxContainer(); column.AddChild(_idleContainer);
         column.AddChild(Text("Growing crops, regrowing berries, and a stocked sawmill can leave workers idle normally. Inspect their current task before changing jobs.",14,true));
@@ -65,8 +66,7 @@ public partial class Game
                 (stock.ConstructionNeed>0?$"\n{stock.ConstructionNeed} needed for unshipped construction":"");
             _resourceValues[stock.Resource].GetParent<Control>().TooltipText=$"{stock.Available} available · {stock.Reserved} reserved · {stock.Carried} carried. Click for Economy [I].";
         }
-        _logLocations.Text = "LOG STORAGE LOCATIONS\n" + $"Timber yard: {_world.YardLogs} stored · {_world.ReservedLogsAt(null)} reserved · {_world.IncomingLogsAt(null)} arriving" +
-            string.Concat(_world.Cottages.Where(c=>c.Kind==BuildingKind.Stockpile && c.Complete).Select(c=>$"\nStockpile {c.Id}: {c.StoredLogs}/12 · target {c.LogTarget}\n{_world.ReservedLogsAt(c.Id)} reserved · {_world.IncomingLogsAt(c.Id)} arriving"));
+        UpdateStorageDirectory();
         foreach(var p in _world.People) {
             _idleLinks[p.Id].Visible=p.Task==Work.Waiting;
             _idleLinks[p.Id].Text=$"{p.Name} · {p.Role}\n{p.Status}";

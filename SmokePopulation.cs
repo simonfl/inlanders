@@ -27,7 +27,7 @@ public partial class Game
             Check(_world.Population==12 && _inviteButton.Disabled,"Repeated invitation ignored beds");
             string saved=_world.SaveJson();
             AdoptWorld(World.LoadJson(saved)); _paused=true; await Frames();
-            Check(_people.Count==12 && _roster[11].Text==_world.People[11].Name,"Loaded newcomers not visible");
+            Check(_people.Count==12 && _roster[11].Text.StartsWith(_world.People[11].Name),"Loaded newcomers not visible");
             foreach(var windowSize in new[]{new Vector2I(1440,900),new Vector2I(960,640)})
             {
                 GetWindow().Size=windowSize; await Frames();

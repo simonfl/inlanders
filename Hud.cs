@@ -133,13 +133,15 @@ public partial class Game
                 _allocationButtons[(role, change)] = b; row.AddChild(b);
             }
         }
-        _staffing = Text("", 13, true); column.AddChild(_staffing); column.AddChild(Text("VILLAGERS · SELECT TO INSPECT", 12));
+        _staffing = Text("", 13, true); column.AddChild(_staffing);
+        MakeArrivalControls(column);
+        column.AddChild(Text("VILLAGERS · SELECT TO INSPECT", 12)); MakeRosterFilter(column);
         var roster = new GridContainer { Columns = 2 }; column.AddChild(roster);
         _rosterContainer = roster;
-        MakeArrivalControls(column);
     }
     private void MakeBuildMenu(VBoxContainer column)
     {
+        MakeBuildingFilter(column);
         var kinds = new GridContainer { Columns = 2 }; kinds.AddThemeConstantOverride("h_separation", 8); kinds.AddThemeConstantOverride("v_separation", 8); column.AddChild(kinds);
         foreach (var kind in Enum.GetValues<BuildingKind>())
         {
@@ -156,7 +158,7 @@ public partial class Game
         column.AddChild(Button("Remove paths [Shift+P]", () => TogglePaths(2)));
         _buildDescription = Text("", 14, true); column.AddChild(_buildDescription);
         _buildButton = Button("", () => { if (_placing) { _placing = false; RefreshGhost(); } else BeginPlacement(_buildKind); }); column.AddChild(_buildButton);
-        column.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); _queue = new VBoxContainer(); column.AddChild(_queue);
+        column.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); MakeConstructionFilter(column); _queue = new VBoxContainer(); column.AddChild(_queue);
     }
     private void MakeGoalsMenu(VBoxContainer column)
     {
@@ -226,7 +228,6 @@ public partial class Game
         _clearTreeButton.Modulate = _placing && _clearingTrees ? _cream : Colors.White;
         foreach (var (kind, b) in _kindButtons) { b.Modulate = _placing && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
         if (_queueButtons.Count != _world.Cottages.Count) RebuildQueue();
-        foreach (var site in _world.Cottages) _queueButtons[site.Id].Text = $"{(site.Id == _selectedSite ? "› " : "")}{BuildingName(site.Kind)} {site.Id} · {(site.Complete ? "Ready" : PriorityNames[site.Priority])}";
         var selected = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
@@ -248,6 +249,7 @@ public partial class Game
             var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
+        UpdateVillageDirectory();
         UpdateStorageControls();
         UpdateBuildDescription();
         _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";

@@ -6,23 +6,22 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F21 — UI and interaction, next pass.** Local log stockpiles and haulers are now playable. Review a larger village with newcomers and multiple storage locations, then choose the most useful management improvements.
+**Next: F05 — New food choices.** Local logistics and the F21f navigation pass are playable. Choose one alternative food source with a distinct building and visible harvest; the exact crop and recipe remain TBD.
 
-The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and use the dedicated F21 pass for improvements across the game.
+The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F21 | **UI and interaction — Next.** Review building navigation, population/staffing controls, storage visibility, and production explanations in a larger village. Choose concrete improvements after playing F07. | Keep growing settlements easy to understand and manage. |
-| 2 | F05 | **New food choices.** Add one alternative food source, such as vegetables or an orchard, with its own building and visible harvest. Choice and recipes TBD. | Add a meaningful production choice and support a larger population. |
-| 3 | F04 | **Everyday gathering and leisure.** Give the existing village square a short recurring social activity outside the one-time supper. Timing and work interruption rules TBD. | Make the village feel inhabited between production tasks. |
-| 4 | F09 + F12c | **Village character and decorative landscaping.** One shared palette for flowers, shrubs, fences, decorative trees, and ground treatment. Start with a few objects; cottage variants can follow. | Let the player shape neighborhoods as well as production layouts. |
-| 5 | F17 | **Music.** A gentle soundtrack with independent volume/mute controls in game and on the main menu. Source, tracks, and transitions TBD. | Complete another part of the original “enjoyable to watch” milestone. |
-| 6 | F14 | **Village happiness.** A small satisfaction system using food variety and leisure, with readable villager reactions. Effects TBD. | Build on F05 and F04 once their basic loops are fun. |
-| 7 | F12e | **Navigating a larger settlement.** Useful location jumps, camera bookmarks, or a small overview map. Pick what actual play needs. | Help players move between established neighborhoods; coordinate with F21. |
-| 8 | F15 | **Small events and choices.** One visitor or request with a modest reward or tradeoff. | Add occasional variety to the established village loop. |
-| 9 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
-| 10 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
-| 11 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F05 | **New food choices — Next.** Add one alternative food source, such as vegetables or an orchard, with its own building and visible harvest. Choice and recipes TBD. | Add a meaningful production choice and support a larger population. |
+| 2 | F04 | **Everyday gathering and leisure.** Give the existing village square a short recurring social activity outside the one-time supper. Timing and work interruption rules TBD. | Make the village feel inhabited between production tasks. |
+| 3 | F09 + F12c | **Village character and decorative landscaping.** One shared palette for flowers, shrubs, fences, decorative trees, and ground treatment. Start with a few objects; cottage variants can follow. | Let the player shape neighborhoods as well as production layouts. |
+| 4 | F17 | **Music.** A gentle soundtrack with independent volume/mute controls in game and on the main menu. Source, tracks, and transitions TBD. | Complete another part of the original “enjoyable to watch” milestone. |
+| 5 | F14 | **Village happiness.** A small satisfaction system using food variety and leisure, with readable villager reactions. Effects TBD. | Build on F05 and F04 once their basic loops are fun. |
+| 6 | F12e | **Navigating a larger settlement.** Useful location jumps, camera bookmarks, or a small overview map. Pick what actual play needs. | Help players move between established neighborhoods; coordinate with F21. |
+| 7 | F15 | **Small events and choices.** One visitor or request with a modest reward or tradeoff. | Add occasional variety to the established village loop. |
+| 8 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
+| 9 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
+| 10 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
 Music and decorative work can move earlier when we want a presentation-focused chunk. Campaign pacing and UI feedback can be addressed at any time.
 
@@ -52,6 +51,7 @@ Music and decorative work can move earlier when we want a presentation-focused c
 | F21c | Direct job assignment, worker/workplace links, staffing controls, selection marker, and camera follow. |
 | F21d | Economy inventory, current-population food coverage, actionable shortages, and idle-worker links. |
 | F21e | Watch mode with a small playback/camera bar, preserved selection/follow, and easy return to management. |
+| F21f | Role/idle roster filters and role labels; building categories, construction-state filters and live site summaries; clickable storage locations with camera/inspector jumps. Invitations sit above the growing roster. Filters reset when switching settlements. |
 | F22 | Distinct farm/forager construction stages and wheat growth through progressively harvested rows and stubble. Bakery and other buildings also have distinct procedural models. |
 
 ## Current campaign reference — F11 / F18

@@ -49,8 +49,8 @@ public partial class Game
                 _inspectionScroll.EnsureControlVisible(_targetMore); await Frames();
                 Check(_targetMore.GetGlobalRect().End.Y<=_inspector.GetGlobalRect().End.Y,"Storage target overflowed inspector");
                 await Capture($"artifacts/f07-stockpile-{windowSize.X}.png");
-                OpenEconomy(); await Frames(); _drawerPages[4].EnsureControlVisible(_logLocations); await Frames();
-                Check(_logLocations.Text.Contains($"Stockpile {pile.Id}: 12/12"),"Per-location economy missing");
+                OpenEconomy(); await Frames(); _drawerPages[4].EnsureControlVisible(_storageLinks[pile.Id]); await Frames();
+                Check(_storageLinks[pile.Id].Text.Contains("12/12 logs"),"Per-location economy missing");
                 await Capture($"artifacts/f07-economy-{windowSize.X}.png");
             }
             SelectBuilding(pile.Id); await Frames();

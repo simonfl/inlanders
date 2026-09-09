@@ -75,6 +75,16 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
+### Finding villagers, buildings, and supplies
+
+**People [V]** shows each villager's name and role. Filter the roster to a role, Unassigned, or Idle; the count shows how many match. Newcomer invitations sit above the roster.
+
+**Build [B]** groups cards and existing buildings into Homes, Food, Industry, Storage & crossings, and Community. The existing-building list also filters to Under construction or Completed, and shows current materials/progress, production buffers, crop state, beds, or storage targets. Select a row to inspect the building. Landscaping tools remain available in every category.
+
+In **Economy [I]**, select a log storage location to move the camera there. Stockpile links also open its inspector so you can change the target or staffing. The timber-yard link centers the camera and clears the previous selection.
+
+Filters only affect the view; they do not pause jobs, change assignments, or enter saves. Switching or loading a settlement resets them. Choose All villagers / All buildings / All sites to show everything again.
+
 ### Local log stockpiles
 
 Build a **Stockpile** for **6 logs**, then assign a **Hauler** in People or from the stockpile inspector. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
@@ -216,6 +226,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
+| `VillageDirectory.cs`, `SmokeDirectory.cs` | Workforce/building filters, live site summaries, storage location navigation and rendered checks |
 | `Hud.cs`, `HudLayout.cs`, `PersistenceUi.cs` | Compact HUD, menus, responsive layout, contextual inspector, save/load feedback |
 | `MainMenu.cs`, `SmokeMainMenu.cs` | Title screen, mode selection, last-settlement resume, sound settings, and transition checks |
 | `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs`, `SmokeSawmill.cs` | Rendered interaction checks |
