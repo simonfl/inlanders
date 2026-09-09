@@ -63,5 +63,6 @@ public partial class Game
         await CheckPathsUi();
         await CheckManagementUi();
         await CheckEconomyUi();
+        await CheckWatchUi();
     }
 }

@@ -117,7 +117,7 @@ public partial class Game
             UpdateCamera();
         }));
         _hintPanel = HudPanel(_hud); _hint = Text("", 14, true); _hintPanel.AddChild(_hint); _hintPanel.MouseFilter = Control.MouseFilterEnum.Ignore;
-        _drawer.Hide(); _inspector.Hide(); _hintPanel.Hide(); LayoutHud();
+        _drawer.Hide(); _inspector.Hide(); _hintPanel.Hide(); LayoutHud(); MakeWatchUi();
     }
     private void MakePeopleMenu(VBoxContainer column)
     {
@@ -175,6 +175,7 @@ public partial class Game
     private void MakeOptionsMenu(VBoxContainer column)
     {
         column.AddChild(Text("YOUR VILLAGE", 12));
+        column.AddChild(Button("Watch village [H]", ToggleWatch));
         var saves = new HBoxContainer(); column.AddChild(saves);
         _saveButton = Button("Save [F5]", SaveWorld); _loadButton = Button("Load [F9]", LoadWorld);
         _saveButton.SizeFlagsHorizontal = _loadButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; saves.AddChild(_saveButton); saves.AddChild(_loadButton);
@@ -185,7 +186,7 @@ public partial class Game
         column.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
         column.AddChild(Text("SOUND", 12)); MakeAudioUi(column);
         column.AddChild(Text("CONTROLS", 12));
-        column.AddChild(Text("WASD  Pan camera\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound", 14, true));
+        column.AddChild(Text("WASD  Pan camera\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound · H  Watch village", 14, true));
     }
     private void RebuildQueue()
     {

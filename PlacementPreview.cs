@@ -32,7 +32,7 @@ public partial class Game
         _ => ""
     };
     private string PlacementProblem(Cell cell) => (_pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
-    private bool PointerOverHud(Vector2 point) =>
+    private bool PointerOverHud(Vector2 point) => _watching ? _watchBar.GetGlobalRect().HasPoint(point) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
 

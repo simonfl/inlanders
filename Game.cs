@@ -109,6 +109,9 @@ public partial class Game : Node3D
         if (_atMainMenu) return;
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
+            if (key.Keycode == Key.H) { ToggleWatch(); return; }
+            if (_watching && key.Keycode == Key.Escape) { ExitWatch(); return; }
+            if (_watching && key.Keycode is Key.B or Key.V or Key.G or Key.O or Key.I or Key.T or Key.C or Key.P) ExitWatch();
             if (key.Keycode == Key.Space) TogglePause();
             if (key.Keycode == Key.M) ToggleSoundMute();
             if (key.Keycode == Key.F5) SaveWorld();
@@ -131,7 +134,7 @@ public partial class Game : Node3D
         {
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
             if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
-            if (mouse.ButtonIndex != MouseButton.Left) return;
+            if (_watching || mouse.ButtonIndex != MouseButton.Left) return;
             if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
             var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
             if (closest.Distance < 25) SelectPerson(closest.Index);
@@ -156,7 +159,7 @@ public partial class Game : Node3D
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        RenderActors(dt); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateAudio(dt);
+        RenderActors(dt); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
     }
     private void RenderActors(float dt)
     {

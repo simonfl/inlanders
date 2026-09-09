@@ -75,6 +75,12 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
+### Watch the village
+
+Press **H** or choose **Options → Watch village** to hide the HUD. A small bar keeps pause, speed, map framing, and **Manage** available. Camera movement and villager-follow keep working.
+
+Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Options shortcuts also bring management back. Watch mode cancels placement previews; map clicks do not select or build. Your existing selection is retained.
+
 ### Economy and shortages
 
 Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries and bread and assumes no new deliveries.
