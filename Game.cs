@@ -116,6 +116,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.Home) FrameMap();
             if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
+            if (key.Keycode == Key.I) ToggleDrawer(4);
             if (key.Keycode == Key.B) ToggleDrawer(1);
             if (key.Keycode == Key.V) ToggleDrawer(0);
             if (key.Keycode == Key.G) ToggleDrawer(2);

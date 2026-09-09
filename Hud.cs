@@ -24,7 +24,7 @@ public partial class Game
     private PanelContainer _topBar = null!, _bottomBar = null!, _drawer = null!, _inspector = null!, _hintPanel = null!;
     private Label _brand = null!, _shortcuts = null!;
     private Vector2 _hudSize;
-    private static readonly string[] MenuNames = { "People", "Build", "Goals", "Options" };
+    private static readonly string[] MenuNames = { "People", "Build", "Goals", "Options", "Economy" };
 
     private static string RoleName(Role role) => role.ToString();
     private static Role NextRole(Role role) => (Role)(((int)role + 1) % Enum.GetValues<Role>().Length);
@@ -65,6 +65,8 @@ public partial class Game
             var label = Text(resource.ToString().ToUpperInvariant(), 11); label.Modulate = new("a8bcb0"); col.AddChild(label);
             var count = Text("0", 20); col.AddChild(count); _resourceValues[resource] = count;
             col.MouseFilter = Control.MouseFilterEnum.Stop;
+            col.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+            col.GuiInput += input => { if (input is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true }) { OpenEconomy(); col.AcceptEvent(); } };
             col.TooltipText = resource == Resource.Grain ? "Raw grain feeds the bakery; villagers eat berries and bread." : "Stored " + resource.ToString().ToLowerInvariant();
         }
         var population = new VBoxContainer { CustomMinimumSize = new(84, 0) }; top.AddChild(population);
@@ -74,11 +76,11 @@ public partial class Game
         _pauseButton = Button("Pause", TogglePause, 78); _pauseButton.TooltipText = "Pause / resume [Space]"; top.AddChild(_pauseButton);
         _speedButton = Button("1×", () => _speed = _speed == 1 ? 3 : _speed == 3 ? 6 : 1, 48); _speedButton.TooltipText = "Change game speed: 1× / 3× / 6×"; top.AddChild(_speedButton);
         _bottomBar = HudPanel(_hud); var bottom = new HBoxContainer(); bottom.AddThemeConstantOverride("separation", 8); _bottomBar.AddChild(bottom);
-        foreach (int index in new[] { 1, 0, 2, 3 })
+        foreach (int index in new[] { 1, 0, 4, 2, 3 })
         {
             var b = Button(MenuNames[index], () => ToggleDrawer(index), 94); bottom.AddChild(b);
             while (_menuButtons.Count <= index) _menuButtons.Add(null!); _menuButtons[index] = b;
-            b.TooltipText = index switch { 0 => "Workforce and villagers [V]", 1 => "Buildings and planting [B]", 2 => "The first village supper [G]", _ => "Save, load, audio, and controls [O]" };
+            b.TooltipText = index switch { 0 => "Workforce and villagers [V]", 1 => "Buildings and planting [B]", 2 => "The first village supper [G]", 4 => "Inventory, shortages, and idle workers [I]", _ => "Save, load, audio, and controls [O]" };
         }
         bottom.AddChild(new Control { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill });
         _shortcuts = Text("WASD pan · Wheel zoom · Q/E orbit", 13); _shortcuts.Modulate = new("a8bcb0"); bottom.AddChild(_shortcuts);
@@ -87,8 +89,8 @@ public partial class Game
         _drawerTitle = Text("Build", 21); _drawerTitle.Modulate = _cream; _drawerTitle.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; heading.AddChild(_drawerTitle);
         heading.AddChild(Button("×", CloseDrawer, 32));
         _tabs = new TabContainer { TabsVisible = false, SizeFlagsVertical = Control.SizeFlags.ExpandFill }; drawerColumn.AddChild(_tabs);
-        var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options");
-        MakePeopleMenu(people); MakeBuildMenu(build); MakeGoalsMenu(goals); MakeOptionsMenu(options);
+        var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options"); var economy = DrawerPage("Economy");
+        MakePeopleMenu(people); MakeBuildMenu(build); MakeGoalsMenu(goals); MakeOptionsMenu(options); MakeEconomyMenu(economy);
         _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
         var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
         var inspectHeading = new HBoxContainer(); inspection.AddChild(inspectHeading);
@@ -183,7 +185,7 @@ public partial class Game
         column.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
         column.AddChild(Text("SOUND", 12)); MakeAudioUi(column);
         column.AddChild(Text("CONTROLS", 12));
-        column.AddChild(Text("WASD  Pan camera\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound", 14, true));
+        column.AddChild(Text("WASD  Pan camera\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound", 14, true));
     }
     private void RebuildQueue()
     {
@@ -251,6 +253,6 @@ public partial class Game
         _hintPanel.Visible = _hint.Text.Length > 0;
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
         UpdateManagementControls();
-        UpdateCampaignUi();
+        UpdateCampaignUi(); UpdateEconomyUi();
     }
 }
