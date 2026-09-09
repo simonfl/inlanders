@@ -14,4 +14,5 @@ if ($Rendered) {
     & ./Play.ps1 -CampaignSmokeTest
     & ./Play.ps1 -MapSmokeTest
     & ./Play.ps1 -ClearingSmokeTest
+    & ./Play.ps1 -MenuSmokeTest
 }

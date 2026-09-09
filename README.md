@@ -19,9 +19,21 @@ Setup downloads portable Godot 4.6 and .NET SDK 8.0.424 from their official dist
 
 The launcher runs the Godot project directly; this repository does not contain an exported standalone executable. Downloaded tools, generated build files, test artifacts, and player saves are excluded from Git.
 
+## Main menu
+
+Launching opens a quiet, paused village behind the title screen:
+
+- **Continue** restores the last settlement saved or opened, whether campaign, original map, or Three clearings. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
+- **Campaign** starts, resumes, or replays either available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
+- **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
+- **Settings** controls Effects, Nature, and mute; these are shared with in-game sound settings.
+- **Quit** exits the game.
+
+In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
+
 ## Campaign: the first two settlements
 
-Open **Goals [G]**, scroll to **Campaign**, and choose a settlement. Both levels keep every building and tool available:
+Choose **Campaign** from the title screen, or use the in-game **Goals [G]** campaign picker. Both levels keep every building and tool available:
 
 1. **A place to stay:** a staffed berry camp supports eight arrivals while you build housing. Four cottages are the suggested route; lodges also count.
 2. **The berry clearing:** a hamlet already has homes. Build and staff a forager hut, then deliver 24 fresh berries. Starting supplies and carried berries do not count; eating delivered berries never removes progress.
@@ -30,7 +42,7 @@ Each settlement starts paused with 64 berries and its own starting buildings and
 
 Completion saves progress and leaves the village running. Goals offers **Continue playing**, **Next settlement** after level 1, and **Replay this settlement**. The level picker resumes saved settlements. **Restore village before replay** swaps between the latest replay and its preceding village, keeping completion records. **Return to standalone supper** restores the standalone village you left. Levels 3–5 remain planned.
 
-Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Launching resumes an active saved campaign, paused. Save with F5 before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
+Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Use Continue or Campaign on the title screen to resume, paused. Save with F5 or return to the main menu before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
 
 ## A larger map: Three clearings
 
@@ -38,7 +50,7 @@ Open **Options [O] → Explore larger map** to start or resume a separate 32×32
 
 **Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; water, bridges, decorative landscaping, and elevation remain future features.
 
-F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, choose **Explore larger map** again. Existing saves retain their original terrain rather than expanding automatically.
+F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, use Continue or Free play on the title screen. Existing saves retain their original terrain rather than expanding automatically.
 
 ## The first village supper
 
@@ -156,6 +168,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
 | `Hud.cs`, `HudLayout.cs`, `PersistenceUi.cs` | Compact HUD, menus, responsive layout, contextual inspector, save/load feedback |
+| `MainMenu.cs`, `SmokeMainMenu.cs` | Title screen, mode selection, last-settlement resume, sound settings, and transition checks |
 | `Smoke.cs`, `Smoke3.cs`, `SmokeWoodland.cs`, `SmokeSawmill.cs` | Rendered interaction checks |
 | `SmokeAudio.cs` | Live mixer, mute, volume persistence, PCM, and audio lifecycle checks |
 | `SmokeHud.cs` | Window resizing, menu/inspector flows, scrolling, and input isolation |

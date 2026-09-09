@@ -61,6 +61,10 @@ public partial class Game
         _completionAnnounced = world.Campaign?.Complete == true;
         CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
         if (mapChanged) FrameMap();
+        if (_menuEnabled && !_atMainMenu)
+        {
+            try { RememberSettlement(); } catch (Exception e) { Notice("Village opened, but Continue could not be updated: " + e.Message); }
+        }
     }
     private void SwitchCampaign(int level, bool replay)
     {
@@ -116,7 +120,7 @@ public partial class Game
         if (campaign.Complete && !_completionAnnounced)
         {
             _completionAnnounced = true;
-            try { SaveCampaign(); Notice("Settlement complete! Progress saved. Open Goals [G] to continue or keep playing here."); }
+            try { SaveCampaign(); RememberSettlement(); Notice("Settlement complete! Progress saved. Open Goals [G] to continue or keep playing here."); }
             catch (Exception e) { Notice("Settlement complete, but progress could not be saved. Try F5. " + e.Message); }
         }
     }

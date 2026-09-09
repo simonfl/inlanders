@@ -10,7 +10,7 @@ public partial class Game
     private void Notice(string message) { _notice = message; _noticeUntil = _uiTime + 8; }
     private void SaveWorld()
     {
-        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); Notice("Settlement saved. F9 restores this save."); }
+        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }
         catch (Exception e) { Notice("Could not save: " + e.Message); }
     }
     private void LoadWorld()
@@ -31,6 +31,8 @@ public partial class Game
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
             Notice("Settlement restored and paused. Press Space to continue.");
             _completionAnnounced = _world.Campaign?.Complete == true;
+            try { RememberSettlement(); }
+            catch (Exception e) { Notice("Settlement restored, but Continue could not be updated: " + e.Message); }
         }
         catch (Exception e) { Notice("Could not load; current game kept. " + e.Message); }
     }

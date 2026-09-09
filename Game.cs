@@ -31,13 +31,14 @@ public partial class Game : Node3D
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
-        if (!OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) ResumeCampaignOnLaunch();
+        if (!OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) MakeMainMenu();
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--menu-smoke-test")) CallDeferred(MethodName.RunMainMenuSmoke);
     }
     private void CreateActors()
     {
@@ -59,6 +60,7 @@ public partial class Game : Node3D
         _world = _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
         _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
+        try { RememberSettlement(); } catch (Exception e) { Notice("New village started, but Continue could not be saved: " + e.Message); }
     }
     private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
     private void UpdateCamera()
@@ -99,6 +101,7 @@ public partial class Game : Node3D
     private Vector3? Ground(Vector2 screen) => new Plane(Vector3.Up, 0).IntersectsRay(_camera.ProjectRayOrigin(screen), _camera.ProjectRayNormal(screen));
     public override void _UnhandledInput(InputEvent input)
     {
+        if (_atMainMenu) return;
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (key.Keycode == Key.Space) TogglePause();
@@ -135,6 +138,7 @@ public partial class Game : Node3D
     }
     public override void _Process(double delta)
     {
+        if (_atMainMenu) { RenderActors(0); RenderFoodViews(); UpdateAudio(Math.Min((float)delta, 0.1f)); return; }
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));

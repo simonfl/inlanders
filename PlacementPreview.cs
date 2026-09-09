@@ -12,6 +12,7 @@ public partial class Game
     private Vector2 _pointerPosition;
     public override void _Input(InputEvent input)
     {
+        if (_atMainMenu) return;
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
         if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
         if (input is InputEventMouseButton button && button.ButtonIndex == MouseButton.Left && !button.Pressed) { _pathStroke = false; _lastPathCell = null; }

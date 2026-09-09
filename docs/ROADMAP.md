@@ -32,7 +32,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F16 | Free-build mode | An open-ended scenario with optional objectives and enough renewable resources to keep expanding. | F02, F06 suggested |
 | F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
 | F18 | Campaign tutorial — Opening pair done | Optional contextual guidance ships with levels 1–2. Continue teaching through later campaign settlements, introducing a building or building group per level. | F11 |
-| F19 | Main menu | A title screen with Continue, New campaign, and settings for sound/music; add scenario/free-build selection as those modes arrive. | Campaign entry depends on F11 |
+| F19 | Main menu — Done (first chunk) | Title screen with Continue, Campaign start/resume/replay, both Free play maps, sound settings, Quit, and save-on-return from gameplay. | F11 |
 | F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
 | F21 | UI and interaction — High priority; F21a/b done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
 | F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
@@ -78,6 +78,16 @@ F21a and F21b establish the UI direction and clearer building placement. **F21c 
 **F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
+
+### F19 — Main menu and settlement entry
+
+Status: Done (first chunk).
+
+First version: Launch into a title screen over a paused village, with Continue, Campaign, Free play, Settings, and Quit. Continue restores the last opened/saved settlement from its own snapshot; pre-menu installations fall back to the newest existing save. Campaign exposes the opening levels with completion records and replay, retaining previous villages. Free play starts/resumes either map and keeps a recoverable previous-village copy when starting anew. Settings share Effects/Nature/mute with gameplay. Options → Return to main menu saves first and keeps the village open if saving fails. Entering gameplay is paused. Menu input cannot edit the world or advance simulation.
+
+Verification: Rendered checks cover 1440×900 and 960×640 layouts, fresh/missing Continue, all settlement types, menu input isolation, sound settings, replay and previous-village recovery, corrupted Continue recovery through separate saves, older-save fallback, and failure to save on return. Existing gameplay/HUD checks pass. Menu screenshot reviewed.
+
+Later / TBD: Music controls with F17, richer title artwork or ambient scene motion, expanded save-slot browsing, and keyboard/controller navigation polish. Levels 3–5 remain planned.
 
 ### F01 — Paths and village layout
 
@@ -191,13 +201,13 @@ A small established settlement has the essentials but no shared center. Choose w
 
 | Chunk | Scope | Playable when |
 | --- | --- | --- |
-| F11a + F18a — Opening pair — Done | Authored level setups, reusable objectives, saved campaign progress, replay/next/continue controls, contextual hints, and levels 1–2. Entry/level picker lives in Goals; the polished title screen stays in F19. | Complete housing, move to a fresh berry settlement, save/load midway through its delivery goal, and finish it with guidance on or off. |
+| F11a + F18a — Opening pair — Done | Authored level setups, reusable objectives, saved campaign progress, replay/next/continue controls, contextual hints, and levels 1–2. Entry is available in the F19 main menu and Goals. | Complete housing, move to a fresh berry settlement, save/load midway through its delivery goal, and finish it with guidance on or off. |
 | F11b + F18b — Production lessons | Levels 3–4, cumulative production/planting milestones, and contextual food, plank, and regrowth hints. | Both levels work when players follow the suggested order or build ahead; consuming goods does not lose earned progress. |
 | F04a + F11c + F18c — Campaign finale | Build/place the square, validate gathering space, adapt supper to its destination, author level 5, and show campaign completion. | All eight reach the square, supper is consumed once, the celebration completes, and play can continue. |
 
 F11 owns scenario setup, objectives, transitions, and saved campaign progress. F18 owns the teaching sequence and contextual hints; ship each level's guidance with its gameplay. Keep level definitions and objective types reusable instead of adding a separate hard-coded victory flow for each map. Exact data format is an implementation decision.
 
-Implemented persistence: campaign.json holds the active level, full settlement snapshots, tutorial state, and completion record. Berry delivery progress derives from conserved inventory plus consumption minus starting supply. Transitions preserve a snapshot per settlement; replay additionally retains the previous village, with a restore/swap control. F5 saves, F9 loads, completion and transitions save automatically, and launch resumes an active saved campaign paused. Existing standalone saves remain standalone; broader save-slot UI is TBD.
+Implemented persistence: campaign.json holds the active level, full settlement snapshots, tutorial state, and completion record. Berry delivery progress derives from conserved inventory plus consumption minus starting supply. Transitions preserve a snapshot per settlement; replay additionally retains the previous village, with a restore/swap control. F5 saves, F9 loads, and completion/transitions save automatically. F19 provides Continue and campaign resume from the title screen, opening paused. Existing standalone saves remain standalone; broader save-slot UI is TBD.
 
 Opening-pair verification: simulation playthroughs complete both levels with action-aware or disabled guidance; cottages and lodges both satisfy level 1. Checks cover interrupted berry deliveries, meals, exact save continuation, replay records, legacy saves, and disk backups. Rendered checks exercise campaign entry, both levels, hints, next/replay/restore, startup resume, invalid-save recovery, standalone return, and a 960×640 layout. Screenshots reviewed. Initial supplies are 64 berries and 48 harvestable logs per level, plus prebuilt infrastructure; pacing and player feedback remain TBD.
 
@@ -316,3 +326,4 @@ Combat, multiplayer, a large technology tree, and a full life simulation are out
 - F11a + F18a: the first two campaign settlements, integrated optional guidance, reusable goals, campaign saves/resume/replay, and preserved standalone play.
 - F12a: configurable saved map layouts, Three clearings with an irregular 32×32 outline, distant resource access, scalable camera bounds, Home overview, and separate map saves.
 - F12c, first chunk: cancelable tree/stump clearing orders, logger timber recovery and root removal, visible markers/work, and reusable building ground.
+- F19, first chunk: main menu, last-settlement Continue, campaign/free-play entry and recovery, sound settings, and saving when returning to the menu.

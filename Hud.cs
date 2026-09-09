@@ -175,6 +175,7 @@ public partial class Game
         _saveButton = Button("Save [F5]", SaveWorld); _loadButton = Button("Load [F9]", LoadWorld);
         _saveButton.SizeFlagsHorizontal = _loadButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; saves.AddChild(_saveButton); saves.AddChild(_loadButton);
         _resetButton = Button("Start again", Reset); column.AddChild(_resetButton);
+        column.AddChild(Button("Return to main menu", ReturnToMainMenu));
         column.AddChild(Button("Explore larger map", OpenLargeMap));
         column.AddChild(Button("Return to original map", OpenOriginalMap));
         column.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
