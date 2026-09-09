@@ -115,7 +115,7 @@ public partial class Game
         if (walking) return;
         Cell? facing = v.TreeId is int tree ? _world.Trees.FirstOrDefault(t => t.Id == tree)?.Cell :
             v.BushId is int bush ? _world.Bushes.FirstOrDefault(b => b.Id == bush)?.Cell :
-            (v.SiteId ?? v.WorkplaceId) is int site ? _world.Cottages.FirstOrDefault(c => c.Id == site)?.Cell : null;
+            (v.SiteId ?? v.WorkplaceId ?? v.LeisureSiteId) is int site ? _world.Cottages.FirstOrDefault(c => c.Id == site)?.Cell : null;
         if (facing is Cell cell)
         {
             var direction = new Vector3(cell.X, 0, cell.Z) - view.Body.Position;
@@ -143,6 +143,9 @@ public partial class Game
             case Work.Baking:
                 view.Peel.Visible = true; view.Arm.Rotation = new(0.8f + MathF.Sin(cycle * 0.5f) * 0.22f, 0, 0);
                 view.Torso.Rotation = new(-0.1f - MathF.Sin(cycle * 0.5f) * 0.08f, 0, 0); break;
+            case Work.Leisure:
+                view.Head.Rotation = new(0, MathF.Sin(_clock + v.Id) * .3f, 0);
+                view.Arm.Rotation = new(.7f + MathF.Sin(_clock * 2 + v.Id) * .3f, 0, -.3f); break;
             case Work.Supper:
                 view.Arm.Rotation = new(2.6f, 0, swing * 0.3f); view.LeftArm.Rotation = new(1.3f, 0, -swing * 0.2f); break;
             case Work.Waiting:

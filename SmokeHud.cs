@@ -70,5 +70,6 @@ public partial class Game
         await CheckStorageUi();
         await CheckDirectoryUi();
         await CheckVegetableUi();
+            await CheckLeisureUi();
     }
 }

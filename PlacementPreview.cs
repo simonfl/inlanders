@@ -23,7 +23,7 @@ public partial class Game
     {
         BuildingKind.Stockpile => "Stores up to 12 logs. Loggers drop timber nearby; builders and sawyers collect locally. Haulers refill its target or return surplus to the yard. Costs 6 logs. Food and planks stay at the main yard.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing. Costs 6 logs.",
-        BuildingKind.Square => "A gathering place for village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
+        BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",

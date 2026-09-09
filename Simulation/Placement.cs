@@ -38,7 +38,7 @@ public sealed partial class World
         var worker = People.FirstOrDefault(v => footprint.Contains(At(v)) || (v.Route.TryPeek(out var next) && footprint.Contains(next)));
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
         bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(c => c.Entrance)).Append(YardAccess).Append(entrance);
+        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null).Select(v => v.Destination)).Append(YardAccess).Append(entrance);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))

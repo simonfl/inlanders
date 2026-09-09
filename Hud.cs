@@ -235,7 +235,7 @@ public partial class Game
             BuildingKind.Stockpile => $"Log storage · {_world.LogsAt(selected.Id)}/{World.StockpileCapacity}\n{_world.ReservedLogsAt(selected.Id)} reserved · {_world.IncomingLogsAt(selected.Id)} arriving\nTarget: {selected.LogTarget} logs\nBuilders and sawyers collect here; haulers balance targets.",
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
-            BuildingKind.Square => $"Gathering place · no staff\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
+            BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: 8 planks",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.VegetableGarden => $"Vegetables · 1 farmer slot\nCrop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe\n8 food per harvest · eaten directly",

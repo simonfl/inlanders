@@ -12,7 +12,7 @@ public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure }
 
 public sealed class Villager
 {
@@ -35,6 +35,9 @@ public sealed class Villager
     [JsonInclude]    public int FoodReserved { get; internal set; }
     [JsonInclude]    public int? StorageId { get; internal set; }
     [JsonInclude]    public int? HaulTargetId { get; internal set; }
+    [JsonInclude] public int? LeisureSiteId { get; internal set; }
+    [JsonInclude] public float NextLeisureTime { get; internal set; }
+    [JsonInclude] public int LeisureVisits { get; internal set; }
 }
 public sealed class TimberTree
 {
@@ -185,6 +188,8 @@ public sealed partial class World
     private void Interrupt(Villager v)
     {
         ReleaseFoodClaims(v);
+        if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
+        v.LeisureSiteId = null;
         if (v.TreeId is int tree) Trees.Single(t => t.Id == tree).Owner = null;
         if (v.SiteId is int id && Cottages.FirstOrDefault(c => c.Id == id) is Cottage site)
         {
@@ -211,12 +216,15 @@ public sealed partial class World
     private void Finish(Villager v)
     {
         ReleaseFoodClaims(v);
+        if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
+        v.LeisureSiteId = null;
         v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
         v.Timer = 0; v.Status = "Looking for work"; _retry = 0;
     }
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
+        if (ClaimLeisure(v)) return;
         if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
         if (v.Role == Role.Sawyer) { ClaimSawWork(v); return; }
         if (v.Role is Role.Forager or Role.Farmer or Role.Baker) { ClaimFoodWork(v); return; }
@@ -279,6 +287,8 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = "Taking a break at the square"; break;
+                case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; Finish(v); } break;
                 case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
                 case Work.ClearingStump:
                     if (v.Timer < 4) break;
@@ -325,6 +335,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
+        ValidateLeisure();
         ValidateStorage();
         ValidateFood();
         ValidateSawmills();
