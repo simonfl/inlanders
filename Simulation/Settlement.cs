@@ -132,7 +132,7 @@ public sealed partial class World
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
-    private bool Blocked(Cell c) => !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
+    private bool Blocked(Cell c) => Decorations.Any(d => d.Cell == c && d.Solid) || !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
         Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotated, h.Kind).Contains(c));
 
     public bool CanPlace(Cell cell, bool rotated) => PlacementProblem(cell, rotated) == null;
@@ -335,6 +335,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
+        ValidateDecorations();
         ValidateLeisure();
         ValidateStorage();
         ValidateFood();

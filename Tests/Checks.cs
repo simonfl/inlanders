@@ -113,3 +113,4 @@ PopulationChecks.Run();
 StorageChecks.Run();
 VegetableChecks.Run();
 LeisureChecks.Run();
+DecorationChecks.Run();

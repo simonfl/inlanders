@@ -8,7 +8,8 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 12;
+    public int Version { get; set; } = 13;
+    public List<Decoration> Decorations { get; set; } = new();
     public HashSet<Cell> Paths { get; set; } = new();
     public MapLayout? Map { get; set; }
     public CampaignState? Campaign { get; set; }
@@ -37,14 +38,14 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
+            Decorations = Decorations, TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = Planks, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History
         }, SaveOptions);
     }
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13)) throw new InvalidDataException($"Unsupported save version {s.Version}");
         if (s.Version >= 5 && s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && (s.Campaign.Level is < 1 or > 4 || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
@@ -72,6 +73,7 @@ public sealed partial class World
         if (s.TreesPlanted < 0) throw new InvalidDataException("Invalid planting count");
         if (s.Paths == null || s.Paths.Any(c => w.Blocked(c) || map.Water.Contains(c))) throw new InvalidDataException("Invalid path tiles");
         w.Paths = s.Paths;
+        w.Decorations = s.Decorations ?? throw new InvalidDataException("Missing decorations");
         w.Validate(); w.ValidateMapOccupancy(); return w;
     }
     public void SaveFile(string path)

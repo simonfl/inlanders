@@ -86,7 +86,7 @@ public partial class Game : Node3D
         var log = Cylinder(parent, at, 0.13f, length, _wood); log.RotationDegrees = new(0, 0, 90);
         var end = Cylinder(parent, at + new Vector3(length / 2 + 0.002f, 0, 0), 0.115f, 0.015f, new("d4b17e")); end.RotationDegrees = new(0, 0, 90);
     }
-    private void MakeCottage(Node3D parent, int stage)
+    private void MakeCottage(Node3D parent, int stage, int variant = 0)
     {
         Box(parent, new(0, 0.08f, 0), new(2.9f, 0.16f, 1.9f), new("b9b099"));
         if (stage < 1) return;
@@ -102,7 +102,7 @@ public partial class Game : Node3D
         if (stage < 3) return;
         foreach (float side in new[] { -1f, 1f })
         {
-            var roof = Box(parent, new(0, 1.95f, side * 0.53f), new(3.15f, 0.16f, 1.35f), _roof);
+            var roof = Box(parent, new(0, 1.95f, side * 0.53f), new(3.15f, 0.16f, 1.35f), variant == 1 ? new("6f8580") : variant == 2 ? new("a18959") : _roof);
             roof.RotationDegrees = new(side * 32, 0, 0);
         }
         var gable = new SurfaceTool(); gable.Begin(Godot.Mesh.PrimitiveType.Triangles);

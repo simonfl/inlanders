@@ -46,9 +46,9 @@ public partial class Game
     }
     private void CloseDrawer() => _drawer.Hide();
     private void ClearSelection() { _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
-    private void CloseManagementUi() { ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); }
+    private void CloseManagementUi() { _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); }
     private void SelectPerson(int id) { _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
-    private void BeginPlacement(BuildingKind kind) { if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
+    private void BeginPlacement(BuildingKind kind) { if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }

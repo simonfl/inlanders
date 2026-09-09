@@ -12,7 +12,7 @@ public partial class Game
     private int _pathRevision = -1;
     private void TogglePaths(int tool)
     {
-        _placing = !(_placing && _pathTool == tool); _pathTool = tool;
+        _placing = !(_placing && _pathTool == tool); _pathTool = tool; _decorating = false;
         _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null;
         ClearSelection(); RefreshGhost();
     }

@@ -277,3 +277,5 @@ Clearing checks cover five saved/interrupted work phases, timber conservation, c
 Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.
 
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
+
+**Decorative landscaping:** Build → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click repeatedly on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Cottages use three stable roof colours.

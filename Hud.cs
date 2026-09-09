@@ -156,6 +156,7 @@ public partial class Game
         _clearTreeButton.TooltipText = "Click trees or stumps to mark logger work; click again to cancel. Existing timber is recovered, then roots are removed.";
         column.AddChild(Button("Paint paths [P]", () => TogglePaths(1)));
         column.AddChild(Button("Remove paths [Shift+P]", () => TogglePaths(2)));
+        MakeDecorationMenu(column);
         _buildDescription = Text("", 14, true); column.AddChild(_buildDescription);
         _buildButton = Button("", () => { if (_placing) { _placing = false; RefreshGhost(); } else BeginPlacement(_buildKind); }); column.AddChild(_buildButton);
         column.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); MakeConstructionFilter(column); _queue = new VBoxContainer(); column.AddChild(_queue);
@@ -226,7 +227,7 @@ public partial class Game
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.Modulate = _placing && _clearingTrees ? _cream : Colors.White;
-        foreach (var (kind, b) in _kindButtons) { b.Modulate = _placing && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
+        foreach (var (kind, b) in _kindButtons) { b.Modulate = _placing && !_decorating && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
         if (_queueButtons.Count != _world.Cottages.Count) RebuildQueue();
         var selected = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
@@ -253,7 +254,7 @@ public partial class Game
         UpdateVillageDirectory();
         UpdateStorageControls();
         UpdateBuildDescription();
-        _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
+        _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;

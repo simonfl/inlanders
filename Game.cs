@@ -85,6 +85,7 @@ public partial class Game : Node3D
     private void PlaceCottage(Cell at)
     {
         _hover = at;
+        if (_decorating) { EditDecoration(at); return; }
         if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }
         if (_clearingTrees) { MarkClearing(at); return; }
         if (_plantingTrees)
@@ -99,7 +100,7 @@ public partial class Game : Node3D
     }
     private void ToggleTreePlanting()
     {
-        _pathTool = 0;
+        _pathTool = 0; _decorating = false;
         _clearingTrees = false;
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
     }
@@ -163,7 +164,7 @@ public partial class Game : Node3D
     }
     private void RenderActors(float dt)
     {
-        RenderPaths();
+        RenderPaths(); RenderDecorations();
         while (_people.Count < _world.Population)
         {
             var p = _world.People[_people.Count]; var view = MakeVillager(p.Id);

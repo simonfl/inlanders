@@ -33,7 +33,7 @@ public partial class Game
         BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? _watchBar.GetGlobalRect().HasPoint(point) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
@@ -47,6 +47,7 @@ public partial class Game
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (!_placing) return;
         _placementProblem = PlacementProblem(_hover); _ghostValid = _placementProblem.Length == 0;
+        if (_decorating) { RefreshDecorationGhost(); return; }
         if (_pathTool > 0) { RefreshPathGhost(); return; }
         if (_clearingTrees) { RefreshClearingGhost(); return; }
         var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
@@ -89,6 +90,7 @@ public partial class Game
     }
     private void UpdateBuildDescription()
     {
+        if (_decorating && _placing) { _buildDescription.Text = DecorationDescription; return; }
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {

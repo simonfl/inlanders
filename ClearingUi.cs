@@ -8,7 +8,7 @@ public partial class Game
     private Button _clearTreeButton = null!;
     private void ToggleClearing()
     {
-        _pathTool = 0;
+        _pathTool = 0; _decorating = false;
         _placing = !(_placing && _clearingTrees); _clearingTrees = true; _plantingTrees = false;
         ClearSelection(); RefreshGhost();
     }

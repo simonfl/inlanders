@@ -24,6 +24,7 @@ public sealed partial class World
         if (Food.Celebrating) return "Wait until the village supper is over.";
         if (footprint.Any(c => !Inside(c)) || !Inside(entrance)) return "Keep the footprint and its entrance inside the buildable map.";
         if (footprint.Any(Map.Water.Contains)) return "Water needs a bridge; buildings and planting require dry land.";
+        if (Decorations.Any(d => footprint.Contains(d.Cell))) return "Remove decorations from this footprint first.";
         if (footprint.Contains(Stockpile)) return "The timber yard occupies this spot.";
         var tree = Trees.FirstOrDefault(t => t != reusableStump && footprint.Contains(t.Cell));
         if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
