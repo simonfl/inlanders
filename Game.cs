@@ -159,7 +159,7 @@ public partial class Game : Node3D
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        RenderActors(dt); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
+        RenderActors(dt); UpdateAtmosphere(); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
     }
     private void RenderActors(float dt)
     {

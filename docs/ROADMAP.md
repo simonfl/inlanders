@@ -33,7 +33,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
 | F18 | Campaign tutorial — First campaign done | Optional contextual guidance ships with all four levels, introducing a building or connected group per settlement. | F11 |
 | F19 | Main menu — Done (first chunk) | Title screen with Continue, Campaign start/resume/replay, both Free play maps, sound settings, Quit, and save-on-return from gameplay. | F11 |
-| F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
+| F20 | Lighting and atmosphere — Done (first chunk) | Soft daylight/golden-hour light, muted grass variation, and subtle pause-aware foliage motion with saved visual settings. Day/night changes TBD. | — |
 | F21 | UI and interaction — High priority; F21a–e first chunks done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
 | F22 | Construction and growth presentation | Give each building recognizable construction stages, and make crop growth and harvesting more expressive. Start with one building or crop. | — |
 
@@ -48,7 +48,7 @@ This is a presentation milestone spanning several features; **F04 is the separat
 | Growing crops and trees | F22, F02 | Both grow visibly; crop variety and harvest feedback can develop further. |
 | Sound effects and ambience | F10 | First synthesized pass done: positional work sounds, UI cues, wind/birds, volume and mute controls. |
 | Music | F17 | Planned separately from sound effects. |
-| Lighting | F20 | Planned; develop the village's visual mood. |
+| Lighting | F20 | Soft daylight and golden hour are playable, with subtle foliage motion. |
 | Restrained, useful UI | F21 | A major priority with several selectable chunks, detailed below. |
 
 ### F21 — UI and interaction
@@ -75,7 +75,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** now adds direct jobs, workplace links/staffing, and camera follow. F21d economy feedback is playable too; F21e watch mode completes the first UI pass. Further UI work should follow play feedback. UI remains a major priority; further refinements should follow play feedback.
 
-**F20 — Lighting and atmosphere** is another strong presentation pick now that F10 has its first sound pass. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
+**F20 — Lighting and atmosphere** now has a first pass: two light moods and gentle foliage movement. F17 music and F22 construction/growth presentation can be chosen independently. F04 gathering places remains available as a gameplay feature; it is not required to complete the original presentation milestone.
 
 ## Selected chunks
 
@@ -278,6 +278,18 @@ H, Esc, or Manage restores the normal HUD and retained selection/drawer. Managem
 Verification: rendered checks cover 1440×900 and 960×640 layout, read-only entry, retained selection, map clicks, playback controls, continued simulation, cancelled placement, and keyboard/button return. The broader HUD checks also pass.
 
 Later / TBD: fully clean screenshots, optional world-label hiding, slow camera orbit, and scenic camera bookmarks.
+
+### F20 — Lighting and atmosphere
+
+Status: Done (first chunk).
+
+The village uses warmer direct light, cooler ambient fill, and gently varying muted grass colors shared by both map renderers. Options → Atmosphere switches between soft daylight and golden hour. Golden hour lowers the sun for longer shadows while keeping the village readable.
+
+Tree crowns sway slightly at different phases while their trunks and physical cells stay fixed. Motion follows saved village time, pauses with the game, and responds to playback speed. Placement previews remain still. Foliage motion can be switched off. Preferences live separately in saves/atmosphere.cfg and apply to all settlements; these choices do not change production, paths, or objectives.
+
+Verification: rendered preset comparisons, unchanged settlement state, paused/moving foliage, motion toggle, static planting previews, preference persistence, and controls at 960×640. Existing HUD and watch-mode checks pass.
+
+Later / TBD: day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. Light mood is a player-controlled visual preset in this first pass.
 
 ### Chunk template
 

@@ -27,7 +27,7 @@ public partial class Game
             {
                 float tint = (float)random.NextDouble() * 0.045f;
                 mesh.SetInstanceTransform(i, new Transform3D(Basis.Identity, new Vector3(land[i].X, y, land[i].Z)));
-                mesh.SetInstanceColor(i, grass ? new Color(0.42f + tint, 0.51f + tint, 0.30f + tint) : new Color("877d62"));
+                mesh.SetInstanceColor(i, grass ? GroundTint(land[i].X, land[i].Z) : new Color("877d62"));
             }
             _landscape.AddChild(new MultiMeshInstance3D { Multimesh = mesh, MaterialOverride = new StandardMaterial3D { VertexColorUseAsAlbedo = true, Roughness = 1 } });
         }

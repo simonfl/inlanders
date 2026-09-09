@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Game : Node3D
 {
@@ -16,14 +17,16 @@ public partial class Game : Node3D
 
     private void MakeLandscape()
     {
-        var environment = new Godot.Environment
+        _villageEnvironment = new Godot.Environment
         {
             BackgroundMode = Godot.Environment.BGMode.Color, BackgroundColor = new("afc5bf"),
             AmbientLightSource = Godot.Environment.AmbientSource.Color, AmbientLightColor = Colors.White, AmbientLightEnergy = 0.3f,
             TonemapMode = Godot.Environment.ToneMapper.Linear
         };
-        AddChild(new WorldEnvironment { Environment = environment });
-        AddChild(new DirectionalLight3D { RotationDegrees = new(-52, -30, 0), LightColor = new("fffaf1"), LightEnergy = 0.65f, ShadowEnabled = true, DirectionalShadowMaxDistance = 70 });
+        AddChild(new WorldEnvironment { Environment = _villageEnvironment });
+        _sun = new DirectionalLight3D { ShadowEnabled = true, DirectionalShadowMaxDistance = 90 }; AddChild(_sun);
+        if (!OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) LoadAtmosphere();
+        ApplyAtmosphere();
         _camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = 23, Far = 120, Current = true };
         AddChild(_camera);
         RebuildLandscape();
@@ -42,7 +45,7 @@ public partial class Game : Node3D
         for (int x = -9; x <= 9; x++) for (int z = -8; z <= 8; z++)
         {
             float tint = (float)random.NextDouble() * 0.045f;
-            Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), new Color(0.42f + tint, 0.51f + tint, 0.30f + tint));
+            Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), GroundTint(x, z));
         }
         foreach (var p in new[] { new Vector3(-9,0,-8), new(-6,0,-8), new(-9,0,-4), new(9,0,-7), new(9,0,-3), new(6,0,-8), new(-9,0,8), new(9,0,8) })
             MakeTree(p, 0.8f + (float)random.NextDouble() * 0.35f, new("698458")).Reparent(_landscape);
@@ -72,8 +75,10 @@ public partial class Game : Node3D
     {
         var tree = new Node3D { Position = at, Scale = Vector3.One * scale }; AddChild(tree);
         Cylinder(tree, new(0, 0.8f, 0), 0.18f, 1.6f, _wood, 0.11f);
-        Mesh(tree, new SphereMesh { Radius = 0.9f, Height = 1.9f, RadialSegments = 7, Rings = 4 }, new(0, 1.95f, 0), leaves);
-        Mesh(tree, new SphereMesh { Radius = 0.65f, Height = 1.3f, RadialSegments = 6, Rings = 3 }, new(0.5f, 1.7f, 0.1f), leaves.Lightened(0.05f));
+        var crown = new Node3D { Position = new(0, 1.1f, 0) }; tree.AddChild(crown);
+        crown.AddToGroup("foliage"); crown.SetMeta("breeze_phase", at.X * 0.61f + at.Z * 0.37f);
+        Mesh(crown, new SphereMesh { Radius = 0.9f, Height = 1.9f, RadialSegments = 7, Rings = 4 }, new(0, 0.85f, 0), leaves);
+        Mesh(crown, new SphereMesh { Radius = 0.65f, Height = 1.3f, RadialSegments = 6, Rings = 3 }, new(0.5f, 0.6f, 0.1f), leaves.Lightened(0.05f));
         return tree;
     }
     private void Log(Node3D parent, Vector3 at, float length = 0.85f)

@@ -75,6 +75,12 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
+### Lighting and atmosphere
+
+**Options → Atmosphere** switches between **soft daylight** and **golden hour**. The warmer evening preset casts longer shadows. Gentle tree-crown movement follows village time and stops when paused; disable it with **Foliage motion** for a still view.
+
+These visual preferences persist in saves/atmosphere.cfg across villages. They do not affect the simulation or introduce a day/night mechanic.
+
 ### Watch the village
 
 Press **H** or choose **Options → Watch village** to hide the HUD. A small bar keeps pause, speed, map framing, and **Manage** available. Camera movement and villager-follow keep working.
