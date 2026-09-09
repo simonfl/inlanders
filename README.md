@@ -75,6 +75,14 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
+### Local log stockpiles
+
+Build a **Stockpile** for **6 logs**, then assign a **Hauler** in People or from the stockpile inspector. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
+
+Loggers drop timber at nearby storage with room. Builders and sawyers collect from a suitable store close to their work site. Haulers carry two logs at a time, refill targets from the main yard or another stockpile's surplus, and return excess to the yard. Target **0** drains a stockpile; already committed loads finish before haulers rebalance. Loggers may still drop new timber there, so target zero does not close the stockpile.
+
+The top-bar Logs total includes the main yard and every stockpile. Select a stockpile for its stored, reserved, and incoming counts; **Economy [I]** lists each location. Stockpile log stacks change as deliveries arrive or leave. Food and planks still use the main yard. Completed stockpiles cannot be demolished in this first version.
+
 ### Welcoming newcomers
 
 Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
@@ -186,7 +194,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Older standalone saves remain supported.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping.
 
 ## Development
 
@@ -198,6 +206,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | `Simulation/Food.cs` | Foraging, farming, baking, meals, hunger, supper |
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
 | `Simulation/Clearing.cs`, `ClearingUi.cs` | Logger clearing orders, cancellation, root work, and clearing previews |
+| `Simulation/Storage.cs`, `StorageUi.cs` | Local log stores, hauling reservations, target controls, and stockpile visuals |
 | `Simulation/Sawmill.cs` | Sawyers, log-to-plank production, stock target, plank accounting |
 | `Simulation/Saving.cs` | Versioned JSON saves, validation, file replacement/backup |
 | `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |

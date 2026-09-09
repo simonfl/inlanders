@@ -42,6 +42,10 @@ public sealed partial class World
         }
         if(!Food.Celebrating)
         {
+            if (HasBuilding(BuildingKind.Stockpile) && !Staffed(Role.Hauler))
+                issues.Add(new("haulers", "Stockpile transfers have no haulers. Loggers can still drop logs and builders collect them locally.", Staff: Role.Hauler));
+            else if (Staffed(Role.Hauler) && !Planned(BuildingKind.Stockpile))
+                issues.Add(new("stockpile", "Haulers need a stockpile with a log target.", Build: BuildingKind.Stockpile));
             bool building=Cottages.Any(c=>!c.Complete);
             if(building && !Staffed(Role.Builder)) issues.Add(new("builders","Construction has no builders. Assign someone to deliver materials and build.",Staff:Role.Builder));
             bool timberNeeded=Need(Resource.Logs)>Available || (Need(Resource.Planks)>AvailablePlanks && Available<2);

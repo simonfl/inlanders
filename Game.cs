@@ -213,10 +213,10 @@ public partial class Game : Node3D
                 if (t.Material == Resource.Planks) Plank(view.Pile, at); else Log(view.Pile, at, 0.65f);
             }
         }
-        if (_lastStored != _world.Stored || _lastPlanks != _world.Planks)
+        if (_lastStored != _world.YardLogs || _lastPlanks != _world.Planks)
         {
-            _lastStored = _world.Stored; _lastPlanks = _world.Planks; Clear(_stored);
-            for (int i = 0; i < _world.Stored; i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
+            _lastStored = _world.YardLogs; _lastPlanks = _world.Planks; Clear(_stored);
+            for (int i = 0; i < _world.YardLogs; i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
             for (int i = 0; i < _world.Planks; i++) Plank(_stored, new(-3, 0.18f + i / 3 * 0.12f, 4.5f + i % 3 * 0.22f));
         }
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
@@ -224,11 +224,12 @@ public partial class Game : Node3D
         {
             int stage = h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered > 0 ? 1 : 0;
             if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
-            if (view.Stage != stage)
+            int viewKey = h.Kind == BuildingKind.Stockpile ? stage * 100 + h.StoredLogs : stage;
+            if (view.Stage != viewKey)
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 view.Body.Position = new(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), 0, h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
-                view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, stage);
+                view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, viewKey);
             }
         }
     }

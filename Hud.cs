@@ -32,6 +32,7 @@ public partial class Game
     private static string BuildingName(BuildingKind kind) => kind == BuildingKind.ForagerHut ? "Forager hut" : kind == BuildingKind.Square ? "Village square" : kind.ToString();
     private static string TaskName(Work task) => task switch
     {
+        Work.ToHaulPickup => "Collecting logs", Work.ToHaulDrop => "Hauling logs",
         Work.ToTree => "To timber", Work.Chopping => "Logging", Work.ToStockpile => "Hauling",
         Work.ToSapling or Work.PlantingTree => "Planting tree", Work.ToSawLogs => "Fetching logs",
         Work.ToClearStump or Work.ClearingStump => "Clearing roots",
@@ -109,7 +110,7 @@ public partial class Game
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton);
-        MakeManagementControls();
+        MakeStorageControls(); MakeManagementControls();
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
@@ -230,6 +231,7 @@ public partial class Game
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
+            BuildingKind.Stockpile => $"Log storage · {_world.LogsAt(selected.Id)}/{World.StockpileCapacity}\n{_world.ReservedLogsAt(selected.Id)} reserved · {_world.IncomingLogsAt(selected.Id)} arriving\nTarget: {selected.LogTarget} logs\nBuilders and sawyers collect here; haulers balance targets.",
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.Square => $"Gathering place · no staff\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
@@ -246,6 +248,7 @@ public partial class Game
             var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
+        UpdateStorageControls();
         UpdateBuildDescription();
         _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);

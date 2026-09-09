@@ -7,12 +7,12 @@ using System.Text.Json.Serialization;
 namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
-public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer }
+public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler }
 public enum Resource { Logs, Berries, Grain, Bread, Planks }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop }
 
 public sealed class Villager
 {
@@ -33,6 +33,8 @@ public sealed class Villager
     [JsonInclude]    public int? WorkplaceId { get; internal set; }
     [JsonInclude]    public int? BushId { get; internal set; }
     [JsonInclude]    public int FoodReserved { get; internal set; }
+    [JsonInclude]    public int? StorageId { get; internal set; }
+    [JsonInclude]    public int? HaulTargetId { get; internal set; }
 }
 public sealed class TimberTree
 {
@@ -69,6 +71,8 @@ public sealed class Cottage
     [JsonInclude]    public int Incoming { get; internal set; }
     [JsonInclude]    public int? Builder { get; internal set; }
     [JsonInclude]    public float Construction { get; internal set; }
+    [JsonInclude]    public int StoredLogs { get; internal set; }
+    [JsonInclude]    public int LogTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;
     public Cell Entrance => Kind == BuildingKind.Bridge && BridgeFromFar ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
     public Resource Material => Kind == BuildingKind.Lodge ? Resource.Planks : Resource.Logs;
@@ -87,8 +91,10 @@ public sealed partial class World
     public List<Cottage> Cottages { get; } = new();
     public Cell Stockpile { get; } = new(-3, 3);
     public Cell YardAccess => new(Stockpile.X + 1, Stockpile.Z);
-    public int Stored { get; private set; }
-    public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task == Work.ToSawLogs).Sum(v => v.Reserved);
+    private int _yardLogs;
+    public int YardLogs => _yardLogs;
+    public int Stored => _yardLogs + Cottages.Sum(c => c.StoredLogs);
+    public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task is Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int Available => Stored - ReservedStorage;
     public int InitialLogs { get; private set; }
     public int Beds => Cottages.Where(c => c.Complete).Sum(c => c.Kind == BuildingKind.Cottage ? 2 : c.Kind == BuildingKind.Lodge ? 4 : 0);
@@ -185,8 +191,12 @@ public sealed partial class World
             site.Incoming -= v.Reserved;
             if (site.Builder == v.Id) site.Builder = null;
         }
-        v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.Route.Clear(); v.Timer = 0;
-        if (v.Carried > 0) Go(v, YardAccess, v.Cargo is Resource.Logs or Resource.Planks ? Work.ToStockpile : Work.ToPantry, $"Returning carried {v.Cargo.ToString().ToLowerInvariant()}");
+        v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.StorageId = null; v.HaulTargetId = null; v.Route.Clear(); v.Timer = 0;
+        if (v.Carried > 0)
+        {
+            if (v.Cargo is Resource.Logs or Resource.Planks) ReturnTimber(v);
+            else Go(v, YardAccess, Work.ToPantry, $"Returning carried {v.Cargo.ToString().ToLowerInvariant()}");
+        }
         else { v.Task = Work.Waiting; v.Status = "Looking for work"; }
     }
     private void SetRoute(Villager v, Cell destination)
@@ -201,12 +211,13 @@ public sealed partial class World
     private void Finish(Villager v)
     {
         ReleaseFoodClaims(v);
-        v.TreeId = null; v.SiteId = null; v.Reserved = 0; v.Task = Work.Waiting;
+        v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
         v.Timer = 0; v.Status = "Looking for work"; _retry = 0;
     }
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
+        if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
         if (v.Role == Role.Sawyer) { ClaimSawWork(v); return; }
         if (v.Role is Role.Forager or Role.Farmer or Role.Baker) { ClaimFoodWork(v); return; }
         if (v.Role == Role.Unassigned) { v.Status = "Unassigned — choose a job"; return; }
@@ -234,11 +245,13 @@ public sealed partial class World
                 site.Builder = v.Id; v.SiteId = site.Id;
                 Go(v, site.Entrance, Work.ToBuild, $"Walking to build {site.Kind} {site.Id}"); return;
             }
-            int amount = Math.Min(2, Math.Min(site.Required - site.Delivered - site.Incoming, site.Material == Resource.Logs ? Available : AvailablePlanks));
+            int? source = null;
+            if (site.Material == Resource.Logs && !TryLogSource(site.Entrance, 1, out source)) continue;
+            int amount = Math.Min(2, Math.Min(site.Required - site.Delivered - site.Incoming, site.Material == Resource.Logs ? AvailableLogsAt(source) : AvailablePlanks));
             if (amount <= 0) continue;
             v.SiteId = site.Id; v.Reserved = amount; site.Incoming += amount;
-            v.Cargo = site.Material;
-            Go(v, YardAccess, Work.ToMaterials, $"Collecting {amount} reserved {site.Material} for {site.Kind} {site.Id}"); return;
+            v.Cargo = site.Material; v.StorageId = source;
+            Go(v, StorageAccess(source), Work.ToMaterials, $"Collecting {amount} reserved {site.Material} for {site.Kind} {site.Id}"); return;
         }
         v.Status = sites.Length == 0 ? "No construction plans — place a cottage" :
             sites.All(c => c.Delivered + c.Incoming == c.Required) ? "Waiting — deliveries or another builder already cover each site" :
@@ -283,13 +296,14 @@ public sealed partial class World
                     if (v.Timer < (tree.Felled ? 1.2f : 4f)) break;
                     tree.Felled = true; v.Cargo = tree.Material; v.Carried = Math.Min(2, tree.Logs); tree.Logs -= v.Carried; tree.Owner = null; v.TreeId = null;
                     if (tree.Salvage && tree.Logs == 0) Trees.Remove(tree);
-                    Go(v, YardAccess, Work.ToStockpile, $"Carrying {v.Carried} {v.Cargo} to the timber yard"); break;
+                    ReturnTimber(v); break;
                 case Work.ToStockpile:
-                    if (v.Cargo == Resource.Planks) Planks += v.Carried; else Stored += v.Carried;
+                    if (v.Cargo == Resource.Planks) Planks += v.Carried; else ChangeLogs(v.StorageId, v.Carried);
                     v.Carried = 0; Finish(v); break;
                 case Work.ToMaterials:
                     if (v.Timer < 0.7f) break;
-                    if (v.Cargo == Resource.Planks) Planks -= v.Reserved; else Stored -= v.Reserved;
+                    if (v.Cargo == Resource.Planks) Planks -= v.Reserved; else ChangeLogs(v.StorageId, -v.Reserved);
+                    v.StorageId = null;
                     v.Carried = v.Reserved;
                     Go(v, Cottages.Single(c => c.Id == v.SiteId).Entrance, Work.ToCottage, $"Delivering {v.Carried} {v.Cargo} to site {v.SiteId}"); break;
                 case Work.ToCottage:
@@ -299,7 +313,7 @@ public sealed partial class World
                 case Work.Building:
                     var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / 12);
                     if (build.Complete) { if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
-                default: if (!TickSawWork(v, dt)) TickFoodWork(v, dt); break;
+                default: if (!TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }
         UpdateCampaign();
@@ -311,6 +325,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
+        ValidateStorage();
         ValidateFood();
         ValidateSawmills();
         foreach (var site in Cottages)

@@ -18,13 +18,13 @@ public partial class Game
     private static Role? WorkplaceRole(BuildingKind kind) => kind switch
     {
         BuildingKind.ForagerHut => Role.Forager, BuildingKind.Farm => Role.Farmer,
-        BuildingKind.Bakery => Role.Baker, BuildingKind.Sawmill => Role.Sawyer, _ => null
+        BuildingKind.Stockpile => Role.Hauler, BuildingKind.Bakery => Role.Baker, BuildingKind.Sawmill => Role.Sawyer, _ => null
     };
     private int? SelectedWorkplace()
     {
         if (_selectedPerson < 0) return null;
         var p = _world.People[_selectedPerson];
-        return p.WorkplaceId ?? p.SiteId;
+        return p.WorkplaceId ?? p.SiteId ?? p.HaulTargetId ?? p.StorageId;
     }
     private void MakeJobChoice()
     {
@@ -65,15 +65,15 @@ public partial class Game
         _workplaceControls.Visible=site?.Complete==true && role!=null;
         if(role is Role job && site!=null) {
             int assigned=_world.People.Count(p=>p.Role==job);
-            int active=_world.People.Count(p=>p.WorkplaceId==site.Id);
+            int active=_world.People.Count(p=>p.WorkplaceId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id);
             int capacity=site.Kind==BuildingKind.ForagerHut?2:1;
-            _workplaceStaff.Text=$"{active}/{capacity} working here · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nWorkers share workplaces; + uses a spare worker or transfers one from another job.";
+            _workplaceStaff.Text=site.Kind==BuildingKind.Stockpile ? $"{active} visiting · {assigned} haulers village-wide\nHaulers share all stockpiles. Targets reserve space for incoming loads." : $"{active}/{capacity} working here · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nWorkers share workplaces; + uses a spare worker or transfers one from another job.";
             _staffMinus.Disabled=_world.Food.Celebrating || assigned==0;
             _staffPlus.Disabled=_world.Food.Celebrating || assigned==_world.Population;
         }
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];
-            button.Visible=site!=null && (p.WorkplaceId==site.Id || p.SiteId==site.Id);
+            button.Visible=site!=null && (p.WorkplaceId==site.Id || p.SiteId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id);
             button.Text=$"{p.Name} · {TaskName(p.Task)}";
         }
     }

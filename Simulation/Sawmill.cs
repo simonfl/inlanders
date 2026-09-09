@@ -19,7 +19,7 @@ public sealed partial class World
     {
         var mill = FoodSite(BuildingKind.Sawmill, c => c.OutputPlanks > 0) ?? FoodSite(BuildingKind.Sawmill, c => c.InputLogs > 0);
         if (mill == null && PendingPlanks <= PlankStockTarget - 4 && Available >= 2)
-            mill = FoodSite(BuildingKind.Sawmill, _ => true);
+            mill = FoodSite(BuildingKind.Sawmill, c => TryLogSource(c.Entrance, 2, out _));
         if (mill == null)
         {
             v.Status = !Cottages.Any(c => c.Complete && c.Kind == BuildingKind.Sawmill) ? "Needs a finished sawmill" :
@@ -32,8 +32,9 @@ public sealed partial class World
         else if (mill.InputLogs > 0) Go(v, mill.Entrance, Work.ToSawmill, "Resuming a sawmill batch");
         else
         {
-            v.Reserved = 2; v.Cargo = Resource.Logs;
-            Go(v, YardAccess, Work.ToSawLogs, "Fetching 2 reserved logs for the sawmill");
+            TryLogSource(mill.Entrance, 2, out int? source);
+            v.Reserved = 2; v.Cargo = Resource.Logs; v.StorageId = source;
+            Go(v, StorageAccess(source), Work.ToSawLogs, "Fetching 2 reserved logs for the sawmill");
         }
     }
 
@@ -44,7 +45,7 @@ public sealed partial class World
         switch (v.Task)
         {
             case Work.ToSawLogs:
-                Stored -= v.Reserved; v.Carried = v.Reserved; v.Reserved = 0;
+                ChangeLogs(v.StorageId, -v.Reserved); v.StorageId = null; v.Carried = v.Reserved; v.Reserved = 0;
                 Go(v, mill.Entrance, Work.ToSawmill, "Delivering logs to the sawmill"); break;
             case Work.ToSawmill:
                 mill.InputLogs += v.Carried; v.Carried = 0;
@@ -56,7 +57,7 @@ public sealed partial class World
                 mill.InputLogs = 0; mill.SawProgress = 0; v.Task = Work.ToPlanks; break;
             case Work.ToPlanks:
                 v.Carried = Math.Min(2, mill.OutputPlanks); mill.OutputPlanks -= v.Carried; v.Cargo = Resource.Planks;
-                Go(v, YardAccess, Work.ToStockpile, $"Carrying {v.Carried} planks to the timber yard"); break;
+                ReturnTimber(v); break;
         }
         return true;
     }

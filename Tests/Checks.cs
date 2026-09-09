@@ -110,3 +110,4 @@ WaterChecks.Run();
 ClearingChecks.Run();
 PathChecks.Run();
 PopulationChecks.Run();
+StorageChecks.Run();
