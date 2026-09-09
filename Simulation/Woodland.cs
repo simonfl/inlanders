@@ -7,6 +7,7 @@ public sealed partial class World
 {
     public const float TreeGrowthSeconds = 180;
     public const int TreeYield = 8;
+    public int TreesPlanted { get; private set; }
     public int GrownLogs { get; private set; }
 
     public bool CanPlantTree(Cell cell) => PlantingProblem(cell) == null;

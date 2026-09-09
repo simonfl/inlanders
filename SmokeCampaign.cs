@@ -32,6 +32,7 @@ public partial class Game
             await UiClick(_reopenHints); await UiClick(_guidance); await Press(Key.F5);
             string saved = _world.SaveJson(); await UiClick(_guidance); await Press(Key.F9); await Frames();
             Check(_world.SaveJson() == saved && !_world.Campaign!.Guidance, "Tutorial save/load failed");
+            _world.Place(new(0,0), false, BuildingKind.ForagerHut);
             foreach (var cell in new[] { new Cell(3, 0), new(6, 0), new(3, 6), new(-5, 6) })
             {
                 await UiClick(_kindButtons[BuildingKind.Cottage]);
@@ -42,8 +43,8 @@ public partial class Game
             Check(_campaignBook!.Completed.Contains(1), "Completion not persisted");
             await OpenMenu(2); await UiClick(_nextLevel); await Frames();
             Check(_world.Campaign?.Level == 2 && _world.DeliveredBerries == 0, "Next level did not reset economy");
-            await UiClick(_kindButtons[BuildingKind.ForagerHut]); await Click(_camera.UnprojectPosition(Vector3.Zero));
-            await UiClick(_allocationButtons[(Role.Forager, 1)]); await UiClick(_allocationButtons[(Role.Forager, 1)]);
+            _world.Place(new(3,-3), false, BuildingKind.Farm); _world.Place(new(6,-3), false, BuildingKind.Bakery);
+            _world.Assign(6, Role.Farmer); _world.Assign(7, Role.Baker);
             for (int i = 0; i < 400; i++) _world.Tick(0.1f);
             await Press(Key.F5); string midway = _world.SaveJson();
             _world.Tick(1); await Press(Key.F9); Check(_world.SaveJson() == midway, "Mid-goal save/load failed");
@@ -52,11 +53,26 @@ public partial class Game
             Check(_drawer.GetGlobalRect().End.Y <= 640, "Campaign drawer outside small window");
             await FinishLevel(); await OpenMenu(2);
             Check(_campaignBook!.Completed.SetEquals(new[] { 1, 2 }), "Opening campaign progress wrong");
+            await UiClick(_nextLevel); await Frames();
+            _world.Place(new(3,-3), false, BuildingKind.Sawmill); _world.Place(new(6,-3), false, BuildingKind.Lodge);
+            _world.Assign(6,Role.Sawyer);
+            foreach(var c in new[]{new Cell(0,6),new(0,8),new(2,8),new(4,8)}) _world.PlantTree(c);
+            await FinishLevel(); await OpenMenu(2); await UiClick(_nextLevel); await Frames();
+            _world.Place(new(3,-3),false,BuildingKind.Farm); _world.Place(new(6,-3),false,BuildingKind.Bakery);
+            _world.Place(new(3,6)); _world.Place(new(-5,6)); _world.Place(new(7,3),false,BuildingKind.Square);
+            _world.Assign(6,Role.Farmer); _world.Assign(7,Role.Baker);
+            for(int i=0;i<20000 && !_world.CanCelebrate;i++) { _world.Tick(.1f); if(i%100==0) await Frames(); }
+            await Frames(); await OpenMenu(2);
+            Check(_supperButton.Visible && !_supperButton.Disabled,"Finale supper control unavailable");
+            await Capture("artifacts/f11-finale-ready.png");
+            await UiClick(_supperButton); await FinishLevel(); await OpenMenu(2);
+            Check(_campaignBook!.Completed.SetEquals(new[]{1,2,3,4}) && !_nextLevel.Visible,"Campaign finale progress wrong");
+            await Capture("artifacts/f11-campaign-complete.png");
             string complete = _world.SaveJson();
             _world = World.NewScenario(); _campaignBook = null; ResumeCampaignOnLaunch(); await Frames();
             Check(_world.SaveJson() == complete && _paused, "Launch resume failed");
             await UiClick(_replayLevel); await Frames();
-            Check(!_world.Campaign!.Complete && _campaignBook!.Completed.Contains(2), "Replay erased completion");
+            Check(!_world.Campaign!.Complete && _campaignBook!.Completed.Contains(4), "Replay erased completion");
             await UiClick(_restoreReplay); await Frames();
             Check(_world.SaveJson() == complete, "Replay lost previous village");
             // A corrupt campaign file must not replace the live world.
@@ -64,7 +80,7 @@ public partial class Game
             Check(_world.SaveJson() == complete, "Bad campaign replaced live settlement");
             SaveCampaign(); SwitchCampaign(0, false); await Frames();
             Check(_world.Campaign == null && _world.SaveJson() == standalone, "Standalone snapshot was not preserved");
-            GD.Print("SMOKE PASS: campaign entry, both authored levels, tutorial controls/save/load, completion, next/replay/restore, invalid-save recovery, standalone return, and 960px layout.");
+            GD.Print("SMOKE PASS: campaign entry, all four authored levels, tutorial controls/save/load, completion, next/replay/restore, invalid-save recovery, standalone return, and 960px layout.");
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("CAMPAIGN SMOKE FAIL: " + e); GetTree().Quit(1); }

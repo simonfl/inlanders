@@ -9,7 +9,7 @@ namespace Inlanders.Simulation;
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
 public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer }
 public enum Resource { Logs, Berries, Grain, Bread, Planks }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
     ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump }
@@ -263,7 +263,7 @@ public sealed partial class World
                 case Work.PlantingTree:
                     if (v.Timer < 4) break;
                     var sapling = Trees.Single(t => t.Id == v.TreeId);
-                    sapling.NeedsPlanting = false; sapling.Owner = null; Finish(v); break;
+                    sapling.NeedsPlanting = false; TreesPlanted++; sapling.Owner = null; Finish(v); break;
                 case Work.ToTree: v.Task = Work.Chopping; v.Timer = 0; v.Status = "Cutting and collecting timber"; break;
                 case Work.Chopping:
                     var tree = Trees.Single(t => t.Id == v.TreeId);

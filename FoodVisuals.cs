@@ -22,6 +22,21 @@ public partial class Game
     }
     private void MakeBuilding(Node3D parent, Cottage site, int stage)
     {
+        if (site.Kind == BuildingKind.Square)
+        {
+            Box(parent, new(0, 0.04f, 0), new(2.8f, 0.08f, 1.8f), new("b9aa86"));
+            if (stage >= 1)
+                foreach (float x in new[] { -0.8f, 0.8f })
+                    Box(parent, new(x, 0.35f, 0), new(0.15f, 0.65f, 0.6f), _wood);
+            if (stage >= 2) Box(parent, new(0, 0.7f, 0), new(2.2f, 0.12f, 0.7f), _wood);
+            if (stage >= 3)
+            {
+                foreach (float z in new[] { -0.65f, 0.65f })
+                    Box(parent, new(0, 0.3f, z), new(2.2f, 0.15f, 0.25f), _wood);
+                FoodSign(parent, "VILLAGE SQUARE", 1.7f);
+            }
+            return;
+        }
         if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
         if (site.Kind == BuildingKind.Cottage || stage < 3) { MakeCottage(parent, stage); return; }

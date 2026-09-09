@@ -29,7 +29,7 @@ public partial class Game
     private static string RoleName(Role role) => role.ToString();
     private static Role NextRole(Role role) => (Role)(((int)role + 1) % Enum.GetValues<Role>().Length);
     private static string BuildCost(BuildingKind kind) => kind == BuildingKind.Lodge ? "8 planks · 4 beds" : "6 logs";
-    private static string BuildingName(BuildingKind kind) => kind == BuildingKind.ForagerHut ? "Forager hut" : kind.ToString();
+    private static string BuildingName(BuildingKind kind) => kind == BuildingKind.ForagerHut ? "Forager hut" : kind == BuildingKind.Square ? "Village square" : kind.ToString();
     private static string TaskName(Work task) => task switch
     {
         Work.ToTree => "To timber", Work.Chopping => "Logging", Work.ToStockpile => "Hauling",
@@ -227,6 +227,7 @@ public partial class Game
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
+            BuildingKind.Square => "Gathering place · no staff\nHouse everyone and stock 16 bread, then host supper in Goals. Leave 8 nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: 8 planks",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.Farm => $"Crop {selected.Growth:P0}\n{selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain\n{selected.OutputBread} loaves ready"

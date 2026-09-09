@@ -14,7 +14,7 @@ public sealed class CampaignState
     public HashSet<string> Dismissed { get; set; } = new();
 }
 
-public enum CampaignGoalKind { Housing, ForagerHut, DeliveredBerries }
+public enum CampaignGoalKind { Housing, ForagerHut, DeliveredBerries, Farm, Bakery, DeliveredBread, Sawmill, Lodge, TreesPlanted, Square, Supper }
 public sealed record CampaignGoal(CampaignGoalKind Kind, string Label, int Target);
 public sealed record CampaignLevel(int Id, string Title, string Arrival, params CampaignGoal[] Goals);
 public sealed record CampaignHint(string Id, string Text);
@@ -24,21 +24,37 @@ public sealed partial class World
     public CampaignState? Campaign { get; private set; }
     public static readonly CampaignLevel[] CampaignLevels =
     {
-        new(1, "A place to stay", "The berry camp is running. Give eight arrivals a home among the trees. All buildings are available; four cottages are a good start.", new CampaignGoal(CampaignGoalKind.Housing, "Completed housing", 8)),
-        new(2, "The berry clearing", "This hamlet has homes, but needs a dependable food supply. Build a forager hut and bring fresh berries back to storage.",
-            new CampaignGoal(CampaignGoalKind.ForagerHut, "Completed forager hut", 1), new CampaignGoal(CampaignGoalKind.DeliveredBerries, "Fresh berries delivered", 24))
+        new(1, "A place to stay", "Eight arrivals need food and homes. Start with a forager hut, then cottages. All buildings and tools remain available.",
+            new(CampaignGoalKind.ForagerHut, "Forager hut", 1), new(CampaignGoalKind.DeliveredBerries, "Fresh berries delivered", 24), new(CampaignGoalKind.Housing, "Neighbors housed", 8)),
+        new(2, "Bread for the table", "The berry hamlet has homes. Add a farm and bakery to bring bread to the table.",
+            new(CampaignGoalKind.Farm, "Farm", 1), new(CampaignGoalKind.Bakery, "Bakery", 1), new(CampaignGoalKind.DeliveredBread, "Loaves delivered", 16)),
+        new(3, "Room among the trees", "Four neighbors still need beds. Turn timber into planks for a lodge, and plant the next generation of woodland.",
+            new(CampaignGoalKind.Sawmill, "Sawmill", 1), new(CampaignGoalKind.Lodge, "Lodge", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.TreesPlanted, "Trees planted by loggers", 4)),
+        new(4, "A place for everyone", "Build a village square, house everyone, and set aside 16 loaves. Host supper from Goals and watch everyone gather.",
+            new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1))
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries - Food.InitialBerries;
-    public bool HasForagerHut => Cottages.Any(c => c.Kind == BuildingKind.ForagerHut && c.Complete);
+    public int DeliveredBread => Food.Bread + Food.EatenBread + Food.SupperBread;
+    public bool HasBuilding(BuildingKind kind) => Cottages.Any(c => c.Kind == kind && c.Complete);
+    public bool HasForagerHut => HasBuilding(BuildingKind.ForagerHut);
     private CampaignGoal[] ActiveGoals => Campaign == null ? Array.Empty<CampaignGoal>() : CampaignLevels[Campaign.Level - 1].Goals;
     private int GoalValue(CampaignGoalKind kind) => kind switch
     {
-        CampaignGoalKind.Housing => Housed, CampaignGoalKind.ForagerHut => HasForagerHut ? 1 : 0,
-        CampaignGoalKind.DeliveredBerries => DeliveredBerries, _ => throw new ArgumentOutOfRangeException(nameof(kind))
+        CampaignGoalKind.Housing => Housed,
+        CampaignGoalKind.DeliveredBerries => DeliveredBerries,
+        CampaignGoalKind.DeliveredBread => DeliveredBread,
+        CampaignGoalKind.TreesPlanted => TreesPlanted,
+        CampaignGoalKind.Supper => Food.SupperComplete ? 1 : 0,
+        _ => HasBuilding(kind switch {
+            CampaignGoalKind.ForagerHut => BuildingKind.ForagerHut, CampaignGoalKind.Farm => BuildingKind.Farm,
+            CampaignGoalKind.Bakery => BuildingKind.Bakery, CampaignGoalKind.Sawmill => BuildingKind.Sawmill,
+            CampaignGoalKind.Lodge => BuildingKind.Lodge, CampaignGoalKind.Square => BuildingKind.Square,
+            _ => throw new ArgumentOutOfRangeException(nameof(kind))
+        }) ? 1 : 0
     };
     public double CampaignProgress => ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
     public string CampaignObjective => string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
-        (Campaign?.Level == 2 ? "\nMeals never erase delivery progress." : "");
+        (Campaign?.Level is 1 or 2 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
         if (Campaign != null && CampaignProgress >= 1) Campaign.Complete = true;
@@ -46,24 +62,22 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
-        var w = new World { Campaign = new() { Level = level } };
-        w.Food.InitialBerries = w.Food.Berries = 64;
-        // Starting structures are paid for in the conservation ledger, separate from harvestable timber.
+        var w = level >= 3 ? NewLargeMap() : new World();
+        w.Campaign = new() { Level = level };
+        w.Map.Name = CampaignLevels[level - 1].Title;
+        w.Food.InitialBerries = w.Food.Berries = 96;
         void Ready(Cell cell, BuildingKind kind)
         {
             var site = w.Place(cell, false, kind) ?? throw new InvalidOperationException("Invalid campaign starting site");
             site.Delivered = site.Required; site.Construction = 1; w.InitialLogs += site.Required;
         }
-        if (level == 1) Ready(new(0, 0), BuildingKind.ForagerHut);
-        else
+        if (level > 1)
         {
-            foreach (var cell in new[] { new Cell(3, 0), new(6, 0), new(3, 6), new(-5, 6) }) Ready(cell, BuildingKind.Cottage);
-            // Distinct berry clearing, with three patches at different distances from the yard.
-            w.Bushes.Clear();
-            foreach (var cell in new[] { new Cell(-7, 2), new(-8, 5), new(1, -3) }) w.Bushes.Add(new() { Id = w.Bushes.Count, Cell = cell });
+            Ready(new(0, 0), BuildingKind.ForagerHut);
+            Ready(new(3, 0), BuildingKind.Cottage); Ready(new(6, 0), BuildingKind.Cottage);
+            if (level == 2) { Ready(new(3, 6), BuildingKind.Cottage); Ready(new(-5, 6), BuildingKind.Cottage); }
         }
-        var roles = new[] { Role.Logger, Role.Logger, Role.Builder, Role.Builder, level == 1 ? Role.Forager : Role.Unassigned,
-            level == 1 ? Role.Forager : Role.Unassigned, Role.Unassigned, Role.Unassigned };
+        var roles = new[] { Role.Logger, Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Unassigned, Role.Unassigned };
         for (int i = 0; i < 8; i++) w.Assign(i, roles[i]);
         w.Validate(); return w;
     }
@@ -71,31 +85,48 @@ public sealed partial class World
     {
         if (Campaign == null || !Campaign.Guidance || Campaign.Complete) return null;
         var hints = new List<CampaignHint>();
+        void Hint(string id, string text, bool when = true) { if (when) hints.Add(new(id, text)); }
         bool planned = Cottages.Any(c => !c.Complete);
-        if (Food.Hunger > 0) hints.Add(new("hunger", "Food ran short. Finish a forager hut and assign foragers in People. Nobody dies; regular meals restore work speed."));
+        Hint("hunger", "Food ran short. Staff a finished forager hut in People. Nobody dies; regular meals restore work speed.", Food.Hunger > 0);
+        Hint("welcome", "WASD moves the camera; the wheel zooms. Space pauses. Open Build [B] for a forager hut, then cottages. R rotates entrances.", Campaign.Level == 1 && Cottages.Count == 0);
+        Hint("builders", "Plans need builders. Open People [V] and use + beside Builder.", planned && !People.Any(v => v.Role == Role.Builder));
+        Hint("loggers", "Assign loggers in People. Timber must reach the yard before builders can collect it.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
+        Hint("hut", "Build a forager hut to keep the village fed. Each hut supports two foragers.", !HasForagerHut);
+        Hint("foragers", "Assign foragers in People to staff the hut. Berries count after arriving at storage.", HasForagerHut && !People.Any(v => v.Role == Role.Forager));
         if (Campaign.Level == 1)
         {
-            if (!planned && Housed == 0) hints.Add(new("welcome", "WASD moves the camera; the wheel zooms. Space pauses. Open Build [B] and choose a cottage. R rotates its entrance. The staffed berry camp supplies food."));
-            if (planned && !People.Any(v => v.Role == Role.Builder)) hints.Add(new("builders", "Plans need builders. Open People [V] and use + beside Builder to assign someone."));
-            if (planned && Available == 0 && !People.Any(v => v.Role == Role.Logger)) hints.Add(new("loggers", "Builders are waiting for timber. Assign loggers in People; logs must reach the yard before builders can collect them."));
-            if (planned) hints.Add(new("construction", "Watch logs travel from trees to the yard, then to your plan. Select a villager to see their task. Select a plan to change construction priority."));
-            if (Housed > 0) hints.Add(new("homes", "Your first home is ready. Keep building until all eight have beds. Cottages house two; lodges house four. Choose any layout with clear entrances."));
+            Hint("construction", "Builders carry logs from the yard to plans. Select a plan to change priority.", planned);
+            Hint("homes", "Cottages house two, lodges four. Finish beds for all eight neighbors.", Housed < 8);
+            Hint("deliveries", "Let foragers deliver 24 fresh berries. Bushes regrow; meals never undo progress.", DeliveredBerries < 24);
         }
-        else
+        if (Campaign.Level is 2 or 4)
         {
-            if (!HasForagerHut) hints.Add(new("hut", "Open Build [B] and place a forager hut. Loggers supply timber and builders construct it. Nearby berry patches mean shorter trips."));
-            else if (!People.Any(v => v.Role == Role.Forager)) hints.Add(new("foragers", "The hut is ready, but it needs staff. Open People [V] and press + beside Forager. One hut supports two active foragers."));
-            else hints.Add(new("deliveries", "Foragers pick berries and carry them to storage. Only delivered berries count. Bushes regrow, so an idle forager may simply be waiting."));
-            if (Food.Time >= 60) hints.Add(new("meals", "Eight villagers eat eight food each day, using berries before bread. Eating these berries does not undo your delivery goal."));
+            Hint("farm", "Place a farm and assign a farmer. Sowing starts a 45-second growing cycle; harvested grain travels to storage.", !HasBuilding(BuildingKind.Farm));
+            Hint("farmer", "Assign a farmer in People. One worker tends each farm.", !People.Any(v => v.Role == Role.Farmer));
+            Hint("bakery", "Build a bakery. A baker fetches 2 grain and makes 4 loaves; grain alone cannot feed people.", !HasBuilding(BuildingKind.Bakery));
+            Hint("baker", "Assign a baker in People. Loaves count when delivered to storage.", !People.Any(v => v.Role == Role.Baker));
+            Hint("bread", "Watch crops ripen, grain arrive, and the baker deliver loaves. Meals never erase the delivery milestone.", Campaign.Level == 2);
+        }
+        if (Campaign.Level == 3)
+        {
+            Hint("sawmill", "Build a sawmill. A sawyer turns 2 logs into 4 planks for lodges.", !HasBuilding(BuildingKind.Sawmill));
+            Hint("sawyer", "Assign a sawyer in People. The mill aims for 8 planks in storage.", !People.Any(v => v.Role == Role.Sawyer));
+            Hint("lodge", "Build a lodge for four neighbors. It costs 8 planks; you can place the plan before they arrive.", !HasBuilding(BuildingKind.Lodge));
+            Hint("plant", "Choose Plant alders in Build and mark four spots. Loggers must actually plant them. Maturity takes 180 seconds but is not required for this lesson.", TreesPlanted < 4);
+        }
+        if (Campaign.Level == 4)
+        {
+            Hint("square", "Build a village square. Leave eight walkable tiles within four tiles of its entrance for guests.", !HasBuilding(BuildingKind.Square));
+            Hint("final-homes", "Finish housing for all eight before hosting supper.", Housed < 8);
+            Hint("supper", "Stock 16 loaves, then press Host supper in Goals. Everyone walks to the square; the meal finishes after all eight arrive.");
         }
         return hints.FirstOrDefault(h => !Campaign.Dismissed.Contains(h.Id));
     }
 }
-
 // One resumable snapshot per settlement; completion survives replay and loading an older save.
 public sealed class CampaignBook
 {
-    public int Version { get; set; } = 1;
+    public int Version { get; set; } = 2;
     public int ActiveLevel { get; set; }
     public Dictionary<int, string> Settlements { get; set; } = new();
     public Dictionary<int, string> BeforeReplay { get; set; } = new();
@@ -116,10 +147,10 @@ public sealed class CampaignBook
     public static CampaignBook LoadFile(string path)
     {
         var book = JsonSerializer.Deserialize<CampaignBook>(File.ReadAllText(path)) ?? throw new InvalidDataException("Empty campaign");
-        if (book.Version != 1 || book.Settlements == null || book.BeforeReplay == null || book.Completed == null || book.ActiveLevel is < 0 or > 2 ||
-            !book.Settlements.ContainsKey(book.ActiveLevel) || book.Completed.Any(i => i is < 1 or > 2)) throw new InvalidDataException("Invalid campaign progress");
+        if (book.Version != 2 || book.Settlements == null || book.BeforeReplay == null || book.Completed == null || book.ActiveLevel is < 0 or > 4 ||
+            !book.Settlements.ContainsKey(book.ActiveLevel) || book.Completed.Any(i => i is < 1 or > 4)) throw new InvalidDataException("Invalid campaign progress");
         foreach (var (id, json) in book.Settlements.Concat(book.BeforeReplay))
-            if (id is < 0 or > 2 || (World.LoadJson(json).Campaign?.Level ?? 0) != id) throw new InvalidDataException("Campaign snapshot does not match level");
+            if (id is < 0 or > 4 || (World.LoadJson(json).Campaign?.Level ?? 0) != id) throw new InvalidDataException("Campaign snapshot does not match level");
         return book;
     }
 }

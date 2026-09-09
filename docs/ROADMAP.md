@@ -17,21 +17,21 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F01 | Paths and village layout — Done (first chunk) | Paint/remove connected dirt paths; villagers choose faster routes and gain a 25% walking bonus toward paved tiles. | — |
 | F02 | Renewable woodland — Done (first chunk) | Plant trees that grow into harvestable timber, making continued building possible. | — |
 | F03 | A village that feels alive — Done (first chunk) | Distinct work animations, recognizable carried goods, and a few idle actions. | — |
-| F04 | Gathering places | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
+| F04 | Gathering places — Supper square done | Build a village square with benches/table; villagers visit during a short leisure period and gather there for supper. | — |
 | F05 | New food choices | Add one alternative food chain, such as vegetables or an orchard, with its own building and visible harvest. Exact choice TBD. | — |
 | F06 | More villagers | A small group arrives when spare housing is available; grow beyond the original eight. | — |
 | F07 | Local storage and hauling | Place another stockpile and assign haulers so a distant work area can function efficiently. | — |
 | F08 | More construction materials — Done (first chunk) | Add a sawmill and planks, then one building that uses them. | F02 suggested |
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. Coordinate outdoor decoration with F12c landscaping. | — |
 | F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
-| F11 | Campaign mode and objectives — First two levels done | Five authored settlements planned; the opening pair, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
+| F11 | Campaign mode and objectives — First campaign done | Four authored settlements, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
 | F12 | Map expansion, landscape, and exploration — F12a and clearing done | Larger maps, irregular boundaries, and tree/stump clearing are playable. Water/crossings, decorative landscaping, and elevation remain planned; see chunks below. | — |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
 | F16 | Free-build mode | An open-ended scenario with optional objectives and enough renewable resources to keep expanding. | F02, F06 suggested |
 | F17 | Music | A gentle background soundtrack, with independent volume/mute controls. Tracks and transitions TBD. | — |
-| F18 | Campaign tutorial — Opening pair done | Optional contextual guidance ships with levels 1–2. Continue teaching through later campaign settlements, introducing a building or building group per level. | F11 |
+| F18 | Campaign tutorial — First campaign done | Optional contextual guidance ships with all four levels, introducing a building or connected group per settlement. | F11 |
 | F19 | Main menu — Done (first chunk) | Title screen with Continue, Campaign start/resume/replay, both Free play maps, sound settings, Quit, and save-on-return from gameplay. | F11 |
 | F20 | Lighting and atmosphere | Warmer lighting, a cohesive palette, and subtle foliage movement. Day/night changes TBD. | — |
 | F21 | UI and interaction — High priority; F21a/b done | Redesign the in-game HUD around a clear village view, contextual controls, and readable information. Continue in the chunks below. | — |
@@ -71,7 +71,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 **F12a — More room and varied map shapes** is playable through Options → Explore larger map. F12c's first clearing pass lets loggers reclaim trees and stumps for building. Try these before authoring later campaign layouts. F12b water/crossings or F12c's decorative landscaping follow-up can be selected independently next.
 
-**F11a + F18a — Campaign foundation and the first two guided levels** is playable. Try the opening pair before tuning the rest; **F11b + F18b — Production lessons** (levels 3–4) is the next campaign slice after map expansion. The finale and its square remain planned.
+**F11/F18 — First campaign** is complete: combined opening lesson, bread production, woodland, and village-square finale. Playtest pacing before expanding the campaign.
 
 F21a and F21b establish the UI direction and clearer building placement. **F21c — Selection and management** can build on the contextual inspector independently. UI remains a major priority; further refinements should follow play feedback.
 
@@ -87,7 +87,7 @@ First version: Launch into a title screen over a paused village, with Continue, 
 
 Verification: Rendered checks cover 1440×900 and 960×640 layouts, fresh/missing Continue, all settlement types, menu input isolation, sound settings, replay and previous-village recovery, corrupted Continue recovery through separate saves, older-save fallback, and failure to save on return. Existing gameplay/HUD checks pass. Menu screenshot reviewed.
 
-Later / TBD: Music controls with F17, richer title artwork or ambient scene motion, expanded save-slot browsing, and keyboard/controller navigation polish. Levels 3–5 remain planned.
+Later / TBD: Music controls with F17, richer title artwork or ambient scene motion, expanded save-slot browsing, and keyboard/controller navigation polish. All four campaign levels are playable.
 
 ### F01 — Paths and village layout
 
@@ -123,7 +123,7 @@ Coordinate with existing features:
 - **F07 storage and hauling:** add local stockpiles when distance becomes a useful logistical choice. Do not stretch early objectives into long waits before this exists.
 - **F09 village character:** supplies decorations for landscaping; avoid two separate palettes for the same objects.
 - **F02 woodland:** productive planting and regrowth remain simulation features. Clearing should respect workers, carried timber, and resource accounting; moving mature productive trees is a later decision.
-- **F11/F18 campaign:** use authored geography to distinguish later settlements. Revisit levels 3–5 layouts after F12a; rivers, bridges, and hills can become later lessons without making every terrain feature a prerequisite for those levels.
+- **F11/F18 campaign:** use authored geography to distinguish later settlements. Revisit later campaign layouts after F12a; rivers, bridges, and hills can become later lessons without making every terrain feature a prerequisite for those levels.
 
 Playable when, for F12a: start a larger authored settlement, pan and zoom across its full extent, build and harvest in separated clearings, and save/load without changing the map. Placement and routes respect irregular boundaries; all resource access remains usable; the village remains responsive at normal and fast speed. Review how the landscape looks at its edges as well as how much room it provides.
 
@@ -137,83 +137,28 @@ Later / TBD: Exact map sizes, terrain art, procedural generation and seeds, map 
 
 ### F11 + F18 — First campaign and integrated tutorial
 
-Status: F11a + F18a done; levels 1–2 playable. Levels 3–5 remain planned. Quantities, layouts, and pacing are provisional.
+Status: **F11/F18 first campaign complete.** Four guided settlements; quantities and pacing remain open to playtesting.
 
-Want to play: Help five small settlements take shape, learning one new building or connected group at a time. Each has a modest local purpose and a warm closing moment. Aim for roughly 10–20 minutes per level, with a shorter opening; tune after playing rather than adding timers to enforce this.
+The opening housing and berry lessons are combined. Every building and tool remains available in every level. Later, once polished, consider per-level availability and progressive unlocks, with an unrestricted replay option.
 
-#### Shared campaign rules
+| Level | Introduces | Starting village | Required goals |
+| --- | --- | --- | --- |
+| 1. A place to stay | Forager hut, cottages, logging/building, everyday meals | Empty original clearing, 96 berries, two loggers/builders/foragers, two spare workers | Finish a hut, deliver 24 fresh berries, house eight |
+| 2. Bread for the table | Farm and bakery | Four cottages and a staffed hut, 96 berries | Finish a farm and bakery; deliver 16 loaves cumulatively |
+| 3. Room among the trees | Sawmill, lodge, renewable woodland | Larger irregular map, two cottages and staffed hut, 96 berries | Finish a mill and lodge, house eight, have loggers actually plant four trees |
+| 4. A place for everyone | Village square and shared supper | Larger irregular map, two cottages and staffed hut, 96 berries | Finish a square, house eight, stock 16 bread and host a completed supper |
 
-- Each level starts a fresh authored settlement with eight villagers, its own layout, starting buildings, supplies, and jobs. Campaign completion carries forward; villagers and inventories do not. Keep population growth outside this first campaign.
-- **All implemented buildings and features remain available on every level.** An introduction is a recommendation and tutorial focus, not an unlock. Later, when the game is more polished, consider per-level building availability, progressive unlocks, and a replay option with everything available.
-- Keep the mood patient: no deadlines, deaths, medals, or forced failure. Supply generous starting food and accessible mature timber. Earlier lessons provide functioning support buildings; later ones ask the player to manage more of the economy. Resource budgets must support the intended route without depending on three-day regrowth to rescue an early mistake.
-- Show a short arrival note, a few measurable goals, and one optional tutorial hint at a time. Pause/speed, camera movement, and experimentation remain available. Finishing offers Continue playing, Next settlement, or Replay; never replace the village automatically.
-- Use completed buildings and delivered goods for objectives, not placed plans or goods still being carried. Track cumulative deliveries for production lessons so daily meals and construction cannot erase progress. Final stock requirements are explicitly labeled as current stock.
-- Recognize actions done ahead of a prompt, including valid alternative housing. Tutorial hints can be dismissed, disabled, or reopened; dismissing them does not complete campaign objectives. Camera and menu practice are suggestions, never mandatory victory checks.
+Each settlement starts fresh, paused, with eight villagers. No deadlines, deaths, medals, forced failure, or automatic transition. Goals recognize building ahead and alternative housing. Deliveries count only once goods reach storage; meals do not erase earned delivery progress. Planting marks do not count until a logger finishes planting; maturity is not required.
 
-#### The first five levels
+F18 guidance covers camera/pause/building, staffing and waiting, food production, planks, planting, and gathering. One contextual hint appears at a time; dismiss, disable, or reopen guidance without affecting objectives. Earlier food lessons provide working support buildings in later levels.
 
-**1. A place to stay — Cottages, logging, and construction**
+**F04a — Village square: implemented for the finale.** Costs six logs, standard 3×2 footprint, no staff. A table and benches provide the supper destination. Hosting requires eight reachable gathering cells within four tiles of its entrance. All eight walk there, 16 loaves are consumed once, and the celebration finishes after everyone arrives. Daily leisure and happiness effects remain future F04 work.
 
-A sheltered clearing beside a working berry camp. The eight arrivals need homes before this feels like a village.
+Campaign completion offers continued play, next settlement (except the finale), or replay. Main menu and Goals list all four levels. Campaign saves include snapshots, completed levels, dismissed guidance, delivery/planting progress, and in-flight supper state. Replay keeps the preceding village with a restore/swap control. Save compatibility is not a project requirement at this stage; start fresh when formats change.
 
-- Start with the timber yard, a completed forager hut and two assigned foragers, a generous food reserve, and nearby trees. Assign a couple of loggers and builders; leave the remaining workers available. No housing yet. Food support runs quietly while the player learns construction.
-- Introduce looking around, pause/speed, Build, footprint/entrance previews, rotation, and watching logs travel from tree to yard to building. Use a selected worker to explain the difference between a job and their current task.
-- Required goal: provide completed housing for all eight villagers. Suggest four cottages, but lodges also qualify if the player wants to experiment. A first completed home is the intermediate milestone.
-- End with a brief welcome-home message and time to watch the village. Optional experiment: change a construction priority and see which uncommitted delivery goes next. Do not require a particular layout or rotation.
+Verification covers complete simulated playthroughs of all four authored setups, actual planting, delivery progress after meals, exact save continuation (including gathering), one-time supper cost, and replay records. Rendered checks cover the four-level flow, tutorial controls, save/load, finale hosting, next/replay/restore, and 960×640 layout.
 
-**2. The berry clearing — Forager hut and everyday meals**
-
-A settled hamlet has homes but needs a dependable food supply. Berry patches sit at different distances from the yard, making placement worth considering.
-
-- Start with enough completed cottages for eight, the yard, mature timber, and a few days of berries; no food workplace. Keep existing logging/building jobs and guide the player to reassign available villagers to foraging.
-- Introduce building and staffing a forager hut, its two-worker capacity, physical berry deliveries, daily meals, bush regrowth, and waiting reasons. Explain that a finished workplace still needs workers.
-- Required goals: complete a forager hut and deliver 24 newly gathered berries to storage during this level. Starting berries do not count. Show progress as “Berries gathered and delivered: X / 24,” independent of food already eaten.
-- A normal daily meal triggers a short explanation rather than a timing challenge. If food runs short, offer a recovery hint; hunger never forces a restart. Optional experiment: compare a one-forager and two-forager crew.
-
-**3. Bread for the table — Farm and bakery**
-
-A berry-fed village wants its first batch of fresh bread. Leave a broad open patch for fields and a compact workshop area nearby.
-
-- Start with housing, a staffed forager hut, the yard, and adequate berries/timber. The player supplies the farm and bakery and reallocates workers without abandoning basic food gathering.
-- Introduce sowing, visible crop growth, harvesting, grain storage, baking, and bread delivery. Explain that grain cannot be eaten and that the baker may legitimately wait for the first harvest.
-- Required goals: complete a farm and bakery, and deliver 16 freshly baked loaves to storage over the level. Grain/bread in transit or workplace buffers do not count yet; eating delivered bread does not undo progress.
-- End with a small narrative thank-you. Save the physical campaign celebration for level 5. The current standalone supper scenario remains playable and supplies the tested food-chain behavior for this level; no need to remove or rewrite it first.
-
-**4. Room among the trees — Sawmill, lodge, and renewable woodland**
-
-A woodland hamlet wants a larger home and a grove that will outlast the first building rush.
-
-- Start with functioning food support, six cottage beds, a yard, and enough mature timber for the mill and lodge chain with a comfortable margin. The temporary housing shortfall is the motivation, not a penalty. Provide clear planting ground and explain that exhausted stumps can also be reused.
-- Introduce the sawyer, logs becoming planks, the eight-plank stock target, shared log demand between builders and the mill, and the lodge's four beds. Introduce logger planting alongside the mill so saplings grow while construction proceeds.
-- Required goals: complete a sawmill, complete a lodge, house all eight, and have loggers actually plant four new trees. Merely marking planting spots does not count. Existing mature trees do not count either.
-- Show the three-day growth cycle, but do not require waiting for maturity to win. Optional follow-up while continuing to play: harvest a player-planted tree and replant its stump. No new forester building or automatic forestry system is needed.
-
-**5. A place for everyone — Village square and a shared supper**
-
-A small established settlement has the essentials but no shared center. Choose where the square belongs, expand the food chain, and bring everyone together.
-
-- Start with housing, a staffed forager hut, the yard, and generous timber/food. Leave farm, bakery, and square placement to the player; all earlier buildings remain available. An open central clearing invites a gathering place without prescribing its position.
-- Introduce one new building: the **Village square (F04)**, a modest table-and-benches space with no permanent staff. For this campaign slice it supplies a gathering destination; broader daily leisure and happiness effects can wait. Cost and footprint TBD; prefer logs so the finale does not require rebuilding every prior production chain.
-- Required goals: complete the square, house all eight, hold 16 loaves in shared storage, then host and finish the supper. This stock goal is deliberately different from level 3's cumulative production lesson. Explain that hosting consumes the 16 loaves once.
-- Reuse the existing physical gathering and celebration, directing villagers to the square instead of the yard. Hosting needs reachable gathering positions for all eight. End with everyone at the table, a campaign-complete note, and continued free play in the settlement.
-
-#### Buildable chunks and supporting work
-
-| Chunk | Scope | Playable when |
-| --- | --- | --- |
-| F11a + F18a — Opening pair — Done | Authored level setups, reusable objectives, saved campaign progress, replay/next/continue controls, contextual hints, and levels 1–2. Entry is available in the F19 main menu and Goals. | Complete housing, move to a fresh berry settlement, save/load midway through its delivery goal, and finish it with guidance on or off. |
-| F11b + F18b — Production lessons | Levels 3–4, cumulative production/planting milestones, and contextual food, plank, and regrowth hints. | Both levels work when players follow the suggested order or build ahead; consuming goods does not lose earned progress. |
-| F04a + F11c + F18c — Campaign finale | Build/place the square, validate gathering space, adapt supper to its destination, author level 5, and show campaign completion. | All eight reach the square, supper is consumed once, the celebration completes, and play can continue. |
-
-F11 owns scenario setup, objectives, transitions, and saved campaign progress. F18 owns the teaching sequence and contextual hints; ship each level's guidance with its gameplay. Keep level definitions and objective types reusable instead of adding a separate hard-coded victory flow for each map. Exact data format is an implementation decision.
-
-Implemented persistence: campaign.json holds the active level, full settlement snapshots, tutorial state, and completion record. Berry delivery progress derives from conserved inventory plus consumption minus starting supply. Transitions preserve a snapshot per settlement; replay additionally retains the previous village, with a restore/swap control. F5 saves, F9 loads, and completion/transitions save automatically. F19 provides Continue and campaign resume from the title screen, opening paused. Existing standalone saves remain standalone; broader save-slot UI is TBD.
-
-Opening-pair verification: simulation playthroughs complete both levels with action-aware or disabled guidance; cottages and lodges both satisfy level 1. Checks cover interrupted berry deliveries, meals, exact save continuation, replay records, legacy saves, and disk backups. Rendered checks exercise campaign entry, both levels, hints, next/replay/restore, startup resume, invalid-save recovery, standalone return, and a 960×640 layout. Screenshots reviewed. Initial supplies are 64 berries and 48 harvestable logs per level, plus prebuilt infrastructure; pacing and player feedback remain TBD.
-
-Relevant checks when implementing: save/load mid-objective and mid-celebration; goals already satisfied before hints appear; alternative housing; consumed goods versus cumulative deliveries; no double-counting carried or redelivered goods; replay without losing progress; all tools available in every level; and a complete playthrough of each authored starting setup. Tune food buffers, tree placement, walking distances, and objective quantities from those playthroughs.
-
-Later / TBD: Per-level building restrictions/unlocks; richer stories and level art; optional challenge goals; more campaign chapters; branching progression; F19 title-screen presentation. Paths (F01), extra food chains (F05), new arrivals (F06), and happiness (F14) are good candidates for later lessons, not dependencies of these first five levels.
+Later / TBD: pacing and distinct scenery for later maps, more narrative closing moments, optional objectives, more levels, progressive availability, daily square activity, and richer tutorial presentation.
 
 ### F02 — Renewable woodland / planting and regrowth
 

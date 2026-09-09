@@ -44,7 +44,7 @@ public sealed partial class World
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
-    public bool CanCelebrate => Housed == 8 && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete;
+    public bool CanCelebrate => Housed == 8 && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == 8;
 
     private void InitializeFood()
     {
@@ -180,17 +180,19 @@ public sealed partial class World
             Food.Hunger = (8 - berries - bread) / 8f;
         }
     }
+    private List<Cell> SupperSpots()
+    {
+        var square = Cottages.FirstOrDefault(c => c.Kind == BuildingKind.Square && c.Complete);
+        var center = square?.Entrance ?? YardAccess;
+        var reachable = Reachable(YardAccess, Blocked);
+        return reachable.Where(c => square == null || (c.Point - center.Point).LengthSquared() <= 16)
+            .OrderBy(c => (c.Point - center.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X).Take(8).ToList();
+    }
     public bool BeginSupper()
     {
         if (!CanCelebrate) return false;
         MeetingSpots.Clear();
-        var cells = new List<Cell>();
-        var reachable = Reachable(YardAccess, Blocked);
-        foreach (var c in Map.Land)
-        {
-            if (reachable.Contains(c)) cells.Add(c);
-        }
-        MeetingSpots.AddRange(cells.OrderBy(c => (c.Point - YardAccess.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X).Take(8));
+        MeetingSpots.AddRange(SupperSpots());
         if (MeetingSpots.Count != 8) return false;
         Food.Bread -= SupperCost; Food.SupperBread += SupperCost;
         foreach (var v in People) Interrupt(v);

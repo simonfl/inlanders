@@ -102,9 +102,17 @@ public partial class Game
                 MenuButton(book.Settlements.ContainsKey(id) ? $"Resume level {id}" : $"Start level {id}", () => OpenMenuCampaign(id, false));
                 if (book.Settlements.ContainsKey(id)) MenuButton($"Replay level {id}", () => OpenMenuCampaign(id, true));
             }
-            _mainColumn.AddChild(Text("Levels 3–5 are planned. Replay retains the preceding village, recoverable from Goals. All buildings remain available.", 14, true));
+            _mainColumn.AddChild(Text("Replay retains the preceding village, recoverable from Goals. All buildings remain available.", 14, true));
         }
-        catch (Exception e) { _menuMessage.Text = "Could not read campaign: " + e.Message; }
+        catch (Exception e)
+        {
+            _menuMessage.Text = "Could not read campaign: " + e.Message + " Start a fresh campaign to use the current levels.";
+            MenuButton("Start fresh campaign", () => MenuAttempt(() =>
+            {
+                var book = new CampaignBook(); book.Capture(World.NewCampaign(1));
+                book.SaveFile(_campaignPath); _campaignBook = book; CampaignMenu();
+            }));
+        }
         MenuButton("Back", ShowMainMenu);
     }
     private void OpenMenuCampaign(int level, bool replay) => MenuAttempt(() =>

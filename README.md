@@ -31,16 +31,18 @@ Launching opens a quiet, paused village behind the title screen:
 
 In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
 
-## Campaign: the first two settlements
+## Campaign: four settlements
 
-Choose **Campaign** from the title screen, or use the in-game **Goals [G]** campaign picker. Both levels keep every building and tool available:
+Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-1. **A place to stay:** a staffed berry camp supports eight arrivals while you build housing. Four cottages are the suggested route; lodges also count.
-2. **The berry clearing:** a hamlet already has homes. Build and staff a forager hut, then deliver 24 fresh berries. Starting supplies and carried berries do not count; eating delivered berries never removes progress.
+1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
+2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
+3. **Room among the trees:** build a sawmill and lodge, house eight, and have loggers plant four trees. Marking spots alone does not count; maturity is not required.
+4. **A place for everyone:** build a village square, house eight, stock 16 bread, then host supper from Goals. Everyone gathers near the square before the campaign finishes.
 
-Each settlement starts paused with 64 berries and its own starting buildings and jobs. Goals provides contextual hints that change as you build and assign workers. Dismiss a hint, turn guidance off, or show hints again without affecting objectives. There are no deadlines or building unlocks.
+The square costs six logs and needs no staff. Leave eight walkable tiles within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
-Completion saves progress and leaves the village running. Goals offers **Continue playing**, **Next settlement** after level 1, and **Replay this settlement**. The level picker resumes saved settlements. **Restore village before replay** swaps between the latest replay and its preceding village, keeping completion records. **Return to standalone supper** restores the standalone village you left. Levels 3–5 remain planned.
+Save compatibility is not guaranteed during prototyping; use a fresh campaign for this revised sequence. If an old campaign cannot load, the Campaign menu offers **Start fresh campaign**.
 
 Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Use Continue or Campaign on the title screen to resume, paused. Save with F5 or return to the main menu before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
 
@@ -198,7 +200,7 @@ Tests cover legal placements, competing workers, scarce timber, priorities, reas
 
 Audio checks inspect live Godot mixer output, muted silence, volume persistence, pause suppression, voice/cadence limits, PCM bounds, and the wind loop seam. They export WAV previews to `artifacts/f10-audio/` and use an isolated preferences file in `artifacts/`.
 
-Campaign checks complete both levels, exercise alternative housing and interrupted food deliveries, and preserve progress through meals, saves, replay, and startup resume. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
+Campaign checks complete all four levels and verify planting, physical gathering, exact saves, persistent delivery milestones, and replay. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
 
 Map checks build in three distant clearings, harvest the outer groves, preserve exact saves, and reject invalid terrain. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -MapSmokeTest` for overview/camera, distant placement, fast simulation, and map-switching checks at 1440×900 and 960×640. This is also included in `Test.ps1 -Rendered`.
 
