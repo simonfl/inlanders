@@ -53,6 +53,7 @@ public partial class Game
             }
             return;
         }
+        if (site.Kind == BuildingKind.Bakery) { MakeBakery(parent, stage); return; }
         if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
         if (site.Kind == BuildingKind.Cottage || stage < 3) { MakeCottage(parent, stage); return; }
@@ -71,11 +72,6 @@ public partial class Game
             foreach (float x in new[] { -0.45f, 0.4f }) Cylinder(parent, new(x, 0.85f, -0.25f), 0.23f, 0.35f, new("b39568"));
             FoodSign(parent, "FORAGERS", 2.05f); return;
         }
-        MakeCottage(parent, 3);
-        // A stone oven and bread counter distinguish the bakery from housing.
-        Box(parent, new(0.5f, 0.47f, 0.88f), new(1.0f, 0.85f, 0.45f), new("887968"));
-        Box(parent, new(0.5f, 0.45f, 1.12f), new(0.55f, 0.37f, 0.03f), new("d99247"));
-        FoodSign(parent, "BAKERY", 2.7f);
     }
     private void RenderFoodViews()
     {
