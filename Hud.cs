@@ -227,6 +227,7 @@ public partial class Game
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
+            BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.Square => "Gathering place · no staff\nHouse everyone and stock 16 bread, then host supper in Goals. Leave 8 nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: 8 planks",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
@@ -242,7 +243,7 @@ public partial class Game
             _assignButton.Text = $"Assign: {RoleName(NextRole(p.Role))}"; _assignButton.Disabled = _world.Food.Celebrating;
         }
         UpdateBuildDescription();
-        _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
+        _hint.Text = _placing ? (_pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;

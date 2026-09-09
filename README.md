@@ -50,9 +50,17 @@ Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous writ
 
 Open **Options [O] → Explore larger map** to start or resume a separate 32×32 landscape with an irregular outline, open building areas, 20 harvestable trees, and six berry patches. Eight villagers arrive with 64 berries. All buildings are available; the existing supper objective can give you a goal while you explore.
 
-**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; water, bridges, decorative landscaping, and elevation remain future features.
+**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; decorative landscaping and elevation remain future features.
 
 F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, use Continue or Free play on the title screen. Existing saves retain their original terrain rather than expanding automatically.
+
+### Water and bridges
+
+New **Three clearings** maps include a narrow stream with visible banks. Start a new Three clearings village from Free play to see it; saved maps retain their terrain. The original clearing and campaign maps remain dry.
+
+Choose **Build → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
+
+You can cancel unfinished bridges; delivered logs become recoverable salvage on land. Completed bridges remain in place. Water and bridges are included in saves.
 
 ## The first village supper
 

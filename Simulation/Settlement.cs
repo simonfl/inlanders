@@ -9,7 +9,7 @@ namespace Inlanders.Simulation;
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
 public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer }
 public enum Resource { Logs, Berries, Grain, Bread, Planks }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
     ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump }
@@ -53,6 +53,7 @@ public sealed class Cottage
     public int Id { get; init; }
     public Cell Cell { get; init; }
     public bool Rotated { get; init; }
+    public bool BridgeFromFar { get; init; }
     public BuildingKind Kind { get; init; }
     [JsonInclude]    public bool Planted { get; internal set; }
     [JsonInclude]    public float Growth { get; internal set; }
@@ -69,7 +70,7 @@ public sealed class Cottage
     [JsonInclude]    public int? Builder { get; internal set; }
     [JsonInclude]    public float Construction { get; internal set; }
     public bool Complete => Construction >= 1;
-    public Cell Entrance => World.Door(Cell, Rotated);
+    public Cell Entrance => Kind == BuildingKind.Bridge && BridgeFromFar ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
     public Resource Material => Kind == BuildingKind.Lodge ? Resource.Planks : Resource.Logs;
     public int Required => Kind == BuildingKind.Lodge ? 8 : World.Cost;
 }
@@ -111,22 +112,23 @@ public sealed partial class World
         InitializeFood();
     }
     public static Cell Door(Cell c, bool rotated) => rotated ? new(c.X + 1, c.Z) : new(c.X, c.Z + 1);
-    public static IEnumerable<Cell> Footprint(Cell c, bool rotated)
+    public static IEnumerable<Cell> Footprint(Cell c, bool rotated, BuildingKind kind = BuildingKind.Cottage)
     {
+        if (kind == BuildingKind.Bridge) { yield return c; yield break; }
         for (int x = -1; x <= (rotated ? 0 : 1); x++)
             for (int z = -1; z <= (rotated ? 1 : 0); z++) yield return new(c.X + x, c.Z + z);
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
-    private bool Blocked(Cell c) => !Inside(c) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
-        Cottages.Any(h => Footprint(h.Cell, h.Rotated).Contains(c));
+    private bool Blocked(Cell c) => !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
+        Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotated, h.Kind).Contains(c));
 
     public bool CanPlace(Cell cell, bool rotated) => PlacementProblem(cell, rotated) == null;
     public Cottage? Place(Cell cell, bool rotated = false, BuildingKind kind = BuildingKind.Cottage)
     {
-        if (!Enum.IsDefined(kind) || !CanPlace(cell, rotated)) return null;
-        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind }; Cottages.Add(site);
-        RemovePaths(Footprint(cell, rotated));
+        if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
+        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)) }; Cottages.Add(site);
+        RemovePaths(Footprint(cell, rotated, kind));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         History.Add($"{kind} {site.Id} planned"); _retry = 0; return site;
     }
@@ -140,10 +142,18 @@ public sealed partial class World
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (site == null || site.Complete) return false;
+        Cell salvageCell = site.Cell;
+        if (site.Kind == BuildingKind.Bridge && site.Delivered > 0)
+        {
+            var spot = Map.Land.OrderBy(c => (c.Point - site.Entrance.Point).LengthSquared()).Cast<Cell?>().FirstOrDefault(c => !Trees.Any(t => t.Cell == c!.Value) && PlantingProblem(c!.Value) == null);
+            if (spot == null) return false;
+            salvageCell = spot.Value;
+        }
         foreach (var person in People.Where(v => v.SiteId == id)) Interrupt(person);
         Cottages.Remove(site);
+        if (site.Delivered > 0) RemovePaths(new[] { salvageCell });
         // Delivered timber becomes a recoverable pile rather than teleporting to storage.
-        if (site.Delivered > 0) Trees.Add(new TimberTree { Id = _nextTree++, Cell = site.Cell, Logs = site.Delivered, Material = site.Material, Felled = true, Salvage = true });
+        if (site.Delivered > 0) Trees.Add(new TimberTree { Id = _nextTree++, Cell = salvageCell, Logs = site.Delivered, Material = site.Material, Felled = true, Salvage = true });
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         History.Add($"{site.Kind} {id} cancelled; {site.Delivered} {site.Material} salvaged"); _retry = 0; return true;
     }
@@ -200,16 +210,16 @@ public sealed partial class World
         if (v.Role == Role.Logger)
         {
             if (ClaimClearing(v)) return;
-            var planting = Trees.Where(t => t.NeedsPlanting && t.Owner == null)
+            var planting = Trees.Where(t => t.NeedsPlanting && t.Owner == null && Accessible(t.Access))
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
             if (planting != null)
             {
                 planting.Owner = v.Id; v.TreeId = planting.Id;
                 Go(v, planting.Access, Work.ToSapling, "Walking to plant an alder"); return;
             }
-            var tree = Trees.Where(t => t.Logs > 0 && t.Owner == null)
+            var tree = Trees.Where(t => t.Logs > 0 && t.Owner == null && Accessible(t.Access))
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
-            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting || t.ClearRequested) ? "Waiting — timber work claimed by other loggers" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
+            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting || t.ClearRequested) ? "Waiting — timber work claimed or across water; build a bridge" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
@@ -285,7 +295,7 @@ public sealed partial class World
                 case Work.ToBuild: v.Task = Work.Building; v.Status = $"Building {Cottages.Single(c => c.Id == v.SiteId).Kind} {v.SiteId}"; break;
                 case Work.Building:
                     var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / 12);
-                    if (build.Complete) { build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
+                    if (build.Complete) { if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
                 default: if (!TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }

@@ -31,6 +31,19 @@ public partial class Game
             _landscape.AddChild(new MultiMeshInstance3D { Multimesh = mesh, MaterialOverride = new StandardMaterial3D { VertexColorUseAsAlbedo = true, Roughness = 1 } });
         }
         Layer(1.6f, -0.87f, false); Layer(0.08f, -0.03f, true);
+        foreach (var cell in _world.Map.Water)
+        {
+            Box(_landscape, new(cell.X, -0.5f, cell.Z), new(1, 0.8f, 1), new("687d73"));
+            Box(_landscape, new(cell.X, -0.11f, cell.Z), new(1, 0.06f, 1), new("639baf"));
+            Box(_landscape, new(cell.X - 0.12f, -0.075f, cell.Z + 0.15f), new(0.4f, 0.01f, 0.025f), new("9ac3ca"));
+            foreach (var d in new[] { new Cell(1,0), new(-1,0), new(0,1), new(0,-1) })
+            {
+                var bank = new Cell(cell.X+d.X, cell.Z+d.Z);
+                if (!_world.Map.Contains(bank) || _world.Map.Water.Contains(bank)) continue;
+                Box(_landscape, new(cell.X+d.X*0.48f, -0.02f, cell.Z+d.Z*0.48f),
+                    new(d.X == 0 ? 1 : 0.12f, 0.12f, d.Z == 0 ? 1 : 0.12f), new("b9ae85"));
+            }
+        }
         var backdrop = Box(_landscape, new(0, -1.75f, 0), new(400, 0.1f, 400), new("8caaa6"));
         ((StandardMaterial3D)backdrop.MaterialOverride).ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
     }

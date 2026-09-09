@@ -62,7 +62,7 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
-        var w = level >= 3 ? NewLargeMap() : new World();
+        var w = level >= 3 ? NewLargeMap(false) : new World();
         w.Campaign = new() { Level = level };
         w.Map.Name = CampaignLevels[level - 1].Title;
         w.Food.InitialBerries = w.Food.Berries = 96;

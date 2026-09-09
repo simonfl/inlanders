@@ -8,7 +8,7 @@ public sealed partial class World
     public HashSet<Cell> Paths { get; private set; } = new();
     public int PathsRevision { get; private set; }
     public string? PathProblem(Cell cell, bool remove = false) => Food.Celebrating ? "Wait until supper is over." :
-        remove ? (Paths.Contains(cell) ? null : "There is no path here to remove.") : Blocked(cell) ? "Paint paths on clear land, including entrances and access points." : null;
+        remove ? (Paths.Contains(cell) ? null : "There is no path here to remove.") : Map.Water.Contains(cell) ? "Paths need dry land; bridges already provide a crossing." : Blocked(cell) ? "Paint paths on clear land, including entrances and access points." : null;
     public bool SetPath(Cell cell, bool present)
     {
         if (PathProblem(cell, !present) != null) return false;

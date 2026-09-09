@@ -72,8 +72,8 @@ public sealed partial class World
         {
             var hut = FoodSite(BuildingKind.ForagerHut, _ => true, 2);
             if (hut == null) { v.Status = "Needs a finished forager hut with a free worker slot (2 per hut)"; return; }
-            var bush = Bushes.Where(b => b.Ripe > 0 && b.Owner == null).OrderBy(b => (b.Access.Point - v.Position).LengthSquared()).FirstOrDefault();
-            if (bush == null) { v.Status = "Waiting for berries to regrow or another forager to finish"; return; }
+            var bush = Bushes.Where(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)).OrderBy(b => (b.Access.Point - v.Position).LengthSquared()).FirstOrDefault();
+            if (bush == null) { v.Status = "Waiting for ripe reachable berries or another forager; a bridge may open more patches"; return; }
             v.WorkplaceId = hut.Id; v.BushId = bush.Id; bush.Owner = v.Id;
             Go(v, bush.Access, Work.ToBush, "Walking to ripe berries"); return;
         }

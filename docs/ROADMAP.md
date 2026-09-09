@@ -25,7 +25,7 @@ Everything below is **Idea** unless marked otherwise. IDs stay stable so we can 
 | F09 | Village character | Place gardens, fences, flowers, and decorative trees; give cottages a few visual variants. Coordinate outdoor decoration with F12c landscaping. | — |
 | F10 | Sound effects — Done (first chunk) | Work, construction, hauling, UI, and ambient village/nature sounds. Start with a few recognizable actions and a volume control. | — |
 | F11 | Campaign mode and objectives — First campaign done | Four authored settlements, saved progress, resume/replay, and level picker are playable. See the joint F11/F18 plan below. | — |
-| F12 | Map expansion, landscape, and exploration — F12a and clearing done | Larger maps, irregular boundaries, and tree/stump clearing are playable. Water/crossings, decorative landscaping, and elevation remain planned; see chunks below. | — |
+| F12 | Map expansion, landscape, and exploration — F12a/b and clearing done | Larger maps, irregular boundaries, and tree/stump clearing are playable. Water/crossings are playable; decorative landscaping and elevation remain planned; see chunks below. | — |
 | F13 | Seasons | A visible seasonal cycle that changes one food source, giving stored food a purpose. | F05 suggested |
 | F14 | Village happiness | A simple satisfaction measure driven by food variety and leisure, with visible villager reactions. Effects TBD. | F04, F05 |
 | F15 | Small events and choices | Occasional visitors or requests with a modest reward or tradeoff. Start with one event. | F11 suggested |
@@ -69,7 +69,7 @@ Style, layout, icons, and interaction details remain open. Start with a playable
 
 ## Where to start
 
-**F12a — More room and varied map shapes** is playable through Options → Explore larger map. F12c's first clearing pass lets loggers reclaim trees and stumps for building. Try these before authoring later campaign layouts. F12b water/crossings or F12c's decorative landscaping follow-up can be selected independently next.
+**F12a — More room and varied map shapes** is playable through Options → Explore larger map. F12c's first clearing pass lets loggers reclaim trees and stumps for building. Try these before authoring later campaign layouts. F12b now adds water and bridges; F12c's decorative landscaping follow-up or F12e navigation can be selected next.
 
 **F11/F18 — First campaign** is complete: combined opening lesson, bread production, woodland, and village-square finale. Playtest pacing before expanding the campaign.
 
@@ -101,14 +101,14 @@ Later / TBD: More path styles, worker-built roads and costs, stronger route/traf
 
 ### F12 — Map expansion and landscaping
 
-Status: F12a done; F12c clearing done as a first chunk. Other landscape work remains planned; terrain tools and visual treatment remain provisional.
+Status: F12a/b done; F12c clearing done as a first chunk. Other landscape work remains planned; terrain tools and visual treatment remain provisional.
 
 Want to play: Build a village that can spread into groves, clearings, and distinct neighborhoods, on land that feels like a place rather than a small square board. Arrange the surrounding landscape as well as the buildings. Larger maps should offer interesting choices and useful space, not just longer walks across empty grass.
 
 | Chunk | Player experience | First scope |
 | --- | --- | --- |
 | F12a — More room and varied map shapes — Done | Pan across a larger settlement and choose between several building areas. | Saved map dimensions and land exclusions support rectangular/irregular layouts. Three clearings is a flat 32×32 authored map with 20 trees, six berry patches, and eight villagers. Options starts/resumes it separately; camera limits scale with terrain and Home frames the map. |
-| F12b — Water and crossings | Build beside a pond or stream, then connect another useful area. | Authored water tiles, visible banks, and a simple bridge across a narrow crossing. Water blocks ordinary walking/building; bridges provide routes. Keep initial shores and crossing positions simple. Exact bridge cost, width, and construction rules TBD. |
+| F12b — Water and crossings — Done (first chunk) | Build beside a pond or stream, then connect another useful area. | Saved water tiles, visible banks, and a stream on new Three clearings maps. Six-log bridges cross one water tile between clear dry banks; builders work from an accessible bank. Completed decks open routes; unfinished bridges can be cancelled with physical salvage on dry land. |
 | F12c — Player landscaping — Clearing done | Reclaim woodland for building, then shape the outdoor spaces. | First chunk: C / Build clearing tool, cancelable orders, logger priority, physical timber recovery, four-second root removal, and reusable land. Later: grass/earth painting, flowers, shrubs, and decorative trees coordinated with F09. |
 | F12d — Hills and terrain shaping | Settle a valley or hillside and make room for a building. | Start with authored gentle elevation, readable slopes, and clear building rules. Later consider player raise/lower/level tools, terraces, ramps, and retaining walls. Decide height steps, accessibility, and construction costs when this chunk begins. |
 | F12e — Exploring a larger settlement | Find workers and understand distant work areas without losing the village. | Better camera framing, useful location jumps, and potentially a small overview map. Fog of war or hidden discoveries are optional later ideas, not requirements for using a larger map. |
@@ -128,6 +128,14 @@ Coordinate with existing features:
 Playable when, for F12a: start a larger authored settlement, pan and zoom across its full extent, build and harvest in separated clearings, and save/load without changing the map. Placement and routes respect irregular boundaries; all resource access remains usable; the village remains responsive at normal and fast speed. Review how the landscape looks at its edges as well as how much room it provides.
 
 F12a verification: simulation checks complete construction in three distant clearings, harvest every outer grove, preserve exact map/worker saves, support a larger rectangle, and reject malformed terrain or blocked access. Legacy saves load with the original outline. Rendered checks cover instanced terrain, full-map framing at 1440×900 and 960×640, camera limits, distant previews/building, 6× simulation, separate save files, and switching back to the original village. Placement connectivity uses a single reachability pass. Overview and distant-preview screenshots reviewed; natural-looking edges, resource density, and travel pacing remain open to play feedback.
+
+F12b first chunk: new Three clearings maps have a narrow north–south stream separating the eastern grove from the central village. Walking around its ends remains possible; bridges create direct routes. Original and campaign layouts retain their authored dry terrain. Build → Bridge, place on water, and R rotates the span. The marked entrance automatically uses a reachable bank. Six logs and ordinary builder work complete the deck; villagers cannot cross an unfinished bridge. Both banks remain protected from building and planting. Paths stay on land; bridges need no paving.
+
+Water, bridge progress, bank choice, and routes persist in settlement saves. Resources on a disconnected bank wait without claiming workers; after bridging, normal work resumes. Unfinished cancellation releases workers and leaves delivered logs as salvage on nearby legal dry land. Completed bridges cannot be demolished in this first version, matching other completed buildings.
+
+F12b verification: simulation tests cover dry-land tool rejection, orientation, inaccessible resources, construction from the near bank, exact in-progress saves, far-bank construction and hauling, cancellation/salvage, and malformed water. Rendered map checks cover water/banks, invalid and rotated valid bridge previews, building stages, finished alignment, and saved map switching.
+
+Later water work: wider spans, longer rivers and islands, richer shore shapes and animation, demolition rules, bridge materials/variants, and campaign geography. These remain separate from the first crossing.
 
 F12c first chunk: click trees, saplings, planting markers, or exhausted stumps to mark clearing orders; click again to cancel. Amber crosses persist until cancellation or completion. Loggers take clearing orders before planting and ordinary harvesting, while finishing committed jobs/deliveries. Existing timber remains physical cargo; roots take four work seconds to remove, with a digging motion and rustling sound. Land stays blocked until removal. Young trees yield no timber and stop growing while marked. Cancellation releases root/planting work but does not undo logging; salvage piles and berry bushes are excluded. No material cost. Clearing orders and active work persist in saves, including old-map settlements.
 

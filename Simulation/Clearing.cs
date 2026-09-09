@@ -27,7 +27,7 @@ public sealed partial class World
     }
     private bool ClaimClearing(Villager v)
     {
-        var tree = Trees.Where(t => t.ClearRequested && t.Owner == null)
+        var tree = Trees.Where(t => t.ClearRequested && t.Owner == null && Accessible(t.Access))
             .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
         if (tree == null) return false;
         tree.Owner = v.Id; v.TreeId = tree.Id;

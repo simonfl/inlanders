@@ -12,19 +12,20 @@ public sealed class MapLayout
     public int MinZ { get; set; } = -7;
     public int Width { get; set; } = 17;
     public int Depth { get; set; } = 15;
+    public HashSet<Cell> Water { get; set; } = new();
     public HashSet<Cell> Excluded { get; set; } = new();
     public int MaxX => MinX + Width - 1;
     public int MaxZ => MinZ + Depth - 1;
     public bool Contains(Cell c) => c.X >= MinX && c.X <= MaxX && c.Z >= MinZ && c.Z <= MaxZ && !Excluded.Contains(c);
     public IEnumerable<Cell> Land
     {
-        get { for (int x = MinX; x <= MaxX; x++) for (int z = MinZ; z <= MaxZ; z++) { var c = new Cell(x, z); if (Contains(c)) yield return c; } }
+        get { for (int x = MinX; x <= MaxX; x++) for (int z = MinZ; z <= MaxZ; z++) { var c = new Cell(x, z); if (Contains(c) && !Water.Contains(c)) yield return c; } }
     }
-    public bool OriginalOutline => MinX == -8 && MinZ == -7 && Width == 17 && Depth == 15 && Excluded.Count == 0;
+    public bool OriginalOutline => MinX == -8 && MinZ == -7 && Width == 17 && Depth == 15 && Excluded.Count == 0 && Water.Count == 0;
     public void Validate()
     {
         if (Name == null || Width is < 4 or > 128 || Depth is < 4 or > 128 || MinX is < -128 or > 128 || MinZ is < -128 or > 128 ||
-            Excluded == null || Excluded.Any(c => c.X < MinX || c.X > MaxX || c.Z < MinZ || c.Z > MaxZ) || Excluded.Count >= Width * Depth)
+            Water == null || Excluded == null || Water.Any(c => !Contains(c)) || Excluded.Any(c => c.X < MinX || c.X > MaxX || c.Z < MinZ || c.Z > MaxZ) || Excluded.Count >= Width * Depth)
             throw new InvalidDataException("Invalid map layout");
     }
 }
@@ -32,7 +33,7 @@ public sealed class MapLayout
 public sealed partial class World
 {
     public MapLayout Map { get; private set; } = new();
-    public static World NewLargeMap()
+    public static World NewLargeMap(bool withWater = true)
     {
         var w = NewScenario();
         w.Map = new() { Name = "Three clearings", MinX = -16, MinZ = -16, Width = 32, Depth = 32 };
@@ -42,6 +43,7 @@ public sealed partial class World
         foreach (var cell in new[] { new Cell(-12, -8), new(-9, -10), new(-6, -12), new(-2, -12), new(4, -12), new(8, -11),
             new(11, -2), new(12, 2), new(11, 6), new(8, 10), new(4, 12), new(-1, 12), new(-8, 11), new(-11, 3) })
             w.Trees.Add(new() { Id = w._nextTree++, Cell = cell, Logs = 8 });
+        if (withWater) for (int z = -9; z <= 9; z++) w.Map.Water.Add(new(7, z));
         w.InitialLogs = w.Trees.Sum(t => t.Logs);
         foreach (var cell in new[] { new Cell(-10, -6), new(8, 6), new(-5, 10) }) w.Bushes.Add(new() { Id = w.Bushes.Count, Cell = cell });
         w.Food.InitialBerries = w.Food.Berries = 64;
@@ -61,11 +63,21 @@ public sealed partial class World
     {
         Map.Validate();
         var occupied = new HashSet<Cell> { Stockpile };
-        foreach (var cell in Trees.Select(t => t.Cell).Concat(Bushes.Select(b => b.Cell)).Concat(Cottages.SelectMany(c => Footprint(c.Cell, c.Rotated))))
-            if (!Map.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Overlapping entities or entities outside map");
-        if (!Map.Contains(Stockpile)) throw new InvalidDataException("Yard outside map");
+        foreach (var cell in Trees.Select(t => t.Cell).Concat(Bushes.Select(b => b.Cell)))
+            if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
+        foreach (var site in Cottages)
+        {
+            foreach (var cell in Footprint(site.Cell, site.Rotated, site.Kind))
+                if (!Map.Contains(cell) || Map.Water.Contains(cell) != (site.Kind == BuildingKind.Bridge) || !occupied.Add(cell))
+                    throw new InvalidDataException("Invalid building terrain");
+            if (site.Kind == BuildingKind.Bridge && new[] { Door(site.Cell, site.Rotated), FarBank(site.Cell, site.Rotated) }.Any(c => !Map.Contains(c) || Map.Water.Contains(c) || Blocked(c)))
+                throw new InvalidDataException("Bridge needs clear dry banks");
+        }
+        if (!Map.Contains(Stockpile) || Map.Water.Contains(Stockpile)) throw new InvalidDataException("Yard outside dry land");
         var reached = Reachable(YardAccess, Blocked);
-        if (Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Select(At)).Concat(MeetingSpots).Any(c => !reached.Contains(c)))
+        // Resources may wait on the far bank; existing villagers and building entrances must remain usable.
+        if (Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Any(c => Blocked(c) || (Map.Water.Count == 0 && !reached.Contains(c))) ||
+            Cottages.Select(c => c.Entrance).Concat(People.Select(At)).Concat(MeetingSpots).Any(c => !reached.Contains(c)))
             throw new InvalidDataException("Map cuts off village access");
     }
 }

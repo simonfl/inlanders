@@ -21,6 +21,7 @@ public partial class Game
     }
     private static string BuildingDescription(BuildingKind kind) => kind switch
     {
+        BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing. Costs 6 logs.",
         BuildingKind.Square => "A gathering place for village supper. No staff. Leave eight walkable tiles within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
@@ -30,7 +31,7 @@ public partial class Game
         BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated)) ?? "";
+    private string PlacementProblem(Cell cell) => (_pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) =>
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
@@ -56,13 +57,13 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        _ghostModel.Position = new(_hover.X + (!_plantingTrees && _rotated ? -0.5f : 0), 0.1f, _hover.Z + (!_plantingTrees && !_rotated ? -0.5f : 0));
+        _ghostModel.Position = new(_hover.X + (!_plantingTrees && _buildKind != BuildingKind.Bridge && _rotated ? -0.5f : 0), 0.1f, _hover.Z + (!_plantingTrees && _buildKind != BuildingKind.Bridge && !_rotated ? -0.5f : 0));
         _ghostModel.RotationDegrees = new(0, !_plantingTrees && _rotated ? 90 : 0, 0);
         Clear(_ghostCells);
-        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotated);
+        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotated, _buildKind);
         foreach (var cell in footprint) Box(_ghostCells, new(cell.X, 0.045f, cell.Z), new(0.94f, 0.05f, 0.94f), tint.Darkened(0.15f));
-        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : World.Door(_hover, _rotated);
-        var marker = new Node3D { Position = new(door.X, 0.10f, door.Z), RotationDegrees = new(0, _plantingTrees || _rotated ? 90 : 0, 0) }; _ghostCells.AddChild(marker);
+        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotated) : World.Door(_hover, _rotated);
+        var marker = new Node3D { Position = new(door.X, 0.10f, door.Z), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (!_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
         Box(marker, Vector3.Zero, new(0.11f, 0.06f, 0.5f), _cream);
         foreach (float side in new[] { -1f, 1f })
         {

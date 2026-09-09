@@ -47,13 +47,26 @@ public partial class Game
             Check(_world.Food.Time > 0, "Expanded map did not tick at fast speed");
             for (int i = 0; i < 5000 && !_world.Cottages[0].Complete; i++) _world.Tick(0.1f);
             Check(_world.Cottages[0].Complete, "Distant plan did not finish");
+            _focus = new(7,0,3); _camera.Size=18; UpdateCamera(); await Frames();
+            BeginPlacement(BuildingKind.Bridge); CloseDrawer(); _rotated=false;
+            var crossing=_camera.UnprojectPosition(new(7,0,0));
+            Input.ParseInputEvent(new InputEventMouseMotion { Position=crossing, GlobalPosition=crossing }); await Frames();
+            Check(!_ghostValid,"Bridge preview accepted wrong banks");
+            await Press(Key.R); await Frames();
+            Check(_ghostValid && _ghostModel.Position.X==7,"Bridge preview did not turn across stream");
+            await Capture("artifacts/f12b-bridge-preview.png"); await Click(crossing); await Press(Key.Escape);
+            var bridge=_world.Cottages.Single(c=>c.Kind==BuildingKind.Bridge);
+            for(int i=0;i<10000 && !bridge.Complete;i++) { _world.Tick(.1f); if(i%100==0) await Frames(); }
+            Check(bridge.Complete,"Rendered bridge construction stalled"); await Frames();
+            Check(_cottages[bridge.Id].Body.Position.X==7,"Bridge mesh offset from water");
+            await Capture("artifacts/f12b-bridge-complete.png");
             await Press(Key.F5); string saved = _world.SaveJson();
             _world.Tick(1); await Press(Key.F9); await Frames();
             Check(_world.SaveJson() == saved, "Large-map F5/F9 failed");
             OpenOriginalMap(); await Frames();
             Check(_world.Map.OriginalOutline && _world.SaveJson() == original && !_landscape.GetChildren().OfType<MultiMeshInstance3D>().Any(), "Original map not restored");
             OpenLargeMap(); await Frames(); Check(_world.SaveJson() == saved, "Large map did not resume");
-            GD.Print("SMOKE PASS: large-map entry, instanced terrain, overview at 1440/960, pan limits, distant preview/building, 6x simulation, separate saves, and map switching.");
+            GD.Print("SMOKE PASS: large-map entry, instanced terrain, overview at 1440/960, pan limits, distant building, water and rotated bridge preview/construction, 6x simulation, separate saves, and map switching.");
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("MAP SMOKE FAIL: " + e); GetTree().Quit(1); }

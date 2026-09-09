@@ -75,7 +75,7 @@ public partial class Game : Node3D
     {
         Clear(_selection);
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
-        foreach (var c in World.Footprint(site.Cell, site.Rotated)) Box(_selection, new(c.X, 0.02f, c.Z), new(1.04f, 0.03f, 1.04f), new("e8c688"));
+        foreach (var c in World.Footprint(site.Cell, site.Rotated, site.Kind)) Box(_selection, new(c.X, 0.02f, c.Z), new(1.04f, 0.03f, 1.04f), new("e8c688"));
     }
     private void PlaceCottage(Cell at)
     {
@@ -131,7 +131,7 @@ public partial class Game : Node3D
             if (closest.Distance < 25) SelectPerson(closest.Index);
             else if (Ground(mouse.Position) is Vector3 p)
             {
-                var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+                var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
                 if (site != null) SelectBuilding(site.Id); else ClearSelection();
             }
         }
@@ -213,7 +213,7 @@ public partial class Game : Node3D
             if (view.Stage != stage)
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
-                view.Body.Position = new(h.Cell.X + (h.Rotated ? -0.5f : 0), 0, h.Cell.Z + (h.Rotated ? 0 : -0.5f));
+                view.Body.Position = new(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), 0, h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
                 view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, stage);
             }
         }

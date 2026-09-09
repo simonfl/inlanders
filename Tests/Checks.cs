@@ -105,5 +105,6 @@ SawmillChecks.Run();
 PlacementChecks.Run();
 CampaignChecks.Run();
 MapChecks.Run();
+WaterChecks.Run();
 ClearingChecks.Run();
 PathChecks.Run();

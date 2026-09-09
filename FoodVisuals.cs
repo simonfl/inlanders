@@ -22,6 +22,22 @@ public partial class Game
     }
     private void MakeBuilding(Node3D parent, Cottage site, int stage)
     {
+        if (site.Kind == BuildingKind.Bridge)
+        {
+            foreach (float x in new[] { -0.4f, 0.4f })
+                Box(parent, new(x, -0.03f, 0), new(0.12f, 0.15f, 1.9f), _wood);
+            if (stage >= 1)
+                for (int i = 0; i < (stage >= 2 ? 9 : 4); i++)
+                    Box(parent, new(0, 0.025f, -0.85f + i * 0.21f), new(0.95f, 0.06f, 0.18f), new("c4a77b"));
+            if (stage >= 3)
+                foreach (float x in new[] { -0.48f, 0.48f })
+                {
+                    foreach (float z in new[] { -0.8f, 0.8f })
+                        Box(parent, new(x, 0.27f, z), new(0.08f, 0.55f, 0.08f), _wood);
+                    Box(parent, new(x, 0.52f, 0), new(0.06f, 0.08f, 1.9f), _wood);
+                }
+            return;
+        }
         if (site.Kind == BuildingKind.Square)
         {
             Box(parent, new(0, 0.04f, 0), new(2.8f, 0.08f, 1.8f), new("b9aa86"));
