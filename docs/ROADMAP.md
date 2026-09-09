@@ -97,7 +97,9 @@ The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10
 1. Pick an entry from the ordered list; mark it **In progress**.
 2. Write the player experience, smallest useful version, and a short playable check. Leave unresolved choices TBD.
 3. Implement it with current-format saves and relevant verification.
-4. Record what shipped in the completed table, move remaining ideas to follow-ups, and update the next recommendation.
+4. Record what shipped in the completed table and move remaining ideas to follow-ups.
+5. Reevaluate the roadmap after every chunk using what implementation and play revealed. Reorder, clarify, combine, cut, expand, or add features when that improves the game; the current list is not a fixed commitment. Keep feature IDs stable, UI prominent, and uncertain details TBD. Do not restore explicitly removed features without a new reason and user agreement.
+6. Update the next recommendation and briefly explain meaningful scope or priority changes. Commit and push the chunk with its reviewed roadmap.
 
 Keep supporting UI inside the feature that needs it. Avoid turning this roadmap into a test log or a list of prototype cleanup tasks.
 
