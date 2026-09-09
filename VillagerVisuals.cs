@@ -78,6 +78,7 @@ public partial class Game
             if (worker.Cargo == Resource.Berries)
                 for (int b = 0; b < 5; b++) Mesh(view.Carry, new SphereMesh { Radius = 0.075f, Height = 0.15f, RadialSegments = 6, Rings = 3 },
                     new(x + (b % 2 - 0.5f) * 0.12f, 0.10f + b / 4 * 0.10f, (b / 2 % 2 - 0.5f) * 0.14f), new("a74268"));
+            else if (worker.Cargo == Resource.Vegetables) MakeSquash(view.Carry, new(x,.12f,0), .13f);
             else if (worker.Cargo == Resource.Grain)
                 for (int s = 0; s < 4; s++)
                 {

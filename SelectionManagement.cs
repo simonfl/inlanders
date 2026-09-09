@@ -17,7 +17,7 @@ public partial class Game
 
     private static Role? WorkplaceRole(BuildingKind kind) => kind switch
     {
-        BuildingKind.ForagerHut => Role.Forager, BuildingKind.Farm => Role.Farmer,
+        BuildingKind.ForagerHut => Role.Forager, BuildingKind.Farm or BuildingKind.VegetableGarden => Role.Farmer,
         BuildingKind.Stockpile => Role.Hauler, BuildingKind.Bakery => Role.Baker, BuildingKind.Sawmill => Role.Sawyer, _ => null
     };
     private int? SelectedWorkplace()

@@ -111,3 +111,4 @@ ClearingChecks.Run();
 PathChecks.Run();
 PopulationChecks.Run();
 StorageChecks.Run();
+VegetableChecks.Run();

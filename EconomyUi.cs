@@ -27,7 +27,7 @@ public partial class Game
         }
         column.AddChild(Text("INVENTORY",12));
         column.AddChild(Text("Available = stored minus reserved. Carried goods and workplace buffers are not in storage yet. Unshipped construction demand excludes deliveries already on the way.",14,true));
-        foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread})
+        foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables})
         {
             var label=Text("",14,true); column.AddChild(label); _economyStocks[resource]=label;
         }
@@ -53,7 +53,7 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
-        _economyFood.Text=$"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries first\nAssumes no new deliveries; grain is not edible.";
+        _economyFood.Text=$"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries → vegetables → bread\nAssumes no new deliveries; grain is not edible.";
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
         _economySummary.Text=count==0?"No immediate shortages detected.":"Select a message to open the relevant controls.";

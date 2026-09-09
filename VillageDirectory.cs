@@ -42,7 +42,7 @@ public partial class Game
     private static int BuildingCategory(BuildingKind kind) => kind switch
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
-        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.Bakery=>2,
+        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery=>2,
         BuildingKind.Sawmill=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
@@ -59,6 +59,7 @@ public partial class Game
         {
             BuildingKind.Cottage=>"2 beds", BuildingKind.Lodge=>"4 beds",
             BuildingKind.Stockpile=>$"{site.StoredLogs}/12 logs · target {site.LogTarget}",
+            BuildingKind.VegetableGarden=>site.Harvest>0?$"{site.Harvest} vegetables ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to plant",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
             BuildingKind.Sawmill=>$"{site.InputLogs} logs in · {site.OutputPlanks} planks ready",

@@ -18,6 +18,10 @@ public sealed class FoodState
 {
     public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
+    public int Vegetables { get; set; }
+    public int GrownVegetables { get; set; }
+    public int EatenVegetables { get; set; }
+    public int EdibleStored => Berries + Vegetables + Bread;
     public int Grain { get; set; }
     public int Bread { get; set; }
     public int GatheredBerries { get; set; }
@@ -62,6 +66,7 @@ public sealed partial class World
         if (v.BushId is int id) Bushes.Single(b => b.Id == id).Owner = null;
         v.BushId = null; v.WorkplaceId = null; v.FoodReserved = 0;
     }
+    private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden;
     private bool FreeStation(Cottage c, int capacity = 1) => People.Count(v => v.WorkplaceId == c.Id) < capacity;
     private Cottage? FoodSite(BuildingKind kind, Func<Cottage, bool> condition, int capacity = 1) =>
         Cottages.Where(c => c.Complete && c.Kind == kind && FreeStation(c, capacity) && condition(c))
@@ -79,8 +84,9 @@ public sealed partial class World
         }
         if (v.Role == Role.Farmer)
         {
-            var farm = FoodSite(BuildingKind.Farm, c => c.Harvest > 0) ?? FoodSite(BuildingKind.Farm, c => !c.Planted);
-            if (farm == null) { v.Status = Cottages.Any(c => c.Complete && c.Kind == BuildingKind.Farm) ? "Waiting for crops to ripen or a free farm" : "Needs a finished farm"; return; }
+            var fields = Cottages.Where(c => c.Complete && IsField(c) && FreeStation(c)).OrderByDescending(c => c.Priority).ThenBy(c => c.Id);
+            var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted);
+            if (farm == null) { v.Status = Cottages.Any(c => c.Complete && IsField(c)) ? "Waiting for crops to ripen or a free field" : "Needs a finished farm or vegetable garden"; return; }
             v.WorkplaceId = farm.Id;
             Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? "Walking to harvest grain" : "Walking to sow grain"); return;
         }
@@ -112,7 +118,7 @@ public sealed partial class World
                 bush.Ripe -= picked; bush.Owner = null; v.BushId = null; Food.GatheredBerries += picked; CarryFood(Resource.Berries, picked); break;
             case Work.ToFarm:
                 v.Task = Station().Harvest > 0 ? Work.Harvesting : Work.Planting; v.Timer = 0;
-                v.Status = v.Task == Work.Harvesting ? "Harvesting ripe grain" : "Sowing the next crop"; break;
+                v.Status = v.Task == Work.Harvesting ? Station().Kind == BuildingKind.VegetableGarden ? "Harvesting ripe vegetables" : "Harvesting ripe grain" : "Sowing the next crop"; break;
             case Work.Planting:
                 if (v.Timer < 4) break;
                 Station().Planted = true; Station().Growth = 0; Finish(v); break;
@@ -120,7 +126,7 @@ public sealed partial class World
                 if (v.Timer < 2) break;
                 var farm = Station(); int grain = Math.Min(2, farm.Harvest); farm.Harvest -= grain;
                 if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; }
-                CarryFood(Resource.Grain, grain); break;
+                CarryFood(farm.Kind == BuildingKind.VegetableGarden ? Resource.Vegetables : Resource.Grain, grain); break;
             case Work.ToGrain:
                 Food.Grain -= v.FoodReserved; v.Carried = v.FoodReserved; v.Cargo = Resource.Grain; v.FoodReserved = 0;
                 Go(v, Station().Entrance, Work.ToOven, "Delivering grain to the oven"); break;
@@ -139,6 +145,7 @@ public sealed partial class World
             case Work.ToPantry:
                 switch (v.Cargo)
                 {
+                    case Resource.Vegetables: Food.Vegetables += v.Carried; break;
                     case Resource.Berries: Food.Berries += v.Carried; break;
                     case Resource.Grain: Food.Grain += v.Carried; break;
                     case Resource.Bread: Food.Bread += v.Carried; break;
@@ -157,10 +164,14 @@ public sealed partial class World
             bush.Regrowth += dt;
             while (bush.Regrowth >= 8 && bush.Ripe < 8) { bush.Regrowth -= 8; bush.Ripe++; }
         }
-        foreach (var farm in Cottages.Where(c => c.Kind == BuildingKind.Farm && c.Complete && c.Planted && c.Growth < 1))
+        foreach (var farm in Cottages.Where(c => IsField(c) && c.Complete && c.Planted && c.Growth < 1))
         {
-            farm.Growth = Math.Min(1, farm.Growth + dt / 45);
-            if (farm.Growth == 1) { farm.Harvest = 6; Food.GrownGrain += 6; }
+            farm.Growth = Math.Min(1, farm.Growth + dt / (farm.Kind == BuildingKind.VegetableGarden ? 60 : 45));
+            if (farm.Growth == 1)
+            {
+                if (farm.Kind == BuildingKind.VegetableGarden) { farm.Harvest = 8; Food.GrownVegetables += 8; }
+                else { farm.Harvest = 6; Food.GrownGrain += 6; }
+            }
         }
         if (Food.Celebrating)
         {
@@ -176,8 +187,9 @@ public sealed partial class World
         while (Food.MealClock >= 60)
         {
             Food.MealClock -= 60; int berries = Math.Min(Population, Food.Berries); Food.Berries -= berries; Food.EatenBerries += berries;
-            int bread = Math.Min(Population - berries, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
-            Food.Hunger = (Population - berries - bread) / (float)Population;
+            int vegetables = Math.Min(Population - berries, Food.Vegetables); Food.Vegetables -= vegetables; Food.EatenVegetables += vegetables;
+            int bread = Math.Min(Population - berries - vegetables, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
+            Food.Hunger = (Population - berries - vegetables - bread) / (float)Population;
         }
     }
     private List<Cell> SupperSpots()
@@ -204,8 +216,10 @@ public sealed partial class World
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
         Check(Food.Berries >= 0 && Food.Grain >= ReservedGrain && Food.Bread >= 0, "Negative or over-reserved food");
         Check(Food.InitialBerries >= 0 && Food.Berries + Cargo(Resource.Berries) + Food.EatenBerries == Food.InitialBerries + Food.GatheredBerries, "Berry conservation failed");
-        Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Sum(c => c.Harvest + c.InputGrain) + Food.UsedGrain == Food.GrownGrain, "Grain conservation failed");
+        Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain, "Grain conservation failed");
         Check(Food.Bread + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread, "Bread conservation failed");
+        Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
+            Food.Vegetables + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables, "Vegetable conservation failed");
         Check(Food.BakedBread == Food.UsedGrain * 2, "Recipe conversion failed");
         foreach (var bush in Bushes)
         {

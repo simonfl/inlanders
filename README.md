@@ -75,6 +75,16 @@ The initial workforce is two loggers, two builders, two foragers, one farmer, an
 
 Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
+### Vegetable gardens
+
+Build a **Vegetable garden** for **6 logs** and assign a **Farmer**. One farmer can work each garden at a time; farmers share gardens and grain farms, taking ripe harvests before planting another crop.
+
+Planting takes four work seconds. The garden then grows **8 vegetables in 60 simulation seconds**, with visible leaves and squash. Farmers harvest two at a time and carry baskets to the pantry; beds clear as the harvest progresses. Gardens replant automatically.
+
+Vegetables are eaten directly, with no bakery. Meals use berries first, then vegetables, then bread. Stored vegetables count toward food coverage and newcomer invitations; ripe crops and carried baskets count only after delivery. The top bar shows **VEG**, and Economy lists vegetables separately from grain.
+
+This offers a simpler food source with fewer buildings and jobs; grain plus baking yields more food per crop. Supper still requires bread. Gardens are available in every campaign level, but existing campaign objectives remain unchanged. Growth, remaining harvest, and carrying workers persist in saves.
+
 ### Finding villagers, buildings, and supplies
 
 **People [V]** shows each villager's name and role. Filter the roster to a role, Unassigned, or Idle; the count shows how many match. Newcomer invitations sit above the roster.
@@ -95,7 +105,7 @@ The top-bar Logs total includes the main yard and every stockpile. Select a stoc
 
 ### Welcoming newcomers
 
-Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
+Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/vegetables/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
 
 The pair joins near the timber yard, unassigned. Select them in People and choose their jobs. Keep adding housing and food to invite more pairs. Arrivals are optional in campaigns and free play; every new settlement still starts with eight people.
 
@@ -115,13 +125,13 @@ Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Option
 
 ### Economy and shortages
 
-Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries and bread and assumes no new deliveries.
+Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries, vegetables, and bread and assumes no new deliveries.
 
 The Economy badge counts current issues. Click a shortage message to open the relevant build or staffing controls. Idle-worker links show the actual waiting reason. Warnings clear as conditions improve; ordinary crop growth and full stock targets can leave workers idle without indicating a problem.
 
 ### Food and work
 
-- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, using berries before bread. Raw grain is not edible.
+- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, using berries first, then vegetables, then bread. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
 - Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
 - Wheat grows from green shoots to golden ears. Each harvested load leaves two columns of stubble, making the remaining crop visible.
@@ -175,7 +185,7 @@ The compact top bar shows stored resources, housing, day, hunger, pause, and spe
 
 The default view has no open side panels. At widths below 1100 pixels, opening a menu replaces the inspector and selecting an entity replaces the menu. Menus scroll when needed. The interface keeps its text size as the window resizes, with a minimum window size of 960×640; layouts are checked at 960×640, 1280×720, and 1440×900.
 
-Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
+Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, vegetables, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
 
 In **Options**, the **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute both, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
 
@@ -213,7 +223,7 @@ See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work 
 | File | Responsibility |
 | --- | --- |
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
-| `Simulation/Food.cs` | Foraging, farming, baking, meals, hunger, supper |
+| `Simulation/Food.cs`, `VegetableVisuals.cs` | Foraging, grain/vegetable farming, baking, meals, hunger, supper, and garden visuals |
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
 | `Simulation/Clearing.cs`, `ClearingUi.cs` | Logger clearing orders, cancellation, root work, and clearing previews |
 | `Simulation/Storage.cs`, `StorageUi.cs` | Local log stores, hauling reservations, target controls, and stockpile visuals |

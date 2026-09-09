@@ -57,6 +57,7 @@ public partial class Game
         if (site.Kind == BuildingKind.Bakery) { MakeBakery(parent, stage); return; }
         if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
+        if (site.Kind == BuildingKind.VegetableGarden) { MakeVegetableGarden(parent, stage); return; }
         if (site.Kind == BuildingKind.Farm) { MakeFarm(parent, stage); return; }
         if (site.Kind == BuildingKind.ForagerHut) { MakeForagerHut(parent, stage); return; }
         MakeCottage(parent, stage);
@@ -76,7 +77,7 @@ public partial class Game
             }
             _bushViews[bush.Id] = (body, bush.Ripe);
         }
-        foreach (var farm in _world.Cottages.Where(c => c.Kind == BuildingKind.Farm && c.Complete))
+        foreach (var farm in _world.Cottages.Where(c => (c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden) && c.Complete))
         {
             int stage = farm.Harvest > 0 ? 4 : farm.Planted ? 1 + (int)(farm.Growth * 2.9f) : 0;
             int viewKey=stage*10+farm.Harvest;
@@ -84,14 +85,15 @@ public partial class Game
             if (old.Body != null) old.Body.QueueFree();
             var root = new Node3D { Position = new(farm.Cell.X + (farm.Rotated ? -0.5f : 0), 0, farm.Cell.Z + (farm.Rotated ? 0 : -0.5f)), RotationDegrees = new(0, farm.Rotated ? 90 : 0, 0) };
             _dynamic.AddChild(root);
-            MakeCrops(root, farm, stage);
+            if (farm.Kind == BuildingKind.VegetableGarden) MakeVegetables(root, farm, stage);
+            else MakeCrops(root, farm, stage);
             _cropViews[farm.Id] = (root, viewKey);
         }
-        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}";
+        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}/{_world.Food.Vegetables}";
         if (_pantryKey == key) return;
         _pantryKey = key; Clear(_pantry);
         // The pantry shares the timber yard; displayed baskets summarize its inventories.
-        foreach (var (amount, color, x) in new[] { (_world.Food.Berries, new Color("a95172"), -3.6f), (_world.Food.Grain, new Color("dabb69"), -3.0f), (_world.Food.Bread, new Color("cf914e"), -2.4f) })
+        foreach (var (amount, color, x) in new[] { (_world.Food.Berries, new Color("a95172"), -3.6f), (_world.Food.Grain, new Color("dabb69"), -3.0f), (_world.Food.Bread, new Color("cf914e"), -2.4f), (_world.Food.Vegetables, new Color("d88739"), -1.8f) })
         {
             Cylinder(_pantry, new(x, 0.24f, 3.85f), 0.22f, 0.35f, new("a58256"));
             if (amount > 0) Mesh(_pantry, new SphereMesh { Radius = 0.19f, Height = 0.22f, RadialSegments = 7, Rings = 3 }, new(x, 0.43f, 3.85f), color);

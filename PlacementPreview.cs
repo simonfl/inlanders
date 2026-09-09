@@ -27,6 +27,7 @@ public partial class Game
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",
+        BuildingKind.VegetableGarden => "Supports 1 farmer. Grows 8 vegetables in 60 seconds after planting; harvested in pairs and carried to the pantry. Eaten directly without a bakery. Farmers share gardens and grain farms.",
         BuildingKind.Farm => "Supports 1 farmer. Crops grow for 45 seconds, yielding 6 grain. Grain must be baked to feed villagers.",
         BuildingKind.Bakery => "Supports 1 baker. Turns 2 grain into 4 loaves in 10 work seconds. Needs a grain supply.",
         BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
