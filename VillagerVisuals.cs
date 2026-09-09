@@ -153,6 +153,9 @@ public partial class Game
                 view.Head.Rotation = new(0, MathF.Sin(_clock * 0.6f + v.Id) * 0.25f, 0);
                 view.Torso.Rotation = new(0, 0, MathF.Sin(_clock * 0.8f + v.Id) * 0.025f);
                 if (idle < 2) view.Arm.Rotation = new(2.7f, 0, -0.25f); // Adjust the brim of the hat.
+                int happiness = _world.ReadHappiness(v).Score;
+                if (happiness < 40) { view.Head.Rotation += new Vector3(.18f,0,0); view.Torso.Rotation += new Vector3(.08f,0,0); }
+                else if (happiness >= 85 && idle < 3) view.Arm.Rotation = new(2.65f,0,MathF.Sin(_clock*3+v.Id)*.24f);
                 break;
         }
     }

@@ -110,7 +110,7 @@ public partial class Game
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton);
-        MakeStorageControls(); MakeManagementControls();
+        MakeStorageControls(); MakeManagementControls(); MakeHappinessUi();
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
@@ -223,7 +223,7 @@ public partial class Game
             int count = _world.People.Count(v => v.Role == role); _counts[role].Text = $"{RoleName(role)}s  {count}";
             _allocationButtons[(role, -1)].Disabled = count == 0 || _world.Food.Celebrating; _allocationButtons[(role, 1)].Disabled = count == _world.Population || _world.Food.Celebrating;
         }
-        _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle";
+        _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100";
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.Modulate = _placing && _clearingTrees ? _cream : Colors.White;
@@ -248,7 +248,7 @@ public partial class Game
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)
         {
-            var p = _world.People[_selectedPerson]; _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
+            var p = _world.People[_selectedPerson]; UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
         UpdateVillageDirectory();

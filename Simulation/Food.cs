@@ -16,6 +16,7 @@ public sealed class BerryBush
 }
 public sealed class FoodState
 {
+    public int LastMealChoices { get; set; } = 1;
     public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
     public int Vegetables { get; set; }
@@ -186,6 +187,7 @@ public sealed partial class World
         Food.MealClock += dt;
         while (Food.MealClock >= 60)
         {
+            Food.LastMealChoices = (Food.Berries > 0 ? 1 : 0) + (Food.Vegetables > 0 ? 1 : 0) + (Food.Bread > 0 ? 1 : 0);
             Food.MealClock -= 60; int berries = Math.Min(Population, Food.Berries); Food.Berries -= berries; Food.EatenBerries += berries;
             int vegetables = Math.Min(Population - berries, Food.Vegetables); Food.Vegetables -= vegetables; Food.EatenVegetables += vegetables;
             int bread = Math.Min(Population - berries - vegetables, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;

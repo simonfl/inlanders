@@ -38,6 +38,7 @@ public sealed class Villager
     [JsonInclude] public int? LeisureSiteId { get; internal set; }
     [JsonInclude] public float NextLeisureTime { get; internal set; }
     [JsonInclude] public int LeisureVisits { get; internal set; }
+    [JsonInclude] public float? LastLeisureTime { get; internal set; }
 }
 public sealed class TimberTree
 {
@@ -288,7 +289,7 @@ public sealed partial class World
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
                 case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = "Taking a break at the square"; break;
-                case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; Finish(v); } break;
+                case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; Finish(v); } break;
                 case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
                 case Work.ClearingStump:
                     if (v.Timer < 4) break;
@@ -335,6 +336,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
+        ValidateHappiness();
         ValidateDecorations();
         ValidateLeisure();
         ValidateStorage();
