@@ -121,6 +121,10 @@ These are first-time human play targets with ordinary use of pause and speed con
 
 See the [campaign systems plan](CAMPAIGN_SYSTEMS.md) for the need → building → landscape relationships, level sketches and open decisions. This is a design direction; prices, yields, service capacities and final sequence remain TBD.
 
+**Campaign progression:** establish a home (food, reachable shelter and rest) → make a community (actual recreation and a useful diet) → improve life here (comfort and a chosen civic project). Introduce expectations through explained, player-triggered campaign stages, not surprise population thresholds. Education and religion/reflection remain later possibilities with a distinct purpose still to prove; they are not additional mandatory meters. The systems plan includes a concrete F25a home/rest experiment and an authored terrain shortlist: fishing waters, quarry outcrops, woodland habitat, competing meadow/terrace space and separated neighborhoods.
+
+**Environment is part of the building design.** Each new producer ships with readable placement prerequisites, a landscape where it is useful, a visible output/use and an alternative viable plan. Not every map needs every resource. Start with geometry, access and shared habitat/deposit stocks; fertility, drinking water and deeper resource chains remain TBD. Campaign success measures residents supported and projects used, rather than ownership of every new building.
+
 - **First deepen food, shelter/rest and company.** F14b measures actual meals. F25a gives existing cottages/lodges and squares a stronger resident-facing purpose before adding more meters. Comfort can later motivate visible home improvements.
 - **F26a: water → fishing dock/boat → food.** Shared fish habitat, shoreline access and travel distinguish fishing from gardens. Pair the first implementation with Life by the lake.
 - **F26b: rock outcrop → quarry → lasting project.** Add stone together with a meaningful consumer, such as a civic building or improved crossing. A deposit can run out; access and local transport matter. Mixed-material costs need support, but no iron/tool-wear chain yet.

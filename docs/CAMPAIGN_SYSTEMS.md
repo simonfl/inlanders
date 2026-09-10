@@ -71,6 +71,42 @@ Keep the five current lessons as onboarding. Build **Across the river** as the f
 
 These are roles for later 30–60-minute settlements, not validated durations or six implementation promises at once. Existing **The long haul** and **Room to grow** concepts become challenges within these maps or optional scenarios; keep separate levels only if playtesting reveals a distinct experience. Avoid a sequence where every map is “construct the one new building and wait.”
 
+## Design gates for the next campaign systems
+
+### Needs should change the plan, not just add meters
+
+Use three layers of expectations. Campaign stages can introduce an expectation without locking the construction menu. Preview the next stage before the player invites more residents; expectations do not suddenly increase because a population threshold was crossed.
+
+| Layer | What the player provides | What makes it interesting | How a campaign can assess it |
+| --- | --- | --- | --- |
+| **Establish a home** | Enough food, a reachable bed, and time to rest. | Spending workers on construction competes with keeping meals reliable; a bed far from daily work may be a poor home. | Actual meals and completed home/rest visits for the current population, with unmet reasons visible. Rest scheduling and home assignment remain F25a design decisions. |
+| **Make a community** | Recreation and a useful food mix alongside the basics. | Public space takes land; travel, capacity and available time determine who can participate. Fishing or hunting can diversify meals where fields are awkward. | Residents served over a short window, rather than the number of squares or food buildings owned. Show which residents are missing out and why. |
+| **Improve life here** | Optional comfort and, later, a chosen civic ambition. | Furnish existing homes or grow? Build a larger gathering place or several small ones? Spend labor on a learning project or immediate production? | Complete and use a visible improvement while maintaining the village. Learning/reflection are alternative later directions, not mandatory bars added to every map. |
+
+Do not let residents spend all their time satisfying routines. Prototype rest with a small share of the work cycle, stagger visits, and measure how much useful labor remains. Sleep can be represented by a home visit before we decide whether nights and synchronized schedules improve the game. A failed service check should identify a solvable problem—no home, unreachable entrance, venue full, or insufficient time—rather than merely report low happiness.
+
+**First playable needs slice (F25a):** give residents identifiable homes, show a completed rest visit, and explain existing square participation in one compact resident view. Try a dispersed settlement, then improve its arrangement and observe whether more residents can rest and socialize while meals remain reliable. Reuse current buildings. Only add a new venue when this experiment exposes a useful difference in capacity, land use or staffing.
+
+### Terrain as an authored set of opportunities
+
+Map variety should affect a settlement's plan before adding more map area. These are authoring candidates, not new terrain simulation requirements.
+
+| Landscape ingredient | Buildings it favors or constrains | Authored situation to try |
+| --- | --- | --- |
+| **Connected water with distinct shallows and fishing grounds** | Docks need a usable bank and launch; boats need a route; bridges compete for access. | Convenient shore with modest catches versus a productive distant landing. Show shared habitat stocks so additional docks are not free extra supply. |
+| **Rocky slopes and exposed outcrops** | Quarry sites and stone transport; relatively little level land for homes or fields. | A reachable deposit beside awkward building ground. Keep enough starting space and timber to establish food and construct the quarry without stone. |
+| **Woodland and open clearings** | Hunting lodge and managed timber compete with farms and expansion. | A wooded basin where retaining connected habitat is valuable. Explain the habitat lost before a clearing order; regrowth must allow recovery. |
+| **Broad meadow versus narrow terraces** | Gardens/farms compete with housing, workshops and public space. | Productive space is scarce because of shape and access first. Fertility/soil quality is a later experiment only if footprint competition proves insufficient. |
+| **Separated neighborhoods** | Paths, crossings, home placement and eventual local storage/services. | A good resource site far from the center makes logistics and service access worth improving. Do not assume homes consume food locally before that system exists. |
+
+Avoid making every resource available on every map. A lake settlement can have little stone; a wooded valley can have no fishable water. Buildings remain unlocked, with environmental prerequisites explained. Ordinary food and housing must still have a viable opening on each authored map, and a critical finite deposit must fund its intended project with room for recoverable mistakes. Drinking water, wells, sanitation, mining metals and tool wear remain uncommitted; add them only if they create a distinct decision worth the extra daily management.
+
+### Keep the campaign from becoming a building checklist
+
+Introduce a resource through one visible first use, then assess the resulting village. A first catch explains fishing; sustained meals demonstrate its value. Quarrying pays off when residents use a distinctive stone-funded civic place. Hunting pays off when the player can retain a living woodland while supporting growth. Later levels should combine familiar systems under different geography rather than require every producer and civic building.
+
+For each new scenario, write down two intended approaches and one recoverable mistake before choosing quotas. Examples: lake fishing plus gardens versus a smaller fishery supporting bread; a central hall versus distributed squares; preserving a large hunting habitat versus keeping a smaller habitat and cultivating more food. If those approaches differ only in how long the player waits, revise the map or the building tradeoffs.
+
 ## Suggested implementation sequence
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
