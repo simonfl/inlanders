@@ -4,7 +4,7 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 **Design loop:** a resident need gives a project a purpose; geography offers different ways to meet it; buildings turn that opportunity into a functioning service; residents visibly use the result. Each new system should strengthen that loop rather than add another mandatory meter.
 
-**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is implemented in People; the woodland wildlife prototype is also implemented. See [F26c findings](WILDLIFE_F26C.md). The full quarry/woodland campaigns remain future work. F21j map survey and F25c seating gardens are implemented; see the [seating review](SEATING_GARDEN_F25C.md). Neighborhood food service is the next design experiment.
+**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is implemented in People; the woodland wildlife prototype is also implemented. See [F26c findings](WILDLIFE_F26C.md). The full quarry/woodland campaigns remain future work. F21j map survey and F25c seating gardens are implemented; see the [seating review](SEATING_GARDEN_F25C.md). The [food-service design](FOOD_SERVICE_F07C.md) is now recorded; F07c1 meal request/accounting is the next experiment.
 
 ## Start with residents
 
@@ -153,7 +153,7 @@ For **Built to last**, test a compact hall-centered neighborhood against distrib
 
 ## Next design decisions: make each addition earn its place
 
-**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. F21i service feedback is implemented; F26c wildlife is now implemented as a resource prototype. F21j map survey is implemented; the main roadmap next proposes neighborhood food service design. F26b2 remains a separate authored scenario after human pacing feedback.
+**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. F21i service feedback is implemented; F26c wildlife is now implemented as a resource prototype. F21j map survey is implemented; the main roadmap next proposes the F07c1 meal request/accounting experiment; see the [food-service design](FOOD_SERVICE_F07C.md). F26b2 remains a separate authored scenario after human pacing feedback.
 
 ### Stone country: a project with a reason
 
