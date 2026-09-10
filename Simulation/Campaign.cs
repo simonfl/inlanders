@@ -39,9 +39,9 @@ public sealed partial class World
         new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
         new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available.")
     };
-    public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
-    public int DeliveredVegetables => Food.Vegetables + Food.EatenVegetables;
-    public int DeliveredBread => Food.Bread + Food.EatenBread + Food.SupperBread;
+    public int DeliveredBerries => DeliveredFood(Resource.Berries);
+    public int DeliveredVegetables => DeliveredFood(Resource.Vegetables);
+    public int DeliveredBread => DeliveredFood(Resource.Bread);
     public bool HasBuilding(BuildingKind kind) => Cottages.Any(c => c.Kind == kind && c.Complete);
     public bool HasForagerHut => HasBuilding(BuildingKind.ForagerHut);
     private CampaignGoal[] ActiveGoals => Campaign == null ? Array.Empty<CampaignGoal>() : CampaignLevels[Campaign.Level - 1].Goals;

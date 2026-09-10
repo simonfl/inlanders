@@ -11,6 +11,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (Creative || site == null || site.DemolitionRequested || RemovalProblem(id) != null) return false;
         site.DemolitionRequested = true; site.DemolitionWasPaused = site.WorkPaused; site.WorkPaused = true;
+        if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);
         History.Add($"Demolition ordered for {site.Kind} {id}; builders recover goods and timber."); _retry = 0; return true;
@@ -33,14 +34,19 @@ public sealed partial class World
     {
         var site = Cottages.Single(c => c.Id == v.SiteId);
         if (v.Task == Work.ToDemolish) { v.Task = Work.Demolishing; v.Timer = 0; return; }
-        bool Take(int count, Action<int> set, Resource resource)
+        bool Take(int count, Action<int> set, Resource resource,bool alreadyStored=false)
         {
             if (count == 0) return false;
             int amount = Math.Min(2, count); set(count - amount);
             site.Builder = null; Finish(v); v.Carried = amount; v.Cargo = resource;
             if (resource is Resource.Logs or Resource.Planks or Resource.Stone) ReturnTimber(v);
-            else Go(v, YardAccess, Work.ToPantry, $"Recovering {amount} {resource} from demolition");
+            else { v.FoodTransfer=alreadyStored; Go(v, YardAccess, Work.ToPantry, $"Recovering {amount} {resource} from demolition"); }
             return true;
+        }
+        for(int k=0;k<EdibleKinds.Length;k++)
+        {
+            int index=k;
+            if(Take(site.PantryFood[index],n=>site.PantryFood[index]=n,EdibleKinds[index],true)) return;
         }
         if (Take(site.StoredLogs, n => site.StoredLogs = n, Resource.Logs) ||
             Take(site.StoredPlanks, n => site.StoredPlanks = n, Resource.Planks) ||

@@ -48,7 +48,7 @@ public partial class Game
                 if(seen.Contains(42) && garden.Harvest==0) break;
             }
             Check(new[]{10,20,30,48,46,44,42}.All(seen.Contains) && cargo,"Missing garden growth/harvest/cargo phase");
-            await Frames(); Check(_world.Food.Vegetables>0,"Vegetables not delivered");
+            await Frames(); Check(_world.DeliveredVegetables>0,"Vegetables not delivered");
             foreach(var windowSize in new[]{new Vector2I(1440,900),new Vector2I(960,640)})
             {
                 GetWindow().Size=windowSize; await Frames(); SelectBuilding(garden.Id); await Frames();

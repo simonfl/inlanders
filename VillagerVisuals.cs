@@ -154,7 +154,7 @@ public partial class Game
             view.LeftArm.Rotation=new(view.Arm.Rotation.X,0,.15f);
             return;
         }
-        if (v.Carried > 0)
+        if (v.Carried > 0 && v.Task!=Work.EatingMeal)
         {
             view.Arm.Rotation = view.LeftArm.Rotation = new(1.05f, 0, 0);
             view.Torso.Rotation = new(-0.08f, 0, 0); AnimateCargoHandoff(view,v); return;
@@ -206,6 +206,11 @@ public partial class Game
                 view.Torso.Rotation = new(-0.1f - MathF.Sin(cycle * 0.5f) * 0.08f, 0, 0); break;
             case Work.Leisure:
                 AnimateSquareVisit(view,v); break;
+            case Work.EatingMeal:
+                view.RestStool.Visible=true; view.Rig.Position=new(0,-.20f,0);
+                view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
+                view.Arm.Rotation=new(1.5f+MathF.Sin(v.Timer*2)*.25f,0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
+                view.Head.Rotation=new(.12f,0,0); break;
             case Work.Resting:
                 AnimateHomeRest(view,v); break;
             case Work.Supper:

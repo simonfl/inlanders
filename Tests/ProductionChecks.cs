@@ -94,7 +94,8 @@ public static class ProductionChecks
         // Actual meals, shortages, expiry, read-only history and exact restore.
         w = new World(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
         Step(w, 1210); var flow = w.ReadFoodFlow();
-        Check(flow.Delivered == 0 && flow.Eaten == 16 && flow.Required == 16, "Initial stock counted as production or meals missing");
+        Check(flow.Delivered == 0 && flow.Eaten == w.Food.EatenBerries && flow.Eaten >= 16 && flow.Required == 9,
+            "Initial stock counted as production, actual eating omitted, or staggered closed demand miscounted");
         string state = w.SaveJson(); Check(World.LoadJson(state).ReadFoodFlow() == flow && w.SaveJson() == state, "Reading/restoring food flow changed history");
         Step(w, 2500); flow = w.ReadFoodFlow();
         Check(flow.Required > flow.Eaten && w.RecentFood.All(e => e.Time > w.Food.Time - World.FoodFlowWindow), "Expired history retained or shortages hidden");

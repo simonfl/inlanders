@@ -63,10 +63,11 @@ public partial class Game
         _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
             $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game\n" +
-            $"Meals eaten: {flow.Eaten} / {flow.Required} required\n" +
+            $"Portions eaten: {flow.Eaten} · closed/skipped demand: {flow.Required}\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.Creative ? 0 : _world.Population)} / minute\n" : "Rates appear after one minute.\n") +
-            "Counts pantry arrivals, not growing/carried food. Meals exclude supper and trades. Past deliveries do not guarantee future supply.";
-        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · available types shared\nAssumes no new deliveries; grain is not edible.";
+            "Counts first producer deliveries; transfers are not new supply. Eating and deadlines occur at different times. Excludes supper and trades.";
+        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} population-sized meals in storage\n{_world.Population} portions requested per minute, staggered by resident\nFood must be collected and eaten; stored portions do not prove service. Grain is not edible.";
+        if(!_world.Creative) _economyFood.Text+="\n\n"+_world.ReadMealAssessment().Summary;
         if (!_world.Creative) _economyFood.Text += "\n\n" + _world.LastMealSummary;
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";

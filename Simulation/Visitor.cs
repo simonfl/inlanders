@@ -9,7 +9,7 @@ public sealed partial class World
     public VisitorState Gardener { get; private set; }
     public bool SunflowersUnlocked => Creative || Gardener == VisitorState.Accepted;
     public string SunflowerLockReason => Gardener == VisitorState.Declined ? "The gardener offer was declined in this settlement. Sunflowers are unavailable here." : Gardener == VisitorState.NotArrived ? "A gardener offers sunflowers from day 3 after a forager hut is finished. Look in Goals." : "Trade 8 berries with the visiting gardener in Goals to unlock sunflowers.";
-    public int FoodAfterGardenerTrade => Food.EdibleStored - GardenerPrice;
+    public int FoodAfterGardenerTrade => EdibleStored - GardenerPrice;
     private void AdvanceVisitor()
     {
         if (Creative || Gardener != VisitorState.NotArrived || Food.Day < 3 || !HasForagerHut || Food.Celebrating) return;
@@ -17,7 +17,7 @@ public sealed partial class World
     }
     public string? GardenerTradeProblem() => Gardener != VisitorState.Pending ? "There is no pending gardener offer." :
         Food.Celebrating ? "Trade after the village supper." :
-        Food.Berries < GardenerPrice ? $"Store {GardenerPrice} berries to trade." : null;
+        CentralFoodAvailable(Resource.Berries) < GardenerPrice ? $"Store {GardenerPrice} berries to trade." : null;
     public bool AcceptGardener()
     {
         if (GardenerTradeProblem() != null) return false;

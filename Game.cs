@@ -47,6 +47,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--social-smoke-test")) CallDeferred(MethodName.RunSocialSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--wildlife-smoke-test")) CallDeferred(MethodName.RunWildlifeSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--survey-smoke-test")) CallDeferred(MethodName.RunSurveySmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--pantry-smoke-test")) CallDeferred(MethodName.RunPantrySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--quarry-smoke-test")) CallDeferred(MethodName.RunQuarrySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
@@ -265,6 +266,7 @@ public partial class Game : Node3D
             int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered+h.DeliveredStone > 0 ? 1 : 0;
             if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
             int viewKey = h.Kind == BuildingKind.Stockpile ? stage * 100 + h.StoredLogs + h.StoredPlanks + (h.StorageMaterial==Resource.Planks?1000:0) : stage;
+            if(h.Kind==BuildingKind.Pantry) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
             if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;
             if (h.DemolitionRequested) viewKey += 10000;

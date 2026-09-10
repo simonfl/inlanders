@@ -26,6 +26,7 @@ public partial class Game
         BuildingKind.HuntingLodge => "Hunt in retained woodland",
         BuildingKind.Quarry => "Extract finite stone",
         BuildingKind.SeatingGarden => "A small neighborhood meeting spot",
+        BuildingKind.Pantry => "Serve meals near daily life",
         BuildingKind.GatheringHall => "A compact community venue",
         _ => "A place to gather"
     };

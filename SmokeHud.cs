@@ -11,11 +11,12 @@ public partial class Game
         try { await CheckHud();
             // Let deferred frees from the final world restore finish before shutting down Godot.
             for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            GD.Print("SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
+            GD.Print(OS.GetCmdlineUserArgs().Contains("--hud-services-only") ? "SMOKE PASS: focused service/household HUD checks." : "SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("HUD SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--hud-services-only")) { _paused=true;await CheckServiceHud();return; }
         void Check(bool value, string message) { if (!value) throw new Exception(message); }
         async Task Settle() { for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw); }
         if (!_paused) await Press(Key.Space);
@@ -75,6 +76,10 @@ public partial class Game
         await CheckPopulationUi();
         await CheckStorageUi();
         await CheckDirectoryUi();
+        await CheckServiceHud();
+    }
+    private async Task CheckServiceHud()
+    {
         await CheckVegetableUi();
             await CheckLeisureUi();
             await CheckDecorationUi();

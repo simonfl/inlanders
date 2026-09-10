@@ -35,12 +35,18 @@ public static class PopulationChecks
         Check(w.InviteNewcomers() && w.Population==12 && !w.InviteNewcomers(),"Repeated invite exceeded housing");
         Check(w.People.Select(p=>p.Name).Distinct().Count()==12,"Duplicate newcomer names");
         Check(w.ReadEconomy().Meals==2,"Meal coverage ignores newcomers");
-        w.Food.MealClock=59.9f; w.Tick(.2f);
-        Check(w.Food.Berries==12 && w.Food.Hunger==0,"Daily meal did not feed 12");
+        float mealStart=w.Food.Time;
+        for(int i=0;i<1200 && w.Food.MealConsumptions.Where(m=>m.Time>mealStart).Select(m=>m.Person).Distinct().Count()<12;i++) { w.Tick(.1f); w.Validate(); }
+        Check(w.Food.MealConsumptions.Where(m=>m.Time>mealStart).Select(m=>m.Person).Distinct().Count()==12,"Actual meals did not reach all twelve residents");
         Check(w.ReadEconomy().Issues.Any(i=>i.Id=="food-low"),"Dynamic two-meal warning missing");
-        w.Food.EatenBerries+=w.Food.Berries-6; w.Food.Berries=6;
-        w.Food.MealClock=59.9f; w.Tick(.2f);
-        Check(w.Food.Hunger==.5f,"Hunger fraction ignores population");
+        bool partialHunger=false;
+        for(int i=0;i<1800;i++)
+        {
+            w.Tick(.1f); w.Validate();
+            Check(w.Food.Hunger==w.People.Count(p=>!p.Fed)/(float)w.Population,"Hunger fraction ignores expanded population");
+            partialHunger|=w.Food.Hunger>0 && w.Food.Hunger<1;
+        }
+        Check(partialHunger && w.Food.Hunger==1,"Staggered shortage did not progress from some to all residents");
         w.Assign(8,Role.Logger); w.Assign(9,Role.Builder);
         for(int i=0;i<30;i++) w.Tick(.1f);
         var restored=World.LoadJson(w.SaveJson());

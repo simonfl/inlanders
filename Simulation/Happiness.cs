@@ -12,7 +12,7 @@ public sealed record HappinessReport(int Meals, int Choice, int Housing, int Lei
 public sealed partial class World
 {
     public HappinessReport ReadHappiness(Villager person) => new(
-        Creative ? 30 : (int)MathF.Round(30 * (1 - Food.Hunger)),
+        Creative || person.Fed ? 30 : 0,
         Creative ? 20 : MealVarietyScore,
         person.HomeId!=null ? 10 : 0,
         person.LastLeisureTime is float last && Food.Time - last < person.LastLeisureWindow ? 20 : 0,
@@ -23,7 +23,7 @@ public sealed partial class World
         Food.LastMealNonDominant /
         Math.Max(1, Food.LastMealRequired - (int)Math.Ceiling(Food.LastMealRequired / 3f))));
     public string LastMealSummary => Food.LastMealRequired == 0 ? "No meal served yet." :
-        $"Last meal: {Food.LastMealServed}/{Food.LastMealRequired} portions eaten\n{Food.LastMealBerries} berries · {Food.LastMealVegetables} vegetables · {Food.LastMealBread} bread"+(Food.LastMealFish>0 ? $" · {Food.LastMealFish} fish" : "")+(Food.LastMealGame>0 ? $" · {Food.LastMealGame} game" : "")+$"\nVillage meal variety: +{MealVarietyScore}/20. Three balanced foods can earn full credit; every food type is not required.";
+        $"Latest minute snapshot: {Food.LastMealServed}/{Food.LastMealRequired} residents ate\n{Food.LastMealBerries} berries · {Food.LastMealVegetables} vegetables · {Food.LastMealBread} bread"+(Food.LastMealFish>0 ? $" · {Food.LastMealFish} fish" : "")+(Food.LastMealGame>0 ? $" · {Food.LastMealGame} game" : "")+$"\nUses each resident's latest eaten portion in that minute; collected food does not count. Village meal variety: +{MealVarietyScore}/20. Three balanced foods can earn full credit; every food type is not required.";
     private void ValidateHappiness()
     {
         if (Food.LastMealRequired < 0 || Food.LastMealBerries < 0 || Food.LastMealVegetables < 0 || Food.LastMealBread < 0 || Food.LastMealFish < 0 || Food.LastMealGame < 0 ||

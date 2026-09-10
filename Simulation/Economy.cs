@@ -18,8 +18,8 @@ public sealed partial class World
     {
         int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)));
         var stocks = Enum.GetValues<Resource>().Select(r => new EconomyStock(r,
-            r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
-            r switch { Resource.Stone => ReservedMaterialAt(null,Resource.Stone), Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => ReservedGrain, _ => 0 },
+            EdibleKinds.Contains(r)?StoredFood(r):r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
+            EdibleKinds.Contains(r)?MealReserved(r)+People.Where(p=>p.Cargo==r).Sum(p=>p.PantryReserved):r switch { Resource.Stone => ReservedMaterialAt(null,Resource.Stone), Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => ReservedGrain, _ => 0 },
             People.Where(p=>p.Cargo==r).Sum(p=>p.Carried) + (r==Resource.Fish ? Cottages.Sum(c=>c.Boat?.Fish??0) : 0),
             r switch { Resource.Logs => Cottages.Sum(c=>c.InputLogs), Resource.Planks => Cottages.Sum(c=>c.OutputPlanks),
                 Resource.Vegetables => Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest),
@@ -37,7 +37,7 @@ public sealed partial class World
         }
         if(!Food.Celebrating)
         {
-            if(!Creative && Food.EdibleStored<Population*2)
+            if(!Creative && EdibleStored<Population*2)
             {
                 var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource.Berries or Resource.Vegetables or Resource.Bread or Resource.Fish or Resource.Game).ToArray();
                 if (foodSites.Length > 0 && foodSites.All(c => c.WorkPaused))
@@ -50,8 +50,8 @@ public sealed partial class World
         }
         if(!Food.Celebrating)
         {
-            if (Staffed(Role.Hauler) && !Planned(BuildingKind.Stockpile))
-                issues.Add(new("stockpile", "Haulers need a stockpile with a log target.", Build: BuildingKind.Stockpile));
+            if (Staffed(Role.Hauler) && !Planned(BuildingKind.Stockpile) && !Planned(BuildingKind.Pantry))
+                issues.Add(new("stockpile", "Haulers need a stockpile or neighborhood pantry with a supply target.", Build: BuildingKind.Stockpile));
             bool building=Cottages.Any(c=>!c.Complete);
             if(building && !Staffed(Role.Builder)) issues.Add(new("builders","Construction has no builders. Assign someone to deliver materials and build.",Staff:Role.Builder));
             bool timberNeeded=Need(Resource.Logs)>Available || (Need(Resource.Planks)>AvailablePlanks && Available<2);
@@ -69,6 +69,6 @@ public sealed partial class World
             Workplace(BuildingKind.Quarry,Role.Quarrier,Staffed(Role.Quarrier) || Need(Resource.Stone)>AvailableStone);
             Workplace(BuildingKind.Sawmill,Role.Sawyer,Staffed(Role.Sawyer) || Need(Resource.Planks)>AvailablePlanks);
         }
-        return new(stocks,(Food.EdibleStored)/Population,Math.Max(0,60-Food.MealClock),issues.ToArray());
+        return new(stocks,(EdibleStored)/Population,Math.Max(0,60-Food.MealClock),issues.ToArray());
     }
 }

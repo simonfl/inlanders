@@ -102,7 +102,7 @@ public sealed partial class World
                 person.Cargo=Resource.Fish; person.Carried=boat.Fish;
                 boat.Fish=0; boat.FisherId=null; boat.GroundId=null; boat.Phase=BoatPhase.Moored; boat.Timer=0;
                 Finish(person);
-                if(person.Carried>0) Go(person,YardAccess,Work.ToPantry,$"Carrying {person.Carried} fish to the pantry");
+                if(person.Carried>0) DeliverFood(person);
                 break;
         }
     }

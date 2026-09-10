@@ -24,7 +24,9 @@ public static class EconomyChecks
             w.Tick(.1f); w.Validate();
             report=w.ReadEconomy(); var logs=report.Stocks.Single(s=>s.Resource==Resource.Logs);
             if(w.ReservedStorage>0) { sawReserved=true; Check(logs.Available==w.Available && logs.Reserved==w.ReservedStorage,"Reservations reported as free stock"); }
-            if(w.People.Any(p=>p.Carried>0)) { sawCarried=true; Check(logs.Carried>0,"In-flight timber omitted"); }
+            int carriedLogs=w.People.Where(p=>p.Cargo==Resource.Logs).Sum(p=>p.Carried);
+            if(carriedLogs>0) sawCarried=true;
+            Check(logs.Carried==carriedLogs,"In-flight timber differs from actual log cargo");
             Check(logs.ConstructionNeed==cottage.Required-cottage.Delivered-cottage.Incoming,"Committed deliveries counted as new demand");
         }
         Check(sawReserved && sawCarried && cottage.Complete,"Inventory test missed hauling phases");

@@ -40,7 +40,7 @@ public partial class Game
                 Check(_inviteButton.GetGlobalRect().End.Y<=_drawer.GetGlobalRect().End.Y,"Invitation overflowed drawer");
                 await Capture($"artifacts/f06-people-{windowSize.X}.png");
                 OpenEconomy(); await Frames();
-                Check(_economyFood.Text.Contains("12 food per meal") && _idleLinks.Count==12,"Economy ignored new population");
+                Check(_economyFood.Text.Contains("12 portions requested per minute") && _idleLinks.Count==12,"Economy ignored new population");
                 _world.Assign(11,Role.Unassigned);
             }
             AdoptWorld(World.NewScenario()); _paused=true; await Frames();

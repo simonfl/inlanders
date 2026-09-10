@@ -11,8 +11,8 @@ public sealed partial class World
     {
         if (Food.Celebrating) return "Welcome newcomers after supper finishes.";
         if (SpareBeds < 2) return "Finish two spare beds to welcome newcomers.";
-        if (!Creative && Food.EdibleStored < ArrivalFoodRequired)
-            return $"Store {ArrivalFoodRequired} edible portions (berries, vegetables, bread or fish): two meals for {Population + 2} people.";
+        if (!Creative && EdibleStored < ArrivalFoodRequired)
+            return $"Store {ArrivalFoodRequired} edible portions (berries, vegetables, bread, fish or game): two meals for {Population + 2} people. Carried portions do not count.";
         if (ArrivalSpots().Length < 2) return "Leave two clear arrival spots near the timber yard.";
         return null;
     }
@@ -44,9 +44,13 @@ public sealed partial class World
         {
             int id = Population, index = id - InitialPopulation;
             People.Add(new Villager { Id = id, Name = index < names.Length ? names[index] : $"Neighbor {id + 1}",
-                Position = spot.Point, Role = Role.Unassigned, Status = "New arrival · choose a job in People" });
+                NextMealTime=Food.Time+15+index%2*7.5f, Position = spot.Point, Role = Role.Unassigned, Status = "New arrival · choose a job in People" });
         }
         ReconcileHomes(); History.Add($"{People[^2].Name} and {People[^1].Name} joined the village");
+        if(Campaign?.River is {Phase:1 or 3} river)
+        { river.AssessmentStarted=Food.Time; river.Meals=0; river.Required=0; river.LastResult="New residents arrived. Meal service will be assessed for everyone from now."; }
+        if(Campaign?.Lake is {Phase:2} lake)
+        { lake.AssessmentStarted=Food.Time; lake.Meals=0; lake.Required=0; lake.LastResult="New residents arrived. Meal service will be assessed for everyone from now."; }
         _retry = 0;
         return true;
     }

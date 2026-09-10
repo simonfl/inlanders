@@ -36,6 +36,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => Footprint(c.Cell, c.Rotated, c.Kind).Any(footprint.Contains));
         if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
         if (Blocked(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
+        if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
         if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotated)) || footprint.Contains(Door(c.Cell, c.Rotated))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";
@@ -43,7 +44,7 @@ public sealed partial class World
         var worker = People.FirstOrDefault(v => footprint.Contains(At(v)) || (v.Route.TryPeek(out var next) && footprint.Contains(next)));
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
         bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Append(YardAccess).Append(entrance);
+        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat)).Append(YardAccess).Append(entrance);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))

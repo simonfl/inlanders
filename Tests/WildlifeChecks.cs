@@ -23,7 +23,8 @@ public static class WildlifeChecks
         var saved=w.SaveJson(); var copy=World.LoadJson(saved); Check(copy.SaveJson()==saved,"Hunt save changed");
         Step(w,130); Step(copy,130); Check(w.SaveJson()==copy.SaveJson(),"Hunt continuation diverged");
         Until(w,()=>w.Food.EatenGame>0,"Delivered game never reached meals");
-        Check(w.LastMealSummary.Contains("game") && w.ReadFoodFlow().Game>0,"Game feedback omitted");
+        var diner=w.People.First(p=>w.Food.MealConsumptions.Any(m=>m.Person==p.Id && m.Kind==Resource.Game));
+        Check(w.MealSummary(diner).Contains("game") && w.ReadFoodFlow().Game>0,"Game feedback omitted");
         Check(w.ReadEconomy().Stocks.Single(s=>s.Resource==Resource.Game).Stored==w.Food.Game,"Game inventory incorrect");
         w=Fixture(); w.Assign(0,Role.Hunter); Until(w,()=>w.People[0].HabitatId!=null,"No wildlife claim");
         float stock=w.Map.Wildlife[0].Stock;
@@ -76,7 +77,7 @@ public static class WildlifeChecks
     {
         foreach(bool mixed in new[]{false,true})
         {
-            var w=new World(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
+            var w=new World(); foreach(var p in w.People) { w.Assign(p.Id,Role.Unassigned); p.NextMealTime=0; }
             w.Food.Berries=w.Food.InitialBerries=mixed?2:0;
             w.Food.Game=w.Food.HuntedGame=mixed?3:8;
             w.Food.Vegetables=w.Food.GrownVegetables=mixed?3:0;

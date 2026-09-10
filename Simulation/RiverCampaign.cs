@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed class RiverProgress
 {
+    public float AssessmentStarted { get; set; }
     public int Phase { get; set; }
     public int Meals { get; set; }
     public int DeliveredBaseline { get; set; }
@@ -17,8 +18,8 @@ public sealed partial class World
     public bool IsRiverCampaign => Campaign?.Level == 6;
     public int EastBankBeds => Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Cell.X>5).Sum(c=>Buildings.Get(c.Kind).Beds);
     public int EastBankRecreation => People.Count(p=>p.LastLeisureTime is float last && Food.Time-last<120 && Cottages.Any(c=>c.Id==p.LastLeisureSiteId && c.Kind==BuildingKind.Square && c.Cell.X>5 && c.Complete && !c.DemolitionRequested));
-    public int DeliveredFish => Food.Fish+Food.EatenFish;
-    private int DeliveredEdible => DeliveredBerries + DeliveredVegetables + DeliveredBread + DeliveredFish + Food.Game + Food.EatenGame;
+    public int DeliveredFish => DeliveredFood(Resource.Fish);
+    private int DeliveredEdible => EdibleKinds.Sum(DeliveredFood);
     public string? RiverPreparationProblem(bool final)
     {
         if(EastBankBeds<(final?8:4)) return $"Finish {(final?8:4)} beds on the east bank, across the river.";
@@ -32,33 +33,32 @@ public sealed partial class World
     public string? RiverActionProblem()
     {
         if(!IsRiverCampaign || Campaign!.River is not { } river) return "This settlement has no staged assessment.";
-        if(river.Phase>=3) return "Serve three full mixed meals with fresh deliveries covering consumption.";
+        if(river.Phase>=3) return "Maintain reliable mixed meals with fresh deliveries covering demand and consumption.";
         if(RiverPreparationProblem(river.Phase>=2) is string problem) return problem;
-        return river.Phase==1 && river.Meals<2 ? "Prove two consecutive full mixed meals with fresh deliveries covering consumption." : null;
+        return river.Phase==1 && river.Meals<2 ? "Prove reliable meal service, actual variety and fresh supply for the current residents." : null;
     }
     public bool AdvanceRiverPhase()
     {
         if(RiverActionProblem()!=null) return false;
         var river=Campaign!.River!; river.Phase++; river.Meals=0; river.Required=0; river.DeliveredBaseline=DeliveredEdible;
-        river.LastResult=river.Phase==2 ? "First neighborhood proven. Prepare the final expansion at your own pace." : "Assessment started. Each meal must feed everyone; at least a quarter of portions must be outside the dominant food.";
+        river.AssessmentStarted=Food.Time;
+        river.LastResult=river.Phase==2 ? "First neighborhood proven. Prepare the final expansion at your own pace." : "Assessment started. Build reliable closed meal requests for everyone; at least a quarter of food actually eaten must be outside the dominant food.";
         return true;
     }
     private void RecordRiverMeal()
     {
         if(!IsRiverCampaign || Campaign!.River is not { Phase: 1 or 3 } river) return;
         if(river.Phase==1 && river.Meals>=2) return;
-        river.Required+=Population;
-        int eaten=Food.LastMealServed;
-        int varied=Food.LastMealNonDominant;
+        var service=ReadMealAssessment(river.AssessmentStarted);
+        river.Required=Math.Max(service.Closed+service.Skipped,service.Eaten);
         string? problem=RiverPreparationProblem(river.Phase==3);
-        problem ??= eaten<Population ? "A meal did not feed everyone." : varied<(Population+3)/4 ? "A meal needed more portions outside its dominant food." :
-            DeliveredEdible-river.DeliveredBaseline<river.Required ? "Fresh pantry deliveries did not cover the meals consumed." : null;
+        problem ??= service.Problem;
         if(problem!=null)
         {
-            river.Meals=0; river.Required=0; river.DeliveredBaseline=DeliveredEdible;
-            river.LastResult=problem+" The meal streak restarted; improve supply and try the next meal."; return;
+            river.Meals=0;
+            river.LastResult=problem+" Improve the village; the rolling window recovers as service improves."; return;
         }
-        river.Meals++; river.LastResult="Full mixed meal served; fresh deliveries cover consumption.";
+        river.Meals=river.Phase==1?2:3; river.LastResult="Reliable meal service, actual variety and fresh supply demonstrated.";
         if(river.Phase==3 && river.Meals>=3) { river.Phase=4; Campaign.Complete=true; }
     }
     public string RiverObjective
@@ -70,7 +70,7 @@ public sealed partial class World
             string needs=$"Residents: {Population}/{(final?16:12)} minimum\nHoused: {Housed}/{Population}\nEast-bank beds: {EastBankBeds}/{(final?8:4)}";
             if(final) needs+="\nEast-bank square: "+(Cottages.Any(c=>c.Cell.X>5 && c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested)?"Ready":"Needed");
             if(final) needs+=$"\nRecent east-bank recreation: {EastBankRecreation}/{(Population+1)/2} residents (last 2 minutes)";
-            string assessment=river.Phase is 1 or 3 ? $"\n\nFull mixed meals: {river.Meals}/{(final?3:2)}\nMixed means at least {(Population+3)/4} portions outside the dominant food.\nFresh deliveries: {DeliveredEdible-river.DeliveredBaseline} · portions required: {river.Required}\n{river.LastResult}" : "";
+            string assessment=river.Phase is 1 or 3 ? $"\n\nMeal service · last 3 minutes since assessment began\n{ReadMealAssessment(river.AssessmentStarted).Summary}\n{river.LastResult}" : "";
             return title+"\n\n"+needs+assessment;
         }
     }
@@ -80,7 +80,7 @@ public sealed partial class World
     {
         var river=Campaign?.River;
         if(IsRiverCampaign != (river!=null)) throw new InvalidOperationException("Missing or misplaced river campaign state");
-        if(river!=null && (river.Phase<0 || river.Phase>4 || river.Meals<0 || river.Meals>(river.Phase is 3 or 4?3:2) || river.Required<0 || river.DeliveredBaseline<0 || river.DeliveredBaseline>DeliveredEdible || river.LastResult==null || Campaign!.Complete!=(river.Phase==4)))
+        if(river!=null && (!float.IsFinite(river.AssessmentStarted) || river.AssessmentStarted<0 || river.AssessmentStarted>Food.Time || river.Phase<0 || river.Phase>4 || river.Meals<0 || river.Meals>(river.Phase is 3 or 4?3:2) || river.Required<0 || river.DeliveredBaseline<0 || river.DeliveredBaseline>DeliveredEdible || river.LastResult==null || Campaign!.Complete!=(river.Phase==4)))
             throw new InvalidOperationException("Invalid river assessment state");
     }
     private static World NewRiverSettlement()

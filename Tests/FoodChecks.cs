@@ -89,7 +89,9 @@ public static class FoodChecks
 
         var hungry = World.NewScenario(); hungry.Food.Berries = 0; hungry.Food.EatenBerries = 24;
         hungry.Food.Grain = 10; hungry.Food.GrownGrain = 10; // Accounting-balanced fixture: raw grain is not edible.
-        Step(hungry, 610); Check(hungry.Food.Hunger == 1 && hungry.Food.WorkEfficiency == 0.5f && hungry.Food.Grain == 10, "Hunger/inedible grain rule failed");
+        // Wait through every resident's staggered first deadline, not an instantaneous village meal.
+        Step(hungry, 610); Check(hungry.Food.Hunger>0 && hungry.Food.Hunger<1 && hungry.Food.Grain==10,"Staggered first hunger deadlines or inedible grain failed");
+        Step(hungry, 600); Check(hungry.Food.Hunger == 1 && hungry.Food.WorkEfficiency == 0.5f && hungry.Food.Grain == 10, "Hunger/inedible grain rule failed");
         Check(hungry.Place(new(0,0), false, BuildingKind.ForagerHut) != null, "Recovery hut rejected");
         Until(hungry, () => hungry.Food.EatenBerries > 24 && hungry.Food.Hunger < 1, "Hungry settlement could not recover");
         Check(hungry.People.Count == 8, "Hunger killed a villager");

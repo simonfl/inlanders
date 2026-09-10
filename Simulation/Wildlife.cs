@@ -56,7 +56,7 @@ public sealed partial class World
         var habitat=Map.Wildlife.Single(h=>h.Id==person.HabitatId);
         habitat.Stock-=person.Reserved; Food.HuntedGame+=person.Reserved; person.Carried=person.Reserved;
         person.Reserved=0; person.HabitatId=null;
-        Go(person,YardAccess,Work.ToPantry,$"Carrying {person.Carried} game to the pantry");
+        DeliverFood(person);
     }
     private void ValidateWildlife()
     {
@@ -67,7 +67,7 @@ public sealed partial class World
                 (p.Cargo!=Resource.Game || p.Carried!=0 || p.Reserved is <1 or >2 || !Map.Wildlife.Any(h=>h.Id==id && h.Cell==p.Destination) ||
                  !Cottages.Any(c=>c.Id==p.WorkplaceId && c.Complete && c.Kind==BuildingKind.HuntingLodge)))
                 throw new InvalidOperationException("Invalid hunter claim");
-        if(Food.Game<0 || Food.HuntedGame<0 || Food.EatenGame<0 || Food.Game+Food.EatenGame+People.Where(p=>p.Cargo==Resource.Game).Sum(p=>p.Carried)!=Food.HuntedGame)
+        if(Food.Game<0 || Food.HuntedGame<0 || Food.EatenGame<0 || StoredFood(Resource.Game)+Food.EatenGame+People.Where(p=>p.Cargo==Resource.Game).Sum(p=>p.Carried)!=Food.HuntedGame)
             throw new InvalidOperationException("Game conservation failed");
     }
 }

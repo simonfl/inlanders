@@ -18,7 +18,9 @@ public partial class Game
             var farm=_world.Place(new(6,-3),false,BuildingKind.Farm)!;
             for(int i=0;i<6000 && (!pile.Complete || !farm.Complete);i++) _world.Tick(.1f);
             Check(pile.Complete && farm.Complete,"Directory fixture did not build");
-            var plan=_world.Place(new(0,6)) ?? throw new Exception("Directory construction fixture rejected");
+            var planCell=_world.Map.Land.Where(c=>_world.PlacementProblem(c,false,BuildingKind.Cottage)==null)
+                .OrderBy(c=>(c.Point-new Cell(0,6).Point).LengthSquared()).First();
+            var plan=_world.Place(planCell) ?? throw new Exception("Directory construction fixture rejected");
             _world.Assign(7,Role.Unassigned); await Frames();
             string saved=_world.SaveJson();
             foreach(var windowSize in new[]{new Vector2I(1440,900),new Vector2I(960,640)})

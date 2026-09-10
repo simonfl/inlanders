@@ -105,9 +105,10 @@ public partial class Game
     }
     private void UpdateStorageDirectory()
     {
-        _logLocations.Text="TIMBER STORAGE · SELECT TO VISIT";
+        _logLocations.Text="STORAGE LOCATIONS · SELECT TO VISIT";
         _yardLink.Text=$"Central stores · {_world.YardLogs} logs · {_world.YardPlanks} planks\nLogs: {_world.ReservedLogsAt(null)} reserved · {_world.IncomingLogsAt(null)} arriving\nPlanks: {_world.ReservedMaterialAt(null,Inlanders.Simulation.Resource.Planks)} reserved · {_world.IncomingMaterialAt(null,Inlanders.Simulation.Resource.Planks)} arriving";
-        var stores=_world.Cottages.Where(c=>c.Kind==BuildingKind.Stockpile && c.Complete).ToArray();
+        _yardLink.Text+="\nCentral food: "+string.Join(" · ",World.EdibleKinds.Select(k=>$"{_world.CentralFood(k)} {k.ToString().ToLowerInvariant()}"));
+        var stores=_world.Cottages.Where(c=>c.Kind is BuildingKind.Stockpile or BuildingKind.Pantry && c.Complete).ToArray();
         foreach(int id in _storageLinks.Keys.Where(id=>!stores.Any(c=>c.Id==id)).ToArray())
         {
             var old=_storageLinks[id]; _storageDirectory.RemoveChild(old); old.QueueFree(); _storageLinks.Remove(id);
@@ -128,7 +129,8 @@ public partial class Game
                 button.AddThemeFontSizeOverride("font_size",14);
                 _storageDirectory.AddChild(button); _storageLinks[id]=button;
             }
-            button.Text=$"Stockpile {site.Id} · {_world.MaterialAt(site.Id,site.StorageMaterial)}/12 {site.StorageMaterial} · target {site.StorageTarget}\n{_world.ReservedMaterialAt(site.Id,site.StorageMaterial)} reserved · {_world.IncomingMaterialAt(site.Id,site.StorageMaterial)} arriving";
+            button.Text=site.Kind==BuildingKind.Pantry ? $"Pantry {site.Id} · {site.PantryFood.Sum()}/24 food · target {site.PantryTarget}\n{World.EdibleKinds.Sum(k=>_world.FoodReservedAt(site.Id,k))} reserved · {_world.FoodIncoming(site.Id)} arriving"+(site.DemolitionRequested?" · closing":"") :
+                $"Stockpile {site.Id} · {_world.MaterialAt(site.Id,site.StorageMaterial)}/12 {site.StorageMaterial} · target {site.StorageTarget}\n{_world.ReservedMaterialAt(site.Id,site.StorageMaterial)} reserved · {_world.IncomingMaterialAt(site.Id,site.StorageMaterial)} arriving";
         }
     }
 }

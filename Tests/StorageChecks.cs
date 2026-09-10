@@ -42,7 +42,7 @@ public static class StorageChecks
                 var interrupted=World.LoadJson(saved);
                 int id=interrupted.People.First(p=>p.Task==phase).Id;
                 interrupted.Assign(id,Role.Unassigned); Step(interrupted,500);
-                Check(interrupted.Stored==total && interrupted.People.All(p=>p.Carried==0),"Interrupted hauling lost timber");
+                Check(interrupted.Stored==total && interrupted.People.Where(p=>p.Cargo==Resource.Logs).All(p=>p.Carried==0),"Interrupted hauling lost timber");
             }
         }
         Check(pickup && drop && pile.StoredLogs==12 && w.Stored==total && w.YardLogs==total-12,"Stockpile fill/aggregate wrong");

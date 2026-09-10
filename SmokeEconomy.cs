@@ -16,7 +16,7 @@ public partial class Game
         string saved=_world.SaveJson();
         await Click(_resourceValues[Inlanders.Simulation.Resource.Logs].GetParent<Control>().GetGlobalRect().GetCenter()); await Frames();
         Check(_tabs.CurrentTab==4 && _drawer.Visible,"Resource bar did not open Economy");
-        Check(_economyFood.Text.Contains("3 full meals") && _menuButtons[4].Text.Contains("·"),"Food or issue badge missing");
+        Check(_economyFood.Text.Contains("3 population-sized meals") && _menuButtons[4].Text.Contains("·"),"Food or issue badge missing");
         Check(_world.SaveJson()==saved,"Opening Economy changed simulation");
         await Capture("artifacts/f21d-economy.png");
         int issue=Array.FindIndex(_economyReport!.Issues,i=>i.Build==BuildingKind.ForagerHut);

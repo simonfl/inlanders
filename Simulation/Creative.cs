@@ -36,10 +36,12 @@ public sealed partial class World
     {
         if (!Creative || RemovalProblem(id) != null) return false;
         var site = Cottages.Single(c => c.Id == id);
+        if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();
         // Remove the destination before returning cargo, so it cannot be chosen again.
         Cottages.Remove(site);
+        for(int k=0;k<EdibleKinds.Length;k++) ChangeCentralFood(EdibleKinds[k],site.PantryFood[k]);
         ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
         _yardPlanks += site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);

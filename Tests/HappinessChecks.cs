@@ -14,8 +14,9 @@ public static class HappinessChecks
         w.Food.Vegetables=w.Food.GrownVegetables=20;
         w.Food.Bread=w.Food.BakedBread=20; w.Food.UsedGrain=w.Food.GrownGrain=10;
         Check(w.ReadHappiness(w.People[0]).Choice==0,"Stock delivery changed past meal choices");
-        w.Food.MealClock=59.9f; Step(w,2);
-        Check(w.Food.LastMealChoices==3 && w.ReadHappiness(w.People[0]).Choice==20,"Meal choices not recorded");
+        Step(w,610);
+        Check(w.Food.LastMealChoices==3 && w.Food.LastMealServed==7 && w.ReadHappiness(w.People[0]).Choice==16,
+            "Actual partial meal variety or pending-portion exclusion wrong: "+w.LastMealSummary);
         string saved=w.SaveJson(); Check(World.LoadJson(saved).SaveJson()==saved,"Meal history save changed");
         var square=w.Place(new(3,0),false,BuildingKind.Square)!;
         w.Assign(0,Role.Logger); w.Assign(1,Role.Builder);
@@ -30,8 +31,10 @@ public static class HappinessChecks
         Check(clone.ReadHappiness(clone.People[visitor.Id]).Leisure==0,"Leisure benefit never expired");
         var housed=PopulationChecks.Ready();
         Check(housed.ReadHappiness(housed.People[0]).Housing==10,"Completed housing missing");
-        housed.Food.EatenBerries+=housed.Food.Berries; housed.Food.Berries=0;
-        housed.Food.MealClock=59.9f; Step(housed,2);
+        // Empty only unreserved stock; already promised meals must still be collected or returned.
+        int remove=housed.CentralFoodAvailable(Resource.Berries);
+        housed.Food.EatenBerries+=remove; housed.Food.Berries-=remove;
+        Step(housed,1800);
         Check(housed.ReadHappiness(housed.People[0]).Meals==0 && housed.Food.LastMealChoices==0,"Missing meal not reflected");
         Check(housed.Food.WorkEfficiency==.5f,"Happiness added a hunger penalty");
         saved=housed.SaveJson(); var report=housed.ReadHappiness(housed.People[0]); _=housed.VillageHappiness;

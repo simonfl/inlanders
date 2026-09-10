@@ -6,6 +6,7 @@ public static class LakeChecks
     static void Until(World w,Func<bool> done,string step,int limit=16000)
     {
         for(int i=0;i<limit && !done();i++) { w.Tick(.1f); if(i%20==0) w.Validate(); }
+        if(!done()) { System.IO.Directory.CreateDirectory("artifacts"); System.IO.File.WriteAllText("artifacts/lake-service-failure.json",w.SaveJson()); }
         Check(done(),$"Lake stalled at {step}, {w.Food.Time:0}s: {w.LakeObjective}");
         Console.WriteLine($"LAKE {step}: {w.Food.Time:0}s, {w.Population} residents, {w.Food.EdibleStored} food, {w.DeliveredFish} fish delivered.");
     }
@@ -38,6 +39,13 @@ public static class LakeChecks
             string assessment=w.SaveJson(); var copy=World.LoadJson(assessment);
             for(int i=0;i<100;i++) { w.Tick(.1f); copy.Tick(.1f); }
             Check(w.SaveJson()==copy.SaveJson(),"Lake assessment save diverged");
+            if(bread)
+            {
+                // The remote square now competes with actual meal journeys. Recover by serving recreation nearer home/work.
+                for(int i=0;i<1800;i++) { w.Tick(.1f); w.Validate(); }
+                Check(!w.Campaign!.Complete && w.ReadMealAssessment(w.Campaign.Lake!.AssessmentStarted).Missed>0,"Remote bread layout did not expose service travel");
+                Build(w,new(-4,3),BuildingKind.SeatingGarden);
+            }
             Until(w,()=>w.Campaign!.Complete,"supported village");
             Check(w.Campaign!.Lake!.Meals==3 && World.LoadJson(w.SaveJson()).Campaign!.Complete,"Lake completion not saved");
             if(!bread)
@@ -48,7 +56,7 @@ public static class LakeChecks
             }
         }
         LayoutRecovery();
-        Console.WriteLine("PASS: narrow lake central recreation/garden and bread routes, growth, real services, fresh mixed meals and phase saves.");
+        Console.WriteLine("PASS: narrow lake central recreation/garden and bread with nearby seating recovery, growth, real services, fresh mixed meals and phase saves.");
     }
     static void LayoutRecovery()
     {

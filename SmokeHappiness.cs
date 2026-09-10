@@ -25,11 +25,11 @@ public partial class Game
                 if(!_staffing.Text.Contains("happiness: 40/100")) throw new Exception("Village happiness missing");
                 CloseDrawer();
             }
-            foreach(var p in _world.People) _world.Assign(p.Id,Role.Unassigned);
+            foreach(var p in _world.People) { _world.Assign(p.Id,Role.Unassigned); p.NextMealTime=0; }
             _world.Food.GrownVegetables=_world.Food.Vegetables=20;
             _world.Food.BakedBread=_world.Food.Bread=20;
             _world.Food.GrownGrain=_world.Food.UsedGrain=10;
-            _world.Food.MealClock=59.9f; _world.Tick(.2f); _world.Validate();
+            for(int i=0;i<601;i++) { _world.Tick(.1f); _world.Validate(); }
             foreach(var width in new[]{1440,960})
             {
                 GetWindow().Size=new(width,width==960?640:900); SelectPerson(0); await Frames();
@@ -38,7 +38,7 @@ public partial class Game
                 _happinessReasons.Show(); _inspectionScroll.EnsureControlVisible(_happinessReasons); await Frames();
                 await Capture($"artifacts/f14b-meal-person-{width}.png");
                 OpenEconomy(); await Frames();
-                if(!_economyFood.Text.Contains("Last meal: 8/8 portions eaten") || !_economyFood.Text.Contains("3 berries · 3 vegetables · 2 bread"))
+                if(!_economyFood.Text.Contains("Latest minute snapshot: 8/8 residents ate") || !_economyFood.Text.Contains("3 berries · 3 vegetables · 2 bread"))
                     throw new Exception("Actual meal missing from Economy");
                 await Capture($"artifacts/f14b-meal-economy-{width}.png"); CloseDrawer();
             }

@@ -1,5 +1,21 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--pantry-layouts")) { try { PantryLayoutComparison.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+if (args.Contains("--pantry-producers")) { try { PantryProducerChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+if (args.Contains("--garden-lesson")) { try { GardenLessonChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+if (args.Contains("--happiness")) { try { HappinessChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+if (args.Contains("--meal-variety")) { try { MealVarietyChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+
+if (args.Contains("--food-service-balance")) { try { FoodServiceBalance.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+if (args.Contains("--pantry")) { try { PantryChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
+if (args.Contains("--meal-service")) { try { MealServiceChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
 if (args.Contains("--meals")) { try { MealExperimentChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 
 if (args.Contains("--seating")) { try { SeatingGardenChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
@@ -10,11 +26,11 @@ if (args.Contains("--wildlife")) { try { WildlifeChecks.Run(); } catch(Exception
 if (args.Contains("--water")) { try { WaterChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--quarry")) { try { QuarryChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 
-if (args.Contains("--river")) { RiverChecks.Run(); return; }
+if (args.Contains("--river")) { try { RiverChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--homes")) { HomeChecks.Run(); return; }
 if (args.Contains("--fish")) { FishChecks.Run(); return; }
 if (args.Contains("--fish-balance")) { FishingBalance.Run(); return; }
-if (args.Contains("--lake")) { LakeChecks.Run(); return; }
+if (args.Contains("--lake")) { try { LakeChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--lake-pressure")) { LakePressureExperiments.Run(); return; }
 if (args.Contains("--woodland")) { try { ManagedWoodlandChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--routes")) { try { SupplyRouteChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
@@ -91,8 +107,9 @@ foreach (var phase in new[] { Work.ToMaterials, Work.ToCottage, Work.ToBuild, Wo
 Console.WriteLine("PASS: cancellation releases claims, returns cargo, and recovers delivered logs as salvage.");
 
 var staffing = new World(); var target = Plan(staffing, new(3, 0)); Roles(staffing, Role.Builder); Steps(staffing, 100);
-Check(target.Delivered == 0 && staffing.People.All(v => v.Status.Contains("Waiting for timber")), "Builders fabricated logs or lack explanation");
-Roles(staffing, Role.Unassigned); Steps(staffing, 10); Check(staffing.People.All(v => v.Status.Contains("Unassigned")), "Missing unassigned reason");
+bool MealRoutine(Villager v) => v.Task is Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal;
+Check(target.Delivered == 0 && staffing.People.All(v => v.Status.Contains("Waiting for timber") || MealRoutine(v)), "Builders fabricated logs or lack explanation outside meal routines");
+Roles(staffing, Role.Unassigned); Steps(staffing, 10); Check(staffing.People.All(v => v.Status.Contains("Unassigned") || MealRoutine(v)), "Missing unassigned reason outside meal routines");
 for (int i = 0; i < 4; i++) staffing.AdjustWorkers(Role.Logger, 1);
 for (int i = 0; i < 4; i++) staffing.AdjustWorkers(Role.Builder, 1);
 Until(staffing, () => target.Complete, "Staffing controls did not resume work");
@@ -159,5 +176,8 @@ QuarryChecks.Run();
 WildlifeChecks.Run();
 ResourceSurveyChecks.Run();
 SeatingGardenChecks.Run();
+MealServiceChecks.Run();
+PantryChecks.Run();
+PantryProducerChecks.Run();
 }
 catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; }

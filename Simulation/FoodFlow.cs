@@ -23,7 +23,7 @@ public sealed partial class World
     private void ValidateFoodFlow()
     {
         if (RecentFood == null || RecentFood.Any(e => e == null || !float.IsFinite(e.Time) || e.Time < 0 || e.Time > Food.Time ||
-            e.Berries < 0 || e.Vegetables < 0 || e.Bread < 0 || e.Fish<0 || e.Game<0 || e.Eaten < 0 || e.Required < e.Eaten) ||
+            e.Berries < 0 || e.Vegetables < 0 || e.Bread < 0 || e.Fish<0 || e.Game<0 || e.Eaten < 0 || e.Required < 0) ||
             RecentFood.Zip(RecentFood.Skip(1)).Any(pair => pair.First.Time > pair.Second.Time))
             throw new InvalidOperationException("Invalid recent food history");
     }

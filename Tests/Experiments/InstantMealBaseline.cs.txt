@@ -1,0 +1,36 @@
+using Inlanders.Simulation;
+foreach(bool dispersed in new[]{false,true})
+{
+    var w=World.NewLargeMap(false,false);w.Food.InitialBerries=w.Food.Berries=96;
+    foreach(var p in w.People) w.Assign(p.Id,p.Id<2?Role.Logger:p.Id<4?Role.Builder:Role.Farmer);
+    var centers=dispersed?new[]{new Cell(-10,-4),new Cell(9,5)}:new[]{new Cell(1,0),new Cell(1,6)};
+    void PlaceNear(Cell target,BuildingKind kind)
+    {
+        var cell=w.Map.Land.Where(c=>w.PlacementProblem(c,false,kind)==null)
+            .OrderBy(c=>(c.Point-target.Point).LengthSquared()).ThenBy(c=>c.X).ThenBy(c=>c.Z).First();
+        w.Place(cell,false,kind);
+    }
+    foreach(var center in centers)
+    {
+        PlaceNear(center,BuildingKind.VegetableGarden);PlaceNear(new(center.X,center.Z+3),BuildingKind.VegetableGarden);
+        PlaceNear(new(center.X+3,center.Z),BuildingKind.Cottage);PlaceNear(new(center.X+3,center.Z+3),BuildingKind.Cottage);
+        PlaceNear(new(center.X-1,center.Z+1),BuildingKind.SeatingGarden);
+    }
+    float? built=null;float work=0,producer=0,home=0,recreation=0,hunger=0;
+    for(int i=0;i<12000;i++)
+    {
+        if(built==null && w.Cottages.All(c=>c.Complete)) built=w.Food.Time;
+        foreach(var p in w.People)
+        {
+            if(p.Role is Role.Logger or Role.Builder && p.Task is not (Work.Waiting or Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure)) work+=.1f;
+            if(p.Task==Work.ToPantry) producer+=.1f;
+            if(p.Task==Work.ToRest) home+=.1f;
+            if(p.Task==Work.ToLeisure) recreation+=.1f;
+        }
+        hunger+=w.Food.Hunger*.1f;w.Tick(.1f);w.Validate();
+    }
+    var result=new {Layout=dispersed?"dispersed":"compact",Built=built,TimberAndConstructionWorkerSeconds=work,ProducerDeliveryTravel=producer,HomeTravel=home,RecreationTravel=recreation,
+        RestVisits=w.People.Sum(p=>p.RestVisits),RecreationVisits=w.People.Sum(p=>p.LeisureVisits),HungerIntegral=hunger,Produced=w.Food.GrownVegetables,Delivered=w.DeliveredVegetables,Stored=w.Food.EdibleStored};
+    string json=System.Text.Json.JsonSerializer.Serialize(result);Console.WriteLine(json);
+    File.WriteAllText($"artifacts/instant-meal-baseline-{result.Layout}.json",json);
+}

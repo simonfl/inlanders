@@ -21,13 +21,17 @@ public sealed partial class World
         bool water=boat!=null;
         var steps=(water ? boat!.Route : p.Route).ToArray();
         if(steps.Length==0 || !water && p.Task is not (Work.ToTree or Work.ToStockpile or Work.ToMaterials or Work.ToCottage or
-            Work.ToBush or Work.ToFarm or Work.ToGrain or Work.ToOven or Work.ToBread or Work.ToPantry or
+            Work.ToBush or Work.ToFarm or Work.ToGrain or Work.ToOven or Work.ToBread or Work.ToPantry or Work.ToFoodPickup or Work.ToMealSupply or Work.ToMealSeat or Work.ReturnMeal or
             Work.ToSawLogs or Work.ToSawmill or Work.ToPlanks or Work.ToHaulPickup or Work.ToHaulDrop or Work.ToDock or Work.ToQuarry or Work.ToHunt)) return null;
         int amount=water ? boat!.Fish : p.Carried;
         Resource? cargo=amount>0 ? water ? Resource.Fish : p.Cargo : null;
         string store=p.StorageId is int id ? $"Stockpile {id}" : p.Cargo==Resource.Stone ? "Central stone store" : p.Cargo==Resource.Planks ? "Central plank store" : "Timber yard";
         string destination=water ? boat!.Phase==BoatPhase.Returning ? "Fishing dock" : "Fishing ground" : p.Task switch {
-            Work.ToPantry or Work.ToGrain=>"Central pantry",
+            Work.ToPantry=>p.FoodDestinationId is int pantry?$"Pantry {pantry}":"Central pantry",
+            Work.ToGrain or Work.ReturnMeal=>"Central pantry",
+            Work.ToFoodPickup=>p.FoodSourceId is int foodSource?$"Pantry {foodSource}":"Central pantry",
+            Work.ToMealSupply=>p.Meal?.SourceId is int source?$"Pantry {source}":"Central pantry",
+            Work.ToMealSeat=>"Meal seat",
             Work.ToStockpile=>store,
             Work.ToHaulPickup or Work.ToHaulDrop or Work.ToSawLogs=>store,
             Work.ToMaterials=>store,

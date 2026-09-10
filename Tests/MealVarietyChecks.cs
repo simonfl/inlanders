@@ -3,10 +3,14 @@ using Inlanders.Simulation;
 public static class MealVarietyChecks
 {
     static void Check(bool ok, string reason) { if (!ok) throw new Exception(reason); }
-    static void Meal(World w) { w.Food.MealClock = 59.9f; w.Tick(.2f); w.Validate(); }
+    static void Meal(World w)
+    {
+        float boundary=w.Food.Time+60-w.Food.MealClock;
+        while(w.Food.Time<=boundary) { w.Tick(.1f); w.Validate(); }
+    }
     static World Village(int berries, int vegetables, int bread)
     {
-        var w = new World(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
+        var w = new World(); foreach (var p in w.People) { w.Assign(p.Id, Role.Unassigned); p.NextMealTime=0; }
         w.Food.InitialBerries = w.Food.Berries = berries;
         w.Food.GrownVegetables = w.Food.Vegetables = vegetables;
         w.Food.BakedBread = w.Food.Bread = bread;

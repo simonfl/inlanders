@@ -116,11 +116,12 @@ public static class FishChecks
         try { water.Map.Validate(); throw new Exception("Negative habitat loaded"); } catch(System.IO.InvalidDataException) { }
         World Meal(int berries,int veg,int bread,int fish)
         {
-            var w=new World(0); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
+            var w=new World(0); foreach(var p in w.People) { w.Assign(p.Id,Role.Unassigned); p.NextMealTime=0; }
             w.Food.Berries=w.Food.InitialBerries=berries;
             w.Food.Vegetables=w.Food.GrownVegetables=veg;
             w.Food.Bread=w.Food.BakedBread=bread; w.Food.UsedGrain=w.Food.GrownGrain=bread/2;
-            w.Food.Fish=w.Food.CaughtFish=fish; w.Food.MealClock=59.9f; w.Tick(.2f); w.Validate(); return w;
+            w.Food.Fish=w.Food.CaughtFish=fish;
+            for(int i=0;i<601;i++) { w.Tick(.1f); w.Validate(); } return w;
         }
         var pair=Meal(4,0,0,4);
         Check(pair.Food.Hunger==0 && pair.Food.LastMealFish==4 && pair.MealVarietyScore==16,"Fish did not serve as a mixed meal");

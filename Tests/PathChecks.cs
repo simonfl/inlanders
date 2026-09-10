@@ -11,6 +11,8 @@ public static class PathChecks
         var w = new World(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
         Check(!w.SetPath(w.Stockpile, true) && !w.SetPath(w.Trees[0].Cell, true) && !w.SetPath(new(9, 9), true), "Blocked path accepted");
         w.People[0].Position = new(4, 6);
+        // Start this route fixture between meals so its first job is the logging trip being compared.
+        w.People[0].NextMealTime = 7.5f;
         for (int z = -1; z <= 6; z++) Check(w.SetPath(new(5, z), true), "Path corridor rejected");
         for (int x = -2; x <= 4; x++) Check(w.SetPath(new(x, -1), true), "Path connection rejected");
         w.Assign(0, Role.Logger); w.Tick(0.1f);

@@ -4,5 +4,5 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup><Compile Remove="Tests/**/*.cs" /></ItemGroup>
+  <ItemGroup><Compile Remove="Tests/**/*.cs;artifacts/**/*.cs" /></ItemGroup>
 </Project>

@@ -54,13 +54,13 @@ public partial class Game
             for (int i = 0; i < 800; i++) _world.Tick(.1f);
             OpenEconomy(); await Frames();
             _drawerPages[4].EnsureControlVisible(_foodFlow); await Frames();
-            Check(_foodFlow.Text.Contains("Pantry deliveries: 4") && _foodFlow.Text.Contains("0 / 0 required"), "Recent arrivals or Creative meal demand wrong");
+            Check(_foodFlow.Text.Contains("Pantry deliveries: 4") && _foodFlow.Text.Contains("Portions eaten: 0 · closed/skipped demand: 0"), "Recent arrivals or Creative meal demand wrong");
             await Capture("artifacts/f21h-food-flow.png");
             var normal = World.NewCampaign(2);
             foreach (var p in normal.People) normal.Assign(p.Id, Role.Unassigned);
             var hut = normal.Cottages.First(c => c.Kind == BuildingKind.ForagerHut);
             normal.SetWorkplacePaused(hut.Id, true);
-            for (int i = 0; i < 12000 && normal.Food.EdibleStored >= normal.Population * 2; i++) normal.Tick(.1f);
+            for (int i = 0; i < 12000 && normal.EdibleStored >= normal.Population * 2; i++) normal.Tick(.1f);
             AdoptWorld(normal); _paused = true; OpenEconomy(); await Frames();
             int issue = Array.FindIndex(_economyReport!.Issues, i => i.Id == "food-paused");
             Check(issue >= 0, "Paused food production did not explain shortage");

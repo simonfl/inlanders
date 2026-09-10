@@ -35,14 +35,14 @@ public sealed partial class World
             People.Count(p => p.WorkplaceId is int id && Cottages.Any(c => c.Id == id && c.Kind == kind && !c.Planted && c.Harvest == 0) && p.Task is Work.ToFarm or Work.Planting) * yield;
         return resource switch
         {
-            Resource.Game => Food.Game+cargo+People.Where(p=>p.HabitatId!=null).Sum(p=>p.Reserved),
+            Resource.Game => StoredFood(Resource.Game)+cargo+People.Where(p=>p.HabitatId!=null).Sum(p=>p.Reserved),
             Resource.Stone => Stone+cargo+People.Where(p=>p.DepositId!=null).Sum(p=>p.Reserved),
             Resource.Planks => PendingPlanks,
-            Resource.Fish => Food.Fish + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
-            Resource.Berries => Food.Berries + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
+            Resource.Fish => StoredFood(Resource.Fish) + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
+            Resource.Berries => StoredFood(Resource.Berries) + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
             Resource.Grain => Food.Grain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
-            Resource.Vegetables => Food.Vegetables + cargo + Crops(BuildingKind.VegetableGarden, 8),
-            Resource.Bread => Food.Bread + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * 2) +
+            Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8),
+            Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * 2) +
                 People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * 2) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * 2),
             _ => Stored + cargo
         };
@@ -70,7 +70,8 @@ public sealed partial class World
             var p = workers[0];
             Cell? source = p.HabitatId is int habitat ? Map.Wildlife.Single(h=>h.Id==habitat).Cell : p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
                 p.Task==Work.ToStockpile ? StorageAccess(p.StorageId) :
-                p.Task is Work.ToGrain or Work.ToOven or Work.ToPantry ? YardAccess :
+                p.Task==Work.ToPantry ? FoodAccess(p.FoodDestinationId) :
+                p.Task is Work.ToGrain or Work.ToOven ? YardAccess :
                 p.Task == Work.ToSawLogs ? StorageAccess(p.StorageId) : null;
             string state = p.Task switch
             {

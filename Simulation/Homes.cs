@@ -48,7 +48,7 @@ public sealed partial class World
     {
         var occupied=People.Where(p=>p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure).Select(p=>p.Destination).ToHashSet();
         return new[]{home.Entrance,new(home.Entrance.X-1,home.Entrance.Z),new(home.Entrance.X+1,home.Entrance.Z),new(home.Entrance.X,home.Entrance.Z+1),new(home.Entrance.X,home.Entrance.Z-1)}
-            .Where(c=>!Blocked(c) && !occupied.Contains(c)).Cast<Cell?>().FirstOrDefault(c=>FindPath(At(person),c!.Value,Blocked)!=null);
+            .Where(c=>!Blocked(c) && !MealSpotReserved(c) && !occupied.Contains(c)).Cast<Cell?>().FirstOrDefault(c=>FindPath(At(person),c!.Value,Blocked)!=null);
     }
     private bool ClaimRest(Villager person)
     {

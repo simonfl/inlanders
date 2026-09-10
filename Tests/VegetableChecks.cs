@@ -49,7 +49,7 @@ public static class VegetableChecks
         meals.Food.Vegetables=meals.Food.GrownVegetables=4;
         meals.Food.Bread=meals.Food.BakedBread=4; meals.Food.UsedGrain=meals.Food.GrownGrain=2;
         Check(meals.ReadEconomy().Meals==1,"Vegetables omitted from food coverage");
-        meals.Food.MealClock=59.9f; Step(meals,2);
+        Until(meals,()=>meals.Food.MealConsumptions.Select(m=>m.Person).Distinct().Count()==8,"Physical meals did not reach everyone");
         Check(meals.Food.EatenBerries==2 && meals.Food.EatenVegetables==3 && meals.Food.EatenBread==3 && meals.Food.Hunger==0,"Balanced meal consumption wrong");
         Check(!meals.CanCelebrate,"Vegetables replaced supper bread");
         meals.Food.Vegetables+=20; meals.Food.GrownVegetables+=20;

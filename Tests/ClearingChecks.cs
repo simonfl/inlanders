@@ -37,7 +37,7 @@ public static class ClearingChecks
         Check(cancelled.Trees.Any(t => t.Id == target.Id && !t.ClearRequested && t.Felled), "Cancel removed the stump");
         Check(cancelled.PlantTree(cell) != null, "Cancelled clearing prevented replanting");
         Until(w, () => w.Trees.All(t => t.Id != target.Id), "Roots were not removed");
-        Check(w.Stored == 8 && w.People.All(p => p.Carried == 0), "Timber was lost or teleported during clearing");
+        Check(w.Stored == 8 && w.People.Where(p=>p.Cargo==Resource.Logs).All(p => p.Carried == 0), "Timber was lost or teleported during clearing");
         Check(w.Place(cell, true) != null, "Cleared footprint not reusable for construction");
         var saplings = new World(); foreach (var p in saplings.People) saplings.Assign(p.Id, Role.Unassigned);
         var sapling = saplings.PlantTree(new(3, 0))!; saplings.Assign(0, Role.Logger);

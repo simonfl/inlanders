@@ -84,24 +84,26 @@ public static class RiverChecks
             copy.Campaign!.Complete=false; copy.Campaign.River!.Phase=2; copy.Campaign.River.Meals=0;
             foreach(var p in copy.People) copy.Assign(p.Id,Role.Unassigned);
             Until(copy,()=>copy.People.All(p=>p.Carried==0) && copy.RiverActionProblem()==null,"assessment fixture settled");
+            // Changing roles interrupts uncollected meals; assigning the existing role is intentionally a no-op.
+            foreach(var p in copy.People) { copy.Assign(p.Id,Role.Logger); copy.Assign(p.Id,Role.Unassigned); }
             return copy;
         }
         var idle=Prepare(); idle.Food.Vegetables+=200; idle.Food.GrownVegetables+=200;
         Check(idle.AdvanceRiverPhase(),"Idle assessment did not start");
-        for(int i=0;i<650;i++) idle.Tick(.1f);
-        Check(idle.Campaign!.River!.Meals==0 && !idle.Campaign.Complete && idle.Campaign.River.LastResult.Contains("Fresh pantry"),"Stored food won without fresh production");
+        for(int i=0;i<2000;i++) { idle.Tick(.1f); idle.Validate(); }
+        Check(idle.Campaign!.River!.Meals==0 && !idle.Campaign.Complete && !idle.ReadMealAssessment(idle.Campaign.River.AssessmentStarted).FreshSupply,"Stored food won without fresh production");
         var token=Prepare(); token.Food.EatenVegetables+=token.Food.Vegetables; token.Food.Vegetables=1; token.Food.GrownVegetables++;
         token.Food.EatenBread+=token.Food.Bread; token.Food.Bread=0;
         Check(token.AdvanceRiverPhase(),"Token assessment did not start");
-        token.Food.Berries+=token.Population; token.Food.GatheredBerries+=token.Population;
-        token.Food.MealClock=59.9f; token.Tick(.2f); token.Validate();
-        Check(token.Campaign!.River!.Meals==0 && token.Campaign.River.LastResult.Contains("dominant food"),"One vegetable passed a village meal");
+        token.Food.Berries+=200; token.Food.GatheredBerries+=200;
+        for(int i=0;i<2000;i++) { token.Tick(.1f); token.Validate(); }
+        Check(token.Campaign!.River!.Meals==0 && !token.ReadMealAssessment(token.Campaign.River.AssessmentStarted).Varied,"One vegetable passed a village meal");
         var hungry=Prepare();
         hungry.Food.EatenBerries+=hungry.Food.Berries; hungry.Food.Berries=0;
         hungry.Food.EatenVegetables+=hungry.Food.Vegetables; hungry.Food.Vegetables=0;
         hungry.Food.EatenBread+=hungry.Food.Bread; hungry.Food.Bread=0;
         Check(hungry.AdvanceRiverPhase(),"Recoverable shortage could not enter assessment");
-        hungry.Food.MealClock=59.9f; hungry.Tick(.2f); hungry.Validate();
+        for(int i=0;i<1300;i++) { hungry.Tick(.1f); hungry.Validate(); }
         Check(hungry.Food.Hunger==1 && hungry.Campaign!.River!.Meals==0,"Shortage did not reset streak");
         for(int i=0;i<complete.Population;i++) hungry.Assign(i,complete.People[i].Role);
         Until(hungry,()=>hungry.Campaign!.Complete,"supply recovery");
@@ -111,13 +113,13 @@ public static class RiverChecks
         Until(larger,()=>extra.Complete && larger.InvitationProblem()==null,"extra homes"); Check(larger.InviteNewcomers(),"Extra invitation failed");
         Until(larger,()=>larger.RiverActionProblem()==null,"18-person preparation"); Check(larger.AdvanceRiverPhase(),"Larger assessment rejected");
         Until(larger,()=>larger.Campaign!.Complete,"18-person completion");
-        Check(larger.Food.LastMealRequired==18 && larger.Campaign.River!.Required>=54,"Assessment ignored extra residents");
+        Check(larger.ReadMealAssessment(larger.Campaign.River!.AssessmentStarted).ResidentsWithHistory==18 && larger.Campaign.River.Required>=36,"Assessment ignored extra residents");
         var rearranged=World.LoadJson(complete.SaveJson()); rearranged.Campaign!.Complete=false; rearranged.Campaign.River!.Phase=2; rearranged.Campaign.River.Meals=0;
         Check(rearranged.AdvanceRiverPhase(),"Layout assessment did not start");
-        Until(rearranged,()=>rearranged.Campaign.River.Meals==1,"layout initial meal");
+        Until(rearranged,()=>rearranged.ReadMealAssessment(rearranged.Campaign.River.AssessmentStarted).Closed>=rearranged.Population,"layout initial meal requests");
         var house=rearranged.Cottages.Single(c=>c.Cell==new Cell(8,4)); var square=rearranged.Cottages.Single(c=>c.Kind==BuildingKind.Square);
         Check(rearranged.RequestDemolition(house.Id),"Layout recovery could not remove house");
-        Until(rearranged,()=>rearranged.Campaign.River.Meals==0,"housing setback resets proof");
+        Until(rearranged,()=>rearranged.Campaign.River.LastResult.Contains("beds") && !rearranged.Campaign.Complete,"housing setback prevents proof");
         Check(rearranged.RequestDemolition(square.Id),"Layout recovery could not move center");
         Until(rearranged,()=>!rearranged.Cottages.Any(c=>c.Id==house.Id || c.Id==square.Id),"clear new center");
         Build(rearranged,new(17,4),BuildingKind.Cottage); Build(rearranged,new(8,4),BuildingKind.Square);
