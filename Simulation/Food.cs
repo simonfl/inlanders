@@ -72,14 +72,14 @@ public sealed partial class World
     private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden;
     private bool FreeStation(Cottage c) => People.Count(v => v.WorkplaceId == c.Id) < Buildings.Get(c.Kind).Slots;
     private Cottage? FoodSite(BuildingKind kind, Func<Cottage, bool> condition) =>
-        Cottages.Where(c => c.Complete && c.Kind == kind && FreeStation(c) && condition(c))
+        Cottages.Where(c => c.Complete && !c.WorkPaused && c.Kind == kind && FreeStation(c) && condition(c))
             .OrderByDescending(c => c.Priority).ThenBy(c => c.Id).FirstOrDefault();
     private void ClaimFoodWork(Villager v)
     {
         if (v.Role == Role.Forager)
         {
-            var hut = FoodSite(BuildingKind.ForagerHut, _ => true);
-            if (hut == null) { v.Status = "Needs a finished forager hut with a free worker slot (2 per hut)"; return; }
+            var hut = FoodSite(BuildingKind.ForagerHut, BelowOutputTarget);
+            if (hut == null) { v.Status = ProductionWait(Role.Forager); return; }
             var bush = Bushes.Where(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)).OrderBy(b => (b.Access.Point - v.Position).LengthSquared()).FirstOrDefault();
             if (bush == null) { v.Status = "Waiting for ripe reachable berries or another forager; a bridge may open more patches"; return; }
             v.WorkplaceId = hut.Id; v.BushId = bush.Id; bush.Owner = v.Id;
@@ -87,18 +87,18 @@ public sealed partial class World
         }
         if (v.Role == Role.Farmer)
         {
-            var fields = Cottages.Where(c => c.Complete && IsField(c) && FreeStation(c)).OrderByDescending(c => c.Priority).ThenBy(c => c.Id);
-            var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted);
-            if (farm == null) { v.Status = Cottages.Any(c => c.Complete && IsField(c)) ? "Waiting for crops to ripen or a free field" : "Needs a finished farm or vegetable garden"; return; }
+            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && FreeStation(c)).OrderByDescending(c => c.Priority).ThenBy(c => c.Id);
+            var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && BelowOutputTarget(c));
+            if (farm == null) { v.Status = ProductionWait(Role.Farmer); return; }
             v.WorkplaceId = farm.Id;
             string crop = farm.Kind == BuildingKind.VegetableGarden ? "vegetables" : "grain";
             Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? $"Walking to harvest {crop}" : $"Walking to sow {crop}"); return;
         }
         var bakery = FoodSite(BuildingKind.Bakery, c => c.OutputBread > 0) ?? FoodSite(BuildingKind.Bakery, c => c.InputGrain > 0)
-            ?? FoodSite(BuildingKind.Bakery, _ => Food.Grain - ReservedGrain >= 2);
+            ?? FoodSite(BuildingKind.Bakery, c => BelowOutputTarget(c) && Food.Grain - ReservedGrain >= 2);
         if (bakery == null)
         {
-            v.Status = Cottages.Any(c => c.Complete && c.Kind == BuildingKind.Bakery) ? "Waiting for 2 unreserved grain or a free bakery" : "Needs a finished bakery"; return;
+            v.Status = ProductionWait(Role.Baker); return;
         }
         v.WorkplaceId = bakery.Id;
         if (bakery.OutputBread > 0) Go(v, bakery.Entrance, Work.ToBread, "Collecting baked bread");
@@ -147,6 +147,7 @@ public sealed partial class World
                 var shop = Station(); int bread = Math.Min(4, shop.OutputBread); shop.OutputBread -= bread;
                 CarryFood(Resource.Bread, bread); break;
             case Work.ToPantry:
+                RecordFoodDelivery(v.Cargo, v.Carried);
                 switch (v.Cargo)
                 {
                     case Resource.Vegetables: Food.Vegetables += v.Carried; break;
@@ -162,6 +163,7 @@ public sealed partial class World
     private void AdvanceFoodTime(float dt)
     {
         Food.Time += dt;
+        RecentFood.RemoveAll(e => e.Time <= Food.Time - FoodFlowWindow);
         foreach (var bush in Bushes)
         {
             if (bush.Ripe == 8) { bush.Regrowth = 0; continue; }
@@ -199,6 +201,7 @@ public sealed partial class World
             int vegetables = Math.Min(Population - berries, Food.Vegetables); Food.Vegetables -= vegetables; Food.EatenVegetables += vegetables;
             int bread = Math.Min(Population - berries - vegetables, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
             Food.Hunger = (Population - berries - vegetables - bread) / (float)Population;
+            RecentFood.Add(new(Food.Time, Eaten: berries + vegetables + bread, Required: Population));
         }
     }
     private List<Cell> SupperSpots()

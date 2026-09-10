@@ -13,6 +13,11 @@ public partial class Game
     }
     private async Task UiClick(Button button)
     {
+        if (_inspectionScroll.IsAncestorOf(button))
+        {
+            _inspectionScroll.EnsureControlVisible(button);
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
         for (int section = 0; section < _buildSections.Length; section++)
             if (_buildSections[section].IsAncestorOf(button)) SelectBuildSection(section);
         for (int i = 0; i < _drawerPages.Count; i++)

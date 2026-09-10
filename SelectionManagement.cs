@@ -45,7 +45,7 @@ public partial class Game
             var site = _world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
             if(site!=null && WorkplaceRole(site.Kind) is Role role) _world.AdjustWorkers(role,change);
         }
-        _staffMinus = Button("− Worker",()=>Staff(-1)); _staffPlus = Button("+ Worker",()=>Staff(1));
+        _staffMinus = Button("− Role",()=>Staff(-1)); _staffPlus = Button("+ Role",()=>Staff(1));
         _staffMinus.SizeFlagsHorizontal = _staffPlus.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         row.AddChild(_staffMinus); row.AddChild(_staffPlus);
     }
@@ -66,10 +66,13 @@ public partial class Game
         if(role is Role job && site!=null) {
             int assigned=_world.People.Count(p=>p.Role==job);
             int active=_world.People.Count(p=>p.WorkplaceId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id);
-            int capacity=site.Kind==BuildingKind.ForagerHut?2:1;
+            int capacity=Buildings.Get(site.Kind).Slots;
             _workplaceStaff.Text=site.Kind==BuildingKind.Stockpile ? $"{active} visiting · {assigned} haulers village-wide\nHaulers share all stockpiles. Targets reserve space for incoming loads." : $"{active}/{capacity} working here · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nWorkers share workplaces; + uses a spare worker or transfers one from another job.";
             _staffMinus.Disabled=_world.Food.Celebrating || assigned==0;
             _staffPlus.Disabled=_world.Food.Celebrating || assigned==_world.Population;
+            var candidate = _world.WorkerAdjustmentCandidate(job, 1);
+            _staffPlus.TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {job}. Changes the village-wide role; does not pin them here.";
+            _staffMinus.TooltipText = "Unassign one worker from this role across the village; they may be working elsewhere.";
         }
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];

@@ -48,15 +48,10 @@ public static class WoodlandChecks
         w.Assign(1, Role.Builder); Until(w, () => cottage.Complete, "Renewed timber could not fund construction");
         Console.WriteLine("PASS: planting restrictions, logger claims/interruption, three-day growth, exact saves, two harvest cycles, and construction with renewed timber.");
 
-        var legacy = JsonNode.Parse(new World().SaveJson())!;
-        legacy["Version"] = 1; legacy.AsObject().Remove("GrownLogs");
-        foreach (var t in legacy["Trees"]!.AsArray()) { t!.AsObject().Remove("Growth"); t.AsObject().Remove("NeedsPlanting"); }
-        var migrated = World.LoadJson(legacy.ToJsonString());
-        Check(migrated.Trees.All(t => t.Growth == 1 && !t.NeedsPlanting) && migrated.InitialLogs == 48, "Version 1 trees changed on load");
         var bad = JsonNode.Parse(w.SaveJson())!; bad["Trees"]![0]!["Growth"] = -1;
         bool refused = false; try { World.LoadJson(bad.ToJsonString()); } catch (InvalidOperationException) { refused = true; }
         Check(refused, "Invalid tree growth save accepted");
-        Console.WriteLine("PASS: pre-woodland saves retain mature trees; invalid growth is rejected.");
+        Console.WriteLine("PASS: invalid growth is rejected.");
 
         // Planting while workers travel must protect the next waypoint and replan later route cells.
         var moving = new World(); Step(moving, 10);

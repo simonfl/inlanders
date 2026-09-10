@@ -66,6 +66,7 @@ public partial class Game
         await Press(Key.Escape); Check(!_drawer.Visible && !_inspector.Visible, "Esc did not clear panels");
         await CheckPathsUi();
         await CheckManagementUi();
+        await CheckProductionUi();
         await CheckEconomyUi();
         await CheckWatchUi();
         await CheckAtmosphereUi();

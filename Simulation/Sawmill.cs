@@ -19,13 +19,11 @@ public sealed partial class World
     private void ClaimSawWork(Villager v)
     {
         var mill = FoodSite(BuildingKind.Sawmill, c => c.OutputPlanks > 0) ?? FoodSite(BuildingKind.Sawmill, c => c.InputLogs > 0);
-        if (mill == null && PendingPlanks <= PlankStockTarget - 4 && Available >= 2)
-            mill = FoodSite(BuildingKind.Sawmill, c => TryLogSource(c.Entrance, 2, out _));
+        if (mill == null && Available >= 2)
+            mill = FoodSite(BuildingKind.Sawmill, c => BelowOutputTarget(c) && TryLogSource(c.Entrance, 2, out _));
         if (mill == null)
         {
-            v.Status = !Cottages.Any(c => c.Complete && c.Kind == BuildingKind.Sawmill) ? "Needs a finished sawmill" :
-                PendingPlanks > PlankStockTarget - 4 ? $"Enough planks ready or on the way (target {PlankStockTarget})" :
-                Available < 2 ? "Waiting for 2 unreserved logs" : "Waiting for a free sawmill";
+            v.Status = ProductionWait(Role.Sawyer);
             return;
         }
         v.WorkplaceId = mill.Id;

@@ -55,13 +55,9 @@ public static class SawmillChecks
         scarce.Place(new(3,6), false, BuildingKind.Lodge);
         scarce.Assign(0, Role.Sawyer); scarce.Assign(1, Role.Sawyer);
         Until(scarce, () => scarce.Housed == 4, "Competing mills/builders stalled with sufficient timber");
-        var legacy = JsonNode.Parse(new World().SaveJson())!; legacy["Version"] = 2;
-        legacy.AsObject().Remove("Planks"); legacy.AsObject().Remove("SawnLogs");
-        foreach (var tree in legacy["Trees"]!.AsArray()) tree!.AsObject().Remove("Material");
-        Check(World.LoadJson(legacy.ToJsonString()).Planks == 0, "Version 2 import failed");
         var bad = JsonNode.Parse(w.SaveJson())!; bad["Planks"] = -1;
         bool rejected = false; try { World.LoadJson(bad.ToJsonString()); } catch (InvalidOperationException) { rejected = true; }
         Check(rejected, "Invalid plank save accepted");
-        Console.WriteLine("PASS: sawmill/lodge chain, physical cargo, stock target, five saved/interrupted sawyer phases, four cancellation phases with plank salvage, competing mills, and save compatibility.");
+        Console.WriteLine("PASS: sawmill/lodge chain, physical cargo, stock target, five saved/interrupted sawyer phases, four cancellation phases with plank salvage and competing mills.");
     }
 }

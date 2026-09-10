@@ -48,7 +48,7 @@ These are roles for later 30–60-minute settlements, not validated durations or
 
 ## Suggested implementation sequence
 
-1. F21h makes existing work/food flow understandable. F14b corrects food-variety satisfaction using actual meals.
+1. F21h has shipped workplace controls and recent food flow. Next, F14b corrects food-variety satisfaction using actual meals.
 2. F16b gives players a normal-play way to recover from poor layouts. Prototype Across the river and test actual decisions and pacing.
 3. F25a deepens home/rest and recreation using existing buildings; no education/religion meters yet. Resident feedback belongs in the same chunk.
 4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography.

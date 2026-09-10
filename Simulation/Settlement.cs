@@ -56,6 +56,8 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public bool WorkPaused { get; internal set; }
+    [JsonInclude] public int OutputTarget { get; internal set; } = -1;
     public int Id { get; init; }
     public Cell Cell { get; init; }
     public bool Rotated { get; init; }
@@ -140,6 +142,7 @@ public sealed partial class World
     {
         if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
         var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)) }; Cottages.Add(site);
+        if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;
@@ -180,11 +183,12 @@ public sealed partial class World
     public bool AdjustWorkers(Role role, int delta)
     {
         if (role == Role.Unassigned || delta == 0) return false;
-        var v = delta < 0 ? People.LastOrDefault(v => v.Role == role) :
-            People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
+        var v = WorkerAdjustmentCandidate(role, delta);
         if (v == null) return false;
         Assign(v.Id, delta < 0 ? Role.Unassigned : role); return true;
     }
+    public Villager? WorkerAdjustmentCandidate(Role role, int delta) => delta < 0 ? People.LastOrDefault(v => v.Role == role) :
+        People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
     private void Interrupt(Villager v)
     {
         ReleaseFoodClaims(v);
@@ -343,6 +347,8 @@ public sealed partial class World
         ValidateLeisure();
         ValidateStorage();
         ValidateFood();
+        ValidateProduction();
+        ValidateFoodFlow();
         ValidateSawmills();
         foreach (var site in Cottages)
         {

@@ -60,9 +60,6 @@ public static class ClearingChecks
         var salvage = new World(); var plan = salvage.Place(new(3, 0))!;
         Until(salvage, () => plan.Delivered > 0, "Salvage fixture failed"); salvage.Cancel(plan.Id);
         Check(!salvage.SetClearing(salvage.Trees.First(t => t.Salvage).Cell, true), "Salvage accepted as a tree");
-        var legacy = JsonNode.Parse(new World().SaveJson())!; legacy["Version"] = 5;
-        foreach (var t in legacy["Trees"]!.AsArray()) t!.AsObject().Remove("ClearRequested");
-        Check(World.LoadJson(legacy.ToJsonString()).Trees.All(t => !t.ClearRequested), "Legacy trees became clearing orders");
-        Console.WriteLine("PASS: clearing priority, physical timber recovery, root removal, reusable land, five saved/interrupted phases, cancel/replant, saplings, and old saves.");
+        Console.WriteLine("PASS: clearing priority, physical timber recovery, root removal, reusable land, five saved/interrupted phases, cancel/replant and saplings.");
     }
 }

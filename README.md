@@ -77,7 +77,7 @@ Eight villagers arrive with 24 berries. The objective is to **house everyone and
 
 The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in **People** (button or **V**). Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager on the map or in People to inspect their task, waiting reason, and cargo; choose any role in the inspector's job picker and press Assign. **Follow villager** tracks them until you pan, press Home, or clear selection. **Inspect workplace** opens their current work site.
 
-Production inspectors show active workers, links to inspect them, and +/− staffing controls. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
+Production inspectors show active workers, links to inspect them, and +/− Role controls. The + tooltip names the worker and current role that will be transferred. Staffing adjusts the village-wide job pool; workers are not permanently assigned to one building. Inspectors scroll to fit smaller windows.
 
 ### Vegetable gardens
 
@@ -131,7 +131,17 @@ Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Option
 
 Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries, vegetables, and bread and assumes no new deliveries.
 
-The Economy badge counts current issues. Click a shortage message to open the relevant build or staffing controls. Idle-worker links show the actual waiting reason. Warnings clear as conditions improve; ordinary crop growth and full stock targets can leave workers idle without indicating a problem.
+The Economy badge counts current issues. Click a shortage message to open the relevant build, staffing or resume controls. If edible-food workplaces are paused, a low-food warning opens a workplace instead of asking for more staff. Idle-worker links show the actual waiting reason. Warnings clear as conditions improve; ordinary crop growth and full stock targets can leave workers idle without indicating a problem.
+
+**Recent food flow** shows pantry deliveries by food type and meals eaten/required over the last 180 seconds of village time. Shorter sessions are marked as partial windows; a delivery rate appears after 60 seconds alongside current population demand. Starting stock, growing crops, food still in transit, supper and trades are not counted as ordinary food deliveries/meals. Missed food appears as eaten below required. History survives save/load; past output is not a forecast.
+
+### Directing workplaces
+
+Select a forager hut, farm, garden, bakery or sawmill to see whether it lacks staff/input, is growing, travelling, producing, collecting, paused or at its target. Source buttons move the camera to the pantry, timber yard or berry patch, or inspect a supplying stockpile; worker links show the person doing the work.
+
+**Pause new work** stops new jobs at that building without changing village-wide roles. A job already claimed finishes, including its delivery. Planted crops continue to grow but wait for Resume before harvesting. A paused mill may retain half of a completed batch after its current two-plank delivery; Resume collects the rest. This lets a farmer tend gardens while leaving grain fields paused.
+
+Expand the **resource target** button to set a threshold from 0–200 in steps of four, or choose **No limit**. Each workplace compares its target against village-wide stock and committed production: carried goods, workshop inputs/output, and growing/claimed crops. Target zero stops starting new production; existing crops and batches are still collected. A whole new crop/batch may take the total above its target. Paused crops and output still count, and other workplaces retain their own targets. Food workplaces begin unlimited; new sawmills begin at twelve planks. Use Pause when you want work at a specific site to stop regardless of stock.
 
 ### Food and work
 
@@ -171,7 +181,7 @@ Cancellation stops root removal or conflicting planting work, but does not undo 
 
 Build a **Sawmill** for six logs, then assign a **Sawyer** in People. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
 
-Mills aim for a shared stock of twelve planks, counting batches and shipments already on the way. They start another four-plank batch when that total falls to eight or less. Reassign the sawyer when you want to stop production; carried materials return to storage and unfinished batches remain at the mill.
+New mills start with a twelve-plank target, counting batches and shipments already on the way. Change the target in the inspector. A new four-plank batch starts below the target and may take the total above it. Pause the workplace to stop new jobs without reassigning the sawyer; current work finishes. Reassignment still returns carried materials and leaves unfinished batches at the mill.
 
 A **Lodge** costs twelve planks and houses four villagers on the same footprint as a cottage. Builders reserve and deliver planks before construction starts. Lodges count toward the supper's housing objective. Cancelling an unfinished lodge leaves delivered planks as salvage for loggers to recover; this does not turn them back into logs.
 
@@ -218,7 +228,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 20; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 ## Development
 
@@ -278,7 +288,7 @@ Campaign checks complete all four levels and verify planting, physical gathering
 
 Map checks build in three distant clearings, harvest the outer groves, preserve exact saves, and reject invalid terrain. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -MapSmokeTest` for overview/camera, distant placement, fast simulation, and map-switching checks at 1440×900 and 960×640. This is also included in `Test.ps1 -Rendered`.
 
-Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and legacy saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
+Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and current-format saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
 
 The first roadmap shipped playable versions of the five-level campaign, Creative mode, raised terrain, logistics, social breaks, happiness, decoration, music, and the management UI. The second-phase roadmap addresses visual appeal, building roles and costs, player clarity, and deeper satisfaction; see docs/DESIGN_REVIEW.md for the assessment.
 
@@ -299,3 +309,5 @@ Villagers take short breaks at completed village squares between jobs and delive
 **A gardener's visit:** From day 3, a finished forager hut attracts a gardener. Look for the yard marker and Goals → Visitor. Trade 8 stored berries to unlock freely placeable decorative sunflowers, leave the offer pending, or decline this visit. The card shows food remaining after the trade. There is no deadline; declining has no penalty, and the visitor is never required for campaign progress.
 
 Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). The [F24b follow-up](docs/BALANCE_REVIEW_F24B.md) covers food transport and stockpile payback. Run `./Test.ps1 -Balance` to repeat the comparisons.
+
+F21h workplace checks: `./Test.ps1` covers pause/resume, batch and crop commitments, food-flow history and current-format saves. Run `./Play.ps1 -ProductionSmokeTest` for the focused rendered controls check; the full HUD suite includes it too.

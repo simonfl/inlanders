@@ -8,7 +8,7 @@ public sealed record EconomyStock(Resource Resource, int Stored, int Reserved, i
 {
     public int Available => Stored - Reserved;
 }
-public sealed record EconomyIssue(string Id, string Text, BuildingKind? Build = null, Role? Staff = null, bool Plant = false);
+public sealed record EconomyIssue(string Id, string Text, BuildingKind? Build = null, Role? Staff = null, bool Plant = false, int? Workplace = null);
 public sealed record EconomyReport(EconomyStock[] Stocks, int Meals, float NextMealSeconds, EconomyIssue[] Issues);
 
 public sealed partial class World
@@ -33,20 +33,24 @@ public sealed partial class World
             if(!needed) return;
             string label = kind == BuildingKind.VegetableGarden ? "vegetable garden" : kind == BuildingKind.ForagerHut ? "forager hut" : kind.ToString().ToLowerInvariant();
             if(!Planned(kind) && !issues.Any(i=>i.Build==kind)) issues.Add(new("build-"+kind, $"Missing {label}: build one to give {role.ToString().ToLowerInvariant()}s a workplace.", Build:kind));
-            else if(HasBuilding(kind) && !Staffed(role) && !issues.Any(i=>i.Id=="staff-"+role)) issues.Add(new("staff-"+role,$"No {role.ToString().ToLowerInvariant()}s assigned. Staff the completed {label}.", Staff:role));
+            else if(Cottages.Any(c => c.Kind == kind && c.Complete && !c.WorkPaused && (BelowOutputTarget(c) || c.Harvest > 0 || c.InputGrain > 0 || c.OutputBread > 0 || c.InputLogs > 0 || c.OutputPlanks > 0)) && !Staffed(role) && !issues.Any(i=>i.Id=="staff-"+role)) issues.Add(new("staff-"+role,$"No {role.ToString().ToLowerInvariant()}s assigned. Staff the completed {label}.", Staff:role));
         }
         if(!Food.Celebrating)
         {
             if(!Creative && Food.EdibleStored<Population*2)
+            {
+                var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource.Berries or Resource.Vegetables or Resource.Bread).ToArray();
+                if (foodSites.Length > 0 && foodSites.All(c => c.WorkPaused))
+                    issues.Add(new("food-paused", "Food is below two meals and edible-food workplaces are paused. Inspect a workplace to resume it.", Workplace: foodSites[0].Id));
+                else
                 issues.Add(new("food-low",$"Food reserve is below two meals. Villagers eat {Population} berries/vegetables/bread per day; grain must be baked.",
                     Build: !Planned(BuildingKind.ForagerHut) && !Planned(BuildingKind.VegetableGarden) ? BuildingKind.ForagerHut : null,
                     Staff: !Planned(BuildingKind.ForagerHut) && Planned(BuildingKind.VegetableGarden) ? (HasBuilding(BuildingKind.VegetableGarden) ? Role.Farmer : Role.Builder) : !Planned(BuildingKind.ForagerHut) ? null : HasForagerHut ? Role.Forager : Role.Builder));
+            }
         }
         if(!Food.Celebrating)
         {
-            if (HasBuilding(BuildingKind.Stockpile) && !Staffed(Role.Hauler))
-                issues.Add(new("haulers", "Stockpile transfers have no haulers. Loggers can still drop logs and builders collect them locally.", Staff: Role.Hauler));
-            else if (Staffed(Role.Hauler) && !Planned(BuildingKind.Stockpile))
+            if (Staffed(Role.Hauler) && !Planned(BuildingKind.Stockpile))
                 issues.Add(new("stockpile", "Haulers need a stockpile with a log target.", Build: BuildingKind.Stockpile));
             bool building=Cottages.Any(c=>!c.Complete);
             if(building && !Staffed(Role.Builder)) issues.Add(new("builders","Construction has no builders. Assign someone to deliver materials and build.",Staff:Role.Builder));

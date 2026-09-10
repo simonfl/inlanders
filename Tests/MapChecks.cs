@@ -26,8 +26,6 @@ public static class MapChecks
         { w.Tick(0.1f); restored.Tick(0.1f); w.Validate(); restored.Validate(); }
         Check(w.Trees.All(t => t.Logs == 0) && w.SaveJson() == restored.SaveJson(), "Outer groves unreachable or continuation changed");
         Check(w.PlantTree(new(10, 10)) != null, "Planting outside old limits failed");
-        var old = JsonNode.Parse(new World().SaveJson())!; old["Version"] = 4; old.AsObject().Remove("Map");
-        Check(World.LoadJson(old.ToJsonString()).Map.OriginalOutline, "Legacy save lost original map");
         // A valid rectangular scenario uses the same model without any excluded cells.
         var rectangle = JsonNode.Parse(new World().SaveJson())!; rectangle["Map"]!["Width"] = 25;
         var rect = World.LoadJson(rectangle.ToJsonString()); Check(rect.CanPlace(new(12, 0), false), "Configurable rectangle failed");
@@ -37,6 +35,6 @@ public static class MapChecks
         invalid = JsonNode.Parse(saved)!; invalid["Map"]!["Excluded"]!.AsArray().Add(new JsonObject { ["X"] = -2, ["Z"] = 3 });
         rejected = false; try { World.LoadJson(invalid.ToJsonString()); } catch (Exception e) when (e is InvalidDataException or InvalidOperationException) { rejected = true; }
         Check(rejected, "Map that removes yard access loaded");
-        Console.WriteLine($"PASS: expanded/irregular maps, three distant construction areas, all outer groves, exact map saves, legacy bounds, invalid layouts; simulation checks {timer.Elapsed.TotalSeconds:F2}s.");
+        Console.WriteLine($"PASS: expanded/irregular maps, three distant construction areas, all outer groves, exact map saves and invalid layouts; simulation checks {timer.Elapsed.TotalSeconds:F2}s.");
     }
 }

@@ -33,8 +33,6 @@ public static class PathChecks
         var building = new World(); building.SetPath(new(3, 0), true);
         Check(building.Place(new(3, 0)) != null && !building.Paths.Contains(new(3, 0)), "Building did not replace path");
         building.SetPath(new(6, 4), true); Check(building.PlantTree(new(6, 4)) != null && !building.Paths.Contains(new(6, 4)), "Planting did not replace path");
-        var legacy = JsonNode.Parse(new World().SaveJson())!; legacy["Version"] = 6; legacy.AsObject().Remove("Paths");
-        Check(World.LoadJson(legacy.ToJsonString()).Paths.Count == 0, "Old save gained paths");
-        Console.WriteLine("PASS: path legality, weighted route preference and faster travel, live edits/claims, exact saves, building/planting replacement, and legacy saves.");
+        Console.WriteLine("PASS: path legality, weighted route preference and faster travel, live edits/claims, exact saves and building/planting replacement.");
     }
 }

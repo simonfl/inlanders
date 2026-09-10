@@ -55,6 +55,7 @@ public partial class Game
     {
         if(!site.Complete)
             return $"{site.Construction:P0} built · {site.Delivered}/{site.Required} {site.Material.ToString().ToLowerInvariant()} · {PriorityNames[site.Priority]}";
+        if (site.WorkPaused) return "Paused · inspect to resume";
         return site.Kind switch
         {
             BuildingKind.Cottage=>"2 beds", BuildingKind.Lodge=>"4 beds",

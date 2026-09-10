@@ -7,6 +7,7 @@ using Resource = Inlanders.Simulation.Resource;
 public partial class Game
 {
     private Label _economyFood = null!, _economySummary = null!;
+    private Label _foodFlow = null!;
     private readonly Dictionary<Resource,Label> _economyStocks = new();
     private readonly List<Button> _economyIssues = new(), _idleLinks = new();
     private EconomyReport? _economyReport;
@@ -19,6 +20,8 @@ public partial class Game
     {
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
+        column.AddChild(Text("RECENT FOOD FLOW",12));
+        _foodFlow = Text("",14,true); column.AddChild(_foodFlow);
         column.AddChild(Text("NEEDS ATTENTION",12)); _economySummary=Text("",14,true); column.AddChild(_economySummary);
         for(int i=0;i<12;i++) {
             int index=i; var button=Button("",()=>ActOnEconomyIssue(index));
@@ -43,7 +46,8 @@ public partial class Game
         if(_economyReport==null || index>=_economyReport.Issues.Length) return;
         var issue=_world.ReadEconomy().Issues.FirstOrDefault(i=>i.Id==_economyReport.Issues[index].Id);
         if(issue==null) return;
-        if(issue.Build is BuildingKind kind) { ToggleDrawer(1); BeginPlacement(kind); }
+        if(issue.Workplace is int workplace) SelectBuilding(workplace);
+        else if(issue.Build is BuildingKind kind) { ToggleDrawer(1); BeginPlacement(kind); }
         else if(issue.Staff is Role role) {
             ToggleDrawer(0); _drawerPages[0].EnsureControlVisible(_allocationButtons[(role,1)]);
             Notice("Use + beside " + role + " to assign a worker.");
@@ -53,6 +57,13 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
+        var flow = _world.ReadFoodFlow();
+        _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
+            $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
+            $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread\n" +
+            $"Meals eaten: {flow.Eaten} / {flow.Required} required\n" +
+            (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.Creative ? 0 : _world.Population)} / minute\n" : "Rates appear after one minute.\n") +
+            "Counts pantry arrivals, not growing/carried food. Meals exclude supper and trades. Past deliveries do not guarantee future supply.";
         _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries → vegetables → bread\nAssumes no new deliveries; grain is not edible.";
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
