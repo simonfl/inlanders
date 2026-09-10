@@ -127,6 +127,8 @@ See the [campaign systems plan](CAMPAIGN_SYSTEMS.md) for the need → building �
 - **F26c: retained woodland → wildlife habitat → hunting lodge/game.** Clearing competes with a replenishing food source. Start with habitat stock and visible animals; no full ecosystem simulation.
 - **F25b, later/TBD: comfort, learning and reflection.** Carpenter/home improvements, adult workshop/library, chapel/shrine or secular reflection space are candidates. Define the resident benefit first. No compulsory religion, school-age simulation, or requirement to own every civic building.
 
+**Building shortlist and design gates:** the campaign systems plan now sketches a gathering hall as a possible first stone consumer, carpenter-funded home improvements, small recreation gardens, and later learning/reflection venues. Choose between candidates through a playable purpose, not a larger construction menu. F25a must explain actual meals, home/rest and recreation participation; F26 must show habitat/deposit quality and access before investment. Balance new producers against construction, labor, transport and land use on contrasting maps. Costs and detailed need schedules remain TBD; later needs can be merged or cut if they duplicate recreation.
+
 Keep Across the river as the first longer level using existing systems. Later campaign roles: **Life by the lake**, **A place to call home**, **Built to last**, **The living woods**, then an expanded **A lasting village**. The long haul and Room to grow can become challenges within these maps or optional scenarios, rather than padding the sequence with overlapping levels. These additions are planned, not implemented. All-building availability and the removal of seasons remain unchanged.
 
 ## Optional follow-ups

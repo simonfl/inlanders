@@ -33,6 +33,31 @@ Materials must change the resulting place. A quarry that only fills a stone coun
 
 ## How this becomes a campaign
 
+### Building candidates and why a player would want them
+
+These are candidates to prototype, not a commitment to implement every row. Exact footprints, costs, staffing and yields remain TBD. Introduce a building together with a situation where its value is apparent.
+
+| Candidate | Purpose and landscape relationship | Campaign decision / visible reward |
+| --- | --- | --- |
+| **Fishing dock + small boat** | Turn accessible water and fish habitat into an alternative food supply. Timber/plank investment; fish are immediately edible. | A productive distant fishing ground versus a convenient landing. See the boat return with its catch. |
+| **Quarry work camp** | Extract finite stone from marked outcrops. Initial construction uses existing materials. | Commit workers and transport to a lasting improvement while maintaining food supply. The rock face and stockpile visibly change. |
+| **Gathering hall** | Candidate first stone consumer: a larger recreation venue for a growing neighborhood, with actual visits and capacity. The existing square remains useful. | Invest in one larger destination or distribute smaller squares. Its interior activity and gatherings should justify the construction effort. Prototype this purpose before choosing it over a durable crossing. |
+| **Hunting lodge** | Supply game from retained woodland habitat; nearby lodges draw from the same animal population. | Preserve an irregular woodland edge or clear it for fields. Animals, tracks and returning hunters explain the connection. |
+| **Carpenter** | Convert planks and work into visible furnishing improvements for existing homes. Start with a home-upgrade order rather than a new globally stockpiled furniture resource. | Improve present residents' comfort or spend those materials on expansion. Porches, shutters or furnishings make the choice visible. |
+| **Village garden / seating** | Candidate small recreation alternative with low capacity and little or no dedicated staffing; occupies useful land near homes. | Several convenient small meeting places versus a staffed central venue. Residents actually sit and meet. Keep decorative planting separate from any promised service. |
+| **Reading room / adult workshop** | Later learning venue. Trial a specific service, such as training residents for a scenario's restoration project, before adding general education progression. | Spare labor for learning while keeping the village supplied. Attendance and the resulting project must be observable; benefit remains TBD. |
+| **Chapel / shrine / house of reflection** | Later village identity and reflective activity. Religious and secular options can share service rules while looking and sounding different. | Choose the character of a civic place and make room for quiet visits or ceremonies. Add only if this offers something distinct from recreation; merging the needs remains an option. |
+
+Start resident feedback with a compact explanation: **fed at the last meal**, **home and recent rest**, and **recent recreation**, each with a destination or unmet reason. Use actual visits/consumption, not merely owning a building. Keep household routines interruptible and ensure a distant destination cannot trap a resident in an endless commute. Whether residents share homes permanently, how often they rest, and whether sleep needs a daily schedule are open F25a design questions.
+
+### Make the landscape readable before investment
+
+Show resource opportunities on the map and in placement previews: fish habitat and launch access, rock quantity and access, woodland habitat health and the effect of clearing. Explain blocked placement and exhausted supply in ordinary language. The player should be able to survey a map and form a plan before spending materials.
+
+Author contrasting starting situations: a lake with little farming space, a rocky valley with good quarry access but awkward transport, and a wooded basin where clearing sacrifices hunting. Avoid declaring a universal best food producer. Compare construction investment, workers, first delivery time, sustained output, travel and land use on each map; do not invent prices until those tradeoffs can be tested.
+
+Campaign objectives should combine a project with a functioning village: open a fishing route while supporting new residents, use a new hall while keeping meals reliable, or maintain a woodland food supply through expansion. Short observation windows can prove stability; long quotas and mandatory waiting should not supply the difficulty. At least two reasonable layouts or food mixes should succeed.
+
 Keep the five current lessons as onboarding. Build **Across the river** as the first substantial scenario using existing systems, so all of these additions do not become prerequisites for getting a real campaign level. Then introduce one new environmental opportunity or resident expectation at a time. All buildings remain available where technically usable; feature unlock restrictions are still deferred.
 
 | Campaign role / working name | Introduces or tests | Progression and decisions | Outcome direction |
