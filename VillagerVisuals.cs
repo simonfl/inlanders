@@ -9,7 +9,7 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new();
         public Resource Cargo;
         public int Count = -1;
         public float? PickupStarted;
@@ -53,6 +53,16 @@ public partial class Game
         v.Arm.AddChild(v.Saw); v.Saw.Position = new(0, -0.32f, 0);
         Box(v.Saw, new(0, 0, -0.3f), new(0.04f, 0.18f, 0.6f), new("a3aaa4"));
         Box(v.Saw, new(0, 0, 0.02f), new(0.09f, 0.22f, 0.14f), _wood);
+        v.Arm.AddChild(v.Sickle); v.Sickle.Position=new(0,-.32f,0);
+        Box(v.Sickle,new(0,0,-.15f),new(.06f,.06f,.35f),_wood);
+        for(int i=0;i<5;i++)
+        {
+            float a=i*.4f;
+            var blade=Box(v.Sickle,new(.16f-MathF.Cos(a)*.16f,0,-.32f-MathF.Sin(a)*.16f),new(.08f,.025f,.10f),new("b4bcb5"));
+            blade.Rotation=new(0,-a,0);
+        }
+        v.Torso.AddChild(v.SeedPouch);
+        Box(v.SeedPouch,new(-.27f,.02f,-.19f),new(.23f,.25f,.18f),new("c5a16d"));
         v.Torso.AddChild(v.Carry); v.Carry.Position = new(0, 0.12f, -0.43f);
         v.Marker = Cylinder(v.Body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
         return v;
@@ -119,7 +129,7 @@ public partial class Game
         view.RightLeg.Rotation = -view.LeftLeg.Rotation;
         view.Arm.Rotation = new(walking ? -swing * 0.35f : 0, 0, 0);
         view.LeftArm.Rotation = -view.Arm.Rotation;
-        view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = view.Saw.Visible = false;
+        view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = view.Saw.Visible = view.Sickle.Visible = view.SeedPouch.Visible = false;
         if(v.Task==Work.Aboard)
         {
             bool rowing=_world.PassengerBoat(v)?.Route.Count>0;
@@ -161,7 +171,9 @@ public partial class Game
                 float beat=v.Timer%1;
                 float hammer=beat<.5f ? Mathf.SmoothStep(.03f,1.5f,beat/.5f) : beat<.7f ? Mathf.SmoothStep(1.5f,.03f,(beat-.5f)/.2f) : .03f;
                 view.Arm.Rotation=new(hammer,0,0); view.LeftArm.Rotation=new(.55f,0,.1f); view.Head.Rotation=new(.13f,0,0); break;
-            case Work.ClearingStump: case Work.PlantingTree: case Work.Planting: case Work.Harvesting:
+            case Work.Planting: case Work.Harvesting:
+                AnimateFieldWork(view,v); break;
+            case Work.ClearingStump: case Work.PlantingTree:
                 view.Spade.Visible = true; view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;
             case Work.Foraging:

@@ -27,11 +27,15 @@ The brief pickup lift is transient presentation. It only starts when a recent re
 
 Builders and active dismantlers use a small temporary work board with a slower wind-up and quick hammer strike. The board is a tool prop, not extra inventory or a path obstacle. It gives early construction a contact surface before walls exist. Hammer sounds follow the work timer's strike phase. Demolition evacuation and final material recovery use a handling pose; they do not keep hammering while collecting goods. Completion or reassignment hides the board and tool.
 
-`./Play.ps1 -HandoffSmokeTest` passes with actual loads for logs, planks, berries, grain, bread, vegetables and fish. It checks delivery lowering, empty pickup reach, newly acquired lift, frozen poses, exact delivery-pose reload, cancellation with returned goods, disappearance after delivery, hammer/board contact, strike-timed sound, completion and demolition/reassignment. Local captures include `artifacts/f03b2-delivery-960.png`, `f03b2-delivery-1440.png`, `f03b2-delivery-village-960.png` and `f03b2-hammer-960.png`; close views use camera size 10 and the village view 20. The unobstructed close views were inspected. No simulation rules or save format changed. Field-specific work is still pending below.
+`./Play.ps1 -HandoffSmokeTest` passes with actual loads for logs, planks, berries, grain, bread, vegetables and fish. It checks delivery lowering, empty pickup reach, newly acquired lift, frozen poses, exact delivery-pose reload, cancellation with returned goods, disappearance after delivery, hammer/board contact, strike-timed sound, completion and demolition/reassignment. Local captures include `artifacts/f03b2-delivery-960.png`, `f03b2-delivery-1440.png`, `f03b2-delivery-village-960.png` and `f03b2-hammer-960.png`; close views use camera size 10 and the village view 20. The unobstructed close views were inspected. No simulation rules or save format changed. Field-specific work is covered below.
 
-## F03b3: field tending and harvest, next
+## F03b3: field sowing and harvest, implemented
 
-Replace the shared spade gesture with recognizable sowing, tending and harvest actions that reach the crop or soil. Use actual work progress and crop type; keep grain sheaves and vegetable baskets tied to real harvests. Review at normal camera distance and check pause, interruption and reload. Do not change crop growth or yields, add constant particles, or slow production merely to display a longer animation. F22's existing crop stages remain the foundation.
+Farmers now sow with a seed pouch and soil-reaching gesture, cut grain with a curved sickle, and bend to pick vegetables by hand. The pose follows the existing four-second sowing or two-second harvest work timer. A brief visual stance brings the resident into reach of the bed, then returns them to the simulated entrance before collection. Partially harvested plots target a remaining plant, including rotated beds. There is no new tending job during growth.
+
+The seed pouch is a tool prop, not a new seed inventory. Grain and vegetable cargo still appear only on the real simulation transfer; F22's standing/cut crop masks remain unchanged. Growth, yields, routes and save format are unchanged. Pause and reload derive the same pose from saved work progress; reassignment releases the stance and tools immediately.
+
+Run `./Play.ps1 -FieldWorkSmokeTest`. The rendered check covers both crop types and orientations, tool/hand contact against actual remaining crop nodes, partial harvest masks, advancing gestures, actual pickup amounts, pause, exact pose reload and interruption. `-HandoffSmokeTest` also passes as a regression check. Close captures at 960/1440 and village-distance captures are saved under `artifacts/f03b3-*`. Inspected images show a distinct low picking pose; the sickle is subtle at the wider camera. This is a focused presentation improvement, not acceptance of the overall art direction.
 
 ## F04b: inhabited homes and gathering places, after work contact
 
@@ -39,4 +43,4 @@ Present actual home rests and square visits with a small set of varied, recogniz
 
 ## Roadmap review
 
-F03b1 logging and F03b2 handoffs/hammer work are complete; F03b3 field work remains next, then F04b home/social presentation. F23a still needs aesthetic feedback before the full building-family pass; river/lake human pacing is also open. F07c food services and F26b quarry/hall remain later decisions. This work uses existing residents, so no population or map expansion is needed.
+F03b1–3 logging, handoffs/hammer work and field work are complete; F04b home/social presentation is next. Start with believable facing and quiet actual visits, not more constant gestures. F23a still needs aesthetic feedback before the full building-family pass; river/lake human pacing is also open. F07c food services and F26b quarry/hall remain later decisions. This work uses existing residents, so no population or map expansion is needed.
