@@ -24,8 +24,8 @@ public partial class Game
         _serviceToggle=Button("Rest & recreation",()=>_servicePanel.Visible=!_servicePanel.Visible);
         column.AddChild(_serviceToggle);
         _servicePanel=new() { Visible=false }; column.AddChild(_servicePanel);
-        var guide=Text("Completed visits · rest lasts 4m; recreation lasts 2m from a square or 4m from a hall.",13,true);
-        guide.TooltipText="Square: 6-second visit, at least 1 minute between outings. Hall: 12-second visit, at least 2 minutes between outings. Residents go between jobs. Travel or attendance alone does not count as a completed visit.";
+        var guide=Text("Completed visits · rest lasts 4m; recreation lasts 2m from a square/garden or 4m from a hall.",13,true);
+        guide.TooltipText="Square/garden: 6-second visit, at least 1 minute between outings. Hall: 12-second visit, at least 2 minutes between outings. Residents go between jobs. Travel or attendance alone does not count as a completed visit.";
         _servicePanel.AddChild(guide);
         _serviceFilter=DirectoryFilter(_servicePanel,"Find residents without recent completed visits. New arrivals may still be waiting for their first outing.");
         foreach(string name in new[]{"Missing either visit","Missing recent rest","Missing recreation","All residents"}) _serviceFilter.AddItem(name);

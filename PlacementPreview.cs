@@ -38,6 +38,7 @@ public partial class Game
         BuildingKind.HuntingLodge => "One hunter brings up to 2 game to the pantry after 10 work seconds and travel. Needs wooded habitat within 8 tiles. Retain mature trees; nearby lodges share stock. Pause hunting for recovery or supplement it with gardens.",
         BuildingKind.Quarry => "One quarrier extracts 2 stone in 6 work seconds, then carries it to central storage. Needs a reachable outcrop within 4 tiles. Deposits are finite and shared by nearby camps; pause or set a stock target to reserve stone for later.",
         BuildingKind.GatheringHall => "A stone-and-plank recreation venue for up to 8 visitors, in the same footprint as a square. No staff. Leave walkable space around the entrance; 12-second visits satisfy recreation for 4 minutes, with a 2-minute interval before returning. Squares are cheaper and can be spread near homes.",
+        BuildingKind.SeatingGarden => "A one-tile planted meeting spot for 2 visitors. No staff. Leave open walkable space near its entrance for residents to sit. Six-second visits give 2 minutes of recreation, like a square. Fits small plots; squares serve twice as many visitors for 6 logs.",
         BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
         BuildingKind.Stockpile => "Stores 12 logs or planks; choose its material when empty. Producers deposit locally and builders collect here without haulers. Optional haulers balance targets. Food stays at the pantry.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
@@ -80,7 +81,7 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        bool compact = _buildKind is BuildingKind.Bridge or BuildingKind.FishingDock;
+        bool compact = _buildKind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden;
         bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && _world.DockEntrance(_hover,_rotated)==World.FarBank(_hover,_rotated);
         _ghostModel.Position = OnGround(_hover.X + (!_plantingTrees && !compact && _rotated ? -0.5f : 0), _hover.Z + (!_plantingTrees && !compact && !_rotated ? -0.5f : 0), .1f);
         _ghostModel.RotationDegrees = new(0, (!_plantingTrees && _rotated ? 90 : 0)+(dockFar?180:0), 0);

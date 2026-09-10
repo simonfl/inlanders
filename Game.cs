@@ -272,7 +272,7 @@ public partial class Game : Node3D
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 if (h.DemolitionRequested) { Box(view.Body, new(0,.55f,1.2f), new(.9f,.12f,.12f), new("d7a453")); Box(view.Body, new(-.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); Box(view.Body, new(.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); }
-                bool compact = h.Kind is BuildingKind.Bridge or BuildingKind.FishingDock;
+                bool compact = h.Kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden;
                 view.Body.Position = OnGround(h.Cell.X + (!compact && h.Rotated ? -0.5f : 0), h.Cell.Z + (compact || h.Rotated ? 0 : -0.5f));
                 view.Body.RotationDegrees = new(0, (h.Rotated ? 90 : 0) + (h.Kind == BuildingKind.FishingDock && h.DockFromFar ? 180 : 0), 0); _cottages[h.Id] = (view.Body, viewKey);
             }

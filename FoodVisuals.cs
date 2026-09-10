@@ -29,6 +29,7 @@ public partial class Game
     }
     private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)
     {
+        if(site.Kind==BuildingKind.SeatingGarden) { MakeSeatingGarden(parent,stage); return; }
         if(site.Kind==BuildingKind.HuntingLodge) { MakeHuntingLodge(parent,stage); return; }
         if(site.Kind==BuildingKind.Quarry) { MakeQuarryCamp(parent,stage); return; }
         if(site.Kind==BuildingKind.GatheringHall) { MakeGatheringHall(parent,stage); return; }

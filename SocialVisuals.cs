@@ -31,6 +31,14 @@ public partial class Game
 
     private void AnimateSquareVisit(PersonView view,Villager person)
     {
+        var venue=_world.Cottages.FirstOrDefault(c=>c.Id==person.LeisureSiteId);
+        if(venue?.Kind==BuildingKind.SeatingGarden)
+        {
+            view.RestStool.Visible=true;
+            view.Rig.Position=new(0,-.20f,0);
+            view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f);
+            view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
+        }
         var companion=SquareCompanion(person);
         if(companion==null)
         {

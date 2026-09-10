@@ -25,6 +25,7 @@ public partial class Game
         BuildingKind.FishingDock => "Bring fish ashore",
         BuildingKind.HuntingLodge => "Hunt in retained woodland",
         BuildingKind.Quarry => "Extract finite stone",
+        BuildingKind.SeatingGarden => "A small neighborhood meeting spot",
         BuildingKind.GatheringHall => "A compact community venue",
         _ => "A place to gather"
     };

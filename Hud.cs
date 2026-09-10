@@ -255,6 +255,7 @@ public partial class Game
             BuildingKind.HuntingLodge => "Hunting lodge · 1 hunter\n"+_world.WildlifeSurvey(selected.Cell),
             BuildingKind.Quarry => "Quarry camp · 1 quarrier\n"+_world.QuarrySurvey(selected.Cell),
             BuildingKind.GatheringHall => $"{_world.People.Count(v=>v.LeisureSiteId==selected.Id)}/8 visitors · no staff\n12-second visits · 4 minutes of recreation benefit · 2 minutes between visits. Longer, less frequent outings than squares. Keep nearby visit spots open.",
+            BuildingKind.SeatingGarden => $"{_world.People.Count(v=>v.LeisureSiteId==selected.Id)}/2 visitors · no staff\nOne planted tile; seating uses open ground near the entrance. Six-second visits give 2 minutes of recreation, with 1 minute between outings. Squares have more capacity per log.",
             BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",

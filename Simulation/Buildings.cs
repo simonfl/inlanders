@@ -27,7 +27,8 @@ public static class Buildings
         new("Fishing dock", 8, Resource.Logs, Worker: Role.Fisher, Slots: 1),
         new("Quarry camp", 6, Resource.Logs, Worker: Role.Quarrier, Slots: 1),
         new("Gathering hall", 8, Resource.Planks, StoneCost: 12, RecreationSlots: 8, RecreationSeconds: 12, RecreationInterval: 120, RecreationMemory: 240),
-        new("Hunting lodge", 6, Resource.Logs, Worker: Role.Hunter, Slots: 1)
+        new("Hunting lodge", 6, Resource.Logs, Worker: Role.Hunter, Slots: 1),
+        new("Seating garden", 4, Resource.Logs, RecreationSlots: 2)
     };
     public static BuildingDefinition Get(BuildingKind kind) => (uint)kind < Definitions.Length
         ? Definitions[(int)kind] : throw new ArgumentOutOfRangeException(nameof(kind));

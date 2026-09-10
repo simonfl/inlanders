@@ -1,5 +1,7 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--seating")) { try { SeatingGardenChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
 if (args.Contains("--survey")) { try { ResourceSurveyChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 
 if (args.Contains("--wildlife")) { try { WildlifeChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
@@ -154,5 +156,6 @@ PlankStorageChecks.Run();
 QuarryChecks.Run();
 WildlifeChecks.Run();
 ResourceSurveyChecks.Run();
+SeatingGardenChecks.Run();
 }
 catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; }

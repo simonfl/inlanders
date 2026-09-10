@@ -348,6 +348,8 @@ Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -CatalogSmokeTest` for th
 
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 
+**Seating gardens** cost four logs, reserve one planted tile and welcome two visitors on stools in nearby open space. Find them under Build's community category. They give the same six-second break and two-minute recreation benefit as a square; squares serve twice as many visitors for six logs. Use gardens for spare neighborhood plots, and keep their entrance and nearby walking space clear. They need no staff and are separate from decorative flowers. See the [seating garden comparison](docs/SEATING_GARDEN_F25C.md).
+
 **Decorative landscaping:** Build → Landscape → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click repeatedly on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Cottages use three stable roof colours.
 
 **Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It loops gently and continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.

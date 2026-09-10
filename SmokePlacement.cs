@@ -23,7 +23,7 @@ public partial class Game
             Check(_ghost.Visible && _ghostValid && _previewMaterials.Count > 0, $"Missing legal {kind} preview: visible={_ghost.Visible}, hover={_hover}, reason={_placementProblem}, pointer={GetViewport().GetMousePosition()}");
             Check(_buildDescription.Text.Contains(BuildingDescription(kind)), "Building description missing");
             await Press(Key.R);
-            Check(_rotated && _ghostModel.RotationDegrees.Y == 90 && _ghostModel.Position.X == 2.5f, "Rotation did not match final building");
+            Check(_rotated && _ghostModel.RotationDegrees.Y == 90 && _ghostModel.Position.X == (kind==BuildingKind.SeatingGarden?3f:2.5f), $"Rotation/footprint center wrong for {kind}");
             await Press(Key.R);
         }
         Check(_buildDescription.Text.Contains("builders wait"), "Material shortage did not explain planning");

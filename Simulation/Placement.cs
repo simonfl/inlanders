@@ -7,8 +7,8 @@ public sealed partial class World
 {
     // A null problem is the authoritative permission to place; UI and commands use the same checks.
     public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind==BuildingKind.HuntingLodge && !HuntingGrounds(cell).Any(h=>HabitatCapacity(h)>0) ? "Hunting lodge needs reachable wooded habitat within 8 tiles. Find wildlife on Three clearings; retain mature trees." : kind==BuildingKind.Quarry && !Map.StoneDeposits.Any(d=>d.Remaining>0 && (d.Cell.Point-cell.Point).LengthSquared()<=16 && Accessible(d.Access)) ? "Quarry needs a reachable, unexhausted stone outcrop within 4 tiles. Find stone on Three clearings." : kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
-        Footprint(cell, rotated).Append(Door(cell, rotated)).All(Map.Contains) && !Map.LevelGround(Footprint(cell, rotated).Append(Door(cell, rotated))) ? "Choose level ground for the footprint and entrance." :
-        CheckPlacement(Footprint(cell, rotated).ToHashSet(), Door(cell, rotated));
+        Footprint(cell, rotated, kind).Append(Door(cell, rotated)).All(Map.Contains) && !Map.LevelGround(Footprint(cell, rotated, kind).Append(Door(cell, rotated))) ? "Choose level ground for the footprint and entrance." :
+        CheckPlacement(Footprint(cell, rotated, kind).ToHashSet(), Door(cell, rotated));
 
     public string? PlantingProblem(Cell cell)
     {
