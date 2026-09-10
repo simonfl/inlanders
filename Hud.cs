@@ -40,7 +40,7 @@ public partial class Game
         Work.ToMaterials => "Fetching", Work.ToCottage => "Delivering", Work.ToBuild => "To site", Work.Building => "Building", Work.ToDemolish => "To demolition", Work.Demolishing => "Dismantling",
         Work.ToBush or Work.Foraging => "Foraging", Work.ToFarm or Work.Planting => "Sowing", Work.Harvesting => "Harvesting",
         Work.ToGrain => "Fetching", Work.ToOven or Work.Baking => "Baking", Work.ToBread or Work.ToPantry => "Hauling food",
-        Work.ToSupper or Work.Supper => "Supper", Work.ToLeisure => "Going for a break", Work.Leisure => "Taking a break", _ => "Idle"
+        Work.ToSupper or Work.Supper => "Supper", Work.ToLeisure => "Going for a break", Work.Leisure => "Taking a break", Work.ToRest => "Going home", Work.Resting => "Resting at home", _ => "Idle"
     };
     private Button Button(string text, Action pressed, float width = 0)
     {
@@ -112,7 +112,7 @@ public partial class Game
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
-        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHappinessUi();
+        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi();
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
@@ -229,7 +229,7 @@ public partial class Game
             var candidate = _world.WorkerAdjustmentCandidate(role, 1);
             _allocationButtons[(role, 1)].TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {role}. Carried goods return first.";
         }
-        _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100";
+        _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100\nHomes: {_world.ResidentsWithHomes}/{_world.Population} · recently rested: {_world.ResidentsRested}/{_world.Population}";
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.TooltipText = _world.Creative ? "Click a tree or stump to remove it immediately. Existing timber returns to the yard." : "Click to mark logger work; click again to cancel. Timber is recovered, then roots are removed.";
@@ -241,7 +241,7 @@ public partial class Game
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
             BuildingKind.Stockpile => $"Log storage · {_world.LogsAt(selected.Id)}/{World.StockpileCapacity}\n{_world.ReservedLogsAt(selected.Id)} reserved · {_world.IncomingLogsAt(selected.Id)} arriving\nTarget: {selected.LogTarget} logs\nBuilders and sawyers collect here; haulers balance targets.",
-            BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
+            BuildingKind.Cottage or BuildingKind.Lodge => $"{Buildings.Get(selected.Kind).Beds} beds ready\nResidents: {string.Join(", ",_world.People.Where(p=>p.HomeId==selected.Id).Select(p=>p.Name))}\n{_world.People.Count(p=>p.HomeId==selected.Id && p.Task==Work.Resting)} resting here. Change homes from a resident's inspector.",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
@@ -256,7 +256,7 @@ public partial class Game
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)
         {
-            var p = _world.People[_selectedPerson]; UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
+            var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
         UpdateVillageDirectory();

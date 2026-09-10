@@ -11,6 +11,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (Creative || site == null || site.DemolitionRequested || RemovalProblem(id) != null) return false;
         site.DemolitionRequested = true; site.DemolitionWasPaused = site.WorkPaused; site.WorkPaused = true;
+        ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);
         History.Add($"Demolition ordered for {site.Kind} {id}; builders recover goods and timber."); _retry = 0; return true;
     }
@@ -19,7 +20,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id && c.DemolitionRequested);
         if (site == null || site.DemolitionProgress > 0 || Food.Celebrating) return false;
         foreach (var person in People.Where(p => p.SiteId == id).ToArray()) Interrupt(person);
-        site.DemolitionRequested = false; site.WorkPaused = site.DemolitionWasPaused; _retry = 0; return true;
+        site.DemolitionRequested = false; site.WorkPaused = site.DemolitionWasPaused; ReconcileHomes(); _retry = 0; return true;
     }
     private bool ClaimDemolition(Villager v)
     {

@@ -29,7 +29,7 @@ public static class HappinessChecks
         Step(clone,1201);
         Check(clone.ReadHappiness(clone.People[visitor.Id]).Leisure==0,"Leisure benefit never expired");
         var housed=PopulationChecks.Ready();
-        Check(housed.ReadHappiness(housed.People[0]).Housing==20,"Completed housing missing");
+        Check(housed.ReadHappiness(housed.People[0]).Housing==10,"Completed housing missing");
         housed.Food.EatenBerries+=housed.Food.Berries; housed.Food.Berries=0;
         housed.Food.MealClock=59.9f; Step(housed,2);
         Check(housed.ReadHappiness(housed.People[0]).Meals==0 && housed.Food.LastMealChoices==0,"Missing meal not reflected");

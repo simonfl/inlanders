@@ -24,7 +24,7 @@ public sealed partial class World
         var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c) || Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.DemolitionRequested && b.Cell == c));
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
             .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access))
-            .Concat(People.Where(p => p.LeisureSiteId != null).Select(p => p.Destination));
+            .Concat(People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination));
         if (access.Where(before.Contains).Concat(People.Select(At))
             .Concat(People.Where(p => p.Route.Count > 0).Select(p => p.Route.Peek())).Any(c => !after.Contains(c)))
             return "This bridge keeps villagers or resources connected. Build another crossing first.";
@@ -39,6 +39,7 @@ public sealed partial class World
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();
         // Remove the destination before returning cargo, so it cannot be chosen again.
         Cottages.Remove(site);
+        ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
         Planks += site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);

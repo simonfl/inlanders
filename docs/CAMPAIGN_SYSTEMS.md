@@ -6,12 +6,12 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 ## Start with residents
 
-Food, housing and leisure already exist, but housing mostly counts beds and food variety now counts actual portions eaten. Deepen those before adding six unrelated needs.
+Food, housing and leisure now include actual meal portions, assigned homes, home rest and square visits. Playtest those routines before adding more independent needs.
 
 | Need | First useful version | Buildings and visible payoff | Meaningful choice |
 | --- | --- | --- | --- |
 | **Food / nourishment** | Keep one edible unit per resident per meal initially. F14b now makes variety reflect food actually eaten. Report who was fed and what was served. | Foragers, gardens, farms/bakeries; later fish and game. Residents carry food, eat, and enjoy a shared meal. | Cheap local gathering, reliable cultivated supply, or geography-specific food. A mixed diet is a benefit, not a requirement to produce every food type. |
-| **Shelter / rest** | F25a: give residents a home destination and occasional rest visits. Show missing beds, unreachable homes and actual rest; use current village time without requiring a day/night simulation. | Existing cottages/lodges first; later a carpenter can make visible home improvements. Rest should make a village look inhabited. | Housing capacity versus comfortable access and space. Test whether long commutes are worth addressing before adding a separate fatigue penalty. |
+| **Shelter / rest** | F25a implemented stable homes, staggered rest visits and resident explanations. Home moves use spare beds; current village time schedules visits without a day/night simulation. | Existing cottages/lodges first; later a carpenter can make visible home improvements. Rest should make a village look inhabited. | Housing capacity versus comfortable access and space. Test whether long commutes are worth addressing before adding a separate fatigue penalty. |
 | **Company / recreation** | Extend the existing square's real visits into legible service coverage. Capacity, travel and time spent at work explain who misses out. | Square first; later garden seating, a gathering hall or small performance space as alternatives. Actual groups, music and occasional festivities. | One large center versus smaller places near homes/work. Do not require one of every leisure building. |
 | **Comfort** | Later housing/service improvement, not an additional survival bar. Explain benefits and consumption costs before building. | Carpenter, furnished homes, better paths, planted public space. | Use timber/planks for growth now or better living conditions for the people already here. |
 | **Learning / education** | Later optional adult workshop or reading room; the current game has no children or school-age population. Pick a concrete benefit before implementation. | Workshop/library with attending residents; possibly better tending methods or a special civic project. | Spend worker time on learning versus immediate production. No research tree or unexplained universal percentage bonus. A children's school needs a separate decision about families/ageing first. |
@@ -48,7 +48,7 @@ These are candidates to prototype, not a commitment to implement every row. Exac
 | **Reading room / adult workshop** | Later learning venue. Trial a specific service, such as training residents for a scenario's restoration project, before adding general education progression. | Spare labor for learning while keeping the village supplied. Attendance and the resulting project must be observable; benefit remains TBD. |
 | **Chapel / shrine / house of reflection** | Later village identity and reflective activity. Religious and secular options can share service rules while looking and sounding different. | Choose the character of a civic place and make room for quiet visits or ceremonies. Add only if this offers something distinct from recreation; merging the needs remains an option. |
 
-Start resident feedback with a compact explanation: **fed at the last meal**, **home and recent rest**, and **recent recreation**, each with a destination or unmet reason. Use actual visits/consumption, not merely owning a building. Keep household routines interruptible and ensure a distant destination cannot trap a resident in an endless commute. Whether residents share homes permanently, how often they rest, and whether sleep needs a daily schedule are open F25a design questions.
+Start resident feedback with a compact explanation: **fed at the last meal**, **home and recent rest**, and **recent recreation**, each with a destination or unmet reason. Use actual visits/consumption, not merely owning a building. Keep household routines interruptible and ensure a distant destination cannot trap a resident in an endless commute. Residents now keep their assigned home and rest between jobs about every three minutes; see the [F25a review](HOME_LIFE_F25A.md). Household swaps and synchronized sleep remain open follow-ups.
 
 ### Make the landscape readable before investment
 
@@ -85,7 +85,7 @@ Use three layers of expectations. Campaign stages can introduce an expectation w
 
 Do not let residents spend all their time satisfying routines. Prototype rest with a small share of the work cycle, stagger visits, and measure how much useful labor remains. Sleep can be represented by a home visit before we decide whether nights and synchronized schedules improve the game. A failed service check should identify a solvable problem—no home, unreachable entrance, venue full, or insufficient time—rather than merely report low happiness.
 
-**First playable needs slice (F25a):** give residents identifiable homes, show a completed rest visit, and explain existing square participation in one compact resident view. Try a dispersed settlement, then improve its arrangement and observe whether more residents can rest and socialize while meals remain reliable. Reuse current buildings. Only add a new venue when this experiment exposes a useful difference in capacity, land use or staffing.
+**First playable needs slice (F25a), implemented:** identifiable homes, a completed rest visit, and existing square participation are explained in the resident inspector. Try a dispersed settlement, then improve its arrangement and observe whether more residents can rest and socialize while meals remain reliable. Reuse current buildings. Only add a new venue when this experiment exposes a useful difference in capacity, land use or staffing.
 
 ### Terrain as an authored set of opportunities
 
@@ -111,7 +111,7 @@ For each new scenario, write down two intended approaches and one recoverable mi
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a should use existing population and buildings.
-3. F25a deepens home/rest and recreation using existing buildings; no education/religion meters yet. Resident feedback belongs in the same chunk.
+3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
 4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography. Extend meal selection, last-meal feedback and variety scoring to fish in the same chunk; rebalance the score so adding a fourth food does not silently invalidate an established mixed diet.
 5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.

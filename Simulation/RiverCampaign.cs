@@ -109,6 +109,6 @@ public sealed partial class World
         w.Food.InitialBerries=w.Food.Berries=40;
         var roles=new[]{Role.Logger,Role.Logger,Role.Builder,Role.Builder,Role.Forager,Role.Forager,Role.Unassigned,Role.Unassigned};
         for(int i=0;i<w.Population;i++) w.Assign(i,roles[i]);
-        w.Validate(); w.ValidateMapOccupancy(); return w;
+        w.ReconcileHomes(); w.Validate(); w.ValidateMapOccupancy(); return w;
     }
 }

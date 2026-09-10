@@ -46,7 +46,7 @@ public sealed partial class World
             People.Add(new Villager { Id = id, Name = index < names.Length ? names[index] : $"Neighbor {id + 1}",
                 Position = spot.Point, Role = Role.Unassigned, Status = "New arrival · choose a job in People" });
         }
-        History.Add($"{People[^2].Name} and {People[^1].Name} joined the village");
+        ReconcileHomes(); History.Add($"{People[^2].Name} and {People[^1].Name} joined the village");
         _retry = 0;
         return true;
     }

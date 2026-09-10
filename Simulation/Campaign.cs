@@ -91,7 +91,7 @@ public sealed partial class World
         if (level == 4) { roles[6] = Role.Farmer; roles[7] = Role.Baker; }
         if (level == 5) roles = new[] { Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Farmer, Role.Unassigned, Role.Unassigned };
         for (int i = 0; i < 8; i++) w.Assign(i, roles[i]);
-        w.Validate(); return w;
+        w.ReconcileHomes(); w.Validate(); return w;
     }
     public CampaignHint? CurrentCampaignHint()
     {

@@ -12,7 +12,7 @@ public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting }
 
 public sealed class Villager
 {
@@ -40,6 +40,10 @@ public sealed class Villager
     [JsonInclude] public int LeisureVisits { get; internal set; }
     [JsonInclude] public float? LastLeisureTime { get; internal set; }
     [JsonInclude] public int? LastLeisureSiteId { get; internal set; }
+    [JsonInclude] public int? HomeId { get; internal set; }
+    [JsonInclude] public float NextRestTime { get; internal set; }
+    [JsonInclude] public float? LastRestTime { get; internal set; }
+    [JsonInclude] public int RestVisits { get; internal set; }
 }
 public sealed class TimberTree
 {
@@ -149,7 +153,7 @@ public sealed partial class World
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
-        History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;
+        ReconcileHomes(); History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;
     }
     public bool SetPriority(int id, int priority)
     {
@@ -195,6 +199,7 @@ public sealed partial class World
         People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
     private void Interrupt(Villager v)
     {
+        if(v.Task is Work.ToRest or Work.Resting) v.NextRestTime=Food.Time+15;
         ReleaseFoodClaims(v);
         if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
         v.LeisureSiteId = null;
@@ -223,6 +228,7 @@ public sealed partial class World
     }
     private void Finish(Villager v)
     {
+        if(v.Task is Work.ToRest or Work.Resting) v.NextRestTime=Math.Max(v.NextRestTime,Food.Time+15);
         ReleaseFoodClaims(v);
         if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
         v.LeisureSiteId = null;
@@ -232,7 +238,7 @@ public sealed partial class World
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
-        if (ClaimLeisure(v)) return;
+        if (ClaimRest(v) || ClaimLeisure(v)) return;
         if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
         if (v.Role == Role.Sawyer) { ClaimSawWork(v); return; }
         if (v.Role is Role.Forager or Role.Farmer or Role.Baker) { ClaimFoodWork(v); return; }
@@ -281,6 +287,7 @@ public sealed partial class World
         AdvanceFoodTime(dt);
         AdvanceVisitor();
         AdvanceWoodland(dt);
+        ReconcileHomes();
         dt *= Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
         foreach (var v in People)
@@ -297,6 +304,10 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToRest: v.Task=Work.Resting; v.Timer=0; v.Status="Resting beside home"; break;
+                case Work.Resting:
+                    if(v.Timer>=RestSeconds) { v.RestVisits++; v.LastRestTime=Food.Time; v.NextRestTime=Food.Time+RestInterval; v.NextLeisureTime=Math.Max(v.NextLeisureTime,Food.Time+15); Finish(v); }
+                    break;
                 case Work.ToDemolish: case Work.Demolishing: TickDemolition(v, dt); break;
                 case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = "Taking a break at the square"; break;
                 case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; v.LastLeisureSiteId = v.LeisureSiteId; Finish(v); } break;
@@ -337,7 +348,7 @@ public sealed partial class World
                 default: if (!TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }
-        UpdateCampaign();
+        ReconcileHomes(); UpdateCampaign();
     }
     public void Validate()
     {
@@ -346,7 +357,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
-        ValidateRiverCampaign(); ValidateDemolition(); ValidateVisitor();
+        ValidateHomes(); ValidateRiverCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
         ValidateHappiness();
         ValidateDecorations();
