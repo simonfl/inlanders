@@ -15,7 +15,7 @@ public static class GardenLessonChecks
         w.Food.Vegetables=w.Food.GrownVegetables=8;
         var farmer=w.People[0]; farmer.Carried=2; farmer.Cargo=Resource.Vegetables; w.Food.Vegetables-=2;
         Check(w.DeliveredVegetables==6,"Carried vegetables counted as delivered");
-        Meal(w); Check(w.Food.VegetableChoiceMeals==1,"Stored vegetable choices not counted");
+        Meal(w); Check(w.Food.VegetableChoiceMeals==1,"Served vegetable portions not counted");
         string saved=w.SaveJson(); var copy=World.LoadJson(saved);
         Check(copy.SaveJson()==saved && copy.Food.VegetableChoiceMeals==1,"Partial meal goal not saved");
         w.Food.EatenBerries+=w.Food.Berries; w.Food.Berries=0;

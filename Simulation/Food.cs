@@ -17,7 +17,11 @@ public sealed class BerryBush
 public sealed class FoodState
 {
     public int VegetableChoiceMeals { get; set; }
-    public int LastMealChoices { get; set; } = 1;
+    public int LastMealChoices { get; set; }
+    public int LastMealBerries { get; set; }
+    public int LastMealVegetables { get; set; }
+    public int LastMealBread { get; set; }
+    public int LastMealRequired { get; set; }
     public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
     public int Vegetables { get; set; }
@@ -195,11 +199,23 @@ public sealed partial class World
         Food.MealClock += dt;
         while (Food.MealClock >= 60)
         {
-            if (Food.Vegetables > 0 && (Food.Berries > 0 || Food.Bread > 0)) Food.VegetableChoiceMeals++;
-            Food.LastMealChoices = (Food.Berries > 0 ? 1 : 0) + (Food.Vegetables > 0 ? 1 : 0) + (Food.Bread > 0 ? 1 : 0);
-            Food.MealClock -= 60; int berries = Math.Min(Population, Food.Berries); Food.Berries -= berries; Food.EatenBerries += berries;
-            int vegetables = Math.Min(Population - berries, Food.Vegetables); Food.Vegetables -= vegetables; Food.EatenVegetables += vegetables;
-            int bread = Math.Min(Population - berries - vegetables, Food.Bread); Food.Bread -= bread; Food.EatenBread += bread;
+            Food.MealClock -= 60;
+            var available = new[] { Food.Berries, Food.Vegetables, Food.Bread };
+            var served = new int[3];
+            for (int portion = 0; portion < Population; portion++)
+            {
+                int kind = -1;
+                for (int i = 0; i < 3; i++) if (available[i] > 0 && (kind < 0 || served[i] < served[kind])) kind = i;
+                if (kind < 0) break;
+                available[kind]--; served[kind]++;
+            }
+            int berries = served[0], vegetables = served[1], bread = served[2];
+            Food.Berries = available[0]; Food.Vegetables = available[1]; Food.Bread = available[2];
+            Food.EatenBerries += berries; Food.EatenVegetables += vegetables; Food.EatenBread += bread;
+            Food.LastMealBerries = berries; Food.LastMealVegetables = vegetables; Food.LastMealBread = bread; Food.LastMealRequired = Population;
+            Food.LastMealChoices = served.Count(n => n > 0);
+            int quarter = (Population + 3) / 4;
+            if (berries + vegetables + bread == Population && vegetables >= quarter && berries + bread >= quarter) Food.VegetableChoiceMeals++;
             Food.Hunger = (Population - berries - vegetables - bread) / (float)Population;
             RecentFood.Add(new(Food.Time, Eaten: berries + vegetables + bread, Required: Population));
         }

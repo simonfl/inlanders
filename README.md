@@ -42,7 +42,7 @@ Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings 
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
 3. **Room among the trees:** build a sawmill and lodge, house eight, and have loggers plant four trees. Marking spots alone does not count; maturity is not required.
 4. **A place for everyone:** homes, farm, and bakery are already built and staffed. Add a village square, stock two loaves per person, then host supper from Goals.
-5. **More for the table:** start with homes, a forager hut, 48 berries, and a farmer. Build a vegetable garden, deliver 16 vegetables, and have vegetables plus another food available at two meal times. Progress stays recorded; the gardener visit is optional.
+5. **More for the table:** start with homes, a forager hut, 48 berries, and a farmer. Build a vegetable garden, deliver 16 vegetables, and serve two full meals with at least a quarter vegetable portions and a quarter other-food portions. Progress stays recorded; the gardener visit is optional.
 
 The square costs six logs and needs no staff. Leave one walkable tile per villager within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
@@ -85,7 +85,7 @@ Build a **Vegetable garden** for **4 logs** and assign a **Farmer**. One farmer 
 
 Planting takes four work seconds. The garden then grows **8 vegetables in 60 simulation seconds**, with visible leaves and squash. Farmers harvest two at a time and carry baskets to the pantry; beds clear as the harvest progresses. Gardens replant automatically.
 
-Vegetables are eaten directly, with no bakery. Meals use berries first, then vegetables, then bread. Stored vegetables count toward food coverage and newcomer invitations; ripe crops and carried baskets count only after delivery. The top bar shows **VEG**, and Economy lists vegetables separately from grain.
+Vegetables are eaten directly, with no bakery. Meals share available berries, vegetables and bread as evenly as supply allows. Stored vegetables count toward food coverage and newcomer invitations; ripe crops and carried baskets count only after delivery. The top bar shows **VEG**, and Economy lists vegetables separately from grain.
 
 This offers a simpler food source with fewer buildings and jobs; grain plus baking yields more food per crop. Supper still requires bread. Gardens are available in every campaign level, but existing campaign objectives remain unchanged. Growth, remaining harvest, and carrying workers persist in saves.
 
@@ -145,7 +145,7 @@ Expand the **resource target** button to set a threshold from 0–200 in steps o
 
 ### Food and work
 
-- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, using berries first, then vegetables, then bread. Raw grain is not edible.
+- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, sharing available berries, vegetables and bread as evenly as supply allows. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
 - Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
 - Wheat grows from green shoots to golden ears. Harvested grain leaves matching columns of stubble, making the remaining crop visible.
@@ -228,7 +228,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 20; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 21; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 ## Development
 
@@ -302,7 +302,9 @@ Villagers take short breaks at completed village squares between jobs and delive
 
 **Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It loops gently and continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.
 
-**Happiness:** People shows village happiness. Select a villager and expand their mood button below the work controls to see the score: starting optimism, meals, pantry choices recorded at the last meal, housing coverage, and a completed square break in the past two minutes. Cheerful villagers wave while idle; unsettled villagers look down. Happiness adds no productivity penalty.
+**Happiness:** People shows village happiness. Select a villager and expand their mood button below the work controls to see the score: starting optimism, meals, village food variety based on portions actually eaten at the last meal, housing coverage, and a completed square break in the past two minutes. Cheerful villagers wave while idle; unsettled villagers look down. Happiness adds no productivity penalty.
+
+Meal variety is a village-wide result, not an individual diet history. Economy and the resident mood explanation show the last meal's portions. For eight residents, 7 berries + 1 vegetable earns 4/20 variety, 4 berries + 4 vegetables earns 16/20, and 3 berries + 3 vegetables + 2 bread earns 20/20. Each resident still needs only one food unit; shortages use every available edible portion. A single food type can feed everyone but gives no variety bonus.
 
 **Saved camera views:** Options has three named view slots. Enter an optional name and press Set to store the current focus, zoom, and orbit; Set replaces that slot and × clears it. Press 1–3 to recall, or Ctrl+1–3 to store, including in Watch mode. Recall stops camera-follow but preserves selection. Save the village to keep its views between sessions.
 
@@ -310,4 +312,4 @@ Villagers take short breaks at completed village squares between jobs and delive
 
 Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). The [F24b follow-up](docs/BALANCE_REVIEW_F24B.md) covers food transport and stockpile payback. Run `./Test.ps1 -Balance` to repeat the comparisons.
 
-F21h workplace checks: `./Test.ps1` covers pause/resume, batch and crop commitments, food-flow history and current-format saves. Run `./Play.ps1 -ProductionSmokeTest` for the focused rendered controls check; the full HUD suite includes it too.
+F21h workplace checks: `./Test.ps1` covers pause/resume, batch and crop commitments, food-flow history and current-format saves. Run `./Play.ps1 -ProductionSmokeTest` for the focused rendered workplace controls and actual-meal feedback checks; the full HUD suite includes it too.

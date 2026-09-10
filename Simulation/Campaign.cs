@@ -32,8 +32,8 @@ public sealed partial class World
             new(CampaignGoalKind.Sawmill, "Sawmill", 1), new(CampaignGoalKind.Lodge, "Lodge", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.TreesPlanted, "Trees planted by loggers", 4)),
         new(4, "A place for everyone", "Your homes, farm, and bakery are ready. Build a village square and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
             new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1)),
-        new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then keep vegetables and another food available when meals begin. The gardener visit is optional.",
-            new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Meals with vegetables and another food available", 2))
+        new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then serve two full meals with at least a quarter vegetables and a quarter other food. The gardener visit is optional.",
+            new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2))
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
     public int DeliveredVegetables => Food.Vegetables + Food.EatenVegetables;
@@ -131,11 +131,11 @@ public sealed partial class World
         }
         if (Campaign.Level == 5)
         {
-            Hint("garden", "Vegetable gardens produce food directly. Place one near the yard; each costs six logs.", !Cottages.Any(c => c.Kind == BuildingKind.VegetableGarden));
+            Hint("garden", $"Vegetable gardens produce food directly. Place one near the yard; each costs {Buildings.Get(BuildingKind.VegetableGarden).CostText}.", !Cottages.Any(c => c.Kind == BuildingKind.VegetableGarden));
             Hint("garden-build", "Builders supply and finish the garden. Keep its entrance connected to the yard.", !HasBuilding(BuildingKind.VegetableGarden));
             Hint("garden-farmer", "Farmers tend grain fields and vegetable gardens. Assign a farmer in People.", !People.Any(p => p.Role == Role.Farmer));
             Hint("garden-harvest", "Vegetables grow for one minute after sowing. Farmers carry the harvest to storage; only delivered vegetables count.", DeliveredVegetables == 0);
-            Hint("garden-choice", "Keep vegetables and another food in storage when a meal begins. Economy shows the next meal. Delivery and meal-choice progress stay recorded.");
+            Hint("garden-choice", $"Serve everyone, with at least {(Population + 3) / 4} vegetable portions and {(Population + 3) / 4} other food portions per meal. Meals share available types. Economy shows what was eaten; two qualifying meals are needed.");
         }
         return hints.FirstOrDefault(h => !Campaign.Dismissed.Contains(h.Id));
     }

@@ -64,7 +64,8 @@ public partial class Game
             $"Meals eaten: {flow.Eaten} / {flow.Required} required\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.Creative ? 0 : _world.Population)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts pantry arrivals, not growing/carried food. Meals exclude supper and trades. Past deliveries do not guarantee future supply.";
-        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries → vegetables → bread\nAssumes no new deliveries; grain is not edible.";
+        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · available types shared\nAssumes no new deliveries; grain is not edible.";
+        if (!_world.Creative) _economyFood.Text += "\n\n" + _world.LastMealSummary;
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
         _economySummary.Text=count==0?"No immediate shortages detected.":"Select a message to open the relevant controls.";

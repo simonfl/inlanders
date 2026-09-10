@@ -16,6 +16,6 @@ public partial class Game
     {
         var report=_world.ReadHappiness(person);
         _happinessButton.Text=$"{report.Mood} · {report.Score}/100";
-        _happinessReasons.Text=report.Reasons+"\n\nA completed square break lasts two minutes. Happiness changes idle reactions; it adds no work penalty.";
+        _happinessReasons.Text=report.Reasons+(_world.Creative ? "" : "\n\n" + _world.LastMealSummary)+"\n\nA completed square break lasts two minutes. Happiness changes idle reactions; it adds no work penalty.";
     }
 }

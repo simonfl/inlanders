@@ -171,7 +171,7 @@ public partial class Game
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
         _standaloneGuide = new(); column.AddChild(_standaloneGuide);
         _standaloneGuide.AddChild(Text("GETTING THERE", 12));
-        _standaloneGuide.AddChild(Text("Forager hut → berries\nVegetable garden → ready-to-eat food\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use one food per person daily, berries first. Grain must be baked. Cottages house two; lodges four. Invite newcomers from People when you have spare beds and food.", 15, true));
+        _standaloneGuide.AddChild(Text("Forager hut → berries\nVegetable garden → ready-to-eat food\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use one food per person daily, sharing available food types. Grain must be baked. Cottages house two; lodges four. Invite newcomers from People when you have spare beds and food.", 15, true));
         MakeCampaignUi(column); MakeVisitorUi(column);
     }
     private void MakeOptionsMenu(VBoxContainer column)
@@ -209,7 +209,7 @@ public partial class Game
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
         _foodStatus.Text = _world.Creative ? "Creative" : _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
-        _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? "Creative: food needs disabled; full work speed. Production and hauling still use real resources." : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Villagers eat berries first, then vegetables, then bread.";
+        _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? "Creative: food needs disabled; full work speed. Production and hauling still use real resources." : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");
         foreach (var (resource, label) in _resourceValues)
             label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, _ => _world.Food.Bread }).ToString();

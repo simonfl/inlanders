@@ -36,7 +36,7 @@ public static class FoodChecks
                 if (!snapshots.ContainsKey(phase) && w.People.Any(v => v.Task == phase)) snapshots[phase] = w.SaveJson();
         }
         Check(w.CanCelebrate, $"Supper unreachable: day {w.Food.Day}, bread {w.Food.Bread}, grain {w.Food.Grain}");
-        Check(w.Housed == 8 && w.Food.GatheredBerries > 0 && w.Food.GrownGrain >= 8 && w.Food.BakedBread >= 16 && w.Food.EatenBerries > 24, "Food chain did not sustain the scenario");
+        Check(w.Housed == 8 && w.Food.GatheredBerries > 0 && w.Food.GrownGrain >= 8 && w.Food.BakedBread >= 16 && w.Food.EatenBerries > 0 && w.Food.EatenBread > 0 && w.Food.EatenBerries + w.Food.EatenBread >= 32, $"Food chain did not sustain the scenario: housed {w.Housed}, gathered {w.Food.GatheredBerries}, grain {w.Food.GrownGrain}, baked {w.Food.BakedBread}, eaten berries {w.Food.EatenBerries}, eaten bread {w.Food.EatenBread}");
         Check(phases.All(snapshots.ContainsKey), "Missing production phase");
         Console.WriteLine($"PASS: complete food economy reaches supper on day {w.Food.Day}; berries regrow, crops ripen, grain is hauled/baked, and meals are consumed.");
         foreach (var (phase, json) in snapshots)
@@ -99,7 +99,7 @@ public static class FoodChecks
         var node = JsonNode.Parse(stock.SaveJson())!; node["Version"] = 999;
         bool refused = false; try { World.LoadJson(node.ToJsonString()); } catch (InvalidDataException) { refused = true; }
         Check(refused, "Unsupported save accepted");
-        node["Version"] = 20; node["Food"]!["Bread"] = -1;
+        node["Version"] = 21; node["Food"]!["Bread"] = -1;
         refused = false; try { World.LoadJson(node.ToJsonString()); } catch (InvalidOperationException) { refused = true; }
         Check(refused, "Corrupt inventory save accepted");
         string path = Path.Combine(Path.GetTempPath(), "inlanders-save-" + Guid.NewGuid() + ".json");

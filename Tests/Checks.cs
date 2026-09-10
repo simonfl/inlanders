@@ -118,6 +118,7 @@ VegetableChecks.Run();
 LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();
+MealVarietyChecks.Run();
 CameraViewChecks.Run();
 VisitorChecks.Run();
 GardenLessonChecks.Run();

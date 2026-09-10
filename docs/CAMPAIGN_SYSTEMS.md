@@ -6,11 +6,11 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 ## Start with residents
 
-Food, housing and leisure already exist, but housing mostly counts beds and food variety currently counts pantry availability. Deepen those before adding six unrelated needs.
+Food, housing and leisure already exist, but housing mostly counts beds and food variety now counts actual portions eaten. Deepen those before adding six unrelated needs.
 
 | Need | First useful version | Buildings and visible payoff | Meaningful choice |
 | --- | --- | --- | --- |
-| **Food / nourishment** | Keep one edible unit per resident per meal initially. F14b makes variety reflect food actually eaten. Report who was fed and what was served. | Foragers, gardens, farms/bakeries; later fish and game. Residents carry food, eat, and enjoy a shared meal. | Cheap local gathering, reliable cultivated supply, or geography-specific food. A mixed diet is a benefit, not a requirement to produce every food type. |
+| **Food / nourishment** | Keep one edible unit per resident per meal initially. F14b now makes variety reflect food actually eaten. Report who was fed and what was served. | Foragers, gardens, farms/bakeries; later fish and game. Residents carry food, eat, and enjoy a shared meal. | Cheap local gathering, reliable cultivated supply, or geography-specific food. A mixed diet is a benefit, not a requirement to produce every food type. |
 | **Shelter / rest** | F25a: give residents a home destination and occasional rest visits. Show missing beds, unreachable homes and actual rest; use current village time without requiring a day/night simulation. | Existing cottages/lodges first; later a carpenter can make visible home improvements. Rest should make a village look inhabited. | Housing capacity versus comfortable access and space. Test whether long commutes are worth addressing before adding a separate fatigue penalty. |
 | **Company / recreation** | Extend the existing square's real visits into legible service coverage. Capacity, travel and time spent at work explain who misses out. | Square first; later garden seating, a gathering hall or small performance space as alternatives. Actual groups, music and occasional festivities. | One large center versus smaller places near homes/work. Do not require one of every leisure building. |
 | **Comfort** | Later housing/service improvement, not an additional survival bar. Explain benefits and consumption costs before building. | Carpenter, furnished homes, better paths, planted public space. | Use timber/planks for growth now or better living conditions for the people already here. |
@@ -73,10 +73,10 @@ These are roles for later 30–60-minute settlements, not validated durations or
 
 ## Suggested implementation sequence
 
-1. F21h has shipped workplace controls and recent food flow. Next, F14b corrects food-variety satisfaction using actual meals.
-2. F16b gives players a normal-play way to recover from poor layouts. Prototype Across the river and test actual decisions and pacing.
+1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
+2. Take the small F19b save/restart follow-up, then F16b gives players a normal-play way to recover from poor layouts. Prototype Across the river and test actual decisions and pacing.
 3. F25a deepens home/rest and recreation using existing buildings; no education/religion meters yet. Resident feedback belongs in the same chunk.
-4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography.
+4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography. Extend meal selection, last-meal feedback and variety scoring to fish in the same chunk; rebalance the score so adding a fourth food does not silently invalidate an established mixed diet.
 5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.
 
