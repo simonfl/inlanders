@@ -16,7 +16,7 @@ public sealed partial class World
     public int IncomingLogsAt(int? id) => IncomingMaterialAt(id,Resource.Logs);
     public int AvailableLogsAt(int? id) => AvailableMaterialAt(id,Resource.Logs);
     public int ReservedMaterialAt(int? id,Resource material) => People.Where(v => v.StorageId == id && v.Cargo == material &&
-        v.Task is Work.ToMaterials or Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
+        v.Task is Work.ToMaterials or Work.ToSawLogs or Work.ToComfortPlanks or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int IncomingMaterialAt(int? id,Resource material) => People.Where(v=>v.Cargo==material).Sum(v =>
         v.Task == Work.ToHaulPickup && v.HaulTargetId == id ? v.Reserved :
         v.StorageId == id && v.Task is Work.ToStockpile or Work.ToHaulDrop ? v.Carried : 0);

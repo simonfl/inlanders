@@ -7,15 +7,18 @@ using System.Text.Json.Serialization;
 namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
-public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter }
+public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter, Carpenter }
 public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting, ToMealSupply, ToMealSeat, EatingMeal, ReturnMeal, ToFoodPickup }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting, ToMealSupply, ToMealSeat, EatingMeal, ReturnMeal, ToFoodPickup, ToComfortPlanks, ToComfortHome, ToComfortInstall, InstallingComfort, ToComfortRecovery }
 
 public sealed class Villager
 {
+    public int? ComfortHomeId { get; set; }
+    public bool ImprovedRest { get; set; }
+    public float LastRestWindow { get; set; } = 240;
     public int? FoodDestinationId { get; set; }
     public int? FoodSourceId { get; set; }
     public int PantryReserved { get; set; }
@@ -72,6 +75,11 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    public bool ImprovementRequested { get; set; }
+    public bool Improved { get; set; }
+    public int ImprovementPlanks { get; set; }
+    public float ImprovementProgress { get; set; }
+    public float ImprovementOrderedAt { get; set; }
     public int[] PantryFood { get; set; } = new int[5];
     public int PantryTarget { get; set; } = 12;
     [JsonInclude] public bool DemolitionRequested { get; internal set; }
@@ -232,6 +240,7 @@ public sealed partial class World
         People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
     private void Interrupt(Villager v)
     {
+        v.ComfortHomeId=null;
         if(InterruptMeal(v)) return;
         if(InterruptFishing(v)) return;
         v.FoodDestinationId=null; v.FoodSourceId=null; v.PantryReserved=0;
@@ -264,6 +273,7 @@ public sealed partial class World
     }
     private void Finish(Villager v)
     {
+        v.ComfortHomeId=null;
         v.FoodDestinationId=null; v.FoodSourceId=null; v.PantryReserved=0; v.FoodTransfer=false;
         if(v.Task is Work.ToRest or Work.Resting) v.NextRestTime=Math.Max(v.NextRestTime,Food.Time+15);
         ReleaseFoodClaims(v);
@@ -276,6 +286,7 @@ public sealed partial class World
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
         if (ClaimRest(v) || ClaimLeisure(v)) return;
+        if(v.Role==Role.Carpenter) { ClaimComfort(v); return; }
         if (v.Role == Role.Hunter) { ClaimHunting(v); return; }
         if (v.Role == Role.Quarrier) { ClaimQuarry(v); return; }
         if (v.Role == Role.Fisher) { ClaimFishing(v); return; }
@@ -301,6 +312,7 @@ public sealed partial class World
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
         if (ClaimDemolition(v)) return;
+        if(ClaimComfortRecovery(v)) return;
         var sites = Cottages.Where(c => !c.Complete).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
         foreach (var site in sites)
         {
@@ -359,9 +371,9 @@ public sealed partial class World
                 case Work.ToHunt: case Work.Hunting: TickHunting(v); break;
                 case Work.ToQuarry: case Work.Quarrying: TickQuarry(v); break;
                 case Work.ToDock: case Work.Aboard: TickFishing(v,dt); break;
-                case Work.ToRest: v.Task=Work.Resting; v.Timer=0; v.Status="Resting beside home"; break;
+                case Work.ToRest: v.ImprovedRest=Cottages.Single(c=>c.Id==v.HomeId).Improved; v.Task=Work.Resting; v.Timer=0; v.Status=v.ImprovedRest?"Resting in an improved home":"Resting beside home"; break;
                 case Work.Resting:
-                    if(v.Timer>=RestSeconds) { v.RestVisits++; v.LastRestTime=Food.Time; v.NextRestTime=Food.Time+RestInterval; v.NextLeisureTime=Math.Max(v.NextLeisureTime,Food.Time+15); Finish(v); }
+                    if(v.Timer>=RestSeconds) { v.RestVisits++; v.LastRestTime=Food.Time; v.LastRestWindow=v.ImprovedRest?300:240; v.NextRestTime=Food.Time+(v.ImprovedRest?240:RestInterval); v.NextLeisureTime=Math.Max(v.NextLeisureTime,Food.Time+15); Finish(v); }
                     break;
                 case Work.ToDemolish: case Work.Demolishing: TickDemolition(v, dt); break;
                 case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = $"Taking a break at {Buildings.Get(Cottages.Single(c=>c.Id==v.LeisureSiteId).Kind).Name}"; break;
@@ -402,7 +414,7 @@ public sealed partial class World
                 case Work.Building:
                     var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / Buildings.Get(build.Kind).ConstructionSeconds);
                     if (build.Complete) { if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
-                default: if (!TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
+                default: if (!TickComfort(v,dt) && !TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }
         ReconcileHomes(); UpdateCampaign();
@@ -425,6 +437,7 @@ public sealed partial class World
         ValidateProduction();
         ValidateFoodFlow();
         ValidateSawmills();
+        ValidateComfort();
         foreach (var site in Cottages)
         {
             Check(site.Incoming == People.Where(v => v.SiteId == site.Id && v.Cargo!=Resource.Stone).Sum(v => v.Reserved), "Orphaned site reservation");

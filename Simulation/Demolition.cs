@@ -11,6 +11,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (Creative || site == null || site.DemolitionRequested || RemovalProblem(id) != null) return false;
         site.DemolitionRequested = true; site.DemolitionWasPaused = site.WorkPaused; site.WorkPaused = true;
+        StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);
@@ -58,6 +59,7 @@ public sealed partial class World
             v.Status = $"Dismantling {site.Kind} {site.Id}";
             site.DemolitionProgress = Math.Min(1, site.DemolitionProgress + dt / DismantleSeconds); return;
         }
+        if (Take(site.ImprovementPlanks,n=>site.ImprovementPlanks=n,Resource.Planks)) return;
         if (Take(site.Delivered, n => site.Delivered = n, site.Material)) return;
         if (Take(site.DeliveredStone,n=>site.DeliveredStone=n,Resource.Stone)) return;
         if (RemovalProblem(site.Id) is string problem) { v.Status = "Demolition waiting: " + problem; return; }

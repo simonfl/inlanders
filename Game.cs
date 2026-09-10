@@ -270,6 +270,7 @@ public partial class Game : Node3D
             int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered+h.DeliveredStone > 0 ? 1 : 0;
             if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
             int viewKey = h.Kind == BuildingKind.Stockpile ? stage * 100 + h.StoredLogs + h.StoredPlanks + (h.StorageMaterial==Resource.Planks?1000:0) : stage;
+            if(Buildings.Get(h.Kind).Beds>0) viewKey=stage*100+h.ImprovementPlanks+(h.Improved?20:0)+(h.ImprovementRequested?40:0);
             if(h.Kind==BuildingKind.Pantry) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
             if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;

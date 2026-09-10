@@ -149,7 +149,7 @@ For each new scenario, write down two intended approaches and one recoverable mi
 
 Keep the distinction between an essential need and a village improvement. Food already constrains production; rest and recreation already give residents routines. The next step is to make those understandable and satisfying, not immediately introduce five more penalties. The following IDs reserve work we can choose later; none commits us to a new meter.
 
-**F25b1 now has a concrete [implementation brief](HOME_COMFORT_F25B.md).** Trial a carpenter installing home improvements for 4/8 planks, with the same six-second visible rest and a longer earned rest interval/memory. No extra satisfaction bar. The brief defines recovery, actual-use feedback and competing layouts; F25b2 is the coherent prototype, and F25b3 is later player/campaign review. These rules and costs are proposals, not implemented or balanced behavior.
+**F25b1 now has a concrete [implementation brief](HOME_COMFORT_F25B.md).** Trial a carpenter installing home improvements for 4/8 planks, with the same six-second visible rest and a longer earned rest interval/memory. No extra satisfaction bar. The brief defines recovery, actual-use feedback and competing layouts; F25b2 is the coherent prototype, and F25b3 is later player/campaign review. The [F25b2 playable prototype](HOME_COMFORT_F25B2.md) now implements these rules; costs remain provisional and matched investment/layout comparisons are still required before adoption.
 
 | Chunk | Smallest useful experiment | Environmental or economic decision | Keep it only if… |
 | --- | --- | --- | --- |

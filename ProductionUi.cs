@@ -49,7 +49,7 @@ public partial class Game
     }
     private void UpdateProductionControls(Cottage? site)
     {
-        _productionControls.Visible = site?.Complete == true && World.ProductionOutput(site.Kind) != null;
+        _productionControls.Visible = site?.Complete == true && (World.ProductionOutput(site.Kind) != null || site.Kind==BuildingKind.Carpenter);
         if (!_productionControls.Visible || site == null) return;
         if (_productionTargetSite != site.Id) { _productionTargetControls.Hide(); _productionTargetSite = site.Id; }
         var report = _world.ReadWorkplace(site);
@@ -58,6 +58,14 @@ public partial class Game
         _productionSource.Text = report.SourceBuilding is int id ? $"Inspect stockpile {id}" : report.Source == _world.YardAccess ?
             site.Kind == BuildingKind.Sawmill ? "Show timber yard" : "Show pantry" : "Show berry patch";
         _productionPause.Text = site.WorkPaused ? "Resume workplace" : "Pause new work";
+        _productionPause.Disabled=_world.Food.Celebrating || site.DemolitionRequested;
+        _productionTargetToggle.Visible=site.Kind!=BuildingKind.Carpenter;
+        if(site.Kind==BuildingKind.Carpenter)
+        {
+            _productionTargetControls.Hide();
+            _productionSource.Text="Inspect home being improved";
+            return;
+        }
         _productionPause.TooltipText = "Current work and deliveries finish. Crops keep growing. Worker roles do not change.";
         Resource output = World.ProductionOutput(site.Kind)!.Value;
         _productionTargetToggle.Text = $"{output} target · {(site.OutputTarget < 0 ? "No limit" : site.OutputTarget.ToString())} {(_productionTargetControls.Visible ? "▴" : "▾")}";

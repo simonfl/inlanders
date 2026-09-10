@@ -14,6 +14,7 @@ public partial class Game
         public int Count = -1;
         public float? PickupStarted;
         public float CargoObservedAt=-1;
+        public Node3D ComfortCushion=new();
     }
 
     private PersonView MakeVillager(int id)
@@ -28,6 +29,9 @@ public partial class Game
         Cylinder(v.Head, new(0, 0.26f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
         Cylinder(v.Head,new(0,.22f,0),.188f,.055f,new(shirts[id%shirts.Length]),.18f);
         v.Body.AddChild(v.RestStool); v.RestStool.Visible=false;
+        v.RestStool.AddChild(v.ComfortCushion);
+        Box(v.ComfortCushion,new(0,.29f,0),new(.40f,.10f,.35f),new("ad704e"));
+        Box(v.ComfortCushion,new(0,.46f,.17f),new(.39f,.30f,.07f),new("ad704e"));
         Cylinder(v.RestStool,new(0,.23f,0),.22f,.06f,_wood);
         foreach(float x in new[]{-.13f,.13f}) foreach(float z in new[]{-.12f,.12f})
             Box(v.RestStool,new(x,.10f,z),new(.045f,.20f,.045f),_wood);
@@ -136,6 +140,7 @@ public partial class Game
         view.Carry.Position=new(0,.12f,-.43f);
         view.Bow.Visible=false; view.WorkBoard.Visible=false;
         view.RestStool.Visible=false;
+        view.ComfortCushion.Visible=v.Task==Work.Resting && v.ImprovedRest;
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
         view.Rig.Position = new(0, walking ? MathF.Abs(swing) * 0.035f : 0, 0);
@@ -163,7 +168,7 @@ public partial class Game
         if (walking) return;
         Cell? facing = v.TreeId is int tree ? _world.Trees.FirstOrDefault(t => t.Id == tree)?.Cell :
             v.BushId is int bush ? _world.Bushes.FirstOrDefault(b => b.Id == bush)?.Cell :
-            (v.SiteId ?? v.WorkplaceId ?? v.LeisureSiteId ?? (v.Task==Work.Resting ? v.HomeId : null)) is int site ? _world.Cottages.FirstOrDefault(c => c.Id == site)?.Cell : null;
+            (v.ComfortHomeId ?? v.SiteId ?? v.WorkplaceId ?? v.LeisureSiteId ?? (v.Task==Work.Resting ? v.HomeId : null)) is int site ? _world.Cottages.FirstOrDefault(c => c.Id == site)?.Cell : null;
         if (facing is Cell cell)
         {
             var direction = new Vector3(cell.X, 0, cell.Z) - view.Body.Position;
@@ -186,7 +191,7 @@ public partial class Game
                 if(felling) AnimateAxeStroke(view,v.Timer);
                 else { view.Arm.Rotation = new(.65f+swing*.25f,0,0); view.Torso.Rotation=new(-.35f,0,0); }
                 break;
-            case Work.Building: case Work.Demolishing:
+            case Work.Building: case Work.Demolishing: case Work.InstallingComfort:
                 if(!HasHammerWork(v)) { view.Torso.Rotation=new(-.26f,0,0); view.Arm.Rotation=view.LeftArm.Rotation=new(.7f,0,0); break; }
                 view.Hammer.Visible = view.WorkBoard.Visible = true;
                 float beat=v.Timer%1;

@@ -13,7 +13,7 @@ public sealed partial class World
         {
             if (People.Count(p => p.LeisureSiteId == square.Id) >= Buildings.Get(square.Kind).RecreationSlots) continue;
             var reserved = People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination).ToHashSet();
-            var spot = Map.Land.Where(c => (c.Point - square.Entrance.Point).LengthSquared() <= 4 && !Blocked(c) && !MealSpotReserved(c) && !reserved.Contains(c))
+            var spot = Map.Land.Where(c => (c.Point - square.Entrance.Point).LengthSquared() <= 4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !reserved.Contains(c))
                 .OrderBy(c => (c.Point - square.Entrance.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X)
                 .Cast<Cell?>().FirstOrDefault(c => FindPath(At(v), c!.Value, Blocked) != null);
             if (spot == null) continue;

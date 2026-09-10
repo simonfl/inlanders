@@ -43,7 +43,7 @@ public partial class Game
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
         BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
-        BuildingKind.Sawmill or BuildingKind.Quarry=>3,
+        BuildingKind.Carpenter or BuildingKind.Sawmill or BuildingKind.Quarry=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
     };

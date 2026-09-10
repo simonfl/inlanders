@@ -8,7 +8,7 @@ public sealed partial class World
     public const float RestSeconds=6, RestInterval=180, RecentRestWindow=240;
     public int ResidentsWithHomes => People.Count(p=>p.HomeId!=null);
     public int ResidentsRested => People.Count(RecentlyRested);
-    public bool RecentlyRested(Villager person) => person.LastRestTime is float last && Food.Time-last<RecentRestWindow;
+    public bool RecentlyRested(Villager person) => person.LastRestTime is float last && Food.Time-last<person.LastRestWindow;
     private bool IsHome(Cottage home) => home.Complete && !home.DemolitionRequested && Buildings.Get(home.Kind).Beds>0;
     private void ReconcileHomes()
     {
@@ -48,7 +48,7 @@ public sealed partial class World
     {
         var occupied=People.Where(p=>p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure).Select(p=>p.Destination).ToHashSet();
         return new[]{home.Entrance,new(home.Entrance.X-1,home.Entrance.Z),new(home.Entrance.X+1,home.Entrance.Z),new(home.Entrance.X,home.Entrance.Z+1),new(home.Entrance.X,home.Entrance.Z-1)}
-            .Where(c=>!Blocked(c) && !MealSpotReserved(c) && !occupied.Contains(c)).Cast<Cell?>().FirstOrDefault(c=>FindPath(At(person),c!.Value,Blocked)!=null);
+            .Where(c=>!Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c)).Cast<Cell?>().FirstOrDefault(c=>FindPath(At(person),c!.Value,Blocked)!=null);
     }
     private bool ClaimRest(Villager person)
     {
@@ -62,7 +62,7 @@ public sealed partial class World
         if(person.HomeId==null) return "No assigned home — finish housing with a spare bed.";
         if(person.Task==Work.ToRest) return "Heading home; rest counts after the visit.";
         if(person.Task==Work.Resting) return "Resting at home.";
-        string recent=RecentlyRested(person) ? $"Rested {(int)(Food.Time-person.LastRestTime!.Value)}s ago." : "No rest in the last four minutes.";
+        string recent=RecentlyRested(person) ? $"Rested {(int)(Food.Time-person.LastRestTime!.Value)}s ago{(person.LastRestWindow==300?" in an improved home":"")}; benefit lasts another {(int)(person.LastRestWindow-Food.Time+person.LastRestTime.Value)}s." : "No recent completed home rest.";
         return recent+(Food.Time<person.NextRestTime ? $" Next visit due in {(int)Math.Ceiling(person.NextRestTime-Food.Time)}s, between jobs." : person.Task!=Work.Waiting ? " Due after the current job or break." : " Waiting for a reachable free spot beside home.");
     }
     public string RecreationSummary(Villager person)
@@ -80,7 +80,7 @@ public sealed partial class World
         foreach(var person in People)
         {
             var home=Cottages.FirstOrDefault(h=>h.Id==person.HomeId && IsHome(h));
-            if(person.HomeId!=null && home==null || !float.IsFinite(person.NextRestTime) || person.NextRestTime<0 || person.RestVisits<0 ||
+            if(person.HomeId!=null && home==null || person.LastRestWindow is not (240 or 300) || !float.IsFinite(person.NextRestTime) || person.NextRestTime<0 || person.RestVisits<0 ||
                 person.LastRestTime is float last && (!float.IsFinite(last) || last<0 || last>Food.Time)) throw new InvalidOperationException("Invalid resident home or rest history");
             if(person.Task is Work.ToRest or Work.Resting && (home==null || (person.Destination.Point-home.Entrance.Point).LengthSquared()>1 || Blocked(person.Destination) ||
                 person.Carried!=0 || person.Reserved!=0 || person.SiteId!=null || person.WorkplaceId!=null || person.LeisureSiteId!=null)) throw new InvalidOperationException("Invalid home rest visit");

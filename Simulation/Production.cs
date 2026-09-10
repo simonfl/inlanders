@@ -15,7 +15,7 @@ public sealed partial class World
     };
     public bool SetWorkplacePaused(int id, bool paused)
     {
-        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && ProductionOutput(c.Kind) != null);
+        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && (ProductionOutput(c.Kind) != null || c.Kind==BuildingKind.Carpenter));
         if (site == null || Food.Celebrating) return false;
         site.WorkPaused = paused;
         if(paused && site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId is int fisher) Interrupt(People[fisher]);
@@ -67,6 +67,7 @@ public sealed partial class World
             return new(People[fisher].Status, $"{People[fisher].Name} · {site.Boat.Fish} fish aboard · {site.Boat.ReservedCatch} catch reserved. Fish count as pantry supply only after delivery.");
         if (workers.Length > 0)
         {
+            if(site.Kind==BuildingKind.Carpenter) return new("Home improvement",string.Join("\n",workers.Select(p=>$"{p.Name}: {p.Status}")),workers[0].ComfortHomeId is int homeId?Cottages.Single(c=>c.Id==homeId).Entrance:null,workers[0].ComfortHomeId);
             var p = workers[0];
             Cell? source = p.HabitatId is int habitat ? Map.Wildlife.Single(h=>h.Id==habitat).Cell : p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
                 p.Task==Work.ToStockpile ? StorageAccess(p.StorageId) :
@@ -82,6 +83,7 @@ public sealed partial class World
             };
             return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
+        if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes; assign a carpenter and supply planks.");
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
@@ -107,7 +109,7 @@ public sealed partial class World
     private void ValidateProduction()
     {
         foreach (var c in Cottages)
-            if (c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested || c.OutputTarget != -1)))
+            if (c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested && c.Kind!=BuildingKind.Carpenter || c.OutputTarget != -1)))
                 throw new InvalidOperationException("Invalid workplace controls");
     }
 }

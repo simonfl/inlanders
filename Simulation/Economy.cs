@@ -16,7 +16,8 @@ public sealed partial class World
     // A read-only snapshot: buffers and shipments are not counted as available storage.
     public EconomyReport ReadEconomy()
     {
-        int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)));
+        int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)))+
+            (r==Resource.Planks?Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c))):0);
         var stocks = Enum.GetValues<Resource>().Select(r => new EconomyStock(r,
             EdibleKinds.Contains(r)?StoredFood(r):r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
             EdibleKinds.Contains(r)?MealReserved(r)+People.Where(p=>p.Cargo==r).Sum(p=>p.PantryReserved):r switch { Resource.Stone => ReservedMaterialAt(null,Resource.Stone), Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => ReservedGrain, _ => 0 },
@@ -68,6 +69,7 @@ public sealed partial class World
             Workplace(BuildingKind.HuntingLodge,Role.Hunter,Staffed(Role.Hunter) || HasBuilding(BuildingKind.HuntingLodge));
             Workplace(BuildingKind.Quarry,Role.Quarrier,Staffed(Role.Quarrier) || Need(Resource.Stone)>AvailableStone);
             Workplace(BuildingKind.Sawmill,Role.Sawyer,Staffed(Role.Sawyer) || Need(Resource.Planks)>AvailablePlanks);
+            Workplace(BuildingKind.Carpenter,Role.Carpenter,Staffed(Role.Carpenter) || Cottages.Any(c=>c.ImprovementRequested));
         }
         return new(stocks,(EdibleStored)/Population,Math.Max(0,60-Food.MealClock),issues.ToArray());
     }

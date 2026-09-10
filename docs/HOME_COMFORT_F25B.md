@@ -1,6 +1,6 @@
 # F25b — improve the homes people already use
 
-F25b1 implementation brief. **Not implemented or balanced yet.** The next chunk is a working prototype and comparison; final building art and campaign use still follow their open reviews.
+F25b1 implementation brief. **The playable prototype is implemented; comparative balancing is still open.** See the [F25b2 review](HOME_COMFORT_F25B2.md) for completed checks and outstanding comparisons. Final building art and campaign use still follow their open reviews.
 
 ## Player experience
 

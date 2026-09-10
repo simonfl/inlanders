@@ -32,6 +32,7 @@ public partial class Game
     private static string BuildingName(BuildingKind kind) => Buildings.Get(kind).Name;
     private static string TaskName(Work task) => task switch
     {
+        Work.ToComfortPlanks => "Collecting improvement planks", Work.ToComfortHome => "Delivering improvement planks", Work.ToComfortInstall => "To home improvement", Work.InstallingComfort => "Installing furnishings", Work.ToComfortRecovery => "Recovering improvement planks",
         Work.ToHunt => "To woodland", Work.Hunting => "Hunting", Work.ToQuarry => "To outcrop", Work.Quarrying => "Quarrying", Work.ToDock => "To fishing dock", Work.Aboard => "Aboard fishing boat",
         Work.ToHaulPickup => "Collecting logs", Work.ToHaulDrop => "Hauling logs",
         Work.ToTree => "To timber", Work.Chopping => "Logging", Work.ToStockpile => "Hauling",
@@ -106,6 +107,7 @@ public partial class Game
         _buildingDetails = new VBoxContainer(); _buildingDetails.AddThemeConstantOverride("separation", 12); inspection.AddChild(_buildingDetails);
         _siteInfo = Text("", 16, true); _buildingDetails.AddChild(_siteInfo);
         MakePantryControls();
+        MakeComfortControls();
         var priorities = new HBoxContainer(); _buildingDetails.AddChild(priorities);
         for (int i = 0; i < 3; i++)
         {
@@ -250,6 +252,7 @@ public partial class Game
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
+            BuildingKind.Carpenter => "One carpenter installs occupied-home improvements using planks. Order at a cottage or lodge; homes stay available during work.",
             BuildingKind.Stockpile => $"{selected.StorageMaterial} storage · {_world.MaterialAt(selected.Id,selected.StorageMaterial)}/{World.StockpileCapacity}\n{_world.ReservedMaterialAt(selected.Id,selected.StorageMaterial)} reserved · {_world.IncomingMaterialAt(selected.Id,selected.StorageMaterial)} arriving\nTarget: {selected.StorageTarget} {selected.StorageMaterial}\nBuilders and sawyers collect here; haulers balance targets.",
             BuildingKind.Cottage or BuildingKind.Lodge => $"{Buildings.Get(selected.Kind).Beds} beds ready\nResidents: {string.Join(", ",_world.People.Where(p=>p.HomeId==selected.Id).Select(p=>p.Name))}\n{_world.People.Count(p=>p.HomeId==selected.Id && p.Task==Work.Resting)} resting here. Change homes from a resident's inspector.",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
@@ -278,6 +281,7 @@ public partial class Game
         UpdateVillageDirectory(); UpdateServiceCoverage(); UpdateResourceSurvey();
         UpdateStorageControls();
         UpdatePantryControls();
+        UpdateComfortControls();
         UpdateBuildDescription();
         UpdateBuildCatalog();
         _hint.Text = _placing ? (_woodlandTool>0 ? $"{WoodlandToolName} · click or drag · Esc finishes" : _decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "1 shore tile + launch" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";

@@ -11,7 +11,7 @@ public sealed partial class World
     public int YardPlanks => _yardPlanks;
     public int Planks => _yardPlanks + Cottages.Sum(c=>c.StoredPlanks);
     public int SawnLogs { get; private set; }
-    public int ReservedPlanks => People.Where(v => v.Cargo == Resource.Planks && v.Task is Work.ToMaterials or Work.ToHaulPickup).Sum(v => v.Reserved);
+    public int ReservedPlanks => People.Where(v => v.Cargo == Resource.Planks && v.Task is Work.ToMaterials or Work.ToComfortPlanks or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int AvailablePlanks => Planks - ReservedPlanks;
     private int PendingPlanks => Planks + People.Where(v => v.Cargo == Resource.Planks).Sum(v => v.Carried) +
         Cottages.Sum(c => c.OutputPlanks + c.InputLogs * 2) +
@@ -68,7 +68,7 @@ public sealed partial class World
         void Check(bool value, string message) { if (!value) throw new InvalidOperationException(message); }
         Check(Planks >= 0 && AvailablePlanks >= 0 && SawnLogs >= 0, "Invalid plank inventory");
         Check(Planks + People.Where(v => v.Cargo == Resource.Planks).Sum(v => v.Carried) +
-            Cottages.Sum(c => c.OutputPlanks) + Cottages.Where(c => c.Material == Resource.Planks).Sum(c => c.Delivered) +
+            Cottages.Sum(c => c.OutputPlanks + c.ImprovementPlanks) + Cottages.Where(c => c.Material == Resource.Planks).Sum(c => c.Delivered) +
             Trees.Where(t => t.Material == Resource.Planks).Sum(t => t.Logs) == SawnLogs * 2, "Plank conservation failed");
         foreach (var c in Cottages)
             Check(c.InputLogs is >= 0 and <= 2 && c.OutputPlanks is >= 0 and <= 4 && float.IsFinite(c.SawProgress) && c.SawProgress >= 0 && c.SawProgress < 1 &&

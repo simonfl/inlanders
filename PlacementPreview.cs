@@ -28,6 +28,7 @@ public partial class Game
     }
     private string BuildingDescription(BuildingKind kind) => (_world.Creative, kind) switch
     {
+        (_,BuildingKind.Carpenter) => "One carpenter installs improvements in occupied homes. Order at a home: 4 planks per cottage, 8 per lodge. Actual rest lasts longer; beds stay available during work.",
         (true, BuildingKind.Bridge) => "Instant crossing between two dry banks. R turns the crossing. Keep both banks accessible.",
         (true, BuildingKind.Lodge) => "A home for 4 neighbors. No staff needed.",
         (true, BuildingKind.Stockpile) => "Stores up to 12 real logs. Loggers drop timber nearby; haulers balance its target.",

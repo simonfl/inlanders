@@ -61,14 +61,14 @@ public partial class Game
         _mealLink.Text=person.Task==Work.ReturnMeal?"Show return destination":"Show meal supply";
         if(_homeUiWorld!=_world) { _homeUiWorld=_world; _homeChoiceKey=""; }
         var homes=_world.Cottages.Where(h=>h.Complete && !h.DemolitionRequested && Buildings.Get(h.Kind).Beds>0).ToArray();
-        string key=person.Id+":"+string.Join(";",homes.Select(h=>$"{h.Id}:{_world.People.Count(p=>p.HomeId==h.Id)}"))+":"+person.HomeId;
+        string key=person.Id+":"+string.Join(";",homes.Select(h=>$"{h.Id}:{h.Improved}:{_world.People.Count(p=>p.HomeId==h.Id)}"))+":"+person.HomeId;
         if(key!=_homeChoiceKey)
         {
             _homeChoiceKey=key; _homeChoice.Clear();
             foreach(var home in homes)
             {
                 int occupied=_world.People.Count(p=>p.HomeId==home.Id);
-                _homeChoice.AddItem($"{BuildingName(home.Kind)} {home.Id} · {occupied}/{Buildings.Get(home.Kind).Beds}",home.Id);
+                _homeChoice.AddItem($"{BuildingName(home.Kind)} {home.Id}{(home.Improved?" · improved":"")} · {occupied}/{Buildings.Get(home.Kind).Beds}",home.Id);
                 int index=_homeChoice.ItemCount-1;
                 _homeChoice.SetItemDisabled(index,occupied>=Buildings.Get(home.Kind).Beds && person.HomeId!=home.Id);
                 if(person.HomeId==home.Id) _homeChoice.Select(index);

@@ -26,6 +26,7 @@ public sealed partial class World
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
             .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell))
             .Concat(People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination));
+        access=access.Concat(People.Where(ComfortWork).Select(p=>p.Destination));
         if (access.Where(before.Contains).Concat(People.Select(At))
             .Concat(People.Where(p => p.Route.Count > 0).Select(p => p.Route.Peek())).Any(c => !after.Contains(c)))
             return "This bridge keeps villagers or resources connected. Build another crossing first.";
@@ -36,6 +37,7 @@ public sealed partial class World
     {
         if (!Creative || RemovalProblem(id) != null) return false;
         var site = Cottages.Single(c => c.Id == id);
+        StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();
@@ -44,7 +46,7 @@ public sealed partial class World
         for(int k=0;k<EdibleKinds.Length;k++) ChangeCentralFood(EdibleKinds[k],site.PantryFood[k]);
         ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
-        _yardPlanks += site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
+        _yardPlanks += site.ImprovementPlanks + site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
         _stone+=site.DeliveredStone;
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;

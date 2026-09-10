@@ -105,7 +105,7 @@ public sealed partial class World
             var kinds=EdibleKinds.Where(k=>FoodAvailableAt(source,k)>0).OrderBy(k=>Food.MealConsumptions.Count(m=>m.Kind==k)+
                 People.Count(p=>p.Meal is {} meal && (meal.Reserved || meal.Carrying) && meal.Kind==k)).ToArray();
             if(kinds.Length==0 || FindPath(At(person),access,Blocked)==null) continue;
-            var seat=Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !occupied.Contains(c))
+            var seat=Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
                 .OrderBy(c=>(c.Point-access.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
                 .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null);
             if(seat==null) continue;

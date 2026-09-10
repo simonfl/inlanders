@@ -25,10 +25,12 @@ public partial class Game
     private void MakeBuilding(Node3D parent, Cottage site, int stage)
     {
         MakeBuildingPieces(parent,site,stage);
+        MakeHomeComfort(parent,site,stage);
         BatchStaticGeometry(parent);
     }
     private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)
     {
+        if(site.Kind==BuildingKind.Carpenter) {MakeCarpenter(parent,stage);return;}
         if(site.Kind==BuildingKind.Pantry) { MakePantry(parent,site,stage); return; }
         if(site.Kind==BuildingKind.SeatingGarden) { MakeSeatingGarden(parent,stage); return; }
         if(site.Kind==BuildingKind.HuntingLodge) { MakeHuntingLodge(parent,stage); return; }

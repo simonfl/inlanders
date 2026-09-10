@@ -14,7 +14,7 @@ The original ordered roadmap shipped its first versions. The next phase responds
 
 **F21k now supports the meal review:** Economy opens a filtered resident list for current hunger or missed/skipped meals in the last three minutes. The existing People service panel explains meals alongside rest/recreation and links to resident inspection. Late recovery remains distinct from recent missed service. Next priorities remain player review and then the selected campaign/comfort work; this UI change does not establish meal-service enjoyment.
 
-**Next implementation: F25b2 home-comfort prototype.** The [F25b1 brief](HOME_COMFORT_F25B.md) now defines carpenter orders, physical plank ownership/recovery, visible improved rest, and competing village layouts. Trial longer-lasting rest instead of adding another needs meter. Keep this a focused prototype using the current home forms; full-family art acceptance and campaign adoption remain separate reviews. Do not claim the provisional costs or benefit are balanced before the working comparisons.
+**Paused after the F25b2 playable prototype, as requested.** Carpenter orders, physical plank recovery, improved-home rest and UI are implemented; see the [prototype review](HOME_COMFORT_F25B2.md). F25b2 comparative balancing remains unfinished. Resume with matched village/investment comparisons before F25b3 player/campaign adoption; costs and art are provisional.
 
 **F21e2/e3 support visual review:** Watch has a temporary clean view and an optional slow orbit around the current focus. Manual camera controls stop the orbit; neither feature changes village time or saved views. The art, meal and campaign reviews remain open. F23d now adds frame-sync control after measuring presentation as the main slowdown on this setup; see the [rendering review](RENDERING_F23D.md). Review the smoother village before adding more viewing controls or speculative rendering changes.
 
@@ -41,7 +41,7 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 | Review | F07c3 | **Neighborhood food service — player review.** F07c2 is implemented; compare a compact central arrangement with a dispersed village using local pantries and optional hauling. | The player understands missed meals and can improve supply or travel. Pantry ownership is never mandatory; use feedback before authoring another food-access scenario. |
 | After prototype and pacing review | F26b2 | **Built to last.** Author the quarry scenario around a nearby limited deposit versus a distant larger source, staged construction and keeping residents fed and served. | Two useful approaches and recovery from a poor choice; a used civic place supplies the payoff. Incorporate river/lake human feedback before adding another mastery scenario. |
 | Review | F23d | **Frame-sync control implemented.** Matched paused/live profiles identify presentation delay on this Windows setup; sync now defaults off with a persisted Options toggle. Geometry, shadows and resident behavior are unchanged. | Review smoothness and tearing in ordinary play. Matched paused captures are identical; preview state/nodes stay stable. Larger populations remain unmeasured. [Measurements and limits](RENDERING_F23D.md). |
-| Next implementation | F25b2 | **Home comfort.** Implement the [F25b1 brief](HOME_COMFORT_F25B.md): carpenter, physical improvement orders, actual improved rest, visible home/seat changes and resident feedback. Starting costs are 4 planks per cottage / 8 per lodge. | Compare compact/dispersed layouts, better placement and another use of the same investment. Ordinary homes remain viable; setup, meals and recreation count in the comparison. Cover cancellation/demolition recovery and current saves. Final art and campaign adoption stay open. |
+| On resume | F25b2 | **Home-comfort comparison follow-up.** The [playable prototype](HOME_COMFORT_F25B2.md) is implemented and verified. | Complete compact/dispersed, better-placement and competing-investment runs; measure setup, production, meals and recreation, including cottage/lodge occupancy. Review rotated home visuals. These checks are not yet complete; F25b3 player/campaign acceptance follows. |
 
 Before population, map size, or decoration density expands further, profile a decorated 16–24-person settlement and a prolonged paused placement preview. Optimize measured costs in the owning chunk; avoid a standalone engine-rewrite project.
 
@@ -55,6 +55,7 @@ F23c measured 16 residents with 36 decorations and a 600-frame paused preview. S
 
 | ID | Shipped |
 | --- | --- |
+| F25b2 prototype | Carpenter workshop, physical 4/8-plank home orders and recovery, actual improved rest, shutters/cushioned rest pose, inspector controls and format-32 saves. Comparison/balance portion remains open above. |
 | Milestones 1–3 | Timber harvesting and hauling, construction, worker roles and priorities, berries → grain → bread, housing, meals, village supper, and save/load. |
 | F01 | Paint/remove connected dirt paths; villagers choose faster routes and walk 25% faster on paths. |
 | F02 | Logger planting, visible sapling growth, renewable timber, and stump replanting. |

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--comfort")) { try {ComfortChecks.Run();} catch(Exception e) {Console.Error.WriteLine(e);Environment.ExitCode=1;} return; }
 
 if (args.Contains("--pantry-layouts")) { try { PantryLayoutComparison.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 
@@ -167,6 +168,7 @@ DemolitionChecks.Run();
 
 RiverChecks.Run();
 HomeChecks.Run();
+ComfortChecks.Run();
 FishChecks.Run();
 LakeChecks.Run();
 ManagedWoodlandChecks.Run();

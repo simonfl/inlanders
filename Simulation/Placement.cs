@@ -37,6 +37,7 @@ public sealed partial class World
         if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
         if (Blocked(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
+        if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";
         if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
         if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotated)) || footprint.Contains(Door(c.Cell, c.Rotated))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";
@@ -47,6 +48,7 @@ public sealed partial class World
         var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat)).Append(YardAccess).Append(entrance);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
+        access=access.Concat(People.Where(ComfortWork).Select(p=>p.Destination));
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))
             return "This would cut off a route between villagers, resources, or buildings and the timber yard.";
         return null;

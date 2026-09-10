@@ -14,6 +14,7 @@ public partial class Game
 
     private static string BuildingPurpose(BuildingKind kind) => kind switch
     {
+        BuildingKind.Carpenter => "Improve occupied homes",
         BuildingKind.Cottage or BuildingKind.Lodge => $"A home for {Buildings.Get(kind).Beds}",
         BuildingKind.ForagerHut => "Gather berries",
         BuildingKind.Farm => "Grow grain for bread",
