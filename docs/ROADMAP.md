@@ -20,6 +20,8 @@ See [the comprehensive design review](DESIGN_REVIEW.md) for the complete buildin
 
 This is a recommendation, not a dependency chain. Work one playable chunk at a time; revise the order after seeing the result.
 
+**Campaign expansion direction:** build around **reliable food → home/rest → recreation → home comfort → a chosen civic ambition**. Stone/quarry should culminate in a used hall; water/docks/boats in meals and later possible transport; woodland/animals/hunting in food that competes with clearing. Food, rest and fun already have playable routines. The next new resident improvement to explore is **F25b carpenter/home comfort**, after the current reviews; education and religious/secular reflection remain optional F25d/e projects with benefits TBD. The [campaign systems plan](CAMPAIGN_SYSTEMS.md) holds the building/environment alternatives and scenario briefs. Teach one unfamiliar chain per level, then combine familiar systems under more demanding geography; keep buildings available and defer unlock restrictions.
+
 | Order | ID | Playable chunk | What success looks like |
 | --- | --- | --- | --- |
 | Review | F23a | **[Visual identity slice](ART_REVIEW_F23A.md) — implemented, aesthetic acceptance pending.** Cottage porch/window depth, thick roofs and stone feet; bakery oven mass and recessed shop; open braced sawmill with progress-driven saw. Workshop displays follow real buffers. Costs and footprints unchanged. | Review the scene at the actual camera, without labels, at 960/1440 and four directions. The user finds the direction compelling before F23b proceeds; another focused iteration remains possible. |

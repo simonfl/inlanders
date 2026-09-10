@@ -10,7 +10,7 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 ### Campaign expansion priorities
 
-Use **food → shelter/rest → recreation → comfort → chosen civic ambitions** as a working progression. This is an order for teaching and exploring the design, not a requirement that every resident accumulate five needs. Food, home rest and recreation already have playable foundations; neighborhood meal service is currently in progress. Actual nightly sleep, education and spiritual fulfillment remain design candidates.
+Use **food → shelter/rest → recreation → comfort → chosen civic ambitions** as a working progression. This is an order for teaching and exploring the design, not a requirement that every resident accumulate five needs. Food, home rest, recreation and neighborhood meal service already have playable foundations; meal-service player review remains open. Actual nightly sleep, education and spiritual fulfillment remain design candidates.
 
 Pair each resident outcome with a landscape decision. The first three resource families below already have prototypes; the additional consumers and systems are proposals, not implemented features.
 
@@ -24,7 +24,7 @@ Pair each resident outcome with a landscape decision. The first three resource f
 | **Public space → fun and identity** | Existing square, seating garden and hall; candidate performance stage or musician visits. | Central land is convenient but valuable; distributed neighborhoods may need smaller destinations. | Make time and room for actual participation. Trial performances as occasional events using existing recreation before introducing a staffed entertainment industry. |
 | **Civic site → learning or reflection** | Candidate adult workshop/reading room; chapel, shrine or secular reflection garden. | A ruined structure, hilltop or waterfront offers a distinctive project and a choice between scenery and convenience. | Restore a useful place or prepare a shared ceremony while maintaining everyday services. Decide whether learning/reflection need independent rules only after the activity proves worthwhile. |
 
-**Campaign recommendation:** use the existing quarry/hall for **Built to last**, then habitat and expansion for **The living woods**. Use **A place to call home** to test service placement and, later, carpenter improvements. Reserve one later level for a chosen civic ambition. The main roadmap's unfinished food-service integration and open human pacing/visual reviews still come first. New resources are not prerequisites for making the current campaigns more challenging.
+**Campaign recommendation:** use the existing quarry/hall for **Built to last**, then habitat and expansion for **The living woods**. Use **A place to call home** to test service placement and, later, carpenter improvements. Reserve one later level for a chosen civic ambition. The main roadmap's meal-service player review and open human pacing/visual reviews still come first. New resources are not prerequisites for making the current campaigns more challenging.
 
 For a longer level, plan an opening village problem, a consequential investment, and a later stage that tests that investment. Preview the later expectation before the player commits to growth. A first delivery can teach a building; completion should show residents eating, resting, gathering or using the finished project. Do not fill the middle with a larger stock quota. Costs, timings, final level count and independent need meters remain TBD.
 
