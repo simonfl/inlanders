@@ -24,7 +24,7 @@ public sealed partial class World
         var before = Reachable(YardAccess, Blocked);
         var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c) || Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.DemolitionRequested && b.Cell == c));
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
-            .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access))
+            .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access))
             .Concat(People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination));
         if (access.Where(before.Contains).Concat(People.Select(At))
             .Concat(People.Where(p => p.Route.Count > 0).Select(p => p.Route.Peek())).Any(c => !after.Contains(c)))
@@ -43,6 +43,7 @@ public sealed partial class World
         ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
         _yardPlanks += site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
+        _stone+=site.DeliveredStone;
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
         Food.Bread += site.OutputBread;
@@ -57,6 +58,7 @@ public sealed partial class World
     {
         if (tree.Owner is int owner) Interrupt(People[owner]);
         if (tree.Material == Resource.Logs) _yardLogs += tree.Logs;
+        else if(tree.Material==Resource.Stone) _stone+=tree.Logs;
         else _yardPlanks += tree.Logs;
         Trees.Remove(tree);
         _retry = 0;

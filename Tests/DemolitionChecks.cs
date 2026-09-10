@@ -8,6 +8,7 @@ public static class DemolitionChecks
     static World Built(BuildingKind kind)
     {
         var w = World.NewCreative(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
+        if(kind is BuildingKind.Quarry or BuildingKind.GatheringHall) w.Map.StoneDeposits.Add(new() { Id=0,Cell=new(5,-2),Capacity=16,Remaining=16 });
         if(kind==BuildingKind.FishingDock)
         {
             w.Map.Water.Add(new(3,-1));
@@ -17,8 +18,13 @@ public static class DemolitionChecks
         var json = JsonNode.Parse(w.SaveJson())!; json["Creative"] = false;
         var building = json["Buildings"]![0]!; int cost = Buildings.Get(kind).Cost;
         building["Delivered"] = cost;
-        int logs = kind == BuildingKind.Lodge ? cost / 2 : cost;
-        if (kind == BuildingKind.Lodge) json["SawnLogs"] = logs;
+        int logs = Buildings.Get(kind).Material==Resource.Planks ? cost / 2 : cost;
+        if (Buildings.Get(kind).Material==Resource.Planks) json["SawnLogs"] = logs;
+        if(kind==BuildingKind.GatheringHall)
+        {
+            building["DeliveredStone"]=12; json["QuarriedStone"]=12;
+            json["Map"]!["StoneDeposits"]![0]!["Remaining"]=4;
+        }
         json["Food"]!["InitialBerries"] = 1000; json["Food"]!["Berries"] = 1000;
         if (kind == BuildingKind.Stockpile) { building["StoredLogs"] = 8; logs += 8; }
         if (kind == BuildingKind.Sawmill) { building["InputLogs"] = 2; building["OutputPlanks"] = 4; json["SawnLogs"] = 2; logs += 4; }
@@ -58,12 +64,12 @@ public static class DemolitionChecks
                 }
             }
             Check(w.Cottages.Count == 0 && cargo && dismantling, $"Demolition stalled or teleported goods: {kind}");
-            int expectedLogs = kind == BuildingKind.Lodge ? 0 : Buildings.Get(kind).Cost;
+            int expectedLogs = Buildings.Get(kind).Material==Resource.Planks ? 0 : Buildings.Get(kind).Cost;
             expectedLogs += kind == BuildingKind.Stockpile ? 8 : kind == BuildingKind.Sawmill ? 2 : 0;
-            Check(w.Stored == expectedLogs && w.Planks == (kind == BuildingKind.Lodge ? 12 : kind == BuildingKind.Sawmill ? 4 : 0), $"Wrong recovery: {kind}");
+            Check(w.Stored == expectedLogs && w.Stone==Buildings.Get(kind).StoneCost && w.Planks == (Buildings.Get(kind).Material==Resource.Planks ? Buildings.Get(kind).Cost : kind == BuildingKind.Sawmill ? 4 : 0), $"Wrong recovery: {kind}");
             Check(w.Place(new(3,0), false, kind==BuildingKind.FishingDock ? kind : BuildingKind.Cottage) != null, "Demolished plot cannot be rebuilt");
         }
-        Console.WriteLine("PASS: normal demolition of nine building types, physical buffer/timber recovery, bed/service changes, cancellation, reassignment, partial saves and reuse of land.");
+        Console.WriteLine("PASS: normal demolition of all land building types, physical buffer/material recovery, bed/service changes, cancellation, reassignment, partial saves and reuse of land.");
         var river = World.NewCreative(true);
         foreach (var p in river.People) river.Assign(p.Id,Role.Unassigned);
         for (int z=river.Map.MinZ;z<=river.Map.MaxZ;z++) if (river.Map.Contains(new(7,z))) river.Map.Water.Add(new(7,z));

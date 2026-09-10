@@ -7,7 +7,7 @@ public sealed record HappinessReport(int Meals, int Choice, int Housing, int Lei
 {
     public int Score => 10 + Meals + Choice + Housing + Rest + Leisure;
     public string Mood => Score >= 85 ? "Cheerful" : Score >= 70 ? "Content" : Score >= 40 ? "Settling in" : "Unsettled";
-    public string Reasons => (Creative ? "Food needs disabled in Creative: +50/50" : $"Meals: +{Meals}/30\nVillage meal variety: +{Choice}/20 ({FoodChoices} types eaten)") + $"\nAssigned home: +{Housing}/10\nRecent home rest: +{Rest}/10\nRecent square break: +{Leisure}/20\nStarting optimism: +10";
+    public string Reasons => (Creative ? "Food needs disabled in Creative: +50/50" : $"Meals: +{Meals}/30\nVillage meal variety: +{Choice}/20 ({FoodChoices} types eaten)") + $"\nAssigned home: +{Housing}/10\nRecent home rest: +{Rest}/10\nRecent recreation: +{Leisure}/20\nStarting optimism: +10";
 }
 public sealed partial class World
 {
@@ -15,7 +15,7 @@ public sealed partial class World
         Creative ? 30 : (int)MathF.Round(30 * (1 - Food.Hunger)),
         Creative ? 20 : MealVarietyScore,
         person.HomeId!=null ? 10 : 0,
-        person.LastLeisureTime is float last && Food.Time - last < 120 ? 20 : 0,
+        person.LastLeisureTime is float last && Food.Time - last < person.LastLeisureWindow ? 20 : 0,
         Food.LastMealChoices, Creative, RecentlyRested(person) ? 10 : 0);
     public int VillageHappiness => (int)Math.Round(People.Average(p => ReadHappiness(p).Score));
     // Reward portions outside the dominant food, relative to a balanced three-food meal for this population.
@@ -30,7 +30,7 @@ public sealed partial class World
             Food.LastMealServed > Food.LastMealRequired ||
             Food.LastMealChoices != new[] { Food.LastMealBerries, Food.LastMealVegetables, Food.LastMealBread, Food.LastMealFish }.Count(n => n > 0))
             throw new InvalidOperationException("Invalid actual meal history");
-        if (Food.VegetableChoiceMeals < 0 || Food.LastMealChoices is < 0 or > 4 || People.Any(p => p.LastLeisureTime is float t &&
+        if (People.Any(p=>p.LastLeisureWindow is not (120 or 240)) || Food.VegetableChoiceMeals < 0 || Food.LastMealChoices is < 0 or > 4 || People.Any(p => p.LastLeisureTime is float t &&
             (!float.IsFinite(t) || t < 0 || t > Food.Time)))
             throw new InvalidOperationException("Invalid happiness history");
     }

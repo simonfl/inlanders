@@ -67,13 +67,13 @@ public sealed partial class World
     }
     public string RecreationSummary(Villager person)
     {
-        if(person.Task is Work.ToLeisure or Work.Leisure) return person.Task==Work.ToLeisure ? "Going to the square." : "Taking a square break.";
-        if(person.LastLeisureTime is float last && Food.Time-last<120) return $"Square break completed {(int)(Food.Time-last)}s ago.";
-        var squares=Cottages.Where(c=>c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested).ToArray();
-        if(squares.Length==0) return "No open square — build a place to meet.";
-        if(squares.All(s=>People.Count(p=>p.LeisureSiteId==s.Id)>=4)) return "Squares are busy; each serves up to four visitors.";
+        if(person.Task is Work.ToLeisure or Work.Leisure) return person.Task==Work.ToLeisure ? "Going to a recreation venue." : "Taking a recreation break.";
+        if(person.LastLeisureTime is float last && Food.Time-last<person.LastLeisureWindow) return $"Recreation break completed {(int)(Food.Time-last)}s ago; benefit lasts another {(int)(person.LastLeisureWindow-(Food.Time-last))}s.";
+        var squares=Cottages.Where(c=>Buildings.Get(c.Kind).RecreationSlots>0 && c.Complete && !c.DemolitionRequested).ToArray();
+        if(squares.Length==0) return "No open square or hall — build a place to meet.";
+        if(squares.All(s=>People.Count(p=>p.LeisureSiteId==s.Id)>=Buildings.Get(s.Kind).RecreationSlots)) return "Recreation venues are busy; squares serve four, halls eight.";
         if(Food.Time<person.NextLeisureTime) return "Waiting between visits; another break is due later.";
-        return person.Task!=Work.Waiting ? "A square break can follow the current job or rest." : "Waiting for a reachable free square spot.";
+        return person.Task!=Work.Waiting ? "A recreation break can follow the current job or rest." : "Waiting for a reachable free recreation spot.";
     }
     private void ValidateHomes()
     {

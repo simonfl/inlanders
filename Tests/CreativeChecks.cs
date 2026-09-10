@@ -9,6 +9,7 @@ public static class CreativeChecks
         foreach (var kind in Enum.GetValues<BuildingKind>().Where(k => k != BuildingKind.Bridge))
         {
             var w = World.NewCreative();
+            if(kind==BuildingKind.Quarry) w.Map.StoneDeposits.Add(new() { Id=0,Cell=new(5,-2),Capacity=16,Remaining=16 });
             if(kind==BuildingKind.FishingDock)
             {
                 w.Map.Water.Add(new(3,-1));
@@ -16,7 +17,7 @@ public static class CreativeChecks
             }
             w.Food.InitialBerries = w.Food.Berries = 0;
             var site = w.Place(new(3, 0), false, kind)!;
-            Check(site != null && site.Complete && site.Delivered == 0 && w.Stored == 0 && w.Planks == 0, $"Free placement failed: {kind}");
+            Check(site != null && site.Complete && site.Delivered == 0 && site.DeliveredStone==0 && w.Stone==0 && w.Stored == 0 && w.Planks == 0, $"Free placement failed: {kind}");
             Check(w.Place(new(3, 0)) == null, "Creative bypassed collisions");
             Check(w.RemoveBuilding(site!.Id), "Creative removal rejected");
             w.Validate();

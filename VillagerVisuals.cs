@@ -82,6 +82,11 @@ public partial class Game
         if (view.Count == worker.Carried && view.Cargo == worker.Cargo) return;
         view.Count = worker.Carried; view.Cargo = worker.Cargo; Clear(view.Carry);
         if (worker.Carried == 0) return;
+        if(worker.Cargo==Resource.Stone)
+        {
+            for(int i=0;i<worker.Carried;i++) StonePiece(view.Carry,new((i-.5f)*.26f,.04f,0),.18f);
+            return;
+        }
         if (worker.Cargo == Resource.Planks)
         {
             for (int i = 0; i < worker.Carried; i++) Plank(view.Carry, new(0, i * 0.14f, 0));
@@ -162,6 +167,10 @@ public partial class Game
         }
         switch (v.Task)
         {
+            case Work.Quarrying:
+                var deposit=_world.Map.StoneDeposits.FirstOrDefault(d=>d.Id==v.DepositId);
+                if(deposit!=null) FaceVisit(view,OnGround(deposit.Cell.X,deposit.Cell.Z)-view.Body.Position);
+                view.Hammer.Visible=true; AnimateAxeStroke(view,v.Timer); break;
             case Work.Sawing:
                 view.Saw.Visible = true; view.Arm.Rotation = new(0.8f + swing * 0.25f, 0, 0);
                 view.Torso.Rotation = new(-0.18f, 0, 0); view.LeftArm.Rotation = new(0.9f, 0, 0); break;

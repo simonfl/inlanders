@@ -7,12 +7,12 @@ using System.Text.Json.Serialization;
 namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
-public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher }
-public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock }
+public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier }
+public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying }
 
 public sealed class Villager
 {
@@ -39,11 +39,13 @@ public sealed class Villager
     [JsonInclude] public float NextLeisureTime { get; internal set; }
     [JsonInclude] public int LeisureVisits { get; internal set; }
     [JsonInclude] public float? LastLeisureTime { get; internal set; }
+    [JsonInclude] public float LastLeisureWindow { get; internal set; } = 120;
     [JsonInclude] public int? LastLeisureSiteId { get; internal set; }
     [JsonInclude] public int? HomeId { get; internal set; }
     [JsonInclude] public float NextRestTime { get; internal set; }
     [JsonInclude] public float? LastRestTime { get; internal set; }
     [JsonInclude] public int RestVisits { get; internal set; }
+    [JsonInclude] public int? DepositId { get; internal set; }
 }
 public sealed class TimberTree
 {
@@ -86,6 +88,13 @@ public sealed class Cottage
     [JsonInclude]    public int Priority { get; internal set; } = 1;
     [JsonInclude]    public int Delivered { get; internal set; }
     [JsonInclude]    public int Incoming { get; internal set; }
+    [JsonInclude] public int DeliveredStone { get; internal set; }
+    [JsonInclude] public int IncomingStone { get; internal set; }
+    public int RequiredStone => Buildings.Get(Kind).StoneCost;
+    public bool MaterialsReady => Delivered==Required && DeliveredStone==RequiredStone;
+    public int Remaining(Resource material) => material==Resource.Stone ? RequiredStone-DeliveredStone-IncomingStone : Required-Delivered-Incoming;
+    internal void ReserveMaterial(Resource material,int amount) { if(material==Resource.Stone) IncomingStone+=amount; else Incoming+=amount; }
+    internal void DeliverMaterial(Resource material,int amount) { if(material==Resource.Stone) DeliveredStone+=amount; else Delivered+=amount; }
     [JsonInclude]    public int? Builder { get; internal set; }
     [JsonInclude]    public float Construction { get; internal set; }
     [JsonInclude]    public int StoredLogs { get; internal set; }
@@ -148,7 +157,7 @@ public sealed partial class World
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
-    private bool Blocked(Cell c) => Decorations.Any(d => d.Cell == c && d.Solid) || !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
+    private bool Blocked(Cell c) => Map.StoneDeposits.Any(d=>d.Cell==c) || Decorations.Any(d => d.Cell == c && d.Solid) || !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
         Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotated, h.Kind).Contains(c));
 
     public bool CanPlace(Cell cell, bool rotated) => PlacementProblem(cell, rotated) == null;
@@ -185,6 +194,12 @@ public sealed partial class World
         if (site.Delivered > 0) RemovePaths(new[] { salvageCell });
         // Delivered timber becomes a recoverable pile rather than teleporting to storage.
         if (site.Delivered > 0) Trees.Add(new TimberTree { Id = _nextTree++, Cell = salvageCell, Logs = site.Delivered, Material = site.Material, Felled = true, Salvage = true });
+        if(site.DeliveredStone>0)
+        {
+            var stoneCell=new Cell(site.Cell.X-1,site.Cell.Z-1);
+            RemovePaths(new[]{stoneCell});
+            Trees.Add(new TimberTree { Id=_nextTree++,Cell=stoneCell,Logs=site.DeliveredStone,Material=Resource.Stone,Felled=true,Salvage=true });
+        }
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         History.Add($"{site.Kind} {id} cancelled; {site.Delivered} {site.Material} salvaged"); _retry = 0; return true;
     }
@@ -215,13 +230,13 @@ public sealed partial class World
         if (v.TreeId is int tree) Trees.Single(t => t.Id == tree).Owner = null;
         if (v.SiteId is int id && Cottages.FirstOrDefault(c => c.Id == id) is Cottage site)
         {
-            site.Incoming -= v.Reserved;
+            site.ReserveMaterial(v.Cargo,-v.Reserved);
             if (site.Builder == v.Id) site.Builder = null;
         }
-        v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.StorageId = null; v.HaulTargetId = null; v.Route.Clear(); v.Timer = 0;
+        v.DepositId=null; v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.StorageId = null; v.HaulTargetId = null; v.Route.Clear(); v.Timer = 0;
         if (v.Carried > 0)
         {
-            if (v.Cargo is Resource.Logs or Resource.Planks) ReturnTimber(v);
+            if (v.Cargo is Resource.Logs or Resource.Planks or Resource.Stone) ReturnTimber(v);
             else Go(v, YardAccess, Work.ToPantry, $"Returning carried {v.Cargo.ToString().ToLowerInvariant()}");
         }
         else { v.Task = Work.Waiting; v.Status = "Looking for work"; }
@@ -239,15 +254,16 @@ public sealed partial class World
     {
         if(v.Task is Work.ToRest or Work.Resting) v.NextRestTime=Math.Max(v.NextRestTime,Food.Time+15);
         ReleaseFoodClaims(v);
-        if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
+        if (v.LeisureSiteId is int venue) v.NextLeisureTime = Food.Time + Buildings.Get(Cottages.Single(c=>c.Id==venue).Kind).RecreationInterval;
         v.LeisureSiteId = null;
-        v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
+        v.DepositId=null; v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
         v.Timer = 0; v.Status = "Looking for work"; _retry = 0;
     }
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
         if (ClaimRest(v) || ClaimLeisure(v)) return;
+        if (v.Role == Role.Quarrier) { ClaimQuarry(v); return; }
         if (v.Role == Role.Fisher) { ClaimFishing(v); return; }
         if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
         if (v.Role == Role.Sawyer) { ClaimSawWork(v); return; }
@@ -274,22 +290,26 @@ public sealed partial class World
         var sites = Cottages.Where(c => !c.Complete).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
         foreach (var site in sites)
         {
-            if (site.Delivered == site.Required && site.Builder == null)
+            if (site.MaterialsReady && site.Builder == null)
             {
                 site.Builder = v.Id; v.SiteId = site.Id;
                 Go(v, site.Entrance, Work.ToBuild, $"Walking to build {site.Kind} {site.Id}"); return;
             }
+            foreach(var material in new[]{site.Material,Resource.Stone})
+            {
             int? source = null;
-            if (!TryMaterialSource(site.Entrance, site.Material, 1, out source)) continue;
-            int amount = Math.Min(2, Math.Min(site.Required - site.Delivered - site.Incoming, AvailableMaterialAt(source,site.Material)));
+            if (!TryMaterialSource(site.Entrance, material, 1, out source)) continue;
+            int amount = Math.Min(2, Math.Min(site.Remaining(material), AvailableMaterialAt(source,material)));
             if (amount <= 0) continue;
-            v.SiteId = site.Id; v.Reserved = amount; site.Incoming += amount;
-            v.Cargo = site.Material; v.StorageId = source;
-            Go(v, StorageAccess(source), Work.ToMaterials, $"Collecting {amount} reserved {site.Material} for {site.Kind} {site.Id}"); return;
+            v.SiteId = site.Id; v.Reserved = amount; site.ReserveMaterial(material,amount);
+            v.Cargo = material; v.StorageId = source;
+            Go(v, StorageAccess(source), Work.ToMaterials, $"Collecting {amount} reserved {material} for {site.Kind} {site.Id}"); return;
+            }
         }
         v.Status = Cottages.Any(c => c.DemolitionRequested) ? "Waiting — another builder is recovering goods or dismantling" : sites.Length == 0 ? "No construction plans — choose a building in Build" :
-            sites.All(c => c.Delivered + c.Incoming == c.Required) ? "Waiting — deliveries or another builder already cover each site" :
+            sites.All(c => c.Remaining(c.Material)==0 && c.Remaining(Resource.Stone)==0) ? "Waiting — deliveries or another builder already cover each site" :
             sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? "Waiting for planks — build a sawmill and assign a sawyer" :
+            sites.Any(c=>c.Remaining(Resource.Stone)>0) && AvailableStone==0 ? "Waiting for stone — build a quarry near an outcrop and assign a quarrier" :
             Stored == 0 ? "Waiting for timber — assign loggers" : "Waiting — stored timber is reserved by other builders";
     }
     public void Tick(float dt)
@@ -316,14 +336,17 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToQuarry: case Work.Quarrying: TickQuarry(v); break;
                 case Work.ToDock: case Work.Aboard: TickFishing(v,dt); break;
                 case Work.ToRest: v.Task=Work.Resting; v.Timer=0; v.Status="Resting beside home"; break;
                 case Work.Resting:
                     if(v.Timer>=RestSeconds) { v.RestVisits++; v.LastRestTime=Food.Time; v.NextRestTime=Food.Time+RestInterval; v.NextLeisureTime=Math.Max(v.NextLeisureTime,Food.Time+15); Finish(v); }
                     break;
                 case Work.ToDemolish: case Work.Demolishing: TickDemolition(v, dt); break;
-                case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = "Taking a break at the square"; break;
-                case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; v.LastLeisureSiteId = v.LeisureSiteId; Finish(v); } break;
+                case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = $"Taking a break at {Buildings.Get(Cottages.Single(c=>c.Id==v.LeisureSiteId).Kind).Name}"; break;
+                case Work.Leisure:
+                    var venueDefinition=Buildings.Get(Cottages.Single(c=>c.Id==v.LeisureSiteId).Kind);
+                    if (v.Timer >= venueDefinition.RecreationSeconds) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; v.LastLeisureWindow=venueDefinition.RecreationMemory; v.LastLeisureSiteId = v.LeisureSiteId; Finish(v); } break;
                 case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
                 case Work.ClearingStump:
                     if (v.Timer < 4) break;
@@ -353,7 +376,7 @@ public sealed partial class World
                     Go(v, Cottages.Single(c => c.Id == v.SiteId).Entrance, Work.ToCottage, $"Delivering {v.Carried} {v.Cargo} to site {v.SiteId}"); break;
                 case Work.ToCottage:
                     var delivery = Cottages.Single(c => c.Id == v.SiteId);
-                    delivery.Delivered += v.Carried; delivery.Incoming -= v.Reserved; v.Carried = 0; Finish(v); break;
+                    delivery.DeliverMaterial(v.Cargo,v.Carried); delivery.ReserveMaterial(v.Cargo,-v.Reserved); v.Carried = 0; Finish(v); break;
                 case Work.ToBuild: v.Task = Work.Building; v.Status = $"Building {Cottages.Single(c => c.Id == v.SiteId).Kind} {v.SiteId}"; break;
                 case Work.Building:
                     var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / Buildings.Get(build.Kind).ConstructionSeconds);
@@ -370,7 +393,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
-        Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
+        ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
         ValidateManagedWoodland();
         ValidateHappiness();
@@ -383,8 +406,9 @@ public sealed partial class World
         ValidateSawmills();
         foreach (var site in Cottages)
         {
-            Check(site.Incoming == People.Where(v => v.SiteId == site.Id).Sum(v => v.Reserved), "Orphaned site reservation");
+            Check(site.Incoming == People.Where(v => v.SiteId == site.Id && v.Cargo!=Resource.Stone).Sum(v => v.Reserved), "Orphaned site reservation");
             Check(site.Delivered >= 0 && site.Incoming >= 0 && site.Delivered + site.Incoming <= site.Required, "Over-delivery");
+            Check(site.DeliveredStone>=0 && site.IncomingStone>=0 && site.DeliveredStone+site.IncomingStone<=site.RequiredStone && site.IncomingStone==People.Where(p=>p.SiteId==site.Id && p.Cargo==Resource.Stone).Sum(p=>p.Reserved), "Invalid stone delivery/reservation");
             var builders = People.Where(v => v.SiteId == site.Id && v.Task is Work.ToBuild or Work.Building or Work.ToDemolish or Work.Demolishing).ToArray();
             Check(builders.Length == (site.Builder.HasValue ? 1 : 0) && (builders.Length == 0 || builders[0].Id == site.Builder), "Builder ownership mismatch");
         }

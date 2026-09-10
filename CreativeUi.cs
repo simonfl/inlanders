@@ -40,8 +40,8 @@ public partial class Game
             if (selected.DemolitionRequested) _siteInfo.Text = $"{Buildings.Get(selected.Kind).Name.ToUpperInvariant()} {selected.Id}\n\nDemolition ordered · service and beds unavailable";
             _removeBuildingButton.Text = selected.DemolitionRequested ? "Demolition ordered" : "Order demolition";
             _removeBuildingButton.Disabled = selected.DemolitionRequested || problem != null;
-            _removalInfo.Text = selected.DemolitionRequested ? $"Builders evacuate stored goods, then dismantle ({selected.DemolitionProgress:P0}) and haul {selected.Delivered} remaining {selected.Material.ToString().ToLowerInvariant()}. Production and beds are unavailable.\n" + (problem ?? "Keep a builder assigned. Access stays occupied until recovery finishes.") :
-                problem ?? $"Recover all {selected.Required} {selected.Material.ToString().ToLowerInvariant()} and stored goods by builder trips. Dismantling takes 12 work seconds plus hauling. Unripe crops and partial processing progress are lost when removed.\nHousing after order: {System.Math.Min(_world.Population, _world.Beds - Buildings.Get(selected.Kind).Beds)}/{_world.Population}. Production stops immediately. Cancel before dismantling begins.";
+            _removalInfo.Text = selected.DemolitionRequested ? $"Builders evacuate stored goods, then dismantle ({selected.DemolitionProgress:P0}) and haul {selected.Delivered} remaining {selected.Material.ToString().ToLowerInvariant()} + {selected.DeliveredStone} stone. Production and beds are unavailable.\n" + (problem ?? "Keep a builder assigned. Access stays occupied until recovery finishes.") :
+                problem ?? $"Recover all {Buildings.Get(selected.Kind).CostText} and stored goods by builder trips. Dismantling takes 12 work seconds plus hauling. Unripe crops and partial processing progress are lost when removed.\nHousing after order: {System.Math.Min(_world.Population, _world.Beds - Buildings.Get(selected.Kind).Beds)}/{_world.Population}. Production stops immediately. Cancel before dismantling begins.";
             return;
         }
         _removeBuildingButton.Text = "Remove building";

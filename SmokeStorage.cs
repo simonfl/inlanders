@@ -23,7 +23,7 @@ public partial class Game
             foreach(var p in _world.People) _world.Assign(p.Id,Role.Unassigned);
             for(int i=0;i<1500 && _world.People.Any(p=>p.Carried>0);i++) _world.Tick(.1f);
             await Frames(); SelectBuilding(pile.Id); await Frames();
-            Check(_storageControls.Visible && _siteInfo.Text.Contains("Log storage"),"Storage inspector missing");
+            Check(_storageControls.Visible && _siteInfo.Text.Contains("Logs storage"),"Storage inspector missing");
             await UiClick(_targetMore); Check(pile.StorageTarget==8,"Target increase failed");
             await UiClick(_targetLess); Check(pile.StorageTarget==6,"Target decrease failed");
             await UiClick(_staffPlus); await Frames();
@@ -50,7 +50,7 @@ public partial class Game
                 Check(_targetMore.GetGlobalRect().End.Y<=_inspector.GetGlobalRect().End.Y,"Storage target overflowed inspector");
                 await Capture($"artifacts/f07-stockpile-{windowSize.X}.png");
                 OpenEconomy(); await Frames(); _drawerPages[4].EnsureControlVisible(_storageLinks[pile.Id]); await Frames();
-                Check(_storageLinks[pile.Id].Text.Contains("12/12 logs"),"Per-location economy missing");
+                Check(_storageLinks[pile.Id].Text.Contains("12/12 logs",StringComparison.OrdinalIgnoreCase),"Per-location economy missing");
                 await Capture($"artifacts/f07-economy-{windowSize.X}.png");
             }
             SelectBuilding(pile.Id); await Frames();

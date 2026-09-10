@@ -45,6 +45,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--field-work-smoke-test")) CallDeferred(MethodName.RunFieldWorkSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--social-smoke-test")) CallDeferred(MethodName.RunSocialSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--quarry-smoke-test")) CallDeferred(MethodName.RunQuarrySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
@@ -240,7 +241,7 @@ public partial class Game : Node3D
             for (int i = 0; i < t.Logs; i++)
             {
                 var at = new Vector3(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f);
-                if (t.Material == Resource.Planks) Plank(view.Pile, at); else Log(view.Pile, at, 0.65f);
+                if (t.Material == Resource.Stone) StonePiece(view.Pile,at); else if (t.Material == Resource.Planks) Plank(view.Pile, at); else Log(view.Pile, at, 0.65f);
             }
         }
         if (_lastStored != _world.YardLogs || _lastPlanks != _world.YardPlanks)
@@ -252,7 +253,7 @@ public partial class Game : Node3D
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)
         {
-            int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered > 0 ? 1 : 0;
+            int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered+h.DeliveredStone > 0 ? 1 : 0;
             if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
             int viewKey = h.Kind == BuildingKind.Stockpile ? stage * 100 + h.StoredLogs + h.StoredPlanks + (h.StorageMaterial==Resource.Planks?1000:0) : stage;
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;

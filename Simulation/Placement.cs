@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     // A null problem is the authoritative permission to place; UI and commands use the same checks.
-    public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
+    public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind==BuildingKind.Quarry && !Map.StoneDeposits.Any(d=>d.Remaining>0 && (d.Cell.Point-cell.Point).LengthSquared()<=16 && Accessible(d.Access)) ? "Quarry needs a reachable, unexhausted stone outcrop within 4 tiles. Find stone on Three clearings." : kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
         Footprint(cell, rotated).Append(Door(cell, rotated)).All(Map.Contains) && !Map.LevelGround(Footprint(cell, rotated).Append(Door(cell, rotated))) ? "Choose level ground for the footprint and entrance." :
         CheckPlacement(Footprint(cell, rotated).ToHashSet(), Door(cell, rotated));
 
@@ -28,6 +28,7 @@ public sealed partial class World
         if (footprint.Any(Map.Water.Contains)) return "Water needs a bridge; buildings and planting require dry land.";
         if (Decorations.Any(d => footprint.Contains(d.Cell))) return "Remove decorations from this footprint first.";
         if (footprint.Contains(Stockpile)) return "The timber yard occupies this spot.";
+        if(Map.StoneDeposits.Any(d=>footprint.Contains(d.Cell) || footprint.Contains(d.Access))) return "Keep the stone outcrop and its working access clear.";
         var tree = Trees.FirstOrDefault(t => t != reusableStump && footprint.Contains(t.Cell));
         if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
         if (Bushes.Any(b => footprint.Contains(b.Cell))) return "Berry bushes occupy this footprint.";
@@ -41,7 +42,7 @@ public sealed partial class World
         var worker = People.FirstOrDefault(v => footprint.Contains(At(v)) || (v.Route.TryPeek(out var next) && footprint.Contains(next)));
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
         bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Append(YardAccess).Append(entrance);
+        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Append(YardAccess).Append(entrance);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))

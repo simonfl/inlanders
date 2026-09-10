@@ -38,7 +38,7 @@ public sealed partial class World
             if (count == 0) return false;
             int amount = Math.Min(2, count); set(count - amount);
             site.Builder = null; Finish(v); v.Carried = amount; v.Cargo = resource;
-            if (resource is Resource.Logs or Resource.Planks) ReturnTimber(v);
+            if (resource is Resource.Logs or Resource.Planks or Resource.Stone) ReturnTimber(v);
             else Go(v, YardAccess, Work.ToPantry, $"Recovering {amount} {resource} from demolition");
             return true;
         }
@@ -53,6 +53,7 @@ public sealed partial class World
             site.DemolitionProgress = Math.Min(1, site.DemolitionProgress + dt / DismantleSeconds); return;
         }
         if (Take(site.Delivered, n => site.Delivered = n, site.Material)) return;
+        if (Take(site.DeliveredStone,n=>site.DeliveredStone=n,Resource.Stone)) return;
         if (RemovalProblem(site.Id) is string problem) { v.Status = "Demolition waiting: " + problem; return; }
         site.Builder = null; Finish(v); Cottages.Remove(site);
         foreach (var person in People.Where(p => p.Route.Count > 0)) SetRoute(person, person.Destination);

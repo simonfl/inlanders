@@ -43,7 +43,7 @@ public partial class Game
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
         BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock=>2,
-        BuildingKind.Sawmill=>3,
+        BuildingKind.Sawmill or BuildingKind.Quarry=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
     };
@@ -54,7 +54,7 @@ public partial class Game
     private string BuildingStatus(Cottage site)
     {
         if(!site.Complete)
-            return $"{site.Construction:P0} built · {site.Delivered}/{site.Required} {site.Material.ToString().ToLowerInvariant()} · {PriorityNames[site.Priority]}";
+            return $"{site.Construction:P0} built · {site.Delivered}/{site.Required} {site.Material.ToString().ToLowerInvariant()}{(site.RequiredStone>0?$" + {site.DeliveredStone}/{site.RequiredStone} stone":"")} · {PriorityNames[site.Priority]}";
         if (site.WorkPaused) return "Paused · inspect to resume";
         return site.Kind switch
         {
@@ -63,6 +63,7 @@ public partial class Game
             BuildingKind.VegetableGarden=>site.Harvest>0?$"{site.Harvest} vegetables ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to plant",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
+            BuildingKind.Quarry=>_world.ReadWorkplace(site).State,
             BuildingKind.Sawmill=>$"{site.InputLogs} logs in · {site.OutputPlanks} planks ready",
             BuildingKind.ForagerHut=>$"{_world.People.Count(p=>p.WorkplaceId==site.Id)}/2 foragers working",
             BuildingKind.Bridge=>"Open crossing", _=>"Gathering place"

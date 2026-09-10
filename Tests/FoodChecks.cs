@@ -99,7 +99,7 @@ public static class FoodChecks
         var node = JsonNode.Parse(stock.SaveJson())!; node["Version"] = 999;
         bool refused = false; try { World.LoadJson(node.ToJsonString()); } catch (InvalidDataException) { refused = true; }
         Check(refused, "Unsupported save accepted");
-        node["Version"] = 28; node["Food"]!["Bread"] = -1;
+        node["Version"] = new WorldSave().Version; node["Food"]!["Bread"] = -1;
         refused = false; try { World.LoadJson(node.ToJsonString()); } catch (InvalidOperationException) { refused = true; }
         Check(refused, "Corrupt inventory save accepted");
         string path = Path.Combine(Path.GetTempPath(), "inlanders-save-" + Guid.NewGuid() + ".json");

@@ -35,6 +35,8 @@ public partial class Game
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
+        BuildingKind.Quarry => "One quarrier extracts 2 stone in 6 work seconds, then carries it to central storage. Needs a reachable outcrop within 4 tiles. Deposits are finite and shared by nearby camps; pause or set a stock target to reserve stone for later.",
+        BuildingKind.GatheringHall => "A stone-and-plank recreation venue for up to 8 visitors, in the same footprint as a square. No staff. Leave walkable space around the entrance; 12-second visits satisfy recreation for 4 minutes, with a 2-minute interval before returning. Squares are cheaper and can be spread near homes.",
         BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
         BuildingKind.Stockpile => "Stores 12 logs or planks; choose its material when empty. Producers deposit locally and builders collect here without haulers. Optional haulers balance targets. Food stays at the pantry.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
@@ -132,7 +134,7 @@ public partial class Game
                 $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers";
             return;
         }
-        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."; return; }
+        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."+(_buildKind==BuildingKind.Quarry?"\n"+_world.QuarrySurvey(_hover):""); return; }
         var definition = Buildings.Get(_buildKind);
         int available = definition.Material == Inlanders.Simulation.Resource.Planks ? _world.AvailablePlanks : _world.Available;
         int cost = definition.Cost;
@@ -140,5 +142,7 @@ public partial class Game
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
         if(!_plantingTrees && _placing && _buildKind==BuildingKind.FishingDock) _buildDescription.Text+="\n\n"+_world.FishingSurvey(_hover,_rotated);
+        if(!_plantingTrees && _placing && _buildKind==BuildingKind.Quarry) _buildDescription.Text+="\n\n"+_world.QuarrySurvey(_hover);
+        if(!_plantingTrees && definition.StoneCost>0) _buildDescription.Text+=$"\n{_world.AvailableStone} stone available · {definition.StoneCost} needed. Stone is hauled from the central store.";
     }
 }

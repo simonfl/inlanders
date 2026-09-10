@@ -11,7 +11,7 @@ public sealed partial class World
     {
         BuildingKind.ForagerHut => Resource.Berries, BuildingKind.Farm => Resource.Grain,
         BuildingKind.VegetableGarden => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
-        BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
+        BuildingKind.Quarry => Resource.Stone, BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
     };
     public bool SetWorkplacePaused(int id, bool paused)
     {
@@ -35,6 +35,7 @@ public sealed partial class World
             People.Count(p => p.WorkplaceId is int id && Cottages.Any(c => c.Id == id && c.Kind == kind && !c.Planted && c.Harvest == 0) && p.Task is Work.ToFarm or Work.Planting) * yield;
         return resource switch
         {
+            Resource.Stone => Stone+cargo+People.Where(p=>p.DepositId!=null).Sum(p=>p.Reserved),
             Resource.Planks => PendingPlanks,
             Resource.Fish => Food.Fish + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
             Resource.Berries => Food.Berries + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
@@ -75,7 +76,7 @@ public sealed partial class World
                 Work.ToGrain or Work.ToSawLogs => "Fetching input", Work.ToOven or Work.ToSawmill => "Delivering input",
                 Work.ToPantry or Work.ToStockpile => "Delivering output", Work.ToBread or Work.ToPlanks => "Collecting output",
                 Work.Baking => "Baking", Work.Sawing => "Sawing", Work.Planting => "Sowing",
-                Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
+                Work.Quarrying => "Quarrying", Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
             };
             return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
@@ -90,6 +91,7 @@ public sealed partial class World
             return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess);
         if (site.Kind == BuildingKind.ForagerHut && !Bushes.Any(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)))
             return new("Waiting for berries", "Berries are regrowing, claimed, or beyond reach. Inspect foragers and the map.");
+        if(site.Kind==BuildingKind.Quarry) return new(QuarryDeposits(site).Any(d=>AvailableDeposit(d)>0)?"Waiting for a quarrier":"Outcrop exhausted or claimed",QuarrySurvey(site.Cell));
         if(site.Kind==BuildingKind.FishingDock)
         {
             var grounds=Map.FishingGrounds.Where(g=>FindBoatRoute(site.Launch,g.Cell)!=null).ToArray();

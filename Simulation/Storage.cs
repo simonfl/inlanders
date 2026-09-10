@@ -10,7 +10,7 @@ public sealed partial class World
     private IEnumerable<int?> MaterialStores(Resource material) => new int?[] { null }.Concat(Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete && !c.DemolitionRequested && c.StorageMaterial==material).Select(c => (int?)c.Id));
     private Cottage Store(int id) => Cottages.Single(c => c.Id == id && c.Kind == BuildingKind.Stockpile && c.Complete);
     private Cell StorageAccess(int? id) => id is int n ? Store(n).Entrance : YardAccess;
-    public int MaterialAt(int? id,Resource material) => id is int n ? material==Resource.Logs ? Store(n).StoredLogs : Store(n).StoredPlanks : material==Resource.Logs ? _yardLogs : _yardPlanks;
+    public int MaterialAt(int? id,Resource material) => material==Resource.Stone ? id==null ? _stone : 0 : id is int n ? material==Resource.Logs ? Store(n).StoredLogs : Store(n).StoredPlanks : material==Resource.Logs ? _yardLogs : _yardPlanks;
     public int LogsAt(int? id) => MaterialAt(id,Resource.Logs);
     public int ReservedLogsAt(int? id) => ReservedMaterialAt(id,Resource.Logs);
     public int IncomingLogsAt(int? id) => IncomingMaterialAt(id,Resource.Logs);
@@ -26,7 +26,7 @@ public sealed partial class World
     private void ChangeMaterial(int? id,Resource material,int amount)
     {
         if(id is int n) { if(material==Resource.Logs) Store(n).StoredLogs+=amount; else Store(n).StoredPlanks+=amount; }
-        else if(material==Resource.Logs) _yardLogs+=amount; else _yardPlanks+=amount;
+        else if(material==Resource.Stone) _stone+=amount; else if(material==Resource.Logs) _yardLogs+=amount; else _yardPlanks+=amount;
     }
     public string? StorageMaterialProblem(int id)
     {
@@ -119,7 +119,7 @@ public sealed partial class World
                 (c.Kind==BuildingKind.Stockpile && c.Complete || c.StoredPlanks==0) &&
                 (c.StorageMaterial==Resource.Logs ? c.StoredPlanks==0 : c.StoredLogs==0) && c.StoredLogs+c.StoredPlanks<=StockpileCapacity,"Invalid stockpile material/inventory");
         }
-        foreach(var material in new[]{Resource.Logs,Resource.Planks})
+        foreach(var material in new[]{Resource.Logs,Resource.Planks,Resource.Stone})
         foreach (var id in MaterialStores(material))
         {
             Check(MaterialAt(id,material) >= 0 && AvailableMaterialAt(id,material) >= 0, "Storage over-reserved");

@@ -4,7 +4,25 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 **Design loop:** a resident need gives a project a purpose; geography offers different ways to meet it; buildings turn that opportunity into a functioning service; residents visibly use the result. Each new system should strengthen that loop rather than add another mandatory meter.
 
+**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is next. The full quarry campaign, small gardens and wildlife remain future work.
+
 ## Start with residents
+
+### Planning rule: a need creates choices, not a shopping list
+
+Build campaign briefs from the following compact service palette. These are design roles, not promises of additional meters or finalized balance. A level can emphasize one row while familiar systems keep the settlement running.
+
+| Resident desire | Alternative ways to satisfy it | Environmental pressure to test | What makes the result satisfying |
+| --- | --- | --- | --- |
+| **Eat reliably** | Gather berries, cultivate vegetables/bread, fish, or later hunt. | A lake with scarce farmland; woodland that can supply either timber or game; food sites far from homes. | See different food journeys end in meals. The player can explain why their chosen mix suits this map. |
+| **Have a home and rest** | Compact cottages or denser lodges, placed near daily destinations. Later improve existing homes through a carpenter. | Level land is shared with fields and civic places; distant terraces offer space at a travel cost. | Occupied homes and completed rest visits make a neighborhood feel inhabited. Better placement should have a legible benefit. |
+| **Spend time together / have fun** | Squares and the gathering hall; later small seating gardens or occasional performances. | Several scattered neighborhoods versus one central site; a stone project competes with immediate food and housing work. | People actually gather. Compare convenience, visit frequency, land and investment rather than require every venue. |
+| **Learn or accomplish something together** | Candidate adult workshop, reading room or a restoration project. | A damaged bridge, abandoned mill or civic ruin provides a possible local purpose; restoration mechanics remain TBD. | Attendance leads to a visible capability or completed project. Defer generic education scores until there is a concrete decision they improve. |
+| **Reflect, celebrate or express village identity** | Candidate chapel, shrine, reflection garden or secular gathering ceremony. | A scenic hill, woodland edge or waterfront is useful public space but may be inconvenient to reach. | A distinctive place, sound and resident activity. Initially test this as an alternative recreation/project theme; keep a separate spiritual need TBD. |
+
+**Example later-level brief:** begin with a fed but dispersed settlement beside woods and rock. Residents need more convenient recreation. The player can maintain distributed squares while investing in a hall, choose a nearby small outcrop or a distant larger one, and protect food staffing through construction. Success includes actual participation and continuing meals. The quarry is a means to improve village life, not the final goal. A hall introduction may require using the hall; later levels should accept other recreation arrangements.
+
+For each new level, write down only: **starting village problem; environmental opportunity; new building or alternative; two plausible approaches; visible resident payoff; recovery from a poor choice**. Leave quantities and duration TBD until the prototype exposes useful decisions. Introduce at most one unfamiliar production/service chain at a time. Keep all technically usable buildings available; campaign unlock restrictions remain a later polish option.
 
 Food, housing and leisure now include actual meal portions, assigned homes, home rest and square visits. Playtest those routines before adding more independent needs.
 
@@ -41,7 +59,7 @@ These are candidates to prototype, not a commitment to implement every row. Exac
 | --- | --- | --- |
 | **Fishing dock + small boat** | Turn accessible water and fish habitat into an alternative food supply. Timber/plank investment; fish are immediately edible. | A productive distant fishing ground versus a convenient landing. See the boat return with its catch. |
 | **Quarry work camp** | Extract finite stone from marked outcrops. Initial construction uses existing materials. | Commit workers and transport to a lasting improvement while maintaining food supply. The rock face and stockpile visibly change. |
-| **Gathering hall** | Candidate first stone consumer: a larger recreation venue for a growing neighborhood, with actual visits and capacity. The existing square remains useful. | Invest in one larger destination or distribute smaller squares. Its interior activity and gatherings should justify the construction effort. Prototype this purpose before choosing it over a durable crossing. |
+| **Gathering hall** | Implemented first stone consumer: longer, less frequent recreation with actual visits and eight visitor slots. The existing square remains useful. | Invest in one larger destination or distribute smaller squares. Its gatherings should justify the construction effort. The prototype currently uses outdoor attendance; indoor seating is not simulated. |
 | **Hunting lodge** | Supply game from retained woodland habitat; nearby lodges draw from the same animal population. | Preserve an irregular woodland edge or clear it for fields. Animals, tracks and returning hunters explain the connection. |
 | **Carpenter** | Convert planks and work into visible furnishing improvements for existing homes. Start with a home-upgrade order rather than a new globally stockpiled furniture resource. | Improve present residents' comfort or spend those materials on expansion. Porches, shutters or furnishings make the choice visible. |
 | **Village garden / seating** | Candidate small recreation alternative with low capacity and little or no dedicated staffing; occupies useful land near homes. | Several convenient small meeting places versus a staffed central venue. Residents actually sit and meet. Keep decorative planting separate from any promised service. |
@@ -125,7 +143,7 @@ These need not follow alphabetical order: F25c can ship with the quarry's first 
 Use these as the default scope boundaries when choosing a chunk:
 
 - **Water → shared fishing grounds → dock/boat → delivered fish → meals.** Compare complete boat, unloading and pantry trips. A farther dock is not automatically better when food still goes to the central pantry. Show launch access, expected travel and stock before investment.
-- **Outcrop → quarry → hauled stone → gathering hall → attended recreation.** The hall is the leading consumer to prototype, with a durable crossing as an alternative if venue capacity adds little. Define that crossing's useful difference first. Finite stone must cover the campaign project with a recovery margin; an exhausted quarry must not leave the player permanently stuck.
+- **Outcrop → quarry → hauled stone → gathering hall → attended recreation.** The hall prototype now supplies the first consumer; its longer, less frequent visits distinguish it from squares. A durable crossing remains a later candidate only if it offers a useful difference. Finite stone must cover the campaign project with a recovery margin; an exhausted quarry must not leave the player permanently stuck.
 - **Retained woods → shared wildlife habitat → hunting lodge → delivered game → meals.** Explain the effect of clearing before confirming an order. Replanting restores habitat over time; gardens and gathering provide an alternative during recovery. Animal species are initially visual variation, not separate inventories.
 - **Managed timber → sawmill → carpenter → improved occupied homes → comfort.** Let the player improve a favorite neighborhood without adding population. Visible inhabited homes are part of the reward, not just a higher aggregate score.
 
@@ -135,11 +153,11 @@ For **Built to last**, test a compact hall-centered neighborhood against distrib
 
 ## Next design decisions: make each addition earn its place
 
-The recommended next **new campaign system** is **F26b + F25c: quarry and gathering hall**, now that woodland/logistics and work/home/social presentation have shipped. It connects a new landscape resource to an existing resident need, so we can deepen the game without inventing another satisfaction meter. The main roadmap now promotes F26b1 as the next prototype; F26b2 remains a separate authored scenario after human pacing feedback.
+**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. Next is F21i service feedback, then consider F26c wildlife. F26b2 remains a separate authored scenario after human pacing feedback.
 
 ### Stone country: a project with a reason
 
-Prototype the gathering hall as a compact, covered recreation venue with more simultaneous visitors than a square, but a substantial timber/stone investment. Start without a permanent entertainer: travel, capacity, footprint and construction effort are enough variables to compare. Exact numbers remain TBD. The hall should show seated groups and a substantial roof, entrance and masonry, so completing it changes the village visibly.
+The implemented hall costs 8 planks + 12 stone, serves eight, and uses 12-second visits with a 240-second benefit and 120-second return interval. No permanent entertainer. Its masonry, arch and roof distinguish it from squares; residents currently gather outside. Capacity alone failed the first comparison, so the adopted difference is longer, less frequent recreation. Costs remain provisional pending player review.
 
 **Built to last** starts with working food production and two plausible deposits: a small nearby outcrop beside valuable village land and a larger distant deposit with an awkward route. The player chooses a source and stages construction around everyday meals. A first stone delivery teaches the chain; opening and actually using the hall supplies the scenario's civic project. Distributed squares can keep residents served during construction and remain useful afterward. Other scenarios should allow either venue to satisfy recreation.
 
@@ -186,7 +204,7 @@ Start each new level brief with **what residents want, what the landscape offers
 
 ### Small chunks to choose when campaign work resumes
 
-1. **F26b + F25c, stone-to-community prototype:** one outcrop type, quarry, physical stone transport and a gathering hall using existing recreation. Include deposit/placement feedback, a distinct masonry model and visible attendance. Compare against squares before building the full scenario. Keep exact costs, capacities and storage rules TBD until the transport experiment; the quarry must be affordable without stone.
+1. **F26b1 + F25c hall, implemented stone-to-community prototype:** finite outcrops, quarry, physical stone transport and a gathering hall using existing recreation. Deposit/placement feedback, masonry architecture and visible attendance are included. The square comparison led to longer, less frequent hall visits; current costs and capacities are recorded in the prototype review and remain provisional for balance. Review its value in human play before building the full scenario.
 2. **Built to last, scenario pass:** give the player nearby limited stone and a larger distant source, with useful land competing around them. Teach the first delivery, then stage construction and growth around keeping residents fed and served. A small deposit must not create an irreversible dead end; offer enough total stone and recoverable construction choices.
 3. **F26c, woods-to-meals prototype:** shared habitat, lodge, visible animals and delivered game. Make hunting pressure and tree loss separately readable and recoverable. Existing gardens/fishing remain alternatives; no leather, weapons or butcher prerequisite.
 4. **The living woods, scenario pass:** expansion competes with established habitat. Test broad preservation versus mixed hunting/cultivation, plus recovery from excessive clearing. Judge the supported village and habitat condition, not a required number of lodges.
@@ -201,7 +219,7 @@ This is the order within the future campaign track; the main roadmap still owns 
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a used existing population and buildings.
 3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
 4. F26a implemented fishing and the seventh campaign. F11b2 has now revised that lake around scarce central plots, limited natural food, distant timber and service travel. Deliberate routes complete in 10/18 scripted minutes; a nearby square recovers an awkward plan in 16 instead of 25. See [F11b2 findings](LAKE_DIFFICULTY_F11B2.md). Human pacing remains open; F02b now supplies preservation and managed replanting; F07b now explains trips and supports useful local plank storage. F03b/F04b now present work, home rests and mutual square visits; neighborhood food service remains a later F07c design.
-5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.
+5. F26b1 now supplies finite stone and an attended gathering hall. F21i service feedback comes next; F26b2 scenario authoring waits for human pacing feedback. F26c follows if habitat preservation offers decisions distinct from managed logging.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.
 
 For each system: explain placement prerequisites before construction, trace real goods/service visits, show depletion or unmet needs clearly, and test a competent plan plus recovery from a plausible bad choice. Review worker/route performance before enlarging populations or adding many boats/animals. A new building earns its place through a visible purpose and a decision the player can understand.

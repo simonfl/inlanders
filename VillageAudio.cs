@@ -82,14 +82,15 @@ public partial class Game
             trace.Distance += System.Numerics.Vector2.Distance(trace.Position, v.Position); trace.Position = v.Position;
             if (trace.Cargo > v.Carried) WorldCue(Cue.Drop, OnGround(v.Position.X,v.Position.Y,.5f), v.Id);
             trace.Cargo = v.Carried;
-            if(v.Task==Work.Chopping && _world.Trees.Any(t=>t.Id==v.TreeId && !t.Felled))
+            if(v.Task==Work.Quarrying || v.Task==Work.Chopping && _world.Trees.Any(t=>t.Id==v.TreeId && !t.Felled))
             {
                 int beat=(int)MathF.Floor(v.Timer-.75f);
-                if(trace.ChopTree!=v.TreeId) { trace.ChopTree=v.TreeId; trace.ChopBeat=beat; }
+                int? workSource=v.Task==Work.Quarrying ? -1-v.DepositId : v.TreeId;
+                if(trace.ChopTree!=workSource) { trace.ChopTree=workSource; trace.ChopBeat=beat; }
                 if(beat>trace.ChopBeat)
                 {
                     trace.ChopBeat=beat;
-                    if(_soundTime>=trace.Next) { WorldCue(Cue.Chop,OnGround(v.Position.X,v.Position.Y,.5f),v.Id); trace.Next=_soundTime+.35f; }
+                    if(_soundTime>=trace.Next) { WorldCue(v.Task==Work.Quarrying?Cue.Hammer:Cue.Chop,OnGround(v.Position.X,v.Position.Y,.5f),v.Id); trace.Next=_soundTime+.35f; }
                 }
                 continue;
             }

@@ -27,6 +27,7 @@ public sealed partial class MapLayout
         if (Name == null || Width is < 4 or > 128 || Depth is < 4 or > 128 || MinX is < -128 or > 128 || MinZ is < -128 or > 128 ||
             Water == null || Excluded == null || Water.Any(c => !Contains(c)) || Excluded.Any(c => c.X < MinX || c.X > MaxX || c.Z < MinZ || c.Z > MaxZ) || Excluded.Count >= Width * Depth)
             throw new InvalidDataException("Invalid map layout");
+        if(StoneDeposits==null) throw new InvalidDataException("Missing stone deposits");
         ValidateTerrain(); ValidateFishingGrounds();
     }
 }
@@ -46,6 +47,8 @@ public sealed partial class World
             w.Trees.Add(new() { Id = w._nextTree++, Cell = cell, Logs = 8 });
         if (withWater) for (int z = -9; z <= 9; z++) w.Map.Water.Add(new(7, z));
         if (withHills) w.Map.AuthorMeadows();
+        if(withWater && withHills)
+            w.Map.StoneDeposits.AddRange(new[]{new StoneDeposit { Id=0,Cell=new(-7,5),Capacity=16,Remaining=16 },new StoneDeposit { Id=1,Cell=new(11,4),Capacity=48,Remaining=48 }});
         w.InitialLogs = w.Trees.Sum(t => t.Logs);
         foreach (var cell in new[] { new Cell(-10, -6), new(8, 6), new(-5, 10) }) w.Bushes.Add(new() { Id = w.Bushes.Count, Cell = cell });
         w.Food.InitialBerries = w.Food.Berries = 64;
@@ -65,7 +68,7 @@ public sealed partial class World
     {
         Map.Validate();
         var occupied = new HashSet<Cell> { Stockpile };
-        foreach (var cell in Trees.Select(t => t.Cell).Concat(Bushes.Select(b => b.Cell)))
+        foreach (var cell in Trees.Select(t => t.Cell).Concat(Bushes.Select(b => b.Cell)).Concat(Map.StoneDeposits.Select(d=>d.Cell)))
             if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
         foreach (var site in Cottages)
         {
@@ -84,7 +87,7 @@ public sealed partial class World
         if (!Map.Contains(Stockpile) || Map.Water.Contains(Stockpile)) throw new InvalidDataException("Yard outside dry land");
         var reached = Reachable(YardAccess, Blocked);
         // Resources may wait on the far bank; existing villagers and building entrances must remain usable.
-        if (Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Any(c => Blocked(c) || (Map.Water.Count == 0 && !reached.Contains(c))) ||
+        if (Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Any(c => Blocked(c) || (Map.Water.Count == 0 && !reached.Contains(c))) ||
             Cottages.Select(c => c.Entrance).Concat(People.Select(At)).Concat(MeetingSpots).Any(c => !reached.Contains(c)))
             throw new InvalidDataException("Map cuts off village access");
     }

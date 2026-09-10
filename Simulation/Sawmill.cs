@@ -73,7 +73,7 @@ public sealed partial class World
         foreach (var c in Cottages)
             Check(c.InputLogs is >= 0 and <= 2 && c.OutputPlanks is >= 0 and <= 4 && float.IsFinite(c.SawProgress) && c.SawProgress >= 0 && c.SawProgress < 1 &&
                 (c.Kind == BuildingKind.Sawmill || (c.InputLogs == 0 && c.OutputPlanks == 0 && c.SawProgress == 0)), "Invalid sawmill buffer");
-        foreach (var t in Trees) Check(t.Material == Resource.Logs || (t.Material == Resource.Planks && t.Salvage && t.Felled), "Invalid salvage material");
+        foreach (var t in Trees) Check(t.Material == Resource.Logs || (t.Material is Resource.Planks or Resource.Stone && t.Salvage && t.Felled), "Invalid salvage material");
         foreach (var v in People)
         {
             if (v.Task is Work.ToSawLogs or Work.ToSawmill or Work.Sawing or Work.ToPlanks)

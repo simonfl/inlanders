@@ -1,5 +1,8 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--water")) { try { WaterChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+if (args.Contains("--quarry")) { try { QuarryChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
 if (args.Contains("--river")) { RiverChecks.Run(); return; }
 if (args.Contains("--homes")) { HomeChecks.Run(); return; }
 if (args.Contains("--fish")) { FishChecks.Run(); return; }
@@ -12,6 +15,8 @@ if (args.Contains("--local-storage")) { try { LocalStorageExperiments.Run(); } c
 if (args.Contains("--plank-storage")) { try { PlankStorageChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--balance")) { BalanceExperiments.Run(); return; }
 
+try
+{
 static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }
 static void Steps(World w, int count) { for (int i = 0; i < count; i++) { w.Tick(0.1f); w.Validate(); } }
 static void Until(World w, Func<bool> done, string message, int max = 12000)
@@ -143,3 +148,6 @@ LakeChecks.Run();
 ManagedWoodlandChecks.Run();
 SupplyRouteChecks.Run();
 PlankStorageChecks.Run();
+QuarryChecks.Run();
+}
+catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; }

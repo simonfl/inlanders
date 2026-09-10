@@ -26,7 +26,7 @@ public static class WaterChecks
         Check(northSouth.Place(new(3,-2),false,BuildingKind.Bridge) != null, "North-south span rejected");
         World.LoadJson(northSouth.SaveJson());
         var w = Divided();
-        Check(w.Place(new(10,4)) == null,"Construction allowed without a route across water");
+        Check(w.Place(new(9,5)) == null,"Construction allowed without a route across water");
         Check(w.Place(new(7,3)) == null && w.PlantTree(new(7,3)) == null && !w.SetPath(new(7,3),true), "Dry-land tool accepted water");
         Check(w.Place(new(7,3),false,BuildingKind.Bridge) == null, "Bridge accepted banks along the river");
         Check(w.Place(new(3,3),true,BuildingKind.Bridge) == null,"Bridge accepted dry land");
@@ -45,8 +45,9 @@ public static class WaterChecks
         Until(copy,()=>copy.Cottages.Single().Complete);
         Check(w.SaveJson()==copy.SaveJson(),"Bridge continuation diverged");
         Check(!w.Cancel(bridge.Id),"Completed crossing could be removed under workers");
-        var house=w.Place(new(10,4));
-        Check(house!=null,"Completed bridge did not unlock far bank construction");
+        // The new outcrop occupies (11,4); use clear land to isolate bridge access.
+        var house=w.Place(new(9,5));
+        Check(house!=null,"Completed bridge did not unlock far bank construction: "+w.PlacementProblem(new(9,5),false));
         bool crossed=false;
         for(int i=0;i<18000 && !house!.Complete;i++) {
             w.Tick(.1f); w.Validate();
