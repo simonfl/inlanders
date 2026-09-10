@@ -4,7 +4,7 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 **Design loop:** a resident need gives a project a purpose; geography offers different ways to meet it; buildings turn that opportunity into a functioning service; residents visibly use the result. Each new system should strengthen that loop rather than add another mandatory meter.
 
-**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is next. The full quarry campaign, small gardens and wildlife remain future work.
+**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is implemented in People; the woodland wildlife prototype is next. The full quarry campaign, small gardens and wildlife remain future work.
 
 ## Start with residents
 
@@ -153,7 +153,7 @@ For **Built to last**, test a compact hall-centered neighborhood against distrib
 
 ## Next design decisions: make each addition earn its place
 
-**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. Next is F21i service feedback, then consider F26c wildlife. F26b2 remains a separate authored scenario after human pacing feedback.
+**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. F21i service feedback is implemented; next prototype F26c wildlife. F26b2 remains a separate authored scenario after human pacing feedback.
 
 ### Stone country: a project with a reason
 
@@ -219,7 +219,7 @@ This is the order within the future campaign track; the main roadmap still owns 
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a used existing population and buildings.
 3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
 4. F26a implemented fishing and the seventh campaign. F11b2 has now revised that lake around scarce central plots, limited natural food, distant timber and service travel. Deliberate routes complete in 10/18 scripted minutes; a nearby square recovers an awkward plan in 16 instead of 25. See [F11b2 findings](LAKE_DIFFICULTY_F11B2.md). Human pacing remains open; F02b now supplies preservation and managed replanting; F07b now explains trips and supports useful local plank storage. F03b/F04b now present work, home rests and mutual square visits; neighborhood food service remains a later F07c design.
-5. F26b1 now supplies finite stone and an attended gathering hall. F21i service feedback comes next; F26b2 scenario authoring waits for human pacing feedback. F26c follows if habitat preservation offers decisions distinct from managed logging.
+5. F26b1 now supplies finite stone and an attended gathering hall. F21i service feedback is implemented; F26b2 scenario authoring waits for human pacing feedback. F26c follows if habitat preservation offers decisions distinct from managed logging.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.
 
 For each system: explain placement prerequisites before construction, trace real goods/service visits, show depletion or unmet needs clearly, and test a competent plan plus recovery from a plausible bad choice. Review worker/route performance before enlarging populations or adding many boats/animals. A new building earns its place through a visible purpose and a decision the player can understand.

@@ -125,6 +125,7 @@ public partial class Game
     }
     private void MakePeopleMenu(VBoxContainer column)
     {
+        MakeServiceCoverage(column);
         column.AddChild(Text("WORK ASSIGNMENTS", 12));
         foreach (var role in Enum.GetValues<Role>().Where(r => r != Role.Unassigned))
         {
@@ -266,7 +267,7 @@ public partial class Game
             var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
-        UpdateVillageDirectory();
+        UpdateVillageDirectory(); UpdateServiceCoverage();
         UpdateStorageControls();
         UpdateBuildDescription();
         UpdateBuildCatalog();

@@ -5,7 +5,7 @@ using System.Linq;
 public partial class Game
 {
     private Label _homeNeeds=null!;
-    private Button _homeLink=null!, _moveHome=null!, _previewHome=null!;
+    private Button _homeLink=null!, _moveHome=null!, _previewHome=null!, _recreationLink=null!;
     private OptionButton _homeChoice=null!;
     private string _homeChoiceKey="";
     private World? _homeUiWorld;
@@ -19,6 +19,8 @@ public partial class Game
             SelectBuilding(id); _focus=OnGround(home.Cell.X,home.Cell.Z); UpdateCamera();
         });
         _personDetails.AddChild(_homeLink);
+        _recreationLink=Button("Show recreation venue",()=> { if(_selectedPerson>=0) ShowServicePlace(ServiceVenue(_world.People[_selectedPerson])); });
+        _personDetails.AddChild(_recreationLink);
         _homeChoice=DirectoryFilter(_personDetails,"Choose a completed home with a spare bed.");
         _previewHome=Button("Preview selected home",()=>
         {
@@ -55,6 +57,9 @@ public partial class Game
         }
         _homeNeeds.Text=$"HOME · {(person.HomeId is int id ? homes.FirstOrDefault(h=>h.Id==id)?.Kind+" "+id : "Not assigned")}\n{_world.RestSummary(person)}\n\nRECREATION\n{_world.RecreationSummary(person)}";
         _homeLink.Disabled=person.HomeId==null;
+        var venue=_world.Cottages.FirstOrDefault(c=>c.Id==ServiceVenue(person));
+        _recreationLink.Visible=venue!=null;
+        _recreationLink.Text=venue==null?"Show recreation venue":$"{(person.LeisureSiteId!=null?"Current outing":"Last visit")} · {BuildingName(venue.Kind)} {venue.Id}";
         int chosen=_homeChoice.Selected>=0 ? _homeChoice.GetSelectedId() : -1;
         _previewHome.Disabled=!homes.Any(h=>h.Id==chosen);
         _moveHome.Disabled=chosen==person.HomeId || _world.HomeAssignmentProblem(person.Id,chosen)!=null;

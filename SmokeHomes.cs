@@ -8,7 +8,7 @@ public partial class Game
 {
     private async void RunHomeSmoke()
     {
-        try { await CheckHomeUi(); GetTree().Quit(); }
+        try { await CheckHomeUi(); await CheckServiceCoverageUi(); GetTree().Quit(); }
         catch(Exception e) { GD.PrintErr("HOME SMOKE FAIL: "+e); GetTree().Quit(1); }
     }
     private async Task CheckHomeUi()

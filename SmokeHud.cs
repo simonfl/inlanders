@@ -77,7 +77,7 @@ public partial class Game
         await CheckVegetableUi();
             await CheckLeisureUi();
             await CheckDecorationUi();
-            await CheckHappinessUi(); await CheckHomeUi(); await CheckDemolitionUi();
+            await CheckHappinessUi(); await CheckHomeUi(); await CheckServiceCoverageUi(); await CheckDemolitionUi();
             await CheckCameraViewsUi();
             await CheckVisitorUi();
     }

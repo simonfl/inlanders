@@ -101,6 +101,8 @@ This offers a simpler food source with fewer buildings and jobs; grain plus baki
 
 **People [V]** shows each villager's name and role. Filter the roster to a role, Unassigned, or Idle; the count shows how many match. Newcomer invitations sit above the roster.
 
+At the top of People, expand **Rest / recreation** to see who lacks recent completed visits. Filter for rest, recreation, either, or everyone; follow resident, home and current/last venue links to investigate. Counts come from actual visits. A square gives two minutes of recreation benefit, a hall four; new residents may simply be waiting for their first outing. The resident inspector also links to their recreation venue.
+
 **Build [B]** has three sections. **Place** shows model thumbnails, purpose, material cost and staffing; choose a card to start a preview. **Landscape** contains planting, clearing, paths and decorations. **Existing** lists your buildings, with construction/completed filters and live status; select a row to inspect. Place and Existing share the Homes, Food, Industry, Storage & crossings, and Community categories. Selected-tool guidance and Cancel stay below the scrolling list; hover over the guidance for full details.
 
 In **Economy [I]**, select a log storage location to move the camera there. Stockpile links also open its inspector so you can change the target or staffing. The timber-yard link centers the camera and clears the previous selection.
