@@ -54,8 +54,8 @@ public partial class Game
             }
             return;
         }
-        if (site.Kind == BuildingKind.Bakery) { MakeBakery(parent, stage); return; }
-        if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, stage); return; }
+        if (site.Kind == BuildingKind.Bakery) { MakeBakery(parent, site, stage); return; }
+        if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
         if (site.Kind == BuildingKind.VegetableGarden) { MakeVegetableGarden(parent, stage); return; }
         if (site.Kind == BuildingKind.Farm) { MakeFarm(parent, stage); return; }

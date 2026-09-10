@@ -86,7 +86,7 @@ public partial class Game : Node3D
         var log = Cylinder(parent, at, 0.13f, length, _wood); log.RotationDegrees = new(0, 0, 90);
         var end = Cylinder(parent, at + new Vector3(length / 2 + 0.002f, 0, 0), 0.115f, 0.015f, new("d4b17e")); end.RotationDegrees = new(0, 0, 90);
     }
-    private void MakeCottage(Node3D parent, int stage, int variant = 0)
+    private void MakeLegacyCottage(Node3D parent, int stage, int variant = 0)
     {
         Box(parent, new(0, 0.08f, 0), new(2.9f, 0.16f, 1.9f), new("b9b099"));
         if (stage < 1) return;

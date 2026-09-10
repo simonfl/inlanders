@@ -8,7 +8,7 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**Recommended next feature: F23a — a convincing three-building visual slice.** Establish appealing silhouettes, materials, ground contact, and visible activity before expanding the catalog or adding resource chains. The bounded post-supper save repair has shipped.
+**F23a is implemented and awaiting visual feedback.** Review the [matched before/after scene](ART_REVIEW_F23A.md) before expanding the style across the catalog. **Next independent chunk: F21g — clearer building and management UI.** It can proceed while the visual direction is being judged; F23b follows acceptance or another focused art iteration. The bounded post-supper save repair has shipped.
 
 See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. Candidate costs there are experiments, not adopted balance changes. **UI remains a major priority.**
 
@@ -18,7 +18,7 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 
 | Order | ID | Playable chunk | What success looks like |
 | --- | --- | --- | --- |
-| 1 | F23a | **Visual identity slice.** Redesign cottage, bakery and sawmill together in one small village scene. Strong masses, thick structural forms, recessed openings, real ground contact, and useful working/stocked states. Keep costs and footprints unchanged for comparison. | The user finds the scene compelling at the actual play camera. All three are recognizable without labels at 960/1440 and from four directions. Do not expand the style until this works. |
+| Review | F23a | **Visual identity slice — implemented, aesthetic acceptance pending.** Cottage porch/window depth, thick roofs and stone feet; bakery oven mass and recessed shop; open braced sawmill with progress-driven saw. Workshop displays follow real buffers. Costs and footprints unchanged. | Review the scene at the actual camera, without labels, at 960/1440 and four directions. The user finds the direction compelling before F23b proceeds; another focused iteration remains possible. |
 | 2 | F23b | **The complete building family.** Apply the visual language to the other seven types: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
 | 3 | F21g | **A clear building and management interface.** Visual building cards with purpose/cost/staff; separate Place, Landscape and Existing buildings. Selected-tool guidance stays nearby. Fix text-entry camera movement and stale activity labels; make world-label visibility controllable. | A player can choose the right building and understand the next step without reading a long manual. Typing never pans the camera. A quiet Watch view works without floating-label clutter. |
 | 4 | F24 | **Building roles and investment.** Test the full catalog's material, land, labor, startup and payoff tradeoffs. Compare cottage/lodge efficiency, food alternatives and stockpile usefulness. Centralize definitions when tuning. | Multiple defensible building choices; prices match purpose and do not merely add waiting. All UI and campaign goals agree with adopted values. Initial candidate ranges are in the review, with final values TBD. |
@@ -73,6 +73,7 @@ Before population, map size, or decoration density expands further, profile a de
 | F21e | Watch mode with a small playback/camera bar, preserved selection/follow, and easy return to management. |
 | F21f | Role/idle roster filters and role labels; building categories, construction-state filters and live site summaries; clickable storage locations with camera/inspector jumps. Invitations sit above the growing roster. Filters reset when switching settlements. |
 | F22 | Distinct farm/forager construction stages and wheat growth through progressively harvested rows and stubble. Bakery and other buildings also have distinct procedural models. |
+| F23a implementation | Revised cottage/bakery/sawmill models and construction stages; actual input/output stock displays, baking-only oven glow and pause-aware saw motion. Matched comparison and repeatable art scene available. Visual acceptance remains open above. |
 
 ## Current campaign reference — F11 / F18
 

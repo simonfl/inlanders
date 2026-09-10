@@ -39,6 +39,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--menu-smoke-test")) CallDeferred(MethodName.RunMainMenuSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--art-smoke-test")) CallDeferred(MethodName.RunArtSmoke);
     }
     private void CreateActors()
     {
@@ -229,12 +230,22 @@ public partial class Game : Node3D
             int stage = h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered > 0 ? 1 : 0;
             if (!_cottages.TryGetValue(h.Id, out var view)) { view = (new Node3D(), -1); _dynamic.AddChild(view.Body); }
             int viewKey = h.Kind == BuildingKind.Stockpile ? stage * 100 + h.StoredLogs : stage;
+            if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
+            if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;
             if (view.Stage != viewKey)
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 view.Body.Position = OnGround(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
                 view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, viewKey);
             }
+            if (h.Complete && h.Kind == BuildingKind.Sawmill)
+            {
+                var blade = view.Body.GetNode<Node3D>("SawBlade");
+                // Progress is simulation time: pause and interrupted batches hold their pose.
+                blade.Position = new(0, MathF.Sin(h.SawProgress * Mathf.Tau * 12) * .13f, 0);
+            }
+            if (h.Complete && h.Kind == BuildingKind.Bakery)
+                view.Body.GetNode<Node3D>("OvenGlow").Visible = _world.People.Any(p => p.WorkplaceId == h.Id && p.Task == Work.Baking);
         }
     }
 }

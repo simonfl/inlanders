@@ -237,6 +237,7 @@ See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional fol
 | `Simulation/Maps.cs`, `MapVisuals.cs` | Saved map dimensions/land cells, larger authored map, terrain instancing, camera overview and map switching |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs`, `FieldVisuals.cs` | Procedural geometry, lighting, crops, pantry |
+| `ArchitectureVisuals.cs`, `BakeryVisuals.cs` | Cottage/bakery forms, shared timber/roof/stone details and production stock displays |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
@@ -279,6 +280,8 @@ Map checks build in three distant clearings, harvest the outer groves, preserve 
 Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and legacy saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
 
 The first roadmap shipped playable versions of the five-level campaign, Creative mode, raised terrain, logistics, social breaks, happiness, decoration, music, and the management UI. The second-phase roadmap addresses visual appeal, building roles and costs, player clarity, and deeper satisfaction; see docs/DESIGN_REVIEW.md for the assessment.
+
+The first visual slice revises cottages, bakeries and sawmills while keeping their footprints and costs. See the [matched art comparison](docs/ART_REVIEW_F23A.md). Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ArtSmokeTest` to render a small working village, four camera directions at 960/1440, grayscale and construction sheets, plus workshop motion frames under `artifacts/`. The check verifies stock and activity presentation; visual appeal still needs player judgment.
 
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 
