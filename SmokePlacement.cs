@@ -17,7 +17,7 @@ public partial class Game
         _rotated = false;
         foreach (var kind in Enum.GetValues<BuildingKind>())
         {
-            if (kind == BuildingKind.Bridge) continue; // Water previews are exercised in the map smoke test.
+            if (kind is BuildingKind.Bridge or BuildingKind.FishingDock) continue; // Shore/water previews have dedicated map/fishery checks.
             BeginPlacement(kind);
             await Move(_camera.UnprojectPosition(new(3, 0, 0)));
             Check(_ghost.Visible && _ghostValid && _previewMaterials.Count > 0, $"Missing legal {kind} preview: visible={_ghost.Visible}, hover={_hover}, reason={_placementProblem}, pointer={GetViewport().GetMousePosition()}");

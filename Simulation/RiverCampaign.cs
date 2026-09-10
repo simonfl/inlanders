@@ -17,7 +17,8 @@ public sealed partial class World
     public bool IsRiverCampaign => Campaign?.Level == 6;
     public int EastBankBeds => Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Cell.X>5).Sum(c=>Buildings.Get(c.Kind).Beds);
     public int EastBankRecreation => People.Count(p=>p.LastLeisureTime is float last && Food.Time-last<120 && Cottages.Any(c=>c.Id==p.LastLeisureSiteId && c.Kind==BuildingKind.Square && c.Cell.X>5 && c.Complete && !c.DemolitionRequested));
-    private int DeliveredEdible => DeliveredBerries + DeliveredVegetables + DeliveredBread;
+    public int DeliveredFish => Food.Fish+Food.EatenFish;
+    private int DeliveredEdible => DeliveredBerries + DeliveredVegetables + DeliveredBread + DeliveredFish;
     public string? RiverPreparationProblem(bool final)
     {
         if(EastBankBeds<(final?8:4)) return $"Finish {(final?8:4)} beds on the east bank, across the river.";
@@ -47,8 +48,8 @@ public sealed partial class World
         if(!IsRiverCampaign || Campaign!.River is not { Phase: 1 or 3 } river) return;
         if(river.Phase==1 && river.Meals>=2) return;
         river.Required+=Population;
-        int eaten=Food.LastMealBerries+Food.LastMealVegetables+Food.LastMealBread;
-        int varied=eaten-Math.Max(Food.LastMealBerries,Math.Max(Food.LastMealVegetables,Food.LastMealBread));
+        int eaten=Food.LastMealServed;
+        int varied=Food.LastMealNonDominant;
         string? problem=RiverPreparationProblem(river.Phase==3);
         problem ??= eaten<Population ? "A meal did not feed everyone." : varied<(Population+3)/4 ? "A meal needed more portions outside its dominant food." :
             DeliveredEdible-river.DeliveredBaseline<river.Required ? "Fresh pantry deliveries did not cover the meals consumed." : null;

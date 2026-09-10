@@ -11,6 +11,15 @@ public sealed partial class World
     {
         if (Food.Celebrating) return "Wait until supper is over.";
         if (!Map.Contains(cell) || !Map.Water.Contains(cell)) return "Place the bridge on a one-tile-wide stretch of water.";
+        if (Cottages.Any(c => c.Kind == BuildingKind.FishingDock && c.Launch == cell)) return "Keep the fishing dock's launch clear.";
+        foreach(var dock in Cottages.Where(c=>c.Boat?.FisherId!=null))
+        {
+            var boat=dock.Boat!;
+            var position=new Cell((int)System.MathF.Round(boat.Position.X),(int)System.MathF.Round(boat.Position.Y));
+            var reachable=Reachable(dock.Launch,c=>c==cell || BoatBlocked(c));
+            if(!reachable.Contains(position) || boat.Route.Contains(cell) || boat.GroundId is int ground && !reachable.Contains(Map.FishingGrounds.Single(g=>g.Id==ground).Cell))
+                return "This crossing would block an active fishing trip. Pause the dock and let its boat return first.";
+        }
         if (Cottages.Any(c => Footprint(c.Cell, c.Rotated, c.Kind).Contains(cell))) return "A bridge already occupies this crossing.";
         var near = Door(cell, rotated); var far = FarBank(cell, rotated);
         if (!Map.Contains(near) || !Map.Contains(far) || Map.Water.Contains(near) || Map.Water.Contains(far))

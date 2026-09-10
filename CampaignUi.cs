@@ -19,7 +19,7 @@ public partial class Game
     private void MakeCampaignUi(VBoxContainer column)
     {
         _campaignControls = new(); column.AddChild(_campaignControls);
-        _riverAction = Button("", () => { if (_world.AdvanceRiverPhase()) SaveWorld(); else Notice(_world.RiverActionProblem() ?? "Keep developing the village."); });
+        _riverAction = Button("", () => { if (_world.IsLakeCampaign ? _world.AdvanceLakePhase() : _world.AdvanceRiverPhase()) SaveWorld(); else Notice((_world.IsLakeCampaign ? _world.LakeActionProblem() : _world.RiverActionProblem()) ?? "Keep developing the village."); });
         _campaignControls.AddChild(_riverAction);
         _tutorialText = Text("", 15, true); _campaignControls.AddChild(_tutorialText);
         _dismissHint = Button("Dismiss this hint", () => { var hint = _world.CurrentCampaignHint(); if (hint != null) _world.Campaign!.Dismissed.Add(hint.Id); }); _campaignControls.AddChild(_dismissHint);
@@ -105,8 +105,8 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
-        _riverAction.Visible = _world.IsRiverCampaign && campaign?.Complete != true && campaign!.River!.Phase < 3;
-        if (_riverAction.Visible) { _riverAction.Text = _world.RiverActionLabel; _riverAction.Disabled = _world.RiverActionProblem() != null; _riverAction.TooltipText = _world.RiverActionProblem() ?? "Advance this settlement's next phase when you are ready."; }
+        _riverAction.Visible = campaign?.Complete != true && (_world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2);
+        if (_riverAction.Visible) { var problem=_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
         _progress.Visible = !_world.Creative;
         if (_world.Creative)
         {
@@ -120,6 +120,7 @@ public partial class Game
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
         if (_world.IsRiverCampaign && campaign!.River!.Phase>0) _goalArrival.Text = "Grow at your own pace. Food can come from either bank; assessments count actual pantry deliveries, meals and square visits.";
+        if (_world.IsLakeCampaign && campaign!.Lake!.Phase>0) _goalArrival.Text = "Grow when ready. Choose a food mix and give residents time to rest and meet. The assessment needs three consecutive full mixed meals with fresh supply.";
         _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : $"{World.CampaignLevels.Length} settlements to learn at your own pace.";
         if (campaign == null) return;
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;

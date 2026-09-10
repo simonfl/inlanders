@@ -32,6 +32,7 @@ public partial class Game
     private static string BuildingName(BuildingKind kind) => Buildings.Get(kind).Name;
     private static string TaskName(Work task) => task switch
     {
+        Work.ToDock => "To fishing dock", Work.Aboard => "Aboard fishing boat",
         Work.ToHaulPickup => "Collecting logs", Work.ToHaulDrop => "Hauling logs",
         Work.ToTree => "To timber", Work.Chopping => "Logging", Work.ToStockpile => "Hauling",
         Work.ToSapling or Work.PlantingTree => "Planting tree", Work.ToSawLogs => "Fetching logs",
@@ -59,7 +60,7 @@ public partial class Game
         layer.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _topBar = HudPanel(_hud); var top = new HBoxContainer(); top.AddThemeConstantOverride("separation", 16); _topBar.AddChild(top);
         _brand = Text("INLANDERS", 18); _brand.Modulate = _cream; top.AddChild(_brand);
-        foreach (var resource in new[] { Resource.Logs, Resource.Planks, Resource.Berries, Resource.Grain, Resource.Bread, Resource.Vegetables })
+        foreach (var resource in new[] { Resource.Logs, Resource.Planks, Resource.Berries, Resource.Grain, Resource.Bread, Resource.Vegetables, Resource.Fish })
         {
             var col = new VBoxContainer { CustomMinimumSize = new(62, 0), SizeFlagsHorizontal = Control.SizeFlags.ExpandFill };
             col.AddThemeConstantOverride("separation", 0); top.AddChild(col);
@@ -213,9 +214,10 @@ public partial class Game
         _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? "Creative: food needs disabled; full work speed. Production and hauling still use real resources." : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");
         foreach (var (resource, label) in _resourceValues)
-            label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, _ => _world.Food.Bread }).ToString();
+            label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, Resource.Fish => _world.Food.Fish, _ => _world.Food.Bread }).ToString();
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
         _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · select a sawmill to inspect its stock target";
+        _resourceValues[Resource.Fish].GetParent<Control>().Visible=_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0;
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.Food.Bread)} / {_world.SupperCost}";
         _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.Food.Bread) / (float)_world.SupperCost * 50;
         _supperButton.Disabled = !_world.CanCelebrate;
@@ -243,6 +245,7 @@ public partial class Game
             BuildingKind.Stockpile => $"Log storage · {_world.LogsAt(selected.Id)}/{World.StockpileCapacity}\n{_world.ReservedLogsAt(selected.Id)} reserved · {_world.IncomingLogsAt(selected.Id)} arriving\nTarget: {selected.LogTarget} logs\nBuilders and sawyers collect here; haulers balance targets.",
             BuildingKind.Cottage or BuildingKind.Lodge => $"{Buildings.Get(selected.Kind).Beds} beds ready\nResidents: {string.Join(", ",_world.People.Where(p=>p.HomeId==selected.Id).Select(p=>p.Name))}\n{_world.People.Count(p=>p.HomeId==selected.Id && p.Task==Work.Resting)} resting here. Change homes from a resident's inspector.",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
+            BuildingKind.FishingDock => "Fishing dock · 1 fisher slot\nOne boat carries catches from shared fishing grounds to this landing.",
             BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
@@ -263,7 +266,7 @@ public partial class Game
         UpdateStorageControls();
         UpdateBuildDescription();
         UpdateBuildCatalog();
-        _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
+        _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "1 shore tile + launch" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;

@@ -19,6 +19,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (site == null || !site.Complete) return "Choose a completed building.";
         if (Food.Celebrating) return "Wait until supper finishes.";
+        if(site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId!=null) return "Pause the dock and wait for its fisher to return before removing it.";
         if (site.Kind != BuildingKind.Bridge) return null;
         var before = Reachable(YardAccess, Blocked);
         var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c) || Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.DemolitionRequested && b.Cell == c));

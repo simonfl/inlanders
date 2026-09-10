@@ -11,13 +11,15 @@ public sealed partial class World
     {
         BuildingKind.ForagerHut => Resource.Berries, BuildingKind.Farm => Resource.Grain,
         BuildingKind.VegetableGarden => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
-        BuildingKind.Sawmill => Resource.Planks, _ => null
+        BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
     };
     public bool SetWorkplacePaused(int id, bool paused)
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && ProductionOutput(c.Kind) != null);
         if (site == null || Food.Celebrating) return false;
-        site.WorkPaused = paused; _retry = 0; return true;
+        site.WorkPaused = paused;
+        if(paused && site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId is int fisher) Interrupt(People[fisher]);
+        _retry = 0; return true;
     }
     public bool SetOutputTarget(int id, int target)
     {
@@ -34,6 +36,7 @@ public sealed partial class World
         return resource switch
         {
             Resource.Planks => PendingPlanks,
+            Resource.Fish => Food.Fish + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
             Resource.Berries => Food.Berries + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
             Resource.Grain => Food.Grain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
             Resource.Vegetables => Food.Vegetables + cargo + Crops(BuildingKind.VegetableGarden, 8),
@@ -56,7 +59,10 @@ public sealed partial class World
         if (!site.Complete) return new("Under construction", "Builders must finish this workplace first.");
         var workers = People.Where(p => p.WorkplaceId == site.Id).ToArray();
         if (Food.Celebrating) return new("Village supper", "Work resumes after everyone gathers.");
+        if (site.WorkPaused && site.Kind==BuildingKind.FishingDock) return new(workers.Length>0 ? "Recalling boat" : "Paused", "No new trips. A fisher at sea returns before changing jobs or leaving the dock.");
         if (site.WorkPaused) return new(workers.Length > 0 ? "Pausing · finishing work" : "Paused", "No new jobs. Current work and deliveries finish; planted crops keep growing. Resume to collect any remaining output.");
+        if(site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId is int fisher)
+            return new(People[fisher].Status, $"{People[fisher].Name} · {site.Boat.Fish} fish aboard · {site.Boat.ReservedCatch} catch reserved. Fish count as pantry supply only after delivery.");
         if (workers.Length > 0)
         {
             var p = workers[0];
@@ -83,6 +89,13 @@ public sealed partial class World
             return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess);
         if (site.Kind == BuildingKind.ForagerHut && !Bushes.Any(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)))
             return new("Waiting for berries", "Berries are regrowing, claimed, or beyond reach. Inspect foragers and the map.");
+        if(site.Kind==BuildingKind.FishingDock)
+        {
+            var grounds=Map.FishingGrounds.Where(g=>FindBoatRoute(site.Launch,g.Cell)!=null).ToArray();
+            if(grounds.Length==0) return new("No reachable fishing ground","A crossing blocks access to the fishing grounds. Restore a water route before assigning trips.");
+            return new(grounds.All(g=>AvailableFish(g)==0)?"Waiting for fish":"Waiting for a fisher",
+                string.Join("\n",grounds.Select(g=>$"{g.Name}: {AvailableFish(g)} available / {g.Capacity} capacity · +{g.RegrowthPerSecond*60:0.#}/min. Stock is shared by all docks.")));
+        }
         return new(remaining ? "Waiting for collection or work" : "Waiting for a worker", "Workers share workplaces and may be finishing another job, returning cargo, or taking a break.");
     }
     private void ValidateProduction()

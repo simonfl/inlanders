@@ -31,6 +31,7 @@ public partial class Game
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
+        BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
         BuildingKind.Stockpile => "Stores up to 12 logs. Place between woodland and timber work; local logger deposits need no hauler. Optional haulers move existing stocks to its target. Food and planks stay at the main yard.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
         BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
@@ -70,13 +71,21 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        _ghostModel.Position = OnGround(_hover.X + (!_plantingTrees && _buildKind != BuildingKind.Bridge && _rotated ? -0.5f : 0), _hover.Z + (!_plantingTrees && _buildKind != BuildingKind.Bridge && !_rotated ? -0.5f : 0), .1f);
-        _ghostModel.RotationDegrees = new(0, !_plantingTrees && _rotated ? 90 : 0, 0);
+        bool compact = _buildKind is BuildingKind.Bridge or BuildingKind.FishingDock;
+        bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && _world.DockEntrance(_hover,_rotated)==World.FarBank(_hover,_rotated);
+        _ghostModel.Position = OnGround(_hover.X + (!_plantingTrees && !compact && _rotated ? -0.5f : 0), _hover.Z + (!_plantingTrees && !compact && !_rotated ? -0.5f : 0), .1f);
+        _ghostModel.RotationDegrees = new(0, (!_plantingTrees && _rotated ? 90 : 0)+(dockFar?180:0), 0);
         Clear(_ghostCells);
         var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotated, _buildKind);
         foreach (var cell in footprint) GroundPatch(_ghostCells,cell.X,cell.Z,.94f,.94f,tint.Darkened(.15f),.06f);
-        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotated) : World.Door(_hover, _rotated);
-        var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (!_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
+        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotated) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotated) : World.Door(_hover, _rotated);
+        var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (dockFar || !_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
+        if(!_plantingTrees && _buildKind==BuildingKind.FishingDock)
+        {
+            var launch=_world.DockLaunch(_hover,_rotated);
+            GroundPatch(_ghostCells,launch.X,launch.Z,.88f,.88f,tint,.06f);
+            var sign=new Node3D { Position=OnGround(launch.X,launch.Z,.2f) }; _ghostCells.AddChild(sign); FoodSign(sign,"LAUNCH",.25f);
+        }
         Box(marker, Vector3.Zero, new(0.11f, 0.06f, 0.5f), _cream);
         foreach (float side in new[] { -1f, 1f })
         {
@@ -116,5 +125,6 @@ public partial class Game
         string material = definition.Material.ToString().ToLowerInvariant();
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
+        if(!_plantingTrees && _placing && _buildKind==BuildingKind.FishingDock) _buildDescription.Text+="\n\n"+_world.FishingSurvey(_hover,_rotated);
     }
 }

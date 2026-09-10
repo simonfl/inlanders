@@ -27,6 +27,7 @@ public partial class Game
     }
     private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)
     {
+        if (site.Kind == BuildingKind.FishingDock) { MakeFishingDock(parent,stage); return; }
         if (site.Kind == BuildingKind.Stockpile) { MakeStockpile(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Bridge)
         {
@@ -69,6 +70,7 @@ public partial class Game
     }
     private void RenderFoodViews()
     {
+        RenderFishingGrounds();
         foreach (var bush in _world.Bushes)
         {
             if (_bushViews.TryGetValue(bush.Id, out var old) && old.Ripe == bush.Ripe) continue;
@@ -96,9 +98,14 @@ public partial class Game
             else MakeCrops(root, farm, stage);
             _cropViews[farm.Id] = (root, viewKey);
         }
-        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}/{_world.Food.Vegetables}";
+        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}/{_world.Food.Vegetables}/{_world.Food.Fish}";
         if (_pantryKey == key) return;
         _pantryKey = key; Clear(_pantry);
+        if(_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0)
+        {
+            Cylinder(_pantry,new(-1.2f,.24f,3.85f),.22f,.35f,new("a58256"));
+            if(_world.Food.Fish>0) MakeFish(_pantry,new(-1.2f,.43f,3.85f));
+        }
         // The pantry shares the timber yard; displayed baskets summarize its inventories.
         foreach (var (amount, color, x) in new[] { (_world.Food.Berries, new Color("a95172"), -3.6f), (_world.Food.Grain, new Color("dabb69"), -3.0f), (_world.Food.Bread, new Color("cf914e"), -2.4f), (_world.Food.Vegetables, new Color("d88739"), -1.8f) })
         {

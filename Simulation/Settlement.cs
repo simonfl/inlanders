@@ -7,12 +7,12 @@ using System.Text.Json.Serialization;
 namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
-public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler }
-public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden }
+public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher }
+public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard }
 
 public sealed class Villager
 {
@@ -70,6 +70,8 @@ public sealed class Cottage
     public Cell Cell { get; init; }
     public bool Rotated { get; init; }
     public bool BridgeFromFar { get; init; }
+    public bool DockFromFar { get; init; }
+    public FishingBoat? Boat { get; set; }
     public BuildingKind Kind { get; init; }
     [JsonInclude]    public bool Planted { get; internal set; }
     [JsonInclude]    public float Growth { get; internal set; }
@@ -88,7 +90,8 @@ public sealed class Cottage
     [JsonInclude]    public int StoredLogs { get; internal set; }
     [JsonInclude]    public int LogTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;
-    public Cell Entrance => Kind == BuildingKind.Bridge && BridgeFromFar ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
+    public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
+    public Cell Launch => DockFromFar ? World.Door(Cell, Rotated) : World.FarBank(Cell, Rotated);
     public Resource Material => Buildings.Get(Kind).Material;
     public int Required => Buildings.Get(Kind).Cost;
 }
@@ -136,7 +139,7 @@ public sealed partial class World
     public static Cell Door(Cell c, bool rotated) => rotated ? new(c.X + 1, c.Z) : new(c.X, c.Z + 1);
     public static IEnumerable<Cell> Footprint(Cell c, bool rotated, BuildingKind kind = BuildingKind.Cottage)
     {
-        if (kind == BuildingKind.Bridge) { yield return c; yield break; }
+        if (kind is BuildingKind.Bridge or BuildingKind.FishingDock) { yield return c; yield break; }
         for (int x = -1; x <= (rotated ? 0 : 1); x++)
             for (int z = -1; z <= (rotated ? 1 : 0); z++) yield return new(c.X + x, c.Z + z);
     }
@@ -149,7 +152,7 @@ public sealed partial class World
     public Cottage? Place(Cell cell, bool rotated = false, BuildingKind kind = BuildingKind.Cottage)
     {
         if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
-        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)) }; Cottages.Add(site);
+        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
@@ -166,7 +169,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (site == null || site.Complete) return false;
         Cell salvageCell = site.Cell;
-        if (site.Kind == BuildingKind.Bridge && site.Delivered > 0)
+        if (site.Kind is BuildingKind.Bridge or BuildingKind.FishingDock && site.Delivered > 0)
         {
             var spot = Map.Land.OrderBy(c => (c.Point - site.Entrance.Point).LengthSquared()).Cast<Cell?>().FirstOrDefault(c => !Trees.Any(t => t.Cell == c!.Value) && PlantingProblem(c!.Value) == null);
             if (spot == null) return false;
@@ -199,6 +202,7 @@ public sealed partial class World
         People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
     private void Interrupt(Villager v)
     {
+        if(InterruptFishing(v)) return;
         if(v.Task is Work.ToRest or Work.Resting) v.NextRestTime=Food.Time+15;
         ReleaseFoodClaims(v);
         if (v.LeisureSiteId != null) v.NextLeisureTime = Food.Time + 60;
@@ -239,6 +243,7 @@ public sealed partial class World
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
         if (ClaimRest(v) || ClaimLeisure(v)) return;
+        if (v.Role == Role.Fisher) { ClaimFishing(v); return; }
         if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
         if (v.Role == Role.Sawyer) { ClaimSawWork(v); return; }
         if (v.Role is Role.Forager or Role.Farmer or Role.Baker) { ClaimFoodWork(v); return; }
@@ -287,6 +292,7 @@ public sealed partial class World
         AdvanceFoodTime(dt);
         AdvanceVisitor();
         AdvanceWoodland(dt);
+        foreach(var habitat in Map.FishingGrounds) habitat.Advance(dt);
         ReconcileHomes();
         dt *= Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
@@ -304,6 +310,7 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToDock: case Work.Aboard: TickFishing(v,dt); break;
                 case Work.ToRest: v.Task=Work.Resting; v.Timer=0; v.Status="Resting beside home"; break;
                 case Work.Resting:
                     if(v.Timer>=RestSeconds) { v.RestVisits++; v.LastRestTime=Food.Time; v.NextRestTime=Food.Time+RestInterval; v.NextLeisureTime=Math.Max(v.NextLeisureTime,Food.Time+15); Finish(v); }
@@ -357,7 +364,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
-        ValidateHomes(); ValidateRiverCampaign(); ValidateDemolition(); ValidateVisitor();
+        Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
         ValidateHappiness();
         ValidateDecorations();
@@ -387,7 +394,7 @@ public sealed partial class World
         {
             if (v.Task is Work.ToClearStump or Work.ClearingStump)
                 Check(Trees.Any(t => t.Id == v.TreeId && t.Owner == v.Id && t.ClearRequested && t.Logs == 0), "Invalid root-clearing worker");
-            Check(v.Carried >= 0 && v.Carried <= (v.Cargo is Resource.Bread or Resource.Grain ? 4 : 2), "Carry capacity exceeded");
+            Check(v.Carried >= 0 && v.Carried <= (v.Cargo is Resource.Bread or Resource.Grain or Resource.Fish ? 4 : 2), "Carry capacity exceeded");
             Check(!Blocked(At(v)) && v.Route.All(c => !Blocked(c)), "Worker route intersects obstacle");
             Check(v.SiteId == null || Cottages.Any(c => c.Id == v.SiteId), "Job targets cancelled site");
         }

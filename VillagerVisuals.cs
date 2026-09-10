@@ -80,6 +80,7 @@ public partial class Game
                 for (int b = 0; b < 5; b++) Mesh(view.Carry, new SphereMesh { Radius = 0.075f, Height = 0.15f, RadialSegments = 6, Rings = 3 },
                     new(x + (b % 2 - 0.5f) * 0.12f, 0.10f + b / 4 * 0.10f, (b / 2 % 2 - 0.5f) * 0.14f), new("a74268"));
             else if (worker.Cargo == Resource.Vegetables) MakeSquash(view.Carry, new(x,.12f,0), .13f);
+            else if (worker.Cargo == Resource.Fish) MakeFish(view.Carry,new(x,.12f,row));
             else if (worker.Cargo == Resource.Grain)
                 for (int s = 0; s < 4; s++)
                 {
@@ -108,6 +109,15 @@ public partial class Game
         view.Arm.Rotation = new(walking ? -swing * 0.35f : 0, 0, 0);
         view.LeftArm.Rotation = -view.Arm.Rotation;
         view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = view.Saw.Visible = false;
+        if(v.Task==Work.Aboard)
+        {
+            bool rowing=_world.PassengerBoat(v)?.Route.Count>0;
+            view.Rig.Position=new(0,-.25f,0);
+            view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
+            view.Arm.Rotation=new(.9f+(rowing?MathF.Sin(_clock*4)*.25f:0),0,-.15f);
+            view.LeftArm.Rotation=new(view.Arm.Rotation.X,0,.15f);
+            return;
+        }
         if (v.Carried > 0)
         {
             view.Arm.Rotation = view.LeftArm.Rotation = new(1.05f, 0, 0);

@@ -36,7 +36,7 @@ public partial class Game : Node3D
     {
         if (_landscape == null) { _landscape = new(); AddChild(_landscape); }
         else Clear(_landscape);
-        if (!_world.Map.OriginalOutline) { MakeExpandedLandscape(); MakeYard(); return; }
+        if (!_world.Map.OriginalOutline) { MakeExpandedLandscape(); MakeYard(); BatchStaticGeometry(_landscape); return; }
         Box(_landscape, new(0, -1.4f, 0), new(20, 2.3f, 18), new("877d62"));
         Box(_landscape, new(0, -0.22f, 0), new(20, 0.35f, 18), new("a5ac75"));
         var backdrop = Box(_landscape, new(0, -2.65f, 0), new(200, 0.1f, 200), new("8caaa6"));

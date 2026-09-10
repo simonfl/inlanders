@@ -8,6 +8,11 @@ public static class DemolitionChecks
     static World Built(BuildingKind kind)
     {
         var w = World.NewCreative(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
+        if(kind==BuildingKind.FishingDock)
+        {
+            w.Map.Water.Add(new(3,-1));
+            w.Map.FishingGrounds.Add(new FishHabitat { Id=0,Cell=new(3,-1) });
+        }
         w.Place(new(3,0), false, kind);
         var json = JsonNode.Parse(w.SaveJson())!; json["Creative"] = false;
         var building = json["Buildings"]![0]!; int cost = Buildings.Get(kind).Cost;
@@ -56,7 +61,7 @@ public static class DemolitionChecks
             int expectedLogs = kind == BuildingKind.Lodge ? 0 : Buildings.Get(kind).Cost;
             expectedLogs += kind == BuildingKind.Stockpile ? 8 : kind == BuildingKind.Sawmill ? 2 : 0;
             Check(w.Stored == expectedLogs && w.Planks == (kind == BuildingKind.Lodge ? 12 : kind == BuildingKind.Sawmill ? 4 : 0), $"Wrong recovery: {kind}");
-            Check(w.Place(new(3,0), false, BuildingKind.Cottage) != null, "Demolished plot cannot be rebuilt");
+            Check(w.Place(new(3,0), false, kind==BuildingKind.FishingDock ? kind : BuildingKind.Cottage) != null, "Demolished plot cannot be rebuilt");
         }
         Console.WriteLine("PASS: normal demolition of nine building types, physical buffer/timber recovery, bed/service changes, cancellation, reassignment, partial saves and reuse of land.");
         var river = World.NewCreative(true);

@@ -27,7 +27,7 @@ public sealed partial class MapLayout
         if (Name == null || Width is < 4 or > 128 || Depth is < 4 or > 128 || MinX is < -128 or > 128 || MinZ is < -128 or > 128 ||
             Water == null || Excluded == null || Water.Any(c => !Contains(c)) || Excluded.Any(c => c.X < MinX || c.X > MaxX || c.Z < MinZ || c.Z > MaxZ) || Excluded.Count >= Width * Depth)
             throw new InvalidDataException("Invalid map layout");
-        ValidateTerrain();
+        ValidateTerrain(); ValidateFishingGrounds();
     }
 }
 
@@ -69,7 +69,10 @@ public sealed partial class World
             if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
         foreach (var site in Cottages)
         {
-            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotated).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
+            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotated, site.Kind).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
+            if (site.Kind == BuildingKind.FishingDock && (BoatBlocked(site.Launch) || Map.Water.Contains(site.Entrance) ||
+                !Map.LevelGround(new[] { site.Cell, site.Entrance, site.Launch }) || Cottages.Any(c => c.Id != site.Id && c.Kind == BuildingKind.FishingDock && c.Launch == site.Launch)))
+                throw new InvalidDataException("Dock needs a clear, level water launch and dry entrance");
             foreach (var cell in Footprint(site.Cell, site.Rotated, site.Kind))
                 if (!Map.Contains(cell) || Map.Water.Contains(cell) != (site.Kind == BuildingKind.Bridge) || !occupied.Add(cell))
                     throw new InvalidDataException("Invalid building terrain");

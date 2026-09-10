@@ -37,6 +37,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--home-smoke-test")) CallDeferred(MethodName.RunHomeSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--fishing-smoke-test")) CallDeferred(MethodName.RunFishingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
@@ -190,6 +191,11 @@ public partial class Game : Node3D
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
             view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
+            if(_world.PassengerBoat(v) is FishingBoat boat)
+            {
+                view.Body.Position=new(boat.Position.X,.19f,boat.Position.Y);
+                view.Body.Rotation=new(0,boat.Heading,0);
+            }
             AnimateVillager(view, v);
         }
         foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
@@ -247,8 +253,9 @@ public partial class Game : Node3D
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 if (h.DemolitionRequested) { Box(view.Body, new(0,.55f,1.2f), new(.9f,.12f,.12f), new("d7a453")); Box(view.Body, new(-.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); Box(view.Body, new(.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); }
-                view.Body.Position = OnGround(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
-                view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, viewKey);
+                bool compact = h.Kind is BuildingKind.Bridge or BuildingKind.FishingDock;
+                view.Body.Position = OnGround(h.Cell.X + (!compact && h.Rotated ? -0.5f : 0), h.Cell.Z + (compact || h.Rotated ? 0 : -0.5f));
+                view.Body.RotationDegrees = new(0, (h.Rotated ? 90 : 0) + (h.Kind == BuildingKind.FishingDock && h.DockFromFar ? 180 : 0), 0); _cottages[h.Id] = (view.Body, viewKey);
             }
             if (stage == 3 && h.Kind == BuildingKind.Sawmill)
             {

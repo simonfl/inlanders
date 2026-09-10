@@ -21,13 +21,19 @@ public sealed class FoodState
     public int LastMealBerries { get; set; }
     public int LastMealVegetables { get; set; }
     public int LastMealBread { get; set; }
+    public int LastMealFish { get; set; }
+    public int LastMealServed => LastMealBerries+LastMealVegetables+LastMealBread+LastMealFish;
+    public int LastMealNonDominant => LastMealServed-Math.Max(Math.Max(LastMealBerries,LastMealVegetables),Math.Max(LastMealBread,LastMealFish));
     public int LastMealRequired { get; set; }
     public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
     public int Vegetables { get; set; }
     public int GrownVegetables { get; set; }
     public int EatenVegetables { get; set; }
-    public int EdibleStored => Berries + Vegetables + Bread;
+    public int Fish { get; set; }
+    public int CaughtFish { get; set; }
+    public int EatenFish { get; set; }
+    public int EdibleStored => Berries + Vegetables + Bread + Fish;
     public int Grain { get; set; }
     public int Bread { get; set; }
     public int GatheredBerries { get; set; }
@@ -154,6 +160,7 @@ public sealed partial class World
                 RecordFoodDelivery(v.Cargo, v.Carried);
                 switch (v.Cargo)
                 {
+                    case Resource.Fish: Food.Fish += v.Carried; break;
                     case Resource.Vegetables: Food.Vegetables += v.Carried; break;
                     case Resource.Berries: Food.Berries += v.Carried; break;
                     case Resource.Grain: Food.Grain += v.Carried; break;
@@ -200,25 +207,26 @@ public sealed partial class World
         while (Food.MealClock >= 60)
         {
             Food.MealClock -= 60;
-            var available = new[] { Food.Berries, Food.Vegetables, Food.Bread };
-            var served = new int[3];
+            var available = new[] { Food.Berries, Food.Vegetables, Food.Bread, Food.Fish };
+            var served = new int[available.Length];
             for (int portion = 0; portion < Population; portion++)
             {
                 int kind = -1;
-                for (int i = 0; i < 3; i++) if (available[i] > 0 && (kind < 0 || served[i] < served[kind])) kind = i;
+                for (int i = 0; i < available.Length; i++) if (available[i] > 0 && (kind < 0 || served[i] < served[kind])) kind = i;
                 if (kind < 0) break;
                 available[kind]--; served[kind]++;
             }
-            int berries = served[0], vegetables = served[1], bread = served[2];
+            int berries = served[0], vegetables = served[1], bread = served[2], fish = served[3];
             Food.Berries = available[0]; Food.Vegetables = available[1]; Food.Bread = available[2];
             Food.EatenBerries += berries; Food.EatenVegetables += vegetables; Food.EatenBread += bread;
             Food.LastMealBerries = berries; Food.LastMealVegetables = vegetables; Food.LastMealBread = bread; Food.LastMealRequired = Population;
+            Food.Fish=available[3]; Food.EatenFish+=fish; Food.LastMealFish=fish;
             Food.LastMealChoices = served.Count(n => n > 0);
             int quarter = (Population + 3) / 4;
-            if (berries + vegetables + bread == Population && vegetables >= quarter && berries + bread >= quarter) Food.VegetableChoiceMeals++;
-            Food.Hunger = (Population - berries - vegetables - bread) / (float)Population;
-            RecentFood.Add(new(Food.Time, Eaten: berries + vegetables + bread, Required: Population));
-            RecordRiverMeal();
+            if (Food.LastMealServed == Population && vegetables >= quarter && berries + bread + fish >= quarter) Food.VegetableChoiceMeals++;
+            Food.Hunger = (Population - Food.LastMealServed) / (float)Population;
+            RecentFood.Add(new(Food.Time, Eaten: Food.LastMealServed, Required: Population));
+            RecordRiverMeal(); RecordLakeMeal();
         }
     }
     private List<Cell> SupperSpots()
@@ -250,6 +258,7 @@ public sealed partial class World
         Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
             Food.Vegetables + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables, "Vegetable conservation failed");
         Check(Food.BakedBread == Food.UsedGrain * 2, "Recipe conversion failed");
+        Check(Food.Fish>=0 && Food.EatenFish>=0 && Food.CaughtFish>=0 && Food.Fish+Food.EatenFish+Cargo(Resource.Fish)+Cottages.Sum(c=>c.Boat?.Fish??0)==Food.CaughtFish,"Fish conservation failed");
         foreach (var bush in Bushes)
         {
             var owners = People.Where(v => v.BushId == bush.Id).ToArray();

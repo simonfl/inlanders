@@ -42,7 +42,7 @@ public partial class Game
     private static int BuildingCategory(BuildingKind kind) => kind switch
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
-        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery=>2,
+        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock=>2,
         BuildingKind.Sawmill=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5

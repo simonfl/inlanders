@@ -22,7 +22,8 @@ public static class Buildings
         new("Village square", 6, Resource.Logs),
         new("Bridge", 6, Resource.Logs),
         new("Stockpile", 4, Resource.Logs, Worker: Role.Hauler),
-        new("Vegetable garden", 4, Resource.Logs, Worker: Role.Farmer, Slots: 1)
+        new("Vegetable garden", 4, Resource.Logs, Worker: Role.Farmer, Slots: 1),
+        new("Fishing dock", 8, Resource.Logs, Worker: Role.Fisher, Slots: 1)
     };
     public static BuildingDefinition Get(BuildingKind kind) => (uint)kind < Definitions.Length
         ? Definitions[(int)kind] : throw new ArgumentOutOfRangeException(nameof(kind));

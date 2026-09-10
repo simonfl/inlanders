@@ -22,6 +22,7 @@ public partial class Game
         BuildingKind.Sawmill => "Turn logs into planks",
         BuildingKind.Stockpile => "Keep logs close to work",
         BuildingKind.Bridge => "Cross a water tile",
+        BuildingKind.FishingDock => "Bring fish ashore",
         _ => "A place to gather"
     };
     private static string BuildingStaff(BuildingKind kind)

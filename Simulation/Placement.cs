@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     // A null problem is the authoritative permission to place; UI and commands use the same checks.
-    public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
+    public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
         Footprint(cell, rotated).Append(Door(cell, rotated)).All(Map.Contains) && !Map.LevelGround(Footprint(cell, rotated).Append(Door(cell, rotated))) ? "Choose level ground for the footprint and entrance." :
         CheckPlacement(Footprint(cell, rotated).ToHashSet(), Door(cell, rotated));
 
