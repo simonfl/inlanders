@@ -8,6 +8,26 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 ## Start with residents
 
+### Campaign expansion priorities
+
+Use **food → shelter/rest → recreation → comfort → chosen civic ambitions** as a working progression. This is an order for teaching and exploring the design, not a requirement that every resident accumulate five needs. Food, home rest and recreation already have playable foundations; neighborhood meal service is currently in progress. Actual nightly sleep, education and spiritual fulfillment remain design candidates.
+
+Pair each resident outcome with a landscape decision. The first three resource families below already have prototypes; the additional consumers and systems are proposals, not implemented features.
+
+| Family | Buildings to use or explore | What the environment changes | Campaign challenge beyond the introduction |
+| --- | --- | --- | --- |
+| **Stone → shared places and access** | Existing quarry/hall; later a stone bridge or constructed terrace/retaining wall. | Finite outcrops, transport distance, narrow crossings and scarce level ground. New crossing or terrain benefits must be defined before adding the variants. | Choose between investing in access to a better settlement site and improving the existing neighborhood. Keep timber crossings and small recreation venues useful. |
+| **Water → food and connections** | Existing fishing dock/boat; later river mill or a small freight landing. | Fishing habitat, reachable banks and crossings; a mill would need authored flowing reaches, while freight would need real cargo journeys. | A lakeside village trades prime shoreland between food, homes and access. Later test carrying goods by water versus extending a land route; passenger boats and fleets stay TBD. |
+| **Woodland → timber or wildlife** | Existing hunting lodge and managed woodland; later orchard keeper. | Mature trees support habitat; clearing creates construction/farming space while reducing woodland food potential. Orchards would commit land through establishment and repeated harvests. | Expand without relying on the initial animal stock forever. Preserve a large hunting area or combine a smaller habitat with cultivated food; recover through planting and another food source. |
+| **Meadow → cultivation or livestock** | Existing gardens/farms; candidate pasture and herder shelter. | A broad contiguous clearing competes with homes and crops. Start with one edible animal product, with feed and tending rules TBD. | Decide which use of the meadow supports the village best. Prototype only if its labor/land tradeoff differs from gardens and hunting. |
+| **Homes → rest and comfort** | Existing cottages/lodges; candidate carpenter and visible home improvements. | Good residential sites compete with production; remote housing costs residents travel time. | Improve a working but inconvenient village, then choose between better existing homes and preparing for newcomers. Sleep initially remains home rest; a day/night schedule must be tested for its effect on useful work and watching. |
+| **Public space → fun and identity** | Existing square, seating garden and hall; candidate performance stage or musician visits. | Central land is convenient but valuable; distributed neighborhoods may need smaller destinations. | Make time and room for actual participation. Trial performances as occasional events using existing recreation before introducing a staffed entertainment industry. |
+| **Civic site → learning or reflection** | Candidate adult workshop/reading room; chapel, shrine or secular reflection garden. | A ruined structure, hilltop or waterfront offers a distinctive project and a choice between scenery and convenience. | Restore a useful place or prepare a shared ceremony while maintaining everyday services. Decide whether learning/reflection need independent rules only after the activity proves worthwhile. |
+
+**Campaign recommendation:** use the existing quarry/hall for **Built to last**, then habitat and expansion for **The living woods**. Use **A place to call home** to test service placement and, later, carpenter improvements. Reserve one later level for a chosen civic ambition. The main roadmap's unfinished food-service integration and open human pacing/visual reviews still come first. New resources are not prerequisites for making the current campaigns more challenging.
+
+For a longer level, plan an opening village problem, a consequential investment, and a later stage that tests that investment. Preview the later expectation before the player commits to growth. A first delivery can teach a building; completion should show residents eating, resting, gathering or using the finished project. Do not fill the middle with a larger stock quota. Costs, timings, final level count and independent need meters remain TBD.
+
 ### Planning rule: a need creates choices, not a shopping list
 
 Build campaign briefs from the following compact service palette. These are design roles, not promises of additional meters or finalized balance. A level can emphasize one row while familiar systems keep the settlement running.
