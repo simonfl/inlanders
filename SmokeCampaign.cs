@@ -72,7 +72,7 @@ public partial class Game
             GetWindow().Size=new(960,640); await Frames(); await Capture("artifacts/f11-level5-start.png");
             Check(_world.Place(new(3,-3),false,BuildingKind.VegetableGarden)!=null,"Garden lesson plot rejected");
             await FinishLevel(); await OpenMenu(2);
-            Check(_campaignBook!.Completed.SetEquals(new[]{1,2,3,4,5}) && !_nextLevel.Visible,"Campaign finale progress wrong");
+            Check(_campaignBook!.Completed.SetEquals(new[]{1,2,3,4,5}) && _nextLevel.Visible,"Introductory chapter should lead to Across the river");
             await Capture("artifacts/f11-campaign-complete.png");
             string complete = _world.SaveJson();
             _world = World.NewScenario(); _campaignBook = null; ResumeCampaignOnLaunch(); await Frames();
@@ -87,6 +87,7 @@ public partial class Game
             SaveCampaign(); SwitchCampaign(0, false); await Frames();
             Check(_world.Campaign == null && _world.SaveJson() == standalone, "Standalone snapshot was not preserved");
             GD.Print("SMOKE PASS: campaign entry, all five authored levels, tutorial controls/save/load, completion, next/replay/restore, invalid-save recovery, standalone return, and 960px layout.");
+            await CheckRiverUi();
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("CAMPAIGN SMOKE FAIL: " + e); GetTree().Quit(1); }

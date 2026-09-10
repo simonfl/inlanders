@@ -34,7 +34,7 @@ In game, use **Options → Return to main menu**. This saves the current settlem
 
 Creative saves are separate in `saves/creative.json` and `saves/creative-three-clearings.json`, with the same previous-village recovery as Free play. F5/F9 and Options map switching preserve the mode. There is no supper objective or visitor trade in Creative; the Goals panel explains its rules. Housing and square breaks still affect happiness, while food needs receive a neutral full allowance.
 
-## Campaign: five settlements
+## Campaign: five introductions and Across the river
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
@@ -43,6 +43,10 @@ Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings 
 3. **Room among the trees:** build a sawmill and lodge, house eight, and have loggers plant four trees. Marking spots alone does not count; maturity is not required.
 4. **A place for everyone:** homes, farm, and bakery are already built and staffed. Add a village square, stock two loaves per person, then host supper from Goals.
 5. **More for the table:** start with homes, a forager hut, 48 berries, and a farmer. Build a vegetable garden, deliver 16 vegetables, and serve two full meals with at least a quarter vegetable portions and a quarter other-food portions. Progress stays recorded; the gardener visit is optional.
+
+6. **Across the river:** begin with eight housed residents. Choose a crossing and grow in two player-triggered stages: twelve residents with four east-bank beds, then sixteen with eight east-bank beds and an east-bank square. House everyone, including extra arrivals. For the final stage, at least half the village must have completed an east-bank square visit within the last two minutes.
+
+Use **People** to invite pairs and **Goals** to start each assessment. The first expansion needs two consecutive full mixed meals; the final village needs three. At least a quarter of each meal's portions must be outside its dominant food, and fresh pantry deliveries since assessment began must cover consumption. Food can come from either bank. A missed condition resets the short meal streak, allowing recovery; the completed first proof stays recorded until you choose to expand. Extra residents increase actual food, housing and recreation requirements. The [scenario notes](docs/ACROSS_THE_RIVER.md) explain the design and remaining playtest questions.
 
 The square costs six logs and needs no staff. Leave one walkable tile per villager within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
@@ -60,7 +64,7 @@ F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the villag
 
 ### Water and bridges
 
-New **Three clearings** maps include a narrow stream with visible banks. Start a new Three clearings village from Free play to see it; saved maps retain their terrain. The original clearing and campaign maps remain dry.
+New **Three clearings** maps include a narrow stream with visible banks. Start a new Three clearings village from Free play to see it; saved maps retain their terrain. The original clearing and five introductory campaign maps remain dry; Across the river has its own crossing.
 
 Choose **Build → Place → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear, level dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
 
@@ -111,7 +115,7 @@ A pile is an investment, not an automatic speed boost: local harvesting can repa
 
 Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/vegetables/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
 
-The pair joins near the timber yard, unassigned. Select them in People and choose their jobs. Keep adding housing and food to invite more pairs. Arrivals are optional in campaigns and free play; every new settlement still starts with eight people.
+The pair joins near the timber yard, unassigned. Select them in People and choose their jobs. Keep adding housing and food to invite more pairs. Arrivals are optional in the five introductory campaigns and free play; Across the river requires expansion. Every new settlement starts with eight people.
 
 Meals scale with population, as do Economy coverage and supper requirements. Supper needs two loaves and one clear reachable gathering tile per person, with everyone housed. Invitations are unavailable during supper. Save/load preserves newcomers and their work.
 
@@ -228,7 +232,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart paused and retain the live village; restore it from Options (campaign replay also remains in Goals) |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 22; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 23; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 **Recovery in Options:** Restore latest autosave, Restore previous autosave, Restore village before restart, and Undo last recovery. Recovery pauses the village and validates the file and its map/mode/level before replacing anything. F5 commits a recovered autosave to the manual checkpoint; F9 continues to load the manual/session checkpoint, not the periodic autosave. Returning to the menu, switching maps, campaign completion, and closing the window also update session checkpoints.
 
@@ -294,7 +298,7 @@ Tests cover legal placements, competing workers, scarce timber, priorities, reas
 
 Audio checks inspect live Godot mixer output, muted silence, volume persistence, pause suppression, voice/cadence limits, PCM bounds, and the wind loop seam. They export WAV previews to `artifacts/f10-audio/` and use an isolated preferences file in `artifacts/`.
 
-Campaign checks complete all four levels and verify planting, physical gathering, exact saves, persistent delivery milestones, and replay. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
+Campaign checks complete all six levels and verify planting, physical gathering, exact saves, persistent delivery milestones, and replay. Run the focused rendered check with `powershell -ExecutionPolicy Bypass -File Play.ps1 -CampaignSmokeTest`; `Test.ps1 -Rendered` includes it. Screenshots go to `artifacts/f11-*.png`; campaign smoke saves use isolated temporary files.
 
 Map checks build in three distant clearings, harvest the outer groves, preserve exact saves, and reject invalid terrain. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -MapSmokeTest` for overview/camera, distant placement, fast simulation, and map-switching checks at 1440×900 and 960×640. This is also included in `Test.ps1 -Rendered`.
 

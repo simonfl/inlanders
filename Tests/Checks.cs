@@ -1,5 +1,6 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--river")) { RiverChecks.Run(); return; }
 if (args.Contains("--balance")) { BalanceExperiments.Run(); return; }
 
 static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }
@@ -125,3 +126,5 @@ GardenLessonChecks.Run();
 CreativeChecks.Run();
 TerrainChecks.Run();
 DemolitionChecks.Run();
+
+RiverChecks.Run();

@@ -8,6 +8,7 @@ namespace Inlanders.Simulation;
 
 public sealed class CampaignState
 {
+    public RiverProgress? River { get; set; }
     public int Level { get; set; }
     public bool Complete { get; set; }
     public bool Guidance { get; set; } = true;
@@ -33,7 +34,8 @@ public sealed partial class World
         new(4, "A place for everyone", "Your homes, farm, and bakery are ready. Build a village square and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
             new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1)),
         new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then serve two full meals with at least a quarter vegetables and a quarter other food. The gardener visit is optional.",
-            new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2))
+            new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2)),
+        new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available.")
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
     public int DeliveredVegetables => Food.Vegetables + Food.EatenVegetables;
@@ -58,8 +60,8 @@ public sealed partial class World
             _ => throw new ArgumentOutOfRangeException(nameof(kind))
         }) ? 1 : 0
     };
-    public double CampaignProgress => ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
-    public string CampaignObjective => string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
+    public double CampaignProgress => IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
+    public string CampaignObjective => IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
         (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
@@ -68,6 +70,7 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
+        if(level==6) { var river=NewRiverSettlement(); river.Campaign=new() { Level=6, River=new() }; river.Validate(); return river; }
         var w = level >= 3 ? NewLargeMap(false, false) : new World();
         w.Campaign = new() { Level = level };
         w.Map.Name = CampaignLevels[level - 1].Title;
@@ -93,6 +96,7 @@ public sealed partial class World
     public CampaignHint? CurrentCampaignHint()
     {
         if (Campaign == null || !Campaign.Guidance || Campaign.Complete) return null;
+        if(IsRiverCampaign) return Campaign.Dismissed.Contains("river") ? null : new("river", RiverActionProblem() ?? "Use the phase button in Goals when you are ready. Meals share available food types; Economy shows recent deliveries and what was eaten.");
         var hints = new List<CampaignHint>();
         void Hint(string id, string text, bool when = true) { if (when) hints.Add(new(id, text)); }
         bool planned = Cottages.Any(c => !c.Complete);

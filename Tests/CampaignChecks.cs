@@ -17,7 +17,7 @@ public static class CampaignChecks
     {
         var book = new CampaignBook();
         Cell[] supperSpots = Array.Empty<Cell>();
-        for (int level = 1; level <= World.CampaignLevels.Length; level++)
+        for (int level = 1; level <= 5; level++)
         {
             var w = World.NewCampaign(level);
             Check(!w.Campaign!.Complete && w.DeliveredBread == 0, "New level already credited");

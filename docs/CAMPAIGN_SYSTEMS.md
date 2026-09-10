@@ -58,7 +58,7 @@ Author contrasting starting situations: a lake with little farming space, a rock
 
 Campaign objectives should combine a project with a functioning village: open a fishing route while supporting new residents, use a new hall while keeping meals reliable, or maintain a woodland food supply through expansion. Short observation windows can prove stability; long quotas and mandatory waiting should not supply the difficulty. At least two reasonable layouts or food mixes should succeed.
 
-Keep the five current lessons as onboarding. Build **Across the river** as the first substantial scenario using existing systems, so all of these additions do not become prerequisites for getting a real campaign level. Then introduce one new environmental opportunity or resident expectation at a time. All buildings remain available where technically usable; feature unlock restrictions are still deferred.
+Keep the five current lessons as onboarding. Review the implemented **Across the river** proof using existing systems, so all of these additions do not become prerequisites for getting a real campaign level. Then introduce one new environmental opportunity or resident expectation at a time. All buildings remain available where technically usable; feature unlock restrictions are still deferred.
 
 | Campaign role / working name | Introduces or tests | Progression and decisions | Outcome direction |
 | --- | --- | --- | --- |
@@ -110,7 +110,7 @@ For each new scenario, write down two intended approaches and one recoverable mi
 ## Suggested implementation sequence
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
-2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Prototype Across the river and test actual decisions and pacing.
+2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c addresses its measured rendering cost before further growth.
 3. F25a deepens home/rest and recreation using existing buildings; no education/religion meters yet. Resident feedback belongs in the same chunk.
 4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography. Extend meal selection, last-meal feedback and variety scoring to fish in the same chunk; rebalance the score so adding a fourth food does not silently invalidate an established mixed diet.
 5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.

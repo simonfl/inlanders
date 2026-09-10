@@ -42,6 +42,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--menu-smoke-test")) CallDeferred(MethodName.RunMainMenuSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--art-smoke-test")) CallDeferred(MethodName.RunArtSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--catalog-smoke-test")) CallDeferred(MethodName.RunCatalogSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--river-smoke-test")) CallDeferred(MethodName.RunRiverSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--production-smoke-test")) CallDeferred(MethodName.RunProductionSmoke);
     }
     private void CreateActors()

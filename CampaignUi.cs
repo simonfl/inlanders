@@ -14,10 +14,13 @@ public partial class Game
     private readonly System.Collections.Generic.List<Button> _levelButtons = new();
     private bool _completionAnnounced;
     private Button _restoreReplay = null!;
+    private Button _riverAction = null!;
 
     private void MakeCampaignUi(VBoxContainer column)
     {
         _campaignControls = new(); column.AddChild(_campaignControls);
+        _riverAction = Button("", () => { if (_world.AdvanceRiverPhase()) SaveWorld(); else Notice(_world.RiverActionProblem() ?? "Keep developing the village."); });
+        _campaignControls.AddChild(_riverAction);
         _tutorialText = Text("", 15, true); _campaignControls.AddChild(_tutorialText);
         _dismissHint = Button("Dismiss this hint", () => { var hint = _world.CurrentCampaignHint(); if (hint != null) _world.Campaign!.Dismissed.Add(hint.Id); }); _campaignControls.AddChild(_dismissHint);
         _guidance = Button("", () => _world.Campaign!.Guidance = !_world.Campaign.Guidance); _campaignControls.AddChild(_guidance);
@@ -102,6 +105,8 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
+        _riverAction.Visible = _world.IsRiverCampaign && campaign?.Complete != true && campaign!.River!.Phase < 3;
+        if (_riverAction.Visible) { _riverAction.Text = _world.RiverActionLabel; _riverAction.Disabled = _world.RiverActionProblem() != null; _riverAction.TooltipText = _world.RiverActionProblem() ?? "Advance this settlement's next phase when you are ready."; }
         _progress.Visible = !_world.Creative;
         if (_world.Creative)
         {
@@ -114,6 +119,7 @@ public partial class Game
         _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
+        if (_world.IsRiverCampaign && campaign!.River!.Phase>0) _goalArrival.Text = "Grow at your own pace. Food can come from either bank; assessments count actual pantry deliveries, meals and square visits.";
         _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : $"{World.CampaignLevels.Length} settlements to learn at your own pace.";
         if (campaign == null) return;
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;

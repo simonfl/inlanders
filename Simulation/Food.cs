@@ -218,6 +218,7 @@ public sealed partial class World
             if (berries + vegetables + bread == Population && vegetables >= quarter && berries + bread >= quarter) Food.VegetableChoiceMeals++;
             Food.Hunger = (Population - berries - vegetables - bread) / (float)Population;
             RecentFood.Add(new(Food.Time, Eaten: berries + vegetables + bread, Required: Population));
+            RecordRiverMeal();
         }
     }
     private List<Cell> SupperSpots()

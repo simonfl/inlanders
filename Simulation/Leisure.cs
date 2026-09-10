@@ -32,6 +32,7 @@ public sealed partial class World
             throw new InvalidOperationException("Overbooked leisure spots");
         foreach (var v in People)
         {
+            if(v.LastLeisureSiteId is int previous && (previous<1 || previous>=_nextSite || v.LastLeisureTime==null)) throw new InvalidOperationException("Invalid previous recreation venue");
             if (!float.IsFinite(v.NextLeisureTime) || v.NextLeisureTime < 0 || v.LeisureVisits < 0 ||
                 (v.LeisureSiteId != null) != (v.Task is Work.ToLeisure or Work.Leisure))
                 throw new InvalidOperationException("Invalid leisure state");
