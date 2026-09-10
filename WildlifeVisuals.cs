@@ -32,7 +32,7 @@ public partial class Game
     }
     private void RenderWildlife()
     {
-        bool survey=_placing && (_buildKind==BuildingKind.HuntingLodge || _clearingTrees || _woodlandTool>0);
+        bool survey=_surveying || _placing && (_buildKind==BuildingKind.HuntingLodge || _clearingTrees || _woodlandTool>0);
         string key=string.Join(";",_world.Map.Wildlife.Select(h=>$"{h.Id}:{(int)h.Stock}:{_world.AvailableGame(h)}:{_world.HabitatTrees(h)}"))+$"/{survey}/{_world.Cottages.Count}/{_world.Trees.Count}/{_world.Decorations.Count}";
         if(key!=_wildlifeKey)
         {

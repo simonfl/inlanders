@@ -58,6 +58,7 @@ public partial class Game
 
     private void RefreshGhost()
     {
+        if(_placing) StopResourceSurvey();
         if (_ghostCells == null)
         {
             _ghostCells = new(); _ghost.AddChild(_ghostCells); _ghostModel = new(); _ghost.AddChild(_ghostModel);

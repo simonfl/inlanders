@@ -1,5 +1,7 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--survey")) { try { ResourceSurveyChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
+
 if (args.Contains("--wildlife")) { try { WildlifeChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--water")) { try { WaterChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--quarry")) { try { QuarryChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
@@ -151,5 +153,6 @@ SupplyRouteChecks.Run();
 PlankStorageChecks.Run();
 QuarryChecks.Run();
 WildlifeChecks.Run();
+ResourceSurveyChecks.Run();
 }
 catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; }

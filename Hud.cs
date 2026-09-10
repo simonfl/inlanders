@@ -114,10 +114,12 @@ public partial class Game
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
         MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi();
+        MakeResourceSurvey(inspection);
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
             else if (_selectedPerson >= 0) { var p = _world.People[_selectedPerson].Position; _focus = new(p.X, 0, p.Y); }
+            else if(_sourceReport is ResourceSurvey source) _focus=OnGround(source.Source.Cell.X,source.Source.Cell.Z);
             UpdateCamera();
         }));
         _hintPanel = HudPanel(_hud); _hint = Text("", 14, true); _hintPanel.AddChild(_hint); _hintPanel.MouseFilter = Control.MouseFilterEnum.Ignore;
@@ -269,7 +271,7 @@ public partial class Game
             var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
-        UpdateVillageDirectory(); UpdateServiceCoverage();
+        UpdateVillageDirectory(); UpdateServiceCoverage(); UpdateResourceSurvey();
         UpdateStorageControls();
         UpdateBuildDescription();
         UpdateBuildCatalog();
@@ -281,6 +283,7 @@ public partial class Game
             if(_clearingTrees) _hint.Text+="\n"+_world.HabitatLoss(_hover);
             else if(!_plantingTrees && !_decorating && _pathTool==0 && _woodlandTool==0 && _buildKind==BuildingKind.HuntingLodge) _hint.Text+="\n"+_world.WildlifeSurvey(_hover);
         }
+        if(_surveying) _hint.Text="Survey resources · click a marker or choose a source · U / Esc finishes";
         _hintPanel.Visible = _hint.Text.Length > 0;
         if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));

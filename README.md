@@ -139,6 +139,8 @@ Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Option
 
 ### Economy and shortages
 
+Press **U** or choose **Economy → Survey map resources** to inspect fish grounds, stone outcrops and woodland habitat. Click a marker or choose a source in the inspector to see stock, reservations, recovery and access. Workplace links open related sites; **Back to source** returns to the resource. **U / Esc** finishes surveying. Placement and Watch mode also end it. See the [resource survey review](docs/RESOURCE_SURVEY_F21J.md).
+
 Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries, vegetables, and bread and assumes no new deliveries.
 
 The Economy badge counts current issues. Click a shortage message to open the relevant build, staffing or resume controls. If edible-food workplaces are paused, a low-food warning opens a workplace instead of asking for more staff. Idle-worker links show the actual waiting reason. Warnings clear as conditions improve; ordinary crop growth and full stock targets can leave workers idle without indicating a problem.

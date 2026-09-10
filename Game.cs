@@ -46,6 +46,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--field-work-smoke-test")) CallDeferred(MethodName.RunFieldWorkSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--social-smoke-test")) CallDeferred(MethodName.RunSocialSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--wildlife-smoke-test")) CallDeferred(MethodName.RunWildlifeSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--survey-smoke-test")) CallDeferred(MethodName.RunSurveySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--quarry-smoke-test")) CallDeferred(MethodName.RunQuarrySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
@@ -95,6 +96,10 @@ public partial class Game : Node3D
     private void RefreshSelection()
     {
         Clear(_selection); _selection.Position = Vector3.Zero;
+        if(_selectedSource!=null && _sourceReport is ResourceSurvey resource)
+        {
+            GroundPatch(_selection,resource.Source.Cell.X,resource.Source.Cell.Z,1.2f,1.2f,new("e8c688"),.055f); return;
+        }
         if (_selectedPerson >= 0)
         {
             for (int i=0;i<12;i++) { float a=i*Mathf.Tau/12; var mark=Box(_selection,new(MathF.Cos(a)*0.4f,0.035f,MathF.Sin(a)*0.4f),new(0.12f,0.03f,0.05f),new("f1d292")); mark.Rotation=new(0,-a,0); }
@@ -134,6 +139,8 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (EditingText) return;
+            if(key.Keycode==Key.U) { ToggleResourceSurvey(); return; }
+            if(key.Keycode==Key.Escape && _surveying) { StopResourceSurvey(); return; }
             if (key.Keycode == Key.H) { ToggleWatch(); return; }
             if (_watching && key.Keycode == Key.Escape) { ExitWatch(); return; }
             if (_watching && key.Keycode is Key.B or Key.V or Key.G or Key.O or Key.I or Key.T or Key.C or Key.P) ExitWatch();
@@ -161,6 +168,7 @@ public partial class Game : Node3D
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
             if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
             if (_watching || mouse.ButtonIndex != MouseButton.Left) return;
+            if(PickResourceSource(mouse.Position)) return;
             if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
             var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
             if (closest.Distance < 25) SelectPerson(closest.Index);

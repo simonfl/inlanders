@@ -68,6 +68,7 @@ public partial class Game
         await CheckManagementUi();
         await CheckProductionUi();
         await CheckEconomyUi();
+        await CheckResourceSurveyUi();
         await CheckWatchUi();
         await CheckAtmosphereUi();
         await CheckGrowthUi();

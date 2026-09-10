@@ -18,6 +18,7 @@ public partial class Game
     }
     private void MakeEconomyMenu(VBoxContainer column)
     {
+        _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey); column.AddChild(_surveyToggle);
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
         column.AddChild(Text("RECENT FOOD FLOW",12));

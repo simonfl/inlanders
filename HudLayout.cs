@@ -53,11 +53,11 @@ public partial class Game
         _hintPanel.Size = new(width, 0);
         _hintPanel.Position = new(left + Math.Max(0, (right - left - width) / 2), _bottomBar.Position.Y - _hintPanel.Size.Y - 10);
     }
-    private void ClearSelection() { _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
+    private void ClearSelection() { _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
     private void CloseManagementUi() { if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
-        _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
-    private void SelectPerson(int id) { _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
-    private void SelectBuilding(int id) { _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
+        StopResourceSurvey(); _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
+    private void SelectPerson(int id) { _selectedSource=null; _sourceReport=null; _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
+    private void SelectBuilding(int id) { _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
     private void BeginPlacement(BuildingKind kind) { _woodlandTool=0; if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }
