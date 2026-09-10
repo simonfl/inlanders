@@ -8,6 +8,8 @@ public partial class Game
     private Godot.Environment _villageEnvironment = null!;
     private DirectionalLight3D _sun = null!;
     private bool _goldenHour, _foliageMotion = true;
+    private bool _frameSync;
+    private Button _frameSyncButton = null!;
     private Button _lightMoodButton = null!, _foliageButton = null!;
     private string _atmospherePath = "saves/atmosphere.cfg";
 
@@ -24,6 +26,7 @@ public partial class Game
         _goldenHour = config.GetValue("view", "golden_hour", false).AsBool();
         _foliageMotion = config.GetValue("view", "foliage_motion", true).AsBool();
         _showWorldLabels = config.GetValue("view", "world_labels", true).AsBool();
+        _frameSync = config.GetValue("view", "frame_sync", false).AsBool();
     }
     private void SaveAtmosphere()
     {
@@ -34,12 +37,15 @@ public partial class Game
             config.SetValue("view", "golden_hour", _goldenHour);
             config.SetValue("view", "foliage_motion", _foliageMotion);
             config.SetValue("view", "world_labels", _showWorldLabels);
+            config.SetValue("view", "frame_sync", _frameSync);
             if (config.Save(_atmospherePath) != Error.Ok) Notice("Atmosphere changed, but settings could not be saved.");
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { Notice("Atmosphere changed, but settings could not be saved."); }
     }
     private void ApplyAtmosphere()
     {
+        DisplayServer.WindowSetVsyncMode(_frameSync?DisplayServer.VSyncMode.Enabled:DisplayServer.VSyncMode.Disabled);
+        if(_frameSyncButton!=null) _frameSyncButton.Text=_frameSync?"Frame sync: on":"Frame sync: off";
         _sun.RotationDegrees = _goldenHour ? new(-36, -35, 0) : new(-52, -30, 0);
         _sun.LightColor = _goldenHour ? new("ffd5a1") : new("fff0d6");
         _sun.LightEnergy = _goldenHour ? 0.78f : 0.72f;
@@ -59,6 +65,8 @@ public partial class Game
         _lightMoodButton = Button("", () => { _goldenHour = !_goldenHour; ApplyAtmosphere(); SaveAtmosphere(); });
         _foliageButton = Button("", () => { _foliageMotion = !_foliageMotion; ApplyAtmosphere(); SaveAtmosphere(); });
         column.AddChild(_lightMoodButton); column.AddChild(_foliageButton);
+        _frameSyncButton=Button("",()=> { _frameSync=!_frameSync; ApplyAtmosphere(); SaveAtmosphere(); }); column.AddChild(_frameSyncButton);
+        _frameSyncButton.TooltipText="Off renders without waiting for display sync and can improve responsiveness. Enable if you notice tearing; it may limit frame rate. This does not change village speed.";
         _worldLabelsButton = Button("", ToggleWorldLabels); column.AddChild(_worldLabelsButton); UpdateLabelButtons();
         column.AddChild(Text("Light is a visual choice. Gentle foliage movement follows village time and pauses with the game.", 14, true));
         ApplyAtmosphere();

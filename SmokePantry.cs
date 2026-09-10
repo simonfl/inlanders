@@ -8,7 +8,7 @@ public partial class Game
 {
     private async void RunPantrySmoke()
     {
-        try { await CheckPantryUi(); await ProfilePantries(); GetTree().Quit(); }
+        try { if(OS.GetCmdlineUserArgs().Contains("--render-isolation")) await CheckFrameSyncUi(); else await CheckPantryUi(); await ProfilePantries(); GetTree().Quit(); }
         catch(Exception e) { GD.PrintErr("PANTRY SMOKE FAIL: "+e); GetTree().Quit(1); }
     }
     private async Task ProfilePantries()
@@ -32,6 +32,7 @@ public partial class Game
         {if(w.Decorations.Count>=36) break;w.PlaceDecoration(cell,(DecorationKind)(w.Decorations.Count%4));}
         w.Validate();AdoptWorld(w);CloseManagementUi();_paused=true;_speed=1;
         GetWindow().Size=new(1440,900);_focus=OnGround(1,2);_camera.Size=26;UpdateCamera();
+        if(OS.GetCmdlineUserArgs().Contains("--render-isolation")) { await ProfileRenderIsolation(); w=_world; }
         async Task Sample(string label,int count)
         {
             for(int i=0;i<10;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);

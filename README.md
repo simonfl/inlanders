@@ -139,6 +139,8 @@ Meals scale with population, as do Economy coverage and supper requirements. Sup
 
 **World labels** hides or shows floating building, yard, visitor and clearing labels. The same toggle is available in Watch mode. Placement entrance guidance remains visible. These visual preferences persist in saves/atmosphere.cfg across villages. They do not affect the simulation or introduce a day/night mechanic.
 
+**Frame sync** is off by default for responsiveness. Enable it in Options if you notice tearing; display synchronization can reduce frame rate on some setups. It takes effect immediately and persists with visual preferences. It does not change village speed. The [F23d profile](docs/RENDERING_F23D.md) records the measured comparison and `./Play.ps1 -RenderIsolationSmokeTest` reproduces the settings and rendering checks.
+
 ### Watch the village
 
 Press **H** or choose **Options → Watch village** to hide the HUD. A small bar keeps pause, speed, map framing, world labels, and **Manage** available. Camera movement and villager-follow keep working. Typing a saved-view name suspends camera shortcuts until you leave the text field.
