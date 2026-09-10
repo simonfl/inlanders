@@ -175,6 +175,8 @@ Open **Economy → Show supply routes** to see actual worker and boat trips. Gol
 
 ### Renewable woodland
 
+Loggers wind up and strike in time with actual chopping progress. Felled mature trees briefly tip into their timber piles; pausing freezes the action. This changes presentation, not work time or yield. Run `./Play.ps1 -LoggingSmokeTest` for the focused visual check.
+
 In **Build**, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.
 
 Loggers take clearing orders first, then plant marked spots before ordinary harvesting jobs. Already committed work and deliveries finish first. Each planting takes four work seconds, then the sapling grows over **three game days** into an alder yielding **eight logs**. Growth continues independently of staffing and hunger, but pauses with the game or while marked for clearing. Saplings visibly grow; hover over Logs in the top bar for clearing, planting, growth, and reservation counts.

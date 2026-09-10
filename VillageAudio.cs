@@ -11,7 +11,7 @@ public partial class Game
     private readonly List<AudioStreamPlayer3D> _voices = new();
     private AudioStreamPlayer _uiSound = null!, _wind = null!;
     private AudioStreamPlayer3D _bird = null!;
-    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; }
+    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree; public int ChopBeat=-1; }
     private readonly Dictionary<int, SoundTrace> _soundTraces = new();
     private readonly HashSet<int> _heardBuildings = new();
     private readonly Dictionary<Cue, float> _cueCooldown = new();
@@ -82,10 +82,22 @@ public partial class Game
             trace.Distance += System.Numerics.Vector2.Distance(trace.Position, v.Position); trace.Position = v.Position;
             if (trace.Cargo > v.Carried) WorldCue(Cue.Drop, OnGround(v.Position.X,v.Position.Y,.5f), v.Id);
             trace.Cargo = v.Carried;
+            if(v.Task==Work.Chopping && _world.Trees.Any(t=>t.Id==v.TreeId && !t.Felled))
+            {
+                int beat=(int)MathF.Floor(v.Timer-.75f);
+                if(trace.ChopTree!=v.TreeId) { trace.ChopTree=v.TreeId; trace.ChopBeat=beat; }
+                if(beat>trace.ChopBeat)
+                {
+                    trace.ChopBeat=beat;
+                    if(_soundTime>=trace.Next) { WorldCue(Cue.Chop,OnGround(v.Position.X,v.Position.Y,.5f),v.Id); trace.Next=_soundTime+.35f; }
+                }
+                continue;
+            }
+            trace.ChopTree=null; trace.ChopBeat=-1;
             if (_soundTime < trace.Next) continue;
             Cue? cue = v.Route.Count > 0 ? trace.Distance >= 0.65f ? Cue.Step : null : v.Task switch
             {
-                Work.Chopping => _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled) ? Cue.Chop : Cue.Drop, Work.Building or Work.Demolishing => Cue.Hammer,
+                Work.Chopping => Cue.Drop, Work.Building or Work.Demolishing => Cue.Hammer,
                 Work.ClearingStump or Work.Planting or Work.PlantingTree or Work.Harvesting or Work.Foraging => Cue.Rustle,
                 Work.Sawing => Cue.Saw, Work.Baking => Cue.Bake, _ => null
             };

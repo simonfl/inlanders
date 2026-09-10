@@ -9,7 +9,7 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), Hammer = new(), Spade = new(), Peel = new(), Saw = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), Spade = new(), Peel = new(), Saw = new();
         public Resource Cargo;
         public int Count = -1;
     }
@@ -38,9 +38,10 @@ public partial class Game
         foreach (var tool in new[] { v.Axe, v.Hammer, v.Spade, v.Peel })
         {
             v.Arm.AddChild(tool); tool.Position = new(0, -0.32f, 0); tool.Visible = false;
-            Box(tool, new(0, 0.1f, -0.15f), new(0.055f, 0.055f, 0.55f), _wood);
+            Box(tool, new(0, 0.1f, tool==v.Axe?-.30f:-.15f), new(0.055f, 0.055f, tool==v.Axe?.85f:.55f), _wood);
         }
-        Box(v.Axe, new(-0.06f, 0.1f, -0.39f), new(0.25f, 0.10f, 0.18f), new("9ca8a4"));
+        Box(v.Axe, new(-0.06f, 0.1f, -0.69f), new(0.25f, 0.10f, 0.18f), new("9ca8a4"));
+        v.Axe.AddChild(v.AxeEdge); v.AxeEdge.Position=new(-.06f,.1f,-.78f);
         Box(v.Hammer, new(0, 0.1f, -0.37f), new(0.24f, 0.14f, 0.14f), new("737d7b"));
         Box(v.Spade, new(0, 0.1f, -0.43f), new(0.21f, 0.05f, 0.25f), new("89938a"));
         Box(v.Peel, new(0, 0.1f, -0.48f), new(0.32f, 0.04f, 0.34f), new("cba36d"));
@@ -140,8 +141,9 @@ public partial class Game
             case Work.Chopping:
                 bool felling = _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled);
                 view.Axe.Visible = felling;
-                view.Arm.Rotation = new(felling ? 1.0f + swing * 1.0f : 0.65f + swing * 0.25f, 0, 0);
-                view.Torso.Rotation = new(felling ? -0.10f : -0.35f, swing * 0.08f, 0); break;
+                if(felling) AnimateAxeStroke(view,v.Timer);
+                else { view.Arm.Rotation = new(.65f+swing*.25f,0,0); view.Torso.Rotation=new(-.35f,0,0); }
+                break;
             case Work.Building: case Work.Demolishing:
                 view.Hammer.Visible = true; view.Arm.Rotation = new(1.1f + MathF.Sin(cycle * 1.5f) * 0.55f, 0, 0); break;
             case Work.ClearingStump: case Work.PlantingTree: case Work.Planting: case Work.Harvesting:

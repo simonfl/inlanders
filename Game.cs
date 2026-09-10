@@ -10,7 +10,7 @@ public partial class Game : Node3D
     private World _world = World.NewScenario();
     private Camera3D _camera = null!;
     private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!;
-    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1, Stage = -1; }
+    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1, Stage = -1; public bool ObservedStanding; public float? FallStarted; }
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
@@ -41,6 +41,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--woodland-smoke-test")) CallDeferred(MethodName.RunWoodlandSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--routes-smoke-test")) CallDeferred(MethodName.RunSupplyRouteSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--plank-storage-smoke-test")) CallDeferred(MethodName.RunPlankStorageSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
@@ -215,8 +216,7 @@ public partial class Game : Node3D
                 var pile = new Node3D { Position = OnGround(t.Cell.X, t.Cell.Z) }; _dynamic.AddChild(pile);
                 view = new TreeView { Top = top, Pile = pile }; _trees[t.Id] = view;
             }
-            view.Top.Visible = !t.Felled && !t.NeedsPlanting && (t.Logs > 0 || t.Growth < 1);
-            view.Top.Scale = Vector3.One * 0.9f * (0.2f + 0.8f * t.Growth);
+            AnimateTimberTree(view,t);
             int treeStage = (t.NeedsPlanting ? 0 : t.Felled ? 2 : 1) + (t.ClearRequested ? 10 : 0) + (t.Preserved?20:0);
             if (view.Logs == t.Logs && view.Stage == treeStage) continue;
             view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);
