@@ -53,7 +53,7 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
-        _economyFood.Text=$"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries → vegetables → bread\nAssumes no new deliveries; grain is not edible.";
+        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} full meals in storage\nNext meal in {_economyReport.NextMealSeconds:0}s of village time\n{_world.Population} food per meal · berries → vegetables → bread\nAssumes no new deliveries; grain is not edible.";
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
         _economySummary.Text=count==0?"No immediate shortages detected.":"Select a message to open the relevant controls.";

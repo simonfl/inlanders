@@ -18,6 +18,7 @@ public sealed partial class World
     {
         if (ClearingProblem(cell) != null) return false;
         var tree = Trees.Single(t => t.Cell == cell);
+        if (Creative && requested) return ClearImmediately(tree);
         if (tree.ClearRequested == requested) return true;
         // Stop conflicting planting/root work. Harvesting already in progress finishes normally.
         if (tree.Owner is int owner && People[owner].Task is Work.ToSapling or Work.PlantingTree or Work.ToClearStump or Work.ClearingStump)

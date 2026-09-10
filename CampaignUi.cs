@@ -72,9 +72,9 @@ public partial class Game
         {
             var book = ReadCampaignBook();
             // Prepare and validate the destination before writing or replacing the live settlement.
-            var next = level == (_world.Campaign?.Level ?? 0) && !replay ? _world :
+            var next = !_world.Creative && level == (_world.Campaign?.Level ?? 0) && !replay ? _world :
                 !replay && book.Settlements.TryGetValue(level, out var json) ? World.LoadJson(json) : level == 0 ? World.NewScenario() : World.NewCampaign(level);
-            book.Capture(_world);
+            if (_world.Creative) _world.SaveFile(CurrentSavePath); else book.Capture(_world);
             if (replay && book.Settlements.TryGetValue(level, out var previous)) book.BeforeReplay[level] = previous;
             book.Capture(next); book.SaveFile(_campaignPath);
             _campaignBook = book; AdoptWorld(next); ToggleDrawer(2);
@@ -101,6 +101,15 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
+        _progress.Visible = !_world.Creative;
+        if (_world.Creative)
+        {
+            _campaignControls.Hide(); _standaloneGuide.Hide(); _supperButton.Hide();
+            _goalTitle.Text = "Creative · arrange and watch";
+            _goalArrival.Text = "Build instantly for free. Villagers keep working, growing crops and taking breaks; meals and hunger are disabled.";
+            _objective.Text = "All decorations are available. Select a completed building to remove it and recover its stored goods. Keep entrances and crossings connected.";
+            return;
+        }
         _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;

@@ -37,7 +37,7 @@ public sealed partial class World
         }
         if(!Food.Celebrating)
         {
-            if(Food.EdibleStored<Population*2)
+            if(!Creative && Food.EdibleStored<Population*2)
                 issues.Add(new("food-low",$"Food reserve is below two meals. Villagers eat {Population} berries/vegetables/bread per day; grain must be baked.",
                     Build: !Planned(BuildingKind.ForagerHut) && !Planned(BuildingKind.VegetableGarden) ? BuildingKind.ForagerHut : null,
                     Staff: !Planned(BuildingKind.ForagerHut) && Planned(BuildingKind.VegetableGarden) ? (HasBuilding(BuildingKind.VegetableGarden) ? Role.Farmer : Role.Builder) : !Planned(BuildingKind.ForagerHut) ? null : HasForagerHut ? Role.Forager : Role.Builder));

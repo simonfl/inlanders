@@ -150,6 +150,7 @@ public sealed class CampaignBook
     public HashSet<int> Completed { get; set; } = new();
     public void Capture(World world)
     {
+        if (world.Creative) throw new InvalidOperationException("Creative settlements use separate saves.");
         ActiveLevel = world.Campaign?.Level ?? 0;
         Settlements[ActiveLevel] = world.SaveJson();
         if (world.Campaign?.Complete == true) Completed.Add(ActiveLevel);

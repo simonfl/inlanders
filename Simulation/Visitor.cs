@@ -7,12 +7,12 @@ public sealed partial class World
 {
     public const int GardenerPrice = 8;
     public VisitorState Gardener { get; private set; }
-    public bool SunflowersUnlocked => Gardener == VisitorState.Accepted;
+    public bool SunflowersUnlocked => Creative || Gardener == VisitorState.Accepted;
     public string SunflowerLockReason => Gardener == VisitorState.Declined ? "The gardener offer was declined in this settlement. Sunflowers are unavailable here." : Gardener == VisitorState.NotArrived ? "A gardener offers sunflowers from day 3 after a forager hut is finished. Look in Goals." : "Trade 8 berries with the visiting gardener in Goals to unlock sunflowers.";
     public int FoodAfterGardenerTrade => Food.EdibleStored - GardenerPrice;
     private void AdvanceVisitor()
     {
-        if (Gardener != VisitorState.NotArrived || Food.Day < 3 || !HasForagerHut || Food.Celebrating) return;
+        if (Creative || Gardener != VisitorState.NotArrived || Food.Day < 3 || !HasForagerHut || Food.Celebrating) return;
         Gardener = VisitorState.Pending; History.Add("A gardener is visiting with sunflower seeds. See Goals.");
     }
     public string? GardenerTradeProblem() => Gardener != VisitorState.Pending ? "There is no pending gardener offer." :
@@ -34,7 +34,7 @@ public sealed partial class World
     }
     private void ValidateVisitor()
     {
-        if (!Enum.IsDefined(Gardener) || Food.TradedBerries != (SunflowersUnlocked ? GardenerPrice : 0))
+        if (!Enum.IsDefined(Gardener) || Food.TradedBerries != (Gardener == VisitorState.Accepted ? GardenerPrice : 0))
             throw new InvalidOperationException("Invalid gardener trade");
     }
 }

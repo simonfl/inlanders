@@ -23,13 +23,16 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 Launching opens a quiet, paused village behind the title screen:
 
-- **Continue** restores the last settlement saved or opened, whether campaign, original map, or Three clearings. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
+- **Continue** restores the last settlement saved or opened, including Campaign, Free play, or Creative on either map. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
 - **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
 - **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
+- **Creative** starts or resumes either map with instant free buildings, no hunger, and all decorations unlocked. Production and hauling still use real resources. Select a finished building to remove it; stored goods return to the yard and villagers keep their cargo. Bridges cannot be removed if that would disconnect people or resources. Clearing trees is immediate and recovers existing timber. Newcomers need beds but no food reserve.
 - **Settings** controls Effects, Nature, Music, music-only mute, and master mute; these are shared with in-game sound settings.
 - **Quit** exits the game.
 
 In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
+
+Creative saves are separate in `saves/creative.json` and `saves/creative-three-clearings.json`, with the same previous-village recovery as Free play. F5/F9 and Options map switching preserve the mode. There is no supper objective or visitor trade in Creative; the Goals panel explains its rules. Housing and square breaks still affect happiness, while food needs receive a neutral full allowance.
 
 ## Campaign: five settlements
 

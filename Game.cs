@@ -57,7 +57,7 @@ public partial class Game : Node3D
     private void Reset()
     {
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
-        _world = _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
+        _world = _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
         _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
         _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
         try { RememberSettlement(); } catch (Exception e) { Notice("New village started, but Continue could not be saved: " + e.Message); }

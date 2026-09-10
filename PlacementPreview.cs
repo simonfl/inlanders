@@ -19,7 +19,17 @@ public partial class Game
         if (input is InputEventMouseMotion && _pathStroke && _placing && _pathTool > 0 && !PointerOverHud(_pointerPosition) && Ground(_pointerPosition) is Vector3 p)
             PaintPath(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z)));
     }
-    private static string BuildingDescription(BuildingKind kind) => kind switch
+    private string BuildingDescription(BuildingKind kind) => (_world.Creative, kind) switch
+    {
+        (true, BuildingKind.Bridge) => "Instant crossing between two dry banks. R turns the crossing. Keep both banks accessible.",
+        (true, BuildingKind.Lodge) => "A home for 4 neighbors. No staff needed.",
+        (true, BuildingKind.Stockpile) => "Stores up to 12 real logs. Loggers drop timber nearby; haulers balance its target.",
+        (true, BuildingKind.Farm) => "Supports 1 farmer. Crops grow for 45 seconds, yielding 6 grain for bakers. Food needs are disabled.",
+        (true, BuildingKind.VegetableGarden) => "Supports 1 farmer. Crops grow for 60 seconds, yielding 8 vegetables. Food needs are disabled.",
+        (true, BuildingKind.Square) => "Up to four villagers take short breaks between jobs. No staff. Leave open space nearby.",
+        _ => OrdinaryBuildingDescription(kind)
+    };
+    private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
         BuildingKind.Stockpile => "Stores up to 12 logs. Loggers drop timber nearby; builders and sawyers collect locally. Haulers refill its target or return surplus to the yard. Costs 6 logs. Food and planks stay at the main yard.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing. Costs 6 logs.",
@@ -94,10 +104,12 @@ public partial class Game
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {
+            if (_world.Creative) { _buildDescription.Text = "CLEAR TREES & STUMPS\nClick to clear immediately. Existing timber returns to the yard; saplings yield no timber."; return; }
             _buildDescription.Text = "CLEAR TREES & STUMPS\nLoggers prioritize marked trees, recover existing timber, then remove roots. Land becomes usable when the roots are gone. Saplings yield no timber. Click a marked tree again to cancel.\n\n" +
                 $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers";
             return;
         }
+        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free"; return; }
         int available = _buildKind == BuildingKind.Lodge ? _world.AvailablePlanks : _world.Available;
         int cost = _buildKind == BuildingKind.Lodge ? 8 : World.Cost;
         string material = _buildKind == BuildingKind.Lodge ? "planks" : "logs";

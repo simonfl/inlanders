@@ -43,8 +43,8 @@ public partial class Game
         _atMainMenu = true; _paused = true; _placing = false; _pathStroke = false;
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage("A quiet place to build");
-        MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath) && !File.Exists(_campaignPath) && !File.Exists(_savePath) && !File.Exists(_largeSavePath);
-        MenuButton("Campaign", CampaignMenu); MenuButton("Free play", FreePlayMenu); MenuButton("Settings", MainSettings);
+        MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath) && !File.Exists(_campaignPath) && !File.Exists(_savePath) && !File.Exists(_largeSavePath) && !File.Exists(_creativeSavePath) && !File.Exists(_creativeLargeSavePath);
+        MenuButton("Campaign", CampaignMenu); MenuButton("Free play", FreePlayMenu); MenuButton("Creative", () => FreePlayMenu(true)); MenuButton("Settings", MainSettings);
         MenuButton("Quit", () => GetTree().Quit());
         _mainColumn.AddChild(Text("Small villages, growing trees, and a little room to breathe.", 15, true));
     }
@@ -81,7 +81,7 @@ public partial class Game
         {
             // Migration for installations with saves predating the title screen.
             string? latest = null;
-            foreach (var path in new[] { _campaignPath, _savePath, _largeSavePath })
+            foreach (var path in new[] { _campaignPath, _savePath, _largeSavePath, _creativeSavePath, _creativeLargeSavePath })
                 if (File.Exists(path) && (latest == null || File.GetLastWriteTimeUtc(path) > File.GetLastWriteTimeUtc(latest))) latest = path;
             if (latest == null) throw new IOException("No saved settlement yet. Choose Campaign or Free play.");
             if (latest == _campaignPath) { var book = CampaignBook.LoadFile(latest); _campaignBook = book; world = World.LoadJson(book.Settlements[book.ActiveLevel]); }
@@ -122,17 +122,18 @@ public partial class Game
         if (replay && book.Settlements.TryGetValue(level, out var previous)) book.BeforeReplay[level] = previous;
         book.Capture(world); book.SaveFile(_campaignPath); _campaignBook = book; EnterFromMenu(world);
     });
-    private void FreePlayMenu()
+    private void FreePlayMenu() => FreePlayMenu(false);
+    private void FreePlayMenu(bool creative)
     {
-        MenuPage("Free play");
+        MenuPage(creative ? "Creative · arrange and watch" : "Free play");
         foreach (bool large in new[] { false, true })
         {
-            string name = large ? "Three clearings" : "Original clearing", path = large ? _largeSavePath : _savePath;
+            string name = large ? "Three clearings" : "Original clearing", path = SandboxSavePath(large, creative);
             _mainColumn.AddChild(Text(name, 18));
             if (File.Exists(path)) MenuButton("Resume " + name, () => MenuAttempt(() => EnterFromMenu(World.LoadFile(path))));
             MenuButton("New " + name, () => MenuAttempt(() =>
             {
-                var world = large ? World.NewLargeMap() : World.NewScenario();
+                var world = creative ? World.NewCreative(large) : large ? World.NewLargeMap() : World.NewScenario();
                 if (File.Exists(path)) File.Copy(path, path + ".before-new", true);
                 world.SaveFile(path); EnterFromMenu(world);
             }));
@@ -143,7 +144,7 @@ public partial class Game
                 world.SaveFile(path); EnterFromMenu(world);
             }));
         }
-        _mainColumn.AddChild(Text("The supper goal is optional. Starting anew retains the preceding village; use Restore previous to return to it.", 14, true));
+        _mainColumn.AddChild(Text(creative ? "Instant free buildings, no hunger, all decorations. Remove completed buildings to rearrange; stored goods return to the yard. Starting anew keeps the previous village recoverable." : "The supper goal is optional. Starting anew retains the preceding village; use Restore previous to return to it.", 14, true));
         MenuButton("Back", ShowMainMenu);
     }
     private void MainSettings()

@@ -51,7 +51,7 @@ public sealed partial class World
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
-    public bool CanCelebrate => Housed == Population && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == Population;
+    public bool CanCelebrate => !Creative && Housed == Population && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
     {
@@ -176,6 +176,7 @@ public sealed partial class World
                 else { farm.Harvest = 6; Food.GrownGrain += 6; }
             }
         }
+        if (Creative) { Food.Hunger = 0; return; }
         if (Food.Celebrating)
         {
             if (People.All(v => v.Task == Work.Supper)) Food.MeetingClock += dt;

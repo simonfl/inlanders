@@ -140,10 +140,10 @@ public sealed partial class World
     public Cottage? Place(Cell cell, bool rotated = false, BuildingKind kind = BuildingKind.Cottage)
     {
         if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
-        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)) }; Cottages.Add(site);
+        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)) }; Cottages.Add(site);
         RemovePaths(Footprint(cell, rotated, kind));
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
-        History.Add($"{kind} {site.Id} planned"); _retry = 0; return site;
+        History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;
     }
     public bool SetPriority(int id, int priority)
     {

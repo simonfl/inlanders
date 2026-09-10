@@ -11,7 +11,7 @@ public sealed partial class World
     {
         if (Food.Celebrating) return "Welcome newcomers after supper finishes.";
         if (SpareBeds < 2) return "Finish two spare beds to welcome newcomers.";
-        if (Food.EdibleStored < ArrivalFoodRequired)
+        if (!Creative && Food.EdibleStored < ArrivalFoodRequired)
             return $"Store {ArrivalFoodRequired} berries/vegetables/bread: two meals for {Population + 2} people.";
         if (ArrivalSpots().Length < 2) return "Leave two clear arrival spots near the timber yard.";
         return null;

@@ -118,3 +118,4 @@ HappinessChecks.Run();
 CameraViewChecks.Run();
 VisitorChecks.Run();
 GardenLessonChecks.Run();
+CreativeChecks.Run();

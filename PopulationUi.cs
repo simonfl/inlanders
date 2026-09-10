@@ -49,7 +49,8 @@ public partial class Game
         string? problem = _world.InvitationProblem();
         _inviteButton.Disabled = problem != null;
         _arrivalInfo.Text = $"{_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare\n" +
-            (problem ?? $"Ready for two newcomers. {_world.ArrivalFoodRequired} stored food covers two meals after arrival.");
+            (problem ?? (_world.Creative ? "Ready for two newcomers. Food needs are disabled." : $"Ready for two newcomers. {_world.ArrivalFoodRequired} stored food covers two meals after arrival."));
+        _inviteButton.TooltipText = _world.Creative ? "Newcomers need two spare beds and clear arrival spots. No food reserve needed." : "Newcomers start unassigned. Keep two meals for the enlarged village; inviting does not spend food.";
         _housing.GetParent<Control>().TooltipText = $"{_world.Housed} housed of {_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare";
     }
 }

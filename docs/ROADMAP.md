@@ -6,16 +6,15 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F16 — Free-build mode.** Create a distinct arranging-and-watching mode with relaxed construction and food rules, while keeping ordinary free play and campaign saves separate.
+**Next: F12d — Hills and terrain shaping.** Add authored gentle elevation with readable slopes and clear building rules. Creative now provides a useful place to arrange and inspect terrain without economy pressure.
 
 The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F16 | **Creative mode.** Separate menu entry/saves; instant free buildings, no hunger, all decorations, and safe completed-building removal. Keep production physical and placement/access valid. Immediate clearing supports arranging; invitations need beds but no food reserve. Explain the mode in build/economy/happiness UI. | Avoid duplicating the playable open-ended maps. |
-| 2 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F12d | **Hills and terrain shaping.** Two broad raised meadows on Three clearings, with walkable slopes; keep the yard, riverbanks and campaign layouts flat. Buildings need a level footprint and entrance; paths, trees and small decorations can follow slopes. Share surface heights across visuals, placement and mouse picking. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
-Campaign pacing and UI feedback can be addressed at any time. The five-level campaign now teaches gardens and food choices with an optional visitor. Free-build should focus on arranging and watching, while normal free play retains its economy.
+Campaign pacing and UI feedback can be addressed at any time. The five-level campaign now teaches gardens and food choices with an optional visitor. Creative focuses on arranging and watching, while normal free play retains its economy. Terrain comes next; relocation, brushes and resource setup controls can wait for playtesting rather than expanding Creative immediately.
 
 ## Already playable
 
@@ -41,6 +40,7 @@ Campaign pacing and UI feedback can be addressed at any time. The five-level cam
 | F12e | Three named camera views per settlement; saved focus, zoom and orbit, Options controls, 1–3 recall / Ctrl+1–3 set, clearing/overwrite, and recall during Watch mode. Existing workplace jumps and Home overview remain. |
 | F14 | Per-villager satisfaction from meals, food choices recorded at meal time, housing coverage, and a completed square break within two minutes. Village average, expandable reasons below worker controls, saved history, and cheerful/unsettled idle reactions; no additional productivity penalty. |
 | F15 | One gardener visit from day 3 with a finished hut; 8 berries unlock freely placeable sunflowers. Quiet yard marker/Goals card, projected food reserve, accept/decline, no deadline, saved outcomes, and preserved delivery milestones. |
+| F16 | Creative on both maps: instant free completed buildings, no hunger or meals, all decorations, immediate clearing with timber recovery, and safe completed-building removal. Production/cargo stay physical; bridge removal protects access. Separate New/Resume/Restore saves and Continue, mode-aware UI, beds-only invitations, and neutral food satisfaction. |
 | F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |
 | F20 | Soft daylight/golden-hour presets, grass variation, subtle pause-aware foliage, and persistent visual preferences. |
@@ -80,6 +80,7 @@ These are possibilities within existing features, not additional commitments or 
 | F03 / F22 — Work and construction presentation | Smoother pose transitions, tree falling, particles, character variation, material piles/scaffolding, smoother crop growth, and richer harvest motions. |
 | F05 — Food choices | More crops or orchards, recipe variety, garden/grain balance, and meaningful food-variety effects with F14. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
+| F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
 | F07 — Storage and hauling | Food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
 | F08 — Materials | More plank buildings, mixed-material recipes, adjustable stock targets, upgrades, and other materials. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |

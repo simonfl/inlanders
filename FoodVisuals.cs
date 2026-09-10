@@ -77,6 +77,7 @@ public partial class Game
             }
             _bushViews[bush.Id] = (body, bush.Ripe);
         }
+        foreach (int id in _cropViews.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cropViews[id].Body.QueueFree(); _cropViews.Remove(id); }
         foreach (var farm in _world.Cottages.Where(c => (c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden) && c.Complete))
         {
             int stage = farm.Harvest > 0 ? 4 : farm.Planted ? 1 + (int)(farm.Growth * 2.9f) : 0;

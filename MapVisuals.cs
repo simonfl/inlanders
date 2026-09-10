@@ -49,16 +49,19 @@ public partial class Game
         ((StandardMaterial3D)backdrop.MaterialOverride).ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
     }
     private string _largeSavePath = "saves/three-clearings.json";
-    private string CurrentSavePath => _world.Map.Name == "Three clearings" ? _largeSavePath : _savePath;
+    private string _creativeSavePath = "saves/creative.json", _creativeLargeSavePath = "saves/creative-three-clearings.json";
+    private string SandboxSavePath(bool large, bool creative) => creative ? (large ? _creativeLargeSavePath : _creativeSavePath) : (large ? _largeSavePath : _savePath);
+    private string CurrentSavePath => SandboxSavePath(_world.Map.Name == "Three clearings", _world.Creative);
     private void OpenLargeMap()
     {
         try
         {
             if (_world.Map.Name == "Three clearings") { FrameMap(); CloseDrawer(); return; }
-            var next = System.IO.File.Exists(_largeSavePath) ? World.LoadFile(_largeSavePath) : World.NewLargeMap();
+            var path = SandboxSavePath(true, _world.Creative);
+            var next = System.IO.File.Exists(path) ? World.LoadFile(path) : _world.Creative ? World.NewCreative(true) : World.NewLargeMap();
             if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath);
             AdoptWorld(next); FrameMap();
-            Notice("Three clearings · a larger village to explore. Home frames the map; F5 saves. The supper goal is optional.");
+            Notice(_world.Creative ? "Creative · Three clearings. Home frames the map; F5 saves." : "Three clearings · a larger village to explore. Home frames the map; F5 saves. The supper goal is optional.");
         }
         catch (Exception e) { Notice("Could not open larger map; current village kept. " + e.Message); }
     }
@@ -67,7 +70,8 @@ public partial class Game
         try
         {
             if (_world.Campaign == null && _world.Map.OriginalOutline) { FrameMap(); CloseDrawer(); return; }
-            var next = System.IO.File.Exists(_savePath) ? World.LoadFile(_savePath) : World.NewScenario();
+            var path = SandboxSavePath(false, _world.Creative);
+            var next = System.IO.File.Exists(path) ? World.LoadFile(path) : _world.Creative ? World.NewCreative() : World.NewScenario();
             if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath);
             AdoptWorld(next); FrameMap(); Notice("Original settlement restored and paused. Press Space to continue.");
         }

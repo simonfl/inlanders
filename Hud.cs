@@ -28,7 +28,7 @@ public partial class Game
 
     private static string RoleName(Role role) => role.ToString();
     private static Role NextRole(Role role) => (Role)(((int)role + 1) % Enum.GetValues<Role>().Length);
-    private static string BuildCost(BuildingKind kind) => kind == BuildingKind.Lodge ? "8 planks · 4 beds" : "6 logs";
+    private string BuildCost(BuildingKind kind) => _world.Creative ? "Instant · Free" : kind == BuildingKind.Lodge ? "8 planks · 4 beds" : "6 logs";
     private static string BuildingName(BuildingKind kind) => kind == BuildingKind.VegetableGarden ? "Vegetable garden" : kind == BuildingKind.ForagerHut ? "Forager hut" : kind == BuildingKind.Square ? "Village square" : kind.ToString();
     private static string TaskName(Work task) => task switch
     {
@@ -109,7 +109,7 @@ public partial class Game
             b.TooltipText = "Construction priority affects new jobs; committed deliveries finish."; priorities.AddChild(b); _priorityButtons.Add(b);
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
-        _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton);
+        _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
         MakeStorageControls(); MakeManagementControls(); MakeHappinessUi();
         inspection.AddChild(Button("Move camera here", () =>
         {
@@ -207,8 +207,8 @@ public partial class Game
         UpdateCameraViewsUi(); UpdateVisitorUi();
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
-        _foodStatus.Text = _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
-        _foodStatus.GetParent<Control>().TooltipText = $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Villagers eat berries first, then vegetables, then bread.";
+        _foodStatus.Text = _world.Creative ? "Creative" : _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
+        _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? "Creative: food needs disabled; full work speed. Production and hauling still use real resources." : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Villagers eat berries first, then vegetables, then bread.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");
         foreach (var (resource, label) in _resourceValues)
             label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, _ => _world.Food.Bread }).ToString();
@@ -228,8 +228,9 @@ public partial class Game
         _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100";
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
+        _clearTreeButton.TooltipText = _world.Creative ? "Click a tree or stump to remove it immediately. Existing timber returns to the yard." : "Click to mark logger work; click again to cancel. Timber is recovered, then roots are removed.";
         _clearTreeButton.Modulate = _placing && _clearingTrees ? _cream : Colors.White;
-        foreach (var (kind, b) in _kindButtons) { b.Modulate = _placing && !_decorating && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
+        foreach (var (kind, b) in _kindButtons) { b.Text = BuildingName(kind) + "\n" + BuildCost(kind); b.TooltipText = BuildingDescription(kind); b.Modulate = _placing && !_decorating && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
         if (_queueButtons.Count != _world.Cottages.Count) RebuildQueue();
         var selected = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
@@ -247,6 +248,7 @@ public partial class Game
         foreach (var b in _priorityButtons) b.Visible = selected != null && !selected.Complete;
         for (int i = 0; i < 3; i++) _priorityButtons[i].Modulate = selected?.Priority == i ? _cream : Colors.White;
         _cancelButton.Visible = selected != null && !selected.Complete;
+        UpdateCreativeControls(selected);
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)
         {
@@ -256,7 +258,7 @@ public partial class Game
         UpdateVillageDirectory();
         UpdateStorageControls();
         UpdateBuildDescription();
-        _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? "Clear trees & stumps · click to mark/cancel · Esc finishes" : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
+        _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;
