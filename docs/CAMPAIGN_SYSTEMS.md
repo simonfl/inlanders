@@ -133,6 +133,41 @@ Fish and game should broaden possible diets, not raise the number of foods every
 
 For **Built to last**, test a compact hall-centered neighborhood against distributed squares while workers quarry and construct. For **The living woods**, test a mostly preserved hunting area against a smaller habitat supplemented by cultivation. In both cases, the campaign should expose the tradeoff through land and labor, explain the next resident expectation before growth, and finish with people visibly using what the player built.
 
+## Next design decisions: make each addition earn its place
+
+The recommended next **new campaign system** is **F26b + F25c: quarry and gathering hall**, after the current woodland/logistics work and river/lake feedback. It connects a new landscape resource to an existing resident need, so we can deepen the game without inventing another satisfaction meter. This is a planning recommendation, not an implementation commitment or a change to the immediate roadmap order.
+
+### Stone country: a project with a reason
+
+Prototype the gathering hall as a compact, covered recreation venue with more simultaneous visitors than a square, but a substantial timber/stone investment. Start without a permanent entertainer: travel, capacity, footprint and construction effort are enough variables to compare. Exact numbers remain TBD. The hall should show seated groups and a substantial roof, entrance and masonry, so completing it changes the village visibly.
+
+**Built to last** starts with working food production and two plausible deposits: a small nearby outcrop beside valuable village land and a larger distant deposit with an awkward route. The player chooses a source and stages construction around everyday meals. A first stone delivery teaches the chain; opening and actually using the hall supplies the scenario's civic project. Distributed squares can keep residents served during construction and remain useful afterward. Other scenarios should allow either venue to satisfy recreation.
+
+Before implementation, compare a hall-centered layout with smaller distributed squares. If the hall never earns its construction cost or simply dominates squares everywhere, revise its capacity/footprint before authoring the level. Ensure available stone covers the project and plausible wasted construction; show remaining deposits. Exhaustion stops extraction, not the campaign. Avoid an obligatory stonecutter between quarry and hall until processed stone has a separate purpose.
+
+### Living woods: food competes with expansion
+
+Keep **managed timber** and **wildlife habitat** distinct. Marking a replanting area must not instantly produce animals: habitat depends on established woodland, and recovery follows growth. The first version can use authored habitat patches whose capacity responds to mature tree cover; exact radius, thresholds and recovery rate remain TBD. Show the projected habitat loss while previewing clearing or construction.
+
+**The living woods** offers a short route into a wooded basin and limited open ground. Preserve a broad hunting area and accept less room for timber/fields, or retain a smaller habitat and supplement game with gardens. Hunters share the habitat's stock; extra lodges cannot multiply its replenishment. Pause hunting to let animals recover, or regrow cleared woodland while another food source supports residents. A first game delivery introduces the lodge; final goals assess reliable meals and a recovering or sustainable habitat, rather than a lodge count or a huge meat quota.
+
+Test deliberate overhunting separately from over-clearing: one should recover through reduced hunting, the other through woodland restoration. Both need understandable feedback and viable interim food. Animal activity, tracks, lodge equipment and returning cargo must make this relationship visible at the normal camera distance.
+
+### Broader building palette — candidates, not extra mandatory chains
+
+These ideas broaden future maps without promoting every possibility into a feature ID. Adopt one only when it creates a decision the existing buildings cannot already provide.
+
+| Candidate pair | Environment or resident connection | A reason to try it / reason to defer |
+| --- | --- | --- |
+| **Orchard + orchard keeper** | A permanent stand occupies scarce open ground; mature fruit contributes to meals. | Delayed establishment and a pleasant inhabited grove versus a quick garden. Defer if it plays like a slower garden; seasons are not required. |
+| **Watermill** | A usable flowing river reach competes with crossings and shore access. | Potential alternative within the bread chain on river maps. First decide what job it replaces or improves; do not insert mandatory flour processing into every existing bakery. Flowing-water support is new work, not a property of current lakes. |
+| **Pasture + herder shelter** | A large clearing is committed to tending animals instead of crops or homes. | Renewable food with different land/labor needs from hunting. Breeding, animal transport and extra product inventories stay deferred; cut if it merely duplicates gardens. |
+| **Well + neighborhood meeting space** | A useful public place near occupied homes. | Initially a civic/visual candidate. Drinking-water logistics would be a major separate design choice; do not add thirst solely to justify a well. |
+| **Learning workshop + restored civic site** | Adults spend time preparing and working on a visible local restoration. | A candidate F25d scenario ambition with an observable result. Attendance should contribute to the project, not unlock a universal production multiplier. Exact project and role of learning remain TBD. |
+| **Chapel or reflection garden + quiet visits** | A hilltop, woodland edge or waterfront becomes a destination. | F25e can offer architecture, sound and ceremonies as alternative village identities. Start by testing a recreation variant; a separate spiritual need must offer a distinct choice before adoption. |
+
+Sleep remains represented by actual home rest for now. Food, rest and recreation are the baseline to make clear and enjoyable; comfort provides a reason to improve established homes. Education and religion/reflection can give particular campaigns an ambition without making every settlement operate every institution. A later scenario should preview its chosen expectation at the start and let the player prepare before accepting expansion.
+
 ## Suggested implementation sequence
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
