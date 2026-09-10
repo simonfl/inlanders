@@ -74,7 +74,8 @@ public partial class Game
         foreach (float x in new[] { -0.34f, 0.34f }) Box(view.Carry, new(x, 0.02f, 0), new(0.04f, 0.16f, 0.42f), new("c5a16d"));
         for (int i = 0; i < worker.Carried; i++)
         {
-            float x = worker.Carried == 1 ? 0 : -0.17f + i * 0.34f;
+            float x = worker.Carried == 1 ? 0 : -0.17f + i % 2 * 0.34f;
+            float row = worker.Carried > 2 ? -.10f + i / 2 * .20f : 0;
             if (worker.Cargo == Resource.Berries)
                 for (int b = 0; b < 5; b++) Mesh(view.Carry, new SphereMesh { Radius = 0.075f, Height = 0.15f, RadialSegments = 6, Rings = 3 },
                     new(x + (b % 2 - 0.5f) * 0.12f, 0.10f + b / 4 * 0.10f, (b / 2 % 2 - 0.5f) * 0.14f), new("a74268"));
@@ -82,13 +83,13 @@ public partial class Game
             else if (worker.Cargo == Resource.Grain)
                 for (int s = 0; s < 4; s++)
                 {
-                    var stalk = Cylinder(view.Carry, new(x + (s - 1.5f) * 0.045f, 0.18f, 0), 0.018f, 0.4f, new("d5b55e"));
+                    var stalk = Cylinder(view.Carry, new(x + (s - 1.5f) * 0.045f, 0.18f, row), 0.018f, 0.4f, new("d5b55e"));
                     stalk.RotationDegrees = new(0, 0, (s - 1.5f) * 12);
-                    Mesh(view.Carry, new SphereMesh { Radius = 0.048f, Height = 0.15f, RadialSegments = 5, Rings = 3 }, new(x + (s - 1.5f) * 0.075f, 0.39f, 0), new("e4c87a"));
+                    Mesh(view.Carry, new SphereMesh { Radius = 0.048f, Height = 0.15f, RadialSegments = 5, Rings = 3 }, new(x + (s - 1.5f) * 0.075f, 0.39f, row), new("e4c87a"));
                 }
             else
             {
-                var loaf = Mesh(view.Carry, new SphereMesh { Radius = 0.14f, Height = 0.23f, RadialSegments = 8, Rings = 4 }, new(x, 0.11f, 0), new("cb8844"));
+                var loaf = Mesh(view.Carry, new SphereMesh { Radius = 0.14f, Height = 0.23f, RadialSegments = 8, Rings = 4 }, new(x, 0.11f + i / 2 * .20f, 0), new("cb8844"));
                 loaf.Scale = new(1, 1, 1.45f);
                 for (int cut = 0; cut < 3; cut++) Box(view.Carry, new(x, 0.22f, -0.09f + cut * 0.09f), new(0.13f, 0.015f, 0.025f), new("f0ce8c"));
             }

@@ -44,20 +44,20 @@ public partial class Game
                         Check(view.Body.GetChildren().Cast<Node3D>().Count(n=>n.GetMeta("standing").AsBool())==farm.Harvest*3,"Harvest did not clear the correct rows");
                     _focus=new(2,0,-2); _camera.Size=12; UpdateCamera();
                     await Capture($"artifacts/f22-crop-{key}.png");
-                    if(key==44)
+                    if(key==42)
                     {
                         string saved=_world.SaveJson();
                         await Frames(); Check(_world.SaveJson()==saved,"Paused crops changed the world");
                         AdoptWorld(World.LoadJson(saved)); _paused=true;
                         farm=_world.Cottages.Single(c=>c.Id==farmId); await Frames();
-                        Check(_cropViews[farmId].Stage==44,"Partial harvest not restored");
-                        Check(_cropViews[farmId].Body.GetChildren().Cast<Node3D>().Count(n=>n.GetMeta("standing").AsBool())==12,"Loaded crop rows incorrect");
+                        Check(_cropViews[farmId].Stage==42,"Partial harvest not restored");
+                        Check(_cropViews[farmId].Body.GetChildren().Cast<Node3D>().Count(n=>n.GetMeta("standing").AsBool())==6,"Loaded crop rows incorrect");
                     }
                 }
                 if(seen.Contains(42) && farm.Harvest==0) break;
             }
             Check(construction.Count==8,"Missing farm or forager construction stages");
-            Check(new[]{10,20,30,46,44,42}.All(seen.Contains),"Missing growth or partial-harvest stages");
+            Check(new[]{10,20,30,46,42}.All(seen.Contains),"Missing growth or partial-harvest stages");
             await Frames(); Check(_cropViews[farmId].Body.GetChildCount()==0,"Harvested field retained crops");
             GD.Print("SMOKE PASS: sprouting, growing, ripe and progressively harvested crops, rotated field, paused state and partial-harvest save/load.");
         }

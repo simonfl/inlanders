@@ -27,7 +27,7 @@ public partial class Game
     private static string BuildingStaff(BuildingKind kind)
     {
         var building = Buildings.Get(kind);
-        return building.Worker == null ? "No staff" : building.Slots == 0 ? "Shared haulers" :
+        return building.Worker == null ? "No staff" : building.Slots == 0 ? "Optional haulers" :
             $"{building.Slots} {building.Worker.ToString()!.ToLowerInvariant()} slot{(building.Slots == 1 ? "" : "s")}";
     }
     private void MakeBuildNavigation(VBoxContainer parent)

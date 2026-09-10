@@ -101,11 +101,11 @@ Filters only affect the view; they do not pause jobs, change assignments, or ent
 
 ### Local log stockpiles
 
-Build a **Stockpile** for **4 logs**, then assign a **Hauler** in People or from the stockpile inspector. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
+Build a **Stockpile** for **4 logs** near woodland and timber work. Local logger deposits need **no hauler**. Assign an optional **Hauler** in People or the inspector when you want existing stocks redistributed. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
 
 Loggers drop timber at nearby storage with room. Builders and sawyers collect from a suitable store close to their work site. Haulers carry two logs at a time, refill targets from the main yard or another stockpile's surplus, and return excess to the yard. Target **0** drains a stockpile; already committed loads finish before haulers rebalance. Loggers may still drop new timber there, so target zero does not close the stockpile.
 
-The top-bar Logs total includes the main yard and every stockpile. Select a stockpile for its stored, reserved, and incoming counts; **Economy [I]** lists each location. Stockpile log stacks change as deliveries arrive or leave. Food and planks still use the main yard. Completed stockpiles cannot be demolished in this first version.
+A pile is an investment, not an automatic speed boost: local harvesting can repay setup over a longer build, while a dedicated hauler may save elapsed time at the cost of more total labor. The top-bar Logs total includes the main yard and every stockpile. Select a stockpile for its stored, reserved, and incoming counts; **Economy [I]** lists each location. Stockpile log stacks change as deliveries arrive or leave. Food and planks still use the main yard. Completed stockpiles cannot be demolished in this first version.
 
 ### Welcoming newcomers
 
@@ -138,8 +138,8 @@ The Economy badge counts current issues. Click a shortage message to open the re
 - One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, using berries first, then vegetables, then bread. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
 - Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
-- Wheat grows from green shoots to golden ears. Each harvested load leaves two columns of stubble, making the remaining crop visible.
-- A planted crop takes 45 seconds to ripen and yields six grain. Two grain bake into four loaves in ten seconds.
+- Wheat grows from green shoots to golden ears. Harvested grain leaves matching columns of stubble, making the remaining crop visible.
+- A planted crop takes 45 seconds to ripen and yields six grain; farmers carry up to four grain per harvest trip. Two grain bake into four loaves in ten seconds, and the baker delivers the whole batch. Keep the bakery close to the pantry to reduce travel.
 - Missed meals reduce movement and work speed, down to 50% when everyone goes hungry. Nobody dies; food production can recover the settlement.
 - Food physically travels from source to storage and from storage to production buildings. Goods in transit or still inside a bakery cannot be eaten or used for the supper.
 
@@ -298,4 +298,4 @@ Villagers take short breaks at completed village squares between jobs and delive
 
 **A gardener's visit:** From day 3, a finished forager hut attracts a gardener. Look for the yard marker and Goals → Visitor. Trade 8 stored berries to unlock freely placeable decorative sunflowers, leave the offer pending, or decline this visit. The card shows food remaining after the trade. There is no deadline; declining has no penalty, and the visitor is never required for campaign progress.
 
-Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). Run "./Test.ps1 -Balance" to repeat the comparisons.
+Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). The [F24b follow-up](docs/BALANCE_REVIEW_F24B.md) covers food transport and stockpile payback. Run `./Test.ps1 -Balance` to repeat the comparisons.

@@ -1,5 +1,7 @@
 # F24a: building investment, first measured pass
 
+Historical F24a snapshot; see the [completed F24b follow-up](BALANCE_REVIEW_F24B.md) for subsequent transport changes and resolved first-pass payoff questions.
+
 Baseline: `e53735c`. The first pass changes construction investment and shares building definitions between the simulation and UI. **F24 is not finished:** food throughput and stockpile payoff remain open in F24b. These are deterministic layout experiments, not human playtests or proof of enjoyment.
 
 ## Adopted values

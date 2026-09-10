@@ -364,7 +364,7 @@ public sealed partial class World
         {
             if (v.Task is Work.ToClearStump or Work.ClearingStump)
                 Check(Trees.Any(t => t.Id == v.TreeId && t.Owner == v.Id && t.ClearRequested && t.Logs == 0), "Invalid root-clearing worker");
-            Check(v.Carried is >= 0 and <= 2, "Carry capacity exceeded");
+            Check(v.Carried >= 0 && v.Carried <= (v.Cargo is Resource.Bread or Resource.Grain ? 4 : 2), "Carry capacity exceeded");
             Check(!Blocked(At(v)) && v.Route.All(c => !Blocked(c)), "Worker route intersects obstacle");
             Check(v.SiteId == null || Cottages.Any(c => c.Id == v.SiteId), "Job targets cancelled site");
         }

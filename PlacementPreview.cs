@@ -31,15 +31,15 @@ public partial class Game
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
-        BuildingKind.Stockpile => "Stores up to 12 logs. Loggers drop timber nearby; builders and sawyers collect locally. Haulers refill its target or return surplus to the yard. Food and planks stay at the main yard.",
+        BuildingKind.Stockpile => "Stores up to 12 logs. Place between woodland and timber work; local logger deposits need no hauler. Optional haulers move existing stocks to its target. Food and planks stay at the main yard.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
         BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",
         BuildingKind.VegetableGarden => "Supports 1 farmer. Grows 8 vegetables in 60 seconds after planting; harvested in pairs and carried to the pantry. Eaten directly without a bakery. Farmers share gardens and grain farms.",
-        BuildingKind.Farm => "Supports 1 farmer. Crops grow for 45 seconds, yielding 6 grain. Grain must be baked to feed villagers.",
-        BuildingKind.Bakery => "Supports 1 baker. Turns 2 grain into 4 loaves in 10 work seconds. Needs a grain supply.",
+        BuildingKind.Farm => "Supports 1 farmer. Grows 6 grain in 45 seconds; harvest loads hold up to 4. Grain needs a bakery before villagers can eat it.",
+        BuildingKind.Bakery => "Supports 1 baker. Bakes 2 grain into 4 loaves in 10 work seconds; carries the whole batch. Build near the pantry to shorten trips.",
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for {World.PlankStockTarget} planks in stock.",
         _ => ""
     };

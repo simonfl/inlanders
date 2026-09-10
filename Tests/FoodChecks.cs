@@ -25,9 +25,13 @@ public static class FoodChecks
         var w = Scenario();
         var phases = new[] { Work.ToBush, Work.Foraging, Work.ToFarm, Work.Planting, Work.Harvesting, Work.ToGrain, Work.ToOven, Work.Baking, Work.ToBread, Work.ToPantry };
         var snapshots = new Dictionary<Work, string>();
+        string? fullBasket = null;
+        string? fullGrain = null;
         for (int tick = 0; tick < 20000 && !w.CanCelebrate; tick++)
         {
             Step(w);
+            if (fullBasket == null && w.People.Any(v => v.Task == Work.ToPantry && v.Cargo == Resource.Bread && v.Carried == 4)) fullBasket = w.SaveJson();
+            if (fullGrain == null && w.People.Any(v => v.Task == Work.ToPantry && v.Cargo == Resource.Grain && v.Carried == 4)) fullGrain = w.SaveJson();
             foreach (var phase in phases)
                 if (!snapshots.ContainsKey(phase) && w.People.Any(v => v.Task == phase)) snapshots[phase] = w.SaveJson();
         }
@@ -49,6 +53,31 @@ public static class FoodChecks
             interrupted.Assign(worker.Id, role); Step(interrupted, 500);
         }
         Console.WriteLine("PASS: exact save/load continuation and safe reassignment in all ten food work phases.");
+        Check(fullBasket != null, "Baker never carried the full four-loaf batch");
+        var batch = World.LoadJson(fullBasket!); var continued = World.LoadJson(fullBasket!);
+        Check(batch.SaveJson() == fullBasket, "Four-loaf basket changed on load");
+        Step(batch, 800); Step(continued, 800);
+        Check(batch.SaveJson() == continued.SaveJson(), "Full-batch delivery continuation diverged");
+        var returned = World.LoadJson(fullBasket!);
+        var carrier = returned.People.Single(v => v.Cargo == Resource.Bread && v.Carried == 4);
+        int deliveredBefore = returned.DeliveredBread;
+        returned.Assign(carrier.Id, Role.Unassigned); returned.Validate();
+        Check(carrier.Carried == 4 && carrier.Task == Work.ToPantry && returned.DeliveredBread == deliveredBefore, "Reassignment teleported a bread batch");
+        Until(returned, () => carrier.Carried == 0, "Four-loaf basket was stranded");
+        Check(returned.DeliveredBread == deliveredBefore + 4, "Returned batch lost or duplicated bread");
+        Console.WriteLine("PASS: full four-loaf basket, exact continuation, physical return after reassignment and bread conservation.");
+        Check(fullGrain != null, "Farmer never carried four grain");
+        var grainLoad = World.LoadJson(fullGrain!); var grainClone = World.LoadJson(fullGrain!);
+        Check(grainLoad.SaveJson() == fullGrain, "Grain load changed on save/load");
+        Step(grainLoad, 800); Step(grainClone, 800);
+        Check(grainLoad.SaveJson() == grainClone.SaveJson(), "Four-grain delivery continuation diverged");
+        grainLoad = World.LoadJson(fullGrain!);
+        var farmer = grainLoad.People.Single(v => v.Cargo == Resource.Grain && v.Carried == 4);
+        grainLoad.Assign(farmer.Id, Role.Unassigned); grainLoad.Validate();
+        Check(farmer.Carried == 4 && farmer.Task == Work.ToPantry, "Reassignment lost the grain load");
+        Until(grainLoad, () => farmer.Carried == 0, "Four-grain load was stranded");
+        Check(grainLoad.Food.Grain >= 4, "Grain did not reach the pantry");
+        Console.WriteLine("PASS: four-grain harvest load, exact continuation and physical return with grain conservation.");
         Check(!World.NewScenario().BeginSupper(), "Unqualified settlement hosted supper");
         int before = w.Food.Bread; Check(w.BeginSupper(), "Supper failed to start");
         Check(w.Food.Bread == before - 16 && !w.BeginSupper(), "Supper charged incorrectly or started twice");

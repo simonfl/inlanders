@@ -53,10 +53,31 @@ public partial class Game
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); Check(_camera.Size < size, "Zoom failed"); _camera.Size = size;
             await UiClick(_speedButton); await UiClick(_speedButton); Check(_speed == 6, "Speed failed");
             await Press(Key.Space);
-            bool harvested = false, reloaded = false;
+            bool harvested = false, reloaded = false, fullBasket = false, grainBasket = false;
             for (int frame = 0; frame < 22000 && !_world.CanCelebrate; frame++)
             {
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); _world.Validate();
+                if (!grainBasket && _world.People.FirstOrDefault(v => v.Cargo == Inlanders.Simulation.Resource.Grain && v.Carried == 4) is { } grainCarrier)
+                {
+                    var view = _people[grainCarrier.Id];
+                    Check(view.Carry.Visible && view.Count == 4, "Four-grain basket did not match cargo");
+                    var previousFocus = _focus; float previousSize = _camera.Size, previousAngle = _angle;
+                    _focus = view.Body.Position; _camera.Size = 6; _angle += Mathf.Pi; UpdateCamera();
+                    await Capture("artifacts/f24b-grain-basket.png");
+                    _focus = previousFocus; _camera.Size = previousSize; _angle = previousAngle; UpdateCamera();
+                    grainBasket = true;
+                }
+                if (!fullBasket && _world.People.FirstOrDefault(v => v.Cargo == Inlanders.Simulation.Resource.Bread && v.Carried == 4) is { } carrier)
+                {
+                    var view = _people[carrier.Id];
+                    Check(view.Carry.Visible && view.Count == 4, "Full bread basket did not match cargo");
+                    Check(view.Carry.GetChildren().OfType<MeshInstance3D>().Count(m => m.Mesh is SphereMesh) == 4, "Basket did not show four loaves");
+                    var previousFocus = _focus; float previousSize = _camera.Size;
+                    _focus = view.Body.Position; _camera.Size = 6; UpdateCamera();
+                    await Capture("artifacts/f24b-bread-basket.png");
+                    _focus = previousFocus; _camera.Size = previousSize; UpdateCamera();
+                    fullBasket = true;
+                }
                 if (!harvested && _world.People.Any(v => v.Task == Work.Harvesting)) { await Capture("artifacts/m3-harvest.png"); harvested = true; }
                 if (!reloaded && _world.People.Any(v => v.Task == Work.Baking))
                 {
@@ -77,7 +98,9 @@ public partial class Game
                     await Press(Key.Space); reloaded = true;
                 }
             }
-            Check(_world.CanCelebrate && harvested && reloaded && _world.Food.EatenBerries > 24, "Rendered food economy did not qualify for supper");
+            // Faster delivery can qualify before four meals; verify meals occurred without imposing a minimum completion time.
+            GD.Print($"FOOD SMOKE: ready={_world.CanCelebrate} harvested={harvested} reloaded={reloaded} breadBasket={fullBasket} grainBasket={grainBasket} berriesEaten={_world.Food.EatenBerries}");
+            Check(_world.CanCelebrate && harvested && reloaded && fullBasket && grainBasket && _world.Food.EatenBerries > 0, "Rendered food economy did not qualify for supper");
             await Press(Key.Space); _noticeUntil = 0; await Capture("artifacts/m3-ready.png");
             await UiClick(_supperButton); Check(_world.Food.Celebrating && _world.Food.SupperBread == 16, "Supper button failed");
             await Press(Key.Space); bool gathering = false;
