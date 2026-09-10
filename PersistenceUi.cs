@@ -26,6 +26,7 @@ public partial class Game
                 _campaignBook = book;
             }
             else restored = World.LoadFile(CurrentSavePath); // Validate fully before replacing the current game.
+            _autosaveElapsed = 0; _lastAutosaved = null;
             _world = restored; CloseManagementUi(); _placing = false; _accumulator = 0;
             _paused = true; _pauseButton.Text = "Resume  [Space]";
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();

@@ -10,7 +10,7 @@ public partial class Game
     private async Task SmokeSawmill()
     {
         void Check(bool value, string message) { if (!value) throw new Exception(message); }
-        await UiClick(_resetButton); await Press(Key.Space);
+        await UiClick(_resetButton);
         Check(_paused, "Sawmill fixture must be paused"); _savePath = "artifacts/f08-rendered-save.json";
         await UiClick(_kindButtons[BuildingKind.Sawmill]);
         await Click(_camera.UnprojectPosition(new(3,0,0)));

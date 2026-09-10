@@ -16,7 +16,7 @@ public partial class Game
     private readonly Dictionary<string, Button> _mainButtons = new();
     private void MakeMainMenu()
     {
-        _menuEnabled = true;
+        _menuEnabled = true; GetTree().AutoAcceptQuit = false;
         var layer = new CanvasLayer { Layer = 20 }; AddChild(layer);
         _mainMenu = new Control(); layer.AddChild(_mainMenu); _mainMenu.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         var shade = new ColorRect { Color = new(0.07f, 0.13f, 0.11f, 0.35f) }; _mainMenu.AddChild(shade); shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
@@ -45,7 +45,7 @@ public partial class Game
         MenuPage("A quiet place to build");
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath) && !File.Exists(_campaignPath) && !File.Exists(_savePath) && !File.Exists(_largeSavePath) && !File.Exists(_creativeSavePath) && !File.Exists(_creativeLargeSavePath);
         MenuButton("Campaign", CampaignMenu); MenuButton("Free play", FreePlayMenu); MenuButton("Creative", () => FreePlayMenu(true)); MenuButton("Settings", MainSettings);
-        MenuButton("Quit", () => GetTree().Quit());
+        MenuButton("Quit", RequestQuit);
         _mainColumn.AddChild(Text("Small villages, growing trees, and a little room to breathe.", 15, true));
     }
     private void RememberSettlement()
@@ -54,17 +54,15 @@ public partial class Game
     }
     private void ReturnToMainMenu()
     {
-        try
-        {
-            if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath);
-            RememberSettlement(); ShowMainMenu();
-        }
-        catch (Exception e) { Notice("Could not save; village kept open. " + e.Message); }
+        if (SaveSession()) ShowMainMenu();
     }
     private void EnterFromMenu(World world)
     {
         // Persist Continue before leaving the menu, so a write failure keeps the menu usable.
-        world.SaveFile(_continuePath); AdoptWorld(world);
+        var book = world.Campaign != null ? ReadCampaignBook() : null;
+        world.SaveFile(_continuePath);
+        if (book != null) { book.Capture(world); _campaignBook = book; }
+        AdoptWorld(world);
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
         if (world.Campaign != null) ToggleDrawer(2);
         Notice("Settlement ready and paused. Press Space to play.");

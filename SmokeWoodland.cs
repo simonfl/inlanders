@@ -10,7 +10,7 @@ public partial class Game
     private async Task SmokeWoodland()
     {
         void Check(bool value, string message) { if (!value) throw new Exception(message); }
-        await UiClick(_resetButton); await Press(Key.Space);
+        await UiClick(_resetButton);
         Check(_paused, "Woodland setup must be paused");
         _savePath = "artifacts/f02-rendered-save.json";
         await UiClick(_plantTreeButton);

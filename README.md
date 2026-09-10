@@ -30,7 +30,7 @@ Launching opens a quiet, paused village behind the title screen:
 - **Settings** controls Effects, Nature, Music, music-only mute, and master mute; these are shared with in-game sound settings.
 - **Quit** exits the game.
 
-In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
+In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window also saves the current session and Continue; a failed save keeps the window open. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
 
 Creative saves are separate in `saves/creative.json` and `saves/creative-three-clearings.json`, with the same previous-village recovery as Free play. F5/F9 and Options map switching preserve the mode. There is no supper objective or visitor trade in Creative; the Goals panel explains its rules. Housing and square breaks still affect happiness, while food needs receive a neutral full allowance.
 
@@ -48,7 +48,7 @@ The square costs six logs and needs no staff. Leave one walkable tile per villag
 
 Save compatibility is not guaranteed during prototyping; use a fresh campaign for this revised sequence. If an old campaign cannot load, the Campaign menu offers **Start fresh campaign**.
 
-Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Use Continue or Campaign on the title screen to resume, paused. Save with F5 or return to the main menu before closing if you want to retain changes since the last save. This is separate from the standalone manual save.
+Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous write. Switching settlements, replaying, completing a level, and F5 save campaign progress; F9 restores the latest campaign save while in campaign mode. Use Continue or Campaign on the title screen to resume, paused. Closing the window saves current progress too. Periodic autosaves are separate from this F9 checkpoint. This is separate from the standalone manual save.
 
 ## A larger map: Three clearings
 
@@ -226,9 +226,13 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F5 / Save | Save the current settlement |
 | Home | Frame the full map |
 | F9 / Load | Restore the saved settlement, paused |
-| Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
+| Start again | Restart paused and retain the live village; restore it from Options (campaign replay also remains in Goals) |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 21; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 21; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+
+**Recovery in Options:** Restore latest autosave, Restore previous autosave, Restore village before restart, and Undo last recovery. Recovery pauses the village and validates the file and its map/mode/level before replacing anything. F5 commits a recovered autosave to the manual checkpoint; F9 continues to load the manual/session checkpoint, not the periodic autosave. Returning to the menu, switching maps, campaign completion, and closing the window also update session checkpoints.
+
+Two rolling snapshots live beside each sandbox save as `.autosave` and `.autosave.bak`; campaign snapshots use `campaign.json.level-N.autosave` and `.bak`, one pair per level. Autosaves update Continue without overwriting the manual save or campaign book. They stop on the title screen and use real elapsed time, independent of game speed. Restart retains the live pre-restart village even if you have not pressed F5. Restoring a recovery snapshot retains the replaced village for Undo last recovery. No old-save migration is provided.
 
 ## Development
 
@@ -236,6 +240,7 @@ See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional fol
 
 | File | Responsibility |
 | --- | --- |
+| `RecoveryUi.cs` | Rolling autosaves, recovery controls, session saving and window-close handling |
 | `Simulation/Settlement.cs` | Fixed-step simulation, grid A*, placement, logging, construction, reservations |
 | `Simulation/Food.cs`, `VegetableVisuals.cs` | Foraging, grain/vegetable farming, baking, meals, hunger, supper, and garden visuals |
 | `Simulation/Woodland.cs` | Planting sites, sapling growth, renewable timber accounting |
@@ -313,3 +318,5 @@ Meal variety is a village-wide result, not an individual diet history. Economy a
 Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). The [F24b follow-up](docs/BALANCE_REVIEW_F24B.md) covers food transport and stockpile payback. Run `./Test.ps1 -Balance` to repeat the comparisons.
 
 F21h workplace checks: `./Test.ps1` covers pause/resume, batch and crop commitments, food-flow history and current-format saves. Run `./Play.ps1 -ProductionSmokeTest` for the focused rendered workplace controls and actual-meal feedback checks; the full HUD suite includes it too.
+
+F19b recovery checks: ./Play.ps1 -MenuSmokeTest exercises rolling snapshots, map/mode/level isolation, F9 checkpoints, restart and undo, relaunch recovery, and successful/failed window-close saving.

@@ -182,7 +182,8 @@ public partial class Game
         var saves = new HBoxContainer(); column.AddChild(saves);
         _saveButton = Button("Save [F5]", SaveWorld); _loadButton = Button("Load [F9]", LoadWorld);
         _saveButton.SizeFlagsHorizontal = _loadButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; saves.AddChild(_saveButton); saves.AddChild(_loadButton);
-        _resetButton = Button("Start again", Reset); column.AddChild(_resetButton);
+        _resetButton = Button("Start again (keeps previous village)", Reset); column.AddChild(_resetButton);
+        MakeRecoveryUi(column);
         column.AddChild(Button("Return to main menu", ReturnToMainMenu));
         column.AddChild(Button("Explore larger map", OpenLargeMap));
         column.AddChild(Button("Return to original map", OpenOriginalMap));

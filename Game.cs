@@ -61,10 +61,14 @@ public partial class Game : Node3D
     private void Reset()
     {
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
-        _world = _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario(); CloseManagementUi(); _buildKind = BuildingKind.Cottage;
-        _placing = false; _plantingTrees = false; _rotated = false; _paused = false; _accumulator = 0;
-        _pauseButton.Text = "Pause  [Space]"; CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
-        try { RememberSettlement(); } catch (Exception e) { Notice("New village started, but Continue could not be saved: " + e.Message); }
+        try
+        {
+            var next = _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
+            _world.SaveFile(CurrentSavePath + ".before-new");
+            _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotated = false; AdoptWorld(next);
+            Notice("New village ready and paused. Options can restore the village before restart.");
+        }
+        catch (Exception e) { Notice("Could not restart; current village kept. " + e.Message); }
     }
     private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
     private void UpdateCamera()
@@ -167,7 +171,7 @@ public partial class Game : Node3D
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        RenderActors(dt); UpdateAtmosphere(); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
+        AdvanceAutosave(delta); UpdateRecoveryUi(); RenderActors(dt); UpdateAtmosphere(); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
     }
     private void RenderActors(float dt)
     {

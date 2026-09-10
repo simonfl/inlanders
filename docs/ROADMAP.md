@@ -8,7 +8,7 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**F23a is implemented and awaiting visual feedback.** Review the [matched before/after scene](ART_REVIEW_F23A.md) before expanding the style. **Next feature: F16b — rearrange a village safely.** F14b now makes meal variety reflect actual portions eaten, supporting the [resident-needs and campaign plan](CAMPAIGN_SYSTEMS.md). Take the small F19b save/restart follow-up next, then F16b and the substantial river campaign proof. F23b follows visual acceptance or another focused art iteration.
+**F23a is implemented and awaiting visual feedback.** Review the [matched before/after scene](ART_REVIEW_F23A.md) before expanding the style. **Next feature: F16b — rearrange a village safely.** F14b now makes meal variety reflect actual portions eaten, supporting the [resident-needs and campaign plan](CAMPAIGN_SYSTEMS.md). F19b now provides restart recovery, rolling autosaves and save-on-close; next take F16b and the substantial river campaign proof. F23b follows visual acceptance or another focused art iteration.
 
 See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. The baseline review contains earlier candidate costs; the F24a/F24b reviews record adopted values, measured tradeoffs and remaining playtest limits. **UI remains a major priority.**
 
@@ -27,8 +27,6 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 | 5 | F02b | **Managed woodland.** Preserve chosen trees and maintain a small replanting zone using existing loggers. Clearing and building orders take explicit precedence. | Several harvest/regrowth cycles without repetitive individual planting; the player shapes a productive grove and open village land. |
 | 6 | F07b | **Useful neighborhood logistics.** Show supply routes and explain local harvest versus hauler redistribution first. Prototype local food/plank storage only where a settlement demonstrates useful payoff beyond the larger food loads. Clarify whether the forager hut becomes a real collection point or remains a worker permit. | A local arrangement measurably reduces unnecessary trips and is understandable to the player. Add only storage behavior that creates useful layout decisions. |
 | 7 | F03b / F04b | **Believable work and village life.** Improve the most visible tool contact, tree felling, deliveries and harvesting. Present the F25 home/rest visits and a small set of social moments with recognizable residents; resident-need rules belong to F25, not this animation pass. | An observer understands work without labels and enjoys breaks and inhabited spaces. Pausing and interruptions preserve convincing animation; no constant visual noise. |
-
-**Separate session follow-up — F19b:** unify recoverable restart, save-on-exit and mode-aware rolling autosave; keep manual F5/F9 restore semantics explicit. Schedule this small reliability follow-up after F14b and before substantial campaign playtesting; it does not gate the visual review or campaign design. No save-version migration work.
 
 Before population, map size, or decoration density expands further, profile a decorated 16–24-person settlement and a prolonged paused placement preview. Optimize measured costs in the owning chunk; avoid a standalone engine-rewrite project.
 
@@ -62,6 +60,7 @@ Before population, map size, or decoration density expands further, profile a de
 | F16 | Creative on both maps: instant free completed buildings, no hunger or meals, all decorations, immediate clearing with timber recovery, and safe completed-building removal. Production/cargo stay physical; bridge removal protects access. Separate New/Resume/Restore saves and Continue, mode-aware UI, beds-only invitations, and neutral food satisfaction. |
 | F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |
+| F19b | Two rolling autosaves per sandbox map/mode and campaign level, every two real minutes including changed paused layouts; explicit restore and undo in Options. Autosaves update Continue but preserve F5/F9 checkpoints. Restart retains live progress and opens paused; window close saves the session and remains open on failure. |
 | F19a | Supper releases its gathering destinations on completion, so subsequent decoration/construction on vacated spots does not invalidate fresh saves or campaign snapshots. No migration or repair of old saves. |
 | F20 | Soft daylight/golden-hour presets, grass variation, subtle pause-aware foliage, and persistent visual preferences. |
 | F21a | Compact HUD, responsive menus, scrolling, and a contextual inspector down to 960×640. |
@@ -141,13 +140,13 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F05 — Food choices | More crops or orchards, recipe variety, garden/grain balance, and further diet choices building on the actual-meal rule shipped in F14b. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
-| F07 — Storage and hauling | Compact yard visuals for large reserves (Creative clearing can produce tall stacks), food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
+| F07 — Storage and hauling | Compact yard visuals for large reserves (Creative clearing can produce tall stacks), food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition belongs to F16b. |
 | F08 — Materials | More plank buildings, mixed-material recipes, upgrades and other materials. Adjustable workplace stock targets shipped in F21h. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
-| F12a / F12b — Maps and water | More authored geography, richer map edges and shores, wider bridges, islands, water animation, bridge variants, and demolition rules. |
+| F12a / F12b — Maps and water | More authored geography, richer map edges and shores, wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access belong to F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |

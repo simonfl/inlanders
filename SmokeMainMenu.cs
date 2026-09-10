@@ -100,15 +100,19 @@ public partial class Game
             AdoptWorld(World.LoadFile(_creativeSavePath));
             ReturnToMainMenu(); await Frames(); await MenuClick("Free play"); await MenuClick("Resume Original clearing");
             Check(!_world.Creative && _world.SaveJson() == original && _progress.Visible, "Creative overwrote normal save or left stale UI");
+            await CheckRecoveryUi();
             GD.Print("SMOKE PASS: main menu at 1440/960, input isolation, settings, new/resume/replay, all Continue modes, corruption recovery, separate saves, Creative placement/removal and map switching.");
             await Frames();
-            GetTree().Quit();
+            _world.Tick(.1f); string exitState = _world.SaveJson();
+            Check(!GetTree().AutoAcceptQuit, "Window close bypasses saving");
+            _Notification((int)NotificationWMCloseRequest);
+            Check(World.LoadFile(_continuePath).SaveJson() == exitState, "Window close did not save Continue");
         }
         catch (Exception e) { GD.PrintErr("MENU SMOKE FAIL: " + e); GetTree().Quit(1); }
         finally
         {
             foreach (string kind in new[] { "original", "large", "campaign", "continue", "creative", "creative-large" })
-                foreach (string suffix in new[] { "", ".bak", ".tmp", ".before-new", ".before-restore" }) { string path = stem + "-" + kind + ".json" + suffix; if (File.Exists(path)) File.Delete(path); }
+                foreach (string suffix in new[] { "", ".bak", ".tmp", ".before-new", ".before-new.bak", ".before-restore", ".before-recovery", ".before-recovery.bak", ".autosave", ".autosave.bak", ".level-1.autosave", ".level-1.before-recovery", ".level-2.autosave", ".level-2.before-recovery", ".level-2.before-recovery.bak" }) { string path = stem + "-" + kind + ".json" + suffix; if (File.Exists(path)) File.Delete(path); }
         }
     }
 }
