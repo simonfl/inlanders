@@ -140,6 +140,8 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (EditingText) return;
+            if(_watching && key.Keycode==Key.J) { ToggleWatchOrbit(); return; }
+            if(key.Keycode is Key.Q or Key.E or Key.W or Key.A or Key.S or Key.D) _watchOrbit=false;
             if(key.Keycode==Key.U) { ToggleResourceSurvey(); return; }
             if(key.Keycode==Key.Escape && _surveying) { StopResourceSurvey(); return; }
             if (key.Keycode == Key.H) { ToggleWatch(); return; }
@@ -166,6 +168,7 @@ public partial class Game : Node3D
         }
         if (input is InputEventMouseButton mouse && mouse.Pressed)
         {
+            if(mouse.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown) _watchOrbit=false;
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
             if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
             if (_watching || mouse.ButtonIndex != MouseButton.Left) return;
@@ -186,7 +189,8 @@ public partial class Game : Node3D
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
-        if (!EditingText && pan != Vector3.Zero) { _followPerson = false; _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
+        if (!EditingText && pan != Vector3.Zero) { _watchOrbit=false; _followPerson = false; _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
+        AdvanceWatchOrbit(dt);
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {

@@ -40,6 +40,7 @@ public partial class Game
     }
     private void RecallCameraView(int slot)
     {
+        _watchOrbit=false;
         if(_world.CameraViews[slot] is not CameraView view) { Notice($"View {slot+1} is empty. Use Ctrl+{slot+1} to save the current camera."); return; }
         _followPerson=false; _placing=false; _pathStroke=false; _lastPathCell=null; RefreshGhost();
         _focus=new(view.X,0,view.Z); _angle=view.Angle; _camera.Size=view.Zoom; UpdateCamera();

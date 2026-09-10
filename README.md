@@ -147,6 +147,8 @@ Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Option
 
 Choose **Clean view [Tab]** or press **Tab** while watching to hide the bar and all floating world labels for screenshots or quiet viewing. Tab restores the bar; H or Esc returns directly to management. Camera movement, follow and Space to pause still work. This temporary view preserves your world-label preference and resets when changing villages. Run `./Play.ps1 -WatchSmokeTest` to check Watch controls and clean view at 960/1440.
 
+Choose **Orbit [J]** for a slow two-minute circle around the current focus. This stops following a resident and works while paused or in clean view, independently of village speed. J stops it; pan, wheel zoom, Q/E, Frame map or recalling a saved view takes over immediately. Returning to management or changing villages also stops the orbit. Watching does not overwrite saved views.
+
 ### Economy and shortages
 
 Press **U** or choose **Economy → Survey map resources** to inspect fish grounds, stone outcrops and woodland habitat. Click a marker or choose a source in the inspector to see stock, reservations, recovery and access. Workplace links open related sites; **Back to source** returns to the resource. **U / Esc** finishes surveying. Placement and Watch mode also end it. See the [resource survey review](docs/RESOURCE_SURVEY_F21J.md).

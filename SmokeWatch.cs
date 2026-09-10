@@ -34,7 +34,25 @@ public partial class Game
             Check(!_cleanWatch && _watchBar.Visible && WorldLabelsVisible==labels,"Tab did not restore Watch controls and label preference");
             await UiClick(_watchClean); await Frames(); Check(_cleanWatch,"Clean view button failed");
             await Press(Key.Tab); await Frames();
+            var focus=_focus; float angle=_angle, speed=_speed;
+            await UiClick(_watchOrbitButton); await Frames();
+            Check(_watchOrbit && !_followPerson && _angle!=angle && _focus==focus,"Orbit did not move around a fixed focus while paused");
+            Check(_paused && _speed==speed && _world.SaveJson()==saved,"Orbit changed simulation, speed or saved views");
+            await Capture($"artifacts/f21e3-orbit-{viewport.X}.png");
+            await Press(Key.Tab); await Frames(); angle=_angle; await Frames();
+            Check(_cleanWatch && _angle!=angle,"Clean view stopped orbit");
+            await Press(Key.J); await Frames(); angle=_angle; await Frames();
+            Check(!_watchOrbit && _angle==angle,"J failed to stop hidden orbit");
+            await Press(Key.Tab); await Frames();
         }
+        foreach(var key in new[]{Key.W,Key.A,Key.S,Key.D,Key.Q,Key.E,Key.Home,Key.Key1})
+        {
+            await Press(Key.J); await Frames(); Check(_watchOrbit,"Orbit shortcut failed");
+            await Press(key); await Frames(); Check(!_watchOrbit,$"Manual {key} did not stop orbit");
+        }
+        await Press(Key.J); await Frames();
+        Input.ParseInputEvent(new InputEventMouseButton { Position=new(480,300),ButtonIndex=MouseButton.WheelUp,Pressed=true });
+        await Frames(); Check(!_watchOrbit,"Manual zoom did not stop orbit");
         await Click(_camera.UnprojectPosition(_people[1].Body.Position)); await Frames();
         Check(_selectedPerson==selected && _world.SaveJson()==saved,"Watch click changed selection or village");
         await Click(_watchSpeed.GetGlobalRect().GetCenter()); await Frames();
@@ -52,8 +70,8 @@ public partial class Game
         Check(!_watching && _drawer.Visible && _tabs.CurrentTab==1 && !_placing,"Build shortcut did not restore controls safely");
         await Press(Key.H); await Frames(); await Click(_watchReturn.GetGlobalRect().GetCenter()); await Frames();
         Check(!_watching,"Visible manage button failed");
-        ToggleWatch(); ToggleCleanWatch(); AdoptWorld(_world); await Frames();
-        Check(!_watching && !_cleanWatch && !_watchRoot.Visible && _hud.Visible,"World adoption left watch controls active");
+        ToggleWatch(); ToggleWatchOrbit(); ToggleCleanWatch(); AdoptWorld(_world); await Frames();
+        Check(!_watching && !_cleanWatch && !_watchOrbit && !_watchRoot.Visible && _hud.Visible,"World adoption left watch controls active");
         _speed=1; CloseManagementUi(); GetWindow().Size=size; await Frames();
         GD.Print("SMOKE PASS: watch entry/exit, selection preservation, camera-view clicks, pause/speed, live simulation, cancelled placement, management shortcut, and 1440/960 controls.");
     }

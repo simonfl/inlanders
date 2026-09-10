@@ -8,6 +8,7 @@ public partial class Game
     private float MaximumZoom => _world.MaximumViewZoom;
     private void FrameMap()
     {
+        _watchOrbit=false;
         _followPerson = false;
         var map = _world.Map;
         _focus = new((map.MinX + map.MaxX) / 2f, 0, (map.MinZ + map.MaxZ) / 2f);
