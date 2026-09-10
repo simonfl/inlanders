@@ -107,6 +107,32 @@ Introduce a resource through one visible first use, then assess the resulting vi
 
 For each new scenario, write down two intended approaches and one recoverable mistake before choosing quotas. Examples: lake fishing plus gardens versus a smaller fishery supporting bread; a central hall versus distributed squares; preserving a large hunting habitat versus keeping a smaller habitat and cultivating more food. If those approaches differ only in how long the player waits, revise the map or the building tradeoffs.
 
+## Later needs: small, independently reviewable chunks
+
+Keep the distinction between an essential need and a village improvement. Food already constrains production; rest and recreation already give residents routines. The next step is to make those understandable and satisfying, not immediately introduce five more penalties. The following IDs reserve work we can choose later; none commits us to a new meter.
+
+| Chunk | Smallest useful experiment | Environmental or economic decision | Keep it only if… |
+| --- | --- | --- | --- |
+| **F25b — Comfort at home** | A carpenter accepts improvement orders for existing occupied cottages/lodges, using planks and worker time. Residents benefit from actually resting in an improved home; show the improvement on the model. | Spend the same timber on more residents, a productive workshop, or a nicer home. Compare home types without making cottages obsolete. | Improving an established village feels rewarding and competes meaningfully with expansion. Exact benefit and repeat costs TBD; no furniture inventory initially. |
+| **F25c — Places to spend free time** | Compare small garden seating with the existing square. Consider a gathering hall as F26b's stone consumer, using the same recreation need and actual attendance. | Small nearby spaces use scarce neighborhood land; a larger venue costs materials, travel and possibly staffing. A scenic shoreline is also potential dock frontage. | Capacity and access produce different useful layouts. Do not add separate entertainment, company and fun meters for equivalent visits. |
+| **F25d — Learning through a shared project** | An optional adult workshop/reading room supports one explained campaign project through attendance and work. Define the project before building the service. | Temporarily spare skilled workers from everyday production to accomplish something visible, such as a later restoration project. | Learning changes a decision or enables a satisfying project. Cut or merge it if it amounts to a generic productivity buff or a compulsory research queue. |
+| **F25e — Reflection and village identity** | Explore a shrine/chapel and a secular reflection garden as alternative civic projects, with quiet visits and a distinct visual/audio character. | Choose how to use a valued site and what kind of community place to create. | It offers a distinct experience beyond the square. It may remain a recreation variant rather than become a separate need. Belief systems and individual religions remain TBD. |
+
+These need not follow alphabetical order: F25c can ship with the quarry's first useful stone building; comfort can wait until the existing building family has a compelling visual direction. Learning and reflection are design candidates, not prerequisites for the next campaign chapter.
+
+## Resource chains must end in something villagers use
+
+Use these as the default scope boundaries when choosing a chunk:
+
+- **Water → shared fishing grounds → dock/boat → delivered fish → meals.** Compare complete boat, unloading and pantry trips. A farther dock is not automatically better when food still goes to the central pantry. Show launch access, expected travel and stock before investment.
+- **Outcrop → quarry → hauled stone → gathering hall → attended recreation.** The hall is the leading consumer to prototype, with a durable crossing as an alternative if venue capacity adds little. Define that crossing's useful difference first. Finite stone must cover the campaign project with a recovery margin; an exhausted quarry must not leave the player permanently stuck.
+- **Retained woods → shared wildlife habitat → hunting lodge → delivered game → meals.** Explain the effect of clearing before confirming an order. Replanting restores habitat over time; gardens and gathering provide an alternative during recovery. Animal species are initially visual variation, not separate inventories.
+- **Managed timber → sawmill → carpenter → improved occupied homes → comfort.** Let the player improve a favorite neighborhood without adding population. Visible inhabited homes are part of the reward, not just a higher aggregate score.
+
+Fish and game should broaden possible diets, not raise the number of foods every village must serve. No scenario should require unavailable resources merely because their buildings appear in the unrestricted catalog. Wells, sanitation, livestock, a watermill and orchards remain possible later ideas; each needs a useful choice beyond another input requirement before promotion.
+
+For **Built to last**, test a compact hall-centered neighborhood against distributed squares while workers quarry and construct. For **The living woods**, test a mostly preserved hunting area against a smaller habitat supplemented by cultivation. In both cases, the campaign should expose the tradeoff through land and labor, explain the next resident expectation before growth, and finish with people visibly using what the player built.
+
 ## Suggested implementation sequence
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
