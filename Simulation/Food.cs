@@ -22,8 +22,12 @@ public sealed class FoodState
     public int LastMealVegetables { get; set; }
     public int LastMealBread { get; set; }
     public int LastMealFish { get; set; }
-    public int LastMealServed => LastMealBerries+LastMealVegetables+LastMealBread+LastMealFish;
-    public int LastMealNonDominant => LastMealServed-Math.Max(Math.Max(LastMealBerries,LastMealVegetables),Math.Max(LastMealBread,LastMealFish));
+    public int LastMealGame { get; set; }
+    public int Game { get; set; }
+    public int HuntedGame { get; set; }
+    public int EatenGame { get; set; }
+    public int LastMealServed => LastMealBerries+LastMealVegetables+LastMealBread+LastMealFish+LastMealGame;
+    public int LastMealNonDominant => LastMealServed-Math.Max(LastMealGame,Math.Max(Math.Max(LastMealBerries,LastMealVegetables),Math.Max(LastMealBread,LastMealFish)));
     public int LastMealRequired { get; set; }
     public int InitialBerries { get; set; } = 24;
     public int Berries { get; set; } = 24;
@@ -33,7 +37,7 @@ public sealed class FoodState
     public int Fish { get; set; }
     public int CaughtFish { get; set; }
     public int EatenFish { get; set; }
-    public int EdibleStored => Berries + Vegetables + Bread + Fish;
+    public int EdibleStored => Berries + Vegetables + Bread + Fish + Game;
     public int Grain { get; set; }
     public int Bread { get; set; }
     public int GatheredBerries { get; set; }
@@ -160,6 +164,7 @@ public sealed partial class World
                 RecordFoodDelivery(v.Cargo, v.Carried);
                 switch (v.Cargo)
                 {
+                    case Resource.Game: Food.Game += v.Carried; break;
                     case Resource.Fish: Food.Fish += v.Carried; break;
                     case Resource.Vegetables: Food.Vegetables += v.Carried; break;
                     case Resource.Berries: Food.Berries += v.Carried; break;
@@ -173,7 +178,7 @@ public sealed partial class World
     }
     private void AdvanceFoodTime(float dt)
     {
-        Food.Time += dt;
+        Food.Time += dt; AdvanceWildlife(dt);
         RecentFood.RemoveAll(e => e.Time <= Food.Time - FoodFlowWindow);
         foreach (var bush in Bushes)
         {
@@ -207,7 +212,7 @@ public sealed partial class World
         while (Food.MealClock >= 60)
         {
             Food.MealClock -= 60;
-            var available = new[] { Food.Berries, Food.Vegetables, Food.Bread, Food.Fish };
+            var available = new[] { Food.Berries, Food.Vegetables, Food.Bread, Food.Fish, Food.Game };
             var served = new int[available.Length];
             for (int portion = 0; portion < Population; portion++)
             {
@@ -221,9 +226,10 @@ public sealed partial class World
             Food.EatenBerries += berries; Food.EatenVegetables += vegetables; Food.EatenBread += bread;
             Food.LastMealBerries = berries; Food.LastMealVegetables = vegetables; Food.LastMealBread = bread; Food.LastMealRequired = Population;
             Food.Fish=available[3]; Food.EatenFish+=fish; Food.LastMealFish=fish;
+            Food.Game=available[4]; Food.EatenGame+=served[4]; Food.LastMealGame=served[4];
             Food.LastMealChoices = served.Count(n => n > 0);
             int quarter = (Population + 3) / 4;
-            if (Food.LastMealServed == Population && vegetables >= quarter && berries + bread + fish >= quarter) Food.VegetableChoiceMeals++;
+            if (Food.LastMealServed == Population && vegetables >= quarter && berries + bread + fish + served[4] >= quarter) Food.VegetableChoiceMeals++;
             Food.Hunger = (Population - Food.LastMealServed) / (float)Population;
             RecentFood.Add(new(Food.Time, Eaten: Food.LastMealServed, Required: Population));
             RecordRiverMeal(); RecordLakeMeal();

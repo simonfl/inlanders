@@ -13,6 +13,7 @@ public partial class Game
     private void CreateFoodViews()
     {
         _cropViews.Clear(); _bushViews.Clear(); _pantryKey = "";
+        _wildlifeViews.Clear(); _wildlifeKey="";
         _depositViews.Clear(); _stoneStoreView=null; _shownStone=-1;
         _pantry = new(); _dynamic.AddChild(_pantry);
     }
@@ -28,6 +29,7 @@ public partial class Game
     }
     private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)
     {
+        if(site.Kind==BuildingKind.HuntingLodge) { MakeHuntingLodge(parent,stage); return; }
         if(site.Kind==BuildingKind.Quarry) { MakeQuarryCamp(parent,stage); return; }
         if(site.Kind==BuildingKind.GatheringHall) { MakeGatheringHall(parent,stage); return; }
         if (site.Kind == BuildingKind.FishingDock) { MakeFishingDock(parent,stage); return; }
@@ -73,7 +75,7 @@ public partial class Game
     }
     private void RenderFoodViews()
     {
-        RenderStone();
+        RenderWildlife(); RenderStone();
         RenderSupplyRoutes();
         RenderManagedWoodland();
         RenderFishingGrounds();

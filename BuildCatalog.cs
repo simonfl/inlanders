@@ -23,6 +23,7 @@ public partial class Game
         BuildingKind.Stockpile => "Keep timber close to work",
         BuildingKind.Bridge => "Cross a water tile",
         BuildingKind.FishingDock => "Bring fish ashore",
+        BuildingKind.HuntingLodge => "Hunt in retained woodland",
         BuildingKind.Quarry => "Extract finite stone",
         BuildingKind.GatheringHall => "A compact community venue",
         _ => "A place to gather"

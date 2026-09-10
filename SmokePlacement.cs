@@ -17,7 +17,7 @@ public partial class Game
         _rotated = false;
         foreach (var kind in Enum.GetValues<BuildingKind>())
         {
-            if (kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.Quarry) continue; // Environmental prerequisites have dedicated rendered checks.
+            if (kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.Quarry or BuildingKind.HuntingLodge) continue; // Environmental prerequisites have dedicated rendered checks.
             BeginPlacement(kind);
             await Move(_camera.UnprojectPosition(new(3, 0, 0)));
             Check(_ghost.Visible && _ghostValid && _previewMaterials.Count > 0, $"Missing legal {kind} preview: visible={_ghost.Visible}, hover={_hover}, reason={_placementProblem}, pointer={GetViewport().GetMousePosition()}");

@@ -9,7 +9,7 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new(), Bow = new();
         public Resource Cargo;
         public int Count = -1;
         public float? PickupStarted;
@@ -66,6 +66,9 @@ public partial class Game
             var blade=Box(v.Sickle,new(.16f-MathF.Cos(a)*.16f,0,-.32f-MathF.Sin(a)*.16f),new(.08f,.025f,.10f),new("b4bcb5"));
             blade.Rotation=new(0,-a,0);
         }
+        v.LeftArm.AddChild(v.Bow); v.Bow.Position=new(0,-.32f,0);
+        for(int i=0;i<5;i++) { float a=-1+i*.5f; TimberBeam(v.Bow,new(0,MathF.Sin(a)*.45f,-.15f-MathF.Cos(a)*.18f),new(0,MathF.Sin(a+.5f)*.45f,-.15f-MathF.Cos(a+.5f)*.18f),.035f,_wood); }
+        TimberBeam(v.Bow,new(0,-.38f,-.24f),new(0,.45f,-.16f),.009f,_cream);
         v.Torso.AddChild(v.SeedPouch);
         Box(v.SeedPouch,new(-.27f,.02f,-.19f),new(.23f,.25f,.18f),new("c5a16d"));
         v.Torso.AddChild(v.Carry); v.Carry.Position = new(0, 0.12f, -0.43f);
@@ -109,6 +112,7 @@ public partial class Game
                 for (int b = 0; b < 5; b++) Mesh(view.Carry, new SphereMesh { Radius = 0.075f, Height = 0.15f, RadialSegments = 6, Rings = 3 },
                     new(x + (b % 2 - 0.5f) * 0.12f, 0.10f + b / 4 * 0.10f, (b / 2 % 2 - 0.5f) * 0.14f), new("a74268"));
             else if (worker.Cargo == Resource.Vegetables) MakeSquash(view.Carry, new(x,.12f,0), .13f);
+            else if (worker.Cargo == Resource.Game) GameParcel(view.Carry,new(x,.10f,row));
             else if (worker.Cargo == Resource.Fish) MakeFish(view.Carry,new(x,.12f,row));
             else if (worker.Cargo == Resource.Grain)
                 for (int s = 0; s < 4; s++)
@@ -130,7 +134,7 @@ public partial class Game
     {
         RefreshCargo(view, v); view.Marker.Visible = v.Id == _selectedPerson;
         view.Carry.Position=new(0,.12f,-.43f);
-        view.WorkBoard.Visible=false;
+        view.Bow.Visible=false; view.WorkBoard.Visible=false;
         view.RestStool.Visible=false;
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
@@ -167,6 +171,8 @@ public partial class Game
         }
         switch (v.Task)
         {
+            case Work.Hunting:
+                view.Bow.Visible=true; view.LeftArm.Rotation=new(1.5f,0,-.15f); view.Arm.Rotation=new(1.1f+MathF.Sin(v.Timer*1.5f)*.12f,.4f,.4f); view.Head.Rotation=new(.05f,-.2f,0); break;
             case Work.Quarrying:
                 var deposit=_world.Map.StoneDeposits.FirstOrDefault(d=>d.Id==v.DepositId);
                 if(deposit!=null) FaceVisit(view,OnGround(deposit.Cell.X,deposit.Cell.Z)-view.Body.Position);

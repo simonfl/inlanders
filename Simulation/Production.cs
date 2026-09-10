@@ -11,7 +11,7 @@ public sealed partial class World
     {
         BuildingKind.ForagerHut => Resource.Berries, BuildingKind.Farm => Resource.Grain,
         BuildingKind.VegetableGarden => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
-        BuildingKind.Quarry => Resource.Stone, BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
+        BuildingKind.HuntingLodge => Resource.Game, BuildingKind.Quarry => Resource.Stone, BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
     };
     public bool SetWorkplacePaused(int id, bool paused)
     {
@@ -35,6 +35,7 @@ public sealed partial class World
             People.Count(p => p.WorkplaceId is int id && Cottages.Any(c => c.Id == id && c.Kind == kind && !c.Planted && c.Harvest == 0) && p.Task is Work.ToFarm or Work.Planting) * yield;
         return resource switch
         {
+            Resource.Game => Food.Game+cargo+People.Where(p=>p.HabitatId!=null).Sum(p=>p.Reserved),
             Resource.Stone => Stone+cargo+People.Where(p=>p.DepositId!=null).Sum(p=>p.Reserved),
             Resource.Planks => PendingPlanks,
             Resource.Fish => Food.Fish + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
@@ -67,7 +68,7 @@ public sealed partial class World
         if (workers.Length > 0)
         {
             var p = workers[0];
-            Cell? source = p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
+            Cell? source = p.HabitatId is int habitat ? Map.Wildlife.Single(h=>h.Id==habitat).Cell : p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
                 p.Task==Work.ToStockpile ? StorageAccess(p.StorageId) :
                 p.Task is Work.ToGrain or Work.ToOven or Work.ToPantry ? YardAccess :
                 p.Task == Work.ToSawLogs ? StorageAccess(p.StorageId) : null;
@@ -76,7 +77,7 @@ public sealed partial class World
                 Work.ToGrain or Work.ToSawLogs => "Fetching input", Work.ToOven or Work.ToSawmill => "Delivering input",
                 Work.ToPantry or Work.ToStockpile => "Delivering output", Work.ToBread or Work.ToPlanks => "Collecting output",
                 Work.Baking => "Baking", Work.Sawing => "Sawing", Work.Planting => "Sowing",
-                Work.Quarrying => "Quarrying", Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
+                Work.Hunting => "Hunting", Work.Quarrying => "Quarrying", Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
             };
             return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
@@ -91,6 +92,7 @@ public sealed partial class World
             return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess);
         if (site.Kind == BuildingKind.ForagerHut && !Bushes.Any(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)))
             return new("Waiting for berries", "Berries are regrowing, claimed, or beyond reach. Inspect foragers and the map.");
+        if(site.Kind==BuildingKind.HuntingLodge) return new(HuntingGrounds(site.Cell).Any(h=>AvailableGame(h)>0)?"Waiting for a hunter":"Habitat recovering or claimed",WildlifeSurvey(site.Cell)+"\nPause hunting to restore stock; retain or regrow mature trees to restore capacity.");
         if(site.Kind==BuildingKind.Quarry) return new(QuarryDeposits(site).Any(d=>AvailableDeposit(d)>0)?"Waiting for a quarrier":"Outcrop exhausted or claimed",QuarrySurvey(site.Cell));
         if(site.Kind==BuildingKind.FishingDock)
         {

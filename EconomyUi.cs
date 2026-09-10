@@ -31,7 +31,7 @@ public partial class Game
         MakeSupplyControls(column);
         column.AddChild(Text("INVENTORY",12));
         column.AddChild(Text("Available = stored minus reserved. Carried goods and workplace buffers are not in storage yet. Unshipped construction demand excludes deliveries already on the way.",14,true));
-        foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables,Resource.Fish,Resource.Stone})
+        foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables,Resource.Fish,Resource.Stone,Resource.Game})
         {
             var label=Text("",14,true); column.AddChild(label); _economyStocks[resource]=label;
         }
@@ -61,7 +61,7 @@ public partial class Game
         var flow = _world.ReadFoodFlow();
         _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
-            $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish\n" +
+            $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game\n" +
             $"Meals eaten: {flow.Eaten} / {flow.Required} required\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.Creative ? 0 : _world.Population)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts pantry arrivals, not growing/carried food. Meals exclude supper and trades. Past deliveries do not guarantee future supply.";

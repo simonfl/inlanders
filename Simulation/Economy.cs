@@ -18,7 +18,7 @@ public sealed partial class World
     {
         int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)));
         var stocks = Enum.GetValues<Resource>().Select(r => new EconomyStock(r,
-            r switch { Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
+            r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
             r switch { Resource.Stone => ReservedMaterialAt(null,Resource.Stone), Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => ReservedGrain, _ => 0 },
             People.Where(p=>p.Cargo==r).Sum(p=>p.Carried) + (r==Resource.Fish ? Cottages.Sum(c=>c.Boat?.Fish??0) : 0),
             r switch { Resource.Logs => Cottages.Sum(c=>c.InputLogs), Resource.Planks => Cottages.Sum(c=>c.OutputPlanks),
@@ -39,7 +39,7 @@ public sealed partial class World
         {
             if(!Creative && Food.EdibleStored<Population*2)
             {
-                var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource.Berries or Resource.Vegetables or Resource.Bread or Resource.Fish).ToArray();
+                var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource.Berries or Resource.Vegetables or Resource.Bread or Resource.Fish or Resource.Game).ToArray();
                 if (foodSites.Length > 0 && foodSites.All(c => c.WorkPaused))
                     issues.Add(new("food-paused", "Food is below two meals and edible-food workplaces are paused. Inspect a workplace to resume it.", Workplace: foodSites[0].Id));
                 else
@@ -65,6 +65,7 @@ public sealed partial class World
             Workplace(BuildingKind.Farm,Role.Farmer,HasBuilding(BuildingKind.Farm) || (Staffed(Role.Farmer) && !hasGarden) || (HasBuilding(BuildingKind.Bakery) && Food.Grain==0));
             Workplace(BuildingKind.VegetableGarden,Role.Farmer,HasBuilding(BuildingKind.VegetableGarden));
             Workplace(BuildingKind.Bakery,Role.Baker,Staffed(Role.Baker) || HasBuilding(BuildingKind.Bakery));
+            Workplace(BuildingKind.HuntingLodge,Role.Hunter,Staffed(Role.Hunter) || HasBuilding(BuildingKind.HuntingLodge));
             Workplace(BuildingKind.Quarry,Role.Quarrier,Staffed(Role.Quarrier) || Need(Resource.Stone)>AvailableStone);
             Workplace(BuildingKind.Sawmill,Role.Sawyer,Staffed(Role.Sawyer) || Need(Resource.Planks)>AvailablePlanks);
         }

@@ -35,6 +35,7 @@ public partial class Game
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
+        BuildingKind.HuntingLodge => "One hunter brings up to 2 game to the pantry after 10 work seconds and travel. Needs wooded habitat within 8 tiles. Retain mature trees; nearby lodges share stock. Pause hunting for recovery or supplement it with gardens.",
         BuildingKind.Quarry => "One quarrier extracts 2 stone in 6 work seconds, then carries it to central storage. Needs a reachable outcrop within 4 tiles. Deposits are finite and shared by nearby camps; pause or set a stock target to reserve stone for later.",
         BuildingKind.GatheringHall => "A stone-and-plank recreation venue for up to 8 visitors, in the same footprint as a square. No staff. Leave walkable space around the entrance; 12-second visits satisfy recreation for 4 minutes, with a 2-minute interval before returning. Squares are cheaper and can be spread near homes.",
         BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
@@ -129,12 +130,12 @@ public partial class Game
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {
-            if (_world.Creative) { _buildDescription.Text = "CLEAR TREES & STUMPS\nClick to clear immediately. Existing timber returns to the yard; saplings yield no timber."; return; }
+            if (_world.Creative) { _buildDescription.Text = "CLEAR TREES & STUMPS\nClick to clear immediately. Existing timber returns to the yard; saplings yield no timber.\n"+_world.HabitatLoss(_hover); return; }
             _buildDescription.Text = "CLEAR TREES & STUMPS\nLoggers prioritize marked trees, recover existing timber, then remove roots. Land becomes usable when the roots are gone. Saplings yield no timber. Click a marked tree again to cancel.\n\n" +
-                $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers";
+                $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers\n"+_world.HabitatLoss(_hover);
             return;
         }
-        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."+(_buildKind==BuildingKind.Quarry?"\n"+_world.QuarrySurvey(_hover):""); return; }
+        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."+(_buildKind==BuildingKind.Quarry?"\n"+_world.QuarrySurvey(_hover):_buildKind==BuildingKind.HuntingLodge?"\n"+_world.WildlifeSurvey(_hover):""); return; }
         var definition = Buildings.Get(_buildKind);
         int available = definition.Material == Inlanders.Simulation.Resource.Planks ? _world.AvailablePlanks : _world.Available;
         int cost = definition.Cost;
@@ -143,6 +144,7 @@ public partial class Game
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
         if(!_plantingTrees && _placing && _buildKind==BuildingKind.FishingDock) _buildDescription.Text+="\n\n"+_world.FishingSurvey(_hover,_rotated);
         if(!_plantingTrees && _placing && _buildKind==BuildingKind.Quarry) _buildDescription.Text+="\n\n"+_world.QuarrySurvey(_hover);
+        if(!_plantingTrees && _placing && _buildKind==BuildingKind.HuntingLodge) _buildDescription.Text+="\n\n"+_world.WildlifeSurvey(_hover);
         if(!_plantingTrees && definition.StoneCost>0) _buildDescription.Text+=$"\n{_world.AvailableStone} stone available · {definition.StoneCost} needed. Stone is hauled from the central store.";
     }
 }

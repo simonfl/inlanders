@@ -9,6 +9,7 @@ public static class DemolitionChecks
     {
         var w = World.NewCreative(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned);
         if(kind is BuildingKind.Quarry or BuildingKind.GatheringHall) w.Map.StoneDeposits.Add(new() { Id=0,Cell=new(5,-2),Capacity=16,Remaining=16 });
+        if(kind==BuildingKind.HuntingLodge) w.Map.Wildlife.Add(new() { Id=0,Cell=new(-3,-3),Stock=10 });
         if(kind==BuildingKind.FishingDock)
         {
             w.Map.Water.Add(new(3,-1));

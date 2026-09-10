@@ -24,7 +24,7 @@ public sealed partial class World
         var before = Reachable(YardAccess, Blocked);
         var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c) || Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.DemolitionRequested && b.Cell == c));
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
-            .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access))
+            .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell))
             .Concat(People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination));
         if (access.Where(before.Contains).Concat(People.Select(At))
             .Concat(People.Where(p => p.Route.Count > 0).Select(p => p.Route.Peek())).Any(c => !after.Contains(c)))

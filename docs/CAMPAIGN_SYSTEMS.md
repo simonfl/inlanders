@@ -4,7 +4,7 @@ Working design, not a locked specification. Costs, yields, population sizes, ser
 
 **Design loop:** a resident need gives a project a purpose; geography offers different ways to meet it; buildings turn that opportunity into a functioning service; residents visibly use the result. Each new system should strengthen that loop rather than add another mandatory meter.
 
-**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is implemented in People; the woodland wildlife prototype is next. The full quarry campaign, small gardens and wildlife remain future work.
+**Implemented update:** F26b1 / the hall portion of F25c now supplies finite stone and a mixed-material recreation venue on fresh Three clearings maps. [Read the prototype and balance findings](QUARRY_HALL_F26B1.md). Capacity alone did not justify the hall; its longer, less frequent visits now reduce repeat travel in working fixtures. F21i service feedback is implemented in People; the woodland wildlife prototype is also implemented. See [F26c findings](WILDLIFE_F26C.md). The full quarry/woodland campaigns and small gardens remain future work; F21j map survey is next.
 
 ## Start with residents
 
@@ -153,7 +153,7 @@ For **Built to last**, test a compact hall-centered neighborhood against distrib
 
 ## Next design decisions: make each addition earn its place
 
-**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. F21i service feedback is implemented; next prototype F26c wildlife. F26b2 remains a separate authored scenario after human pacing feedback.
+**F26b1 / F25c hall is implemented.** It connects stone to actual recreation; see the prototype review above for costs, finite supply and measured limits. F21i service feedback is implemented; F26c wildlife is now implemented as a resource prototype. Next is F21j map survey. F26b2 remains a separate authored scenario after human pacing feedback.
 
 ### Stone country: a project with a reason
 
@@ -206,7 +206,7 @@ Start each new level brief with **what residents want, what the landscape offers
 
 1. **F26b1 + F25c hall, implemented stone-to-community prototype:** finite outcrops, quarry, physical stone transport and a gathering hall using existing recreation. Deposit/placement feedback, masonry architecture and visible attendance are included. The square comparison led to longer, less frequent hall visits; current costs and capacities are recorded in the prototype review and remain provisional for balance. Review its value in human play before building the full scenario.
 2. **Built to last, scenario pass:** give the player nearby limited stone and a larger distant source, with useful land competing around them. Teach the first delivery, then stage construction and growth around keeping residents fed and served. A small deposit must not create an irreversible dead end; offer enough total stone and recoverable construction choices.
-3. **F26c, woods-to-meals prototype:** shared habitat, lodge, visible animals and delivered game. Make hunting pressure and tree loss separately readable and recoverable. Existing gardens/fishing remain alternatives; no leather, weapons or butcher prerequisite.
+3. **F26c, woods-to-meals prototype, implemented:** shared habitat, lodge, visible animals and delivered game. Hunting pressure and tree loss have separate recovery paths; clearing previews report the impact. Existing gardens/fishing remain alternatives; no leather, weapons or butcher prerequisite. Review its usefulness in normal play before authoring The living woods.
 4. **The living woods, scenario pass:** expansion competes with established habitat. Test broad preservation versus mixed hunting/cultivation, plus recovery from excessive clearing. Judge the supported village and habitat condition, not a required number of lodges.
 5. **F25b, improve an established neighborhood:** trial carpenter orders and visible comfort in a functioning village. Only then decide whether this warrants its own level or enriches an existing one.
 6. **F25d/e, optional ambition design:** sketch one learning project and one religious/secular reflective place. Choose a concrete player decision and visible payoff before implementing either. Merge into recreation or cut if they add no distinct experience.
@@ -219,7 +219,7 @@ This is the order within the future campaign track; the main roadmap still owns 
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a used existing population and buildings.
 3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
 4. F26a implemented fishing and the seventh campaign. F11b2 has now revised that lake around scarce central plots, limited natural food, distant timber and service travel. Deliberate routes complete in 10/18 scripted minutes; a nearby square recovers an awkward plan in 16 instead of 25. See [F11b2 findings](LAKE_DIFFICULTY_F11B2.md). Human pacing remains open; F02b now supplies preservation and managed replanting; F07b now explains trips and supports useful local plank storage. F03b/F04b now present work, home rests and mutual square visits; neighborhood food service remains a later F07c design.
-5. F26b1 now supplies finite stone and an attended gathering hall. F21i service feedback is implemented; F26b2 scenario authoring waits for human pacing feedback. F26c follows if habitat preservation offers decisions distinct from managed logging.
+5. F26b1 now supplies finite stone and an attended gathering hall. F21i service feedback is implemented; F26b2 scenario authoring waits for human pacing feedback. F26c now supplies shared wildlife habitat and game; F21j improves direct resource inspection before additional scenarios.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.
 
 For each system: explain placement prerequisites before construction, trace real goods/service visits, show depletion or unmet needs clearly, and test a competent plan plus recovery from a plausible bad choice. Review worker/route performance before enlarging populations or adding many boats/animals. A new building earns its place through a visible purpose and a decision the player can understand.

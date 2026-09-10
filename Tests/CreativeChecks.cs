@@ -10,7 +10,8 @@ public static class CreativeChecks
         {
             var w = World.NewCreative();
             if(kind==BuildingKind.Quarry) w.Map.StoneDeposits.Add(new() { Id=0,Cell=new(5,-2),Capacity=16,Remaining=16 });
-            if(kind==BuildingKind.FishingDock)
+            if(kind==BuildingKind.HuntingLodge) w.Map.Wildlife.Add(new() { Id=0,Cell=new(-3,-3),Stock=10 });
+        if(kind==BuildingKind.FishingDock)
             {
                 w.Map.Water.Add(new(3,-1));
                 w.Map.FishingGrounds.Add(new FishHabitat { Id=0,Cell=new(3,-1) });

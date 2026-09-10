@@ -7,12 +7,12 @@ using System.Text.Json.Serialization;
 namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
-public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier }
-public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall }
+public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter }
+public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting }
 
 public sealed class Villager
 {
@@ -45,6 +45,7 @@ public sealed class Villager
     [JsonInclude] public float NextRestTime { get; internal set; }
     [JsonInclude] public float? LastRestTime { get; internal set; }
     [JsonInclude] public int RestVisits { get; internal set; }
+    [JsonInclude] public int? HabitatId { get; internal set; }
     [JsonInclude] public int? DepositId { get; internal set; }
 }
 public sealed class TimberTree
@@ -233,7 +234,7 @@ public sealed partial class World
             site.ReserveMaterial(v.Cargo,-v.Reserved);
             if (site.Builder == v.Id) site.Builder = null;
         }
-        v.DepositId=null; v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.StorageId = null; v.HaulTargetId = null; v.Route.Clear(); v.Timer = 0;
+        v.HabitatId=null; v.DepositId=null; v.Reserved = 0; v.SiteId = null; v.TreeId = null; v.StorageId = null; v.HaulTargetId = null; v.Route.Clear(); v.Timer = 0;
         if (v.Carried > 0)
         {
             if (v.Cargo is Resource.Logs or Resource.Planks or Resource.Stone) ReturnTimber(v);
@@ -256,13 +257,14 @@ public sealed partial class World
         ReleaseFoodClaims(v);
         if (v.LeisureSiteId is int venue) v.NextLeisureTime = Food.Time + Buildings.Get(Cottages.Single(c=>c.Id==venue).Kind).RecreationInterval;
         v.LeisureSiteId = null;
-        v.DepositId=null; v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
+        v.HabitatId=null; v.DepositId=null; v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
         v.Timer = 0; v.Status = "Looking for work"; _retry = 0;
     }
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
         if (ClaimRest(v) || ClaimLeisure(v)) return;
+        if (v.Role == Role.Hunter) { ClaimHunting(v); return; }
         if (v.Role == Role.Quarrier) { ClaimQuarry(v); return; }
         if (v.Role == Role.Fisher) { ClaimFishing(v); return; }
         if (v.Role == Role.Hauler) { ClaimHauling(v); return; }
@@ -336,6 +338,7 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToHunt: case Work.Hunting: TickHunting(v); break;
                 case Work.ToQuarry: case Work.Quarrying: TickQuarry(v); break;
                 case Work.ToDock: case Work.Aboard: TickFishing(v,dt); break;
                 case Work.ToRest: v.Task=Work.Resting; v.Timer=0; v.Status="Resting beside home"; break;
@@ -393,7 +396,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
-        ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
+        ValidateWildlife(); ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
         ValidateManagedWoodland();
         ValidateHappiness();

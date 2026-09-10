@@ -42,7 +42,7 @@ public partial class Game
     private static int BuildingCategory(BuildingKind kind) => kind switch
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
-        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock=>2,
+        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
         BuildingKind.Sawmill or BuildingKind.Quarry=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
@@ -63,7 +63,7 @@ public partial class Game
             BuildingKind.VegetableGarden=>site.Harvest>0?$"{site.Harvest} vegetables ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to plant",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
-            BuildingKind.Quarry=>_world.ReadWorkplace(site).State,
+            BuildingKind.Quarry or BuildingKind.HuntingLodge=>_world.ReadWorkplace(site).State,
             BuildingKind.Sawmill=>$"{site.InputLogs} logs in · {site.OutputPlanks} planks ready",
             BuildingKind.ForagerHut=>$"{_world.People.Count(p=>p.WorkplaceId==site.Id)}/2 foragers working",
             BuildingKind.Bridge=>"Open crossing", _=>"Gathering place"
