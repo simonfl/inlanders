@@ -5,6 +5,20 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
+    // Constrained home shore leaves a choice between central production and
+    // recreation; the far shore offers space and most of the remaining timber.
+    private static World NewNarrowLakeSettlement()
+    {
+        var w=NewLakeMap();
+        foreach(var cell in w.Map.Land.ToArray())
+            if(cell.X<3 && (cell.X<-8 || cell.Z<-3 || cell.Z>7)) w.Map.Excluded.Add(cell);
+        w.Trees.RemoveAll(t=>!w.Map.Contains(t.Cell) || !w.Map.Contains(t.Access));
+        w.Bushes.RemoveAll(b=>b.Id!=0);
+        w.Map.FishingGrounds=w.Map.FishingGrounds.Select(g=>new FishHabitat
+        { Id=g.Id,Name=g.Name,Cell=g.Cell,Capacity=8,Stock=8,RegrowthPerSecond=1f/30 }).ToList();
+        w.InitialLogs=w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered);
+        w.Validate(); w.ValidateMapOccupancy(); return w;
+    }
     // Authored lake shared by the seventh campaign and focused fishery checks.
     public static World NewLakeMap()
     {

@@ -37,7 +37,7 @@ public sealed partial class World
         new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then serve two full meals with at least a quarter vegetables and a quarter other food. The gardener visit is optional.",
             new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2)),
         new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
-        new(7, "Life by the lake", "The lake offers food, but catches share the same replenishing grounds. Choose a landing, bring home the first catch, then support a growing village with food, homes and time together. All buildings remain available.")
+        new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available.")
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
     public int DeliveredVegetables => Food.Vegetables + Food.EatenVegetables;
@@ -72,7 +72,7 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
-        if(level==7) { var lake=NewLakeMap(); lake.Campaign=new() { Level=7,Lake=new() }; lake.Validate(); return lake; }
+        if(level==7) { var lake=NewNarrowLakeSettlement(); lake.Campaign=new() { Level=7,Lake=new() }; lake.Validate(); return lake; }
         if(level==6) { var river=NewRiverSettlement(); river.Campaign=new() { Level=6, River=new() }; river.Validate(); return river; }
         var w = level >= 3 ? NewLargeMap(false, false) : new World();
         w.Campaign = new() { Level = level };

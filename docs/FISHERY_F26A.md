@@ -2,6 +2,8 @@
 
 Implemented: one complete fishery loop and the seventh campaign settlement, at the existing 8–12-resident scale. Prices, yields and objectives remain tunable. Fish are immediately edible; no preservation chain or additional needs are prerequisites. Human pacing and enjoyment acceptance remain open.
 
+**Later revision:** [F11b2](LAKE_DIFFICULTY_F11B2.md) narrows the inhabited shore and reduces this campaign's natural supply. The broad-map measurements below record the original F26a baseline; the current campaign has two eight-fish grounds replenishing two fish per minute each, with deliberate routes taking 10/18 minutes. Fishing mechanics and global crop/work rates are unchanged.
+
 Fish participate in meals, delivery history and current saves; the authored lake has two shared replenishing habitats. Docks support normal construction, cancellation with accessible salvage, Creative placement/removal and demolition. A fisher reserves up to four fish, boards, rows to a reachable ground, spends eight work seconds fishing, returns, unloads and carries the catch to the pantry. Reassignment, pause and supper recall the boat before releasing its passenger; occupied docks cannot disappear and bridges cannot strand active trips. Boats, passengers, oars, nets and actual catch are rendered together. Phase saves, competing reservations, target stops, recall/supper and actual delivery pass focused checks. The broad simulation suite and lake render smoke also pass. Placement shows launch access and reachable grounds; the inspector explains available shared stock. Overview habitat labels remain small at 960, with readable information in the drawer and at closer zoom.
 
 ## Design review

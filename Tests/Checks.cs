@@ -5,6 +5,7 @@ if (args.Contains("--homes")) { HomeChecks.Run(); return; }
 if (args.Contains("--fish")) { FishChecks.Run(); return; }
 if (args.Contains("--fish-balance")) { FishingBalance.Run(); return; }
 if (args.Contains("--lake")) { LakeChecks.Run(); return; }
+if (args.Contains("--lake-pressure")) { LakePressureExperiments.Run(); return; }
 if (args.Contains("--balance")) { BalanceExperiments.Run(); return; }
 
 static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }

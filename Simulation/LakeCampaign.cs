@@ -43,7 +43,7 @@ public sealed partial class World
         string? problem=LakeVillageProblem();
         problem ??= Food.LastMealServed<Population ? "A meal did not feed everyone." :
             Food.LastMealNonDominant<(Population+3)/4 ? "At least a quarter of meal portions must be outside the dominant food." :
-            DeliveredEdible-lake.DeliveredBaseline<lake.Required ? "Fresh pantry deliveries did not cover consumed meals." : null;
+            DeliveredEdible-lake.DeliveredBaseline<lake.Required ? $"Fresh pantry deliveries: {DeliveredEdible-lake.DeliveredBaseline}/{lake.Required} consumed portions. Check Economy: add food capacity or shorten workers' trips, including trips to homes and squares." : null;
         if(problem!=null)
         {
             lake.Meals=0; lake.Required=0; lake.DeliveredBaseline=DeliveredEdible;
@@ -59,7 +59,7 @@ public sealed partial class World
         get
         {
             var lake=Campaign!.Lake!;
-            if(lake.Phase==0) return $"Open a fishing route\n\nFish delivered to pantry: {Math.Min(4,DeliveredFish)}/4\nBuild a dock on accessible shore and assign a fisher. Grounds share replenishing stocks; an extra dock does not create extra fish.\n\nNext: support twelve housed residents with mixed meals, actual home rest and square visits. Choose your food mix and grow when ready.";
+            if(lake.Phase==0) return $"Open a fishing route\n\nFish delivered to pantry: {Math.Min(4,DeliveredFish)}/4\nBuild a dock on accessible shore and assign a fisher. Grounds replenish {Map.FishingGrounds.Sum(g=>g.RegrowthPerSecond)*60:0.#} fish/minute in total, shared by all docks. Delivered supply can be lower because of travel.\n\nNext: support twelve residents with mixed meals, home rest and square visits. Every resident eats once a minute. Plan cultivation and reserve useful space near the village before expanding.";
             return $"{(lake.Phase==1?"Prepare a lakeside community":"Prove the village works")}\n\nResidents: {Population}/12 minimum\nHoused: {Housed}/{Population}\nRested in last 4 minutes: {LakeRested}/{(Population*3+3)/4}\nSquare visit in last 2 minutes: {LakeRecreation}/{(Population+1)/2}\n\n"+
                 (lake.Phase==1 ? "Prepare production before each newcomer pair. Fish, berries, vegetables and bread can share the work. Begin assessment when ready." :
                 $"Full mixed meals: {lake.Meals}/3\nAt least {(Population+3)/4} portions outside the dominant food per meal.\nFresh deliveries: {DeliveredEdible-lake.DeliveredBaseline}; consumed portions: {lake.Required}.\n{lake.LastResult}");

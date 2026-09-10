@@ -1,6 +1,7 @@
 using Godot;
 using Inlanders.Simulation;
 using System;
+using System.Linq;
 
 public partial class Game
 {
@@ -8,6 +9,7 @@ public partial class Game
     {
         try
         {
+            _campaignPath="artifacts/fishing-campaign-smoke.json"; _campaignBook=new();
             var lake=World.NewCampaign(7);
             var dock=lake.Place(new(14,0),true,BuildingKind.FishingDock) ?? throw new Exception("Dock placement rejected");
             for(int i=0;i<6000 && !dock.Complete;i++) lake.Tick(.1f);
@@ -62,6 +64,17 @@ public partial class Game
             if(!_ghostValid || !_ghost.Visible || _ghostModel.RotationDegrees.Y!=270 || !_buildDescription.Text.Contains("available")) throw new Exception("Dock shore preview/survey failed");
             await Capture("artifacts/f26a-dock-preview-960.png");
             _placing=false; RefreshGhost();
+            if(OS.GetCmdlineUserArgs().Contains("--lake-review"))
+            {
+                AdoptWorld(World.LoadJson(System.IO.File.ReadAllText("artifacts/f11b2-complete.json"))); CloseDrawer();
+                if(_world.Population!=12 || _world.Campaign?.Complete!=true) throw new Exception("Lake review needs the completed twelve-person fixture");
+                foreach(int width in new[]{1440,960})
+                {
+                    GetWindow().Size=new(width,width==960?640:900); FrameMap();
+                    for(int i=0;i<5;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                    await Capture($"artifacts/f11b2-village-{width}.png");
+                }
+            }
             GD.Print("PASS: constructed dock, visible boat/passenger, paused oars, actual fish delivery, habitat stocks, fish HUD/Economy at 1440/960 and saved lake campaign phase action.");
             GetTree().Quit();
         }
