@@ -15,6 +15,10 @@ public partial class Game
         if (_atMainMenu) return;
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
         if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
+        if(input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastWoodlandCell=null;
+        if(input is InputEventMouseButton released && released.ButtonIndex==MouseButton.Left && !released.Pressed) { _woodlandStroke=false; _lastWoodlandCell=null; }
+        if(input is InputEventMouseMotion && _woodlandStroke && _placing && _woodlandTool>0 && !PointerOverHud(_pointerPosition) && Ground(_pointerPosition) is Vector3 grovePoint)
+            PaintWoodland(new(Mathf.RoundToInt(grovePoint.X),Mathf.RoundToInt(grovePoint.Z)));
         if (input is InputEventMouseButton button && button.ButtonIndex == MouseButton.Left && !button.Pressed) { _pathStroke = false; _lastPathCell = null; }
         if (input is InputEventMouseMotion && _pathStroke && _placing && _pathTool > 0 && !PointerOverHud(_pointerPosition) && Ground(_pointerPosition) is Vector3 p)
             PaintPath(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z)));
@@ -44,7 +48,7 @@ public partial class Game
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? _watchBar.GetGlobalRect().HasPoint(point) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
@@ -58,6 +62,7 @@ public partial class Game
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (!_placing) return;
         _placementProblem = PlacementProblem(_hover); _ghostValid = _placementProblem.Length == 0;
+        if(_woodlandTool>0) { RefreshWoodlandGhost(); return; }
         if (_decorating) { RefreshDecorationGhost(); return; }
         if (_pathTool > 0) { RefreshPathGhost(); return; }
         if (_clearingTrees) { RefreshClearingGhost(); return; }
@@ -109,6 +114,15 @@ public partial class Game
     }
     private void UpdateBuildDescription()
     {
+        if(_woodlandTool>0 && _placing)
+        {
+            _buildDescription.Text=_woodlandTool switch {
+                1=>"PRESERVE TREES\nClick or drag. Loggers leave these trees.\nExplicit clearing takes precedence.",
+                2=>"ALLOW HARVESTING\nClick or drag over preserved trees.\nLoggers may harvest them again.",
+                3=>$"MANAGE GROVE · {_world.ManagedWoodland.Count}/{World.ManagedWoodlandLimit}\nClick or drag. Loggers replant these spots.\nBuilding and clearing replace grove spots.",
+                _=>"REMOVE GROVE SPOTS\nClick or drag to stop future replanting.\nCurrent trees and planting work remain."
+            }; return;
+        }
         if (_decorating && _placing) { _buildDescription.Text = DecorationDescription; return; }
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)

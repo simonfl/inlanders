@@ -38,6 +38,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--home-smoke-test")) CallDeferred(MethodName.RunHomeSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--fishing-smoke-test")) CallDeferred(MethodName.RunFishingSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--woodland-smoke-test")) CallDeferred(MethodName.RunWoodlandSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
@@ -97,6 +98,7 @@ public partial class Game : Node3D
     private void PlaceCottage(Cell at)
     {
         _hover = at;
+        if(_woodlandTool>0) { _woodlandStroke=true; PaintWoodland(at); return; }
         if (_decorating) { EditDecoration(at); return; }
         if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }
         if (_clearingTrees) { MarkClearing(at); return; }
@@ -112,6 +114,7 @@ public partial class Game : Node3D
     }
     private void ToggleTreePlanting()
     {
+        _woodlandTool=0;
         _pathTool = 0; _decorating = false;
         _clearingTrees = false;
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
@@ -132,7 +135,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
-            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotated = !_rotated; RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.I) ToggleDrawer(4);
             if (key.Keycode == Key.B) ToggleDrawer(1);
@@ -212,9 +215,10 @@ public partial class Game : Node3D
             }
             view.Top.Visible = !t.Felled && !t.NeedsPlanting && (t.Logs > 0 || t.Growth < 1);
             view.Top.Scale = Vector3.One * 0.9f * (0.2f + 0.8f * t.Growth);
-            int treeStage = (t.NeedsPlanting ? 0 : t.Felled ? 2 : 1) + (t.ClearRequested ? 10 : 0);
+            int treeStage = (t.NeedsPlanting ? 0 : t.Felled ? 2 : 1) + (t.ClearRequested ? 10 : 0) + (t.Preserved?20:0);
             if (view.Logs == t.Logs && view.Stage == treeStage) continue;
             view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);
+            if(t.Preserved) Cylinder(view.Pile,new(0,.48f,0),.22f,.09f,new("8dac78"));
             if (t.ClearRequested)
             {
                 ClearingCross(view.Pile, new(0, 0.10f, 0), new("f0bd70"), 1.25f);

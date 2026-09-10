@@ -70,6 +70,7 @@ public partial class Game
     }
     private void RenderFoodViews()
     {
+        RenderManagedWoodland();
         RenderFishingGrounds();
         foreach (var bush in _world.Bushes)
         {

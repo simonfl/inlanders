@@ -18,6 +18,7 @@ public sealed partial class World
     {
         if (ClearingProblem(cell) != null) return false;
         var tree = Trees.Single(t => t.Cell == cell);
+        if(requested) { tree.Preserved=false; ManagedWoodland.Remove(cell); }
         if (Creative && requested) return ClearImmediately(tree);
         if (tree.ClearRequested == requested) return true;
         // Stop conflicting planting/root work. Harvesting already in progress finishes normally.

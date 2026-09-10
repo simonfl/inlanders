@@ -47,6 +47,7 @@ public sealed class Villager
 }
 public sealed class TimberTree
 {
+    [JsonInclude] public bool Preserved { get; internal set; }
     public int Id { get; init; }
     public Cell Cell { get; init; }
     [JsonInclude]    public int Logs { get; internal set; }
@@ -155,6 +156,8 @@ public sealed partial class World
         var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
+        ManagedWoodland.ExceptWith(Footprint(cell,rotated,kind).Append(site.Entrance));
+        if(kind==BuildingKind.Bridge) { ManagedWoodland.Remove(Door(cell,rotated)); ManagedWoodland.Remove(FarBank(cell,rotated)); }
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         ReconcileHomes(); History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;
     }
@@ -258,9 +261,10 @@ public sealed partial class World
                 planting.Owner = v.Id; v.TreeId = planting.Id;
                 Go(v, planting.Access, Work.ToSapling, "Walking to plant an alder"); return;
             }
-            var tree = Trees.Where(t => t.Logs > 0 && t.Owner == null && Accessible(t.Access))
+            if(ClaimGrovePlanting(v)) return;
+            var tree = Trees.Where(t => !t.Preserved && t.Logs > 0 && t.Owner == null && Accessible(t.Access))
                 .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
-            if (tree == null) { v.Status = Trees.Any(t => t.Logs > 0 || t.NeedsPlanting || t.ClearRequested) ? "Waiting — timber work claimed or across water; build a bridge" : Trees.Any(t => t.Growth < 1) ? "Waiting for saplings to grow" : "No timber — mark planting spots with T"; return; }
+            if (tree == null) { v.Status = Trees.Any(t => !t.Preserved && (t.Logs > 0 || t.NeedsPlanting || t.ClearRequested)) ? "Waiting — timber work claimed or across water; build a bridge" : Trees.Any(t => !t.Preserved && t.Growth < 1) ? "Waiting for saplings to grow" : Trees.Any(t=>t.Preserved) ? "Preserved trees stay standing — allow harvesting or mark new planting" : "No timber — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
@@ -366,6 +370,7 @@ public sealed partial class World
         Check(GrownLogs >= 0, "Invalid grown timber total");
         Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
+        ValidateManagedWoodland();
         ValidateHappiness();
         ValidateDecorations();
         ValidateLeisure();

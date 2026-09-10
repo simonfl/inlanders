@@ -12,6 +12,7 @@ public sealed partial class World
     public bool SetPath(Cell cell, bool present)
     {
         if (PathProblem(cell, !present) != null) return false;
+        if(present) ManagedWoodland.Remove(cell);
         bool changed = present ? Paths.Add(cell) : Paths.Remove(cell);
         if (!changed) return true;
         PathsRevision++;

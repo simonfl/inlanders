@@ -30,6 +30,7 @@ public sealed partial class World
     public bool PlaceDecoration(Cell cell, DecorationKind kind, bool rotated = false)
     {
         if (DecorationProblem(cell, kind) != null) return false;
+        ManagedWoodland.Remove(cell);
         var item = new Decoration(cell, kind, rotated); Decorations.Add(item);
         if (item.Solid) RemovePaths(new[] { cell });
         DecorationRevision++;

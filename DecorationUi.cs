@@ -30,7 +30,7 @@ public partial class Game
     }
     private void BeginDecorating(bool remove)
     {
-        ClearSelection(); _pathTool=0; _pathStroke=false; _lastPathCell=null; _clearingTrees=_plantingTrees=false;
+        ClearSelection(); _woodlandTool=0; _pathTool=0; _pathStroke=false; _lastPathCell=null; _clearingTrees=_plantingTrees=false;
         _decorating=_placing=true; _removeDecoration=remove; _decorationKind=(DecorationKind)_decorationChoice.GetSelectedId();
         RefreshGhost();
     }
