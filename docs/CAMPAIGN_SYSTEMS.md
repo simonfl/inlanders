@@ -170,6 +170,33 @@ Sleep remains represented by actual home rest for now. Food, rest and recreation
 
 ## Suggested implementation sequence
 
+### Campaign planning pass: connect expectations to places
+
+Start each new level brief with **what residents want, what the landscape offers, and what the player must choose**. Introducing a building is the teaching moment; operating a satisfying village is the challenge. The following is a working progression, with numbers and final ordering deliberately TBD.
+
+| Resident expectation | Landscape and building opportunity | Decision to build a level around | Evidence of success |
+| --- | --- | --- | --- |
+| Reliable meals | Berries, cultivated clearings and fishable water; later woodland game | Allocate scarce workers and good land between quick food, lasting production and expansion. Different maps favor different food mixes. | Residents actually eat; the UI distinguishes an empty pantry from food awaiting delivery or too few producers. Fishing already exists; hunting is a later alternative. |
+| A home and time to rest | Cottages/lodges near work versus distant spacious housing sites | Fit homes into productive land or accept longer journeys. Improve an awkward existing neighborhood rather than always start from an empty map. | Assigned residents complete rest visits. Explain missing beds, blocked access and time spent travelling; do not add a sleep bar or synchronized nights yet. |
+| Time together / fun | Small neighborhood seating, existing squares, later a stone-funded hall | Spend valuable central land on several convenient places or fund a larger destination. Service capacity alone cannot compensate for an inconvenient site. | Actual participation, visible groups, and an explanation of who misses out. Entertainment and company initially share recreation. |
+| A more comfortable home | Managed timber → planks → carpenter orders at occupied homes | Improve the village already built or use the same materials and labor to expand it. | Visible home improvements used during rest, with their benefit explained. The exact benefit is an experiment, not a promised production bonus. |
+| A shared ambition | A ruined civic site, wooded sanctuary or prominent public plot | Choose a learning/restoration project or a chapel/reflection garden, and spare time for it while maintaining daily life. | Residents attend and contribute to a visible result. Education and reflection remain optional project candidates; their distinct gameplay purpose must be established first. |
+
+**Needs feedback comes before stronger need rules.** In the existing resident inspector and village overview, use the same vocabulary: last meal, assigned home/recent rest, and recent recreation. Link an unmet condition to its resident and destination; distinguish access, capacity, supply and available time. Show a campaign's next expectation before accepting growth. Avoid a new dashboard of meters or a building radius that claims people are served without visits. Treat this as a requirement of each relevant F25/F26 chunk and the UI roadmap, not a separate needs overhaul.
+
+### Small chunks to choose when campaign work resumes
+
+1. **F26b + F25c, stone-to-community prototype:** one outcrop type, quarry, physical stone transport and a gathering hall using existing recreation. Include deposit/placement feedback, a distinct masonry model and visible attendance. Compare against squares before building the full scenario. Keep exact costs, capacities and storage rules TBD until the transport experiment; the quarry must be affordable without stone.
+2. **Built to last, scenario pass:** give the player nearby limited stone and a larger distant source, with useful land competing around them. Teach the first delivery, then stage construction and growth around keeping residents fed and served. A small deposit must not create an irreversible dead end; offer enough total stone and recoverable construction choices.
+3. **F26c, woods-to-meals prototype:** shared habitat, lodge, visible animals and delivered game. Make hunting pressure and tree loss separately readable and recoverable. Existing gardens/fishing remain alternatives; no leather, weapons or butcher prerequisite.
+4. **The living woods, scenario pass:** expansion competes with established habitat. Test broad preservation versus mixed hunting/cultivation, plus recovery from excessive clearing. Judge the supported village and habitat condition, not a required number of lodges.
+5. **F25b, improve an established neighborhood:** trial carpenter orders and visible comfort in a functioning village. Only then decide whether this warrants its own level or enriches an existing one.
+6. **F25d/e, optional ambition design:** sketch one learning project and one religious/secular reflective place. Choose a concrete player decision and visible payoff before implementing either. Merge into recreation or cut if they add no distinct experience.
+
+This is the order within the future campaign track; the main roadmap still owns immediate priorities. Do not add all these systems to one release. Buildings stay available where their environmental prerequisites can be met; campaign unlock restrictions remain a later polish decision. Each chunk gets a roadmap review, and each new scenario needs different viable approaches rather than simply more construction steps.
+
+### Existing foundations and dependencies
+
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a used existing population and buildings.
 3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
