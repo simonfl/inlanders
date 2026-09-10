@@ -145,6 +145,8 @@ Press **H** or choose **Options → Watch village** to hide the HUD. A small bar
 
 Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Options shortcuts also bring management back. Watch mode cancels placement previews; map clicks do not select or build. Your existing selection is retained.
 
+Choose **Clean view [Tab]** or press **Tab** while watching to hide the bar and all floating world labels for screenshots or quiet viewing. Tab restores the bar; H or Esc returns directly to management. Camera movement, follow and Space to pause still work. This temporary view preserves your world-label preference and resets when changing villages. Run `./Play.ps1 -WatchSmokeTest` to check Watch controls and clean view at 960/1440.
+
 ### Economy and shortages
 
 Press **U** or choose **Economy → Survey map resources** to inspect fish grounds, stone outcrops and woodland habitat. Click a marker or choose a source in the inspector to see stock, reservations, recovery and access. Workplace links open related sites; **Back to source** returns to the resource. **U / Esc** finishes surveying. Placement and Watch mode also end it. See the [resource survey review](docs/RESOURCE_SURVEY_F21J.md).

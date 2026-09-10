@@ -84,10 +84,10 @@ public partial class Game
         _surveyDetails.Visible=_surveying && _selectedSite<0 && _selectedPerson<0;
         _surveyBack.Visible=_surveying && !_surveyDetails.Visible && _lastSurveySource!=null;
         foreach(var view in _depositViews.Values)
-            foreach(var label in view.Body.GetChildren().OfType<Label3D>()) label.Visible=_showWorldLabels && !_surveying;
+            foreach(var label in view.Body.GetChildren().OfType<Label3D>()) label.Visible=WorldLabelsVisible && !_surveying;
         foreach(var region in _wildlifeViews)
             foreach(var node in region.GetChildren().OfType<Node3D>())
-                foreach(var label in node.GetChildren().OfType<Label3D>()) label.Visible=_showWorldLabels && !_surveying;
+                foreach(var label in node.GetChildren().OfType<Label3D>()) label.Visible=WorldLabelsVisible && !_surveying;
         if(!_surveying) return;
         foreach(var source in _sourceList)
         {

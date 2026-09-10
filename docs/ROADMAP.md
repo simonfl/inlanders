@@ -14,6 +14,8 @@ The original ordered roadmap shipped its first versions. The next phase responds
 
 **F21k now supports the meal review:** Economy opens a filtered resident list for current hunger or missed/skipped meals in the last three minutes. The existing People service panel explains meals alongside rest/recreation and links to resident inspection. Late recovery remains distinct from recent missed service. Next priorities remain player review and then the selected campaign/comfort work; this UI change does not establish meal-service enjoyment.
 
+**F21e2 supports visual review:** Watch now has a temporary clean view for unobstructed captures, including hidden world labels without changing preferences. The art, meal and campaign reviews remain open. A slow camera orbit is a separate optional viewing improvement, not a prerequisite for those reviews.
+
 **F07c2 findings:** the [working-village review](FOOD_SERVICE_F07C2.md) records normal setup, compact/dispersed/awkward layouts and optional hauling, plus the cost versus instantaneous meals. Full simulation checks and rendered UI groups pass. A decorated 16-resident profile remains around 39–49 ms median depending on sampled state; the paused preview is stable. Keep larger populations behind further performance work and human enjoyment separate from scripted correctness.
 
 See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. The baseline review contains earlier candidate costs; the F24a/F24b reviews record adopted values, measured tradeoffs and remaining playtest limits. **UI remains a major priority.**
@@ -96,6 +98,7 @@ F23c measured 16 residents with 36 decorations and a 600-frame paused preview. S
 | F21c | Direct job assignment, worker/workplace links, staffing controls, selection marker, and camera follow. |
 | F21d | Economy inventory, current-population food coverage, actionable shortages, and idle-worker links. |
 | F21e | Watch mode with a small playback/camera bar, preserved selection/follow, and easy return to management. |
+| F21e2 | Clean view in Watch: button/Tab temporarily hides the bar and world labels; Tab restores controls, H/Esc returns to management, and village changes reset it. Newly created labels respect the temporary override. Label preferences and village state stay intact; rendered 960/1440 navigation and captures pass. |
 | F21f | Role/idle roster filters and role labels; building categories, construction-state filters and live site summaries; clickable storage locations with camera/inspector jumps. Invitations sit above the growing roster. Filters reset when switching settlements. |
 | F21g | Model-thumbnail cards with purpose/cost/staff; separate Place, Landscape and Existing sections, pinned tool guidance/cancel, and map hints that avoid drawer controls. Text entry stops camera shortcuts. World-label preference works in Options/Watch and survives scene rebuilds. Break, garden and storage guidance wording corrected. |
 | F21j | Direct map resource survey through U or Economy: fish grounds, stone outcrops and woodland habitat, current stock/claims/recovery/access, related workplace links and Back to source. Source picker reaches offscreen locations; Watch/placement/Esc exit safely. Rules and saves unchanged; see [survey review](RESOURCE_SURVEY_F21J.md). |
@@ -212,7 +215,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
 | F21 — Management | Keyboard focus navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
-| F21e — Watching | Hide the playback bar for fully clean screenshots and add a slow camera orbit. World-label hiding has shipped in F21g; scenic camera bookmarks already belong to F12e. |
+| F21e — Watching | Optional slow camera orbit around the current focus, with immediate manual takeover and clear stop controls. Clean screenshots shipped in F21e2; label preferences and scenic camera bookmarks already exist. Do not change simulation speed or saved camera views merely by watching. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
 

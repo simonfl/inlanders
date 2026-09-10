@@ -3,21 +3,25 @@ using Godot;
 public partial class Game
 {
     private bool _showWorldLabels = true;
+    private bool WorldLabelsVisible => _showWorldLabels && !_cleanWatch;
     private Button _worldLabelsButton = null!, _watchLabelsButton = null!;
     private bool EditingText => GetViewport().GuiGetFocusOwner() is LineEdit or TextEdit;
 
     private void RegisterWorldLabel(Node node)
     {
         if (node is not Label3D label || label.GetViewport() != GetViewport() || (_ghost != null && _ghost.IsAncestorOf(label))) return;
-        label.AddToGroup("world_labels"); label.Visible = _showWorldLabels;
+        label.AddToGroup("world_labels"); label.Visible = WorldLabelsVisible;
     }
     private void ToggleWorldLabels()
     {
         _showWorldLabels = !_showWorldLabels;
+        ApplyWorldLabels(); UpdateLabelButtons(); SaveAtmosphere();
+    }
+    private void ApplyWorldLabels()
+    {
         foreach (Node3D label in GetTree().GetNodesInGroup("world_labels"))
             if (GodotObject.IsInstanceValid(label) && !label.IsQueuedForDeletion())
-                label.Visible = _showWorldLabels && (_ghostModel == null || !_ghostModel.IsAncestorOf(label));
-        UpdateLabelButtons(); SaveAtmosphere();
+                label.Visible = WorldLabelsVisible && (_ghostModel == null || !_ghostModel.IsAncestorOf(label));
     }
     private void UpdateLabelButtons()
     {

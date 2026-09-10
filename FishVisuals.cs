@@ -49,7 +49,7 @@ public partial class Game
         {
             var view=_fishGrounds[habitat.Id];
             view.Label.Text=$"{habitat.Name}\n{habitat.Available}/{habitat.Capacity} fish · +{habitat.RegrowthPerSecond*60:0.#}/min";
-            view.Label.Visible=_showWorldLabels && !_surveying;
+            view.Label.Visible=WorldLabelsVisible && !_surveying;
             for(int i=0;i<view.Fish.Length;i++)
             {
                 float angle=_clock*.25f+i*Mathf.Tau/3;

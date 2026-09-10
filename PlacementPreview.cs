@@ -13,6 +13,9 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) return;
+        // Handle Tab before GUI focus traversal consumes it after clicking Watch controls.
+        if(_watching && input is InputEventKey { Pressed:true, Echo:false, Keycode:Key.Tab })
+        { ToggleCleanWatch(); GetViewport().SetInputAsHandled(); return; }
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
         if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
         if(input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastWoodlandCell=null;
