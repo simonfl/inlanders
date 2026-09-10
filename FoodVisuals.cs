@@ -68,7 +68,7 @@ public partial class Game
         {
             if (_bushViews.TryGetValue(bush.Id, out var old) && old.Ripe == bush.Ripe) continue;
             if (old.Body != null) old.Body.QueueFree();
-            var body = new Node3D { Position = new(bush.Cell.X, 0, bush.Cell.Z) }; _dynamic.AddChild(body);
+            var body = new Node3D { Position = OnGround(bush.Cell.X, bush.Cell.Z) }; _dynamic.AddChild(body);
             Mesh(body, new SphereMesh { Radius = 0.45f, Height = 0.75f, RadialSegments = 7, Rings = 4 }, new(0, 0.3f, 0), new("496d48"));
             for (int i = 0; i < bush.Ripe; i++)
             {
@@ -84,7 +84,7 @@ public partial class Game
             int viewKey=stage*10+farm.Harvest;
             if (_cropViews.TryGetValue(farm.Id, out var old) && old.Stage == viewKey) continue;
             if (old.Body != null) old.Body.QueueFree();
-            var root = new Node3D { Position = new(farm.Cell.X + (farm.Rotated ? -0.5f : 0), 0, farm.Cell.Z + (farm.Rotated ? 0 : -0.5f)), RotationDegrees = new(0, farm.Rotated ? 90 : 0, 0) };
+            var root = new Node3D { Position = OnGround(farm.Cell.X + (farm.Rotated ? -0.5f : 0), farm.Cell.Z + (farm.Rotated ? 0 : -0.5f)), RotationDegrees = new(0, farm.Rotated ? 90 : 0, 0) };
             _dynamic.AddChild(root);
             if (farm.Kind == BuildingKind.VegetableGarden) MakeVegetables(root, farm, stage);
             else MakeCrops(root, farm, stage);

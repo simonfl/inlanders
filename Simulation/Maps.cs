@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
-public sealed class MapLayout
+public sealed partial class MapLayout
 {
     public string Name { get; set; } = "Original clearing";
     public int MinX { get; set; } = -8;
@@ -27,13 +27,14 @@ public sealed class MapLayout
         if (Name == null || Width is < 4 or > 128 || Depth is < 4 or > 128 || MinX is < -128 or > 128 || MinZ is < -128 or > 128 ||
             Water == null || Excluded == null || Water.Any(c => !Contains(c)) || Excluded.Any(c => c.X < MinX || c.X > MaxX || c.Z < MinZ || c.Z > MaxZ) || Excluded.Count >= Width * Depth)
             throw new InvalidDataException("Invalid map layout");
+        ValidateTerrain();
     }
 }
 
 public sealed partial class World
 {
     public MapLayout Map { get; private set; } = new();
-    public static World NewLargeMap(bool withWater = true)
+    public static World NewLargeMap(bool withWater = true, bool withHills = true)
     {
         var w = NewScenario();
         w.Map = new() { Name = "Three clearings", MinX = -16, MinZ = -16, Width = 32, Depth = 32 };
@@ -44,6 +45,7 @@ public sealed partial class World
             new(11, -2), new(12, 2), new(11, 6), new(8, 10), new(4, 12), new(-1, 12), new(-8, 11), new(-11, 3) })
             w.Trees.Add(new() { Id = w._nextTree++, Cell = cell, Logs = 8 });
         if (withWater) for (int z = -9; z <= 9; z++) w.Map.Water.Add(new(7, z));
+        if (withHills) w.Map.AuthorMeadows();
         w.InitialLogs = w.Trees.Sum(t => t.Logs);
         foreach (var cell in new[] { new Cell(-10, -6), new(8, 6), new(-5, 10) }) w.Bushes.Add(new() { Id = w.Bushes.Count, Cell = cell });
         w.Food.InitialBerries = w.Food.Berries = 64;
@@ -67,9 +69,12 @@ public sealed partial class World
             if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
         foreach (var site in Cottages)
         {
+            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotated).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
             foreach (var cell in Footprint(site.Cell, site.Rotated, site.Kind))
                 if (!Map.Contains(cell) || Map.Water.Contains(cell) != (site.Kind == BuildingKind.Bridge) || !occupied.Add(cell))
                     throw new InvalidDataException("Invalid building terrain");
+            if (site.Kind == BuildingKind.Bridge && !Map.LevelGround(new[] { site.Cell, Door(site.Cell,site.Rotated), FarBank(site.Cell,site.Rotated) }))
+                throw new InvalidDataException("Bridge needs level riverbanks");
             if (site.Kind == BuildingKind.Bridge && new[] { Door(site.Cell, site.Rotated), FarBank(site.Cell, site.Rotated) }.Any(c => !Map.Contains(c) || Map.Water.Contains(c) || Blocked(c)))
                 throw new InvalidDataException("Bridge needs clear dry banks");
         }

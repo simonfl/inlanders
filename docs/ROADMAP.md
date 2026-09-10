@@ -4,17 +4,13 @@ A living plan for a small, peaceful settlement that is satisfying to arrange, ma
 
 Windows, local play, Godot, and C# remain the foundation. Save backward compatibility is not required during prototyping. Feature IDs stay stable even when entries are removed or reordered.
 
-## Suggested order
+## Current status
 
-**Next: F12d — Hills and terrain shaping.** Add authored gentle elevation with readable slopes and clear building rules. Creative now provides a useful place to arrange and inspect terrain without economy pressure.
+**The ordered roadmap is complete.** F12d adds the final planned first version: raised meadows with walkable slopes and level building sites. The table below records what is playable; optional follow-ups remain ideas to choose from after playtesting.
 
-The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
+**UI remains a major priority.** The next recommendation is to play the five campaign settlements and arrange a hilltop village in Creative, then choose a concrete improvement from what feels unclear, repetitive, or awkward. No additional feature is automatically queued.
 
-| Order | ID | Next playable chunk | Why here |
-| --- | --- | --- | --- |
-| 1 | F12d | **Hills and terrain shaping.** Two broad raised meadows on Three clearings, with walkable slopes; keep the yard, riverbanks and campaign layouts flat. Buildings need a level footprint and entrance; paths, trees and small decorations can follow slopes. Share surface heights across visuals, placement and mouse picking. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
-
-Campaign pacing and UI feedback can be addressed at any time. The five-level campaign now teaches gardens and food choices with an optional visitor. Creative focuses on arranging and watching, while normal free play retains its economy. Terrain comes next; relocation, brushes and resource setup controls can wait for playtesting rather than expanding Creative immediately.
+Campaign pacing and UI feedback can be addressed at any time. The five-level campaign teaches gardens and food choices with an optional visitor. Creative focuses on arranging and watching; normal free play retains its economy. Player terrain tools, relocation, and bulk editing remain optional follow-ups.
 
 ## Already playable
 
@@ -37,6 +33,7 @@ Campaign pacing and UI feedback can be addressed at any time. The five-level cam
 | F12a | Irregular 32×32 Three clearings map, distant resources, scalable camera bounds, and Home overview. |
 | F12b | Water and one-tile bridges, construction from a reachable bank, and access to the far side. |
 | F12c | Cancelable tree/stump clearing, physical timber recovery, root removal, and reusable building ground. Decorative landscaping shares the F09 palette. |
+| F12d | Two raised meadows on new Three clearings maps, with walkable slopes and level hilltops. Whole footprints and entrances must be level; paths, planting and decorations follow slopes. Terrain, actors, crops, previews, picking, camera focus and positional sound share heights. Height data and uphill routes persist; original/campaign maps and riverbanks stay flat. |
 | F12e | Three named camera views per settlement; saved focus, zoom and orbit, Options controls, 1–3 recall / Ctrl+1–3 set, clearing/overwrite, and recall during Watch mode. Existing workplace jumps and Home overview remain. |
 | F14 | Per-villager satisfaction from meals, food choices recorded at meal time, housing coverage, and a completed square break within two minutes. Village average, expandable reasons below worker controls, saved history, and cheerful/unsettled idle reactions; no additional productivity penalty. |
 | F15 | One gardener visit from day 3 with a finished hut; 8 berries unlock freely placeable sunflowers. Quiet yard marker/Goals card, projected food reserve, accept/decline, no deadline, saved outcomes, and preserved delivery milestones. |
@@ -81,14 +78,14 @@ These are possibilities within existing features, not additional commitments or 
 | F05 — Food choices | More crops or orchards, recipe variety, garden/grain balance, and meaningful food-variety effects with F14. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
-| F07 — Storage and hauling | Food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
+| F07 — Storage and hauling | Compact yard visuals for large reserves (Creative clearing can produce tall stacks), food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
 | F08 — Materials | More plank buildings, mixed-material recipes, adjustable stock targets, upgrades, and other materials. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores, wider bridges, islands, water animation, bridge variants, and demolition rules. |
-| F12c / F12d — Landscaping | Area selection, clearing-time tuning, grass/earth painting, terraces, ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
+| F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
 | F21 — Management | Permanent workplace assignments, route overlays, resource filters, production/consumption history, rates, richer workplace diagnostics, and configurable alerts. |

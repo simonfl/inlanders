@@ -72,7 +72,7 @@ public partial class Game
         {
             _nextBird = _soundTime + 9 + (_nextBird % 5);
             if (!_soundMuted && _ambienceVolume > 0)
-            { _bird.Position = new(MathF.Sin(_soundTime) * 8, 2, -7); _bird.PitchScale = 0.95f + 0.1f * MathF.Sin(_soundTime); _bird.Play(); }
+            { _bird.Position = OnGround(MathF.Sin(_soundTime)*8,-7,2); _bird.PitchScale = 0.95f + 0.1f * MathF.Sin(_soundTime); _bird.Play(); }
         }
         if (_paused) { foreach (var voice in _voices) voice.Stop(); return; }
         foreach (var v in _world.People)
@@ -80,7 +80,7 @@ public partial class Game
             if (!_soundTraces.TryGetValue(v.Id, out var trace))
                 _soundTraces[v.Id] = trace = new SoundTrace { Position = v.Position, Cargo = v.Carried, Next = _soundTime + 0.1f };
             trace.Distance += System.Numerics.Vector2.Distance(trace.Position, v.Position); trace.Position = v.Position;
-            if (trace.Cargo > v.Carried) WorldCue(Cue.Drop, new(v.Position.X, 0.5f, v.Position.Y), v.Id);
+            if (trace.Cargo > v.Carried) WorldCue(Cue.Drop, OnGround(v.Position.X,v.Position.Y,.5f), v.Id);
             trace.Cargo = v.Carried;
             if (_soundTime < trace.Next) continue;
             Cue? cue = v.Route.Count > 0 ? trace.Distance >= 0.65f ? Cue.Step : null : v.Task switch
@@ -90,13 +90,13 @@ public partial class Game
                 Work.Sawing => Cue.Saw, Work.Baking => Cue.Bake, _ => null
             };
             if (cue == null) continue;
-            WorldCue(cue.Value, new(v.Position.X, 0.5f, v.Position.Y), v.Id);
+            WorldCue(cue.Value, OnGround(v.Position.X,v.Position.Y,.5f), v.Id);
             trace.Distance = 0;
             // Use real-time limits so fast-forward does not become a wall of sound.
             trace.Next = _soundTime + (cue == Cue.Step ? 0.32f : cue == Cue.Hammer ? 0.48f : 0.75f);
         }
         foreach (var site in _world.Cottages.Where(c => c.Complete))
-            if (_heardBuildings.Add(site.Id)) WorldCue(Cue.Complete, new(site.Cell.X, 1, site.Cell.Z));
+            if (_heardBuildings.Add(site.Id)) WorldCue(Cue.Complete, OnGround(site.Cell.X,site.Cell.Z,1));
         if (_world.Food.SupperComplete && !_heardSupper) { _heardSupper = true; UiCue(Cue.Complete); }
     }
 

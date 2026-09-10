@@ -8,7 +8,7 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 18;
+    public int Version { get; set; } = 19;
     public bool Creative { get; set; }
     public VisitorState Gardener { get; set; }
     public CameraView?[] CameraViews { get; set; } = new CameraView?[3];
@@ -48,7 +48,7 @@ public sealed partial class World
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14 or 15 or 16 or 17 or 18)) throw new InvalidDataException($"Unsupported save version {s.Version}");
+        if (s.Version is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14 or 15 or 16 or 17 or 18 or 19)) throw new InvalidDataException($"Unsupported save version {s.Version}");
         if (s.Version >= 5 && s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && ((s.Campaign.Level < 1 || s.Campaign.Level > CampaignLevels.Length) || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");

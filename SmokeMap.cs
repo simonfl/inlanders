@@ -19,7 +19,7 @@ public partial class Game
             await OpenMenu(3);
             var open = _drawerPages[3].FindChildren("*", "Button", true, false).Cast<Button>().Single(b => b.Text == "Explore larger map");
             await UiClick(open); await Frames();
-            Check(_world.Map.Width == 32 && _landscape.GetChildren().OfType<MultiMeshInstance3D>().Count() == 2, "Expanded terrain not rendered");
+            Check(_world.Map.Width == 32 && _landscape.HasNode("TerrainSurface"), "Expanded terrain not rendered");
             Check(File.ReadAllText(_savePath) == original, "Opening large map lost original village");
             _noticeUntil = 0; await Capture("artifacts/f12-overview.png");
             foreach (var size in new[] { new Vector2I(1440, 900), new(960, 640) })
@@ -27,7 +27,7 @@ public partial class Game
                 GetWindow().Size = size; await Frames(); await Press(Key.Home); await Frames();
                 foreach (var cell in _world.Map.Land)
                 {
-                    var point = _camera.UnprojectPosition(new(cell.X, 0, cell.Z));
+                    var point = _camera.UnprojectPosition(OnGround(cell.X, cell.Z));
                     Check(point.X >= 0 && point.X <= size.X && point.Y >= 82 && point.Y <= size.Y - 76, "Overview clips the map behind bars");
                 }
                 await Capture($"artifacts/f12-overview-{size.X}.png");
@@ -67,6 +67,8 @@ public partial class Game
             Check(_world.Map.OriginalOutline && _world.SaveJson() == original && !_landscape.GetChildren().OfType<MultiMeshInstance3D>().Any(), "Original map not restored");
             OpenLargeMap(); await Frames(); Check(_world.SaveJson() == saved, "Large map did not resume");
             GD.Print("SMOKE PASS: large-map entry, instanced terrain, overview at 1440/960, pan limits, distant building, water and rotated bridge preview/construction, 6x simulation, separate saves, and map switching.");
+            await CheckTerrainUi();
+            for(int i=0;i<4;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             GetTree().Quit();
         }
         catch (Exception e) { GD.PrintErr("MAP SMOKE FAIL: " + e); GetTree().Quit(1); }

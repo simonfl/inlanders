@@ -15,6 +15,7 @@ public sealed partial class World
         var near = Door(cell, rotated); var far = FarBank(cell, rotated);
         if (!Map.Contains(near) || !Map.Contains(far) || Map.Water.Contains(near) || Map.Water.Contains(far))
             return "Both ends need dry banks. Press R to turn the crossing.";
+        if (!Map.LevelGround(new[] { near, cell, far })) return "Bridges need level riverbanks.";
         if (Blocked(near) || Blocked(far)) return "Clear both banks before planning a bridge.";
         if (!Accessible(near) && !Accessible(far)) return "Builders need a route from the yard to the marked entrance bank.";
         return null;

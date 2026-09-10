@@ -50,7 +50,7 @@ public partial class Game : Node3D
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
         {
-            var view = MakeVillager(p.Id); _dynamic.AddChild(view.Body); view.Body.Position = new(p.Position.X, 0, p.Position.Y);
+            var view = MakeVillager(p.Id); _dynamic.AddChild(view.Body); view.Body.Position = OnGround(p.Position.X, p.Position.Y);
             _people.Add(view);
         }
     }
@@ -67,6 +67,7 @@ public partial class Game : Node3D
     {
         var map = _world.Map;
         _focus.X = Mathf.Clamp(_focus.X, map.MinX, map.MaxX); _focus.Z = Mathf.Clamp(_focus.Z, map.MinZ, map.MaxZ);
+        _focus.Y = Height(_focus.X, _focus.Z);
         float distance = Math.Max(25, Math.Max(map.Width, map.Depth) * 1.5f);
         _camera.Far = distance * 4;
         _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * 0.96f, MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
@@ -80,7 +81,7 @@ public partial class Game : Node3D
             return;
         }
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
-        foreach (var c in World.Footprint(site.Cell, site.Rotated, site.Kind)) Box(_selection, new(c.X, 0.02f, c.Z), new(1.04f, 0.03f, 1.04f), new("e8c688"));
+        foreach (var c in World.Footprint(site.Cell, site.Rotated, site.Kind)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
     }
     private void PlaceCottage(Cell at)
     {
@@ -104,7 +105,7 @@ public partial class Game : Node3D
         _clearingTrees = false;
         _placing = !(_placing && _plantingTrees); _plantingTrees = true; RefreshGhost();
     }
-    private Vector3? Ground(Vector2 screen) => new Plane(Vector3.Up, 0).IntersectsRay(_camera.ProjectRayOrigin(screen), _camera.ProjectRayNormal(screen));
+
     public override void _UnhandledInput(InputEvent input)
     {
         if (_atMainMenu) return;
@@ -169,14 +170,15 @@ public partial class Game : Node3D
         while (_people.Count < _world.Population)
         {
             var p = _world.People[_people.Count]; var view = MakeVillager(p.Id);
-            _dynamic.AddChild(view.Body); view.Body.Position = new(p.Position.X, 0, p.Position.Y); _people.Add(view);
+            _dynamic.AddChild(view.Body); view.Body.Position = OnGround(p.Position.X, p.Position.Y); _people.Add(view);
         }
         foreach (var v in _world.People)
         {
-            var view = _people[v.Id]; var target = new Vector3(v.Position.X, 0, v.Position.Y);
+            var view = _people[v.Id]; var target = OnGround(v.Position.X, v.Position.Y);
             var movement = target - view.Body.Position; movement.Y = 0;
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
             view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
+            view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
             AnimateVillager(view, v);
         }
         foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
@@ -187,8 +189,8 @@ public partial class Game : Node3D
         {
             if (!_trees.TryGetValue(t.Id, out var view))
             {
-                var top = MakeTree(new(t.Cell.X, 0, t.Cell.Z), 0.9f, new("6e8b50")); top.Reparent(_dynamic);
-                var pile = new Node3D { Position = new(t.Cell.X, 0, t.Cell.Z) }; _dynamic.AddChild(pile);
+                var top = MakeTree(OnGround(t.Cell.X, t.Cell.Z), 0.9f, new("6e8b50")); top.Reparent(_dynamic);
+                var pile = new Node3D { Position = OnGround(t.Cell.X, t.Cell.Z) }; _dynamic.AddChild(pile);
                 view = new TreeView { Top = top, Pile = pile }; _trees[t.Id] = view;
             }
             view.Top.Visible = !t.Felled && !t.NeedsPlanting && (t.Logs > 0 || t.Growth < 1);
@@ -230,7 +232,7 @@ public partial class Game : Node3D
             if (view.Stage != viewKey)
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
-                view.Body.Position = new(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), 0, h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
+                view.Body.Position = OnGround(h.Cell.X + (h.Kind != BuildingKind.Bridge && h.Rotated ? -0.5f : 0), h.Cell.Z + (h.Kind == BuildingKind.Bridge || h.Rotated ? 0 : -0.5f));
                 view.Body.RotationDegrees = new(0, h.Rotated ? 90 : 0, 0); _cottages[h.Id] = (view.Body, viewKey);
             }
         }

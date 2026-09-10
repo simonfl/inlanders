@@ -30,7 +30,7 @@ public partial class Game
     {
         Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = "clearing";
         Clear(_ghostCells);
-        ClearingCross(_ghostCells, new(_hover.X, 0.16f, _hover.Z), _ghostValid ? new("f0bd70") : new("e38673"), 1.15f);
+        ClearingCross(_ghostCells, OnGround(_hover.X,_hover.Z,.16f), _ghostValid ? new("f0bd70") : new("e38673"), 1.15f);
     }
     private void MarkClearing(Cell at)
     {

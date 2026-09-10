@@ -54,7 +54,7 @@ Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous writ
 
 Open **Options [O] → Explore larger map** to start or resume a separate 32×32 landscape with an irregular outline, open building areas, 20 harvestable trees, and six berry patches. Eight villagers arrive with 64 berries. All buildings are available; the existing supper objective can give you a goal while you explore.
 
-**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; decorative landscaping is available; elevation remains a future feature.
+**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; decorative landscaping is available; new Three clearings maps have two raised meadows. Buildings, fields and squares require level ground across their full footprint and entrance. Gentle slopes remain walkable and support paths, planting, and decorations; there is no uphill speed penalty. Riverbanks stay flat. Start a new map in Free play or Creative to use the authored hills.
 
 F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, use Continue or Free play on the title screen. Existing saves retain their original terrain rather than expanding automatically.
 
@@ -62,9 +62,9 @@ F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the villag
 
 New **Three clearings** maps include a narrow stream with visible banks. Start a new Three clearings village from Free play to see it; saved maps retain their terrain. The original clearing and campaign maps remain dry.
 
-Choose **Build → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
+Choose **Build → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear, level dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
 
-You can cancel unfinished bridges; delivered logs become recoverable salvage on land. Completed bridges remain in place. Water and bridges are included in saves.
+You can cancel unfinished bridges; delivered logs become recoverable salvage on land. Completed bridges remain in place in normal play; Creative can remove them when access remains safe. Water and bridges are included in saves.
 
 ## The first village supper
 
@@ -191,9 +191,9 @@ The default view has no open side panels. At widths below 1100 pixels, opening a
 
 Villagers have stepping feet, distinct work motions and tools, and occasional idle gestures. Carried timber appears as logs; berries, vegetables, grain, and bread use baskets with visible contents. These animations follow pause and game speed.
 
-In **Options**, the **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute both, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
+In **Options**, the **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute all audio, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
 
-Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. This first audio pass uses synthesized effects; music remains future work (F17).
+Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. Effects are synthesized, and the original 96-second procedural music loop has independent volume and mute controls.
 
 | Control | Action |
 | --- | --- |
@@ -211,7 +211,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | Q / E | Orbit in quarter turns |
 | Mouse wheel | Zoom |
 | Space / Pause | Pause or resume |
-| M | Mute/unmute effects and nature ambience |
+| M | Mute/unmute all audio |
 | Speed | Cycle 1×, 3×, 6× |
 | F5 / Save | Save the current settlement |
 | Home | Frame the full map |
@@ -222,7 +222,7 @@ The original standalone manual save is `saves/settlement.json`; Three clearings 
 
 ## Development
 
-See the [feature roadmap](docs/ROADMAP.md) for future ideas and selectable work chunks. Pick a feature ID; flesh out its first playable version when we start it.
+See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional follow-ups. The ordered first-version roadmap is complete; choose the next chunk from playtesting.
 
 | File | Responsibility |
 | --- | --- |
@@ -278,7 +278,7 @@ Map checks build in three distant clearings, harvest the outer groves, preserve 
 
 Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and legacy saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
 
-Milestones 1–3 are implemented: the first cottage, eight competing workers, and a complete food/supper scenario with persistence. Renewable woodland, villager animation/cargo, sawmills/lodges, and a first sound pass are also playable. See the roadmap for future features and presentation work.
+The current roadmap has a playable first version of every ordered feature, including the five-level campaign, Creative mode, raised terrain, logistics, social breaks, happiness, decoration, music, and the management UI. The roadmap keeps optional extensions separate so the next chunk can follow playtesting.
 
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 

@@ -13,7 +13,7 @@ public static class MapChecks
         var w = World.NewLargeMap();
         Check(w.Map.Width == 32 && w.Map.Excluded.Count > 0 && w.Trees.Count == 20 && w.Bushes.Count == 6, "Large layout missing resources or outline");
         Check(!w.CanPlace(new(15, 15), false) && !w.CanPlantTree(new(-16, -16)), "Missing terrain accepts building or planting");
-        foreach (var cell in new[] { new Cell(-10, -3), new(9, 3), new(2, 10) })
+        foreach (var cell in new[] { new Cell(-10, -11), new(9, 3), new(-2, 10) })
             Check(w.Place(cell) != null, $"Distant clearing rejects building at {cell}: {w.PlacementProblem(cell, false)}");
         for (int i = 0; i < 8; i++) w.Assign(i, i < 4 ? Role.Logger : Role.Builder);
         var timer = Stopwatch.StartNew();

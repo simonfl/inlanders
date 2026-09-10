@@ -119,3 +119,4 @@ CameraViewChecks.Run();
 VisitorChecks.Run();
 GardenLessonChecks.Run();
 CreativeChecks.Run();
+TerrainChecks.Run();

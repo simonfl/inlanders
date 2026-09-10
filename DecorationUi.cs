@@ -50,10 +50,10 @@ public partial class Game
         }
         var color=_ghostValid?new Color("aed2a0"):new Color("e38673");
         foreach(var material in _previewMaterials) material.AlbedoColor=new(color.R,color.G,color.B,.48f);
-        _ghostModel.Position=new(_hover.X,.05f,_hover.Z); _ghostModel.RotationDegrees=new(0,_rotated?90:0,0);
+        _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,_rotated ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,_rotated);
         Clear(_ghostCells);
-        if(_removeDecoration) ClearingCross(_ghostCells,new(_hover.X,.1f,_hover.Z),color,.9f);
-        else Box(_ghostCells,new(_hover.X,.025f,_hover.Z),new(.96f,.03f,.96f),color.Darkened(.15f));
+        if(_removeDecoration) ClearingCross(_ghostCells,OnGround(_hover.X,_hover.Z,.1f),color,.9f);
+        else GroundPatch(_ghostCells,_hover.X,_hover.Z,.96f,.96f,color.Darkened(.15f));
     }
     private void RenderDecorations()
     {
@@ -62,8 +62,20 @@ public partial class Game
         Clear(_decorationView); _decorationWorld=_world; _decorationRevision=_world.DecorationRevision;
         foreach(var decoration in _world.Decorations)
         {
-            var body=new Node3D { Position=new(decoration.Cell.X,0,decoration.Cell.Z),RotationDegrees=new(0,decoration.Rotated?90:0,0) };
-            _decorationView.AddChild(body); MakeDecoration(body,decoration.Kind);
+            var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
+            _decorationView.AddChild(body);
+            if (decoration.Kind == DecorationKind.Pebbles)
+            {
+                body.Transform = Transform3D.Identity;
+                GroundPatch(body,decoration.Cell.X,decoration.Cell.Z,.96f,.96f,new("c0b9a1"),.018f);
+                for(int i=0;i<9;i++)
+                {
+                    float dx=(i%3-1)*.29f,dz=(i/3-1)*.29f;
+                    float x=decoration.Cell.X+(decoration.Rotated ? -dz : dx),z=decoration.Cell.Z+(decoration.Rotated ? dx : dz);
+                    var stone=Box(body,OnGround(x,z,.035f),new(.17f,.025f,.12f),new("dad2b9")); stone.Basis=GroundBasis(x,z,decoration.Rotated);
+                }
+            }
+            else MakeDecoration(body,decoration.Kind);
         }
     }
     private void MakeDecoration(Node3D root,DecorationKind kind)

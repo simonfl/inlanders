@@ -70,13 +70,13 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        _ghostModel.Position = new(_hover.X + (!_plantingTrees && _buildKind != BuildingKind.Bridge && _rotated ? -0.5f : 0), 0.1f, _hover.Z + (!_plantingTrees && _buildKind != BuildingKind.Bridge && !_rotated ? -0.5f : 0));
+        _ghostModel.Position = OnGround(_hover.X + (!_plantingTrees && _buildKind != BuildingKind.Bridge && _rotated ? -0.5f : 0), _hover.Z + (!_plantingTrees && _buildKind != BuildingKind.Bridge && !_rotated ? -0.5f : 0), .1f);
         _ghostModel.RotationDegrees = new(0, !_plantingTrees && _rotated ? 90 : 0, 0);
         Clear(_ghostCells);
         var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotated, _buildKind);
-        foreach (var cell in footprint) Box(_ghostCells, new(cell.X, 0.045f, cell.Z), new(0.94f, 0.05f, 0.94f), tint.Darkened(0.15f));
+        foreach (var cell in footprint) GroundPatch(_ghostCells,cell.X,cell.Z,.94f,.94f,tint.Darkened(.15f),.06f);
         var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotated) : World.Door(_hover, _rotated);
-        var marker = new Node3D { Position = new(door.X, 0.10f, door.Z), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (!_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
+        var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (!_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
         Box(marker, Vector3.Zero, new(0.11f, 0.06f, 0.5f), _cream);
         foreach (float side in new[] { -1f, 1f })
         {
@@ -109,11 +109,11 @@ public partial class Game
                 $"{_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.People.Count(p => p.Role == Role.Logger)} loggers";
             return;
         }
-        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free"; return; }
+        if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."; return; }
         int available = _buildKind == BuildingKind.Lodge ? _world.AvailablePlanks : _world.Available;
         int cost = _buildKind == BuildingKind.Lodge ? 8 : World.Cost;
         string material = _buildKind == BuildingKind.Lodge ? "planks" : "logs";
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
-            $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
+            $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
     }
 }

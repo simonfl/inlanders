@@ -44,16 +44,15 @@ public partial class Game
         Clear(_pathView); _pathWorld = _world; _pathRevision = _world.PathsRevision;
         foreach (var cell in _world.Paths)
         {
-            var center = new Vector3(cell.X, 0.035f, cell.Z);
-            Box(_pathView, center, new(0.66f, 0.04f, 0.66f), new("b8a17b"));
+            GroundPatch(_pathView,cell.X,cell.Z,.66f,.66f,new("b8a17b"));
             foreach (var offset in new[] { new Cell(1, 0), new(-1, 0), new(0, 1), new(0, -1) })
                 if (_world.Paths.Contains(new(cell.X + offset.X, cell.Z + offset.Z)))
-                    Box(_pathView, center + new Vector3(offset.X * 0.4f, 0, offset.Z * 0.4f), new(offset.X != 0 ? 0.34f : 0.66f, 0.04f, offset.Z != 0 ? 0.34f : 0.66f), new("b8a17b"));
+                    GroundPatch(_pathView,cell.X+offset.X*.4f,cell.Z+offset.Z*.4f,offset.X != 0 ? .34f : .66f,offset.Z != 0 ? .34f : .66f,new("b8a17b"));
         }
     }
     private void RefreshPathGhost()
     {
         Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = "path"; Clear(_ghostCells);
-        Box(_ghostCells, new(_hover.X, 0.09f, _hover.Z), new(0.72f, 0.05f, 0.72f), _ghostValid ? new("e2c795") : new("e38673"));
+        GroundPatch(_ghostCells,_hover.X,_hover.Z,.72f,.72f,_ghostValid ? new("e2c795") : new("e38673"),.09f);
     }
 }

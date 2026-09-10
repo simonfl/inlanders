@@ -31,7 +31,8 @@ public partial class Game
             }
             _landscape.AddChild(new MultiMeshInstance3D { Multimesh = mesh, MaterialOverride = new StandardMaterial3D { VertexColorUseAsAlbedo = true, Roughness = 1 } });
         }
-        Layer(1.6f, -0.87f, false); Layer(0.08f, -0.03f, true);
+        if (_world.Map.Heights.Length > 0) MakeTerrainSurface();
+        else { Layer(1.6f, -0.87f, false); Layer(0.08f, -0.03f, true); }
         foreach (var cell in _world.Map.Water)
         {
             Box(_landscape, new(cell.X, -0.5f, cell.Z), new(1, 0.8f, 1), new("687d73"));
