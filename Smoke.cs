@@ -13,6 +13,8 @@ public partial class Game
     }
     private async Task UiClick(Button button)
     {
+        for (int section = 0; section < _buildSections.Length; section++)
+            if (_buildSections[section].IsAncestorOf(button)) SelectBuildSection(section);
         for (int i = 0; i < _drawerPages.Count; i++)
             if (_drawerPages[i].IsAncestorOf(button))
             {

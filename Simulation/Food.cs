@@ -91,7 +91,8 @@ public sealed partial class World
             var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted);
             if (farm == null) { v.Status = Cottages.Any(c => c.Complete && IsField(c)) ? "Waiting for crops to ripen or a free field" : "Needs a finished farm or vegetable garden"; return; }
             v.WorkplaceId = farm.Id;
-            Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? "Walking to harvest grain" : "Walking to sow grain"); return;
+            string crop = farm.Kind == BuildingKind.VegetableGarden ? "vegetables" : "grain";
+            Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? $"Walking to harvest {crop}" : $"Walking to sow {crop}"); return;
         }
         var bakery = FoodSite(BuildingKind.Bakery, c => c.OutputBread > 0) ?? FoodSite(BuildingKind.Bakery, c => c.InputGrain > 0)
             ?? FoodSite(BuildingKind.Bakery, _ => Food.Grain - ReservedGrain >= 2);

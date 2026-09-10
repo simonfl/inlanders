@@ -40,7 +40,7 @@ public partial class Game
         Work.ToMaterials => "Fetching", Work.ToCottage => "Delivering", Work.ToBuild => "To site", Work.Building => "Building",
         Work.ToBush or Work.Foraging => "Foraging", Work.ToFarm or Work.Planting => "Sowing", Work.Harvesting => "Harvesting",
         Work.ToGrain => "Fetching", Work.ToOven or Work.Baking => "Baking", Work.ToBread or Work.ToPantry => "Hauling food",
-        Work.ToSupper or Work.Supper => "Supper", _ => "Idle"
+        Work.ToSupper or Work.Supper => "Supper", Work.ToLeisure => "Going for a break", Work.Leisure => "Taking a break", _ => "Idle"
     };
     private Button Button(string text, Action pressed, float width = 0)
     {
@@ -89,9 +89,11 @@ public partial class Game
         var heading = new HBoxContainer(); drawerColumn.AddChild(heading);
         _drawerTitle = Text("Build", 21); _drawerTitle.Modulate = _cream; _drawerTitle.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; heading.AddChild(_drawerTitle);
         heading.AddChild(Button("×", CloseDrawer, 32));
+        MakeBuildNavigation(drawerColumn);
         _tabs = new TabContainer { TabsVisible = false, SizeFlagsVertical = Control.SizeFlags.ExpandFill }; drawerColumn.AddChild(_tabs);
         var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options"); var economy = DrawerPage("Economy");
         MakePeopleMenu(people); MakeBuildMenu(build); MakeGoalsMenu(goals); MakeOptionsMenu(options); MakeEconomyMenu(economy);
+        MakeBuildFooter(drawerColumn);
         _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
         var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
         var inspectHeading = new HBoxContainer(); inspection.AddChild(inspectHeading);
@@ -142,14 +144,14 @@ public partial class Game
     private void MakeBuildMenu(VBoxContainer column)
     {
         MakeBuildingFilter(column);
-        var kinds = new GridContainer { Columns = 2 }; kinds.AddThemeConstantOverride("h_separation", 8); kinds.AddThemeConstantOverride("v_separation", 8); column.AddChild(kinds);
-        foreach (var kind in Enum.GetValues<BuildingKind>())
+        for (int i = 0; i < 3; i++)
         {
-            var b = Button(BuildingName(kind) + "\n" + BuildCost(kind), () => BeginPlacement(kind));
-            b.AddThemeFontSizeOverride("font_size", 14); b.CustomMinimumSize = new(128, 60); b.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-            b.TooltipText = BuildingDescription(kind);
-            kinds.AddChild(b); _kindButtons[kind] = b;
+            _buildSections[i] = new(); _buildSections[i].AddThemeConstantOverride("separation", 8); column.AddChild(_buildSections[i]);
         }
+        foreach (var kind in Enum.GetValues<BuildingKind>()) MakeBuildingCard(_buildSections[0], kind);
+        var landscape = _buildSections[1];
+        var existing = _buildSections[2];
+        column = landscape;
         _plantTreeButton = Button("Plant alders · free [T]", () => { ToggleTreePlanting(); ClearSelection(); }); column.AddChild(_plantTreeButton);
         _plantTreeButton.TooltipText = "Mark open ground or exhausted stumps. Loggers plant; trees grow for three days and yield eight logs.";
         _clearTreeButton = Button("Clear trees & stumps [C]", ToggleClearing); column.AddChild(_clearTreeButton);
@@ -157,9 +159,8 @@ public partial class Game
         column.AddChild(Button("Paint paths [P]", () => TogglePaths(1)));
         column.AddChild(Button("Remove paths [Shift+P]", () => TogglePaths(2)));
         MakeDecorationMenu(column);
-        _buildDescription = Text("", 14, true); column.AddChild(_buildDescription);
-        _buildButton = Button("", () => { if (_placing) { _placing = false; RefreshGhost(); } else BeginPlacement(_buildKind); }); column.AddChild(_buildButton);
-        column.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); MakeConstructionFilter(column); _queue = new VBoxContainer(); column.AddChild(_queue);
+        existing.AddChild(Text("BUILDINGS & CONSTRUCTION", 12)); MakeConstructionFilter(existing); _queue = new VBoxContainer(); existing.AddChild(_queue);
+        SelectBuildSection(0);
     }
     private void MakeGoalsMenu(VBoxContainer column)
     {
@@ -230,7 +231,7 @@ public partial class Game
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.TooltipText = _world.Creative ? "Click a tree or stump to remove it immediately. Existing timber returns to the yard." : "Click to mark logger work; click again to cancel. Timber is recovered, then roots are removed.";
         _clearTreeButton.Modulate = _placing && _clearingTrees ? _cream : Colors.White;
-        foreach (var (kind, b) in _kindButtons) { b.Text = BuildingName(kind) + "\n" + BuildCost(kind); b.TooltipText = BuildingDescription(kind); b.Modulate = _placing && !_decorating && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
+        foreach (var (kind, b) in _kindButtons) { b.TooltipText = BuildingDescription(kind); b.Modulate = _placing && !_decorating && _pathTool == 0 && !_plantingTrees && !_clearingTrees && kind == _buildKind ? _cream : Colors.White; b.Disabled = _world.Food.Celebrating; }
         if (_queueButtons.Count != _world.Cottages.Count) RebuildQueue();
         var selected = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
@@ -258,10 +259,12 @@ public partial class Game
         UpdateVillageDirectory();
         UpdateStorageControls();
         UpdateBuildDescription();
+        UpdateBuildCatalog();
         _hint.Text = _placing ? (_decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _rotated ? "2 × 3" : "3 × 2")} · R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         _hintPanel.Visible = _hint.Text.Length > 0;
+        if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
         UpdateManagementControls();
         UpdateCampaignUi(); UpdateEconomyUi();

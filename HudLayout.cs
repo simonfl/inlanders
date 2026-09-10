@@ -45,9 +45,17 @@ public partial class Game
         if (_hud.Size.X < 1100) _inspector.Hide();
     }
     private void CloseDrawer() => _drawer.Hide();
+    private void LayoutPlacementHint()
+    {
+        float left = _drawer.Visible ? _drawer.GetGlobalRect().End.X + 12 : 16;
+        float right = _inspector.Visible ? _inspector.Position.X - 12 : _hud.Size.X - 16;
+        float width = Math.Min(650, Math.Max(240, right - left));
+        _hintPanel.Size = new(width, 0);
+        _hintPanel.Position = new(left + Math.Max(0, (right - left - width) / 2), _bottomBar.Position.Y - _hintPanel.Size.Y - 10);
+    }
     private void ClearSelection() { _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
-    private void CloseManagementUi() { if (_viewName != null) _viewName.Text = "";
-        _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); }
+    private void CloseManagementUi() { if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
+        _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
     private void SelectPerson(int id) { _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }

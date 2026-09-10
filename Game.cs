@@ -25,6 +25,7 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
+        GetTree().NodeAdded += RegisterWorldLabel;
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _campaignPath = "artifacts/campaign-smoke.json";
         GetWindow().MinSize = new(960, 640);
         MakeLandscape(); MakeAudio(); MakeUi();
@@ -40,6 +41,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--menu-smoke-test")) CallDeferred(MethodName.RunMainMenuSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--art-smoke-test")) CallDeferred(MethodName.RunArtSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--catalog-smoke-test")) CallDeferred(MethodName.RunCatalogSmoke);
     }
     private void CreateActors()
     {
@@ -112,6 +114,7 @@ public partial class Game : Node3D
         if (_atMainMenu) return;
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
+            if (EditingText) return;
             if (key.Keycode == Key.H) { ToggleWatch(); return; }
             if (_watching && key.Keycode == Key.Escape) { ExitWatch(); return; }
             if (_watching && key.Keycode is Key.B or Key.V or Key.G or Key.O or Key.I or Key.T or Key.C or Key.P) ExitWatch();
@@ -155,7 +158,7 @@ public partial class Game : Node3D
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
-        if (pan != Vector3.Zero) { _followPerson = false; _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
+        if (!EditingText && pan != Vector3.Zero) { _followPerson = false; _focus += pan.Rotated(Vector3.Up, _angle) * dt * Math.Max(7, _camera.Size * 0.35f); UpdateCamera(); }
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {

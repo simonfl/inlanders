@@ -55,6 +55,7 @@ public partial class Game
         }
         GetWindow().Size = originalSize; await Settle();
         await CheckPlacementPreview();
+        await CheckBuildCatalogUi();
         // Exercise actual ground selection and its replacement by villager selection.
         var plan = _world.Place(new(3,0)) ?? throw new Exception("HUD building fixture rejected");
         await Settle(); await Click(_camera.UnprojectPosition(new(3,0,0))); await Settle();

@@ -62,7 +62,7 @@ F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the villag
 
 New **Three clearings** maps include a narrow stream with visible banks. Start a new Three clearings village from Free play to see it; saved maps retain their terrain. The original clearing and campaign maps remain dry.
 
-Choose **Build → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear, level dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
+Choose **Build → Place → Bridge**, point at a water tile, and use **R** to span the stream. Both ends need clear, level dry banks. The entrance marker shows where builders will work; they haul six logs there and finish construction before anyone can cross. Bridges shorten trips to the eastern grove. Ordinary buildings, planting, and paths require dry land.
 
 You can cancel unfinished bridges; delivered logs become recoverable salvage on land. Completed bridges remain in place in normal play; Creative can remove them when access remains safe. Water and bridges are included in saves.
 
@@ -93,7 +93,7 @@ This offers a simpler food source with fewer buildings and jobs; grain plus baki
 
 **People [V]** shows each villager's name and role. Filter the roster to a role, Unassigned, or Idle; the count shows how many match. Newcomer invitations sit above the roster.
 
-**Build [B]** groups cards and existing buildings into Homes, Food, Industry, Storage & crossings, and Community. The existing-building list also filters to Under construction or Completed, and shows current materials/progress, production buffers, crop state, beds, or storage targets. Select a row to inspect the building. Landscaping tools remain available in every category.
+**Build [B]** has three sections. **Place** shows model thumbnails, purpose, material cost and staffing; choose a card to start a preview. **Landscape** contains planting, clearing, paths and decorations. **Existing** lists your buildings, with construction/completed filters and live status; select a row to inspect. Place and Existing share the Homes, Food, Industry, Storage & crossings, and Community categories. Selected-tool guidance and Cancel stay below the scrolling list; hover over the guidance for full details.
 
 In **Economy [I]**, select a log storage location to move the camera there. Stockpile links also open its inspector so you can change the target or staffing. The timber-yard link centers the camera and clears the previous selection.
 
@@ -119,11 +119,11 @@ Meals scale with population, as do Economy coverage and supper requirements. Sup
 
 **Options → Atmosphere** switches between **soft daylight** and **golden hour**. The warmer evening preset casts longer shadows. Gentle tree-crown movement follows village time and stops when paused; disable it with **Foliage motion** for a still view.
 
-These visual preferences persist in saves/atmosphere.cfg across villages. They do not affect the simulation or introduce a day/night mechanic.
+**World labels** hides or shows floating building, yard, visitor and clearing labels. The same toggle is available in Watch mode. Placement entrance guidance remains visible. These visual preferences persist in saves/atmosphere.cfg across villages. They do not affect the simulation or introduce a day/night mechanic.
 
 ### Watch the village
 
-Press **H** or choose **Options → Watch village** to hide the HUD. A small bar keeps pause, speed, map framing, and **Manage** available. Camera movement and villager-follow keep working.
+Press **H** or choose **Options → Watch village** to hide the HUD. A small bar keeps pause, speed, map framing, world labels, and **Manage** available. Camera movement and villager-follow keep working. Typing a saved-view name suspends camera shortcuts until you leave the text field.
 
 Press **H**, **Esc**, or **Manage** to return. Build/People/Economy/Goals/Options shortcuts also bring management back. Watch mode cancels placement previews; map clicks do not select or build. Your existing selection is retained.
 
@@ -161,7 +161,7 @@ Once all logs have been collected, you can mark the stump again for another cycl
 
 ### Clear trees and stumps
 
-Open **Build → Clear trees & stumps**, or press **C**. Click a tree, sapling, planting marker, or exhausted stump to queue clearing. Amber crosses mark orders. Click a marked target again to cancel its order; **Esc** finishes using the tool without canceling queued work.
+Open **Build → Landscape → Clear trees & stumps**, or press **C**. Click a tree, sapling, planting marker, or exhausted stump to queue clearing. Amber crosses mark orders. Click a marked target again to cancel its order; **Esc** finishes using the tool without canceling queued work.
 
 Assigned loggers prioritize these orders, harvest and physically haul existing timber, then spend four work seconds removing roots. The cell stays blocked until root work finishes; afterward it can be built on or replanted, subject to normal placement rules. Timber already being carried still travels to storage normally. Saplings and empty planting markers produce no timber. Clearing costs worker time, with no material charge.
 
@@ -179,7 +179,7 @@ Plank inventories, shipments, reservations, and sawmill batches survive save/loa
 
 ### Paths
 
-Choose **Build → Paint paths**, or press **P**, then click or drag across clear land. **Shift+P** selects removal; **Esc** finishes. Paths are free and appear immediately, with visible connections between neighboring tiles.
+Choose **Build → Landscape → Paint paths**, or press **P**, then click or drag across clear land. **Shift+P** selects removal; **Esc** finishes. Paths are free and appear immediately, with visible connections between neighboring tiles.
 
 Villagers choose routes by travel cost and walk 25% faster toward paved tiles. Editing a path updates active routes without canceling jobs or changing cargo. Paths can cover entrances and collection points; they cannot cover trees, bushes, buildings, or missing land. Building or planting on a path replaces the covered tiles. Paths are saved with each settlement; older saves start without paths.
 
@@ -238,6 +238,7 @@ See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional fol
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
 | `Visuals.cs`, `FoodVisuals.cs`, `FieldVisuals.cs` | Procedural geometry, lighting, crops, pantry |
 | `ArchitectureVisuals.cs`, `BakeryVisuals.cs` | Cottage/bakery forms, shared timber/roof/stone details and production stock displays |
+| `BuildCatalog.cs`, `WorldLabels.cs` | Visual building catalog, drawer sections, tool footer, label preference and text-focus guard |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
 | `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
@@ -283,9 +284,11 @@ The first roadmap shipped playable versions of the five-level campaign, Creative
 
 The first visual slice revises cottages, bakeries and sawmills while keeping their footprints and costs. See the [matched art comparison](docs/ART_REVIEW_F23A.md). Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ArtSmokeTest` to render a small working village, four camera directions at 960/1440, grayscale and construction sheets, plus workshop motion frames under `artifacts/`. The check verifies stock and activity presentation; visual appeal still needs player judgment.
 
+Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -CatalogSmokeTest` for the visual catalog, Place/Landscape/Existing navigation, pinned guidance, text-entry camera behavior, persisted label visibility and Watch controls at 960/1440. These checks also run with `-HudSmokeTest`.
+
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 
-**Decorative landscaping:** Build → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click repeatedly on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Cottages use three stable roof colours.
+**Decorative landscaping:** Build → Landscape → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click repeatedly on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Cottages use three stable roof colours.
 
 **Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It loops gently and continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.
 

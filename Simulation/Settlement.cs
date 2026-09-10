@@ -262,7 +262,7 @@ public sealed partial class World
             v.Cargo = site.Material; v.StorageId = source;
             Go(v, StorageAccess(source), Work.ToMaterials, $"Collecting {amount} reserved {site.Material} for {site.Kind} {site.Id}"); return;
         }
-        v.Status = sites.Length == 0 ? "No construction plans — place a cottage" :
+        v.Status = sites.Length == 0 ? "No construction plans — choose a building in Build" :
             sites.All(c => c.Delivered + c.Incoming == c.Required) ? "Waiting — deliveries or another builder already cover each site" :
             sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? "Waiting for planks — build a sawmill and assign a sawyer" :
             Stored == 0 ? "Waiting for timber — assign loggers" : "Waiting — stored timber is reserved by other builders";

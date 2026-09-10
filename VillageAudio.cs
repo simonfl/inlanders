@@ -145,5 +145,5 @@ public partial class Game
     {
         ApplyAudioSettings(); _audioSettingsDirty = true; _audioSettingsWriteAt = _soundTime + 0.5f;
     }
-    public override void _ExitTree() { if (_audioSettingsDirty) SaveAudioSettings(); }
+    public override void _ExitTree() { GetTree().NodeAdded -= RegisterWorldLabel; if (_audioSettingsDirty) SaveAudioSettings(); }
 }

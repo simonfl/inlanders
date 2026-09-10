@@ -99,12 +99,12 @@ public sealed partial class World
         Hint("hunger", "Food ran short. Staff a finished forager hut in People. Nobody dies; regular meals restore work speed.", Food.Hunger > 0);
         Hint("welcome", "WASD moves the camera; the wheel zooms. Space pauses. Open Build [B] for a forager hut, then cottages. R rotates entrances.", Campaign.Level == 1 && Cottages.Count == 0);
         Hint("builders", "Plans need builders. Open People [V] and use + beside Builder.", planned && !People.Any(v => v.Role == Role.Builder));
-        Hint("loggers", "Assign loggers in People. Timber must reach the yard before builders can collect it.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
+        Hint("loggers", "Assign loggers in People. Timber must reach the yard or a stockpile before builders can collect it.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
         Hint("hut", "Build a forager hut to keep the village fed. Each hut supports two foragers.", !HasForagerHut);
         Hint("foragers", "Assign foragers in People to staff the hut. Berries count after arriving at storage.", HasForagerHut && !People.Any(v => v.Role == Role.Forager));
         if (Campaign.Level == 1)
         {
-            Hint("construction", "Builders carry logs from the yard to plans. Select a plan to change priority.", planned);
+            Hint("construction", "Builders carry logs from storage to plans. Select a plan to change priority.", planned);
             Hint("homes", "Cottages house two, lodges four. Finish beds for all eight neighbors.", Housed < 8);
             Hint("deliveries", "Let foragers deliver 24 fresh berries. Bushes regrow; meals never undo progress.", DeliveredBerries < 24);
         }

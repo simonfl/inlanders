@@ -23,6 +23,7 @@ public partial class Game
         if (config.Load(_atmospherePath) != Error.Ok) return;
         _goldenHour = config.GetValue("view", "golden_hour", false).AsBool();
         _foliageMotion = config.GetValue("view", "foliage_motion", true).AsBool();
+        _showWorldLabels = config.GetValue("view", "world_labels", true).AsBool();
     }
     private void SaveAtmosphere()
     {
@@ -32,6 +33,7 @@ public partial class Game
             var config = new ConfigFile();
             config.SetValue("view", "golden_hour", _goldenHour);
             config.SetValue("view", "foliage_motion", _foliageMotion);
+            config.SetValue("view", "world_labels", _showWorldLabels);
             if (config.Save(_atmospherePath) != Error.Ok) Notice("Atmosphere changed, but settings could not be saved.");
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { Notice("Atmosphere changed, but settings could not be saved."); }
@@ -57,6 +59,7 @@ public partial class Game
         _lightMoodButton = Button("", () => { _goldenHour = !_goldenHour; ApplyAtmosphere(); SaveAtmosphere(); });
         _foliageButton = Button("", () => { _foliageMotion = !_foliageMotion; ApplyAtmosphere(); SaveAtmosphere(); });
         column.AddChild(_lightMoodButton); column.AddChild(_foliageButton);
+        _worldLabelsButton = Button("", ToggleWorldLabels); column.AddChild(_worldLabelsButton); UpdateLabelButtons();
         column.AddChild(Text("Light is a visual choice. Gentle foliage movement follows village time and pauses with the game.", 14, true));
         ApplyAtmosphere();
     }

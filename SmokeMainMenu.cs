@@ -74,7 +74,7 @@ public partial class Game
             Check(_world.Creative && _paused && CurrentSavePath == _creativeSavePath, "Creative entry or save isolation failed");
             BeginPlacement(BuildingKind.Bakery); PlaceCottage(new(3,0)); await Frames();
             Check(_world.Cottages.Count == 1 && _world.Cottages[0].Complete && _world.Stored == 0, "Creative UI did not build instantly");
-            Check(_kindButtons[BuildingKind.Lodge].Text.Contains("Instant") && _buildDescription.Text.Contains("Free") && _foodStatus.Text == "Creative", "Creative build feedback missing");
+            Check(_cardCosts[BuildingKind.Lodge].Text.Contains("Free · instant") && _buildDescription.Text.Contains("Free") && _foodStatus.Text == "Creative", "Creative build feedback missing");
             string creative = _world.SaveJson(); ReturnToMainMenu(); await Frames(); await MenuClick("Continue");
             Check(_world.SaveJson() == creative && _world.Creative, "Creative Continue changed mode");
             ToggleDrawer(2); await Frames();
