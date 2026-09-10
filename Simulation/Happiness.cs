@@ -20,7 +20,7 @@ public sealed partial class World
     public int VillageHappiness => (int)Math.Round(People.Average(p => ReadHappiness(p).Score));
     private void ValidateHappiness()
     {
-        if (Food.LastMealChoices is < 0 or > 3 || People.Any(p => p.LastLeisureTime is float t &&
+        if (Food.VegetableChoiceMeals < 0 || Food.LastMealChoices is < 0 or > 3 || People.Any(p => p.LastLeisureTime is float t &&
             (!float.IsFinite(t) || t < 0 || t > Food.Time)))
             throw new InvalidOperationException("Invalid happiness history");
     }

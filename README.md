@@ -31,14 +31,15 @@ Launching opens a quiet, paused village behind the title screen:
 
 In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window directly does not save changes since your last save. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
 
-## Campaign: four settlements
+## Campaign: five settlements
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
 3. **Room among the trees:** build a sawmill and lodge, house eight, and have loggers plant four trees. Marking spots alone does not count; maturity is not required.
-4. **A place for everyone:** build a village square, house eight, stock two loaves per person, then host supper from Goals. Everyone gathers near the square before the campaign finishes.
+4. **A place for everyone:** homes, farm, and bakery are already built and staffed. Add a village square, stock two loaves per person, then host supper from Goals.
+5. **More for the table:** start with homes, a forager hut, 48 berries, and a farmer. Build a vegetable garden, deliver 16 vegetables, and have vegetables plus another food available at two meal times. Progress stays recorded; the gardener visit is optional.
 
 The square costs six logs and needs no staff. Leave one walkable tile per villager within four tiles of its entrance for guests. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
@@ -50,7 +51,7 @@ Campaign saves live in `saves/campaign.json`, with a `.bak` of the previous writ
 
 Open **Options [O] → Explore larger map** to start or resume a separate 32×32 landscape with an irregular outline, open building areas, 20 harvestable trees, and six berry patches. Eight villagers arrive with 64 berries. All buildings are available; the existing supper objective can give you a goal while you explore.
 
-**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; decorative landscaping and elevation remain future features.
+**Home** frames the whole map. WASD pans across its full extent, and the wheel zooms between building detail and a wide overview. Land ends at the visible stepped edge: missing cells cannot be built on, planted, or crossed. Tree/stump clearing is available; decorative landscaping is available; elevation remains a future feature.
 
 F5/F9 use `saves/three-clearings.json` on this map. Entering it saves the village you leave; **Return to original map** in Options saves the larger village and restores the original standalone save. Campaign levels remain available through Goals. To resume the large map after relaunching, use Continue or Free play on the title screen. Existing saves retain their original terrain rather than expanding automatically.
 

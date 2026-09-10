@@ -14,7 +14,7 @@ public sealed class CampaignState
     public HashSet<string> Dismissed { get; set; } = new();
 }
 
-public enum CampaignGoalKind { Housing, ForagerHut, DeliveredBerries, Farm, Bakery, DeliveredBread, Sawmill, Lodge, TreesPlanted, Square, Supper }
+public enum CampaignGoalKind { Housing, ForagerHut, DeliveredBerries, Farm, Bakery, DeliveredBread, Sawmill, Lodge, TreesPlanted, Square, Supper, VegetableGarden, DeliveredVegetables, VegetableChoiceMeals }
 public sealed record CampaignGoal(CampaignGoalKind Kind, string Label, int Target);
 public sealed record CampaignLevel(int Id, string Title, string Arrival, params CampaignGoal[] Goals);
 public sealed record CampaignHint(string Id, string Text);
@@ -30,10 +30,13 @@ public sealed partial class World
             new(CampaignGoalKind.Farm, "Farm", 1), new(CampaignGoalKind.Bakery, "Bakery", 1), new(CampaignGoalKind.DeliveredBread, "Loaves delivered", 16)),
         new(3, "Room among the trees", "Four neighbors still need beds. Turn timber into planks for a lodge, and plant the next generation of woodland.",
             new(CampaignGoalKind.Sawmill, "Sawmill", 1), new(CampaignGoalKind.Lodge, "Lodge", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.TreesPlanted, "Trees planted by loggers", 4)),
-        new(4, "A place for everyone", "Build a village square, house everyone, and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
-            new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1))
+        new(4, "A place for everyone", "Your homes, farm, and bakery are ready. Build a village square and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
+            new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1)),
+        new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then keep vegetables and another food available when meals begin. The gardener visit is optional.",
+            new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Meals with vegetables and another food available", 2))
     };
     public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
+    public int DeliveredVegetables => Food.Vegetables + Food.EatenVegetables;
     public int DeliveredBread => Food.Bread + Food.EatenBread + Food.SupperBread;
     public bool HasBuilding(BuildingKind kind) => Cottages.Any(c => c.Kind == kind && c.Complete);
     public bool HasForagerHut => HasBuilding(BuildingKind.ForagerHut);
@@ -43,9 +46,12 @@ public sealed partial class World
         CampaignGoalKind.Housing => Housed,
         CampaignGoalKind.DeliveredBerries => DeliveredBerries,
         CampaignGoalKind.DeliveredBread => DeliveredBread,
+        CampaignGoalKind.DeliveredVegetables => DeliveredVegetables,
+        CampaignGoalKind.VegetableChoiceMeals => Food.VegetableChoiceMeals,
         CampaignGoalKind.TreesPlanted => TreesPlanted,
         CampaignGoalKind.Supper => Food.SupperComplete ? 1 : 0,
         _ => HasBuilding(kind switch {
+            CampaignGoalKind.VegetableGarden => BuildingKind.VegetableGarden,
             CampaignGoalKind.ForagerHut => BuildingKind.ForagerHut, CampaignGoalKind.Farm => BuildingKind.Farm,
             CampaignGoalKind.Bakery => BuildingKind.Bakery, CampaignGoalKind.Sawmill => BuildingKind.Sawmill,
             CampaignGoalKind.Lodge => BuildingKind.Lodge, CampaignGoalKind.Square => BuildingKind.Square,
@@ -54,7 +60,7 @@ public sealed partial class World
     };
     public double CampaignProgress => ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
     public string CampaignObjective => string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
-        (Campaign?.Level is 1 or 2 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
+        (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
         if (Campaign != null && CampaignProgress >= 1) Campaign.Complete = true;
@@ -65,7 +71,7 @@ public sealed partial class World
         var w = level >= 3 ? NewLargeMap(false) : new World();
         w.Campaign = new() { Level = level };
         w.Map.Name = CampaignLevels[level - 1].Title;
-        w.Food.InitialBerries = w.Food.Berries = 96;
+        w.Food.InitialBerries = w.Food.Berries = level == 5 ? 48 : 96;
         void Ready(Cell cell, BuildingKind kind)
         {
             var site = w.Place(cell, false, kind) ?? throw new InvalidOperationException("Invalid campaign starting site");
@@ -75,9 +81,12 @@ public sealed partial class World
         {
             Ready(new(0, 0), BuildingKind.ForagerHut);
             Ready(new(3, 0), BuildingKind.Cottage); Ready(new(6, 0), BuildingKind.Cottage);
-            if (level == 2) { Ready(new(3, 6), BuildingKind.Cottage); Ready(new(-5, 6), BuildingKind.Cottage); }
+            if (level is 2 or 4 or 5) { Ready(new(3, 6), BuildingKind.Cottage); Ready(new(-5, 6), BuildingKind.Cottage); }
         }
+        if (level == 4) { Ready(new(3,-3), BuildingKind.Farm); Ready(new(6,-3), BuildingKind.Bakery); }
         var roles = new[] { Role.Logger, Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Unassigned, Role.Unassigned };
+        if (level == 4) { roles[6] = Role.Farmer; roles[7] = Role.Baker; }
+        if (level == 5) roles = new[] { Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Farmer, Role.Unassigned, Role.Unassigned };
         for (int i = 0; i < 8; i++) w.Assign(i, roles[i]);
         w.Validate(); return w;
     }
@@ -120,6 +129,14 @@ public sealed partial class World
             Hint("final-homes", "Finish housing for everyone before hosting supper.", Housed < Population);
             Hint("supper", $"Stock {SupperCost} loaves, then press Host supper in Goals. Leave {Population} clear nearby tiles. The meal finishes after everyone arrives.");
         }
+        if (Campaign.Level == 5)
+        {
+            Hint("garden", "Vegetable gardens produce food directly. Place one near the yard; each costs six logs.", !Cottages.Any(c => c.Kind == BuildingKind.VegetableGarden));
+            Hint("garden-build", "Builders supply and finish the garden. Keep its entrance connected to the yard.", !HasBuilding(BuildingKind.VegetableGarden));
+            Hint("garden-farmer", "Farmers tend grain fields and vegetable gardens. Assign a farmer in People.", !People.Any(p => p.Role == Role.Farmer));
+            Hint("garden-harvest", "Vegetables grow for one minute after sowing. Farmers carry the harvest to storage; only delivered vegetables count.", DeliveredVegetables == 0);
+            Hint("garden-choice", "Keep vegetables and another food in storage when a meal begins. Economy shows the next meal. Delivery and meal-choice progress stay recorded.");
+        }
         return hints.FirstOrDefault(h => !Campaign.Dismissed.Contains(h.Id));
     }
 }
@@ -147,10 +164,10 @@ public sealed class CampaignBook
     public static CampaignBook LoadFile(string path)
     {
         var book = JsonSerializer.Deserialize<CampaignBook>(File.ReadAllText(path)) ?? throw new InvalidDataException("Empty campaign");
-        if (book.Version != 2 || book.Settlements == null || book.BeforeReplay == null || book.Completed == null || book.ActiveLevel is < 0 or > 4 ||
-            !book.Settlements.ContainsKey(book.ActiveLevel) || book.Completed.Any(i => i is < 1 or > 4)) throw new InvalidDataException("Invalid campaign progress");
+        if (book.Version != 2 || book.Settlements == null || book.BeforeReplay == null || book.Completed == null || (book.ActiveLevel < 0 || book.ActiveLevel > World.CampaignLevels.Length) ||
+            !book.Settlements.ContainsKey(book.ActiveLevel) || book.Completed.Any(i => i < 1 || i > World.CampaignLevels.Length)) throw new InvalidDataException("Invalid campaign progress");
         foreach (var (id, json) in book.Settlements.Concat(book.BeforeReplay))
-            if (id is < 0 or > 4 || (World.LoadJson(json).Campaign?.Level ?? 0) != id) throw new InvalidDataException("Campaign snapshot does not match level");
+            if ((id < 0 || id > World.CampaignLevels.Length) || (World.LoadJson(json).Campaign?.Level ?? 0) != id) throw new InvalidDataException("Campaign snapshot does not match level");
         return book;
     }
 }

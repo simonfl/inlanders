@@ -26,7 +26,7 @@ public partial class Game
         _nextLevel = Button("Next settlement", () => SwitchCampaign(_world.Campaign!.Level + 1, false)); _campaignControls.AddChild(_nextLevel);
         _replayLevel = Button("Replay this settlement", () => SwitchCampaign(_world.Campaign!.Level, true)); _campaignControls.AddChild(_replayLevel);
         _restoreReplay = Button("Restore village before replay", RestoreBeforeReplay); _campaignControls.AddChild(_restoreReplay);
-        column.AddChild(Text("CAMPAIGN · FOUR SETTLEMENTS", 12, true));
+        column.AddChild(Text($"CAMPAIGN · {World.CampaignLevels.Length} SETTLEMENTS", 12, true));
         _campaignRecord = Text("", 14, true); column.AddChild(_campaignRecord);
         foreach (var level in World.CampaignLevels)
         {
@@ -104,7 +104,7 @@ public partial class Game
         _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
-        _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : "Four settlements to learn at your own pace.";
+        _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : $"{World.CampaignLevels.Length} settlements to learn at your own pace.";
         if (campaign == null) return;
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;
         _objective.Text = campaign.Complete ? (campaign.Level == World.CampaignLevels.Length ? "Campaign complete! A home, a livelihood, and a table for everyone. Keep playing or replay any settlement." : "Settlement complete! Continue to the next village or keep playing here.") : _world.CampaignObjective;

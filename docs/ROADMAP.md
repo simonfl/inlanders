@@ -6,17 +6,16 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F11 + F18 — Campaign expansion.** Add More for the table, a garden-and-food-choice lesson. Simplify the starting village in level 4 so it focuses on the square and supper instead of repeating earlier construction.
+**Next: F16 — Free-build mode.** Create a distinct arranging-and-watching mode with relaxed construction and food rules, while keeping ordinary free play and campaign saves separate.
 
 The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F11 + F18 | **Campaign expansion.** Review pacing across the four levels; start level 4 with housing and its bread chain built. Add level 5: finish a garden, deliver 16 vegetables, and offer vegetables plus another food at two meals. Visitor acceptance stays optional. | Teach features after their standalone versions have settled. |
-| 2 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
-| 3 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F16 | **Creative mode.** Separate menu entry/saves; instant free buildings, no hunger, all decorations, and safe completed-building removal. Keep production physical and placement/access valid. Immediate clearing supports arranging; invitations need beds but no food reserve. Explain the mode in build/economy/happiness UI. | Avoid duplicating the playable open-ended maps. |
+| 2 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
-Campaign pacing and UI feedback can be addressed at any time. The gardener now offers a modest cosmetic choice. Campaign work should teach gardens and food choices without requiring the visitor or a happiness threshold.
+Campaign pacing and UI feedback can be addressed at any time. The five-level campaign now teaches gardens and food choices with an optional visitor. Free-build should focus on arranging and watching, while normal free play retains its economy.
 
 ## Already playable
 
@@ -35,7 +34,7 @@ Campaign pacing and UI feedback can be addressed at any time. The gardener now o
 | F08 | Sawmill, sawyer role, planks, and four-bed lodge. |
 | F09 | Free flowers, shrubs, rotated low fences, ornamental trees, and walkable pebble cover; repeat placement/removal, protected access, live rerouting, saved layouts, and three stable cottage roof colours. |
 | F10 | Procedural work/UI sounds, positional playback, wind/birds, and persistent Effects/Nature/mute controls. |
-| F11 + F18 | Four authored campaign settlements with optional contextual guidance, progress, saves, resume, replay, and level selection. |
+| F11 + F18 | Five authored campaign settlements with optional contextual guidance, progress, saves, resume, replay, and level selection. |
 | F12a | Irregular 32×32 Three clearings map, distant resources, scalable camera bounds, and Home overview. |
 | F12b | Water and one-tile bridges, construction from a reachable bank, and access to the far side. |
 | F12c | Cancelable tree/stump clearing, physical timber recovery, root removal, and reusable building ground. Decorative landscaping shares the F09 palette. |
@@ -55,20 +54,21 @@ Campaign pacing and UI feedback can be addressed at any time. The gardener now o
 
 ## Current campaign reference — F11 / F18
 
-The first campaign is complete. Each level starts with eight villagers and introduces a building or connected group. All buildings and tools remain available on every level. **Per-level availability and progressive unlocks are a later addition**, once the game is more polished; an unrestricted replay option remains worth considering.
+The first five-level campaign is complete. Each level starts with eight villagers and introduces a building or connected group. All buildings and tools remain available on every level. **Per-level availability and progressive unlocks are a later addition**, once the game is more polished; an unrestricted replay option remains worth considering.
 
 | Level | Introduces | Starting village | Required goals |
 | --- | --- | --- | --- |
 | 1. A place to stay | Forager hut, cottages, logging/building, everyday meals | Original clearing, 96 berries, two loggers/builders/foragers and two spare workers | Finish a hut, deliver 24 fresh berries, house eight |
 | 2. Bread for the table | Farm and bakery | Four cottages and a staffed hut, 96 berries | Finish a farm and bakery; deliver 16 loaves cumulatively |
 | 3. Room among the trees | Sawmill, lodge, renewable woodland | Larger map, two cottages and a staffed hut, 96 berries | Finish a mill and lodge, house eight, have loggers plant four trees |
-| 4. A place for everyone | Village square and shared supper | Larger map, two cottages and a staffed hut, 96 berries | Finish a square, meet the housing goal, and complete supper |
+| 4. A place for everyone | Village square and shared supper | Larger dry map, four cottages, staffed hut/farm/bakery, 96 berries | Finish a square and complete supper with everyone housed |
+| 5. More for the table | Vegetable garden and food choice | Larger dry map, four cottages, staffed hut, one farmer, 48 berries | Finish a garden, deliver 16 vegetables, and have vegetables plus another food available at two meal times |
 
 Invitations are optional and are not required by campaign goals. Supper requires everyone housed, two loaves per current villager, and one reachable gathering tile per person near the square. That is 16 loaves for the original eight; choosing to grow increases the requirements.
 
 Guidance is contextual and can be dismissed, disabled, or reopened. Meals do not erase delivery progress. Planting goals count completed planting work, not markers or tree maturity. Completion offers continued play, the next settlement, or replay. No deadlines, deaths, forced failure, or automatic transitions.
 
-Later levels should introduce the newer gameplay systems rather than repeat the opening housing/foraging lesson. Narrative, optional objectives, exact maps, and level count remain TBD.
+Vegetable deliveries and qualifying meal times are cumulative; carried or still-growing crops do not count. Level 5 needs one garden and no bakery, visitor trade, happiness threshold, invitation, or supper. Scripted normal-speed runs finish the current lessons in roughly two to five minutes; human play can take longer. Further narrative and optional objectives remain TBD.
 
 ## Optional follow-ups
 

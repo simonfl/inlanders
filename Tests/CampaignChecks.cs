@@ -16,7 +16,7 @@ public static class CampaignChecks
     public static void Run()
     {
         var book = new CampaignBook();
-        for (int level = 1; level <= 4; level++)
+        for (int level = 1; level <= World.CampaignLevels.Length; level++)
         {
             var w = World.NewCampaign(level);
             Check(!w.Campaign!.Complete && w.DeliveredBread == 0, "New level already credited");
@@ -26,7 +26,7 @@ public static class CampaignChecks
                 Place(w, new(0,0), BuildingKind.ForagerHut);
                 foreach (var c in new[] { new Cell(3,0), new(6,0), new(3,6), new(-5,6) }) Place(w,c);
             }
-            if (level is 2 or 4)
+            if (level == 2)
             {
                 Place(w, new(3,-3), BuildingKind.Farm); Place(w, new(6,-3), BuildingKind.Bakery);
                 w.Assign(6,Role.Farmer); w.Assign(7,Role.Baker);
@@ -41,12 +41,18 @@ public static class CampaignChecks
             }
             if (level == 4)
             {
-                Place(w,new(3,6)); Place(w,new(-5,6)); Place(w,new(7,3),BuildingKind.Square);
+                Check(w.Housed==8 && w.HasBuilding(BuildingKind.Farm) && w.HasBuilding(BuildingKind.Bakery),"Supper start repeats earlier building lessons");
+                Place(w,new(7,3),BuildingKind.Square);
                 Until(w,() => w.CanCelebrate);
                 Check(!w.Campaign.Complete, "Finale completed before supper");
                 Check(w.BeginSupper() && !w.BeginSupper(), "Supper charged twice");
                 var square = w.Cottages.Single(c => c.Kind == BuildingKind.Square);
                 Check(w.MeetingSpots.Count == 8 && w.MeetingSpots.All(c => (c.Point-square.Entrance.Point).LengthSquared() <= 16), "Guests not near square");
+            }
+            if (level == 5)
+            {
+                Check(w.Housed==8 && w.Food.Berries==48 && w.CurrentCampaignHint()?.Id=="garden","Garden opening incorrect");
+                Place(w,new(3,-3),BuildingKind.VegetableGarden);
             }
             // Exact continuation, including planting jobs and guests walking to supper.
             w.Campaign.Dismissed.Add("welcome"); w.Campaign.Guidance = false;
@@ -55,20 +61,24 @@ public static class CampaignChecks
             for (int i=0;i<50;i++) { w.Tick(.1f); copy.Tick(.1f); }
             Check(w.SaveJson() == copy.SaveJson(), "Save continuation diverged");
             Until(w, () => w.Campaign.Complete);
+            float completionTime=w.Food.Time;
+            if(level==5) Check(w.DeliveredVegetables>=16 && w.Food.VegetableChoiceMeals>=2 && !w.SunflowersUnlocked && w.Cottages.Count(c=>c.Kind==BuildingKind.VegetableGarden)==1 && !w.HasBuilding(BuildingKind.Bakery),"Garden lesson required unrelated systems");
+            int vegetables=w.DeliveredVegetables, choices=w.Food.VegetableChoiceMeals;
             int delivered = w.DeliveredBread;
             foreach (var p in w.People) w.Assign(p.Id,Role.Unassigned);
             for (int i=0;i<700;i++) w.Tick(.1f);
             Check(w.Campaign.Complete && w.DeliveredBread >= delivered, "Meals erased progress");
+            Check(w.DeliveredVegetables>=vegetables && w.Food.VegetableChoiceMeals>=choices,"Meals erased vegetable progress");
             if(level == 4) Check(w.Food.SupperBread == 16 && w.Food.SupperComplete, "Supper did not finish once");
             book.Capture(w); book.BeforeReplay[level] = w.SaveJson();
-            Console.WriteLine($"PASS: campaign {level}, contextual guidance, exact saves, completion and persistent milestones.");
+            Console.WriteLine($"PASS: campaign {level}, contextual guidance, exact saves, completion and persistent milestones; completed in {completionTime:F1}s (day {1+(int)(completionTime/60)}).");
         }
-        book.Capture(World.NewCampaign(4));
+        book.Capture(World.NewCampaign(5));
         string path = Path.Combine(Path.GetTempPath(), "inlanders-campaign-" + Guid.NewGuid() + ".json");
         try
         {
             book.SaveFile(path); var restored = CampaignBook.LoadFile(path);
-            Check(restored.Completed.SetEquals(new[]{1,2,3,4}) && World.LoadJson(restored.BeforeReplay[4]).Campaign!.Complete, "Replay lost campaign progress");
+            Check(restored.Completed.SetEquals(new[]{1,2,3,4,5}) && World.LoadJson(restored.BeforeReplay[5]).Campaign!.Complete, "Replay lost campaign progress");
         }
         finally { foreach (string suffix in new[]{"",".bak",".tmp"}) if(File.Exists(path+suffix)) File.Delete(path+suffix); }
     }
