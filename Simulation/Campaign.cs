@@ -119,8 +119,8 @@ public sealed partial class World
         if (Campaign.Level == 3)
         {
             Hint("sawmill", "Build a sawmill. A sawyer turns 2 logs into 4 planks for lodges.", !HasBuilding(BuildingKind.Sawmill));
-            Hint("sawyer", "Assign a sawyer in People. The mill aims for 8 planks in storage.", !People.Any(v => v.Role == Role.Sawyer));
-            Hint("lodge", "Build a lodge for four neighbors. It costs 8 planks; you can place the plan before they arrive.", !HasBuilding(BuildingKind.Lodge));
+            Hint("sawyer", $"Assign a sawyer in People. The mill aims for {PlankStockTarget} planks in storage.", !People.Any(v => v.Role == Role.Sawyer));
+            Hint("lodge", $"Build a lodge for four neighbors. It costs {Buildings.Get(BuildingKind.Lodge).CostText}; you can place the plan before they arrive.", !HasBuilding(BuildingKind.Lodge));
             Hint("plant", "Choose Plant alders in Build and mark four spots. Loggers must actually plant them. Maturity takes 180 seconds but is not required for this lesson.", TreesPlanted < 4);
         }
         if (Campaign.Level == 4)

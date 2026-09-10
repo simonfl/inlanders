@@ -17,7 +17,7 @@ public partial class Game
         Check(_world.Cottages.Count == 1 && _world.Cottages[0].Kind == BuildingKind.Sawmill, "Sawmill selector failed");
         await UiClick(_kindButtons[BuildingKind.Lodge]); await Press(Key.R);
         await Click(_camera.UnprojectPosition(new(6,0,0)));
-        Check(_world.Cottages.Count == 2 && _world.Cottages[1].Required == 8 && _world.Cottages[1].Material == Inlanders.Simulation.Resource.Planks, "Lodge selector/cost failed");
+        Check(_world.Cottages.Count == 2 && _world.Cottages[1].Required == Buildings.Get(BuildingKind.Lodge).Cost && _world.Cottages[1].Material == Inlanders.Simulation.Resource.Planks, "Lodge selector/cost failed");
         await OpenMenu(0);
         await UiClick(_allocationButtons[(Role.Sawyer, 1)]);
         Check(_world.People.Count(v => v.Role == Role.Sawyer) == 1, "Sawyer allocation failed");

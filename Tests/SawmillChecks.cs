@@ -24,8 +24,8 @@ public static class SawmillChecks
             foreach (var phase in new[] { Work.ToMaterials, Work.ToCottage, Work.ToBuild, Work.Building })
                 if (!deliveries.ContainsKey(phase) && w.People.Any(v => v.SiteId == lodge.Id && v.Task == phase)) deliveries[phase] = w.SaveJson();
         }
-        Check(lodge.Complete && lodge.Delivered == 8 && w.Housed == 4 && saves.Count == phases.Length && deliveries.Count == 4, "Sawmill/lodge chain did not finish all phases");
-        Until(w, () => w.Planks == 8 && w.People.All(v => v.Role != Role.Sawyer || v.Task == Work.Waiting), "Mill never reached stock target");
+        Check(lodge.Complete && lodge.Delivered == lodge.Required && w.Housed == 4 && saves.Count == phases.Length && deliveries.Count == 4, "Sawmill/lodge chain did not finish all phases");
+        Until(w, () => w.Planks == World.PlankStockTarget && w.People.All(v => v.Role != Role.Sawyer || v.Task == Work.Waiting), "Mill never reached stock target");
         int used = w.SawnLogs; Step(w, 1200); Check(w.SawnLogs == used, "Idle sawmill kept consuming timber");
         Check(w.Place(new(3,6), false, BuildingKind.Lodge) != null, "Second lodge rejected");
         Until(w, () => w.Housed == 8, "Two lodges did not house the village");

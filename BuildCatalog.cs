@@ -14,8 +14,7 @@ public partial class Game
 
     private static string BuildingPurpose(BuildingKind kind) => kind switch
     {
-        BuildingKind.Cottage => "A home for 2",
-        BuildingKind.Lodge => "A home for 4",
+        BuildingKind.Cottage or BuildingKind.Lodge => $"A home for {Buildings.Get(kind).Beds}",
         BuildingKind.ForagerHut => "Gather berries",
         BuildingKind.Farm => "Grow grain for bread",
         BuildingKind.VegetableGarden => "Grow ready-to-eat food",
@@ -25,15 +24,12 @@ public partial class Game
         BuildingKind.Bridge => "Cross a water tile",
         _ => "A place to gather"
     };
-    private static string BuildingStaff(BuildingKind kind) => kind switch
+    private static string BuildingStaff(BuildingKind kind)
     {
-        BuildingKind.ForagerHut => "2 forager slots",
-        BuildingKind.Farm or BuildingKind.VegetableGarden => "1 farmer slot",
-        BuildingKind.Bakery => "1 baker slot",
-        BuildingKind.Sawmill => "1 sawyer slot",
-        BuildingKind.Stockpile => "Shared haulers",
-        _ => "No staff"
-    };
+        var building = Buildings.Get(kind);
+        return building.Worker == null ? "No staff" : building.Slots == 0 ? "Shared haulers" :
+            $"{building.Slots} {building.Worker.ToString()!.ToLowerInvariant()} slot{(building.Slots == 1 ? "" : "s")}";
+    }
     private void MakeBuildNavigation(VBoxContainer parent)
     {
         _buildNavigation = new(); parent.AddChild(_buildNavigation);
@@ -72,7 +68,7 @@ public partial class Game
         _buildFooter.Visible = buildOpen && _placing;
         _buildDescription.TooltipText = _buildDescription.Text;
         foreach (var (kind, cost) in _cardCosts)
-            cost.Text = (_world.Creative ? "Free · instant" : kind == BuildingKind.Lodge ? "8 planks" : "6 logs") + " · " + BuildingStaff(kind);
+            cost.Text = (_world.Creative ? "Free · instant" : Buildings.Get(kind).CostText) + " · " + BuildingStaff(kind);
     }
     private void MakeBuildingCard(VBoxContainer column, BuildingKind kind)
     {

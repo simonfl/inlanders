@@ -2,15 +2,15 @@
 
 A living plan for a small, peaceful settlement that is satisfying to arrange, manage, and watch. Pick one playable chunk at a time; details and order can change as we learn.
 
-Windows, local play, Godot, and C# remain the foundation. Save backward compatibility is not required during prototyping. Feature IDs stay stable even when entries are removed or reordered.
+Windows, local play, Godot, and C# remain the foundation. Save backward compatibility is not required during prototyping. Incompatible or invalid development saves may be discarded; do not add migration or repair work to preserve them. Fresh saves must still roundtrip correctly. Feature IDs stay stable even when entries are removed or reordered.
 
 ## Second phase — make the village worth watching and improving
 
 The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**F23a is implemented and awaiting visual feedback.** Review the [matched before/after scene](ART_REVIEW_F23A.md) before expanding the style across the catalog. **Next independent chunk: F24 — building roles and investment.** F21g's visual catalog and separate management sections have shipped. F23b follows acceptance or another focused art iteration; balance/design work can proceed while the visual direction is being judged.
+**F23a is implemented and awaiting visual feedback.** Review the [matched before/after scene](ART_REVIEW_F23A.md) before expanding the style across the catalog. **Next independent chunk: F24b — bread throughput and storage payoff.** F24a shipped shared definitions and the first cost pass; the [measured balance review](BALANCE_REVIEW_F24.md) keeps the remaining balance questions explicit. F21g's visual catalog and separate management sections have shipped. F23b follows acceptance or another focused art iteration; balance/design work can proceed while the visual direction is being judged.
 
-See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. Candidate costs there are experiments, not adopted balance changes. **UI remains a major priority.**
+See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. The baseline review contains earlier candidate costs; the F24 balance review records adopted values and unresolved experiments. **UI remains a major priority.**
 
 ## Suggested order
 
@@ -20,7 +20,7 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 | --- | --- | --- | --- |
 | Review | F23a | **Visual identity slice — implemented, aesthetic acceptance pending.** Cottage porch/window depth, thick roofs and stone feet; bakery oven mass and recessed shop; open braced sawmill with progress-driven saw. Workshop displays follow real buffers. Costs and footprints unchanged. | Review the scene at the actual camera, without labels, at 960/1440 and four directions. The user finds the direction compelling before F23b proceeds; another focused iteration remains possible. |
 | After art review | F23b | **The complete building family.** Apply the visual language to the other seven types: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
-| 1 | F24 | **Building roles and investment.** Test the full catalog's material, land, labor, startup and payoff tradeoffs. Compare cottage/lodge efficiency, food alternatives and stockpile usefulness. Centralize definitions when tuning. | Multiple defensible building choices; prices match purpose and do not merely add waiting. All UI and campaign goals agree with adopted values. Initial candidate ranges are in the review, with final values TBD. |
+| 1 | F24b | **Complete the building-role and payoff review.** F24a changed investment, not throughput. Measure baker grain waits/delivery travel, test one-trip four-loaf delivery, compare food labor/land at two layouts, and test stockpile payback over sustained remote construction. | Bread has a defensible payoff beside gardens/berries, and useful stockpile placement repays total construction and hauling investment. Keep or simplify behavior based on evidence; do not claim success from lower builder travel alone. |
 | 2 | F21h | **Understand and direct work.** First add precise workplace states, relevant source/worker links and recent food production/consumption. Then add workplace pause and simple output targets. Explain global role transfers; preferred workplace assignment remains a decision to test. | Distinguish missing staff/input, travel, collection, pause and target met. Deliberately keep a garden running while pausing a grain field, without lost cargo or surprise staffing changes. |
 | 3 | F16b | **Rearrange a village safely.** Bring deliberate completed-building demolition to normal play, with goods evacuation, stated material recovery and housing/access effects. Creative undo and moving active buildings remain separate follow-up candidates. | Recover from an awkward layout without restarting. No stranded workers, lost carried goods, or silently disconnected bridge access. Recovery timing and costs are visible before the action. |
 | 4 | F14b | **Meals that make variety meaningful.** Base the benefit and level-5 lesson on a clearly explained consumption rule, with last-meal feedback. Choose village-level participation versus proportion served before implementation. | One untouched vegetable cannot imply everyone ate a varied meal. Scarcity still feeds as many residents as possible; one garden plus foraging remains a viable lesson. |
@@ -46,9 +46,9 @@ Before population, map size, or decoration density expands further, profile a de
 | F02 | Logger planting, visible sapling growth, renewable timber, and stump replanting. |
 | F03 | Stepping feet, work poses and tools, recognizable cargo, and idle gestures. |
 | F04 | Village square hosts recurring six-second breaks between jobs, up to four visitors at distinct nearby spots, with a minute cooldown per villager. Social poses, live visitor counts, saved visits, safe reassignment, and supper priority. |
-| F05 | Six-log vegetable gardens, shared farmer jobs, 60-second growth, eight directly edible vegetables per crop, visible harvest/cargo, meal and newcomer coverage, and saves. Supper remains bread-based. |
+| F05 | Four-log vegetable gardens, shared farmer jobs, 60-second growth, eight directly edible vegetables per crop, visible harvest/cargo, meal and newcomer coverage, and saves. Supper remains bread-based. |
 | F06 | Optional newcomer pairs with spare beds and food reserves. Dynamic population, meals, supper, staffing, visuals, audio, and saves. |
-| F07 | Six-log stockpile with capacity 12 and targets 0–12; local logger deposits, builder/sawyer pickups, shared haulers, source/space reservations, physical transfers, per-location economy, and saves. Logs only in this first chunk. |
+| F07 | Four-log stockpile with capacity 12 and targets 0–12; local logger deposits, builder/sawyer pickups, shared haulers, source/space reservations, physical transfers, per-location economy, and saves. Logs only in this first chunk. |
 | F08 | Sawmill, sawyer role, planks, and four-bed lodge. |
 | F09 | Free flowers, shrubs, rotated low fences, ornamental trees, and walkable pebble cover; repeat placement/removal, protected access, live rerouting, saved layouts, and three stable cottage roof colours. |
 | F10 | Procedural work/UI sounds, positional playback, wind/birds, and persistent Effects/Nature/mute controls. |
@@ -73,6 +73,7 @@ Before population, map size, or decoration density expands further, profile a de
 | F21f | Role/idle roster filters and role labels; building categories, construction-state filters and live site summaries; clickable storage locations with camera/inspector jumps. Invitations sit above the growing roster. Filters reset when switching settlements. |
 | F21g | Model-thumbnail cards with purpose/cost/staff; separate Place, Landscape and Existing sections, pinned tool guidance/cancel, and map hints that avoid drawer controls. Text entry stops camera shortcuts. World-label preference works in Options/Watch and survives scene rebuilds. Break, garden and storage guidance wording corrected. |
 | F22 | Distinct farm/forager construction stages and wheat growth through progressively harvested rows and stubble. Bakery and other buildings also have distinct procedural models. |
+| F24a | Shared building definitions; hut/farm/garden/stockpile 4 logs, bakery 8 logs, cottage/mill/square/bridge 6 logs, lodge 12 planks and matching mill target. Footprints/timing/recipes unchanged. Comparable campaign, housing, food and storage experiments documented; remaining F24 balance work stays open above. |
 | F23a implementation | Revised cottage/bakery/sawmill models and construction stages; actual input/output stock displays, baking-only oven glow and pause-aware saw motion. Matched comparison and repeatable art scene available. Visual acceptance remains open above. |
 
 ## Current campaign reference — F11 / F18

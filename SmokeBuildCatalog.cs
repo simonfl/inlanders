@@ -27,6 +27,8 @@ public partial class Game
                 GetWindow().Size = window; await Frames(); await OpenMenu(1); SelectBuildSection(0); await Frames();
                 Check(_buildSections[0].IsVisibleInTree() && !_buildSections[1].IsVisibleInTree() && !_buildSections[2].IsVisibleInTree(), "Build sections overlap");
                 Check(_cardCosts.Count == 10 && _cardCosts[BuildingKind.Bakery].Text.Contains("1 baker"), "Card catalog incomplete");
+                foreach (var (kind, cost) in _cardCosts)
+                    Check(cost.Text.Contains(Buildings.Get(kind).CostText), $"Catalog cost differs from simulation for {kind}");
                 foreach (var button in _kindButtons.Values)
                 {
                     Check(button.GetRect().End.X <= _drawer.Size.X, "Card exceeds drawer width");

@@ -28,8 +28,8 @@ public partial class Game
 
     private static string RoleName(Role role) => role.ToString();
     private static Role NextRole(Role role) => (Role)(((int)role + 1) % Enum.GetValues<Role>().Length);
-    private string BuildCost(BuildingKind kind) => _world.Creative ? "Instant · Free" : kind == BuildingKind.Lodge ? "8 planks · 4 beds" : "6 logs";
-    private static string BuildingName(BuildingKind kind) => kind == BuildingKind.VegetableGarden ? "Vegetable garden" : kind == BuildingKind.ForagerHut ? "Forager hut" : kind == BuildingKind.Square ? "Village square" : kind.ToString();
+    private string BuildCost(BuildingKind kind) => _world.Creative ? "Instant · Free" : Buildings.Get(kind).CostText;
+    private static string BuildingName(BuildingKind kind) => Buildings.Get(kind).Name;
     private static string TaskName(Work task) => task switch
     {
         Work.ToHaulPickup => "Collecting logs", Work.ToHaulDrop => "Hauling logs",
@@ -214,7 +214,7 @@ public partial class Game
         foreach (var (resource, label) in _resourceValues)
             label.Text = (resource switch { Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, _ => _world.Food.Bread }).ToString();
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
-        _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · sawmills aim for stock of 8";
+        _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · sawmills aim for stock of {World.PlankStockTarget}";
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.Food.Bread)} / {_world.SupperCost}";
         _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.Food.Bread) / (float)_world.SupperCost * 50;
         _supperButton.Disabled = !_world.CanCelebrate;
@@ -241,7 +241,7 @@ public partial class Game
             BuildingKind.Cottage => "2 beds ready", BuildingKind.Lodge => "4 beds ready",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
-            BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: 8 planks",
+            BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out\nStock target: {World.PlankStockTarget} planks",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.VegetableGarden => $"Vegetables · 1 farmer slot\nCrop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe\n8 food per harvest · eaten directly",
             BuildingKind.Farm => $"Crop {selected.Growth:P0}\n{selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain\n{selected.OutputBread} loaves ready"

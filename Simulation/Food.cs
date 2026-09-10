@@ -70,15 +70,15 @@ public sealed partial class World
         v.BushId = null; v.WorkplaceId = null; v.FoodReserved = 0;
     }
     private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden;
-    private bool FreeStation(Cottage c, int capacity = 1) => People.Count(v => v.WorkplaceId == c.Id) < capacity;
-    private Cottage? FoodSite(BuildingKind kind, Func<Cottage, bool> condition, int capacity = 1) =>
-        Cottages.Where(c => c.Complete && c.Kind == kind && FreeStation(c, capacity) && condition(c))
+    private bool FreeStation(Cottage c) => People.Count(v => v.WorkplaceId == c.Id) < Buildings.Get(c.Kind).Slots;
+    private Cottage? FoodSite(BuildingKind kind, Func<Cottage, bool> condition) =>
+        Cottages.Where(c => c.Complete && c.Kind == kind && FreeStation(c) && condition(c))
             .OrderByDescending(c => c.Priority).ThenBy(c => c.Id).FirstOrDefault();
     private void ClaimFoodWork(Villager v)
     {
         if (v.Role == Role.Forager)
         {
-            var hut = FoodSite(BuildingKind.ForagerHut, _ => true, 2);
+            var hut = FoodSite(BuildingKind.ForagerHut, _ => true);
             if (hut == null) { v.Status = "Needs a finished forager hut with a free worker slot (2 per hut)"; return; }
             var bush = Bushes.Where(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)).OrderBy(b => (b.Access.Point - v.Position).LengthSquared()).FirstOrDefault();
             if (bush == null) { v.Status = "Waiting for ripe reachable berries or another forager; a bridge may open more patches"; return; }
@@ -237,7 +237,7 @@ public sealed partial class World
         }
         foreach (var c in Cottages)
         {
-            Check(People.Count(v => v.WorkplaceId == c.Id) <= (c.Kind == BuildingKind.ForagerHut ? 2 : 1), "Production capacity exceeded");
+            Check(People.Count(v => v.WorkplaceId == c.Id) <= Buildings.Get(c.Kind).Slots, "Production capacity exceeded");
             Check(c.Harvest >= 0 && c.InputGrain is >= 0 and <= 2 && c.OutputBread is >= 0 and <= 4, "Invalid production buffer");
         }
         foreach (var v in People)

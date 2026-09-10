@@ -79,15 +79,14 @@ public sealed class Cottage
     [JsonInclude]    public int LogTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;
     public Cell Entrance => Kind == BuildingKind.Bridge && BridgeFromFar ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
-    public Resource Material => Kind == BuildingKind.Lodge ? Resource.Planks : Resource.Logs;
-    public int Required => Kind == BuildingKind.Lodge ? 8 : World.Cost;
+    public Resource Material => Buildings.Get(Kind).Material;
+    public int Required => Buildings.Get(Kind).Cost;
 }
 
 // Commands and fixed-step Tick run on one thread. Claiming a job, storage units,
 // and destination capacity is atomic. Rendering never modifies these records.
 public sealed partial class World
 {
-    public const int Cost = 6;
     public const int InitialPopulation = 8;
     public int Population => People.Count;
     public List<Villager> People { get; } = new();
@@ -101,7 +100,7 @@ public sealed partial class World
     public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task is Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int Available => Stored - ReservedStorage;
     public int InitialLogs { get; private set; }
-    public int Beds => Cottages.Where(c => c.Complete).Sum(c => c.Kind == BuildingKind.Cottage ? 2 : c.Kind == BuildingKind.Lodge ? 4 : 0);
+    public int Beds => Cottages.Where(c => c.Complete).Sum(c => Buildings.Get(c.Kind).Beds);
     public int Housed => Math.Min(Population, Beds);
     public int SpareBeds => Math.Max(0, Beds - Population);
     public List<string> History { get; } = new();
@@ -323,7 +322,7 @@ public sealed partial class World
                     delivery.Delivered += v.Carried; delivery.Incoming -= v.Reserved; v.Carried = 0; Finish(v); break;
                 case Work.ToBuild: v.Task = Work.Building; v.Status = $"Building {Cottages.Single(c => c.Id == v.SiteId).Kind} {v.SiteId}"; break;
                 case Work.Building:
-                    var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / 12);
+                    var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / Buildings.Get(build.Kind).ConstructionSeconds);
                     if (build.Complete) { if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
                 default: if (!TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }

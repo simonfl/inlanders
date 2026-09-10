@@ -1,5 +1,7 @@
 using Inlanders.Simulation;
 
+if (args.Contains("--balance")) { BalanceExperiments.Run(); return; }
+
 static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }
 static void Steps(World w, int count) { for (int i = 0; i < count; i++) { w.Tick(0.1f); w.Validate(); } }
 static void Until(World w, Func<bool> done, string message, int max = 12000)
@@ -60,7 +62,7 @@ foreach (var phase in new[] { Work.ToMaterials, Work.ToCottage, Work.ToBuild, Wo
     var replacement = Plan(w, new(6, 0), true);
     Until(w, () => replacement.Complete, "Cancellation blocked remaining work");
     Roles(w, Role.Logger);
-    Until(w, () => w.Stored == w.InitialLogs - World.Cost, "Salvage/cargo not recoverable");
+    Until(w, () => w.Stored == w.InitialLogs - Buildings.Get(BuildingKind.Cottage).Cost, "Salvage/cargo not recoverable");
     Check(w.Trees.All(t => !t.Salvage), "Empty salvage still blocks construction");
     Check(w.CanPlace(site.Cell, site.Rotated), "Cancelled footprint not reusable after salvage");
 }

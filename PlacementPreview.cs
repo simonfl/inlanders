@@ -31,8 +31,8 @@ public partial class Game
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
-        BuildingKind.Stockpile => "Stores up to 12 logs. Loggers drop timber nearby; builders and sawyers collect locally. Haulers refill its target or return surplus to the yard. Costs 6 logs. Food and planks stay at the main yard.",
-        BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing. Costs 6 logs.",
+        BuildingKind.Stockpile => "Stores up to 12 logs. Loggers drop timber nearby; builders and sawyers collect locally. Haulers refill its target or return surplus to the yard. Food and planks stay at the main yard.",
+        BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
         BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
@@ -40,7 +40,7 @@ public partial class Game
         BuildingKind.VegetableGarden => "Supports 1 farmer. Grows 8 vegetables in 60 seconds after planting; harvested in pairs and carried to the pantry. Eaten directly without a bakery. Farmers share gardens and grain farms.",
         BuildingKind.Farm => "Supports 1 farmer. Crops grow for 45 seconds, yielding 6 grain. Grain must be baked to feed villagers.",
         BuildingKind.Bakery => "Supports 1 baker. Turns 2 grain into 4 loaves in 10 work seconds. Needs a grain supply.",
-        BuildingKind.Sawmill => "Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for 8 planks in stock.",
+        BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Aims for {World.PlankStockTarget} planks in stock.",
         _ => ""
     };
     private string PlacementProblem(Cell cell) => (_decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
@@ -110,9 +110,10 @@ public partial class Game
             return;
         }
         if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."; return; }
-        int available = _buildKind == BuildingKind.Lodge ? _world.AvailablePlanks : _world.Available;
-        int cost = _buildKind == BuildingKind.Lodge ? 8 : World.Cost;
-        string material = _buildKind == BuildingKind.Lodge ? "planks" : "logs";
+        var definition = Buildings.Get(_buildKind);
+        int available = definition.Material == Inlanders.Simulation.Resource.Planks ? _world.AvailablePlanks : _world.Available;
+        int cost = definition.Cost;
+        string material = definition.Material.ToString().ToLowerInvariant();
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
     }

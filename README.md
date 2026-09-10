@@ -72,7 +72,7 @@ Eight villagers arrive with 24 berries. The objective is to **house everyone and
 
 1. Open **Build** (button or **B**), select a **Forager hut**, then click a clear site. Start this early to replenish the initial food supply.
 2. Build a **Farm** and a **Bakery**. A farmer sows grain, waits for it to ripen, harvests it, and hauls it to the pantry. A baker collects grain, bakes it, and carries bread back.
-3. Build four **Cottages**, each housing two villagers. Cottages and production buildings cost six logs; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand. A **Lodge** is an alternative with four beds, costing eight planks from a sawmill.
+3. Build four **Cottages**, each housing two villagers. Cottages cost six logs; production costs vary in the Build catalog; the six initial harvestable alders provide 48 logs. Plant more alders when you want to expand. A **Lodge** is an alternative with four beds, costing twelve planks from a sawmill.
 4. When everyone has shelter and two loaves per person are in the pantry, open **Goals** and host the supper. Villagers return carried goods, gather, and celebrate before resuming their jobs. The Goals button shows **Ready** when you qualify.
 
 The initial workforce is two loggers, two builders, two foragers, one farmer, and one baker. Change allocations with **+ / −** in **People** (button or **V**). Minus unassigns a worker. Plus uses an unassigned worker first, then transfers someone from another job. Select a villager on the map or in People to inspect their task, waiting reason, and cargo; choose any role in the inspector's job picker and press Assign. **Follow villager** tracks them until you pan, press Home, or clear selection. **Inspect workplace** opens their current work site.
@@ -81,7 +81,7 @@ Production inspectors show active workers, links to inspect them, and +/− staf
 
 ### Vegetable gardens
 
-Build a **Vegetable garden** for **6 logs** and assign a **Farmer**. One farmer can work each garden at a time; farmers share gardens and grain farms, taking ripe harvests before planting another crop.
+Build a **Vegetable garden** for **4 logs** and assign a **Farmer**. One farmer can work each garden at a time; farmers share gardens and grain farms, taking ripe harvests before planting another crop.
 
 Planting takes four work seconds. The garden then grows **8 vegetables in 60 simulation seconds**, with visible leaves and squash. Farmers harvest two at a time and carry baskets to the pantry; beds clear as the harvest progresses. Gardens replant automatically.
 
@@ -101,7 +101,7 @@ Filters only affect the view; they do not pause jobs, change assignments, or ent
 
 ### Local log stockpiles
 
-Build a **Stockpile** for **6 logs**, then assign a **Hauler** in People or from the stockpile inspector. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
+Build a **Stockpile** for **4 logs**, then assign a **Hauler** in People or from the stockpile inspector. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
 
 Loggers drop timber at nearby storage with room. Builders and sawyers collect from a suitable store close to their work site. Haulers carry two logs at a time, refill targets from the main yard or another stockpile's surplus, and return excess to the yard. Target **0** drains a stockpile; already committed loads finish before haulers rebalance. Loggers may still drop new timber there, so target zero does not close the stockpile.
 
@@ -171,11 +171,11 @@ Cancellation stops root removal or conflicting planting work, but does not undo 
 
 Build a **Sawmill** for six logs, then assign a **Sawyer** in People. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
 
-Mills aim for a shared stock of eight planks, counting batches and shipments already on the way. They start another four-plank batch when that total falls to four or less. Reassign the sawyer when you want to stop production; carried materials return to storage and unfinished batches remain at the mill.
+Mills aim for a shared stock of twelve planks, counting batches and shipments already on the way. They start another four-plank batch when that total falls to eight or less. Reassign the sawyer when you want to stop production; carried materials return to storage and unfinished batches remain at the mill.
 
-A **Lodge** costs eight planks and houses four villagers on the same footprint as a cottage. Builders reserve and deliver planks before construction starts. Lodges count toward the supper's housing objective. Cancelling an unfinished lodge leaves delivered planks as salvage for loggers to recover; this does not turn them back into logs.
+A **Lodge** costs twelve planks and houses four villagers on the same footprint as a cottage. Builders reserve and deliver planks before construction starts. Lodges count toward the supper's housing objective. Cancelling an unfinished lodge leaves delivered planks as salvage for loggers to recover; this does not turn them back into logs.
 
-Plank inventories, shipments, reservations, and sawmill batches survive save/load. Older saves load with no planks or sawmill production.
+Plank inventories, shipments, reservations, and sawmill batches survive save/load. Save backward compatibility is not guaranteed.
 
 ### Paths
 
@@ -218,7 +218,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart standalone play; in a campaign, replay the current level with its previous village retained |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Standalone play has no periodic autosave; map switches and campaign transitions/completion save as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 ## Development
 
@@ -297,3 +297,5 @@ Villagers take short breaks at completed village squares between jobs and delive
 **Saved camera views:** Options has three named view slots. Enter an optional name and press Set to store the current focus, zoom, and orbit; Set replaces that slot and × clears it. Press 1–3 to recall, or Ctrl+1–3 to store, including in Watch mode. Recall stops camera-follow but preserves selection. Save the village to keep its views between sessions.
 
 **A gardener's visit:** From day 3, a finished forager hut attracts a gardener. Look for the yard marker and Goals → Visitor. Trade 8 stored berries to unlock freely placeable decorative sunflowers, leave the offer pending, or decline this visit. The card shows food remaining after the trade. There is no deadline; declining has no penalty, and the visitor is never required for campaign progress.
+
+Building investment values and reproducible economy comparisons are recorded in the [F24 balance review](docs/BALANCE_REVIEW_F24.md). Run "./Test.ps1 -Balance" to repeat the comparisons.

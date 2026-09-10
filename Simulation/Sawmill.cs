@@ -5,7 +5,8 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    public const int PlankStockTarget = 8;
+    // Keep enough whole four-plank batches to pre-stock one lodge.
+    public static int PlankStockTarget => Math.Max(8, ((Buildings.Get(BuildingKind.Lodge).Cost + 3) / 4) * 4);
     public int Planks { get; private set; }
     public int SawnLogs { get; private set; }
     public int ReservedPlanks => People.Where(v => v.Task == Work.ToMaterials && v.Cargo == Resource.Planks).Sum(v => v.Reserved);
@@ -23,7 +24,7 @@ public sealed partial class World
         if (mill == null)
         {
             v.Status = !Cottages.Any(c => c.Complete && c.Kind == BuildingKind.Sawmill) ? "Needs a finished sawmill" :
-                PendingPlanks > PlankStockTarget - 4 ? "Enough planks ready or on the way (target 8)" :
+                PendingPlanks > PlankStockTarget - 4 ? $"Enough planks ready or on the way (target {PlankStockTarget})" :
                 Available < 2 ? "Waiting for 2 unreserved logs" : "Waiting for a free sawmill";
             return;
         }
