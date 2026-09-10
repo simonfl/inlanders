@@ -9,7 +9,7 @@ public partial class Game
     private async void RunRiverSmoke()
     {
         _campaignPath=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"inlanders-river-"+Guid.NewGuid()+".json");
-        try { await CheckRiverUi(); GetTree().Quit(); }
+        try { await CheckRiverUi(); if(OS.GetCmdlineUserArgs().Contains("--render-profile")) await ProfileVillageRendering(); GetTree().Quit(); }
         catch(Exception e) { GD.PrintErr("RIVER SMOKE FAIL: "+e); GetTree().Quit(1); }
         finally { foreach(string suffix in new[]{"",".bak",".tmp"}) if(System.IO.File.Exists(_campaignPath+suffix)) System.IO.File.Delete(_campaignPath+suffix); }
     }

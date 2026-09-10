@@ -329,3 +329,5 @@ Building investment values and reproducible economy comparisons are recorded in 
 F21h workplace checks: `./Test.ps1` covers pause/resume, batch and crop commitments, food-flow history and current-format saves. Run `./Play.ps1 -ProductionSmokeTest` for the focused rendered workplace controls and actual-meal feedback checks; the full HUD suite includes it too.
 
 F19b recovery checks: ./Play.ps1 -MenuSmokeTest exercises rolling snapshots, map/mode/level isolation, F9 checkpoints, restart and undo, relaunch recovery, and successful/failed window-close saving.
+
+**Rendering profile:** `./Play.ps1 -RenderingSmokeTest` measures the river village, 36 decorations and a prolonged paused placement preview. Fixed building/decoration pieces now share material batches while retaining their geometry and workshop animations. See [the F23c rendering review](docs/RENDERING_F23C.md) for local before/after measurements and remaining limits.

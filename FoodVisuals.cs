@@ -22,6 +22,11 @@ public partial class Game
     }
     private void MakeBuilding(Node3D parent, Cottage site, int stage)
     {
+        MakeBuildingPieces(parent,site,stage);
+        BatchStaticGeometry(parent);
+    }
+    private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)
+    {
         if (site.Kind == BuildingKind.Stockpile) { MakeStockpile(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Bridge)
         {

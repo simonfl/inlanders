@@ -74,11 +74,17 @@ public partial class Game
                     float x=decoration.Cell.X+(decoration.Rotated ? -dz : dx),z=decoration.Cell.Z+(decoration.Rotated ? dx : dz);
                     var stone=Box(body,OnGround(x,z,.035f),new(.17f,.025f,.12f),new("dad2b9")); stone.Basis=GroundBasis(x,z,decoration.Rotated);
                 }
+                BatchStaticGeometry(body);
             }
             else MakeDecoration(body,decoration.Kind);
         }
     }
     private void MakeDecoration(Node3D root,DecorationKind kind)
+    {
+        MakeDecorationPieces(root,kind);
+        BatchStaticGeometry(root);
+    }
+    private void MakeDecorationPieces(Node3D root,DecorationKind kind)
     {
         if(kind==DecorationKind.Sunflowers) { MakeSunflowers(root); return; }
         if(kind==DecorationKind.Pebbles)

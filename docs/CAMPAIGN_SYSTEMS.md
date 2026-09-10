@@ -110,7 +110,7 @@ For each new scenario, write down two intended approaches and one recoverable mi
 ## Suggested implementation sequence
 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
-2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c addresses its measured rendering cost before further growth.
+2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a should use existing population and buildings.
 3. F25a deepens home/rest and recreation using existing buildings; no education/religion meters yet. Resident feedback belongs in the same chunk.
 4. F26a implements one lake, one dock/boat and fish habitat with its campaign slice. Compare it with gardens and bread on that geography. Extend meal selection, last-meal feedback and variety scoring to fish in the same chunk; rebalance the score so adding a fourth food does not silently invalidate an established mixed diet.
 5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.
