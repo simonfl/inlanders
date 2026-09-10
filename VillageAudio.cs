@@ -11,7 +11,7 @@ public partial class Game
     private readonly List<AudioStreamPlayer3D> _voices = new();
     private AudioStreamPlayer _uiSound = null!, _wind = null!;
     private AudioStreamPlayer3D _bird = null!;
-    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree; public int ChopBeat=-1; }
+    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree, HammerSite; public int ChopBeat=-1,HammerBeat=-1; }
     private readonly Dictionary<int, SoundTrace> _soundTraces = new();
     private readonly HashSet<int> _heardBuildings = new();
     private readonly Dictionary<Cue, float> _cueCooldown = new();
@@ -94,10 +94,22 @@ public partial class Game
                 continue;
             }
             trace.ChopTree=null; trace.ChopBeat=-1;
+            if(HasHammerWork(v))
+            {
+                int beat=(int)MathF.Floor(v.Timer-.7f);
+                if(trace.HammerSite!=v.SiteId || beat<trace.HammerBeat) { trace.HammerSite=v.SiteId; trace.HammerBeat=beat; }
+                if(beat>trace.HammerBeat)
+                {
+                    trace.HammerBeat=beat;
+                    if(_soundTime>=trace.Next) { WorldCue(Cue.Hammer,OnGround(v.Position.X,v.Position.Y,.5f),v.Id); trace.Next=_soundTime+.35f; }
+                }
+                continue;
+            }
+            trace.HammerSite=null; trace.HammerBeat=-1;
             if (_soundTime < trace.Next) continue;
             Cue? cue = v.Route.Count > 0 ? trace.Distance >= 0.65f ? Cue.Step : null : v.Task switch
             {
-                Work.Chopping => Cue.Drop, Work.Building or Work.Demolishing => Cue.Hammer,
+                Work.Chopping => Cue.Drop,
                 Work.ClearingStump or Work.Planting or Work.PlantingTree or Work.Harvesting or Work.Foraging => Cue.Rustle,
                 Work.Sawing => Cue.Saw, Work.Baking => Cue.Bake, _ => null
             };

@@ -9,9 +9,11 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), Spade = new(), Peel = new(), Saw = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new();
         public Resource Cargo;
         public int Count = -1;
+        public float? PickupStarted;
+        public float CargoObservedAt=-1;
     }
 
     private PersonView MakeVillager(int id)
@@ -38,11 +40,14 @@ public partial class Game
         foreach (var tool in new[] { v.Axe, v.Hammer, v.Spade, v.Peel })
         {
             v.Arm.AddChild(tool); tool.Position = new(0, -0.32f, 0); tool.Visible = false;
-            Box(tool, new(0, 0.1f, tool==v.Axe?-.30f:-.15f), new(0.055f, 0.055f, tool==v.Axe?.85f:.55f), _wood);
+            Box(tool, new(0, 0.1f, tool==v.Axe?-.30f:tool==v.Hammer?-.23f:-.15f), new(0.055f, 0.055f, tool==v.Axe?.85f:tool==v.Hammer?.70f:.55f), _wood);
         }
         Box(v.Axe, new(-0.06f, 0.1f, -0.69f), new(0.25f, 0.10f, 0.18f), new("9ca8a4"));
         v.Axe.AddChild(v.AxeEdge); v.AxeEdge.Position=new(-.06f,.1f,-.78f);
-        Box(v.Hammer, new(0, 0.1f, -0.37f), new(0.24f, 0.14f, 0.14f), new("737d7b"));
+        Box(v.Hammer, new(0, 0.1f, -0.55f), new(0.24f, 0.14f, 0.14f), new("737d7b"));
+        v.Body.AddChild(v.WorkBoard); v.WorkBoard.Visible=false;
+        Box(v.WorkBoard,new(0,.48f,-.6f),new(.78f,.14f,.22f),new("c8a36f"));
+        foreach(float x in new[]{-.28f,.28f}) Box(v.WorkBoard,new(x,.22f,-.6f),new(.08f,.44f,.17f),_wood);
         Box(v.Spade, new(0, 0.1f, -0.43f), new(0.21f, 0.05f, 0.25f), new("89938a"));
         Box(v.Peel, new(0, 0.1f, -0.48f), new(0.32f, 0.04f, 0.34f), new("cba36d"));
         v.Arm.AddChild(v.Saw); v.Saw.Position = new(0, -0.32f, 0);
@@ -55,6 +60,9 @@ public partial class Game
 
     private void RefreshCargo(PersonView view, Villager worker)
     {
+        if(view.Count==0 && worker.Carried>0 && _world.Food.Time-view.CargoObservedAt<=.4f) view.PickupStarted=_world.Food.Time;
+        if(worker.Carried==0) view.PickupStarted=null;
+        view.CargoObservedAt=_world.Food.Time;
         view.Carry.Visible = worker.Carried > 0;
         if (view.Count == worker.Carried && view.Cargo == worker.Cargo) return;
         view.Count = worker.Carried; view.Cargo = worker.Cargo; Clear(view.Carry);
@@ -101,6 +109,8 @@ public partial class Game
     private void AnimateVillager(PersonView view, Villager v)
     {
         RefreshCargo(view, v); view.Marker.Visible = v.Id == _selectedPerson;
+        view.Carry.Position=new(0,.12f,-.43f);
+        view.WorkBoard.Visible=false;
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
         view.Rig.Position = new(0, walking ? MathF.Abs(swing) * 0.035f : 0, 0);
@@ -122,8 +132,9 @@ public partial class Game
         if (v.Carried > 0)
         {
             view.Arm.Rotation = view.LeftArm.Rotation = new(1.05f, 0, 0);
-            view.Torso.Rotation = new(-0.08f, 0, 0); return;
+            view.Torso.Rotation = new(-0.08f, 0, 0); AnimateCargoHandoff(view,v); return;
         }
+        if(AnimatePickupReach(view,v)) return;
         if (walking) return;
         Cell? facing = v.TreeId is int tree ? _world.Trees.FirstOrDefault(t => t.Id == tree)?.Cell :
             v.BushId is int bush ? _world.Bushes.FirstOrDefault(b => b.Id == bush)?.Cell :
@@ -145,7 +156,11 @@ public partial class Game
                 else { view.Arm.Rotation = new(.65f+swing*.25f,0,0); view.Torso.Rotation=new(-.35f,0,0); }
                 break;
             case Work.Building: case Work.Demolishing:
-                view.Hammer.Visible = true; view.Arm.Rotation = new(1.1f + MathF.Sin(cycle * 1.5f) * 0.55f, 0, 0); break;
+                if(!HasHammerWork(v)) { view.Torso.Rotation=new(-.26f,0,0); view.Arm.Rotation=view.LeftArm.Rotation=new(.7f,0,0); break; }
+                view.Hammer.Visible = view.WorkBoard.Visible = true;
+                float beat=v.Timer%1;
+                float hammer=beat<.5f ? Mathf.SmoothStep(.03f,1.5f,beat/.5f) : beat<.7f ? Mathf.SmoothStep(1.5f,.03f,(beat-.5f)/.2f) : .03f;
+                view.Arm.Rotation=new(hammer,0,0); view.LeftArm.Rotation=new(.55f,0,.1f); view.Head.Rotation=new(.13f,0,0); break;
             case Work.ClearingStump: case Work.PlantingTree: case Work.Planting: case Work.Harvesting:
                 view.Spade.Visible = true; view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;

@@ -173,6 +173,10 @@ The Build menu explains each building's purpose, staffing, recipes, and availabl
 
 Open **Economy → Show supply routes** to see actual worker and boat trips. Gold routes carry goods; blue routes are empty trips to work or collect. Arrows point toward the destination. The list shows loads and remaining distance; select a resident to inspect their task. Routes hide in Watch mode and reset when changing settlements. Food goes to the central pantry; logs/planks can use local stockpiles. Run `./Play.ps1 -RoutesSmokeTest` for the rendered check.
 
+### Work and deliveries
+
+Workers reach, lift and lower real cargo during pickups and deliveries. Builders use a small work board with timed hammer strikes. These poses add no production delay; pausing freezes them. Run `./Play.ps1 -HandoffSmokeTest` for the focused check.
+
 ### Renewable woodland
 
 Loggers wind up and strike in time with actual chopping progress. Felled mature trees briefly tip into their timber piles; pausing freezes the action. This changes presentation, not work time or yield. Run `./Play.ps1 -LoggingSmokeTest` for the focused visual check.

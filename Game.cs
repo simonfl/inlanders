@@ -42,6 +42,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--routes-smoke-test")) CallDeferred(MethodName.RunSupplyRouteSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--plank-storage-smoke-test")) CallDeferred(MethodName.RunPlankStorageSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--campaign-smoke-test")) CallDeferred(MethodName.RunCampaignSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--map-smoke-test")) CallDeferred(MethodName.RunMapSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--clearing-smoke-test")) CallDeferred(MethodName.RunClearingSmoke);
@@ -195,7 +196,7 @@ public partial class Game : Node3D
             var view = _people[v.Id]; var target = OnGround(v.Position.X, v.Position.Y);
             var movement = target - view.Body.Position; movement.Y = 0;
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
-            view.Body.Position = view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
+            view.Body.Position = _paused ? target : view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
             if(_world.PassengerBoat(v) is FishingBoat boat)
             {
