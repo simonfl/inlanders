@@ -113,6 +113,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.H) { ToggleWatch(); return; }
             if (_watching && key.Keycode == Key.Escape) { ExitWatch(); return; }
             if (_watching && key.Keycode is Key.B or Key.V or Key.G or Key.O or Key.I or Key.T or Key.C or Key.P) ExitWatch();
+            if (key.Keycode is Key.Key1 or Key.Key2 or Key.Key3) { int slot = (int)key.Keycode - (int)Key.Key1; if (key.CtrlPressed) StoreCameraView(slot); else RecallCameraView(slot); return; }
             if (key.Keycode == Key.Space) TogglePause();
             if (key.Keycode == Key.M) ToggleSoundMute();
             if (key.Keycode == Key.F5) SaveWorld();

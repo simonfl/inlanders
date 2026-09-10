@@ -177,6 +177,7 @@ public partial class Game
     {
         column.AddChild(Text("YOUR VILLAGE", 12));
         column.AddChild(Button("Watch village [H]", ToggleWatch));
+        MakeCameraViewsUi(column);
         var saves = new HBoxContainer(); column.AddChild(saves);
         _saveButton = Button("Save [F5]", SaveWorld); _loadButton = Button("Load [F9]", LoadWorld);
         _saveButton.SizeFlagsHorizontal = _loadButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; saves.AddChild(_saveButton); saves.AddChild(_loadButton);
@@ -203,6 +204,7 @@ public partial class Game
     {
         if (_hudSize != _hud.Size) LayoutHud();
         UpdatePopulationUi();
+        UpdateCameraViewsUi();
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
         _foodStatus.Text = _world.Food.Hunger > 0 ? "Hungry" : "Well fed";

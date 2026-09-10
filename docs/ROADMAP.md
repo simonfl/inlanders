@@ -6,19 +6,18 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F12e — Navigating a larger settlement.** Storage/building jumps already cover known workplaces. Add three saved camera views for neighborhoods and scenic watch positions, with quick recall and clear overwrite controls.
+**Next: F15 — Small events and choices.** Add one optional traveling gardener request with a clear food-for-seeds trade and no deadline. Keep the offer quiet and inspectable so it does not interrupt watching or management.
 
 The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F12e | **Navigating a larger settlement.** Three saved camera views per settlement, including focus, orbit and zoom; recall from management or watch mode. Existing workplace jumps and Home overview remain. | Help players move between established neighborhoods; coordinate with F21. |
-| 2 | F15 | **Small events and choices.** One visitor or request with a modest reward or tradeoff. | Add occasional variety to the established village loop. |
-| 3 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
-| 4 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
-| 5 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F15 | **Small events and choices.** One optional visitor request with an explicit cost/reward, accept/decline controls, and saved progress. No deadline or forced interruption. | Add occasional variety to the established village loop. |
+| 2 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
+| 3 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
+| 4 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
-Campaign pacing and UI feedback can be addressed at any time. Happiness now has a first pass. Camera views complement the existing location jumps without adding another permanent HUD panel.
+Campaign pacing and UI feedback can be addressed at any time. Happiness and camera views now have first passes. The next event should add a useful choice without introducing a separate trade economy.
 
 ## Already playable
 
@@ -41,6 +40,7 @@ Campaign pacing and UI feedback can be addressed at any time. Happiness now has 
 | F12a | Irregular 32×32 Three clearings map, distant resources, scalable camera bounds, and Home overview. |
 | F12b | Water and one-tile bridges, construction from a reachable bank, and access to the far side. |
 | F12c | Cancelable tree/stump clearing, physical timber recovery, root removal, and reusable building ground. Decorative landscaping shares the F09 palette. |
+| F12e | Three named camera views per settlement; saved focus, zoom and orbit, Options controls, 1–3 recall / Ctrl+1–3 set, clearing/overwrite, and recall during Watch mode. Existing workplace jumps and Home overview remain. |
 | F14 | Per-villager satisfaction from meals, food choices recorded at meal time, housing coverage, and a completed square break within two minutes. Village average, expandable reasons below worker controls, saved history, and cheerful/unsettled idle reactions; no additional productivity penalty. |
 | F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |

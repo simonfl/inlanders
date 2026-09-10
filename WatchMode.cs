@@ -18,7 +18,7 @@ public partial class Game
         _watchPause=Button("Pause",TogglePause,90); row.AddChild(_watchPause);
         _watchSpeed=Button("1×",()=>_speed=_speed==1?3:_speed==3?6:1,48); row.AddChild(_watchSpeed);
         row.AddChild(Button("Frame map",FrameMap,100));
-        _watchBar.TooltipText="WASD pan · Wheel zoom · Q/E orbit · Space pause · H or Esc returns to management";
+        _watchBar.TooltipText="WASD pan · Wheel zoom · Q/E orbit · Space pause · 1–3 saved views · Ctrl+1–3 saves · H or Esc returns to management";
         _watchRoot.Hide();
     }
     private void ToggleWatch()

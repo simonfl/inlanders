@@ -283,3 +283,5 @@ Villagers take short breaks at completed village squares between jobs and delive
 **Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It loops gently and continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.
 
 **Happiness:** People shows village happiness. Select a villager and expand their mood button below the work controls to see the score: starting optimism, meals, pantry choices recorded at the last meal, housing coverage, and a completed square break in the past two minutes. Cheerful villagers wave while idle; unsettled villagers look down. Happiness adds no productivity penalty.
+
+**Saved camera views:** Options has three named view slots. Enter an optional name and press Set to store the current focus, zoom, and orbit; Set replaces that slot and × clears it. Press 1–3 to recall, or Ctrl+1–3 to store, including in Watch mode. Recall stops camera-follow but preserves selection. Save the village to keep its views between sessions.

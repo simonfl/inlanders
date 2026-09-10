@@ -73,5 +73,6 @@ public partial class Game
             await CheckLeisureUi();
             await CheckDecorationUi();
             await CheckHappinessUi();
+            await CheckCameraViewsUi();
     }
 }

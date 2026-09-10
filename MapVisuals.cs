@@ -5,7 +5,7 @@ using System.Linq;
 
 public partial class Game
 {
-    private float MaximumZoom => Math.Max(32, (_world.Map.Width + _world.Map.Depth) * 0.95f);
+    private float MaximumZoom => _world.MaximumViewZoom;
     private void FrameMap()
     {
         _followPerson = false;

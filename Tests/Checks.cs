@@ -115,3 +115,4 @@ VegetableChecks.Run();
 LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();
+CameraViewChecks.Run();
