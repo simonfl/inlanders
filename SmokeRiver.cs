@@ -52,8 +52,9 @@ public partial class Game
         await UiClick(_riverAction); await Frames();
         if(_world.Campaign!.River!.Phase!=3) throw new Exception("Final assessment button failed");
         _drawerPages[2].ScrollVertical=0; await Frames(); await Capture("artifacts/f11b-river-assessment-960.png");
+        _drawerPages[2].ScrollVertical=380; await Frames(); await Capture("artifacts/f11b-river-square-help-960.png");
         await Until(()=>_world.Campaign.Complete,"final proof");
-        if(!_campaignBook!.Completed.Contains(6) || _nextLevel.Visible) throw new Exception("River completion did not persist");
+        if(!_campaignBook!.Completed.Contains(6) || _nextLevel.Visible!=(World.CampaignLevels.Length>6)) throw new Exception("River completion or next-level action incorrect");
         GetWindow().Size=new(1440,900); CloseDrawer(); FrameMap(); await Frames(); await Capture("artifacts/f11b-river-complete.png");
         double[] elapsed=new double[120];
         _paused=false;

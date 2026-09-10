@@ -25,8 +25,8 @@ public sealed partial class World
         if(EastBankBeds<(final?8:4)) return $"Finish {(final?8:4)} beds on the east bank, across the river.";
         if(Population<(final?16:12)) return $"Invite newcomers from People to reach {(final?16:12)} residents; prepare spare beds and food before each pair.";
         if(Housed<Population) return "Finish homes for everyone, including any extra newcomers.";
-        if(final && !Cottages.Any(c=>c.Cell.X>5 && c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested)) return "Finish an east-bank square for the expanded village.";
-        if(final && EastBankRecreation<(Population+1)/2) return $"At least {(Population+1)/2} residents need a completed east-bank square visit within the last two minutes; currently {EastBankRecreation}.";
+        if(final && !Cottages.Any(c=>c.Cell.X>5 && c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested)) return "Build a Square across the river on the east bank. Seating Gardens and Gathering Halls do not count for this objective.";
+        if(final && EastBankRecreation<(Population+1)/2) return $"{EastBankRecreation}/{(Population+1)/2} residents recently visited an east-bank Square. Half the population must finish a break there within the last 2 in-game minutes. Place the Square near homes or work, with a reachable crossing and open space for visitors.";
         return null;
     }
     public string RiverActionLabel => Campaign?.River?.Phase switch { 0=>"Assess first neighborhood",1=>"Begin final expansion",2=>"Assess the expanded village",_=>"Assessment in progress" };
@@ -68,8 +68,8 @@ public sealed partial class World
             var river=Campaign!.River!; bool final=river.Phase>=2;
             string title=river.Phase switch { 0=>"First neighborhood",1=>"Prove the first expansion",2=>"Village on both banks",3=>"Prove the final village",_=>"A village on both banks" };
             string needs=$"Residents: {Population}/{(final?16:12)} minimum\nHoused: {Housed}/{Population}\nEast-bank beds: {EastBankBeds}/{(final?8:4)}";
-            if(final) needs+="\nEast-bank square: "+(Cottages.Any(c=>c.Cell.X>5 && c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested)?"Ready":"Needed");
-            if(final) needs+=$"\nRecent east-bank recreation: {EastBankRecreation}/{(Population+1)/2} residents (last 2 minutes)";
+            if(final) needs+="\nEast-bank Square: "+(Cottages.Any(c=>c.Cell.X>5 && c.Kind==BuildingKind.Square && c.Complete && !c.DemolitionRequested)?"Ready":"Needed");
+            if(final) needs+=$"\n\n{EastBankRecreation}/{(Population+1)/2} residents recently visited an east-bank Square\nHalf the population must finish a break there within the last 2 in-game minutes. Each resident counts once, using their latest completed break; this is not a lifetime total.\n\nOnly Squares across the river count, not Seating Gardens or Gathering Halls. Villagers visit nearby recreation automatically between jobs. Keep the Square accessible and close to homes or work.\n\nKeep this requirement met during the final food assessment.";
             string assessment=river.Phase is 1 or 3 ? $"\n\nMeal service · last 3 minutes since assessment began\n{ReadMealAssessment(river.AssessmentStarted).Summary}\n{river.LastResult}" : "";
             return title+"\n\n"+needs+assessment;
         }
