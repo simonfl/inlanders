@@ -86,7 +86,7 @@ public partial class Game
             b.TooltipText = index switch { 0 => "Workforce and villagers [V]", 1 => "Buildings and planting [B]", 2 => "The first village supper [G]", 4 => "Inventory, shortages, and idle workers [I]", _ => "Save, load, audio, and controls [O]" };
         }
         bottom.AddChild(new Control { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill });
-        _shortcuts = Text("WASD pan · Wheel zoom · Q/E orbit", 13); _shortcuts.Modulate = new("a8bcb0"); bottom.AddChild(_shortcuts);
+        _shortcuts = Text("Drag / WASD pan · Wheel zoom · Q/E orbit", 13); _shortcuts.Modulate = new("a8bcb0"); bottom.AddChild(_shortcuts);
         _drawer = HudPanel(_hud); var drawerColumn = new VBoxContainer(); drawerColumn.AddThemeConstantOverride("separation", 12); _drawer.AddChild(drawerColumn);
         var heading = new HBoxContainer(); drawerColumn.AddChild(heading);
         _drawerTitle = Text("Build", 21); _drawerTitle.Modulate = _cream; _drawerTitle.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; heading.AddChild(_drawerTitle);
@@ -198,7 +198,7 @@ public partial class Game
         MakeAtmosphereUi(column);
         column.AddChild(Text("SOUND", 12)); MakeAudioUi(column);
         column.AddChild(Text("CONTROLS", 12));
-        column.AddChild(Text("WASD  Pan camera\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound · H  Watch village", 14, true));
+        column.AddChild(Text("Drag / WASD  Pan camera\nRight / middle drag  Pan while building\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound · H  Watch village", 14, true));
     }
     private void RebuildQueue()
     {

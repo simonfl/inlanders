@@ -59,6 +59,7 @@ public partial class Game
     }
     private void AdoptWorld(World world)
     {
+        CancelCameraDrag();
         bool mapChanged = !ReferenceEquals(_world.Map, world.Map);
         _autosaveElapsed = 0; _lastAutosaved = null;
         _world = world; CloseManagementUi(); _placing = false; _accumulator = 0; _paused = true;

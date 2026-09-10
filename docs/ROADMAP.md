@@ -14,7 +14,7 @@ The original ordered roadmap shipped its first versions. The next phase responds
 
 **F21k now supports the meal review:** Economy opens a filtered resident list for current hunger or missed/skipped meals in the last three minutes. The existing People service panel explains meals alongside rest/recreation and links to resident inspection. Late recovery remains distinct from recent missed service. Next priorities remain player review and then the selected campaign/comfort work; this UI change does not establish meal-service enjoyment.
 
-**Paused after the F25b2 playable prototype, as requested.** Carpenter orders, physical plank recovery, improved-home rest and UI are implemented; see the [prototype review](HOME_COMFORT_F25B2.md). F25b2 comparative balancing remains unfinished. Resume with matched village/investment comparisons before F25b3 player/campaign adoption; costs and art are provisional.
+**Roadmap work remains paused after the requested camera-drag addition.** Carpenter orders, physical plank recovery, improved-home rest and UI are implemented; see the [prototype review](HOME_COMFORT_F25B2.md). F25b2 comparative balancing remains unfinished. Resume with matched village/investment comparisons before F25b3 player/campaign adoption; costs and art are provisional.
 
 **F21e2/e3 support visual review:** Watch has a temporary clean view and an optional slow orbit around the current focus. Manual camera controls stop the orbit; neither feature changes village time or saved views. The art, meal and campaign reviews remain open. F23d now adds frame-sync control after measuring presentation as the main slowdown on this setup; see the [rendering review](RENDERING_F23D.md). Review the smoother village before adding more viewing controls or speculative rendering changes.
 
@@ -55,6 +55,7 @@ F23c measured 16 residents with 36 decorations and a 600-frame paused preview. S
 
 | ID | Shipped |
 | --- | --- |
+| F21 camera dragging | Left-drag pans in normal play; clicks still select. Right/middle drag pans with build tools active. Screen-relative movement follows zoom/orbit, stops following/automatic orbit, respects HUD input and cancels on focus loss. |
 | F25b2 prototype | Carpenter workshop, physical 4/8-plank home orders and recovery, actual improved rest, shutters/cushioned rest pose, inspector controls and format-32 saves. Comparison/balance portion remains open above. |
 | Milestones 1–3 | Timber harvesting and hauling, construction, worker roles and priorities, berries → grain → bread, housing, meals, village supper, and save/load. |
 | F01 | Paint/remove connected dirt paths; villagers choose faster routes and walk 25% faster on paths. |
@@ -223,7 +224,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
 | F21 — Management | Keyboard focus navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
-| F21e — Watching | Clean view and optional slow orbit have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
+| F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
 

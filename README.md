@@ -271,7 +271,8 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | P / Shift+P | Paint / remove paths by clicking or dragging |
 | R | Rotate the unplaced building |
 | Esc | Cancel preview first; otherwise close the menu or inspector |
-| WASD | Pan |
+| Left drag / WASD | Pan (left click still selects; build tools keep left-drag painting) |
+| Right or middle drag | Pan, including while building |
 | Q / E | Orbit in quarter turns |
 | Mouse wheel | Zoom |
 | Space / Pause | Pause or resume |

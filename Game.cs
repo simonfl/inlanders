@@ -168,19 +168,24 @@ public partial class Game : Node3D
         }
         if (input is InputEventMouseButton mouse && mouse.Pressed)
         {
+            if(BeginCameraDrag(mouse)) { GetViewport().SetInputAsHandled(); return; }
             if(mouse.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown) _watchOrbit=false;
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
             if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
             if (_watching || mouse.ButtonIndex != MouseButton.Left) return;
-            if(PickResourceSource(mouse.Position)) return;
             if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
-            var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(mouse.Position))).OrderBy(v => v.Distance).First();
-            if (closest.Distance < 25) SelectPerson(closest.Index);
-            else if (Ground(mouse.Position) is Vector3 p)
-            {
-                var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-                if (site != null) SelectBuilding(site.Id); else ClearSelection();
-            }
+            SelectAtPointer(mouse.Position);
+        }
+    }
+    private void SelectAtPointer(Vector2 position)
+    {
+        if(PickResourceSource(position)) return;
+        var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(position))).OrderBy(v => v.Distance).First();
+        if (closest.Distance < 25) SelectPerson(closest.Index);
+        else if (Ground(position) is Vector3 p)
+        {
+            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+            if (site != null) SelectBuilding(site.Id); else ClearSelection();
         }
     }
     public override void _Process(double delta)

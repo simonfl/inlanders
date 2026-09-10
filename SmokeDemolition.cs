@@ -30,7 +30,7 @@ public partial class Game
             await UiClick(_removeBuildingButton); w.Assign(0,Role.Builder);
             for(int i=0;i<2000 && house.DemolitionProgress < .5f;i++) w.Tick(.1f);
             w.Validate(); RenderActors(0); UpdateHud(); await Frames();
-            if(house.DemolitionProgress < .5f || _cancelDemolition.Visible || _cottages[house.Id].Stage != 10002) throw new Exception("Dismantling progress/model/cancellation state incorrect");
+            if(house.DemolitionProgress < .5f || _cancelDemolition.Visible || _cottages[house.Id].Stage != 10200) throw new Exception("Dismantling progress/model/cancellation state incorrect");
             _focus = new(3,0,0); _camera.Size=10; UpdateCamera(); CloseDrawer(); await Capture("artifacts/f16b-dismantling.png");
             string midway = w.SaveJson(); var copy=World.LoadJson(midway);
             if(copy.SaveJson()!=midway) throw new Exception("Demolition save changed");

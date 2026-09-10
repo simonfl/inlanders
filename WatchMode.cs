@@ -25,7 +25,7 @@ public partial class Game
         _watchClean=Button("Clean view [Tab]",ToggleCleanWatch,140); row.AddChild(_watchClean);
         _watchOrbitButton=Button("Orbit [J]",ToggleWatchOrbit,130); row.AddChild(_watchOrbitButton);
         _watchOrbitButton.TooltipText="Slowly circle the current focus, even while paused. Stops following a resident. J stops the orbit; pan, zoom, Q/E, Frame map or a saved view takes over immediately.";
-        _watchBar.TooltipText="WASD pan · Wheel zoom · Q/E orbit · Space pause · 1–3 saved views · Ctrl+1–3 saves · Tab hides/restores controls and labels · H or Esc returns to management";
+        _watchBar.TooltipText="Drag / WASD pan · Wheel zoom · Q/E orbit · Space pause · 1–3 saved views · Ctrl+1–3 saves · Tab hides/restores controls and labels · H or Esc returns to management";
         _watchRoot.Hide();
     }
     private void ToggleWatch()

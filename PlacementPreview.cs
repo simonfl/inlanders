@@ -17,6 +17,7 @@ public partial class Game
         if(_watching && input is InputEventKey { Pressed:true, Echo:false, Keycode:Key.Tab })
         { ToggleCleanWatch(); GetViewport().SetInputAsHandled(); return; }
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
+        if (HandleCameraDrag(input)) { GetViewport().SetInputAsHandled(); return; }
         if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
         if(input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastWoodlandCell=null;
         if(input is InputEventMouseButton released && released.ButtonIndex==MouseButton.Left && !released.Pressed) { _woodlandStroke=false; _lastWoodlandCell=null; }
@@ -58,7 +59,7 @@ public partial class Game
         _ => ""
     };
     private string PlacementProblem(Cell cell) => (_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
-    private bool PointerOverHud(Vector2 point) => _watching ? _watchBar.GetGlobalRect().HasPoint(point) :
+    private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
 
