@@ -169,6 +169,10 @@ Cancel an unfinished plan to release its claims. Carried timber returns to the y
 
 The Build menu explains each building's purpose, staffing, recipes, and available materials. You can place plans before you have enough supplies; builders wait for materials. Translucent building previews turn green on legal spots and red on blocked ones, with a specific explanation below. An arrow marks the entrance; R rotates the model and footprint together. Tree planting uses a sapling preview and stays active for repeated planting. Placement protects workers, entrances, and resource access, and recalculates routes around new plans. Border trees are decorative. Villagers can pass through one another.
 
+### Supply routes
+
+Open **Economy → Show supply routes** to see actual worker and boat trips. Gold routes carry goods; blue routes are empty trips to work or collect. Arrows point toward the destination. The list shows loads and remaining distance; select a resident to inspect their task. Routes hide in Watch mode and reset when changing settlements. This view explains existing trips; food and planks still return to central stores. Run `./Play.ps1 -RoutesSmokeTest` for the rendered check.
+
 ### Renewable woodland
 
 In **Build**, choose **Plant alders**, or press **T**. Click open ground or a fully harvested stump to mark planting spots; press **Esc** when finished. Planting is free and protects the same worker routes and entrances as construction.

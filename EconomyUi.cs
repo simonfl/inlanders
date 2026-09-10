@@ -28,6 +28,7 @@ public partial class Game
             button.AutowrapMode=TextServer.AutowrapMode.WordSmart; button.Alignment=HorizontalAlignment.Left;
             button.AddThemeFontSizeOverride("font_size",14); column.AddChild(button); _economyIssues.Add(button);
         }
+        MakeSupplyControls(column);
         column.AddChild(Text("INVENTORY",12));
         column.AddChild(Text("Available = stored minus reserved. Carried goods and workplace buffers are not in storage yet. Unshipped construction demand excludes deliveries already on the way.",14,true));
         foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables,Resource.Fish})
