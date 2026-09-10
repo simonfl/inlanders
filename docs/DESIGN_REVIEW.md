@@ -14,7 +14,7 @@ This review combines source inspection, existing rendered captures from the curr
 
 - **Work is physical.** Villagers harvest, carry, deliver, construct, plant, bake, saw, and gather. Reservations and inventories provide a strong basis for believable activity.
 - **The tone is coherent.** No combat, deadlines, deaths, or forced failure. Hunger slows work; players can recover. That should remain the direction.
-- **The modes have distinct purposes.** Campaign teaches; normal free play supports an economy; Creative supports arranging and watching.
+- **The modes have distinct purposes.** Campaign currently teaches and should grow into authored challenges that test mastery; normal free play supports an economy; Creative supports arranging and watching.
 - **The five lessons reduce repeated setup.** Later settlements start with useful buildings. Progress survives consumption, and completion allows continued play.
 - **There is already enough material for better scenarios.** Hills, crossings, storage, planting, housing, gardens, and social spaces can create interesting combinations without another resource chain.
 - **The implementation is unusually well checked for a prototype.** This reduces the cost of changing design. Passing tests establishes rules and reliability; it does not establish enjoyment.
@@ -110,6 +110,8 @@ Run a few comparable settlements with different food mixes, cottage/lodge choice
 ## Is it fun, and where does satisfaction come from?
 
 The intended loop should be: **choose something the village needs → shape a plan → see people do understandable work → enjoy a visible improvement → notice a worthwhile next possibility.**
+
+**Campaign direction clarified after this review:** the user finds the present campaign closer to a short tutorial and wants levels that require skill and take longer than a few minutes. Treat the five existing lessons as onboarding. The roadmap now proposes a 20–30-minute first substantial river settlement, followed by 30–60-minute scenarios involving distance, constrained land and staged growth. These are unvalidated first-play targets, not enforced timers. Challenge should come from construction sequencing, labor allocation, supply planning and adapting a layout; simply increasing output quotas would preserve the current weakness. Prototype one such settlement before authoring the rest. See [campaign expansion](ROADMAP.md#campaign-expansion--f11b--f18b) for scenarios and acceptance checks.
 
 We support the middle of that loop better than its beginning and end. Current goals often become a short burst of placement followed by cumulative production. Level 4 especially introduces a square after most of the economy is already prepared. That may be peaceful observation or uninteresting waiting; only playtesting can establish the balance. A two-to-five-minute scripted solution does not answer that question.
 
