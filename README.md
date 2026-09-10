@@ -222,7 +222,7 @@ The original standalone manual save is `saves/settlement.json`; Three clearings 
 
 ## Development
 
-See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional follow-ups. The ordered first-version roadmap is complete; choose the next chunk from playtesting.
+See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional follow-ups. The first-version roadmap shipped; the second phase prioritizes visual identity, building balance, and player clarity. See the design review linked from the roadmap.
 
 | File | Responsibility |
 | --- | --- |
@@ -278,7 +278,7 @@ Map checks build in three distant clearings, harvest the outer groves, preserve 
 
 Clearing checks cover five saved/interrupted work phases, timber conservation, cancellation/replanting, saplings, concurrent workers on the larger map, and legacy saves. Run `powershell -ExecutionPolicy Bypass -File Play.ps1 -ClearingSmokeTest` for tool controls, order markers, hauling, root-work animation, and construction on reclaimed land. `Test.ps1 -Rendered` includes it.
 
-The current roadmap has a playable first version of every ordered feature, including the five-level campaign, Creative mode, raised terrain, logistics, social breaks, happiness, decoration, music, and the management UI. The roadmap keeps optional extensions separate so the next chunk can follow playtesting.
+The first roadmap shipped playable versions of the five-level campaign, Creative mode, raised terrain, logistics, social breaks, happiness, decoration, music, and the management UI. The second-phase roadmap addresses visual appeal, building roles and costs, player clarity, and deeper satisfaction; see docs/DESIGN_REVIEW.md for the assessment.
 
 Villagers take short breaks at completed village squares between jobs and deliveries. Each square welcomes up to four visitors; each villager waits at least a minute after a visit before returning. Select a square to see visitors. Breaks pause with the simulation and survive saving; hosting supper takes priority.
 

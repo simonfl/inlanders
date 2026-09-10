@@ -4,13 +4,38 @@ A living plan for a small, peaceful settlement that is satisfying to arrange, ma
 
 Windows, local play, Godot, and C# remain the foundation. Save backward compatibility is not required during prototyping. Feature IDs stay stable even when entries are removed or reordered.
 
-## Current status
+## Second phase — make the village worth watching and improving
 
-**The ordered roadmap is complete.** F12d adds the final planned first version: raised meadows with walkable slopes and level building sites. The table below records what is playable; optional follow-ups remain ideas to choose from after playtesting.
+The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**UI remains a major priority.** The next recommendation is to play the five campaign settlements and arrange a hilltop village in Creative, then choose a concrete improvement from what feels unclear, repetitive, or awkward. No additional feature is automatically queued.
+**Recommended next feature: F23a — a convincing three-building visual slice.** Establish appealing silhouettes, materials, ground contact, and visible activity before expanding the catalog or adding resource chains. A bounded post-supper save repair should land first.
 
-Campaign pacing and UI feedback can be addressed at any time. The five-level campaign teaches gardens and food choices with an optional visitor. Creative focuses on arranging and watching; normal free play retains its economy. Player terrain tools, relocation, and bulk editing remain optional follow-ups.
+See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. Candidate costs there are experiments, not adopted balance changes. **UI remains a major priority.**
+
+## Suggested order
+
+This is a recommendation, not a dependency chain. Work one playable chunk at a time; revise the order after seeing the result.
+
+| Order | ID | Playable chunk | What success looks like |
+| --- | --- | --- | --- |
+| Repair | F19a | **Post-supper save repair.** Retire obsolete gathering-space constraints after supper ends. This bounded defect repair is the only prerequisite for the visual slice. | Decorate/build on vacated gathering space, save and reload successfully, including a campaign book containing that settlement. |
+| 1 | F23a | **Visual identity slice.** Redesign cottage, bakery and sawmill together in one small village scene. Strong masses, thick structural forms, recessed openings, real ground contact, and useful working/stocked states. Keep costs and footprints unchanged for comparison. | The user finds the scene compelling at the actual play camera. All three are recognizable without labels at 960/1440 and from four directions. Do not expand the style until this works. |
+| 2 | F23b | **The complete building family.** Apply the visual language to the other seven types: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
+| 3 | F21g | **A clear building and management interface.** Visual building cards with purpose/cost/staff; separate Place, Landscape and Existing buildings. Selected-tool guidance stays nearby. Fix text-entry camera movement and stale activity labels; make world-label visibility controllable. | A player can choose the right building and understand the next step without reading a long manual. Typing never pans the camera. A quiet Watch view works without floating-label clutter. |
+| 4 | F24 | **Building roles and investment.** Test the full catalog's material, land, labor, startup and payoff tradeoffs. Compare cottage/lodge efficiency, food alternatives and stockpile usefulness. Centralize definitions when tuning. | Multiple defensible building choices; prices match purpose and do not merely add waiting. All UI and campaign goals agree with adopted values. Initial candidate ranges are in the review, with final values TBD. |
+| 5 | F21h | **Understand and direct work.** First add precise workplace states, relevant source/worker links and recent food production/consumption. Then add workplace pause and simple output targets. Explain global role transfers; preferred workplace assignment remains a decision to test. | Distinguish missing staff/input, travel, collection, pause and target met. Deliberately keep a garden running while pausing a grain field, without lost cargo or surprise staffing changes. |
+| 6 | F16b | **Rearrange a village safely.** Bring deliberate completed-building demolition to normal play, with goods evacuation, stated material recovery and housing/access effects. Creative undo and moving active buildings remain separate follow-up candidates. | Recover from an awkward layout without restarting. No stranded workers, lost carried goods, or silently disconnected bridge access. Recovery timing and costs are visible before the action. |
+| 7 | F14b | **Meals that make variety meaningful.** Base the benefit and level-5 lesson on a clearly explained consumption rule, with last-meal feedback. Choose village-level participation versus proportion served before implementation. | One untouched vegetable cannot imply everyone ate a varied meal. Scarcity still feeds as many residents as possible; one garden plus foraging remains a viable lesson. |
+| 8 | F11b / F18b | **Campaign choices and character.** Start by revising one existing lesson around an interesting spatial decision and visible village outcome. Extend the approach, then introduce a stream/logistics settlement using existing buildings. | More than one sensible solution; some choice after initial placement; a reason to care about the finished place. Avoid longer cumulative-output timers. All buildings remain available for now. |
+| 9 | F02b | **Managed woodland.** Preserve chosen trees and maintain a small replanting zone using existing loggers. Clearing and building orders take explicit precedence. | Several harvest/regrowth cycles without repetitive individual planting; the player shapes a productive grove and open village land. |
+| 10 | F07b | **Useful neighborhood logistics.** Prototype local food/plank storage and visible supply routes in one settlement. Clarify whether the forager hut becomes a real collection point or remains a worker permit. | A local arrangement measurably reduces unnecessary trips and is understandable to the player. Add only storage behavior that creates useful layout decisions. |
+| 11 | F03b / F04b | **Believable work and village life.** Improve the most visible tool contact, tree felling, deliveries and harvesting. Add a small set of social/home-related moments with recognizable residents, without a new household-needs simulation. | An observer understands work without labels and enjoys breaks and inhabited spaces. Pausing and interruptions preserve convincing animation; no constant visual noise. |
+
+**Separate session follow-up — F19b:** unify recoverable restart, save-on-exit and mode-aware rolling autosave; keep manual F5/F9 restore semantics explicit. Schedule this as a small reliability chunk without delaying the F23a visual slice. No save-version migration work.
+
+Before population, map size, or decoration density expands further, profile a decorated 16–24-person settlement and a prolonged paused placement preview. Optimize measured costs in the owning chunk; avoid a standalone engine-rewrite project.
+
+**Art acceptance is a player judgment.** Screenshots, clips and side-by-side comparisons at the real camera are required for F23; successful smoke tests alone do not establish appeal. Keep larger terraforming tools, more resources, orchards/fishing, and additional visitors as later candidates until the existing village is attractive and understandable.
 
 ## Already playable
 
@@ -69,7 +94,7 @@ Vegetable deliveries and qualifying meal times are cumulative; carried or still-
 
 ## Optional follow-ups
 
-These are possibilities within existing features, not additional commitments or a second priority list. Promote one into the ordered list when we want to tackle it.
+These are remaining possibilities, not a second priority list. Items promoted into the ordered second phase above take precedence; the notes here describe possible extensions beyond those first chunks.
 
 | Area | Ideas to revisit |
 | --- | --- |
@@ -106,6 +131,6 @@ Keep supporting UI inside the feature that needs it. Avoid turning this roadmap 
 
 ## Parking lot
 
-Fishing, trade, household routines, procedural maps, and hidden discoveries remain possibilities without a commitment. Infinite terrain or purchased land is not required for map expansion.
+Orchards, a neighborhood pantry/market, and a carpenter that produces visible building improvements are candidate additions described in the design review; they need a distinct player decision before being promoted. Fishing, trade, household routines, procedural maps, and hidden discoveries also remain possibilities without a commitment. Infinite terrain or purchased land is not required for map expansion.
 
 Combat, multiplayer, a large technology tree, and a full life simulation are outside the current direction.
