@@ -61,7 +61,27 @@ public partial class Game
             AdoptWorld(new World()); _paused=true; await Frames(); await PeoplePage(); await ClickVisible(_serviceToggle);
             Check(_serviceResidents.Values.All(r=>!r.Home.Visible && !r.Venue.Visible),"Missing services have stale destination links");
             Check(_serviceResidents[0].Reason.Text.Contains("No assigned home") && _serviceResidents[0].Reason.Text.Contains("No open square"),"Missing service guidance absent");
-            GD.Print("PASS: actual rest/recreation coverage, filters, square/hall destinations, resident/home/venue navigation, missing services, read-only saves and 960/1440 layout.");
+            var hungry=World.NewScenario(); foreach(var p in hungry.People) hungry.Assign(p.Id,Role.Unassigned);
+            Check(!hungry.People.Any(hungry.NeedsMealAttention),"Fresh pending requests were treated as missed meals");
+            for(int i=0;i<4000;i++) hungry.Tick(.1f);
+            hungry.Validate(); Check(hungry.People.Any(hungry.NeedsMealAttention),"Meal shortage fixture never missed a meal");
+            AdoptWorld(World.LoadJson(hungry.SaveJson())); _paused=true; await Frames();
+            foreach(int width in new[]{1440,960})
+            {
+                GetWindow().Size=new(width,width==960?640:900); await Frames(); OpenEconomy(); await Frames();
+                string saved=_world.SaveJson();
+                _drawerPages[4].EnsureControlVisible(_mealAttention); await Frames(); await UiClick(_mealAttention); await Frames();
+                Check(_tabs.CurrentTab==0 && _servicePanel.Visible && _serviceFilter.Selected==4,"Economy did not open meal coverage");
+                Check(_serviceResidents.All(r=>r.Value.Row.Visible==_world.NeedsMealAttention(_world.People[r.Key])),"Meal filter differs from current service");
+                var row=_serviceResidents.Values.First(r=>r.Row.Visible);
+                Check(row.Reason.Text.Contains("Hungry.") && row.Reason.Text.Contains("Missed/skipped"),"Meal shortage explanation absent");
+                await ClickVisible(row.Person); Check(_selectedPerson>=0 && _inspector.Visible,"Meal resident inspection failed");
+                Check(_world.SaveJson()==saved,"Meal investigation mutated the village");
+                OpenMealCoverage(); await Frames(); _drawerPages[0].EnsureControlVisible(row.Reason); await Frames();
+                Check(row.Reason.Size.X<=_drawer.Size.X,"Meal explanation overflows narrow drawer");
+                await Capture($"artifacts/f21k-meals-{width}.png");
+            }
+            GD.Print("PASS: meal-service entry/filter/resident links, actual rest/recreation coverage, destinations, read-only saves and 960/1440 layout.");
         }
         finally { GetWindow().Size=size; AdoptWorld(previous); _paused=true; }
     }

@@ -55,6 +55,13 @@ public static class MealServiceChecks
         Check(delayed.ReadFoodFlow().Required==delayed.Food.MealOutcomes.Count,"Skipped demand is absent from food-flow accounting");
         var delayedAssessment=delayed.ReadMealAssessment();
         Check(!delayedAssessment.Reliable && delayedAssessment.Missed>0 && delayedAssessment.Skipped>0,"Late recovery incorrectly proved reliable service");
+        string inspected=delayed.SaveJson();
+        Check(delayed.NeedsMealAttention(diner),"Nourished resident with recent missed service disappeared from investigation");
+        Check(delayed.SaveJson()==inspected,"Meal attention query changed state");
+        Step(delayed,1900);
+        Check(diner.Fed && !delayed.NeedsMealAttention(diner),"Recovered resident stayed flagged after missed history expired");
+        var creative=World.NewCreative();
+        Check(!creative.People.Any(creative.NeedsMealAttention),"Creative meal needs were enabled by inspection");
         var w=new World(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
         w.Food.InitialBerries=w.Food.Berries=100;
         var phases=new HashSet<Work>();

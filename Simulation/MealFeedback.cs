@@ -5,6 +5,9 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
+    public bool NeedsMealAttention(Villager person) => !Creative && (!person.Fed ||
+        Food.MealOutcomes.Any(m=>m.Person==person.Id && m.Time>Food.Time-FoodFlowWindow && (!m.Timely || m.Skipped)));
+
     public string MealSummary(Villager person)
     {
         if(Creative) return "Food needs are disabled in Creative.";

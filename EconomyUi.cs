@@ -8,6 +8,7 @@ public partial class Game
 {
     private Label _economyFood = null!, _economySummary = null!;
     private Label _foodFlow = null!;
+    private Button _mealAttention = null!;
     private readonly Dictionary<Resource,Label> _economyStocks = new();
     private readonly List<Button> _economyIssues = new(), _idleLinks = new();
     private EconomyReport? _economyReport;
@@ -21,6 +22,7 @@ public partial class Game
         _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey); column.AddChild(_surveyToggle);
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
+        _mealAttention=Button("Inspect meal service",OpenMealCoverage); column.AddChild(_mealAttention);
         column.AddChild(Text("RECENT FOOD FLOW",12));
         _foodFlow = Text("",14,true); column.AddChild(_foodFlow);
         column.AddChild(Text("NEEDS ATTENTION",12)); _economySummary=Text("",14,true); column.AddChild(_economySummary);
@@ -59,6 +61,9 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
+        int mealAttention=_world.People.Count(_world.NeedsMealAttention);
+        _mealAttention.Visible=!_world.Creative;
+        _mealAttention.Text=mealAttention>0?$"Inspect {mealAttention} residents · hungry / recent missed meals":"Inspect meal service · no recent misses";
         var flow = _world.ReadFoodFlow();
         _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
@@ -71,7 +76,7 @@ public partial class Game
         if (!_world.Creative) _economyFood.Text += "\n\n" + _world.LastMealSummary;
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
-        _economySummary.Text=count==0?"No immediate shortages detected.":"Select a message to open the relevant controls.";
+        _economySummary.Text=count==0?(mealAttention>0?"Food service needs attention; inspect residents above.":"No immediate shortages detected."):"Select a message to open the relevant controls.";
         for(int i=0;i<_economyIssues.Count;i++) {
             _economyIssues[i].Visible=i<count;
             if(i<count) _economyIssues[i].Text=_economyReport.Issues[i].Text;
