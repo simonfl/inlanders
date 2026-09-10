@@ -67,7 +67,8 @@ public sealed partial class World
         {
             var p = workers[0];
             Cell? source = p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
-                p.Task is Work.ToGrain or Work.ToOven or Work.ToPantry or Work.ToStockpile ? YardAccess :
+                p.Task==Work.ToStockpile ? StorageAccess(p.StorageId) :
+                p.Task is Work.ToGrain or Work.ToOven or Work.ToPantry ? YardAccess :
                 p.Task == Work.ToSawLogs ? StorageAccess(p.StorageId) : null;
             string state = p.Task switch
             {
@@ -76,7 +77,7 @@ public sealed partial class World
                 Work.Baking => "Baking", Work.Sawing => "Sawing", Work.Planting => "Sowing",
                 Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
             };
-            return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task == Work.ToSawLogs ? p.StorageId : null);
+            return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");

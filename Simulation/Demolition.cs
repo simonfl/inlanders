@@ -43,6 +43,7 @@ public sealed partial class World
             return true;
         }
         if (Take(site.StoredLogs, n => site.StoredLogs = n, Resource.Logs) ||
+            Take(site.StoredPlanks, n => site.StoredPlanks = n, Resource.Planks) ||
             Take(site.InputLogs, n => site.InputLogs = n, Resource.Logs) || Take(site.OutputPlanks, n => site.OutputPlanks = n, Resource.Planks) ||
             Take(site.InputGrain, n => site.InputGrain = n, Resource.Grain) || Take(site.OutputBread, n => site.OutputBread = n, Resource.Bread) ||
             Take(site.Harvest, n => { site.Harvest = n; if (n == 0) { site.Planted = false; site.Growth = 0; } }, site.Kind == BuildingKind.Farm ? Resource.Grain : Resource.Vegetables)) return;

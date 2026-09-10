@@ -9,26 +9,42 @@ These are assigned trips, not proposed links between every building. Distances a
 The accompanying explanation makes current rules explicit:
 
 - Loggers deposit at nearby log stores without a hauler. Builders and sawyers collect locally. Haulers move existing logs toward targets and return surplus.
-- Food and planks return to central storage. Crops, workshop buffers, boats and carried goods are not extra local stores.
+- Food returns to central storage. F07b2 adds local plank stores below; crops, workshop buffers, boats and carried goods are not extra stores.
 - The forager hut provides worker capacity. Berries travel from bushes to the central pantry, not through the hut. Placing a hut beside a bush currently does not shorten that delivery.
 
 Focused simulation checks exercise logger, sawyer, forager and hauler trips, detached read-only snapshots, and outbound/loaded-return boat routes. `./Play.ps1 -RoutesSmokeTest` checks rendered paths and links at 960/1440, pause, Watch and settlement switches. Captures are `artifacts/f07b1-routes-*.png`. The narrow screenshot was inspected; the route toggle scrolls its legend and trip list into view. This is a management aid, not a performance or aesthetic acceptance claim.
 
-## F07b2: useful local storage, next
+## F07b2: local plank storage, implemented
 
-F07b is still open. Route visibility explains the current economy; it does not yet make neighborhood food or plank storage work.
+Each stockpile now holds either 12 logs or 12 planks. Select the material on its construction plan or while it is empty with no committed trips. Existing piles default to logs. Producers choose nearby matching storage with room; builders choose nearby matching supplies. Optional haulers refill/drain targets with two-unit loads. Different materials never share a capacity or reservation. Normal demolition evacuates goods; Creative removal returns them to central storage. Local plank meshes, counts, supply routes and format-28 saves follow real inventory. No migration.
 
-Compare two candidate changes before choosing the implementation:
+### Candidate comparison and decision
 
-1. **Local planks:** let a stockpile accept a bounded plank inventory so sawyers can deposit near building projects and builders can collect there. Compare a mill/construction cluster near timber but far from the yard against the same arrangement with central delivery. Include depot cost, space, filling/draining, reserved capacity and all extra hauling labor. Test an awkwardly placed depot too; storage should not be an automatic upgrade.
-2. **Food collection:** compare a neighborhood pantry or a real hut collection point against today's direct central deliveries. Decide who collects and who eats where before adding storage. A nearer drop followed by an equally long mandatory haul can simply move work onto another resident. Count that labor and ensure capacity does not strand food while the village goes hungry. Do not silently make remote stores available to central meals without deciding how that abstraction affects the promised logistics choice.
+**Food relay:** the experiment observes a current two-berry pantry delivery. Its best-case round trip is 10 worker-tiles; splitting the same path at an ideal midpoint into two returning two-unit carriers still costs 10 worker-tiles, before handling or construction. This is a geometric lower-bound comparison, not a simulated food-depot economy or scheduling proof. A larger haul load or local meal destination could change the result. Keeping current load sizes and central meals does not justify adding a compulsory transfer merely to make a hut collect food. Neighborhood food service remains F07c below.
 
-Use equal worker budgets, geography, final useful output and simulation duration. Count setup and compare both startup and established operation. Record loaded/empty travel, output delivered, waiting, extra staffing and land used. Keep current home/rest routines active. Test a compact settlement and a split settlement; don't enlarge population just to manufacture a payoff.
+**Planks:** run `--local-storage` in the simulation test project. All six variants use campaign 3's eight residents and starting homes/hut, two loggers, two builders, one sawyer, two foragers and one spare. Food starts at 1,000 berries to isolate construction; meals and home routines stay active. This is not a food-sustainability test. Build three lodges in successive waves. Include the mill, optional four-log depot, all clearing and trips from time zero. Stop harvesting after construction needs plus twelve spare logs, and stop new milling after eighteen logs become exactly thirty-six planks. Every run ends with three finished lodges, twelve stored logs and no spare planks. No hauler or new resident is added.
+
+| Layout | Storage | Finish (simulation seconds) | Travel (person-seconds) | All active work/routines (person-seconds) |
+| --- | --- | ---: | ---: | ---: |
+| Compact | Central only | 257.2 | 512.6 | 757.7 |
+| Compact | Nearby candidate pile | 258.4 | 577.1 | 840.0 |
+| Compact | Alternate pile | 257.0 | 555.1 | 816.6 |
+| Remote mill/lodges | Central only | 494.3 | 957.0 | 1,253.3 |
+| Remote mill/lodges | Nearby plank pile | 460.9 | 758.6 | 1,065.4 |
+| Remote mill/lodges | Awkward plank pile | 520.0 | 1,013.4 | 1,326.3 |
+
+Travel includes empty and loaded walking by the five construction/production residents, including their return trips after reassignment. Active time includes their non-waiting work/rest routines. Each fixture runs until equal useful output, not equal elapsed time; finish time is the result. Residents take 9–16 total rest visits depending on duration and layout. The remote pile saves 33.4 elapsed seconds and 198.4 travel person-seconds including setup. The compact piles fail to repay their extra labor; the awkward remote pile makes things worse. This is a useful location choice, not a universal upgrade.
+
+The exact coordinates and checks live in `Tests/LocalStorageExperiments.cs`. Compact mill is at (-4,2); candidate/alternate piles at (3,-3)/(0,6), lodges at (3,6), (6,6), (-5,6). Remote mill is at (9,0), candidate/awkward piles at (9,3)/(0,6), lodges at (12,0), (12,3), (12,6). Pile plots are unused in their central-only counterparts. These are first-version balance fixtures, not validated human pacing targets or a broad performance benchmark.
 
 The earlier [F24b experiments](BALANCE_REVIEW_F24B.md) established that local log storage could repay setup near sustained timber use, while a different depot location did not; extra hauler labor sometimes bought speed rather than efficiency. Those historical numbers predate later home routines and are motivation, not current food/plank measurements.
 
-Choose and implement the option with an understandable benefit, with real inventory/reservations, live inspector controls, removal/recovery, current saves and visible deliveries. If neither candidate earns its cost, record the evidence and revise the design rather than adding an inert market. The remaining candidate stays explicit in the roadmap; do not close F07b merely because route checks pass.
+Full simulation checks pass, including local plank deposits/capacity, builder claims/cancellation, competing haulers, exact saved delivery/hauling continuations, drain/material switching, and normal/Creative removal. Demolition during a committed plank delivery releases its destination safely. `./Play.ps1 -PlankStorageSmokeTest` exercises planned material selection, visible plank stacks and inventory, occupied switching guards, saves and drain/switch at 960/1440. The narrow rendered view was inspected. Historical log-storage checks still pass after sharing the same storage rules with planks.
+
+## F07c: neighborhood food service, later
+
+Food collection remains unimplemented. Start from a useful resident destination or a clearly justified bulk-transfer design, then compare total labor and service coverage against direct pantry trips with equal workers. Decide who eats where, preserve actual food access and explain full storage before authoring a level around it. The forager hut remains a capacity building for now. Do not treat village-wide inventory as proof that food physically reached a local meal. A market should earn its footprint through a new choice; this candidate is deferred rather than silently included in F07b's completed scope.
 
 ## Roadmap review
 
-F07b2 remains the next chunk. Keep F03b/F04b activity and F23a visual acceptance prominent; routes hide during watching to avoid turning the village into a permanent diagram. F26b stone/hall and later hunting remain campaign additions after this logistics work and river/lake feedback. Do not add carts, broad warehouse filters, permanent workplace assignments or a new transport profession in the route slice. Resource filtering/selected-route emphasis can follow if the view becomes crowded in larger villages.
+F07b's useful first version is complete: routes explain trips, and local planks have a measured purpose. F03b/F04b activity is next; F23a visual acceptance remains open. F26b stone/hall and later hunting remain campaign additions after river/lake feedback. F07c is a later service design, not a prerequisite for these visual/activity improvements. Carts, broad warehouse filters and permanent workplace assignments remain separate possibilities. Resource filtering/selected-route emphasis can follow if the view becomes crowded in larger villages.

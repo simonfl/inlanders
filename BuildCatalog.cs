@@ -20,7 +20,7 @@ public partial class Game
         BuildingKind.VegetableGarden => "Grow ready-to-eat food",
         BuildingKind.Bakery => "Turn grain into bread",
         BuildingKind.Sawmill => "Turn logs into planks",
-        BuildingKind.Stockpile => "Keep logs close to work",
+        BuildingKind.Stockpile => "Keep timber close to work",
         BuildingKind.Bridge => "Cross a water tile",
         BuildingKind.FishingDock => "Bring fish ashore",
         _ => "A place to gather"

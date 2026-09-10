@@ -24,11 +24,11 @@ public partial class Game
             for(int i=0;i<1500 && _world.People.Any(p=>p.Carried>0);i++) _world.Tick(.1f);
             await Frames(); SelectBuilding(pile.Id); await Frames();
             Check(_storageControls.Visible && _siteInfo.Text.Contains("Log storage"),"Storage inspector missing");
-            await UiClick(_targetMore); Check(pile.LogTarget==8,"Target increase failed");
-            await UiClick(_targetLess); Check(pile.LogTarget==6,"Target decrease failed");
+            await UiClick(_targetMore); Check(pile.StorageTarget==8,"Target increase failed");
+            await UiClick(_targetLess); Check(pile.StorageTarget==6,"Target decrease failed");
             await UiClick(_staffPlus); await Frames();
             Check(_world.People.Any(p=>p.Role==Role.Hauler),"Stockpile staffing did not assign a hauler");
-            _world.SetLogTarget(pile.Id,12);
+            _world.SetStorageTarget(pile.Id,12);
             for(int i=0;i<5000 && pile.StoredLogs<12;i++)
             {
                 _world.Tick(.1f); _world.Validate();
@@ -55,7 +55,7 @@ public partial class Game
             }
             SelectBuilding(pile.Id); await Frames();
             for(int i=0;i<6;i++) await UiClick(_targetLess);
-            Check(pile.LogTarget==0,"Zero target control failed");
+            Check(pile.StorageTarget==0,"Zero target control failed");
             for(int i=0;i<5000 && (pile.StoredLogs>0 || _world.People.Any(p=>p.Task is Work.ToHaulPickup or Work.ToHaulDrop));i++)
                 _world.Tick(.1f);
             await Frames(); Check(pile.StoredLogs==0 && _cottages[pile.Id].Stage==300,"Drained pile still showed logs");

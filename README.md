@@ -109,11 +109,11 @@ Filters only affect the view; they do not pause jobs, change assignments, or ent
 
 ### Local log stockpiles
 
-Build a **Stockpile** for **4 logs** near woodland and timber work. Local logger deposits need **no hauler**. Assign an optional **Hauler** in People or the inspector when you want existing stocks redistributed. Each stockpile holds **12 logs** and starts with a target of **6**. Use **− 2 target / + 2 target** to change it from 0 to 12.
+Build a **Stockpile** for **4 logs** near timber production and construction. Each holds **12 logs or 12 planks**, one material at a time, and starts with a target of **6**. Choose its material in the inspector, including while it is under construction. Local logger/sawyer deposits and builder pickups need **no hauler**. Assign an optional **Hauler** to redistribute stocks. Use **− 2 target / + 2 target** to change the target from 0 to 12.
 
-Loggers drop timber at nearby storage with room. Builders and sawyers collect from a suitable store close to their work site. Haulers carry two logs at a time, refill targets from the main yard or another stockpile's surplus, and return excess to the yard. Target **0** drains a stockpile; already committed loads finish before haulers rebalance. Loggers may still drop new timber there, so target zero does not close the stockpile.
+Producers drop timber at nearby matching storage with room. Builders collect near their work site; sawyers collect logs locally. Haulers carry two matching units at a time, refill targets from central storage or another pile's surplus, and return excess. Target **0** drains a stockpile; already committed loads finish. Producers may still deliver, so target zero does not close the pile. To change material, stop incoming production, drain it, and wait for committed trips to finish.
 
-A pile is an investment, not an automatic speed boost: local harvesting can repay setup over a longer build, while a dedicated hauler may save elapsed time at the cost of more total labor. The top-bar Logs total includes the main yard and every stockpile. Select a stockpile for its stored, reserved, and incoming counts; **Economy [I]** lists each location. Stockpile log stacks change as deliveries arrive or leave. Food and planks still use the main yard. Completed stockpiles cannot be demolished in this first version.
+A pile is an investment: a nearby plank pile reduced travel for a remote mill/lodge cluster in the [logistics experiment](docs/LOGISTICS_F07B.md), while an awkward pile added work. Logs and Planks totals include central and local stores. Inspect stored, reserved and incoming counts; **Economy [I]** lists locations. The pile displays its actual logs or planks. Normal demolition evacuates stored goods before dismantling; Creative removal returns them immediately. Food still uses the central pantry. Run `./Play.ps1 -PlankStorageSmokeTest` for the rendered check.
 
 ### Welcoming newcomers
 
@@ -171,7 +171,7 @@ The Build menu explains each building's purpose, staffing, recipes, and availabl
 
 ### Supply routes
 
-Open **Economy → Show supply routes** to see actual worker and boat trips. Gold routes carry goods; blue routes are empty trips to work or collect. Arrows point toward the destination. The list shows loads and remaining distance; select a resident to inspect their task. Routes hide in Watch mode and reset when changing settlements. This view explains existing trips; food and planks still return to central stores. Run `./Play.ps1 -RoutesSmokeTest` for the rendered check.
+Open **Economy → Show supply routes** to see actual worker and boat trips. Gold routes carry goods; blue routes are empty trips to work or collect. Arrows point toward the destination. The list shows loads and remaining distance; select a resident to inspect their task. Routes hide in Watch mode and reset when changing settlements. Food goes to the central pantry; logs/planks can use local stockpiles. Run `./Play.ps1 -RoutesSmokeTest` for the rendered check.
 
 ### Renewable woodland
 
@@ -193,7 +193,7 @@ Cancellation stops root removal or conflicting planting work, but does not undo 
 
 ### Sawmill and lodges
 
-Build a **Sawmill** for six logs, then assign a **Sawyer** in People. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and hauls the planks back to the timber yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
+Build a **Sawmill** for six logs, then assign a **Sawyer** in People. Each mill supports one sawyer, who fetches two unreserved logs, saws them into four planks over ten work seconds, and delivers planks to nearby plank storage or the central yard in loads of two. Builders and sawyers share log reservations, so they cannot claim the same timber.
 
 New mills start with a twelve-plank target, counting batches and shipments already on the way. Change the target in the inspector. A new four-plank batch starts below the target and may take the total above it. Pause the workplace to stop new jobs without reassigning the sawyer; current work finishes. Reassignment still returns carried materials and leaves unfinished batches at the mill.
 
@@ -242,7 +242,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart paused and retain the live village; restore it from Options (campaign replay also remains in Goals) |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 27; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 28; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 **Recovery in Options:** Restore latest autosave, Restore previous autosave, Restore village before restart, and Undo last recovery. Recovery pauses the village and validates the file and its map/mode/level before replacing anything. F5 commits a recovered autosave to the manual checkpoint; F9 continues to load the manual/session checkpoint, not the periodic autosave. Returning to the menu, switching maps, campaign completion, and closing the window also update session checkpoints.
 

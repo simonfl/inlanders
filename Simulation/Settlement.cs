@@ -89,7 +89,9 @@ public sealed class Cottage
     [JsonInclude]    public int? Builder { get; internal set; }
     [JsonInclude]    public float Construction { get; internal set; }
     [JsonInclude]    public int StoredLogs { get; internal set; }
-    [JsonInclude]    public int LogTarget { get; internal set; } = 6;
+    [JsonInclude] public int StoredPlanks { get; internal set; }
+    [JsonInclude] public Resource StorageMaterial { get; internal set; } = Resource.Logs;
+    [JsonInclude]    public int StorageTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;
     public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
     public Cell Launch => DockFromFar ? World.Door(Cell, Rotated) : World.FarBank(Cell, Rotated);
@@ -111,7 +113,7 @@ public sealed partial class World
     private int _yardLogs;
     public int YardLogs => _yardLogs;
     public int Stored => _yardLogs + Cottages.Sum(c => c.StoredLogs);
-    public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task is Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
+    public int ReservedStorage => People.Where(v => v.Cargo == Resource.Logs && v.Task is Work.ToMaterials or Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int Available => Stored - ReservedStorage;
     public int InitialLogs { get; private set; }
     public int Beds => Cottages.Where(c => c.Complete && !c.DemolitionRequested).Sum(c => Buildings.Get(c.Kind).Beds);
@@ -278,8 +280,8 @@ public sealed partial class World
                 Go(v, site.Entrance, Work.ToBuild, $"Walking to build {site.Kind} {site.Id}"); return;
             }
             int? source = null;
-            if (site.Material == Resource.Logs && !TryLogSource(site.Entrance, 1, out source)) continue;
-            int amount = Math.Min(2, Math.Min(site.Required - site.Delivered - site.Incoming, site.Material == Resource.Logs ? AvailableLogsAt(source) : AvailablePlanks));
+            if (!TryMaterialSource(site.Entrance, site.Material, 1, out source)) continue;
+            int amount = Math.Min(2, Math.Min(site.Required - site.Delivered - site.Incoming, AvailableMaterialAt(source,site.Material)));
             if (amount <= 0) continue;
             v.SiteId = site.Id; v.Reserved = amount; site.Incoming += amount;
             v.Cargo = site.Material; v.StorageId = source;
@@ -341,11 +343,11 @@ public sealed partial class World
                     if (tree.Salvage && tree.Logs == 0) Trees.Remove(tree);
                     ReturnTimber(v); break;
                 case Work.ToStockpile:
-                    if (v.Cargo == Resource.Planks) Planks += v.Carried; else ChangeLogs(v.StorageId, v.Carried);
+                    ChangeMaterial(v.StorageId,v.Cargo,v.Carried);
                     v.Carried = 0; Finish(v); break;
                 case Work.ToMaterials:
                     if (v.Timer < 0.7f) break;
-                    if (v.Cargo == Resource.Planks) Planks -= v.Reserved; else ChangeLogs(v.StorageId, -v.Reserved);
+                    ChangeMaterial(v.StorageId,v.Cargo,-v.Reserved);
                     v.StorageId = null;
                     v.Carried = v.Reserved;
                     Go(v, Cottages.Single(c => c.Id == v.SiteId).Entrance, Work.ToCottage, $"Delivering {v.Carried} {v.Cargo} to site {v.SiteId}"); break;

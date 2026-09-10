@@ -36,7 +36,7 @@ public partial class Game
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
         BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
-        BuildingKind.Stockpile => "Stores up to 12 logs. Place between woodland and timber work; local logger deposits need no hauler. Optional haulers move existing stocks to its target. Food and planks stay at the main yard.",
+        BuildingKind.Stockpile => "Stores 12 logs or planks; choose its material when empty. Producers deposit locally and builders collect here without haulers. Optional haulers balance targets. Food stays at the pantry.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
         BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",

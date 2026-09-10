@@ -19,7 +19,7 @@ public partial class Game
         _supplyToggle=Button("Show supply routes",()=> { _showSupplyRoutes=!_showSupplyRoutes; _nextSupplyRefresh=0; _drawerPages[4].ScrollVertical=(int)_supplyToggle.Position.Y; }); column.AddChild(_supplyToggle);
         _supplySummary=Text("",14,true); column.AddChild(_supplySummary);
         _supplyLinks=new(); column.AddChild(_supplyLinks);
-        _supplyHelp=Text("Loggers deliver to nearby log stores without haulers. Builders and sawyers collect there. Haulers redistribute logs toward targets.\n\nFood and planks return to central stores. Forager huts provide worker slots; berries go from the patch to the pantry, not through the hut.",14,true); column.AddChild(_supplyHelp);
+        _supplyHelp=Text("Loggers deliver to nearby log stores without haulers. Builders and sawyers collect there. Haulers redistribute logs toward targets.\n\nSawyers can deliver to plank piles; builders collect locally. Food returns to the central pantry. Forager huts provide worker slots; berries go from the patch to the pantry, not through the hut.",14,true); column.AddChild(_supplyHelp);
     }
     private void RenderSupplyRoutes()
     {

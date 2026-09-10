@@ -25,12 +25,12 @@ public sealed partial class World
             Work.ToSawLogs or Work.ToSawmill or Work.ToPlanks or Work.ToHaulPickup or Work.ToHaulDrop or Work.ToDock)) return null;
         int amount=water ? boat!.Fish : p.Carried;
         Resource? cargo=amount>0 ? water ? Resource.Fish : p.Cargo : null;
-        string store=p.StorageId is int id ? $"Stockpile {id}" : "Timber yard";
+        string store=p.StorageId is int id ? $"Stockpile {id}" : p.Cargo==Resource.Planks ? "Central plank store" : "Timber yard";
         string destination=water ? boat!.Phase==BoatPhase.Returning ? "Fishing dock" : "Fishing ground" : p.Task switch {
             Work.ToPantry or Work.ToGrain=>"Central pantry",
-            Work.ToStockpile=>p.Cargo==Resource.Planks ? "Central plank store" : store,
+            Work.ToStockpile=>store,
             Work.ToHaulPickup or Work.ToHaulDrop or Work.ToSawLogs=>store,
-            Work.ToMaterials=>p.Cargo==Resource.Planks ? "Central plank store" : store,
+            Work.ToMaterials=>store,
             Work.ToTree=>"Timber", Work.ToBush=>"Berry patch", Work.ToFarm=>"Field / garden",
             Work.ToOven or Work.ToBread=>"Bakery", Work.ToSawmill or Work.ToPlanks=>"Sawmill",
             Work.ToDock=>"Fishing dock", _=>"Construction site"

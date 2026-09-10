@@ -59,7 +59,7 @@ public partial class Game
         return site.Kind switch
         {
             BuildingKind.Cottage=>"2 beds", BuildingKind.Lodge=>"4 beds",
-            BuildingKind.Stockpile=>$"{site.StoredLogs}/12 logs · target {site.LogTarget}",
+            BuildingKind.Stockpile=>$"{_world.MaterialAt(site.Id,site.StorageMaterial)}/12 {site.StorageMaterial} · target {site.StorageTarget}",
             BuildingKind.VegetableGarden=>site.Harvest>0?$"{site.Harvest} vegetables ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to plant",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
@@ -104,8 +104,8 @@ public partial class Game
     }
     private void UpdateStorageDirectory()
     {
-        _logLocations.Text="LOG STORAGE · SELECT TO VISIT";
-        _yardLink.Text=$"Timber yard · {_world.YardLogs} logs\n{_world.ReservedLogsAt(null)} reserved · {_world.IncomingLogsAt(null)} arriving";
+        _logLocations.Text="TIMBER STORAGE · SELECT TO VISIT";
+        _yardLink.Text=$"Central stores · {_world.YardLogs} logs · {_world.YardPlanks} planks\nLogs: {_world.ReservedLogsAt(null)} reserved · {_world.IncomingLogsAt(null)} arriving\nPlanks: {_world.ReservedMaterialAt(null,Inlanders.Simulation.Resource.Planks)} reserved · {_world.IncomingMaterialAt(null,Inlanders.Simulation.Resource.Planks)} arriving";
         var stores=_world.Cottages.Where(c=>c.Kind==BuildingKind.Stockpile && c.Complete).ToArray();
         foreach(int id in _storageLinks.Keys.Where(id=>!stores.Any(c=>c.Id==id)).ToArray())
         {
@@ -127,7 +127,7 @@ public partial class Game
                 button.AddThemeFontSizeOverride("font_size",14);
                 _storageDirectory.AddChild(button); _storageLinks[id]=button;
             }
-            button.Text=$"Stockpile {site.Id} · {site.StoredLogs}/12 logs · target {site.LogTarget}\n{_world.ReservedLogsAt(site.Id)} reserved · {_world.IncomingLogsAt(site.Id)} arriving";
+            button.Text=$"Stockpile {site.Id} · {_world.MaterialAt(site.Id,site.StorageMaterial)}/12 {site.StorageMaterial} · target {site.StorageTarget}\n{_world.ReservedMaterialAt(site.Id,site.StorageMaterial)} reserved · {_world.IncomingMaterialAt(site.Id,site.StorageMaterial)} arriving";
         }
     }
 }

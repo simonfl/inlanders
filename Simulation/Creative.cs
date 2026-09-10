@@ -42,7 +42,7 @@ public sealed partial class World
         Cottages.Remove(site);
         ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
-        Planks += site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
+        _yardPlanks += site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
         Food.Bread += site.OutputBread;
@@ -57,7 +57,7 @@ public sealed partial class World
     {
         if (tree.Owner is int owner) Interrupt(People[owner]);
         if (tree.Material == Resource.Logs) _yardLogs += tree.Logs;
-        else Planks += tree.Logs;
+        else _yardPlanks += tree.Logs;
         Trees.Remove(tree);
         _retry = 0;
         return true;

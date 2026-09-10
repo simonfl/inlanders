@@ -16,16 +16,16 @@ public static class StorageChecks
         Until(w,()=>pile.Complete,"Stockpile not built");
         foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
         Until(w,()=>w.People.All(p=>p.Carried==0),"Initial returns failed");
-        w.SetLogTarget(pile.Id,0); w.Assign(0,Role.Hauler);
+        w.SetStorageTarget(pile.Id,0); w.Assign(0,Role.Hauler);
         Until(w,()=>pile.StoredLogs==0 && !Hauling(w),"Fixture drain failed");
-        w.Assign(0,Role.Unassigned); w.SetLogTarget(pile.Id,6);
+        w.Assign(0,Role.Unassigned); w.SetStorageTarget(pile.Id,6);
         return w;
     }
     public static void Run()
     {
         var w=Ready(); var pile=w.Cottages.Single(); int total=w.Stored;
-        Check(!w.SetLogTarget(pile.Id,-1) && !w.SetLogTarget(pile.Id,13),"Invalid target accepted");
-        w.SetLogTarget(pile.Id,12);
+        Check(!w.SetStorageTarget(pile.Id,-1) && !w.SetStorageTarget(pile.Id,13),"Invalid target accepted");
+        w.SetStorageTarget(pile.Id,12);
         for(int i=0;i<4;i++) w.Assign(i,Role.Hauler);
         bool pickup=false,drop=false;
         for(int i=0;i<6000 && (pile.StoredLogs<12 || Hauling(w));i++)
@@ -46,17 +46,17 @@ public static class StorageChecks
             }
         }
         Check(pickup && drop && pile.StoredLogs==12 && w.Stored==total && w.YardLogs==total-12,"Stockpile fill/aggregate wrong");
-        w.SetLogTarget(pile.Id,0);
+        w.SetStorageTarget(pile.Id,0);
         Until(w,()=>pile.StoredLogs==0 && !Hauling(w),"Target zero did not drain");
         Check(w.YardLogs==total,"Drain lost logs");
-        w.SetLogTarget(pile.Id,12);
+        w.SetStorageTarget(pile.Id,12);
         Until(w,()=>w.People.Any(p=>p.Task==Work.ToHaulDrop),"No committed delivery");
-        w.SetLogTarget(pile.Id,0);
+        w.SetStorageTarget(pile.Id,0);
         Until(w,()=>pile.StoredLogs==0 && !Hauling(w),"Target change stranded committed shipments");
 
         // Logger output goes directly to the nearby pile without requiring a hauler.
         foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
-        w.SetLogTarget(pile.Id,12);
+        w.SetStorageTarget(pile.Id,12);
         var tree=w.Trees.Single(t=>t.Cell==new Cell(3,-5));
         w.People[0].Position=tree.Access.Point; w.Assign(0,Role.Logger);
         Until(w,()=>w.People[0].Task==Work.ToStockpile && w.People[0].StorageId==pile.Id,"Logger skipped nearby stockpile");
@@ -92,10 +92,10 @@ public static class StorageChecks
         network.Assign(0,Role.Builder);
         Until(network,()=>second.Complete,"Second stockpile not built");
         network.Assign(0,Role.Unassigned);
-        network.SetLogTarget(first.Id,12); network.SetLogTarget(second.Id,0); network.Assign(1,Role.Hauler);
+        network.SetStorageTarget(first.Id,12); network.SetStorageTarget(second.Id,0); network.Assign(1,Role.Hauler);
         Until(network,()=>first.StoredLogs==12 && !Hauling(network),"First stockpile did not fill");
         network.Assign(1,Role.Unassigned);
-        network.SetLogTarget(first.Id,0); network.SetLogTarget(second.Id,12);
+        network.SetStorageTarget(first.Id,0); network.SetStorageTarget(second.Id,12);
         network.People[1].Position=first.Entrance.Point; network.Assign(1,Role.Hauler);
         Until(network,()=>network.People[1].Task==Work.ToHaulPickup,"Direct transfer not claimed");
         Check(network.People[1].StorageId==first.Id && network.People[1].HaulTargetId==second.Id,"Surplus did not supply another local target");

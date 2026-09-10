@@ -7,9 +7,11 @@ public sealed partial class World
 {
     // Keep enough whole four-plank batches to pre-stock one lodge.
     public static int PlankStockTarget => Math.Max(8, ((Buildings.Get(BuildingKind.Lodge).Cost + 3) / 4) * 4);
-    public int Planks { get; private set; }
+    private int _yardPlanks;
+    public int YardPlanks => _yardPlanks;
+    public int Planks => _yardPlanks + Cottages.Sum(c=>c.StoredPlanks);
     public int SawnLogs { get; private set; }
-    public int ReservedPlanks => People.Where(v => v.Task == Work.ToMaterials && v.Cargo == Resource.Planks).Sum(v => v.Reserved);
+    public int ReservedPlanks => People.Where(v => v.Cargo == Resource.Planks && v.Task is Work.ToMaterials or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int AvailablePlanks => Planks - ReservedPlanks;
     private int PendingPlanks => Planks + People.Where(v => v.Cargo == Resource.Planks).Sum(v => v.Carried) +
         Cottages.Sum(c => c.OutputPlanks + c.InputLogs * 2) +

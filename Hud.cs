@@ -242,7 +242,7 @@ public partial class Game
         _buildingDetails.Visible = selected != null; _personDetails.Visible = selected == null && _selectedPerson >= 0;
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
-            BuildingKind.Stockpile => $"Log storage · {_world.LogsAt(selected.Id)}/{World.StockpileCapacity}\n{_world.ReservedLogsAt(selected.Id)} reserved · {_world.IncomingLogsAt(selected.Id)} arriving\nTarget: {selected.LogTarget} logs\nBuilders and sawyers collect here; haulers balance targets.",
+            BuildingKind.Stockpile => $"{selected.StorageMaterial} storage · {_world.MaterialAt(selected.Id,selected.StorageMaterial)}/{World.StockpileCapacity}\n{_world.ReservedMaterialAt(selected.Id,selected.StorageMaterial)} reserved · {_world.IncomingMaterialAt(selected.Id,selected.StorageMaterial)} arriving\nTarget: {selected.StorageTarget} {selected.StorageMaterial}\nBuilders and sawyers collect here; haulers balance targets.",
             BuildingKind.Cottage or BuildingKind.Lodge => $"{Buildings.Get(selected.Kind).Beds} beds ready\nResidents: {string.Join(", ",_world.People.Where(p=>p.HomeId==selected.Id).Select(p=>p.Name))}\n{_world.People.Count(p=>p.HomeId==selected.Id && p.Task==Work.Resting)} resting here. Change homes from a resident's inspector.",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.FishingDock => "Fishing dock · 1 fisher slot\nOne boat carries catches from shared fishing grounds to this landing.",
