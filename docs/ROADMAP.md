@@ -8,7 +8,7 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**Recommended next feature: F23a — a convincing three-building visual slice.** Establish appealing silhouettes, materials, ground contact, and visible activity before expanding the catalog or adding resource chains. A bounded post-supper save repair should land first.
+**Recommended next feature: F23a — a convincing three-building visual slice.** Establish appealing silhouettes, materials, ground contact, and visible activity before expanding the catalog or adding resource chains. The bounded post-supper save repair has shipped.
 
 See [the comprehensive design review](DESIGN_REVIEW.md) for the complete building/cost audit, visual direction, enjoyment assessment, confirmed defects, and playtest questions. Candidate costs there are experiments, not adopted balance changes. **UI remains a major priority.**
 
@@ -18,7 +18,6 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 
 | Order | ID | Playable chunk | What success looks like |
 | --- | --- | --- | --- |
-| Repair | F19a | **Post-supper save repair.** Retire obsolete gathering-space constraints after supper ends. This bounded defect repair is the only prerequisite for the visual slice. | Decorate/build on vacated gathering space, save and reload successfully, including a campaign book containing that settlement. |
 | 1 | F23a | **Visual identity slice.** Redesign cottage, bakery and sawmill together in one small village scene. Strong masses, thick structural forms, recessed openings, real ground contact, and useful working/stocked states. Keep costs and footprints unchanged for comparison. | The user finds the scene compelling at the actual play camera. All three are recognizable without labels at 960/1440 and from four directions. Do not expand the style until this works. |
 | 2 | F23b | **The complete building family.** Apply the visual language to the other seven types: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
 | 3 | F21g | **A clear building and management interface.** Visual building cards with purpose/cost/staff; separate Place, Landscape and Existing buildings. Selected-tool guidance stays nearby. Fix text-entry camera movement and stale activity labels; make world-label visibility controllable. | A player can choose the right building and understand the next step without reading a long manual. Typing never pans the camera. A quiet Watch view works without floating-label clutter. |
@@ -65,6 +64,7 @@ Before population, map size, or decoration density expands further, profile a de
 | F16 | Creative on both maps: instant free completed buildings, no hunger or meals, all decorations, immediate clearing with timber recovery, and safe completed-building removal. Production/cargo stay physical; bridge removal protects access. Separate New/Resume/Restore saves and Continue, mode-aware UI, beds-only invitations, and neutral food satisfaction. |
 | F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |
+| F19a | Supper releases its gathering destinations on completion, so subsequent decoration/construction on vacated spots does not invalidate fresh saves or campaign snapshots. No migration or repair of old saves. |
 | F20 | Soft daylight/golden-hour presets, grass variation, subtle pause-aware foliage, and persistent visual preferences. |
 | F21a | Compact HUD, responsive menus, scrolling, and a contextual inspector down to 960×640. |
 | F21b | Building descriptions, staffing/recipes, supply guidance, recognizable previews, entrances, rotation, and placement explanations. |

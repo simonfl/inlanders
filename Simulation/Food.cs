@@ -184,6 +184,8 @@ public sealed partial class World
             {
                 Food.Celebrating = false; Food.SupperComplete = true; History.Add("The first village supper");
                 foreach (var person in People) Finish(person);
+                // Gathering destinations reserve access only while supper is active.
+                MeetingSpots.Clear();
             }
             return;
         }

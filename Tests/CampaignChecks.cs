@@ -16,6 +16,7 @@ public static class CampaignChecks
     public static void Run()
     {
         var book = new CampaignBook();
+        Cell[] supperSpots = Array.Empty<Cell>();
         for (int level = 1; level <= World.CampaignLevels.Length; level++)
         {
             var w = World.NewCampaign(level);
@@ -48,6 +49,8 @@ public static class CampaignChecks
                 Check(w.BeginSupper() && !w.BeginSupper(), "Supper charged twice");
                 var square = w.Cottages.Single(c => c.Kind == BuildingKind.Square);
                 Check(w.MeetingSpots.Count == 8 && w.MeetingSpots.All(c => (c.Point-square.Entrance.Point).LengthSquared() <= 16), "Guests not near square");
+                supperSpots = w.MeetingSpots.ToArray();
+                Check(!w.PlaceDecoration(supperSpots[0], DecorationKind.Flowers), "Active supper space could be blocked");
             }
             if (level == 5)
             {
@@ -62,6 +65,20 @@ public static class CampaignChecks
             Check(w.SaveJson() == copy.SaveJson(), "Save continuation diverged");
             Until(w, () => w.Campaign.Complete);
             float completionTime=w.Food.Time;
+            if (level == 4)
+            {
+                var buildingCopy = World.LoadJson(w.SaveJson());
+                bool CanBuildOnOldSpot(Cell c) => World.Footprint(c, false).Any(supperSpots.Contains) && buildingCopy.PlacementProblem(c, false) == null;
+                Until(buildingCopy, () => buildingCopy.Map.Land.Any(CanBuildOnOldSpot));
+                Place(buildingCopy, buildingCopy.Map.Land.First(CanBuildOnOldSpot));
+                string built = buildingCopy.SaveJson();
+                Check(World.LoadJson(built).SaveJson() == built, "Post-supper construction broke save roundtrip");
+                Until(w, () => supperSpots.Any(c => w.DecorationProblem(c, DecorationKind.Flowers) == null));
+                var vacated = supperSpots.First(c => w.DecorationProblem(c, DecorationKind.Flowers) == null);
+                Check(w.PlaceDecoration(vacated, DecorationKind.Flowers), "Vacated supper space could not be decorated");
+                string decorated = w.SaveJson();
+                Check(World.LoadJson(decorated).SaveJson() == decorated, "Post-supper decoration broke save roundtrip");
+            }
             if(level==5) Check(w.DeliveredVegetables>=16 && w.Food.VegetableChoiceMeals>=2 && !w.SunflowersUnlocked && w.Cottages.Count(c=>c.Kind==BuildingKind.VegetableGarden)==1 && !w.HasBuilding(BuildingKind.Bakery),"Garden lesson required unrelated systems");
             int vegetables=w.DeliveredVegetables, choices=w.Food.VegetableChoiceMeals;
             int delivered = w.DeliveredBread;
