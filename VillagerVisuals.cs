@@ -9,7 +9,7 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new();
         public Resource Cargo;
         public int Count = -1;
         public float? PickupStarted;
@@ -26,6 +26,11 @@ public partial class Game
         Mesh(v.Head, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, Vector3.Zero, new("e7bd8e"));
         Cylinder(v.Head, new(0, 0.19f, 0), 0.30f, 0.07f, new("dbc28c"));
         Cylinder(v.Head, new(0, 0.26f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
+        Cylinder(v.Head,new(0,.22f,0),.188f,.055f,new(shirts[id%shirts.Length]),.18f);
+        v.Body.AddChild(v.RestStool); v.RestStool.Visible=false;
+        Cylinder(v.RestStool,new(0,.23f,0),.22f,.06f,_wood);
+        foreach(float x in new[]{-.13f,.13f}) foreach(float z in new[]{-.12f,.12f})
+            Box(v.RestStool,new(x,.10f,z),new(.045f,.20f,.045f),_wood);
         foreach (var (leg, x) in new[] { (v.LeftLeg, -0.13f), (v.RightLeg, 0.13f) })
         {
             v.Rig.AddChild(leg); leg.Position = new(x, 0.4f, 0);
@@ -121,6 +126,7 @@ public partial class Game
         RefreshCargo(view, v); view.Marker.Visible = v.Id == _selectedPerson;
         view.Carry.Position=new(0,.12f,-.43f);
         view.WorkBoard.Visible=false;
+        view.RestStool.Visible=false;
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
         view.Rig.Position = new(0, walking ? MathF.Abs(swing) * 0.035f : 0, 0);
@@ -184,14 +190,9 @@ public partial class Game
                 view.Peel.Visible = true; view.Arm.Rotation = new(0.8f + MathF.Sin(cycle * 0.5f) * 0.22f, 0, 0);
                 view.Torso.Rotation = new(-0.1f - MathF.Sin(cycle * 0.5f) * 0.08f, 0, 0); break;
             case Work.Leisure:
-                view.Head.Rotation = new(0, MathF.Sin(_clock + v.Id) * .3f, 0);
-                view.Arm.Rotation = new(.7f + MathF.Sin(_clock * 2 + v.Id) * .3f, 0, -.3f); break;
+                AnimateSquareVisit(view,v); break;
             case Work.Resting:
-                view.Rig.Position = new(0,-.28f,0);
-                view.LeftLeg.Rotation = new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation = new(Mathf.Pi/2,0,.08f);
-                view.Head.Rotation = new(.22f,0,0);
-                view.Arm.Rotation = new(.85f,0,-.12f); view.LeftArm.Rotation = new(.85f,0,.12f);
-                view.Torso.Rotation = new(.08f,0,MathF.Sin(_clock+v.Id)*.025f); break;
+                AnimateHomeRest(view,v); break;
             case Work.Supper:
                 view.Arm.Rotation = new(2.6f, 0, swing * 0.3f); view.LeftArm.Rotation = new(1.3f, 0, -swing * 0.2f); break;
             case Work.Waiting:

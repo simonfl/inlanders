@@ -135,7 +135,7 @@ For **Built to last**, test a compact hall-centered neighborhood against distrib
 
 ## Next design decisions: make each addition earn its place
 
-The recommended next **new campaign system** is **F26b + F25c: quarry and gathering hall**, after the current woodland/logistics work and river/lake feedback. It connects a new landscape resource to an existing resident need, so we can deepen the game without inventing another satisfaction meter. This is a planning recommendation, not an implementation commitment or a change to the immediate roadmap order.
+The recommended next **new campaign system** is **F26b + F25c: quarry and gathering hall**, now that woodland/logistics and work/home/social presentation have shipped. It connects a new landscape resource to an existing resident need, so we can deepen the game without inventing another satisfaction meter. The main roadmap now promotes F26b1 as the next prototype; F26b2 remains a separate authored scenario after human pacing feedback.
 
 ### Stone country: a project with a reason
 
@@ -200,7 +200,7 @@ This is the order within the future campaign track; the main roadmap still owns 
 1. F21h has shipped workplace controls and recent food flow. F14b has also shipped actual meal portions, proportional variety and last-meal feedback.
 2. F19b now supplies recovery and autosaves. F16b now gives players normal-play demolition with physical goods/material recovery and temporary service loss. Across the river now passes two scripted approaches and recovery checks. Review human decisions and pacing; F23c has reduced fixed-model rendering costs; performance still constrains further population growth. F25a used existing population and buildings.
 3. F25a has shipped home/rest and recreation feedback using existing buildings. Nearby and distant homes both sustain meals; their travel and participation differ measurably. Keep education/religion meters deferred.
-4. F26a implemented fishing and the seventh campaign. F11b2 has now revised that lake around scarce central plots, limited natural food, distant timber and service travel. Deliberate routes complete in 10/18 scripted minutes; a nearby square recovers an awkward plan in 16 instead of 25. See [F11b2 findings](LAKE_DIFFICULTY_F11B2.md). Human pacing remains open; F02b now supplies preservation and managed replanting; F07b now explains trips and supports useful local plank storage. F03b/F04b activity follows; neighborhood food service remains a later F07c design.
+4. F26a implemented fishing and the seventh campaign. F11b2 has now revised that lake around scarce central plots, limited natural food, distant timber and service travel. Deliberate routes complete in 10/18 scripted minutes; a nearby square recovers an awkward plan in 16 instead of 25. See [F11b2 findings](LAKE_DIFFICULTY_F11B2.md). Human pacing remains open; F02b now supplies preservation and managed replanting; F07b now explains trips and supports useful local plank storage. F03b/F04b now present work, home rests and mutual square visits; neighborhood food service remains a later F07c design.
 5. F26b adds stone together with its first worthwhile consumer and quarry scenario. F26c follows if habitat preservation offers decisions distinct from managed logging.
 6. Revisit comfort, education and reflection only after those needs make the village more enjoyable to tend. Building details, balance and exact order stay TBD.
 

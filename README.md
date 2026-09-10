@@ -179,6 +179,8 @@ Workers reach, lift and lower real cargo during pickups and deliveries. Builders
 
 Farmers sow with a seed pouch, cut grain with a sickle and pick vegetables by hand. Poses follow actual work progress and reach remaining crops on rotated or partially harvested beds. Run `./Play.ps1 -FieldWorkSmokeTest` for contact, pause/reload, interruption and real-harvest checks.
 
+Arrived square visitors face nearby companions with brief alternating gestures and quiet listening. Residents rest facing outward beside their home on a small stool. Visit rules are unchanged; `./Play.ps1 -SocialSmokeTest` checks the presentation, interruptions and saves.
+
 ### Renewable woodland
 
 Loggers wind up and strike in time with actual chopping progress. Felled mature trees briefly tip into their timber piles; pausing freezes the action. This changes presentation, not work time or yield. Run `./Play.ps1 -LoggingSmokeTest` for the focused visual check.
