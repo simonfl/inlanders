@@ -85,7 +85,7 @@ public partial class Game
             if (_soundTime < trace.Next) continue;
             Cue? cue = v.Route.Count > 0 ? trace.Distance >= 0.65f ? Cue.Step : null : v.Task switch
             {
-                Work.Chopping => _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled) ? Cue.Chop : Cue.Drop, Work.Building => Cue.Hammer,
+                Work.Chopping => _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled) ? Cue.Chop : Cue.Drop, Work.Building or Work.Demolishing => Cue.Hammer,
                 Work.ClearingStump or Work.Planting or Work.PlantingTree or Work.Harvesting or Work.Foraging => Cue.Rustle,
                 Work.Sawing => Cue.Saw, Work.Baking => Cue.Bake, _ => null
             };

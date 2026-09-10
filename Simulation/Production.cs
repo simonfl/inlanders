@@ -15,13 +15,13 @@ public sealed partial class World
     };
     public bool SetWorkplacePaused(int id, bool paused)
     {
-        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && ProductionOutput(c.Kind) != null);
+        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && ProductionOutput(c.Kind) != null);
         if (site == null || Food.Celebrating) return false;
         site.WorkPaused = paused; _retry = 0; return true;
     }
     public bool SetOutputTarget(int id, int target)
     {
-        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && ProductionOutput(c.Kind) != null);
+        var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && ProductionOutput(c.Kind) != null);
         if (site == null || Food.Celebrating || target < -1 || target > 200) return false;
         site.OutputTarget = target; _retry = 0; return true;
     }
@@ -52,6 +52,7 @@ public sealed partial class World
 
     public WorkplaceReport ReadWorkplace(Cottage site)
     {
+        if (site.DemolitionRequested) return new("Demolition ordered", "Production stopped; builders recover goods, dismantle the building and haul its timber.");
         if (!site.Complete) return new("Under construction", "Builders must finish this workplace first.");
         var workers = People.Where(p => p.WorkplaceId == site.Id).ToArray();
         if (Food.Celebrating) return new("Village supper", "Work resumes after everyone gathers.");
@@ -87,7 +88,7 @@ public sealed partial class World
     private void ValidateProduction()
     {
         foreach (var c in Cottages)
-            if (c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused || c.OutputTarget != -1)))
+            if (c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested || c.OutputTarget != -1)))
                 throw new InvalidOperationException("Invalid workplace controls");
     }
 }

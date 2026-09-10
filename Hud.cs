@@ -37,7 +37,7 @@ public partial class Game
         Work.ToSapling or Work.PlantingTree => "Planting tree", Work.ToSawLogs => "Fetching logs",
         Work.ToClearStump or Work.ClearingStump => "Clearing roots",
         Work.ToSawmill or Work.Sawing => "Sawing", Work.ToPlanks => "Collecting planks",
-        Work.ToMaterials => "Fetching", Work.ToCottage => "Delivering", Work.ToBuild => "To site", Work.Building => "Building",
+        Work.ToMaterials => "Fetching", Work.ToCottage => "Delivering", Work.ToBuild => "To site", Work.Building => "Building", Work.ToDemolish => "To demolition", Work.Demolishing => "Dismantling",
         Work.ToBush or Work.Foraging => "Foraging", Work.ToFarm or Work.Planting => "Sowing", Work.Harvesting => "Harvesting",
         Work.ToGrain => "Fetching", Work.ToOven or Work.Baking => "Baking", Work.ToBread or Work.ToPantry => "Hauling food",
         Work.ToSupper or Work.Supper => "Supper", Work.ToLeisure => "Going for a break", Work.Leisure => "Taking a break", _ => "Idle"

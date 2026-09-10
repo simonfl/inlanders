@@ -7,7 +7,7 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     public const int StockpileCapacity = 12;
-    private IEnumerable<int?> LogStores => new int?[] { null }.Concat(Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete).Select(c => (int?)c.Id));
+    private IEnumerable<int?> LogStores => new int?[] { null }.Concat(Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete && !c.DemolitionRequested).Select(c => (int?)c.Id));
     private Cottage Store(int id) => Cottages.Single(c => c.Id == id && c.Kind == BuildingKind.Stockpile && c.Complete);
     private Cell StorageAccess(int? id) => id is int n ? Store(n).Entrance : YardAccess;
     public int LogsAt(int? id) => id is int n ? Store(n).StoredLogs : _yardLogs;
@@ -26,7 +26,7 @@ public sealed partial class World
     public bool SetLogTarget(int id, int target)
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id && c.Kind == BuildingKind.Stockpile && c.Complete);
-        if (site == null || target < 0 || target > StockpileCapacity || Food.Celebrating) return false;
+        if (site == null || site.DemolitionRequested || target < 0 || target > StockpileCapacity || Food.Celebrating) return false;
         site.LogTarget = target; _retry = 0; return true;
     }
     private int TravelCost(Cell from, Cell to)
@@ -48,7 +48,7 @@ public sealed partial class World
         // Retargeting releases this worker's old capacity reservation before choosing a destination.
         v.Task = Work.Waiting; v.StorageId = null; v.HaulTargetId = null;
         if (v.Cargo == Resource.Logs)
-            v.StorageId = LogStores.Where(id => FreeLogSpace(id) >= v.Carried)
+            v.StorageId = LogStores.Where(id => (id == null || !Store(id.Value).DemolitionRequested) && FreeLogSpace(id) >= v.Carried)
                 .OrderBy(id => TravelCost(At(v), StorageAccess(id))).First();
         Go(v, StorageAccess(v.StorageId), Work.ToStockpile,
             $"Carrying {v.Carried} {v.Cargo} to " + (v.StorageId == null ? "the timber yard" : $"stockpile {v.StorageId}"));
@@ -61,7 +61,7 @@ public sealed partial class World
     }
     private void ClaimHauling(Villager v)
     {
-        var depots = Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete)
+        var depots = Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete && !c.DemolitionRequested)
             .OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
         foreach (var depot in depots)
         {

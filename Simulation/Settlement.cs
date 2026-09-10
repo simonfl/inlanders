@@ -12,7 +12,7 @@ public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
-    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure }
+    ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing }
 
 public sealed class Villager
 {
@@ -56,6 +56,9 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public bool DemolitionRequested { get; internal set; }
+    [JsonInclude] public bool DemolitionWasPaused { get; internal set; }
+    [JsonInclude] public float DemolitionProgress { get; internal set; }
     [JsonInclude] public bool WorkPaused { get; internal set; }
     [JsonInclude] public int OutputTarget { get; internal set; } = -1;
     public int Id { get; init; }
@@ -102,7 +105,7 @@ public sealed partial class World
     public int ReservedStorage => People.Where(v => (v.Task == Work.ToMaterials && v.Cargo == Resource.Logs) || v.Task is Work.ToSawLogs or Work.ToHaulPickup).Sum(v => v.Reserved);
     public int Available => Stored - ReservedStorage;
     public int InitialLogs { get; private set; }
-    public int Beds => Cottages.Where(c => c.Complete).Sum(c => Buildings.Get(c.Kind).Beds);
+    public int Beds => Cottages.Where(c => c.Complete && !c.DemolitionRequested).Sum(c => Buildings.Get(c.Kind).Beds);
     public int Housed => Math.Min(Population, Beds);
     public int SpareBeds => Math.Max(0, Beds - Population);
     public List<string> History { get; } = new();
@@ -249,6 +252,7 @@ public sealed partial class World
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
         }
+        if (ClaimDemolition(v)) return;
         var sites = Cottages.Where(c => !c.Complete).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
         foreach (var site in sites)
         {
@@ -265,7 +269,7 @@ public sealed partial class World
             v.Cargo = site.Material; v.StorageId = source;
             Go(v, StorageAccess(source), Work.ToMaterials, $"Collecting {amount} reserved {site.Material} for {site.Kind} {site.Id}"); return;
         }
-        v.Status = sites.Length == 0 ? "No construction plans — choose a building in Build" :
+        v.Status = Cottages.Any(c => c.DemolitionRequested) ? "Waiting — another builder is recovering goods or dismantling" : sites.Length == 0 ? "No construction plans — choose a building in Build" :
             sites.All(c => c.Delivered + c.Incoming == c.Required) ? "Waiting — deliveries or another builder already cover each site" :
             sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? "Waiting for planks — build a sawmill and assign a sawyer" :
             Stored == 0 ? "Waiting for timber — assign loggers" : "Waiting — stored timber is reserved by other builders";
@@ -292,6 +296,7 @@ public sealed partial class World
             switch (v.Task)
             {
                 case Work.Waiting: if (retry) ClaimWork(v); break;
+                case Work.ToDemolish: case Work.Demolishing: TickDemolition(v, dt); break;
                 case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = "Taking a break at the square"; break;
                 case Work.Leisure: if (v.Timer >= 6) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; Finish(v); } break;
                 case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
@@ -340,7 +345,7 @@ public sealed partial class World
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs, "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
-        ValidateVisitor();
+        ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
         ValidateHappiness();
         ValidateDecorations();
@@ -354,7 +359,7 @@ public sealed partial class World
         {
             Check(site.Incoming == People.Where(v => v.SiteId == site.Id).Sum(v => v.Reserved), "Orphaned site reservation");
             Check(site.Delivered >= 0 && site.Incoming >= 0 && site.Delivered + site.Incoming <= site.Required, "Over-delivery");
-            var builders = People.Where(v => v.SiteId == site.Id && v.Task is Work.ToBuild or Work.Building).ToArray();
+            var builders = People.Where(v => v.SiteId == site.Id && v.Task is Work.ToBuild or Work.Building or Work.ToDemolish or Work.Demolishing).ToArray();
             Check(builders.Length == (site.Builder.HasValue ? 1 : 0) && (builders.Length == 0 || builders[0].Id == site.Builder), "Builder ownership mismatch");
         }
         foreach (var t in Trees)

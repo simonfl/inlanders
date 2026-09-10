@@ -16,13 +16,12 @@ public sealed partial class World
 
     public string? RemovalProblem(int id)
     {
-        if (!Creative) return "Completed building removal is available in Creative mode.";
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (site == null || !site.Complete) return "Choose a completed building.";
         if (Food.Celebrating) return "Wait until supper finishes.";
         if (site.Kind != BuildingKind.Bridge) return null;
         var before = Reachable(YardAccess, Blocked);
-        var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c));
+        var after = Reachable(YardAccess, c => c == site.Cell || Blocked(c) || Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.DemolitionRequested && b.Cell == c));
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
             .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access))
             .Concat(People.Where(p => p.LeisureSiteId != null).Select(p => p.Destination));
@@ -34,7 +33,7 @@ public sealed partial class World
 
     public bool RemoveBuilding(int id)
     {
-        if (RemovalProblem(id) != null) return false;
+        if (!Creative || RemovalProblem(id) != null) return false;
         var site = Cottages.Single(c => c.Id == id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();

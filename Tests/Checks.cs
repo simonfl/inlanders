@@ -124,3 +124,4 @@ VisitorChecks.Run();
 GardenLessonChecks.Run();
 CreativeChecks.Run();
 TerrainChecks.Run();
+DemolitionChecks.Run();

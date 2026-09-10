@@ -8,7 +8,7 @@ public sealed partial class World
     private bool ClaimLeisure(Villager v)
     {
         if (Food.Time < Math.Max(15 + v.Id % 4 * 2, v.NextLeisureTime) || v.Carried != 0) return false;
-        foreach (var square in Cottages.Where(c => c.Complete && c.Kind == BuildingKind.Square)
+        foreach (var square in Cottages.Where(c => c.Complete && !c.DemolitionRequested && c.Kind == BuildingKind.Square)
                      .OrderBy(c => (c.Entrance.Point - v.Position).LengthSquared()).ThenBy(c => c.Id))
         {
             if (People.Count(p => p.LeisureSiteId == square.Id) >= 4) continue;
@@ -35,7 +35,7 @@ public sealed partial class World
             if (!float.IsFinite(v.NextLeisureTime) || v.NextLeisureTime < 0 || v.LeisureVisits < 0 ||
                 (v.LeisureSiteId != null) != (v.Task is Work.ToLeisure or Work.Leisure))
                 throw new InvalidOperationException("Invalid leisure state");
-            if (v.LeisureSiteId is int id && (!Cottages.Any(c => c.Id == id && c.Complete && c.Kind == BuildingKind.Square &&
+            if (v.LeisureSiteId is int id && (!Cottages.Any(c => c.Id == id && c.Complete && !c.DemolitionRequested && c.Kind == BuildingKind.Square &&
                     (c.Entrance.Point - v.Destination.Point).LengthSquared() <= 4) || Blocked(v.Destination) ||
                     v.Carried != 0 || v.Reserved != 0 || v.WorkplaceId != null || v.SiteId != null || v.TreeId != null))
                 throw new InvalidOperationException("Invalid square visit");

@@ -26,7 +26,7 @@ public partial class Game
     private void UpdateStorageControls()
     {
         var site = _world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && c.Kind==BuildingKind.Stockpile && c.Complete);
-        _storageControls.Visible = site != null;
+        _storageControls.Visible = site != null && !site.DemolitionRequested;
         if(site==null) return;
         _targetLabel.Text=$"Keep {site.LogTarget} logs here (capacity 12).\nHaulers refill from the yard or surplus stockpiles, and return excess. Target 0 drains the pile; committed loads still finish.";
         _targetLess.Disabled=site.LogTarget==0 || _world.Food.Celebrating;

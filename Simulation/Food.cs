@@ -55,7 +55,7 @@ public sealed partial class World
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
-    public bool CanCelebrate => !Creative && Housed == Population && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || HasBuilding(BuildingKind.Square)) && SupperSpots().Count == Population;
+    public bool CanCelebrate => !Creative && Housed == Population && Food.Bread >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
     {
@@ -174,7 +174,7 @@ public sealed partial class World
             bush.Regrowth += dt;
             while (bush.Regrowth >= 8 && bush.Ripe < 8) { bush.Regrowth -= 8; bush.Ripe++; }
         }
-        foreach (var farm in Cottages.Where(c => IsField(c) && c.Complete && c.Planted && c.Growth < 1))
+        foreach (var farm in Cottages.Where(c => IsField(c) && c.Complete && !c.DemolitionRequested && c.Planted && c.Growth < 1))
         {
             farm.Growth = Math.Min(1, farm.Growth + dt / (farm.Kind == BuildingKind.VegetableGarden ? 60 : 45));
             if (farm.Growth == 1)
@@ -222,7 +222,7 @@ public sealed partial class World
     }
     private List<Cell> SupperSpots()
     {
-        var square = Cottages.FirstOrDefault(c => c.Kind == BuildingKind.Square && c.Complete);
+        var square = Cottages.FirstOrDefault(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested);
         var center = square?.Entrance ?? YardAccess;
         var reachable = Reachable(YardAccess, Blocked);
         return reachable.Where(c => square == null || (c.Point - center.Point).LengthSquared() <= 16)

@@ -8,7 +8,7 @@ public partial class Game
 {
     private async void RunProductionSmoke()
     {
-        try { await CheckProductionUi(); await CheckHappinessUi(); for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetTree().Quit(); }
+        try { await CheckProductionUi(); await CheckHappinessUi(); await CheckDemolitionUi(); for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("PRODUCTION SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckProductionUi()

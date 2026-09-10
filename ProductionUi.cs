@@ -62,8 +62,8 @@ public partial class Game
         Resource output = World.ProductionOutput(site.Kind)!.Value;
         _productionTargetToggle.Text = $"{output} target · {(site.OutputTarget < 0 ? "No limit" : site.OutputTarget.ToString())} {(_productionTargetControls.Visible ? "▴" : "▾")}";
         _productionTargetInfo.Text = $"{output} target: {(site.OutputTarget < 0 ? "No limit" : site.OutputTarget.ToString())}\n{_world.ProductionCommitted(output)} stored or committed village-wide";
-        _productionPause.Disabled = _outputTargetMore.Disabled = _outputTargetUnlimited.Disabled = _world.Food.Celebrating;
-        _outputTargetLess.Disabled = _world.Food.Celebrating || site.OutputTarget <= 0;
+        _productionPause.Disabled = _outputTargetMore.Disabled = _outputTargetUnlimited.Disabled = _world.Food.Celebrating || site.DemolitionRequested;
+        _outputTargetLess.Disabled = _world.Food.Celebrating || site.DemolitionRequested || site.OutputTarget <= 0;
         _outputTargetMore.Disabled |= site.OutputTarget >= 200;
         _outputTargetUnlimited.Disabled |= site.OutputTarget < 0;
     }
