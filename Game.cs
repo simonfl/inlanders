@@ -165,7 +165,7 @@ public partial class Game : Node3D
     }
     private void RenderActors(float dt)
     {
-        RenderPaths(); RenderDecorations();
+        RenderPaths(); RenderDecorations(); RenderVisitor();
         while (_people.Count < _world.Population)
         {
             var p = _world.People[_people.Count]; var view = MakeVillager(p.Id);

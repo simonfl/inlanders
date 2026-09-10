@@ -171,7 +171,7 @@ public partial class Game
         _standaloneGuide = new(); column.AddChild(_standaloneGuide);
         _standaloneGuide.AddChild(Text("GETTING THERE", 12));
         _standaloneGuide.AddChild(Text("Forager hut → berries\nVegetable garden → ready-to-eat food\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use one food per person daily, berries first. Grain must be baked. Cottages house two; lodges four. Invite newcomers from People when you have spare beds and food.", 15, true));
-        MakeCampaignUi(column);
+        MakeCampaignUi(column); MakeVisitorUi(column);
     }
     private void MakeOptionsMenu(VBoxContainer column)
     {
@@ -204,7 +204,7 @@ public partial class Game
     {
         if (_hudSize != _hud.Size) LayoutHud();
         UpdatePopulationUi();
-        UpdateCameraViewsUi();
+        UpdateCameraViewsUi(); UpdateVisitorUi();
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
         _foodStatus.Text = _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
@@ -219,7 +219,7 @@ public partial class Game
         _supperButton.Disabled = !_world.CanCelebrate;
         _supperButton.Text = _world.Food.SupperComplete ? "Supper complete" : _world.Food.Celebrating ? "Gathering…" : $"Host supper · {_world.SupperCost} loaves";
         for (int i = 0; i < _menuButtons.Count; i++)
-        { _menuButtons[i].Modulate = _drawer.Visible && _tabs.CurrentTab == i ? _cream : Colors.White; _menuButtons[i].Text = i == 2 && _world.CanCelebrate ? "Goals · Ready" : MenuNames[i]; }
+        { _menuButtons[i].Modulate = _drawer.Visible && _tabs.CurrentTab == i ? _cream : Colors.White; _menuButtons[i].Text = i == 2 && _world.CanCelebrate ? "Goals · Ready" : i == 2 && _world.Gardener == VisitorState.Pending ? "Goals · Visitor" : MenuNames[i]; }
         foreach (var role in _counts.Keys)
         {
             int count = _world.People.Count(v => v.Role == role); _counts[role].Text = $"{RoleName(role)}s  {count}";

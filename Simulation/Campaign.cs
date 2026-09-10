@@ -33,7 +33,7 @@ public sealed partial class World
         new(4, "A place for everyone", "Build a village square, house everyone, and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
             new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1))
     };
-    public int DeliveredBerries => Food.Berries + Food.EatenBerries - Food.InitialBerries;
+    public int DeliveredBerries => Food.Berries + Food.EatenBerries + Food.TradedBerries - Food.InitialBerries;
     public int DeliveredBread => Food.Bread + Food.EatenBread + Food.SupperBread;
     public bool HasBuilding(BuildingKind kind) => Cottages.Any(c => c.Kind == kind && c.Complete);
     public bool HasForagerHut => HasBuilding(BuildingKind.ForagerHut);

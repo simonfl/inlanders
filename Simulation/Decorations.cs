@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
-public enum DecorationKind { Flowers, Shrub, Fence, OrnamentalTree, Pebbles }
+public enum DecorationKind { Flowers, Shrub, Fence, OrnamentalTree, Pebbles, Sunflowers }
 public sealed record Decoration(Cell Cell, DecorationKind Kind, bool Rotated = false)
 {
     public bool Solid => Kind != DecorationKind.Pebbles;
@@ -19,6 +19,7 @@ public sealed partial class World
         if (Food.Celebrating) return "Wait until supper is over.";
         if (remove) return Decorations.Any(d => d.Cell == cell) ? null : "There is no decoration here to remove.";
         if (!Enum.IsDefined(kind)) return "Choose a decoration.";
+        if (kind == DecorationKind.Sunflowers && !SunflowersUnlocked) return SunflowerLockReason;
         if (Decorations.Any(d => d.Cell == cell)) return "Remove the existing decoration first.";
         if (kind == DecorationKind.Pebbles)
             return Blocked(cell) || Map.Water.Contains(cell) ? "Place ground cover on clear dry land." : null;
@@ -47,7 +48,7 @@ public sealed partial class World
     private void ValidateDecorations()
     {
         if (Decorations.Select(d => d.Cell).Distinct().Count() != Decorations.Count ||
-            Decorations.Any(d => !Enum.IsDefined(d.Kind) || !Map.Contains(d.Cell) || Map.Water.Contains(d.Cell) ||
+            Decorations.Any(d => !Enum.IsDefined(d.Kind) || (d.Kind == DecorationKind.Sunflowers && !SunflowersUnlocked) || !Map.Contains(d.Cell) || Map.Water.Contains(d.Cell) ||
                 d.Cell == Stockpile || Trees.Any(t => t.Cell == d.Cell) || Bushes.Any(b => b.Cell == d.Cell) ||
                 Cottages.Any(c => Footprint(c.Cell,c.Rotated,c.Kind).Contains(d.Cell)) || (d.Solid && Paths.Contains(d.Cell))))
             throw new InvalidOperationException("Invalid decorations");

@@ -8,7 +8,7 @@ public static class DecorationChecks
     public static void Run()
     {
         var w=new World(40);
-        foreach(var kind in Enum.GetValues<DecorationKind>())
+        foreach(var kind in Enum.GetValues<DecorationKind>().Where(k=>k!=DecorationKind.Sunflowers))
         {
             var cell=w.Map.Land.First(c=>w.DecorationProblem(c,kind)==null);
             int logs=w.Stored;

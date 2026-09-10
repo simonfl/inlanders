@@ -109,7 +109,7 @@ public partial class Game
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;
         _objective.Text = campaign.Complete ? (campaign.Level == World.CampaignLevels.Length ? "Campaign complete! A home, a livelihood, and a table for everyone. Keep playing or replay any settlement." : "Settlement complete! Continue to the next village or keep playing here.") : _world.CampaignObjective;
         _progress.Value = campaign.Complete ? 100 : _world.CampaignProgress * 100;
-        _menuButtons[2].Text = campaign.Complete ? "Goals · Complete" : "Goals";
+        _menuButtons[2].Text = _world.Gardener == VisitorState.Pending ? "Goals · Visitor" : campaign.Complete ? "Goals · Complete" : "Goals";
         var hint = _world.CurrentCampaignHint();
         _tutorialText.Text = hint?.Text ?? (campaign.Guidance ? "No more hints right now. You can show dismissed hints again below." : "Tutorial guidance is off. Objectives still count.");
         _tutorialText.Visible = !campaign.Complete;

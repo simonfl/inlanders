@@ -13,7 +13,7 @@ public partial class Game
     private World? _decorationWorld;
     private int _decorationRevision = -1;
     private static string DecorationName(DecorationKind kind) => kind == DecorationKind.OrnamentalTree ? "Ornamental tree" : kind.ToString();
-    private string DecorationDescription => _removeDecoration ? "REMOVE DECORATIONS\nClick a decoration to remove it instantly. No resources are spent or recovered." :
+    private string DecorationDescription => !_removeDecoration && _decorationKind == DecorationKind.Sunflowers && !_world.SunflowersUnlocked ? "SUNFLOWERS\n" + _world.SunflowerLockReason + "\nAll ordinary decorations remain free." : _removeDecoration ? "REMOVE DECORATIONS\nClick a decoration to remove it instantly. No resources are spent or recovered." :
         $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click to place repeatedly; R rotates. " +
         (_decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
         "Occupies one tile. Villagers walk around it; entrances and existing routes stay accessible. Ornamental trees provide no timber.") +
@@ -68,6 +68,7 @@ public partial class Game
     }
     private void MakeDecoration(Node3D root,DecorationKind kind)
     {
+        if(kind==DecorationKind.Sunflowers) { MakeSunflowers(root); return; }
         if(kind==DecorationKind.Pebbles)
         {
             Box(root,new(0,.005f,0),new(.96f,.012f,.96f),new("c0b9a1"));

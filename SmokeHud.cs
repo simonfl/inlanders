@@ -8,7 +8,10 @@ public partial class Game
 {
     private async void RunHudSmoke()
     {
-        try { await CheckHud(); GD.Print("SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
+        try { await CheckHud();
+            // Let deferred frees from the final world restore finish before shutting down Godot.
+            for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            GD.Print("SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("HUD SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckHud()
@@ -74,5 +77,6 @@ public partial class Game
             await CheckDecorationUi();
             await CheckHappinessUi();
             await CheckCameraViewsUi();
+            await CheckVisitorUi();
     }
 }

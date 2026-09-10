@@ -116,3 +116,4 @@ LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();
 CameraViewChecks.Run();
+VisitorChecks.Run();

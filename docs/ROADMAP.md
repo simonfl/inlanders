@@ -6,18 +6,17 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 ## Suggested order
 
-**Next: F15 — Small events and choices.** Add one optional traveling gardener request with a clear food-for-seeds trade and no deadline. Keep the offer quiet and inspectable so it does not interrupt watching or management.
+**Next: F11 + F18 — Campaign expansion.** Add More for the table, a garden-and-food-choice lesson. Simplify the starting village in level 4 so it focuses on the square and supper instead of repeating earlier construction.
 
 The order below is a recommendation, not a dependency chain. **UI remains a major priority:** include the controls and feedback each feature needs, and promote further F21 improvements when play reveals a concrete need.
 
 | Order | ID | Next playable chunk | Why here |
 | --- | --- | --- | --- |
-| 1 | F15 | **Small events and choices.** One optional visitor request with an explicit cost/reward, accept/decline controls, and saved progress. No deadline or forced interruption. | Add occasional variety to the established village loop. |
-| 2 | F11 + F18 | **Campaign expansion.** Playtest the current four levels, then add a level introducing one new building or connected feature group. | Teach features after their standalone versions have settled. |
-| 3 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
-| 4 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
+| 1 | F11 + F18 | **Campaign expansion.** Review pacing across the four levels; start level 4 with housing and its bread chain built. Add level 5: finish a garden, deliver 16 vegetables, and offer vegetables plus another food at two meals. Visitor acceptance stays optional. | Teach features after their standalone versions have settled. |
+| 2 | F16 | **Free-build mode.** Review what a distinct sandbox should add beyond existing free play: optional objectives, setup choices, or relaxed building rules. Scope TBD. | Avoid duplicating the playable open-ended maps. |
+| 3 | F12d | **Hills and terrain shaping.** Start with authored gentle elevation, readable slopes, and clear building rules. Player terrain tools can follow. | A larger terrain change; revisit once flat-map expansion feels good. |
 
-Campaign pacing and UI feedback can be addressed at any time. Happiness and camera views now have first passes. The next event should add a useful choice without introducing a separate trade economy.
+Campaign pacing and UI feedback can be addressed at any time. The gardener now offers a modest cosmetic choice. Campaign work should teach gardens and food choices without requiring the visitor or a happiness threshold.
 
 ## Already playable
 
@@ -42,6 +41,7 @@ Campaign pacing and UI feedback can be addressed at any time. Happiness and came
 | F12c | Cancelable tree/stump clearing, physical timber recovery, root removal, and reusable building ground. Decorative landscaping shares the F09 palette. |
 | F12e | Three named camera views per settlement; saved focus, zoom and orbit, Options controls, 1–3 recall / Ctrl+1–3 set, clearing/overwrite, and recall during Watch mode. Existing workplace jumps and Home overview remain. |
 | F14 | Per-villager satisfaction from meals, food choices recorded at meal time, housing coverage, and a completed square break within two minutes. Village average, expandable reasons below worker controls, saved history, and cheerful/unsettled idle reactions; no additional productivity penalty. |
+| F15 | One gardener visit from day 3 with a finished hut; 8 berries unlock freely placeable sunflowers. Quiet yard marker/Goals card, projected food reserve, accept/decline, no deadline, saved outcomes, and preserved delivery milestones. |
 | F17 | Original 96-second procedural soundtrack with soft plucks/chords and a gentle loop; independent Music volume/mute in Options and main-menu Settings, master mute, persisted preferences, and uninterrupted transport across pause and settlement changes. |
 | F19 | Main menu with Continue, Campaign, Free play, Settings, Quit, and save-on-return. |
 | F20 | Soft daylight/golden-hour presets, grass variation, subtle pause-aware foliage, and persistent visual preferences. |
@@ -82,6 +82,7 @@ These are possibilities within existing features, not additional commitments or 
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F07 — Storage and hauling | Food and plank storage, resource filters, delivery priorities, capacities, broader logistics controls, and demolition/relocation. |
 | F08 — Materials | More plank buildings, mixed-material recipes, adjustable stock targets, upgrades, and other materials. |
+| F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
@@ -97,7 +98,7 @@ The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10
 ## How we take a chunk
 
 1. Pick an entry from the ordered list; mark it **In progress**.
-2. Write the player experience, smallest useful version, and a short playable check. Leave unresolved choices TBD.
+2. Write the player experience, smallest useful version, and a short playable check. For substantial features, get a short game-designer review before implementation: meaningful choice, fit, overlap, scope, and playable checks. Use UX or simulation reviewers when the change calls for them. Leave unresolved choices TBD.
 3. Implement it with current-format saves and relevant verification.
 4. Record what shipped in the completed table and move remaining ideas to follow-ups.
 5. Reevaluate the roadmap after every chunk using what implementation and play revealed. Reorder, clarify, combine, cut, expand, or add features when that improves the game; the current list is not a fixed commitment. Keep feature IDs stable, UI prominent, and uncertain details TBD. Do not restore explicitly removed features without a new reason and user agreement.

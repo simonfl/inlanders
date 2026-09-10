@@ -14,7 +14,7 @@ public partial class Game
         {
             AdoptWorld(new World()); _paused=true;
             int i=0;
-            foreach(var kind in Enum.GetValues<DecorationKind>())
+            foreach(var kind in Enum.GetValues<DecorationKind>().Where(k=>k!=DecorationKind.Sunflowers))
             {
                 _decorationChoice.Select((int)kind); await UiClick(_decorateButton); await Frames();
                 if(!_decorating || _ghostModelKey!="decoration:"+kind) throw new Exception("Decoration palette failed");
