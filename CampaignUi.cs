@@ -60,6 +60,7 @@ public partial class Game
     private void AdoptWorld(World world)
     {
         CancelCameraDrag();
+        _trackedGoalKey=null;
         bool mapChanged = !ReferenceEquals(_world.Map, world.Map);
         _autosaveElapsed = 0; _lastAutosaved = null;
         _world = world; CloseManagementUi(); _placing = false; _accumulator = 0; _paused = true;
@@ -109,6 +110,7 @@ public partial class Game
         _riverAction.Visible = campaign?.Complete != true && (_world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2);
         if (_riverAction.Visible) { var problem=_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
         UpdateGoalDashboard();
+        UpdateTrackedGoal();
         _progress.Visible = !_world.Creative;
         if (_world.Creative)
         {

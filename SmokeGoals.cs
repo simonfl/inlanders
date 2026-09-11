@@ -26,6 +26,12 @@ public partial class Game
             _serviceFilter.Select(6);UpdateServiceCoverage();await Frames();
             Check(_serviceResidents.Values.Count(r=>r.Row.Visible)==_world.People.Count(p=>_world.ResidentMeetsCampaignCondition(p,key)),"Counted resident filter disagrees");
             await OpenMenu(2);await Frames();
+            await UiClick(_goalTrackButtons[key]);CloseDrawer();await Frames();
+            Check(_trackedGoalPanel.Visible && _trackedGoalText.Text.Contains(key=="rest"?"rested":"Square"),"Tracked goal not visible");
+            Check(PointerOverHud(_trackedGoalPanel.GetGlobalRect().GetCenter()),"Tracked goal leaked pointer input to map");
+            Check(_trackedGoalPanel.GetGlobalRect().End.X<width && _trackedGoalPanel.GetGlobalRect().End.Y<GetWindow().Size.Y-80,"Tracked goal outside viewport");
+            ToggleWatch();await Frames();Check(!_trackedGoalPanel.Visible,"Tracked goal visible in Watch");ExitWatch();await Frames();
+            await UiClick(_trackedGoalOpen);await Frames();Check(_drawer.Visible && _tabs.CurrentTab==2,"Tracked goal did not reopen Goals");
             Check(_goalPlaces[key].Visible,"Goal places hidden with help open");
             string placementState=_world.SaveJson();
             var planButton=_goalPlaces[key].GetChildren().OfType<Button>().Last();

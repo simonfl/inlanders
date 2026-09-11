@@ -8,7 +8,7 @@ Windows, local play, Godot, and C# remain the foundation. Save backward compatib
 
 The original ordered roadmap shipped its first versions. The next phase responds to the design review and the user's feedback that the buildings look flat and the village is not visually compelling.
 
-**Next implementation: F21l — readable campaign goals.** The level-6 play feedback exposed unclear service counters; the wording is now explicit, but long explanations bury progress and actions. Make the current phase, unmet requirement and next useful action easy to find, with details available when wanted. Keep food-service enjoyment, art and river/lake pacing reviews open.
+**Next: review the readable campaign goals in play.** [F21l1–5 are shipped](CAMPAIGN_GOALS_F21L.md): compact conditions, resident filters, place/build links, food evidence and optional tracking. Use level 6/7 to check whether the player can explain a falling counter and choose a useful response. Keep food-service enjoyment, art and river/lake pacing reviews open before expanding the systems.
 
 **Open player reviews:** F23a aesthetic acceptance and river/lake pacing remain unverified. Review those before expanding the full building family or multiplying mastery scenarios. The completed table and linked feature reviews retain implementation details; the [campaign systems plan](CAMPAIGN_SYSTEMS.md) keeps later resource and resident ambitions tentative.
 
@@ -30,7 +30,7 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 
 | Order | ID | Playable chunk | What success looks like |
 | --- | --- | --- | --- |
-| In progress: 5 of 5 | F21l | **Readable campaign goals.** Compact per-condition progress and an obvious phase action; expandable explanations and links to relevant residents/places. Begin with river/lake service objectives and their rolling time windows. | At 960/1440, a player can explain what counts, why progress falls and what to do next without reading a wall of text. Keep the action discoverable, preserve exact saves and current win rules, and surface only the most useful next step. |
+| Review | F21l | **Readable campaign goals implemented in five chunks.** Compact conditions and phase action, resident evidence, relevant places/build tools, current food assessment and optional tracked goal. [Guide and checks](CAMPAIGN_GOALS_F21L.md). | In level 6/7, verify that counts, rolling windows and useful next actions are understandable. Rendered checks and campaign regressions pass; user acceptance remains open. |
 | Review | F23a | **[Visual identity slice](ART_REVIEW_F23A.md) — implemented, aesthetic acceptance pending.** Cottage porch/window depth, thick roofs and stone feet; bakery oven mass and recessed shop; open braced sawmill with progress-driven saw. Workshop displays follow real buffers. Costs and footprints unchanged. | Review the scene at the actual camera, without labels, at 960/1440 and four directions. The user finds the direction compelling before F23b proceeds; another focused iteration remains possible. |
 | After art review | F23b | **The complete building family.** Apply the visual language to the remaining types, including the dock: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
 | Review | F11b / F18b | **Campaign pacing review.** Across the river is implemented as the first proof, with staged growth, actual food supply and east-bank recreation. Review a human first play before multiplying longer scenarios; keep the five lessons as onboarding. | Consequential choices, recoverable mistakes and a satisfying village. The 20–30-minute target is unverified; two optimized scripted routes take 13/15 simulation minutes with home routines. Cut waiting or revise geography if decisions run out. |
@@ -57,6 +57,7 @@ F23c measured 16 residents with 36 decorations and a 600-frame paused preview. S
 | ID | Shipped |
 | --- | --- |
 | F11b objective clarity | Level 6 names the east-bank Square, counts distinct residents using their latest completed break within two in-game minutes, explains automatic visits and excluded venues, and reminds players to maintain participation during assessment. |
+| F21l1–5 | Compact campaign goals, counted/not-counted resident inspection, relevant place/build links, live food-assessment evidence and optional session-only tracked goal. River/lake rules unchanged. |
 | F21 camera dragging | Left-drag pans in normal play; clicks still select. Right/middle drag pans with build tools active. Screen-relative movement follows zoom/orbit, stops following/automatic orbit, respects HUD input and cancels on focus loss. |
 | F25b2 prototype | Carpenter workshop, physical 4/8-plank home orders and recovery, actual improved rest, shutters/cushioned rest pose, inspector controls and format-32 saves. Twenty-four matched comparisons and four-direction visual review complete; optional player/campaign acceptance remains open. |
 | Milestones 1–3 | Timber harvesting and hauling, construction, worker roles and priorities, berries → grain → bread, housing, meals, village supper, and save/load. |
@@ -247,12 +248,12 @@ Orchards and hidden discoveries remain candidates. Neighborhood pantries have sh
 
 Combat, multiplayer, a large technology tree, and a full life simulation are outside the current direction.
 
-## Current five-chunk batch — F21l
+## Completed five-chunk batch — F21l
 
 1. F21l1 — shipped: compact river/lake conditions, collapsed explanations and a phase action near the top. 960/1440 rendered navigation checks passed. Review: drill-downs are next; win rules unchanged.
 2. F21l2 — shipped: counted/not-counted resident filters, exact campaign reasons and existing home/venue links. Rendered filter counts and read-only saves pass. Review: site discovery is the next missing action.
 3. F21l3 — shipped: relevant place links, construction/removal status, and safe build previews with east-bank camera focus. Rendered planning keeps saves unchanged. Review: meal evidence remains the next clarity gap.
 4. F21l4 — shipped: live closed-request, missed/skipped, variety and fresh-delivery evidence; moving-window explanation; meal/Economy links; first river proof stays latched. Rendered navigation preserves saves. Review: keep one condition visible outside Goals next.
-5. F21l5: optional tracked condition while managing the village.
+5. F21l5 — shipped: session-only tracked condition, live count and reopen action; hidden during Watch/placement and reset on world change. Focused UI, river/lake simulation and rendered river completion checks pass. Review: all five chunks are complete; playtest clarity before adding more dashboard features.
 
-Each ships separately with verification and a roadmap review. Existing win rules stay unchanged; human art/pacing acceptance remains open.
+Each shipped separately with verification and a roadmap review. Existing win rules stay unchanged; human art/pacing acceptance remains open.

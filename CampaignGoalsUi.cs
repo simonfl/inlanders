@@ -29,6 +29,7 @@ public partial class Game
         {
             _goalWorld=_world;_goalKeys=keys;
             _goalResidentButtons.Clear();
+            _goalTrackButtons.Clear();
             _goalPlaces.Clear();_goalPlaceKeys.Clear();
             _goalMealHelp.Hide();
             foreach(var item in _goalItems.Values){_goalCards.RemoveChild(item.Root);item.Root.QueueFree();}_goalItems.Clear();
@@ -39,6 +40,7 @@ public partial class Game
                 var help=Text(c.Explanation,13,true);help.Hide();
                 var toggle=Button("Why?",()=>help.Visible=!help.Visible,48);row.AddChild(toggle);root.AddChild(help);
                 _goalItems[c.Key]=(root,count,toggle,help);
+                string trackKey=c.Key;var track=Button("Track while playing",()=>_trackedGoalKey=_trackedGoalKey==trackKey?null:trackKey);root.AddChild(track);_goalTrackButtons[trackKey]=track;
                 if(c.Key is "housing" or "rest" or "recreation" or "east-recreation")
                 {
                     string key=c.Key;var residents=Button("Inspect residents",()=>OpenCampaignResidents(key));root.AddChild(residents);_goalResidentButtons[key]=residents;
@@ -50,6 +52,7 @@ public partial class Game
         _goalNext.Text=missing!=null?$"Next: {missing.Label.ToLowerInvariant()} ({missing.Current}/{missing.Required}).":_riverAction.Visible?(_riverAction.Disabled?_riverAction.TooltipText:"Ready for the next phase when you are."):"Keep services running during assessment.";
         foreach(var c in conditions) _goalItems[c.Key].Count.Text=$"{(c.Met?"✓":"○")} {c.Label}\n{c.Current}/{c.Required}";
         foreach(var entry in _goalResidentButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
+        foreach(var entry in _goalTrackButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
         UpdateGoalPlaces();
         UpdateGoalMeals();
     }

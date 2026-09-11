@@ -126,7 +126,7 @@ public partial class Game
             UpdateCamera();
         }));
         _hintPanel = HudPanel(_hud); _hint = Text("", 14, true); _hintPanel.AddChild(_hint); _hintPanel.MouseFilter = Control.MouseFilterEnum.Ignore;
-        _drawer.Hide(); _inspector.Hide(); _hintPanel.Hide(); LayoutHud(); MakeWatchUi();
+        _drawer.Hide(); _inspector.Hide(); _hintPanel.Hide(); LayoutHud(); MakeWatchUi();MakeTrackedGoal();
     }
     private void MakePeopleMenu(VBoxContainer column)
     {
