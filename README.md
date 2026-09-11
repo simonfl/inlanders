@@ -311,7 +311,7 @@ See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional fol
 | `Simulation/Campaign.cs`, `CampaignUi.cs` | Authored campaign setups, objective definitions, tutorial hints, progress and resumable villages |
 | `Simulation/Maps.cs`, `MapVisuals.cs` | Saved map dimensions/land cells, larger authored map, terrain instancing, camera overview and map switching |
 | `Game.cs` | Input, actor views, scene lifecycle, simulation/render coordination |
-| `Visuals.cs`, `FoodVisuals.cs`, `FieldVisuals.cs` | Procedural geometry, lighting, crops, pantry |
+| `Visuals.cs`, `FoodVisuals.cs`, `FieldVisuals.cs`, `ForagerVisuals.cs` | Procedural geometry, lighting, crops, pantry, open woodland shelter |
 | `ArchitectureVisuals.cs`, `BakeryVisuals.cs` | Cottage/bakery forms, shared timber/roof/stone details and production stock displays |
 | `BuildCatalog.cs`, `WorldLabels.cs` | Visual building catalog, drawer sections, tool footer, label preference and text-focus guard |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |

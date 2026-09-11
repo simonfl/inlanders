@@ -30,10 +30,13 @@ public partial class Game
             var lodge = Place(new(0, 6), BuildingKind.Lodge);
             var rearLodge = _world.Place(new(4, 5),2,BuildingKind.Lodge) ?? throw new Exception("Rear-facing lodge rejected");
             Place(new(6, 3), BuildingKind.VegetableGarden);
+            var shelterCell=_world.Map.Land.Where(c=>_world.PlacementProblem(c,0,BuildingKind.ForagerHut)==null)
+                .OrderBy(c=>(c.Point-new Cell(-4,3).Point).LengthSquared()).First();
+            var shelter=Place(shelterCell,BuildingKind.ForagerHut);
             for (int x = -2; x <= 6; x++) _world.SetPath(new(x, 1), true);
             for (int z = -2; z <= 7; z++) _world.SetPath(new(2, z), true);
             for (int x = 0; x <= 5; x++) _world.SetPath(new(x, 7), true);
-            _world.Assign(4, Role.Farmer); _world.Assign(5, Role.Baker); _world.Assign(6, Role.Sawyer);
+            _world.Assign(4, Role.Farmer); _world.Assign(5, Role.Baker); _world.Assign(6, Role.Sawyer); _world.Assign(7,Role.Forager);
             CreateActors(); CloseManagementUi(); _hud.Hide(); _watchRoot.Hide();
             _focus = new(1.5f, 0, 1); _camera.Size = 23; _angle = .72f; UpdateCamera();
             GetWindow().Size = new(1440, 900); await Frames();
@@ -74,6 +77,7 @@ public partial class Game
                 }
             }
             Check(baking && sawing && bread && planks, "Art scene did not exercise all workshop states");
+            Check(_world.DeliveredBerries>0,"Forager shelter scene did not deliver an actual harvest");
             _world.Validate();
             System.IO.Directory.CreateDirectory("artifacts");
             System.IO.File.WriteAllText("artifacts/f23a-village.json", _world.SaveJson());
@@ -87,6 +91,13 @@ public partial class Game
                 }
             }
             string lodgeState=_world.SaveJson();
+            _focus=new(shelter.Cell.X,0,shelter.Cell.Z);_camera.Size=10;GetWindow().Size=new(960,640);
+            for(int direction=0;direction<4;direction++)
+            {
+                _angle=.72f+direction*Mathf.Pi/2;UpdateCamera();await Frames();
+                await Capture($"artifacts/f23b2-forager-{direction}.png");
+            }
+            Check(_world.SaveJson()==lodgeState,"Paused shelter review changed the settlement");
             foreach(bool improved in new[]{false,true})
             {
                 if(improved) Check(_world.RequestImprovement(lodge.Id),"Lodge improvement fixture rejected");
@@ -110,14 +121,14 @@ public partial class Game
             Check(gray.SavePng("artifacts/f23a-grayscale.png") == Error.Ok, "Grayscale capture failed");
             // A separate presentation sheet checks all construction stages and rotation.
             _dynamic.Hide(); _landscape.Hide(); _pathView.Hide(); var sheet = new Node3D(); AddChild(sheet);
-            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2), (BuildingKind.Lodge, 3) })
+            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2), (BuildingKind.Lodge, 3), (BuildingKind.ForagerHut,4) })
                 for (int stage = 0; stage < 4; stage++)
                 {
                     var body = new Node3D { Position = new(stage * 4 - 6, 0, row * 4 - 4), RotationDegrees = new(0, stage == 3 ? 90 : 0, 0) }; sheet.AddChild(body);
                     MakeBuilding(body, new Cottage { Kind = kind }, stage);
                 }
-            Box(sheet, new(0, -.12f, 2), new(18, .15f, 18), new("777f62"));
-            _focus = new(0,0,2); _camera.Size = 26; UpdateCamera(); HideLabels(sheet); await Frames();
+            Box(sheet, new(0, -.12f, 4), new(18, .15f, 22), new("777f62"));
+            _focus = new(0,0,4); _camera.Size = 30; UpdateCamera(); HideLabels(sheet); await Frames();
             await Capture("artifacts/f23a-construction.png");
             GD.Print("PASS: art scene, real bakery/sawmill buffers, working/paused saw, oven state, four camera directions at 960/1440 and construction sheet. Visual appeal requires human review.");
             GetTree().Quit();

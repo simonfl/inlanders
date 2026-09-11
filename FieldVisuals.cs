@@ -20,30 +20,6 @@ public partial class Game
             Box(parent,new(x,0.16f,0),new(0.07f,0.12f,1.8f),new("b99b6f"));
         FoodSign(parent,"FARM",1.65f);
     }
-    private void MakeForagerHut(Node3D parent,int stage)
-    {
-        Box(parent,new(0,0.10f,0),new(2.7f,0.2f,1.7f),_wood);
-        if(stage<1) return;
-        foreach(float x in new[]{-1.15f,1.15f}) foreach(float z in new[]{-0.65f,0.65f})
-            Box(parent,new(x,0.75f,z),new(0.13f,1.5f,0.13f),_wood);
-        foreach(float z in new[]{-0.65f,0.65f})
-            Box(parent,new(0,1.5f,z),new(2.45f,0.11f,0.12f),_wood);
-        if(stage<2) return;
-        for(int i=0;i<5;i++)
-        {
-            var rafter=Box(parent,new(-1.15f+i*0.575f,1.6f,0),new(0.1f,0.12f,1.9f),new("b39466"));
-            rafter.RotationDegrees=new(8,0,0);
-        }
-        if(stage<3) return;
-        var roof=Box(parent,new(0,1.66f,0),new(2.9f,0.12f,1.9f),new("71856b")); roof.RotationDegrees=new(8,0,0);
-        Box(parent,new(0,0.6f,-0.25f),new(1.6f,0.18f,0.8f),_wood);
-        foreach(float x in new[]{-0.45f,0.4f})
-        {
-            Cylinder(parent,new(x,0.85f,-0.25f),0.23f,0.35f,new("b39568"));
-            Mesh(parent,new SphereMesh { Radius=0.18f,Height=0.15f,RadialSegments=7,Rings=3 },new(x,1.025f,-0.25f),new("a9556f"));
-        }
-        FoodSign(parent,"FORAGERS",2.1f);
-    }
     private void MakeCrops(Node3D root,Cottage farm,int stage)
     {
         if(stage==0) return;
