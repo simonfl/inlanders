@@ -104,7 +104,7 @@ public partial class Game
             int viewKey=stage*10+farm.Harvest;
             if (_cropViews.TryGetValue(farm.Id, out var old) && old.Stage == viewKey) continue;
             if (old.Body != null) old.Body.QueueFree();
-            var root = new Node3D { Position = OnGround(farm.Cell.X + (farm.Rotated ? -0.5f : 0), farm.Cell.Z + (farm.Rotated ? 0 : -0.5f)), RotationDegrees = new(0, farm.Rotated ? 90 : 0, 0) };
+            var root = new Node3D { Position = BuildingPosition(farm.Cell,farm.Rotation,farm.Kind), RotationDegrees = new(0, farm.Rotation * 90, 0) };
             _dynamic.AddChild(root);
             if (farm.Kind == BuildingKind.VegetableGarden) MakeVegetables(root, farm, stage);
             else MakeCrops(root, farm, stage);

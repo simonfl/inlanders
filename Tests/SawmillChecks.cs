@@ -47,7 +47,7 @@ public static class SawmillChecks
             var c = World.LoadJson(json); Check(c.Cancel(lodge.Id), "Lodge cancellation failed"); c.Validate();
             foreach (var person in c.People) c.Assign(person.Id, Role.Logger);
             Until(c, () => c.Trees.All(t => !t.Salvage) && c.People.All(v => v.Carried == 0), $"Plank salvage stalled {phase}");
-            Check(c.CanPlace(lodge.Cell, lodge.Rotated), "Salvaged lodge site not reusable");
+            Check(c.CanPlace(lodge.Cell, lodge.Rotation), "Salvaged lodge site not reusable");
         }
         // Two mills and several builders compete for the same limited timber.
         var scarce = new World(3);

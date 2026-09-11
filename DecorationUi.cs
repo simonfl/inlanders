@@ -36,7 +36,7 @@ public partial class Game
     }
     private void EditDecoration(Cell cell)
     {
-        bool changed=_removeDecoration?_world.RemoveDecoration(cell):_world.PlaceDecoration(cell,_decorationKind,_rotated);
+        bool changed=_removeDecoration?_world.RemoveDecoration(cell):_world.PlaceDecoration(cell,_decorationKind,(_rotation%2!=0));
         UiCue(changed?Cue.Place:Cue.Reject); RefreshGhost();
     }
     private void RefreshDecorationGhost()
@@ -50,7 +50,7 @@ public partial class Game
         }
         var color=_ghostValid?new Color("aed2a0"):new Color("e38673");
         foreach(var material in _previewMaterials) material.AlbedoColor=new(color.R,color.G,color.B,.48f);
-        _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,_rotated ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,_rotated);
+        _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,(_rotation%2!=0) ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,(_rotation%2!=0));
         Clear(_ghostCells);
         if(_removeDecoration) ClearingCross(_ghostCells,OnGround(_hover.X,_hover.Z,.1f),color,.9f);
         else GroundPatch(_ghostCells,_hover.X,_hover.Z,.96f,.96f,color.Darkened(.15f));

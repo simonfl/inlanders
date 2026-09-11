@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     // A null problem is the authoritative permission to place; UI and commands use the same checks.
-    public string? PlacementProblem(Cell cell, bool rotated, BuildingKind kind = BuildingKind.Cottage) => kind==BuildingKind.HuntingLodge && !HuntingGrounds(cell).Any(h=>HabitatCapacity(h)>0) ? "Hunting lodge needs reachable wooded habitat within 8 tiles. Find wildlife on Three clearings; retain mature trees." : kind==BuildingKind.Quarry && !Map.StoneDeposits.Any(d=>d.Remaining>0 && (d.Cell.Point-cell.Point).LengthSquared()<=16 && Accessible(d.Access)) ? "Quarry needs a reachable, unexhausted stone outcrop within 4 tiles. Find stone on Three clearings." : kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
+    public string? PlacementProblem(Cell cell, int rotated, BuildingKind kind = BuildingKind.Cottage) => rotated is <0 or >3 ? "Choose one of four building orientations." : kind==BuildingKind.HuntingLodge && !HuntingGrounds(cell).Any(h=>HabitatCapacity(h)>0) ? "Hunting lodge needs reachable wooded habitat within 8 tiles. Find wildlife on Three clearings; retain mature trees." : kind==BuildingKind.Quarry && !Map.StoneDeposits.Any(d=>d.Remaining>0 && (d.Cell.Point-cell.Point).LengthSquared()<=16 && Accessible(d.Access)) ? "Quarry needs a reachable, unexhausted stone outcrop within 4 tiles. Find stone on Three clearings." : kind == BuildingKind.FishingDock ? DockProblem(cell, rotated) : kind == BuildingKind.Bridge ? BridgeProblem(cell, rotated) :
         Footprint(cell, rotated, kind).Append(Door(cell, rotated)).All(Map.Contains) && !Map.LevelGround(Footprint(cell, rotated, kind).Append(Door(cell, rotated))) ? "Choose level ground for the footprint and entrance." :
         CheckPlacement(Footprint(cell, rotated, kind).ToHashSet(), Door(cell, rotated));
 
@@ -33,13 +33,13 @@ public sealed partial class World
         var tree = Trees.FirstOrDefault(t => t != reusableStump && footprint.Contains(t.Cell));
         if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
         if (Bushes.Any(b => footprint.Contains(b.Cell))) return "Berry bushes occupy this footprint.";
-        var site = Cottages.FirstOrDefault(c => Footprint(c.Cell, c.Rotated, c.Kind).Any(footprint.Contains));
+        var site = Cottages.FirstOrDefault(c => Footprint(c.Cell, c.Rotation, c.Kind).Any(footprint.Contains));
         if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
         if (Blocked(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";
         if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
-        if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotated)) || footprint.Contains(Door(c.Cell, c.Rotated))))) return "Keep the far bank of the bridge clear.";
+        if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotation)) || footprint.Contains(Door(c.Cell, c.Rotation))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";
         if (Trees.Any(t => footprint.Contains(t.Access)) || Bushes.Any(b => footprint.Contains(b.Access))) return "Workers need this spot to reach trees or berry bushes.";
         var worker = People.FirstOrDefault(v => footprint.Contains(At(v)) || (v.Route.TryPeek(out var next) && footprint.Contains(next)));

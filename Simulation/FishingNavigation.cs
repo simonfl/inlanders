@@ -29,13 +29,13 @@ public sealed partial class World
         return null;
     }
 
-    public Cell DockLaunch(Cell cell, bool rotated) => Map.Water.Contains(FarBank(cell, rotated))
+    public Cell DockLaunch(Cell cell, int rotated) => Map.Water.Contains(FarBank(cell, rotated))
         ? FarBank(cell, rotated) : Door(cell, rotated);
 
-    public Cell DockEntrance(Cell cell, bool rotated) => DockLaunch(cell, rotated) == FarBank(cell, rotated)
+    public Cell DockEntrance(Cell cell, int rotated) => DockLaunch(cell, rotated) == FarBank(cell, rotated)
         ? Door(cell, rotated) : FarBank(cell, rotated);
 
-    public string? DockProblem(Cell cell, bool rotated)
+    public string? DockProblem(Cell cell, int rotated)
     {
         var launch = DockLaunch(cell, rotated);
         var entrance = DockEntrance(cell, rotated);
@@ -53,7 +53,7 @@ public sealed partial class World
             return "No fishing ground is reachable from this launch.";
         return null;
     }
-    public string FishingSurvey(Cell cell,bool rotated)
+    public string FishingSurvey(Cell cell,int rotated)
     {
         var launch=DockLaunch(cell,rotated);
         var grounds=Map.FishingGrounds.Select(g=>(Ground:g,Route:FindBoatRoute(launch,g.Cell))).Where(t=>t.Route!=null).ToArray();

@@ -58,7 +58,7 @@ public partial class Game
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotated, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_trackedGoalPanel!=null && _trackedGoalPanel.Visible && _trackedGoalPanel.GetGlobalRect().HasPoint(point)) ||
@@ -88,18 +88,17 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        bool compact = _buildKind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden;
-        bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && _world.DockEntrance(_hover,_rotated)==World.FarBank(_hover,_rotated);
-        _ghostModel.Position = OnGround(_hover.X + (!_plantingTrees && !compact && _rotated ? -0.5f : 0), _hover.Z + (!_plantingTrees && !compact && !_rotated ? -0.5f : 0), .1f);
-        _ghostModel.RotationDegrees = new(0, (!_plantingTrees && _rotated ? 90 : 0)+(dockFar?180:0), 0);
+        bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && _world.DockEntrance(_hover,_rotation)==World.FarBank(_hover,_rotation);
+        _ghostModel.Position = _plantingTrees?OnGround(_hover.X,_hover.Z,.1f):BuildingPosition(_hover,_rotation,_buildKind,.1f);
+        _ghostModel.RotationDegrees = new(0, (_plantingTrees?0:_rotation*90)+(dockFar?180:0), 0);
         Clear(_ghostCells);
-        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotated, _buildKind);
+        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotation, _buildKind);
         foreach (var cell in footprint) GroundPatch(_ghostCells,cell.X,cell.Z,.94f,.94f,tint.Darkened(.15f),.06f);
-        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotated) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotated) : World.Door(_hover, _rotated);
-        var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees || _rotated ? 90 : 0) + (dockFar || !_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotated) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
+        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotation) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotation) : World.Door(_hover, _rotation);
+        var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees?90:_rotation*90) + (dockFar || !_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotation) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
         if(!_plantingTrees && _buildKind==BuildingKind.FishingDock)
         {
-            var launch=_world.DockLaunch(_hover,_rotated);
+            var launch=_world.DockLaunch(_hover,_rotation);
             GroundPatch(_ghostCells,launch.X,launch.Z,.88f,.88f,tint,.06f);
             var sign=new Node3D { Position=OnGround(launch.X,launch.Z,.2f) }; _ghostCells.AddChild(sign); FoodSign(sign,"LAUNCH",.25f);
         }
@@ -151,7 +150,7 @@ public partial class Game
         string material = definition.Material.ToString().ToLowerInvariant();
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");
-        if(!_plantingTrees && _placing && _buildKind==BuildingKind.FishingDock) _buildDescription.Text+="\n\n"+_world.FishingSurvey(_hover,_rotated);
+        if(!_plantingTrees && _placing && _buildKind==BuildingKind.FishingDock) _buildDescription.Text+="\n\n"+_world.FishingSurvey(_hover,_rotation);
         if(!_plantingTrees && _placing && _buildKind==BuildingKind.Quarry) _buildDescription.Text+="\n\n"+_world.QuarrySurvey(_hover);
         if(!_plantingTrees && _placing && _buildKind==BuildingKind.HuntingLodge) _buildDescription.Text+="\n\n"+_world.WildlifeSurvey(_hover);
         if(!_plantingTrees && definition.StoneCost>0) _buildDescription.Text+=$"\n{_world.AvailableStone} stone available · {definition.StoneCost} needed. Stone is hauled from the central store.";

@@ -42,7 +42,7 @@ public partial class Game
             for (int i = 0; i < 100 && _world.Trees.Contains(tree); i++) _world.Tick(0.1f);
             await Frames(); Check(!_world.Trees.Contains(tree) && !_trees.ContainsKey(tree.Id), "Cleared tree visual remained");
             await UiClick(_kindButtons[BuildingKind.Cottage]); CloseDrawer();
-            if (!_rotated) await Press(Key.R); await Point(cell);
+            if (_rotation==0) await Press(Key.R); await Point(cell);
             Check(_ghostValid && !_clearingTrees, "Cleared ground did not allow building preview");
             await Capture("artifacts/f12c-buildable.png");
             await Click(_camera.UnprojectPosition(new(cell.X, 0, cell.Z)));

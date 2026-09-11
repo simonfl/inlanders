@@ -35,7 +35,7 @@ public sealed partial class World
                 .Where(t=>t.Route!=null).OrderByDescending(t=>Math.Min(4,AvailableFish(t.Ground))).ThenBy(t=>t.Route!.Count).ThenBy(t=>t.Ground.Id);
             foreach(var trip in trips)
             {
-                dock.Boat ??= new FishingBoat { Position=dock.Launch.Point,Heading=(dock.Rotated?MathF.PI/2:0)+(dock.DockFromFar?MathF.PI:0) };
+                dock.Boat ??= new FishingBoat { Position=dock.Launch.Point,Heading=(dock.Rotation*MathF.PI/2)+(dock.DockFromFar?MathF.PI:0) };
                 var boat=dock.Boat;
                 boat.FisherId=person.Id; boat.GroundId=trip.Ground.Id;
                 boat.ReservedCatch=Math.Min(4,AvailableFish(trip.Ground));

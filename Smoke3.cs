@@ -34,7 +34,7 @@ public partial class Game
                 (new Cell(3,0), BuildingKind.Cottage, false), (new Cell(6,0), BuildingKind.Cottage, true),
                 (new Cell(3,6), BuildingKind.Cottage, false), (new Cell(-5,6), BuildingKind.Cottage, false) })
             {
-                await UiClick(_kindButtons[kind]); if (_rotated != rotated) await Press(Key.R);
+                await UiClick(_kindButtons[kind]); while (_rotation != (rotated?1:0)) await Press(Key.R);
                 int count = _world.Cottages.Count; await Click(_camera.UnprojectPosition(new(cell.X, 0, cell.Z)));
                 Check(_world.Cottages.Count == count + 1, $"Placement failed at {cell}/{kind}");
             }

@@ -101,7 +101,7 @@ public partial class Game
             var boat=dock.Boat;
             var at=boat?.Position??dock.Launch.Point;
             view.Root.Position=new(at.X,0,at.Y);
-            view.Root.Rotation=new(0,boat?.Heading??((dock.Rotated?Mathf.Pi/2:0)+(dock.DockFromFar?Mathf.Pi:0)),0);
+            view.Root.Rotation=new(0,boat?.Heading??((dock.Rotation*Mathf.Pi/2)+(dock.DockFromFar?Mathf.Pi:0)),0);
             bool rowing=boat?.Route.Count>0 && boat.Phase!=BoatPhase.Moored;
             float stroke=rowing?Mathf.Sin(_clock*4)*.45f:0;
             view.Left.Rotation=new(0,stroke,-.12f); view.Right.Rotation=new(0,-stroke,.12f);

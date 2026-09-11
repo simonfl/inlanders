@@ -89,7 +89,7 @@ public sealed class Cottage
     [JsonInclude] public int OutputTarget { get; internal set; } = -1;
     public int Id { get; init; }
     public Cell Cell { get; init; }
-    public bool Rotated { get; init; }
+    public int Rotation { get; init; }
     public bool BridgeFromFar { get; init; }
     public bool DockFromFar { get; init; }
     public FishingBoat? Boat { get; set; }
@@ -120,8 +120,8 @@ public sealed class Cottage
     [JsonInclude] public Resource StorageMaterial { get; internal set; } = Resource.Logs;
     [JsonInclude]    public int StorageTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;
-    public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotated) : World.Door(Cell, Rotated);
-    public Cell Launch => DockFromFar ? World.Door(Cell, Rotated) : World.FarBank(Cell, Rotated);
+    public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotation) : World.Door(Cell, Rotation);
+    public Cell Launch => DockFromFar ? World.Door(Cell, Rotation) : World.FarBank(Cell, Rotation);
     public Resource Material => Buildings.Get(Kind).Material;
     public int Required => Buildings.Get(Kind).Cost;
 }
@@ -166,23 +166,23 @@ public sealed partial class World
         });
         InitializeFood();
     }
-    public static Cell Door(Cell c, bool rotated) => rotated ? new(c.X + 1, c.Z) : new(c.X, c.Z + 1);
-    public static IEnumerable<Cell> Footprint(Cell c, bool rotated, BuildingKind kind = BuildingKind.Cottage)
+    public static Cell Door(Cell c, int rotated) => RotateOffset(c, 0, 1, rotated);
+    public static IEnumerable<Cell> Footprint(Cell c, int rotated, BuildingKind kind = BuildingKind.Cottage)
     {
         if (kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden) { yield return c; yield break; }
-        for (int x = -1; x <= (rotated ? 0 : 1); x++)
-            for (int z = -1; z <= (rotated ? 1 : 0); z++) yield return new(c.X + x, c.Z + z);
+        for (int x = -1; x <= 1; x++)
+            for (int z = -1; z <= 0; z++) yield return RotateOffset(c, x, z, rotated);
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
     private bool Blocked(Cell c) => Map.StoneDeposits.Any(d=>d.Cell==c) || Decorations.Any(d => d.Cell == c && d.Solid) || !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
-        Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotated, h.Kind).Contains(c));
+        Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotation, h.Kind).Contains(c));
 
-    public bool CanPlace(Cell cell, bool rotated) => PlacementProblem(cell, rotated) == null;
-    public Cottage? Place(Cell cell, bool rotated = false, BuildingKind kind = BuildingKind.Cottage)
+    public bool CanPlace(Cell cell, int rotated) => PlacementProblem(cell, rotated) == null;
+    public Cottage? Place(Cell cell, int rotated = 0, BuildingKind kind = BuildingKind.Cottage)
     {
         if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
-        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotated = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
+        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotation = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
         ManagedWoodland.ExceptWith(Footprint(cell,rotated,kind).Append(site.Entrance));
@@ -440,6 +440,7 @@ public sealed partial class World
         ValidateComfort();
         foreach (var site in Cottages)
         {
+            Check(site.Rotation is >=0 and <=3,"Invalid building orientation");
             Check(site.Incoming == People.Where(v => v.SiteId == site.Id && v.Cargo!=Resource.Stone).Sum(v => v.Reserved), "Orphaned site reservation");
             Check(site.Delivered >= 0 && site.Incoming >= 0 && site.Delivered + site.Incoming <= site.Required, "Over-delivery");
             Check(site.DeliveredStone>=0 && site.IncomingStone>=0 && site.DeliveredStone+site.IncomingStone<=site.RequiredStone && site.IncomingStone==People.Where(p=>p.SiteId==site.Id && p.Cargo==Resource.Stone).Sum(p=>p.Reserved), "Invalid stone delivery/reservation");

@@ -56,7 +56,7 @@ public sealed partial class World
     private void ValidateManagedWoodland()
     {
         if(ManagedWoodland==null || ManagedWoodland.Count>ManagedWoodlandLimit || ManagedWoodland.Any(c=>!Map.Contains(c) || Map.Water.Contains(c) || Paths.Contains(c) ||
-            Decorations.Any(d=>d.Cell==c) || Cottages.Any(b=>Footprint(b.Cell,b.Rotated,b.Kind).Contains(c)) || Trees.Any(t=>t.Cell==c && t.ClearRequested)))
+            Decorations.Any(d=>d.Cell==c) || Cottages.Any(b=>Footprint(b.Cell,b.Rotation,b.Kind).Contains(c)) || Trees.Any(t=>t.Cell==c && t.ClearRequested)))
             throw new InvalidOperationException("Invalid managed woodland");
         if(Trees.Any(t=>t.Preserved && (t.Felled || t.Salvage || t.ClearRequested || t.Owner is int owner && People[owner].Task is Work.ToTree or Work.Chopping)))
             throw new InvalidOperationException("Preserved tree has conflicting work");

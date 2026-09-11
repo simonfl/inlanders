@@ -15,7 +15,8 @@ public partial class Game : Node3D
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
     private int _lastStored = -1, _lastPlanks = -1, _selectedPerson = -1, _selectedSite = -1;
-    private bool _placing, _plantingTrees, _rotated, _paused, _ghostValid;
+    private bool _placing, _plantingTrees, _paused, _ghostValid;
+    private int _rotation;
     private float _speed = 1, _clock, _accumulator, _angle = 0.72f;
     private Vector3 _focus = new(0, 0, 0);
     private Cell _hover = new(3, 0);
@@ -79,7 +80,7 @@ public partial class Game : Node3D
         {
             var next = _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
             _world.SaveFile(CurrentSavePath + ".before-new");
-            _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotated = false; AdoptWorld(next);
+            _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotation = 0; AdoptWorld(next);
             Notice("New village ready and paused. Options can restore the village before restart.");
         }
         catch (Exception e) { Notice("Could not restart; current village kept. " + e.Message); }
@@ -107,7 +108,7 @@ public partial class Game : Node3D
             return;
         }
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
-        foreach (var c in World.Footprint(site.Cell, site.Rotated, site.Kind)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
+        foreach (var c in World.Footprint(site.Cell, site.Rotation, site.Kind)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
     }
     private void PlaceCottage(Cell at)
     {
@@ -122,7 +123,7 @@ public partial class Game : Node3D
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
-        var site = _world.Place(at, _rotated, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
+        var site = _world.Place(at, _rotation, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
         SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
@@ -153,7 +154,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
-            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotated = !_rotated; RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating?2:4); RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.I) ToggleDrawer(4);
             if (key.Keycode == Key.B) ToggleDrawer(1);
@@ -184,7 +185,7 @@ public partial class Game : Node3D
         if (closest.Distance < 25) SelectPerson(closest.Index);
         else if (Ground(position) is Vector3 p)
         {
-            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotated, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
             if (site != null) SelectBuilding(site.Id); else ClearSelection();
         }
     }
@@ -284,9 +285,8 @@ public partial class Game : Node3D
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 if (h.DemolitionRequested) { Box(view.Body, new(0,.55f,1.2f), new(.9f,.12f,.12f), new("d7a453")); Box(view.Body, new(-.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); Box(view.Body, new(.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); }
-                bool compact = h.Kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden;
-                view.Body.Position = OnGround(h.Cell.X + (!compact && h.Rotated ? -0.5f : 0), h.Cell.Z + (compact || h.Rotated ? 0 : -0.5f));
-                view.Body.RotationDegrees = new(0, (h.Rotated ? 90 : 0) + (h.Kind == BuildingKind.FishingDock && h.DockFromFar ? 180 : 0), 0); _cottages[h.Id] = (view.Body, viewKey);
+                view.Body.Position = BuildingPosition(h.Cell,h.Rotation,h.Kind);
+                view.Body.RotationDegrees = new(0, (h.Rotation * 90) + (h.Kind == BuildingKind.FishingDock && h.DockFromFar ? 180 : 0), 0); _cottages[h.Id] = (view.Body, viewKey);
             }
             if (stage == 3 && h.Kind == BuildingKind.Sawmill)
             {

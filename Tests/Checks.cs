@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--rotation")) {try{RotationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--comfort-comparison")) { try {ComfortComparison.Run();} catch(Exception e) {Console.Error.WriteLine(e);Environment.ExitCode=1;} return; }
 if(args.Contains("--comfort")) { try {ComfortChecks.Run();} catch(Exception e) {Console.Error.WriteLine(e);Environment.ExitCode=1;} return; }
 
@@ -104,7 +105,7 @@ foreach (var phase in new[] { Work.ToMaterials, Work.ToCottage, Work.ToBuild, Wo
     Roles(w, Role.Logger);
     Until(w, () => w.Stored == w.InitialLogs - Buildings.Get(BuildingKind.Cottage).Cost, "Salvage/cargo not recoverable");
     Check(w.Trees.All(t => !t.Salvage), "Empty salvage still blocks construction");
-    Check(w.CanPlace(site.Cell, site.Rotated), "Cancelled footprint not reusable after salvage");
+    Check(w.CanPlace(site.Cell, site.Rotation), "Cancelled footprint not reusable after salvage");
 }
 Console.WriteLine("PASS: cancellation releases claims, returns cargo, and recovers delivered logs as salvage.");
 
@@ -151,6 +152,7 @@ PlacementChecks.Run();
 CampaignChecks.Run();
 MapChecks.Run();
 WaterChecks.Run();
+RotationChecks.Run();
 ClearingChecks.Run();
 PathChecks.Run();
 PopulationChecks.Run();

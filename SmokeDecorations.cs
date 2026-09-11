@@ -18,7 +18,7 @@ public partial class Game
             {
                 _decorationChoice.Select((int)kind); await UiClick(_decorateButton); await Frames();
                 if(!_decorating || _ghostModelKey!="decoration:"+kind) throw new Exception("Decoration palette failed");
-                var cell=new Cell(2+i,-2); _rotated=true; PlaceCottage(cell); i++;
+                var cell=new Cell(2+i,-2); _rotation=1; PlaceCottage(cell); i++;
                 if(!_world.Decorations.Any(d=>d.Cell==cell && d.Rotated)) throw new Exception("Decoration click/rotation failed");
             }
             await Frames();

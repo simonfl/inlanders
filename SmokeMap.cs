@@ -48,7 +48,7 @@ public partial class Game
             for (int i = 0; i < 5000 && !_world.Cottages[0].Complete; i++) _world.Tick(0.1f);
             Check(_world.Cottages[0].Complete, "Distant plan did not finish");
             _focus = new(7,0,3); _camera.Size=18; UpdateCamera(); await Frames();
-            BeginPlacement(BuildingKind.Bridge); CloseDrawer(); _rotated=false;
+            BeginPlacement(BuildingKind.Bridge); CloseDrawer(); _rotation=0;
             var crossing=_camera.UnprojectPosition(new(7,0,0));
             Input.ParseInputEvent(new InputEventMouseMotion { Position=crossing, GlobalPosition=crossing }); await Frames();
             Check(!_ghostValid,"Bridge preview accepted wrong banks");

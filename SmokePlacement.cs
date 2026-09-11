@@ -14,7 +14,7 @@ public partial class Game
             for (int i = 0; i < 3; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
         string saved = _world.SaveJson();
-        _rotated = false;
+        _rotation = 0;
         foreach (var kind in Enum.GetValues<BuildingKind>())
         {
             if (kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.Quarry or BuildingKind.HuntingLodge) continue; // Environmental prerequisites have dedicated rendered checks.
@@ -22,9 +22,16 @@ public partial class Game
             await Move(_camera.UnprojectPosition(new(3, 0, 0)));
             Check(_ghost.Visible && _ghostValid && _previewMaterials.Count > 0, $"Missing legal {kind} preview: visible={_ghost.Visible}, hover={_hover}, reason={_placementProblem}, pointer={GetViewport().GetMousePosition()}");
             Check(_buildDescription.Text.Contains(BuildingDescription(kind)), "Building description missing");
-            await Press(Key.R);
-            Check(_rotated && _ghostModel.RotationDegrees.Y == 90 && _ghostModel.Position.X == (kind==BuildingKind.SeatingGarden?3f:2.5f), $"Rotation/footprint center wrong for {kind}");
-            await Press(Key.R);
+            var centers = kind==BuildingKind.SeatingGarden ? new[]{new Vector2(3,0),new(3,0),new(3,0),new(3,0)} : new[]{new Vector2(3,-.5f),new(2.5f,0),new(3,.5f),new(3.5f,0)};
+            for(int r=1;r<=4;r++)
+            {
+                await Press(Key.R);int facing=r%4;
+                Check(_rotation==facing && Mathf.IsEqualApprox(_ghostModel.RotationDegrees.Y,facing*90) && new Vector2(_ghostModel.Position.X,_ghostModel.Position.Z).IsEqualApprox(centers[facing]), $"Rotation/footprint center wrong for {kind}/{facing}");
+            }
+            Input.ParseInputEvent(new InputEventKey {Keycode=Key.R,Pressed=true,ShiftPressed=true});
+            await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            Input.ParseInputEvent(new InputEventKey {Keycode=Key.R,Pressed=false,ShiftPressed=true});
+            Check(_rotation==3,"Shift+R did not turn backwards");await Press(Key.R);
         }
         Check(_buildDescription.Text.Contains("builders wait"), "Material shortage did not explain planning");
         await Capture("artifacts/f21b-preview.png");

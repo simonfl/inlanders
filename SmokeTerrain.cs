@@ -23,7 +23,7 @@ public partial class Game
                 Check(hit is Vector3 h && h.DistanceTo(expected)<.002f,"Elevated mouse picking disagrees with visible terrain");
             }
         }
-        _angle=.72f; _rotated=false; UpdateCamera(); BeginPlacement(BuildingKind.Bakery); CloseDrawer();
+        _angle=.72f; _rotation=0; UpdateCamera(); BeginPlacement(BuildingKind.Bakery); CloseDrawer();
         _pointerPosition=_camera.UnprojectPosition(OnGround(hill.X,hill.Z));
         Input.ParseInputEvent(new InputEventMouseMotion { Position=_pointerPosition,GlobalPosition=_pointerPosition }); await Frames();
         Check(_ghostValid && _ghostModel.Position.Y>1.6f,"Hilltop ghost is not raised");

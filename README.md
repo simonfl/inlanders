@@ -185,7 +185,7 @@ Select a building on the map or in the **Build** menu's building list to open it
 
 Cancel an unfinished plan to release its claims. Carried timber returns to the yard; delivered timber remains as a salvage pile for loggers to collect. After collection, the site can be reused. Completed buildings cannot be cancelled.
 
-The Build menu explains each building's purpose, staffing, recipes, and available materials. You can place plans before you have enough supplies; builders wait for materials. Translucent building previews turn green on legal spots and red on blocked ones, with a specific explanation below. An arrow marks the entrance; R rotates the model and footprint together. Tree planting uses a sapling preview and stays active for repeated planting. Placement protects workers, entrances, and resource access, and recalculates routes around new plans. Border trees are decorative. Villagers can pass through one another.
+The Build menu explains each building's purpose, staffing, recipes, and available materials. You can place plans before you have enough supplies; builders wait for materials. Translucent building previews turn green on legal spots and red on blocked ones, with a specific explanation below. An arrow marks the entrance; R turns the model, footprint, and entrance through all four sides; Shift+R turns back. Rotate before placing. Docks automatically keep their launch on water; bridges choose a reachable construction bank. Tree planting uses a sapling preview and stays active for repeated planting. Placement protects workers, entrances, and resource access, and recalculates routes around new plans. Border trees are decorative. Villagers can pass through one another.
 
 ### Supply routes
 
@@ -269,7 +269,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | T | Toggle repeat tree planting on open ground or exhausted stumps |
 | C | Toggle clearing orders; click trees/stumps to mark or cancel |
 | P / Shift+P | Paint / remove paths by clicking or dragging |
-| R | Rotate the unplaced building |
+| R / Shift+R | Turn the unplaced building 90° forward / backward through all four sides |
 | Esc | Cancel preview first; otherwise close the menu or inspector |
 | Left drag / WASD | Pan (left click still selects; build tools keep left-drag painting) |
 | Right or middle drag | Pan, including while building |
@@ -283,7 +283,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart paused and retain the live village; restore it from Options (campaign replay also remains in Goals) |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 30; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Previous saves are retained as `.bak`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 33; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 **Recovery in Options:** Restore latest autosave, Restore previous autosave, Restore village before restart, and Undo last recovery. Recovery pauses the village and validates the file and its map/mode/level before replacing anything. F5 commits a recovered autosave to the manual checkpoint; F9 continues to load the manual/session checkpoint, not the periodic autosave. Returning to the menu, switching maps, campaign completion, and closing the window also update session checkpoints.
 

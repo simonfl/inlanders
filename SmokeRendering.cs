@@ -33,7 +33,7 @@ public partial class Game
         await Capture("artifacts/f23c-decorated.png");
         await Sample("decorated-paused",120);
         var spot=_world.Map.Land.First(c=>_world.PlacementProblem(c,false,BuildingKind.Cottage)==null && !PointerOverHud(_camera.UnprojectPosition(OnGround(c.X,c.Z))));
-        _rotated=false; BeginPlacement(BuildingKind.Cottage);
+        _rotation=0; BeginPlacement(BuildingKind.Cottage);
         _pointerPosition=_camera.UnprojectPosition(OnGround(spot.X,spot.Z));
         Input.ParseInputEvent(new InputEventMouseMotion { Position=_pointerPosition,GlobalPosition=_pointerPosition });
         for(int i=0;i<8;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);

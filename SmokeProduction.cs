@@ -31,7 +31,7 @@ public partial class Game
                 await UiClick(_productionPause); await Frames();
                 Check(bakery.WorkPaused && _productionState.Text.Contains("PAUSED") && w.People[0].Role == Role.Baker, "Pause changed staff or failed");
                 await UiClick(_productionPause); await Frames();
-                if (!_productionTargetControls.Visible) await UiClick(_productionTargetToggle);
+                if (!_productionTargetControls.Visible) { await UiClick(_productionTargetToggle); await Frames(); }
                 await UiClick(_outputTargetMore); await Frames();
                 Check(bakery.OutputTarget == 4, "Target button did not set four");
                 await UiClick(_outputTargetLess); await Frames();

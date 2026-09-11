@@ -13,8 +13,8 @@ public partial class Game
         Vector3 local=sowing ? new(0,.25f,.45f) : vegetables
             ? new(-.96f+plant%4*.64f+.08f,.35f,plant/4==0?-.42f:.48f)
             : new(-1.05f+Math.Min(2,plant)*.42f,.38f,.56f);
-        return OnGround(field.Cell.X+(field.Rotated?-.5f:0),field.Cell.Z+(field.Rotated?0:-.5f))
-            +local.Rotated(Vector3.Up,field.Rotated?Mathf.Pi/2:0);
+        return BuildingPosition(field.Cell,field.Rotation,field.Kind)
+            +local.Rotated(Vector3.Up,field.Rotation*Mathf.Pi/2);
     }
 
     private void AnimateFieldWork(PersonView view,Villager worker)

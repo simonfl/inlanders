@@ -23,7 +23,7 @@ public static class BalanceExperiments
                 sawyer += .1f * w.People.Count(p => p.Role == Role.Sawyer && p.Task != Work.Waiting); Tick(w);
             }
             w.Validate(); if (w.Beds != 8) throw new Exception("Housing investment stalled");
-            Console.WriteLine($"HOUSING {(lodges ? "mill+2lodges" : "4cottages")}: ready={w.Food.Time:F1}s committedRawLogs={w.Cottages.Where(c=>c.Material==Resource.Logs).Sum(c=>c.Delivered)+w.SawnLogs} sparePlanks={w.Planks+w.Cottages.Sum(c=>c.OutputPlanks)+w.People.Where(p=>p.Cargo==Resource.Planks).Sum(p=>p.Carried)} tiles={w.Cottages.Sum(c=>World.Footprint(c.Cell,c.Rotated,c.Kind).Count())} builderActive={builder:F1}s sawyerActive={sawyer:F1}s");
+            Console.WriteLine($"HOUSING {(lodges ? "mill+2lodges" : "4cottages")}: ready={w.Food.Time:F1}s committedRawLogs={w.Cottages.Where(c=>c.Material==Resource.Logs).Sum(c=>c.Delivered)+w.SawnLogs} sparePlanks={w.Planks+w.Cottages.Sum(c=>c.OutputPlanks)+w.People.Where(p=>p.Cargo==Resource.Planks).Sum(p=>p.Carried)} tiles={w.Cottages.Sum(c=>World.Footprint(c.Cell,c.Rotation,c.Kind).Count())} builderActive={builder:F1}s sawyerActive={sawyer:F1}s");
         }
         foreach (string food in new[] { "berries", "gardens", "gardens3", "bread", "bread2fields", "bread-near", "gardens-near", "bread2fields-near", "gardens3-near" })
         {

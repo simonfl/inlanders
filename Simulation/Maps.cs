@@ -75,16 +75,16 @@ public sealed partial class World
             if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
         foreach (var site in Cottages)
         {
-            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotated, site.Kind).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
+            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotation, site.Kind).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
             if (site.Kind == BuildingKind.FishingDock && (BoatBlocked(site.Launch) || Map.Water.Contains(site.Entrance) ||
                 !Map.LevelGround(new[] { site.Cell, site.Entrance, site.Launch }) || Cottages.Any(c => c.Id != site.Id && c.Kind == BuildingKind.FishingDock && c.Launch == site.Launch)))
                 throw new InvalidDataException("Dock needs a clear, level water launch and dry entrance");
-            foreach (var cell in Footprint(site.Cell, site.Rotated, site.Kind))
+            foreach (var cell in Footprint(site.Cell, site.Rotation, site.Kind))
                 if (!Map.Contains(cell) || Map.Water.Contains(cell) != (site.Kind == BuildingKind.Bridge) || !occupied.Add(cell))
                     throw new InvalidDataException("Invalid building terrain");
-            if (site.Kind == BuildingKind.Bridge && !Map.LevelGround(new[] { site.Cell, Door(site.Cell,site.Rotated), FarBank(site.Cell,site.Rotated) }))
+            if (site.Kind == BuildingKind.Bridge && !Map.LevelGround(new[] { site.Cell, Door(site.Cell,site.Rotation), FarBank(site.Cell,site.Rotation) }))
                 throw new InvalidDataException("Bridge needs level riverbanks");
-            if (site.Kind == BuildingKind.Bridge && new[] { Door(site.Cell, site.Rotated), FarBank(site.Cell, site.Rotated) }.Any(c => !Map.Contains(c) || Map.Water.Contains(c) || Blocked(c)))
+            if (site.Kind == BuildingKind.Bridge && new[] { Door(site.Cell, site.Rotation), FarBank(site.Cell, site.Rotation) }.Any(c => !Map.Contains(c) || Map.Water.Contains(c) || Blocked(c)))
                 throw new InvalidDataException("Bridge needs clear dry banks");
         }
         if (!Map.Contains(Stockpile) || Map.Water.Contains(Stockpile)) throw new InvalidDataException("Yard outside dry land");

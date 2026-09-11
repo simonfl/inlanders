@@ -17,7 +17,7 @@ public partial class Game
                 if(plants.Length!=expected || !plants.Any(n=>new Vector2(n.GlobalPosition.X-tip.X,n.GlobalPosition.Z-tip.Z).Length()<.2f))
                     throw new Exception("Contact is not at a rendered remaining crop, or harvest mask is wrong");
             }
-            foreach(bool rotated in new[]{false,true}) foreach(var kind in new[]{BuildingKind.Farm,BuildingKind.VegetableGarden})
+            foreach(int rotated in new[]{0,1,2,3}) foreach(var kind in new[]{BuildingKind.Farm,BuildingKind.VegetableGarden})
             {
                 var w=World.NewCreative(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
                 var field=w.Place(new(3,0),rotated,kind) ?? throw new Exception("Field placement failed");

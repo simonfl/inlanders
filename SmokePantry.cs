@@ -44,7 +44,7 @@ public partial class Game
         _paused=false;await Sample("16 residents / actual meals and hauling / 1x",240);_paused=true;
         await Capture("artifacts/f07c2-profile-village.png");
         var spot=w.Map.Land.Where(c=>w.PlacementProblem(c,false,BuildingKind.Pantry)==null && !PointerOverHud(_camera.UnprojectPosition(OnGround(c.X,c.Z)))).OrderBy(c=>c.Point.LengthSquared()).First();
-        _rotated=false;BeginPlacement(BuildingKind.Pantry);
+        _rotation=0;BeginPlacement(BuildingKind.Pantry);
         _pointerPosition=_camera.UnprojectPosition(OnGround(spot.X,spot.Z));
         Input.ParseInputEvent(new InputEventMouseMotion {Position=_pointerPosition,GlobalPosition=_pointerPosition});
         for(int i=0;i<10;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);

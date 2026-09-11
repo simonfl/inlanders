@@ -11,7 +11,7 @@ public partial class Game
         {
             _campaignPath="artifacts/fishing-campaign-smoke.json"; _campaignBook=new();
             var lake=World.NewCampaign(7);
-            var dock=lake.Place(new(14,0),true,BuildingKind.FishingDock) ?? throw new Exception("Dock placement rejected");
+            var dock=lake.Place(new(14,0),3,BuildingKind.FishingDock) ?? throw new Exception("Dock placement rejected");
             for(int i=0;i<6000 && !dock.Complete;i++) lake.Tick(.1f);
             if(!dock.Complete) throw new Exception("Dock construction did not finish");
             foreach(var p in lake.People) lake.Assign(p.Id,Role.Unassigned);
@@ -57,7 +57,7 @@ public partial class Game
             if(lake.Campaign!.Lake!.Phase!=1 || !_riverAction.Disabled || !_objective.Text.Contains("Residents")) throw new Exception("Lake growth goals not shown");
             await Capture("artifacts/f26a-lake-goals-960.png");
             CloseDrawer(); _focus=new(3,0,4); _camera.Size=16; UpdateCamera();
-            BeginPlacement(BuildingKind.FishingDock); _rotated=true;
+            BeginPlacement(BuildingKind.FishingDock); _rotation=1;
             var pointer=_camera.UnprojectPosition(new(3,0,4));
             Input.ParseInputEvent(new InputEventMouseMotion { Position=pointer,GlobalPosition=pointer });
             for(int i=0;i<5;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
