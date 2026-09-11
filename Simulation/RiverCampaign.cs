@@ -17,7 +17,7 @@ public sealed partial class World
 {
     public bool IsRiverCampaign => Campaign?.Level == 6;
     public int EastBankBeds => Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Cell.X>5).Sum(c=>Buildings.Get(c.Kind).Beds);
-    public int EastBankRecreation => People.Count(p=>p.LastLeisureTime is float last && Food.Time-last<120 && Cottages.Any(c=>c.Id==p.LastLeisureSiteId && c.Kind==BuildingKind.Square && c.Cell.X>5 && c.Complete && !c.DemolitionRequested));
+    public int EastBankRecreation => People.Count(p=>ResidentMeetsCampaignCondition(p,"east-recreation"));
     public int DeliveredFish => DeliveredFood(Resource.Fish);
     private int DeliveredEdible => EdibleKinds.Sum(DeliveredFood);
     public string? RiverPreparationProblem(bool final)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Inlanders.Simulation;
 
@@ -8,6 +9,21 @@ public sealed record CampaignCondition(string Key,string Label,int Current,int R
 }
 public sealed partial class World
 {
+    public bool ResidentMeetsCampaignCondition(Villager p,string key) => key switch
+    {
+        "housing"=>p.HomeId!=null,
+        "rest"=>RecentlyRested(p),
+        "recreation"=>p.LastLeisureTime is float t && Food.Time-t<120,
+        "east-recreation"=>p.LastLeisureTime is float last && Food.Time-last<120 && Cottages.Any(c=>c.Id==p.LastLeisureSiteId && c.Kind==BuildingKind.Square && c.Cell.X>5 && c.Complete && !c.DemolitionRequested),
+        _=>false
+    };
+    public string CampaignResidentReason(Villager p,string key)
+    {
+        if(key=="housing")return p.HomeId!=null?"Counted: assigned to a home.":"Not counted: no assigned home.";
+        if(key=="rest")return (RecentlyRested(p)?"Counted. ":"Not counted. ")+RestSummary(p);
+        if(ResidentMeetsCampaignCondition(p,key))return $"Counted: latest completed break was {(int)(Food.Time-p.LastLeisureTime!.Value)}s ago; expires after 2m.";
+        return (p.LastLeisureTime==null?"No completed break yet.":Food.Time-p.LastLeisureTime>=120?"Latest completed break is older than 2m.":"Latest break was not at an available east-bank Square.")+" "+RecreationSummary(p);
+    }
     public IReadOnlyList<CampaignCondition> ReadCampaignConditions()
     {
         var rows=new List<CampaignCondition>();

@@ -1,6 +1,7 @@
 using Godot;
 using Inlanders.Simulation;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 public partial class Game
@@ -19,6 +20,12 @@ public partial class Game
             Check(_riverAction.IsVisibleInTree() && _riverAction.GetGlobalRect().End.Y<GetWindow().Size.Y-80,"Phase action is not near top");
             string key=level==6?"east-recreation":"rest";
             await UiClick(_goalItems[key].Toggle);await Frames();Check(_goalItems[key].Help.Visible,"Condition help failed");
+            await UiClick(_goalResidentButtons[key]);await Frames();
+            Check(_serviceFilter.Selected==5 && _campaignServiceKey==key,"Goal resident filter failed");
+            Check(_serviceResidents.Values.Count(r=>r.Row.Visible)==_world.People.Count(p=>!_world.ResidentMeetsCampaignCondition(p,key)),"Goal resident count disagrees");
+            _serviceFilter.Select(6);UpdateServiceCoverage();await Frames();
+            Check(_serviceResidents.Values.Count(r=>r.Row.Visible)==_world.People.Count(p=>_world.ResidentMeetsCampaignCondition(p,key)),"Counted resident filter disagrees");
+            await OpenMenu(2);await Frames();
             await UiClick(_goalItems[key].Toggle);await Frames();Check(!_goalItems[key].Help.Visible,"Condition help did not collapse");
             Check(_world.SaveJson()==saved,"Goal navigation changed village");
             _drawerPages[2].ScrollVertical=0;await Frames();await Capture($"artifacts/goals-{level}-{width}.png");

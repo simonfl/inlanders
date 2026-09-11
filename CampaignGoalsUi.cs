@@ -10,6 +10,7 @@ public partial class Game
     private readonly Dictionary<string,(VBoxContainer Root,Label Count,Button Toggle,Label Help)> _goalItems=new();
     private World? _goalWorld;
     private string _goalKeys="";
+    private readonly Dictionary<string,Button> _goalResidentButtons=new();
     private void MakeGoalDashboard(VBoxContainer column)
     {
         _goalDashboard=new();column.AddChild(_goalDashboard);
@@ -26,6 +27,7 @@ public partial class Game
         if(_goalWorld!=_world || _goalKeys!=keys)
         {
             _goalWorld=_world;_goalKeys=keys;
+            _goalResidentButtons.Clear();
             foreach(var item in _goalItems.Values){_goalCards.RemoveChild(item.Root);item.Root.QueueFree();}_goalItems.Clear();
             foreach(var c in conditions)
             {
@@ -34,11 +36,16 @@ public partial class Game
                 var help=Text(c.Explanation,13,true);help.Hide();
                 var toggle=Button("Why?",()=>help.Visible=!help.Visible,48);row.AddChild(toggle);root.AddChild(help);
                 _goalItems[c.Key]=(root,count,toggle,help);
+                if(c.Key is "housing" or "rest" or "recreation" or "east-recreation")
+                {
+                    string key=c.Key;var residents=Button("Inspect residents",()=>OpenCampaignResidents(key));root.AddChild(residents);_goalResidentButtons[key]=residents;
+                }
             }
         }
         _goalPhase.Text=_world.CampaignPhaseTitle;
         var missing=conditions.FirstOrDefault(c=>!c.Met);
         _goalNext.Text=missing!=null?$"Next: {missing.Label.ToLowerInvariant()} ({missing.Current}/{missing.Required}).":_riverAction.Visible?(_riverAction.Disabled?_riverAction.TooltipText:"Ready for the next phase when you are."):"Keep services running during assessment.";
         foreach(var c in conditions) _goalItems[c.Key].Count.Text=$"{(c.Met?"✓":"○")} {c.Label}\n{c.Current}/{c.Required}";
+        foreach(var entry in _goalResidentButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
     }
 }

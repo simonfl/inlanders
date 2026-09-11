@@ -10,6 +10,13 @@ public partial class Game
     private OptionButton _serviceFilter=null!;
     private Label _serviceCount=null!;
     private World? _serviceWorld;
+    private string? _campaignServiceKey;
+    private Label _campaignServiceInfo=null!;
+    private void OpenCampaignResidents(string key)
+    {
+        if(!_drawer.Visible || _tabs.CurrentTab!=0)ToggleDrawer(0);
+        UpdateServiceCoverage();_campaignServiceKey=key;_serviceFilter.Select(5);_servicePanel.Show();UpdateServiceCoverage();_drawerPages[0].ScrollVertical=0;
+    }
     private void OpenMealCoverage()
     {
         if(!_drawer.Visible || _tabs.CurrentTab!=0) ToggleDrawer(0);
@@ -36,6 +43,8 @@ public partial class Game
         _servicePanel.AddChild(guide);
         _serviceFilter=DirectoryFilter(_servicePanel,"Find missing visits or residents who are hungry or missed/skipped a meal in the last three minutes. New arrivals are not counted as meal failures before a deadline.");
         foreach(string name in new[]{"Missing either visit","Missing recent rest","Missing recreation","All residents","Hungry / recent missed meals"}) _serviceFilter.AddItem(name);
+        _serviceFilter.AddItem("Goal: not counted");_serviceFilter.AddItem("Goal: counted");
+        _campaignServiceInfo=Text("",13,true);_servicePanel.AddChild(_campaignServiceInfo);
         _serviceCount=Text("",13,true); _servicePanel.AddChild(_serviceCount);
         _serviceRows=new(); _serviceRows.AddThemeConstantOverride("separation",12); _servicePanel.AddChild(_serviceRows);
     }
@@ -43,12 +52,15 @@ public partial class Game
     {
         if(_serviceWorld!=_world)
         {
-            _serviceWorld=_world; _serviceFilter.Select(0); _servicePanel.Hide();
+            _serviceWorld=_world; _campaignServiceKey=null;_serviceFilter.Select(0); _servicePanel.Hide();
             foreach(var row in _serviceResidents.Values) { _serviceRows.RemoveChild(row.Row); row.Row.QueueFree(); }
             _serviceResidents.Clear();
         }
         _serviceToggle.Text=$"{(_servicePanel.Visible?"▾":"▸")} Meals · rest {_world.ResidentsRested}/{_world.Population} · recreation {_world.People.Count(HasRecreation)}/{_world.Population}";
         if(!_servicePanel.Visible) return;
+        bool goalFilter=_serviceFilter.Selected>=5 && _campaignServiceKey!=null;
+        _campaignServiceInfo.Visible=_serviceFilter.Selected>=5;
+        _campaignServiceInfo.Text=goalFilter?$"Campaign goal: {_world.ReadCampaignConditions().FirstOrDefault(c=>c.Key==_campaignServiceKey)?.Label ?? _campaignServiceKey}. Counts update as visits expire.":"Open a condition from Goals to choose a campaign filter.";
         int shown=0;
         foreach(var p in _world.People)
         {
@@ -63,7 +75,7 @@ public partial class Game
                 item=(row,person,reason,home,venue); _serviceResidents[id]=item;
             }
             bool rest=_world.RecentlyRested(p), recreation=HasRecreation(p);
-            item.Row.Visible=_serviceFilter.Selected switch { 0=>!rest || !recreation, 1=>!rest, 2=>!recreation, 4=>_world.NeedsMealAttention(p), _=>true };
+            item.Row.Visible=_serviceFilter.Selected switch { 0=>!rest || !recreation, 1=>!rest, 2=>!recreation, 4=>_world.NeedsMealAttention(p), 5 or 6=>goalFilter && _world.ResidentMeetsCampaignCondition(p,_campaignServiceKey!)==(_serviceFilter.Selected==6), _=>true };
             if(!item.Row.Visible) continue;
             shown++;
             item.Person.Text=$"{p.Name} · inspect";
@@ -71,6 +83,7 @@ public partial class Game
             string meals=$"MEALS · {_world.MealSummary(p)}";
             if(!_world.Creative) meals+=$"\nMissed/skipped in last 3m: {missed}. Late eating restores nourishment; history remains until it ages out.";
             item.Reason.Text=(_serviceFilter.Selected is 3 or 4?meals+"\n":"")+$"REST · {_world.RestSummary(p)}\nRECREATION · {_world.RecreationSummary(p)}";
+            if(goalFilter)item.Reason.Text=_world.CampaignResidentReason(p,_campaignServiceKey!);
             var homeSite=_world.Cottages.FirstOrDefault(c=>c.Id==p.HomeId);
             item.Home.Visible=homeSite!=null;
             item.Home.Text=homeSite==null?"Show home":$"Home · {BuildingName(homeSite.Kind)} {homeSite.Id}";
