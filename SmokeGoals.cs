@@ -1,0 +1,29 @@
+using Godot;
+using Inlanders.Simulation;
+using System;
+using System.Threading.Tasks;
+
+public partial class Game
+{
+    private async Task CheckGoalDashboard()
+    {
+        async Task Frames(){for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        void Check(bool ok,string why){if(!ok)throw new Exception(why);}
+        foreach(int width in new[]{960,1440})
+        foreach(int level in new[]{6,7})
+        {
+            GetWindow().Size=new(width,width==960?640:900);AdoptWorld(World.NewCampaign(level));
+            if(level==6)_world.Campaign!.River!.Phase=2;else _world.Campaign!.Lake!.Phase=1;
+            await OpenMenu(2);await Frames();string saved=_world.SaveJson();
+            Check(_goalDashboard.Visible && !_objective.Visible && !_goalArrival.Visible,"Long objective still displaces condition cards");
+            Check(_riverAction.IsVisibleInTree() && _riverAction.GetGlobalRect().End.Y<GetWindow().Size.Y-80,"Phase action is not near top");
+            string key=level==6?"east-recreation":"rest";
+            await UiClick(_goalItems[key].Toggle);await Frames();Check(_goalItems[key].Help.Visible,"Condition help failed");
+            await UiClick(_goalItems[key].Toggle);await Frames();Check(!_goalItems[key].Help.Visible,"Condition help did not collapse");
+            Check(_world.SaveJson()==saved,"Goal navigation changed village");
+            _drawerPages[2].ScrollVertical=0;await Frames();await Capture($"artifacts/goals-{level}-{width}.png");
+        }
+        AdoptWorld(World.NewCreative());await Frames();Check(!_goalDashboard.Visible,"Campaign cards leaked into Creative");
+        GD.Print("PASS: compact river/lake goals, top phase action, collapsible explanations, exact read-only navigation and 960/1440 layouts.");
+    }
+}

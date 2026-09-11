@@ -30,7 +30,7 @@ This is a recommendation, not a dependency chain. Work one playable chunk at a t
 
 | Order | ID | Playable chunk | What success looks like |
 | --- | --- | --- | --- |
-| Next implementation | F21l | **Readable campaign goals.** Compact per-condition progress and an obvious phase action; expandable explanations and links to relevant residents/places. Begin with river/lake service objectives and their rolling time windows. | At 960/1440, a player can explain what counts, why progress falls and what to do next without reading a wall of text. Keep the action discoverable, preserve exact saves and current win rules, and surface only the most useful next step. |
+| In progress: 2 of 5 | F21l | **Readable campaign goals.** Compact per-condition progress and an obvious phase action; expandable explanations and links to relevant residents/places. Begin with river/lake service objectives and their rolling time windows. | At 960/1440, a player can explain what counts, why progress falls and what to do next without reading a wall of text. Keep the action discoverable, preserve exact saves and current win rules, and surface only the most useful next step. |
 | Review | F23a | **[Visual identity slice](ART_REVIEW_F23A.md) — implemented, aesthetic acceptance pending.** Cottage porch/window depth, thick roofs and stone feet; bakery oven mass and recessed shop; open braced sawmill with progress-driven saw. Workshop displays follow real buffers. Costs and footprints unchanged. | Review the scene at the actual camera, without labels, at 960/1440 and four directions. The user finds the direction compelling before F23b proceeds; another focused iteration remains possible. |
 | After art review | F23b | **The complete building family.** Apply the visual language to the remaining types, including the dock: a visibly larger lodge, woodland shelter, distinct field/garden, civic square, storage bay and bridge. Restrain ground contrast; cap yard stock visuals. | A populated village has distinct forms, clear entrances and consistent materials. Fields and open spaces retain their intended low profiles; buildings stop looking like isolated objects on trays. |
 | Review | F11b / F18b | **Campaign pacing review.** Across the river is implemented as the first proof, with staged growth, actual food supply and east-bank recreation. Review a human first play before multiplying longer scenarios; keep the five lessons as onboarding. | Consequential choices, recoverable mistakes and a satisfying village. The 20–30-minute target is unverified; two optimized scripted routes take 13/15 simulation minutes with home routines. Cut waiting or revise geography if decisions run out. |
@@ -246,3 +246,13 @@ Keep supporting UI inside the feature that needs it. Avoid turning this roadmap 
 Orchards and hidden discoveries remain candidates. Neighborhood pantries have shipped in F07c2; a market needs a distinct purpose before expansion. Carpenter/home improvements and limited rest visits are described in F25. Fishing, stone and woodland wildlife have moved into the F26 campaign plan. Trade, broader household routines and procedural maps remain possibilities without a commitment. Infinite terrain or purchased land is not required for map expansion.
 
 Combat, multiplayer, a large technology tree, and a full life simulation are outside the current direction.
+
+## Current five-chunk batch — F21l
+
+1. F21l1 — shipped: compact river/lake conditions, collapsed explanations and a phase action near the top. 960/1440 rendered navigation checks passed. Review: drill-downs are next; win rules unchanged.
+2. F21l2: inspect residents who do or do not satisfy a condition.
+3. F21l3: show relevant venues/homes and offer the right build tool.
+4. F21l4: readable live meal-assessment evidence and recovery guidance.
+5. F21l5: optional tracked condition while managing the village.
+
+Each ships separately with verification and a roadmap review. Existing win rules stay unchanged; human art/pacing acceptance remains open.

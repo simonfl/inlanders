@@ -172,6 +172,7 @@ public partial class Game
     private void MakeGoalsMenu(VBoxContainer column)
     {
         _goalTitle = Text("", 20, true); column.AddChild(_goalTitle);
+        MakeGoalDashboard(column);
         _goalArrival = Text("", 15, true); column.AddChild(_goalArrival);
         _objective = Text("", 18, true); column.AddChild(_objective);
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 8) }; column.AddChild(_progress);

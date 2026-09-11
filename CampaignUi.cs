@@ -20,7 +20,7 @@ public partial class Game
     {
         _campaignControls = new(); column.AddChild(_campaignControls);
         _riverAction = Button("", () => { if (_world.IsLakeCampaign ? _world.AdvanceLakePhase() : _world.AdvanceRiverPhase()) SaveWorld(); else Notice((_world.IsLakeCampaign ? _world.LakeActionProblem() : _world.RiverActionProblem()) ?? "Keep developing the village."); });
-        _campaignControls.AddChild(_riverAction);
+        _goalDashboard.AddChild(_riverAction);_goalDashboard.MoveChild(_riverAction,1);
         _tutorialText = Text("", 15, true); _campaignControls.AddChild(_tutorialText);
         _dismissHint = Button("Dismiss this hint", () => { var hint = _world.CurrentCampaignHint(); if (hint != null) _world.Campaign!.Dismissed.Add(hint.Id); }); _campaignControls.AddChild(_dismissHint);
         _guidance = Button("", () => _world.Campaign!.Guidance = !_world.Campaign.Guidance); _campaignControls.AddChild(_guidance);
@@ -108,6 +108,7 @@ public partial class Game
         var campaign = _world.Campaign;
         _riverAction.Visible = campaign?.Complete != true && (_world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2);
         if (_riverAction.Visible) { var problem=_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
+        UpdateGoalDashboard();
         _progress.Visible = !_world.Creative;
         if (_world.Creative)
         {
