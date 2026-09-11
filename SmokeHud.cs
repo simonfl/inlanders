@@ -11,11 +11,12 @@ public partial class Game
         try { await CheckHud();
             // Let deferred frees from the final world restore finish before shutting down Godot.
             for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            GD.Print(OS.GetCmdlineUserArgs().Contains("--camera-drag-only") ? "SMOKE PASS: camera dragging and input isolation." : OS.GetCmdlineUserArgs().Contains("--comfort-only") ? "SMOKE PASS: focused home comfort UI and visuals." : OS.GetCmdlineUserArgs().Contains("--watch-only") ? "SMOKE PASS: focused Watch and clean-view checks." : OS.GetCmdlineUserArgs().Contains("--hud-services-only") ? "SMOKE PASS: focused service/household HUD checks." : "SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
+            GD.Print(OS.GetCmdlineUserArgs().Contains("--comfort-review") ? "SMOKE PASS: focused comfort visual review captures." : OS.GetCmdlineUserArgs().Contains("--camera-drag-only") ? "SMOKE PASS: camera dragging and input isolation." : OS.GetCmdlineUserArgs().Contains("--comfort-only") ? "SMOKE PASS: focused home comfort UI and visuals." : OS.GetCmdlineUserArgs().Contains("--watch-only") ? "SMOKE PASS: focused Watch and clean-view checks." : OS.GetCmdlineUserArgs().Contains("--hud-services-only") ? "SMOKE PASS: focused service/household HUD checks." : "SMOKE PASS: responsive HUD, menu/context controls, all building previews, rotation, rejection feedback, repeat planting, and preview state isolation."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("HUD SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--comfort-review")) { _paused=true;await CheckComfortReview();return; }
         if(OS.GetCmdlineUserArgs().Contains("--camera-drag-only")) { _paused=true;await CheckCameraDrag();return; }
         if(OS.GetCmdlineUserArgs().Contains("--comfort-only")) { _paused=true;await CheckComfortUi();return; }
         if(OS.GetCmdlineUserArgs().Contains("--watch-only")) { _paused=true;await CheckWatchUi();return; }

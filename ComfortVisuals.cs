@@ -25,13 +25,28 @@ public partial class Game
         var detail=new Node3D {Name="HomeComfort"};parent.AddChild(detail);
         if(home.Improved)
         {
-            float z=home.Kind==BuildingKind.Cottage?.74f:.98f;
-            foreach(float x in new[]{.15f,1.10f})
+            void Window(Vector3 at,float rotation,bool addWindow=false)
             {
-                Box(detail,new(x,1.1f,z),new(.22f,.64f,.09f),new("57766d"));
-                for(int i=0;i<3;i++) Box(detail,new(x,.91f+i*.18f,z+.05f),new(.25f,.04f,.04f),new("93a48a"));
+                var face=new Node3D {Position=at,RotationDegrees=new(0,rotation,0)};detail.AddChild(face);
+                if(addWindow)
+                {
+                    Box(face,Vector3.Zero,new(.65f,.55f,.07f),_wood);
+                    Box(face,new(0,0,.04f),new(.48f,.39f,.04f),new("738a89"));
+                    Box(face,new(0,0,.07f),new(.06f,.42f,.04f),_cream);
+                }
+                foreach(float x in new[]{-.47f,.47f})
+                {
+                    Box(face,new(x,0,0),new(.22f,.64f,.09f),new("57766d"));
+                    for(int i=0;i<3;i++) Box(face,new(x,-.19f+i*.18f,.05f),new(.25f,.04f,.04f),new("93a48a"));
+                }
+                Box(face,new(0,-.38f,0),new(.9f,.1f,.23f),_wood);
             }
-            Box(detail,new(.62f,.72f,z),new(.9f,.1f,.23f),_wood);
+            bool lodge=home.Kind==BuildingKind.Lodge;
+            Window(new(lodge?.65f:.62f,1.10f,lodge?.95f:.74f),0);
+            Window(new(lodge?1.37f:1.18f,1.10f,-.20f),90,lodge);
+            Window(new(lodge?-1.37f:-1.18f,1.10f,-.20f),-90,lodge);
+            Window(new(-.20f,1.10f,lodge?-.9f:-.82f),180,lodge);
+            BatchStaticGeometry(detail);
         }
         else if(home.ImprovementPlanks>0)
             for(int i=0;i<home.ImprovementPlanks;i++) Plank(detail,new(.78f,.12f+i*.055f,.5f));

@@ -15,10 +15,6 @@ Orders survive workshop removal. Empty homes stop new installation until reoccup
 - `./Play.ps1 -ComfortSmokeTest` passed order/cancel buttons, home-to-worker and workshop-to-home links, absence of an irrelevant output target, installation hammer/work-board pose, actual cushioned rest and pause stability at 960/1440. Run `./Test.ps1` first to regenerate its normal-play snapshots.
 - Screenshots are in ignored `artifacts/f25b2-*.png`. The 960-pixel improved-home inspector was visually inspected; the panel is readable and scrollable. The model addition is modest, not accepted final art.
 
-## Required follow-up before adoption
+## Comparison follow-up completed
 
-The original brief bundled implementation and broad comparative balancing. Keep the working prototype independently reviewable; retain the uncompleted comparisons explicitly as F25b2 follow-up rather than claiming them done. Run matched compact/dispersed villages, better-located ordinary housing, and another use of the same timber/labor. Record setup costs, actual production, travel, meals, rest and recreation; compare two cottages with a lodge, including partially occupied homes. Current tests establish costs and correctness, not payback or fun.
-
-Also review rotated cottage/lodge details at the normal camera and improve their visual distinction if needed. F25b3 remains the human enjoyment/campaign decision after those comparisons. Do not expand into furniture inventory, compulsory comfort or additional upgrade tiers to justify a weak result.
-
-Work pauses after this commit at the user's request; no next chunk starts automatically.
+See the [September 11 comparison and visual review](HOME_COMFORT_COMPARISON.md): 24 matched branches, competing investments, full/partial lodge occupancy, all-side shutter improvements and four camera directions at 960/1440. The prototype reduces homeward trips but did not improve twenty-minute food output. Keep it optional; F25b3 player enjoyment and campaign adoption remain open. No migration, new need or productivity bonus was added.
