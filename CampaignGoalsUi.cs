@@ -28,6 +28,7 @@ public partial class Game
         {
             _goalWorld=_world;_goalKeys=keys;
             _goalResidentButtons.Clear();
+            _goalPlaces.Clear();_goalPlaceKeys.Clear();
             foreach(var item in _goalItems.Values){_goalCards.RemoveChild(item.Root);item.Root.QueueFree();}_goalItems.Clear();
             foreach(var c in conditions)
             {
@@ -47,5 +48,6 @@ public partial class Game
         _goalNext.Text=missing!=null?$"Next: {missing.Label.ToLowerInvariant()} ({missing.Current}/{missing.Required}).":_riverAction.Visible?(_riverAction.Disabled?_riverAction.TooltipText:"Ready for the next phase when you are."):"Keep services running during assessment.";
         foreach(var c in conditions) _goalItems[c.Key].Count.Text=$"{(c.Met?"✓":"○")} {c.Label}\n{c.Current}/{c.Required}";
         foreach(var entry in _goalResidentButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
+        UpdateGoalPlaces();
     }
 }

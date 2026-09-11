@@ -26,6 +26,11 @@ public partial class Game
             _serviceFilter.Select(6);UpdateServiceCoverage();await Frames();
             Check(_serviceResidents.Values.Count(r=>r.Row.Visible)==_world.People.Count(p=>_world.ResidentMeetsCampaignCondition(p,key)),"Counted resident filter disagrees");
             await OpenMenu(2);await Frames();
+            Check(_goalPlaces[key].Visible,"Goal places hidden with help open");
+            string placementState=_world.SaveJson();
+            var planButton=_goalPlaces[key].GetChildren().OfType<Button>().Last();
+            await UiClick(planButton);await Frames();Check(_placing && _world.SaveJson()==placementState,"Planning a goal building mutated village");
+            await Press(Key.Escape);await OpenMenu(2);await Frames();
             await UiClick(_goalItems[key].Toggle);await Frames();Check(!_goalItems[key].Help.Visible,"Condition help did not collapse");
             Check(_world.SaveJson()==saved,"Goal navigation changed village");
             _drawerPages[2].ScrollVertical=0;await Frames();await Capture($"artifacts/goals-{level}-{width}.png");
