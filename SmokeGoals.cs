@@ -34,6 +34,14 @@ public partial class Game
             await UiClick(_goalItems[key].Toggle);await Frames();Check(!_goalItems[key].Help.Visible,"Condition help did not collapse");
             Check(_world.SaveJson()==saved,"Goal navigation changed village");
             _drawerPages[2].ScrollVertical=0;await Frames();await Capture($"artifacts/goals-{level}-{width}.png");
+            if(level==6)_world.Campaign!.River!.Phase=3;else _world.Campaign!.Lake!.Phase=2;
+            await Frames();saved=_world.SaveJson();
+            Check(_goalMeals.Visible && _goalMealEvidence.Text.Contains("Fresh deliveries"),"Food assessment evidence missing");
+            await UiClick(_goalMealExplain);await Frames();Check(_goalMealHelp.Visible,"Meal explanation failed");
+            await UiClick(_goalMealPeople);await Frames();Check(_serviceFilter.Selected==4,"Meal inspection link failed");
+            await OpenMenu(2);await Frames();await UiClick(_goalMealEconomy);await Frames();Check(_tabs.CurrentTab==4,"Economy link failed");
+            Check(_world.SaveJson()==saved,"Meal assessment navigation changed world");
+            await OpenMenu(2);await Frames();
         }
         AdoptWorld(World.NewCreative());await Frames();Check(!_goalDashboard.Visible,"Campaign cards leaked into Creative");
         GD.Print("PASS: compact river/lake goals, top phase action, collapsible explanations, exact read-only navigation and 960/1440 layouts.");

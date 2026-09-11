@@ -17,6 +17,7 @@ public partial class Game
         _goalPhase=Text("",16,true);_goalDashboard.AddChild(_goalPhase);
         _goalNext=Text("",13,true);_goalDashboard.AddChild(_goalNext);
         _goalCards=new();_goalCards.AddThemeConstantOverride("separation",8);_goalDashboard.AddChild(_goalCards);
+        MakeGoalMeals();
     }
     private void UpdateGoalDashboard()
     {
@@ -29,6 +30,7 @@ public partial class Game
             _goalWorld=_world;_goalKeys=keys;
             _goalResidentButtons.Clear();
             _goalPlaces.Clear();_goalPlaceKeys.Clear();
+            _goalMealHelp.Hide();
             foreach(var item in _goalItems.Values){_goalCards.RemoveChild(item.Root);item.Root.QueueFree();}_goalItems.Clear();
             foreach(var c in conditions)
             {
@@ -49,5 +51,6 @@ public partial class Game
         foreach(var c in conditions) _goalItems[c.Key].Count.Text=$"{(c.Met?"✓":"○")} {c.Label}\n{c.Current}/{c.Required}";
         foreach(var entry in _goalResidentButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
         UpdateGoalPlaces();
+        UpdateGoalMeals();
     }
 }
