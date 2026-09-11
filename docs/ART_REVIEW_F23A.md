@@ -2,6 +2,8 @@
 
 Implementation ready for visual feedback. This is a proposed direction, not an accepted final art style.
 
+Later update: [F23b1](LODGE_F23B1.md) replaces the legacy lodge discussed below with a focused shared-home/loft proposal. This document's original comparison remains unchanged; the art smoke scene now includes two lodges and their construction/comfort views.
+
 The comparison uses the same paused Creative settlement, camera size 23, 1440×900 viewport, daylight and hidden world labels. The before capture uses the building geometry from `f6c6a7b`; the after capture uses the new geometry. Terrain, paths, camera and simulation starting state are identical. Original bakery/sawmill stock props appeared even when empty; the new workshops correctly start empty.
 
 | Before | Proposed direction |

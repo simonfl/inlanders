@@ -46,7 +46,7 @@ public partial class Game
         Box(parent, at + new Vector3(.015f, size.Y * .45f, 0), new(size.X * .94f, .06f, size.Z * .95f), _stone.Lightened(.10f));
     }
 
-    private void CottageWindow(Node3D parent, Vector3 at, float yaw = 0)
+    private void CottageWindow(Node3D parent, Vector3 at, float yaw = 0, bool shutter = true)
     {
         var opening = new Node3D { Position = at, RotationDegrees = new(0, yaw, 0) }; parent.AddChild(opening);
         Box(opening, Vector3.Zero, new(.54f, .56f, .035f), _recess);
@@ -55,7 +55,7 @@ public partial class Game
         Box(opening, new(0, -.32f, .12f), new(.76f, .13f, .28f), _stone.Lightened(.12f));
         Box(opening, new(0, 0, .025f), new(.045f, .53f, .055f), new("d5bb89"));
         Box(opening, new(0, 0, .025f), new(.53f, .045f, .055f), new("d5bb89"));
-        Box(opening, new(.47f, 0, .045f), new(.19f, .57f, .07f), new("647b6b"));
+        if(shutter) Box(opening, new(.47f, 0, .045f), new(.19f, .57f, .07f), new("647b6b"));
     }
 
     private void MakeCottage(Node3D parent, int stage, int variant = 0)

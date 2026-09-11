@@ -315,7 +315,7 @@ See the [feature roadmap](docs/ROADMAP.md) for shipped features and optional fol
 | `ArchitectureVisuals.cs`, `BakeryVisuals.cs` | Cottage/bakery forms, shared timber/roof/stone details and production stock displays |
 | `BuildCatalog.cs`, `WorldLabels.cs` | Visual building catalog, drawer sections, tool footer, label preference and text-focus guard |
 | `VillagerVisuals.cs` | Villager bodies, work tools, walking/idle poses, and cargo geometry |
-| `SawmillVisuals.cs` | Sawmill, lodge, and plank geometry |
+| `SawmillVisuals.cs`, `LodgeVisuals.cs` | Working sawmill, lofted shared lodge, and plank geometry |
 | `VillageAudio.cs`, `SoundSynthesis.cs`, `AudioUi.cs` | Procedural sounds, positional playback, ambience, volume controls, and preferences |
 | `VillageDirectory.cs`, `SmokeDirectory.cs` | Workforce/building filters, live site summaries, storage location navigation and rendered checks |
 | `Hud.cs`, `HudLayout.cs`, `PersistenceUi.cs` | Compact HUD, menus, responsive layout, contextual inspector, save/load feedback |

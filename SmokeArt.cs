@@ -27,8 +27,8 @@ public partial class Game
             var bakery = Place(new(4, 0), BuildingKind.Bakery);
             var mill = Place(new(6, -3), BuildingKind.Sawmill);
             Place(new(3, -3), BuildingKind.Farm);
-            Place(new(0, 6), BuildingKind.Cottage);
-            Place(new(4, 6), BuildingKind.Cottage);
+            var lodge = Place(new(0, 6), BuildingKind.Lodge);
+            var rearLodge = _world.Place(new(4, 5),2,BuildingKind.Lodge) ?? throw new Exception("Rear-facing lodge rejected");
             Place(new(6, 3), BuildingKind.VegetableGarden);
             for (int x = -2; x <= 6; x++) _world.SetPath(new(x, 1), true);
             for (int z = -2; z <= 7; z++) _world.SetPath(new(2, z), true);
@@ -86,6 +86,19 @@ public partial class Game
                     await Capture($"artifacts/f23a-village-{size.X}-{angle}.png");
                 }
             }
+            string lodgeState=_world.SaveJson();
+            foreach(bool improved in new[]{false,true})
+            {
+                if(improved) Check(_world.RequestImprovement(lodge.Id),"Lodge improvement fixture rejected");
+                _focus=new(0,0,6);_camera.Size=10;GetWindow().Size=new(960,640);
+                for(int direction=0;direction<4;direction++)
+                {
+                    _angle=.72f+direction*Mathf.Pi/2;UpdateCamera();await Frames();
+                    await Capture($"artifacts/f23b1-lodge-{improved}-{direction}.png");
+                }
+            }
+            _world=World.LoadJson(lodgeState);CreateActors();
+            _focus=new(1.5f,0,1);_camera.Size=23;
             GetWindow().Size = new(1440, 900); _angle = .72f; UpdateCamera(); await Frames();
             await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
             var gray = GetViewport().GetTexture().GetImage();
@@ -97,14 +110,14 @@ public partial class Game
             Check(gray.SavePng("artifacts/f23a-grayscale.png") == Error.Ok, "Grayscale capture failed");
             // A separate presentation sheet checks all construction stages and rotation.
             _dynamic.Hide(); _landscape.Hide(); _pathView.Hide(); var sheet = new Node3D(); AddChild(sheet);
-            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2) })
+            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2), (BuildingKind.Lodge, 3) })
                 for (int stage = 0; stage < 4; stage++)
                 {
                     var body = new Node3D { Position = new(stage * 4 - 6, 0, row * 4 - 4), RotationDegrees = new(0, stage == 3 ? 90 : 0, 0) }; sheet.AddChild(body);
                     MakeBuilding(body, new Cottage { Kind = kind }, stage);
                 }
-            Box(sheet, new(0, -.12f, 0), new(18, .15f, 14), new("777f62"));
-            _focus = Vector3.Zero; _camera.Size = 23; UpdateCamera(); HideLabels(sheet); await Frames();
+            Box(sheet, new(0, -.12f, 2), new(18, .15f, 18), new("777f62"));
+            _focus = new(0,0,2); _camera.Size = 26; UpdateCamera(); HideLabels(sheet); await Frames();
             await Capture("artifacts/f23a-construction.png");
             GD.Print("PASS: art scene, real bakery/sawmill buffers, working/paused saw, oven state, four camera directions at 960/1440 and construction sheet. Visual appeal requires human review.");
             GetTree().Quit();

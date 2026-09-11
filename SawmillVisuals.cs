@@ -53,19 +53,4 @@ public partial class Game
         }
         FoodSign(parent, "SAWMILL", 3.02f);
     }
-    private void MakeLodge(Node3D parent, int stage)
-    {
-        MakeLegacyCottage(parent, stage);
-        if (stage < 2) return;
-        // Clapboard siding and a blue roof distinguish the four-bed lodge.
-        for (int i = 0; i < 7; i++) Box(parent, new(0, 0.3f + i * 0.18f, -0.84f), new(2.68f, 0.14f, 0.04f), new("d4ac70"));
-        if (stage < 3) return;
-        foreach (float side in new[] { -1f, 1f })
-        {
-            var roof = Box(parent, new(0, 1.97f, side * 0.53f), new(3.18f, 0.17f, 1.37f), new("587684"));
-            roof.RotationDegrees = new(side * 32, 0, 0);
-        }
-        Box(parent, new(0, 0.12f, 1.0f), new(2.8f, 0.2f, 0.4f), new("d4ac70"));
-        FoodSign(parent, "LODGE · 4 BEDS", 2.65f);
-    }
 }
