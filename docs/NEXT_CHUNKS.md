@@ -11,7 +11,9 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
 - **Audio and menu have first versions.** Retain their polish backlog. New needs, production chains and population growth are candidates, not prerequisites for making the current game enjoyable.
 
-## 1. F26c2b — a playable Living woods settlement
+## 1. F26c2b — a playable Living woods settlement (delivered)
+
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). Continue with F23b7. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 

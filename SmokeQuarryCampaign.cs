@@ -30,7 +30,7 @@ public partial class Game
         {
             GetWindow().Size=new(width,width==960?640:900);
             AdoptWorld(World.NewCampaign(8));await OpenMenu(2);await Frames();Widths();
-            Check(_levelButtons.Count==8 && _riverAction.Visible && _riverAction.Disabled,"Quarry entry/phase controls missing");
+            Check(_levelButtons.Count==World.CampaignLevels.Length && _riverAction.Visible && _riverAction.Disabled,"Quarry entry/phase controls missing");
             Check(_kindButtons.Values.All(b=>!b.Disabled),"Quarry locks building types");
             await UiClick(_goalItems["hall-stone"].Toggle);await Frames();Widths();
             string saved=_world.SaveJson();
@@ -53,7 +53,7 @@ public partial class Game
             await OpenMenu(2);_drawerPages[2].ScrollVertical=0;await Frames();
             await Capture($"artifacts/quarry-assessment-{width}.png");
             AdoptWorld(World.LoadFile("artifacts/quarry-complete.json"));SaveCampaign();await OpenMenu(2);await Frames();
-            Check(!_nextLevel.Visible && _keepPlaying.Visible,"Last-level completion controls wrong");
+            Check(_nextLevel.Visible && _keepPlaying.Visible,"Quarry continuation controls wrong");
             string complete=_world.SaveJson();await UiClick(_replayLevel);await Frames();
             Check(!_world.Campaign!.Complete && _world.Campaign.Quarry!.Phase==0,"Quarry replay did not reset");
             await UiClick(_restoreReplay);await Frames();Check(_world.SaveJson()==complete,"Quarry replay restore differed");

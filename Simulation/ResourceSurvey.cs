@@ -14,7 +14,7 @@ public sealed partial class World
     public IEnumerable<ResourceSource> ResourceSources() =>
         Map.StoneDeposits.Select(d=>new ResourceSource(new(SourceKind.Stone,d.Id),d.Cell,$"Stone outcrop {d.Id}"))
         .Concat(Map.FishingGrounds.Select(h=>new ResourceSource(new(SourceKind.Fish,h.Id),h.Cell,h.Name)))
-        .Concat(Map.Wildlife.Select(h=>new ResourceSource(new(SourceKind.Woodland,h.Id),h.Cell,$"Woodland {h.Id}")));
+        .Concat(Map.Wildlife.Select(h=>new ResourceSource(new(SourceKind.Woodland,h.Id),h.Cell,WoodsName(h))));
 
     public ResourceSurvey? ReadResourceSurvey(SourceKey key)
     {
@@ -35,7 +35,7 @@ public sealed partial class World
                     "DOCKS WITH A WATER ROUTE",Sites(c=>c.Kind==BuildingKind.FishingDock && FindBoatRoute(c.Launch,fish.Cell)!=null));
             default:
                 var h=Map.Wildlife.Single(s=>s.Id==key.Id);
-                return new(source,$"{At(h.Cell)}\n\n{AvailableGame(h)} game available · {ClaimedGame(h)} reserved\n{h.Stock:0.#}/{HabitatCapacity(h)} habitat stock\n{HabitatTrees(h)} mature trees within 5 tiles\nRecovery: +{HabitatRecovery(h):0.#} game/minute.\n\nTracking clearing: {(Accessible(h.Cell)?"reachable from the yard":"no route from the yard")}.\nLodges within 8 tiles share stock. Pause hunting for stock recovery; retain or regrow mature trees for capacity. Reserved outings can finish after tree loss. Game becomes food after pantry delivery.",
+                return new(source,$"{At(h.Cell)}\n\n{AvailableGame(h)} game available · {ClaimedGame(h)} reserved\n{h.Stock:0.#}/{HabitatCapacity(h)} habitat stock\n{HabitatTrees(h)} mature trees within 5 tiles\nRecovery: +{HabitatRecovery(h):0.#} game/minute.\n\nTracking clearing: {(Accessible(h.Cell)?"reachable from the yard":"no route from the yard")}.\nLodges within 8 tiles share stock. Pause hunting for stock recovery; retain or regrow mature trees for capacity. Protect restoration planting orders with Preserve trees so loggers do not harvest them again after maturity. Reserved outings can finish after tree loss. Game becomes food after pantry delivery.",
                     "LODGES IN RANGE · access still required",Sites(c=>c.Kind==BuildingKind.HuntingLodge && (c.Cell.Point-h.Cell.Point).LengthSquared()<=64));
         }
     }

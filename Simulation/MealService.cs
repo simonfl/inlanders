@@ -164,7 +164,7 @@ public sealed partial class World
         Food.LastMealRequired=Population; Food.LastMealChoices=meals.Select(m=>m.Kind).Distinct().Count();
         int quarter=(Population+3)/4;
         if(meals.Length==Population && Food.LastMealVegetables>=quarter && meals.Length-Food.LastMealVegetables>=quarter) Food.VegetableChoiceMeals++;
-        RecordRiverMeal(); RecordLakeMeal(); RecordQuarryMeal();
+        RecordRiverMeal(); RecordLakeMeal(); RecordQuarryMeal(); RecordWoodsMeal();
     }
     private void ValidateMealService()
     {

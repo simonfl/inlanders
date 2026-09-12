@@ -14,12 +14,13 @@ public partial class Game
         "east-recreation"=>c.Kind==BuildingKind.Square && c.Cell.X>5,
         "recreation"=>Buildings.Get(c.Kind).RecreationSlots>0,
         "fish"=>c.Kind==BuildingKind.FishingDock,
+        "game"=>c.Kind==BuildingKind.HuntingLodge,
         "hall" or "hall-visits" or "hall-planks" or "hall-stone"=>c.Kind==BuildingKind.GatheringHall,
         _=>false
     }).OrderBy(c=>c.Id);
     private void PlanGoalBuilding(string key)
     {
-        var kind=key switch {"hall" or "hall-visits" or "hall-planks" or "hall-stone"=>BuildingKind.GatheringHall,"fish"=>BuildingKind.FishingDock,"recreation" or "east-recreation"=>BuildingKind.Square,_=>BuildingKind.Cottage};
+        var kind=key switch {"game"=>BuildingKind.HuntingLodge,"hall" or "hall-visits" or "hall-planks" or "hall-stone"=>BuildingKind.GatheringHall,"fish"=>BuildingKind.FishingDock,"recreation" or "east-recreation"=>BuildingKind.Square,_=>BuildingKind.Cottage};
         CloseDrawer();_followPerson=false;_watchOrbit=false;
         if(key.StartsWith("east-"))
         {
@@ -43,14 +44,27 @@ public partial class Game
             if(_goalPlaceKeys.TryGetValue(key,out var old) && old==signature)continue;
             _goalPlaceKeys[key]=signature;
             foreach(var child in panel.GetChildren()){panel.RemoveChild(child);child.QueueFree();}
+            if(key.StartsWith("wood-"))
+            {
+                int id=int.Parse(key.Split('-').Last());
+                var sourceKey=new SourceKey(SourceKind.Woodland,id);
+                panel.AddChild(Button("Inspect woodland and hunting lodges",()=>{CloseDrawer();if(!_surveying)ToggleResourceSurvey();SelectResourceSource(sourceKey,true);}));
+                if(key.StartsWith("wood-trees-"))
+                {
+                    panel.AddChild(Button("Preserve trees and planting orders",()=>{CloseDrawer();BeginWoodlandTool(1);}));
+                    panel.AddChild(Button("Plant replacement trees",()=>{CloseDrawer();ToggleTreePlanting();}));
+                    panel.AddChild(Button("Clear roots after timber collection",()=>{CloseDrawer();ToggleClearing();}));
+                }
+                continue;
+            }
             panel.AddChild(Text(sites.Length==0?"No matching places yet.":"RELEVANT PLACES",12,true));
             foreach(var site in sites)
             {
                 int id=site.Id;string status=site.DemolitionRequested?" · removing":!site.Complete?" · building":"";
                 panel.AddChild(Button($"Show {BuildingName(site.Kind)} {id}{status}",()=>ShowServicePlace(id)));
             }
-            panel.AddChild(Button(key.StartsWith("hall")?"Plan a gathering hall":key=="fish"?"Plan a fishing dock":key.Contains("recreation")?"Plan a Square":"Plan a cottage",()=>PlanGoalBuilding(key)));
-            if(key=="hall-stone")foreach(var source in _world.ResourceSources().Where(s=>s.Key.Kind==SourceKind.Stone))
+            panel.AddChild(Button(key=="game"?"Plan a hunting lodge":key.StartsWith("hall")?"Plan a gathering hall":key=="fish"?"Plan a fishing dock":key.Contains("recreation")?"Plan a Square":"Plan a cottage",()=>PlanGoalBuilding(key)));
+            if(key is "hall-stone" or "game")foreach(var source in _world.ResourceSources().Where(s=>s.Key.Kind==(key=="game"?SourceKind.Woodland:SourceKind.Stone)))
             {
                 var sourceKey=source.Key;
                 panel.AddChild(Button($"Survey {source.Name}",()=>{CloseDrawer();if(!_surveying)ToggleResourceSurvey();SelectResourceSource(sourceKey,true);}));

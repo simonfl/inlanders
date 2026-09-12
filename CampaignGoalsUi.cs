@@ -21,7 +21,7 @@ public partial class Game
     }
     private void UpdateGoalDashboard()
     {
-        bool active=(_world.IsRiverCampaign || _world.IsLakeCampaign || _world.IsQuarryCampaign) && _world.Campaign?.Complete!=true;
+        bool active=(_world.IsWoodsCampaign || _world.IsRiverCampaign || _world.IsLakeCampaign || _world.IsQuarryCampaign) && _world.Campaign?.Complete!=true;
         _goalDashboard.Visible=active;_goalArrival.Visible=_objective.Visible=!active;
         if(!active)return;
         var conditions=_world.ReadCampaignConditions();string keys=string.Join(",",conditions.Select(c=>c.Key));

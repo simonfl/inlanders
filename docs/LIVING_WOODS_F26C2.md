@@ -1,6 +1,6 @@
 # F26c2 — The living woods
 
-September 12, 2026. **F26c2a: design and simulation prototype complete. F26c2b: campaign integration remains.** `World.NewLivingWoodsMap()` is not yet a selectable level. All measurements below are scripted simulation seconds, not player wall time or evidence of enjoyment.
+September 12, 2026. **Original F26c2a design and simulation prototype. F26c2b is now implemented as level nine; see the [campaign review](WOODS_CAMPAIGN_REVIEW.md).** The design and measurements below describe the earlier standalone prototype. All measurements below are scripted simulation seconds, not player wall time or evidence of enjoyment.
 
 ## Player decision and payoff
 

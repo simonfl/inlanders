@@ -29,7 +29,20 @@ public sealed partial class World
     public IReadOnlyList<CampaignCondition> ReadCampaignConditions()
     {
         var rows=new List<CampaignCondition>();
-        if(Campaign==null || Campaign.Complete || !(IsRiverCampaign || IsLakeCampaign || IsQuarryCampaign)) return rows;
+        if(Campaign==null || Campaign.Complete || !(IsRiverCampaign || IsLakeCampaign || IsQuarryCampaign || IsWoodsCampaign)) return rows;
+        if(IsWoodsCampaign)
+        {
+            rows.Add(new("game","Game delivered",DeliveredGame,4,"Bring four game to food storage using a staffed hunting lodge. This milestone stays earned. Later: twelve housed residents, four mature trees and two unclaimed game in each wood, and continuing food. Preserve both woods or combine selective harvesting with cultivation."));
+            if(Campaign.Woods!.Phase==0)return rows;
+            rows.Add(new("population","Residents",Population,12,"Prepare spare homes and food, then invite pairs from People. Extra residents increase housing and food requirements."));
+            rows.Add(new("housing","Residents housed",Housed,Population,"Every resident needs an assigned completed home."));
+            foreach(var h in Map.Wildlife)
+            {
+                rows.Add(new($"wood-trees-{h.Id}",$"{WoodsName(h)} · mature trees",HabitatTrees(h),4,"Four mature trees support capacity eight and recovery two game/minute. Young saplings do not count. Collect felled timber, clear roots and plant replacements, then preserve those planting orders so loggers leave them standing. Growth takes three in-game minutes after planting. Explicit clearing overrides preservation."));
+                rows.Add(new($"wood-stock-{h.Id}",$"{WoodsName(h)} · unclaimed game",AvailableGame(h),2,"Maintain two game beyond existing hunter reservations. If mature trees remain, pause hunting to restore stock and keep other food working. If trees are missing, restore protected woodland first. These conditions stay current during assessment; a brief earlier recovery does not bank them."));
+            }
+            return rows;
+        }
         if(IsQuarryCampaign)
         {
             var hall=CampaignHall;
@@ -65,6 +78,6 @@ public sealed partial class World
         }
         return rows;
     }
-    public string CampaignPhaseTitle => IsQuarryCampaign ? Campaign!.Quarry!.Phase switch {0=>"Build a shared place",1=>"Keep the gathering place working",_=>"Settlement complete"} : IsRiverCampaign ? Campaign!.River!.Phase switch {0=>"Prepare the first neighborhood",1=>"Prove the first neighborhood",2=>"Prepare the final expansion",3=>"Prove the expanded village",_=>"Settlement complete"} :
+    public string CampaignPhaseTitle => IsWoodsCampaign ? Campaign!.Woods!.Phase switch {0=>"Bring food from the woods",1=>"Prepare a woodland village",2=>"Support the village and woods",_=>"Settlement complete"} : IsQuarryCampaign ? Campaign!.Quarry!.Phase switch {0=>"Build a shared place",1=>"Keep the gathering place working",_=>"Settlement complete"} : IsRiverCampaign ? Campaign!.River!.Phase switch {0=>"Prepare the first neighborhood",1=>"Prove the first neighborhood",2=>"Prepare the final expansion",3=>"Prove the expanded village",_=>"Settlement complete"} :
         IsLakeCampaign ? Campaign!.Lake!.Phase switch {0=>"Open a fishing route",1=>"Prepare the lakeside village",2=>"Prove the lakeside village",_=>"Settlement complete"} : "Village goals";
 }
