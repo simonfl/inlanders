@@ -31,6 +31,8 @@ public partial class Game
     {
         _hudSize = _hud.Size; float width = _hudSize.X, height = _hudSize.Y;
         _brand.Visible = width >= 1200; _shortcuts.Visible = width >= 1100;
+        _topBar.GetChild<HBoxContainer>(0).AddThemeConstantOverride("separation",width<1100?8:16);
+        foreach(var value in _resourceValues.Values)value.GetParent<Control>().CustomMinimumSize=new(width<1100?50:62,0);
         _topBar.Position = new(16, 12); _topBar.Size = new(width - 32, 68);
         _bottomBar.Position = new(16, height - 76); _bottomBar.Size = new(width - 32, 64);
         _drawer.Position = new(16, 92); _drawer.Size = new(316, Math.Max(260, height - 184));

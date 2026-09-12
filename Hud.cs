@@ -227,6 +227,9 @@ public partial class Game
         _resourceValues[Resource.Game].GetParent<Control>().Visible=_world.Map.Wildlife.Count>0 || _world.Food.HuntedGame>0;
         _resourceValues[Resource.Fish].GetParent<Control>().Visible=_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0;
         _resourceValues[Resource.Stone].GetParent<Control>().Visible=_world.Map.StoneDeposits.Count>0 || _world.Stone>0;
+        // Conditional resource columns can grow the panel before their visibility settles.
+        // Reapply the viewport width so switching villages can shrink it again.
+        _topBar.Size=new(_hud.Size.X-32,68);
         _resourceValues[Resource.Stone].GetParent<Control>().TooltipText=$"{_world.Stone-_world.AvailableStone} stone reserved. Central store; local piles currently hold logs or planks.";
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread))} / {_world.SupperCost}";
         _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread)) / (float)_world.SupperCost * 50;

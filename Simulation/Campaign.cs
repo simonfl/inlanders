@@ -10,6 +10,7 @@ public sealed class CampaignState
 {
     public RiverProgress? River { get; set; }
     public LakeProgress? Lake { get; set; }
+    public QuarryProgress? Quarry { get; set; }
     public int Level { get; set; }
     public bool Complete { get; set; }
     public bool Guidance { get; set; } = true;
@@ -37,7 +38,8 @@ public sealed partial class World
         new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then serve two full meals with at least a quarter vegetables and a quarter other food. The gardener visit is optional.",
             new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2)),
         new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
-        new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available.")
+        new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available."),
+        new(8, "Built to last", "Build a gathering hall for this working village. Nearby stone holds 8; the hall needs 12. Use both outcrops for shorter hauling, or only the distant one to save a camp. Keep food working and place the hall where residents will use it. All buildings remain available.")
     };
     public int DeliveredBerries => DeliveredFood(Resource.Berries);
     public int DeliveredVegetables => DeliveredFood(Resource.Vegetables);
@@ -62,8 +64,8 @@ public sealed partial class World
             _ => throw new ArgumentOutOfRangeException(nameof(kind))
         }) ? 1 : 0
     };
-    public double CampaignProgress => IsLakeCampaign ? LakeCompletion : IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
-    public string CampaignObjective => IsLakeCampaign ? LakeObjective : IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
+    public double CampaignProgress => IsQuarryCampaign ? QuarryCompletion : IsLakeCampaign ? LakeCompletion : IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
+    public string CampaignObjective => IsQuarryCampaign ? QuarryObjective : IsLakeCampaign ? LakeObjective : IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
         (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
@@ -72,6 +74,7 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
+        if(level==8) {var quarry=NewQuarryMap();quarry.Campaign=new(){Level=8,Quarry=new()};quarry.Validate();return quarry;}
         if(level==7) { var lake=NewNarrowLakeSettlement(); lake.Campaign=new() { Level=7,Lake=new() }; lake.Validate(); return lake; }
         if(level==6) { var river=NewRiverSettlement(); river.Campaign=new() { Level=6, River=new() }; river.Validate(); return river; }
         var w = level >= 3 ? NewLargeMap(false, false) : new World();
@@ -99,6 +102,7 @@ public sealed partial class World
     public CampaignHint? CurrentCampaignHint()
     {
         if (Campaign == null || !Campaign.Guidance || Campaign.Complete) return null;
+        if(IsQuarryCampaign)return Campaign.Dismissed.Contains("quarry")?null:new("quarry",Campaign.Quarry!.Phase==0?QuarryActionProblem()??"Begin the hall assessment from Goals when ready.":QuarryServiceProblem()??"Keep the hall and food service working.");
         if(IsLakeCampaign) return Campaign.Dismissed.Contains("lake") ? null : new("lake",LakeActionProblem() ?? "Use the phase button in Goals when ready. Fishers prefer a full catch, then the nearest reachable ground. Inspect the dock for shared stocks and recall controls.");
         if(IsRiverCampaign) return Campaign.Dismissed.Contains("river") ? null : new("river", RiverActionProblem() ?? "Use the phase button in Goals when you are ready. Meals share available food types; Economy shows recent deliveries and what was eaten.");
         var hints = new List<CampaignHint>();

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--quarry-campaign")) {try{QuarryCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--quarry-brief")) {try{QuarryBriefChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--rotation")) {try{RotationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--comfort-comparison")) { try {ComfortComparison.Run();} catch(Exception e) {Console.Error.WriteLine(e);Environment.ExitCode=1;} return; }
@@ -179,6 +180,7 @@ ManagedWoodlandChecks.Run();
 SupplyRouteChecks.Run();
 PlankStorageChecks.Run();
 QuarryChecks.Run();
+QuarryCampaignChecks.Run();
 WildlifeChecks.Run();
 ResourceSurveyChecks.Run();
 SeatingGardenChecks.Run();

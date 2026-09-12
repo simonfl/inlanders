@@ -21,7 +21,7 @@ public partial class Game
     }
     private void UpdateGoalDashboard()
     {
-        bool active=(_world.IsRiverCampaign || _world.IsLakeCampaign) && _world.Campaign?.Complete!=true;
+        bool active=(_world.IsRiverCampaign || _world.IsLakeCampaign || _world.IsQuarryCampaign) && _world.Campaign?.Complete!=true;
         _goalDashboard.Visible=active;_goalArrival.Visible=_objective.Visible=!active;
         if(!active)return;
         var conditions=_world.ReadCampaignConditions();string keys=string.Join(",",conditions.Select(c=>c.Key));
@@ -41,7 +41,7 @@ public partial class Game
                 var toggle=Button("Why?",()=>help.Visible=!help.Visible,48);row.AddChild(toggle);root.AddChild(help);
                 _goalItems[c.Key]=(root,count,toggle,help);
                 string trackKey=c.Key;var track=Button("Track while playing",()=>_trackedGoalKey=_trackedGoalKey==trackKey?null:trackKey);root.AddChild(track);_goalTrackButtons[trackKey]=track;
-                if(c.Key is "housing" or "rest" or "recreation" or "east-recreation")
+                if(c.Key is "housing" or "rest" or "recreation" or "east-recreation" or "hall-visits")
                 {
                     string key=c.Key;var residents=Button("Inspect residents",()=>OpenCampaignResidents(key));root.AddChild(residents);_goalResidentButtons[key]=residents;
                 }

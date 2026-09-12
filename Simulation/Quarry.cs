@@ -28,7 +28,7 @@ public sealed partial class World
     public int AvailableDeposit(StoneDeposit deposit) => deposit.Remaining-People.Where(p=>p.DepositId==deposit.Id).Sum(p=>p.Reserved);
     private IEnumerable<StoneDeposit> QuarryDeposits(Cottage camp) => Map.StoneDeposits.Where(d=>(d.Cell.Point-camp.Cell.Point).LengthSquared()<=16 && Accessible(d.Access));
     public string QuarrySurvey(Cell cell) => string.Join("\n",Map.StoneDeposits.Where(d=>(d.Cell.Point-cell.Point).LengthSquared()<=16)
-        .Select(d=>$"Outcrop {d.Id}: {AvailableDeposit(d)} available / {d.Remaining} remaining of {d.Capacity} stone · {(Accessible(d.Access)?"access open":"access blocked")}.")) is string text && text.Length>0 ? text : "Needs an outcrop within 4 tiles. Find marked stone on Three clearings.";
+        .Select(d=>$"Outcrop {d.Id}: {AvailableDeposit(d)} available / {d.Remaining} remaining of {d.Capacity} stone · {(Accessible(d.Access)?"access open":"access blocked")}.")) is string text && text.Length>0 ? text : "Needs an outcrop within 4 tiles. Use Resource survey [U] to find marked stone.";
 
     private void ClaimQuarry(Villager person)
     {

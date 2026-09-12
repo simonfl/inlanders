@@ -6,11 +6,11 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F26b2b — implement and assess Built to last.** The [quarry/hall brief](QUARRY_CAMPAIGN_F26B2.md) now has an accounted map prototype and two working construction/visit routes: two camps shorten stone hauling; a distant-only camp saves infrastructure. Campaign progression, food-service proof and poor-layout recovery remain to implement. The short diagnostic routes do not yet establish a longer, satisfying level.
+**Next: F23c1 — bound loose timber/salvage presentation.** Built to last is now playable as level eight, with two full supply routes and saved recovery from a competing-venue layout. [Implementation review](QUARRY_CAMPAIGN_REVIEW.md). Its competent routes take six to eight simulated minutes; longer, more demanding campaign play remains an F11/F18 follow-up. Fix the already-observed loose-stack towers next, then revisit campaign challenge and the remaining building art families.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
-Current foundation: **17 building types, seven campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river and lake are the two longer scenarios. Cottage/bakery/sawmill, lodge, forager and field art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
+Current foundation: **17 building types, eight campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake and quarry are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
 ## Current delivery queue
 
@@ -21,7 +21,8 @@ Current foundation: **17 building types, seven campaign levels**, actual meals, 
 | 3 | F21m | Audit complete; no layout defect found | Actual control-width checks pass; the suspected scrollbar was campaign progress. Expanded-state checks retained. [Audit](GOALS_LAYOUT_F21M.md). |
 | 4 | F23b5 | Implemented; visual feedback open | Bounded batched yard racks, unchanged exact inventories, stronger local stockpile framing and softer ground/path colors. Fill/drain/reload and high-stock checks pass. [Review](STORAGE_F23B5.md). |
 | 5 | F26b2a | Brief/map prototype complete | [Built to last](QUARRY_CAMPAIGN_F26B2.md): exact starting budget, legal plots, optional nearby source and two actual hall construction/visit routes. Full service/recovery and human pacing remain unproven. |
-| 6 | F26b2b | Ready for implementation and route assessment | Integrate the quarry scenario, staged goals, readable source choices and actual hall use. Verify two full approaches, path tradeoffs and poor-layout recovery; no new material chain, waiting quota or mandatory home upgrades. |
+| 6 | F26b2b | Implemented; human pacing open | Level eight, staged hall/service proof, source links, actual hall use, two full routes with paths and saved competing-venue recovery. [Review](QUARRY_CAMPAIGN_REVIEW.md). No new material chain or mandatory upgrades. |
+| 7 | F23c1 | Ready | Cap/batch loose timber and salvage display geometry while keeping exact source quantities, cargo, collection access and clearing behavior. Test repeated collection and unusually large recovered piles; retain empty states. This is the observed counterpart to completed yard storage work. |
 
 The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
@@ -31,6 +32,7 @@ The original five-chunk sequence gained a short F21m audit; it ruled out an inco
 | --- | --- | --- |
 | Art — F23a/b | Does the village feel inviting at ordinary zoom, including all four sides? | Use matched scenes and feedback. Iterate the offending type; avoid an automatic wholesale art rewrite. |
 | Campaign/UI — F21l, F11b/F18b | Can a player explain a falling goal count and recover? Is there meaningful work beyond opening placements? | Chunk 2. Preserve completed milestones; cut waiting rather than increase quotas to promise a duration. |
+| Campaign challenge — F11/F18 | Quarry competent routes remain six to eight simulated minutes despite a real source tradeoff. Does play involve enough decisions after the opening queue? | Revisit existing scenario commitments and labor/land competition after F23c1; do not equate a longer proof timer with difficulty. Human timing remains unverified. |
 | Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Include one relevant meal problem in chunk 2; do not require local pantries in every solution. |
 | Comfort — F25b3 | Are visible improvements and fewer rest journeys rewarding? | Keep optional. Existing comparisons show no food-output gain; no comfort scenario yet. |
 | Quarry/hall and wildlife — F26b/c | Are their geographical tradeoffs worth the investment? | Quarry brief next; woodland campaign later. Neither must beat every alternative. |
@@ -52,6 +54,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F26b2b | Built to last: two stone sources, eight-person village, hall construction and real recent hall use plus continuing food service; campaign picker, replay/restore and exact saves. Two routes, path comparison and adverse placement recovery pass. Narrow stone-resource bar fixed. [Review](QUARRY_CAMPAIGN_REVIEW.md). |
 | F11b3 / F18b3 | Agent review of current river/lake routes, UI, service recovery and waiting; lake phase blockers/objective corrected to accept all recreation venues and describe improved-home rest. No win-rule changes. [Measurements and remaining questions](CAMPAIGN_REVIEW_F11B3.md). |
 | F23b4 | Open civic arbor and serving table, separate frontage stones, no fictitious occupied benches or permanent food stock. Build guidance distinguishes two-tile break and four-tile supper areas. Actual four-orientation breaks/supper and saved completion pass; [comparison and review](SQUARE_F23B4.md). |
 | F23b3 | Separate tapered farm rows and garden beds replace full plinths and continuous rims. Lower markers and partial garden boards preserve plot identity; crop positions and work contact unchanged. Four-orientation field-work checks pass; [matched comparison](FIELDS_F23B3.md). |
@@ -206,7 +209,7 @@ The expanded candidate palette includes orchards, a river-powered mill, pasture/
 
 **Scope of the next needs pass:** food, home/rest and recreation are the core; comfort is an improvement, with learning and reflection optional later ambitions. The [systems plan](CAMPAIGN_SYSTEMS.md#later-needs-small-independently-reviewable-chunks) gives F25b–e individual experiments and cut criteria. Follow each resource all the way to its resident benefit: fish/game into actual meals, stone into an attended civic place, planks into occupied home improvements. New foods must not make every existing diet inadequate. Campaign difficulty comes from competing land, access and worker time, with visible recovery options—not accumulating mandatory needs or construction checklists.
 
-Keep Across the river as the first longer level using existing systems. Life by the lake is now implemented as a resource introduction. Later campaign roles: **A place to call home**, **Built to last**, **The living woods**, then an expanded **A lasting village**. The long haul and Room to grow can become challenges within these maps or optional scenarios, rather than padding the sequence with overlapping levels. These additions are planned, not implemented. All-building availability and the removal of seasons remain unchanged.
+Keep Across the river as the first longer level using existing systems. Life by the lake is now implemented as a resource introduction. Built to last is now level eight. Later campaign roles: **A place to call home**, **The living woods**, then an expanded **A lasting village**. The long haul and Room to grow can become challenges within these maps or optional scenarios, rather than padding the sequence with overlapping levels. These additions are planned, not implemented. All-building availability and the removal of seasons remain unchanged.
 
 ## Optional follow-ups
 
@@ -219,7 +222,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F05 — Food choices | More crops or orchards, recipe variety, garden/grain balance, and further diet choices building on the actual-meal rule shipped in F14b. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
-| F07 — Storage and hauling | Compact yard visuals for large reserves (Creative clearing can produce tall stacks), review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
+| F07 — Storage and hauling | Yard visuals shipped in F23b5; loose-source stacks are F23c1. Review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
 | F08 — Materials | More plank/stone consumers and upgrades. Mixed plank/stone construction shipped with the hall; local stone storage remains a candidate. Adjustable workplace stock targets shipped in F21h. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |

@@ -21,16 +21,18 @@ public partial class Game
     private void UpdateGoalMeals()
     {
         bool river=_world.IsRiverCampaign;
-        int phase=river?_world.Campaign!.River!.Phase:_world.Campaign!.Lake!.Phase;
-        bool assessing=river?phase is 1 or 3:phase==2;
+        bool quarry=_world.IsQuarryCampaign;
+        int phase=quarry?_world.Campaign!.Quarry!.Phase:river?_world.Campaign!.River!.Phase:_world.Campaign!.Lake!.Phase;
+        bool assessing=quarry?phase==1:river?phase is 1 or 3:phase==2;
         _goalMeals.Visible=assessing;if(!assessing)return;
         bool proved=river && phase==1 && _world.Campaign!.River!.Meals>=2;
         if(proved){_goalMealStatus.Text="✓ First food assessment proved. This milestone is kept.";_goalMealEvidence.Text="Prepare the next expansion when ready.";return;}
-        float since=river?_world.Campaign!.River!.AssessmentStarted:_world.Campaign!.Lake!.AssessmentStarted;
+        float since=quarry?_world.Campaign!.Quarry!.AssessmentStarted:river?_world.Campaign!.River!.AssessmentStarted:_world.Campaign!.Lake!.AssessmentStarted;
+        _goalMealHelp.Text="The assessment uses a moving three-minute window starting when you begin it. Everyone needs two closed meal requests, no missed/skipped requests, "+(quarry?"":"at least a quarter of eaten portions outside the dominant food, ")+"and fresh deliveries covering eating and demand. Late eating restores nourishment but does not erase a missed request; let it age out while improving service. This is not three synchronized village meals or a stockpile target.";
         var food=_world.ReadMealAssessment(since);
         string Mark(bool ok)=>ok?"✓":"○";
         _goalMealStatus.Text=$"FOOD ASSESSMENT · last {Math.Min(180,(int)(_world.Food.Time-since))}s / up to 3m";
-        _goalMealEvidence.Text=$"{Mark(food.ResidentsWithHistory==food.Residents)} Two closed requests: {food.ResidentsWithHistory}/{food.Residents} residents\n{Mark(food.Missed==0 && food.Skipped==0)} Missed / skipped: {food.Missed} / {food.Skipped}\n{Mark(food.Varied)} Other food portions: {food.NonDominant}/{food.Eaten} eaten (need 25%)\n{Mark(food.FreshSupply)} Fresh deliveries: {food.Delivered}/{Math.Max(food.Closed+food.Skipped,food.Eaten)} needed";
-        if(_world.ReadCampaignConditions().All(c=>c.Met)) _goalNext.Text=food.Problem??"Meal evidence ready; keep the village running for the assessment check.";
+        _goalMealEvidence.Text=$"{Mark(food.ResidentsWithHistory==food.Residents)} Two closed requests: {food.ResidentsWithHistory}/{food.Residents} residents\n{Mark(food.Missed==0 && food.Skipped==0)} Missed / skipped: {food.Missed} / {food.Skipped}\n"+(quarry?"":$"{Mark(food.Varied)} Other food portions: {food.NonDominant}/{food.Eaten} eaten (need 25%)\n")+$"{Mark(food.FreshSupply)} Fresh deliveries: {food.Delivered}/{Math.Max(food.Closed+food.Skipped,food.Eaten)} needed";
+        if(_world.ReadCampaignConditions().All(c=>c.Met)) _goalNext.Text=(quarry?_world.QuarryServiceProblem():food.Problem)??"Meal evidence ready; keep the village running for the assessment check.";
     }
 }

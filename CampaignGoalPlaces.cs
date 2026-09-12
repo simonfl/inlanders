@@ -14,11 +14,12 @@ public partial class Game
         "east-recreation"=>c.Kind==BuildingKind.Square && c.Cell.X>5,
         "recreation"=>Buildings.Get(c.Kind).RecreationSlots>0,
         "fish"=>c.Kind==BuildingKind.FishingDock,
+        "hall" or "hall-visits" or "hall-planks" or "hall-stone"=>c.Kind==BuildingKind.GatheringHall,
         _=>false
     }).OrderBy(c=>c.Id);
     private void PlanGoalBuilding(string key)
     {
-        var kind=key switch {"fish"=>BuildingKind.FishingDock,"recreation" or "east-recreation"=>BuildingKind.Square,_=>BuildingKind.Cottage};
+        var kind=key switch {"hall" or "hall-visits" or "hall-planks" or "hall-stone"=>BuildingKind.GatheringHall,"fish"=>BuildingKind.FishingDock,"recreation" or "east-recreation"=>BuildingKind.Square,_=>BuildingKind.Cottage};
         CloseDrawer();_followPerson=false;_watchOrbit=false;
         if(key.StartsWith("east-"))
         {
@@ -48,7 +49,12 @@ public partial class Game
                 int id=site.Id;string status=site.DemolitionRequested?" · removing":!site.Complete?" · building":"";
                 panel.AddChild(Button($"Show {BuildingName(site.Kind)} {id}{status}",()=>ShowServicePlace(id)));
             }
-            panel.AddChild(Button(key=="fish"?"Plan a fishing dock":key.Contains("recreation")?"Plan a Square":"Plan a cottage",()=>PlanGoalBuilding(key)));
+            panel.AddChild(Button(key.StartsWith("hall")?"Plan a gathering hall":key=="fish"?"Plan a fishing dock":key.Contains("recreation")?"Plan a Square":"Plan a cottage",()=>PlanGoalBuilding(key)));
+            if(key=="hall-stone")foreach(var source in _world.ResourceSources().Where(s=>s.Key.Kind==SourceKind.Stone))
+            {
+                var sourceKey=source.Key;
+                panel.AddChild(Button($"Survey {source.Name}",()=>{CloseDrawer();if(!_surveying)ToggleResourceSurvey();SelectResourceSource(sourceKey,true);}));
+            }
         }
     }
 }

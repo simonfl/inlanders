@@ -5,7 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    // F26b2a layout prototype. Campaign progression is added separately.
+    // Authored eighth campaign map; progression lives in QuarryCampaign.cs.
     public static World NewQuarryMap()
     {
         var w=new World(0);

@@ -1,6 +1,6 @@
 # F26b2 — Built to last
 
-September 12, 2026. **F26b2a: brief and tested layout prototype complete. F26b2b: campaign implementation remains.** `World.NewQuarryMap()` is not yet a selectable campaign level. Numbers below are the current prototype, not a human pacing claim.
+September 12, 2026. **F26b2a: brief and tested layout prototype complete. F26b2b: now implemented as level eight; see the [implementation review](QUARRY_CAMPAIGN_REVIEW.md).** This document preserves the design and early prototype measurements. Full routes and current verification are in that review; neither establishes human pacing.
 
 ## The experience
 
