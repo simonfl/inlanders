@@ -2,6 +2,8 @@
 
 Review date: 9 September 2026. Baseline: `32fb060`.
 
+Historical baseline: costs, building count, household behavior and implementation status below describe that commit. For current priorities and the updated building audit, use the [September 12 review](ROADMAP_REVIEW_2026_09_12.md) and [live roadmap](ROADMAP.md).
+
 ## Assessment
 
 **There is a substantial game foundation here, but the experience has not yet earned the visual appeal and satisfying decisions its feature list suggests.** The strongest ingredients are physical work, visible growth, a peaceful mood, and the ability to arrange a settlement. The weakest parts are architectural character, readable cause and effect, and reasons to keep improving a village after its initial setup.
