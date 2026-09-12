@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F16d | Scoped | Creative multi-object removal with a visible selection, explicit confirmation and safe handling of goods, routes and cancellation. |
+| 3 | F16d | In progress | [Atomic transaction foundation](CREATIVE_REMOVAL_F16D1.md) is implemented. Area highlights, explicit confirmation, cancellation and rendered checks remain F16d2. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 

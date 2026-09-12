@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--creative-removal")) {try{CreativeRemovalChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--campaign-review")) {try{CampaignChecks.Run();LakeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--relocation")) {try{RelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--orchard-playable")) {try{OrchardChecks.Run();PantryProducerChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -173,6 +174,7 @@ StorageChecks.Run();
 VegetableChecks.Run();
 OrchardChecks.Run();
 RelocationChecks.Run();
+CreativeRemovalChecks.Run();
 LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();

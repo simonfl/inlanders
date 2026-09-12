@@ -131,4 +131,6 @@ Create two related original candidates alongside the existing piece, with a fixe
 
 ## F16d — Creative multi-object removal
 
+**In progress:** [F16d1](CREATIVE_REMOVAL_F16D1.md) delivers the atomic mixed-object transaction with exact source isolation, stock/cargo recovery, dock safety and joint bridge checks. F16d2 must deliver the area-selection/confirmation UI and rendered verification. The overall feature is not complete.
+
 Extend village arrangement with a visible multi-selection and explicit Remove selected action. Start from the existing Creative removal rules; define which objects are selected, show the affected count and explain protected objects before committing. Escape/right-click cancels without mutation. Validate the entire requested operation against current residents, bridges, boats, routes and goods; never silently perform half a rejected operation. Return recoverable stocks through existing rules and refresh all affected views once. Keep normal construction/demolition unchanged. Review building, decoration and path selection scope before implementation, and document any deferred object classes explicitly rather than claiming universal area editing. Verify mixed selection, stale confirmation, cancellation, current saves, actual cargo and narrow/wide UI. Undo history and terrain sculpting remain separate.
