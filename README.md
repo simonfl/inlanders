@@ -34,7 +34,7 @@ In game, use **Options → Return to main menu**. This saves the current settlem
 
 Creative saves are separate in `saves/creative.json` and `saves/creative-three-clearings.json`, with the same previous-village recovery as Free play. F5/F9 and Options map switching preserve the mode. There is no supper objective or visitor trade in Creative; the Goals panel explains its rules. Housing and square breaks still affect happiness, while food needs receive a neutral full allowance.
 
-## Campaign: five introductions and four working settlements
+## Campaign: five introductions and five working settlements
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
@@ -53,6 +53,8 @@ Use **People** to invite pairs and **Goals** to start each assessment. Assessmen
 8. **Built to last:** build and support a gathering hall. Nearby stone supplies 8 of the required 12; use both outcrops for shorter hauling, or start at the distant one to save a camp. Build a sawmill and assign a sawyer and quarrier while keeping food work staffed. Once the hall is complete, start its assessment from Goals. House everyone, maintain recent hall visits for half the population (four-minute window), and keep closed meal requests reliable with fresh deliveries covering demand. Mixed diet and newcomers are optional. A closer square or garden can draw visitors away from the hall. Run `./Play.ps1 -QuarryCampaignSmokeTest` for both routes, recovery and rendered controls. The hall has a civic front gable, stone piers and roof lantern; `./Play.ps1 -HallArtSmokeTest` checks construction stages and actual visitors in all four orientations.
 
 9. **The living woods:** bring four game to food storage, then prepare twelve housed residents. Keep at least four mature trees and two unclaimed game in each wood. Preserve both woods and harvest farther away, or selectively clear and invest in cultivation. Start the food assessment from Goals; actual meal requests and fresh deliveries count from that point, with no compulsory diet mix. If stock falls, pause hunting while other producers feed the village. If trees are lost, collect timber, clear roots, plant replacements and **preserve the planting orders** so loggers do not harvest them again. Saplings mature three in-game minutes after planting. Goals links directly to each wood and recovery tools. Run `./Play.ps1 -WoodsCampaignSmokeTest`; see [the implementation review](docs/WOODS_CAMPAIGN_REVIEW.md) for route evidence and pacing limits.
+
+10. **A lasting village:** cross the channel and decide how to use scarce central land. Prepare twelve housed residents and assess food from Goals; then expand to twenty and assess meals, home rest and recreation. Both milestones stay earned while you prepare a shared supper with two unreserved central loaves per current resident. Meals keep eating bread; Goals → Inspect bread supply explains reserves and links production/storage controls. Extra residents increase service requirements during assessment and housing/supper requirements afterward. See [the finale review](docs/FINAL_CAMPAIGN_F11B6.md); run `./Play.ps1 -FinaleCampaignSmokeTest`.
 
 The square costs six logs and needs no staff. Ordinary breaks use reachable ground within two tiles of the entrance; supper needs one reachable tile per villager within four tiles. Keep the frontage open; the table is a serving place, not assigned seating. Contextual hints can be dismissed, disabled, or reopened. Finishing a settlement lets you keep playing, continue, or replay; replay retains the previous village for restoration.
 
@@ -401,6 +403,6 @@ Home comfort: build a carpenter workshop (6 logs), assign a carpenter, then sele
 
 Campaign Goals: river/lake conditions have **Why?** explanations with resident inspection, relevant place links and build previews. **Track while playing** keeps one count visible with Goals closed. Food assessment shows current request, variety and fresh-delivery evidence. Tracking is temporary and does not alter saves. See [the campaign goals guide](docs/CAMPAIGN_GOALS_F21L.md).
 
-Finale design prototype (not yet selectable): run ./Test.ps1 -FinaleDecision for route comparisons or ./Play.ps1 -FinalePrototypeSmokeTest for rendered fixtures. See [the decision brief](docs/LASTING_VILLAGE_F11B5.md).
+Original finale design experiments (the integrated campaign is now level ten): run ./Test.ps1 -FinaleDecision for route comparisons or ./Play.ps1 -FinalePrototypeSmokeTest for rendered fixtures. See [the decision brief](docs/LASTING_VILLAGE_F11B5.md).
 
 Bread investigation: Goals → Inspect bread supply opens recent bread deliveries/eating, central and local reserves, and bakery/pantry links. Run ./Play.ps1 -BreadSupplySmokeTest; see [the service review](docs/BREAD_SERVICE_F21N.md).

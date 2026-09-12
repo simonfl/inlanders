@@ -54,7 +54,7 @@ static class WoodsCampaignChecks
     public static void Run()
     {
         Directory.CreateDirectory("artifacts");
-        Check(World.CampaignLevels.Select(l=>l.Id).SequenceEqual(Enumerable.Range(1,9)),"Campaign IDs duplicate or out of order");
+        Check(World.CampaignLevels.Select(l=>l.Id).SequenceEqual(Enumerable.Range(1,World.CampaignLevels.Length)),"Campaign IDs duplicate or out of order");
         var initial=Reload(World.NewCampaign(9));
         void Reject(Action<JsonObject> mutate)
         {

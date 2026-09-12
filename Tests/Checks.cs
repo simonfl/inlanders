@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--finale-campaign")) {try{FinaleCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--finale-decision")) {try{FinaleDecisionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--woods-campaign")) {try{WoodsCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--woods-brief")) {try{LivingWoodsBriefChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -186,6 +187,7 @@ PlankStorageChecks.Run();
 QuarryChecks.Run();
 QuarryCampaignChecks.Run();
 WoodsCampaignChecks.Run();
+FinaleCampaignChecks.Run();
 WildlifeChecks.Run();
 ResourceSurveyChecks.Run();
 SeatingGardenChecks.Run();

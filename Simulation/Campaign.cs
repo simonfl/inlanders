@@ -12,6 +12,7 @@ public sealed class CampaignState
     public LakeProgress? Lake { get; set; }
     public QuarryProgress? Quarry { get; set; }
     public WoodsProgress? Woods { get; set; }
+    public FinaleProgress? Finale { get; set; }
     public int Level { get; set; }
     public bool Complete { get; set; }
     public bool Guidance { get; set; } = true;
@@ -41,7 +42,8 @@ public sealed partial class World
         new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
         new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available."),
         new(8, "Built to last", "Build a gathering hall for this working village. Nearby stone holds 8; the hall needs 12. Use both outcrops for shorter hauling, or only the distant one to save a camp. Keep food working and place the hall where residents will use it. All buildings remain available."),
-        new(9, "The living woods", "Two woods shelter wildlife and hold convenient timber. Preserve them and harvest farther away, or selectively cut for cultivation. Bring home game, then support twelve residents while leaving both woods able to recover. All buildings remain available.")
+        new(9, "The living woods", "Two woods shelter wildlife and hold convenient timber. Preserve them and harvest farther away, or selectively cut for cultivation. Bring home game, then support twelve residents while leaving both woods able to recover. All buildings remain available."),
+        new(10, "A lasting village", "An established village has little central space. Cross the channel, support twelve residents, then twenty, and prepare a shared supper. Decide which homes, production and services belong near the center or in the new neighborhood. All buildings remain available.")
     };
     public int DeliveredBerries => DeliveredFood(Resource.Berries);
     public int DeliveredVegetables => DeliveredFood(Resource.Vegetables);
@@ -66,8 +68,8 @@ public sealed partial class World
             _ => throw new ArgumentOutOfRangeException(nameof(kind))
         }) ? 1 : 0
     };
-    public double CampaignProgress => IsWoodsCampaign ? WoodsCompletion : IsQuarryCampaign ? QuarryCompletion : IsLakeCampaign ? LakeCompletion : IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
-    public string CampaignObjective => IsWoodsCampaign ? WoodsObjective : IsQuarryCampaign ? QuarryObjective : IsLakeCampaign ? LakeObjective : IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
+    public double CampaignProgress => IsFinaleCampaign ? FinaleCompletion : IsWoodsCampaign ? WoodsCompletion : IsQuarryCampaign ? QuarryCompletion : IsLakeCampaign ? LakeCompletion : IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
+    public string CampaignObjective => IsFinaleCampaign ? FinaleObjective : IsWoodsCampaign ? WoodsObjective : IsQuarryCampaign ? QuarryObjective : IsLakeCampaign ? LakeObjective : IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
         (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread available centrally for supper: {CentralFoodAvailable(Resource.Bread)} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
@@ -76,6 +78,7 @@ public sealed partial class World
     public static World NewCampaign(int level)
     {
         if (!CampaignLevels.Any(l => l.Id == level)) throw new ArgumentOutOfRangeException(nameof(level));
+        if(level==10) {var finale=NewLastingVillageMap();finale.Map.Name="A lasting village";finale.Campaign=new(){Level=10,Finale=new()};finale.Validate();return finale;}
         if(level==9) {var woods=NewLivingWoodsMap();woods.Campaign=new(){Level=9,Woods=new()};woods.Validate();return woods;}
         if(level==8) {var quarry=NewQuarryMap();quarry.Campaign=new(){Level=8,Quarry=new()};quarry.Validate();return quarry;}
         if(level==7) { var lake=NewNarrowLakeSettlement(); lake.Campaign=new() { Level=7,Lake=new() }; lake.Validate(); return lake; }
@@ -105,6 +108,7 @@ public sealed partial class World
     public CampaignHint? CurrentCampaignHint()
     {
         if (Campaign == null || !Campaign.Guidance || Campaign.Complete) return null;
+        if(IsFinaleCampaign)return Campaign.Dismissed.Contains("finale")?null:new("finale",FinaleObjective);
         if(IsWoodsCampaign)return Campaign.Dismissed.Contains("woods")?null:new("woods",Campaign.Woods!.Phase<2?WoodsActionProblem()??"Advance from Goals when ready. Preserve habitat trees, including restoration planting orders.":WoodsServiceProblem()??"Keep food and both woods supported.");
         if(IsQuarryCampaign)return Campaign.Dismissed.Contains("quarry")?null:new("quarry",Campaign.Quarry!.Phase==0?QuarryActionProblem()??"Begin the hall assessment from Goals when ready.":QuarryServiceProblem()??"Keep the hall and food service working.");
         if(IsLakeCampaign) return Campaign.Dismissed.Contains("lake") ? null : new("lake",LakeActionProblem() ?? "Use the phase button in Goals when ready. Fishers prefer a full catch, then the nearest reachable ground. Inspect the dock for shared stocks and recall controls.");

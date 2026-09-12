@@ -68,7 +68,7 @@ public sealed partial class World
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
-    public bool CanCelebrate => !Creative && Housed == Population && CentralFoodAvailable(Resource.Bread) >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
+    public bool CanCelebrate => !Creative && FinaleSupperProblem()==null && Housed == Population && CentralFoodAvailable(Resource.Bread) >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
     {

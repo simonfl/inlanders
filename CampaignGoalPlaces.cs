@@ -34,7 +34,7 @@ public partial class Game
     {
         foreach(var entry in _goalItems)
         {
-            string key=entry.Key;if(key=="population")continue;
+            string key=entry.Key;if(key is "population" or "supper-gathering")continue;
             if(!_goalPlaces.TryGetValue(key,out var panel))
             {
                 panel=new VBoxContainer();entry.Value.Root.AddChild(panel);_goalPlaces[key]=panel;
@@ -44,6 +44,7 @@ public partial class Game
             if(_goalPlaceKeys.TryGetValue(key,out var old) && old==signature)continue;
             _goalPlaceKeys[key]=signature;
             foreach(var child in panel.GetChildren()){panel.RemoveChild(child);child.QueueFree();}
+            if(key=="supper-bread") {panel.AddChild(Button("Inspect bread supply",OpenBreadReserve));continue;}
             if(key.StartsWith("wood-"))
             {
                 int id=int.Parse(key.Split('-').Last());

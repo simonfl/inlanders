@@ -21,7 +21,7 @@ public partial class Game
     }
     private void UpdateGoalDashboard()
     {
-        bool active=(_world.IsWoodsCampaign || _world.IsRiverCampaign || _world.IsLakeCampaign || _world.IsQuarryCampaign) && _world.Campaign?.Complete!=true;
+        bool active=(_world.IsFinaleCampaign || _world.IsWoodsCampaign || _world.IsRiverCampaign || _world.IsLakeCampaign || _world.IsQuarryCampaign) && _world.Campaign?.Complete!=true;
         _goalDashboard.Visible=active;_goalArrival.Visible=_objective.Visible=!active;
         if(!active)return;
         var conditions=_world.ReadCampaignConditions();string keys=string.Join(",",conditions.Select(c=>c.Key));
@@ -49,7 +49,7 @@ public partial class Game
         }
         _goalPhase.Text=_world.CampaignPhaseTitle;
         var missing=conditions.FirstOrDefault(c=>!c.Met);
-        _goalNext.Text=missing!=null?$"Next: {missing.Label.ToLowerInvariant()} ({missing.Current}/{missing.Required}).":_riverAction.Visible?(_riverAction.Disabled?_riverAction.TooltipText:"Ready for the next phase when you are."):"Keep services running during assessment.";
+        _goalNext.Text=missing!=null?$"Next: {missing.Label.ToLowerInvariant()} ({missing.Current}/{missing.Required}).":_riverAction.Visible?(_riverAction.Disabled?_riverAction.TooltipText:"Ready for the next phase when you are."):_world.IsFinaleCampaign && _world.Campaign!.Finale!.Phase==4?(_world.Food.Celebrating?"Everyone is gathering for supper.":"Host supper below when homes, bread and gathering space are ready."):"Keep services running during assessment.";
         foreach(var c in conditions) _goalItems[c.Key].Count.Text=$"{(c.Met?"✓":"○")} {c.Label}\n{c.Current}/{c.Required}";
         foreach(var entry in _goalResidentButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;
         foreach(var entry in _goalTrackButtons)entry.Value.Visible=_goalItems[entry.Key].Help.Visible;

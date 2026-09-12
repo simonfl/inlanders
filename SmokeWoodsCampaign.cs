@@ -30,7 +30,7 @@ public partial class Game
         {
             GetWindow().Size=new(width,width==960?640:900);
             AdoptWorld(World.NewCampaign(9));await OpenMenu(2);await Frames();Widths();
-            Check(_levelButtons.Count==9 && _riverAction.Visible && _riverAction.Disabled,"Opening controls missing");
+            Check(_levelButtons.Count==World.CampaignLevels.Length && _riverAction.Visible && _riverAction.Disabled,"Opening controls missing");
             Check(_kindButtons.Values.All(b=>!b.Disabled),"Woodland locks building types");
             await UiClick(_goalItems["game"].Toggle);await Frames();Widths();
             string saved=_world.SaveJson();
@@ -74,12 +74,14 @@ public partial class Game
                 }
             }
             AdoptWorld(World.LoadFile("artifacts/woods-complete.json"));SaveCampaign();await OpenMenu(2);await Frames();
-            Check(!_nextLevel.Visible && _keepPlaying.Visible,"Final settlement completion controls wrong");
+            Check(_nextLevel.Visible && _keepPlaying.Visible,"Woodland next settlement controls wrong");
             string complete=_world.SaveJson();await UiClick(_replayLevel);await Frames();
             Check(!_world.Campaign!.Complete && _world.Campaign.Woods!.Phase==0,"Woodland replay failed");
             await UiClick(_restoreReplay);await Frames();Check(_world.SaveJson()==complete,"Woodland replay restore differs");
             CloseManagementUi();_camera.Size=25;_focus=new(2,0,-1);UpdateCamera();await Frames();
             await Capture($"artifacts/woods-complete-{width}.png");
+            await OpenMenu(2);await UiClick(_nextLevel);await Frames();
+            Check(_world.IsFinaleCampaign,"Woodland next-settlement action did not reach finale");
         }
         GD.Print("PASS: woodland picker, phase action, habitat recovery links, food evidence, 960/1440 widths and completion/replay/restore.");
     }

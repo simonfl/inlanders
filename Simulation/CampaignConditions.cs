@@ -29,7 +29,8 @@ public sealed partial class World
     public IReadOnlyList<CampaignCondition> ReadCampaignConditions()
     {
         var rows=new List<CampaignCondition>();
-        if(Campaign==null || Campaign.Complete || !(IsRiverCampaign || IsLakeCampaign || IsQuarryCampaign || IsWoodsCampaign)) return rows;
+        if(Campaign==null || Campaign.Complete || !(IsRiverCampaign || IsLakeCampaign || IsQuarryCampaign || IsWoodsCampaign || IsFinaleCampaign)) return rows;
+        if(IsFinaleCampaign) return ReadFinaleConditions();
         if(IsWoodsCampaign)
         {
             rows.Add(new("game","Game delivered",DeliveredGame,4,"Bring four game to food storage using a staffed hunting lodge. This milestone stays earned. Later: twelve housed residents, four mature trees and two unclaimed game in each wood, and continuing food. Preserve both woods or combine selective harvesting with cultivation."));
@@ -78,6 +79,6 @@ public sealed partial class World
         }
         return rows;
     }
-    public string CampaignPhaseTitle => IsWoodsCampaign ? Campaign!.Woods!.Phase switch {0=>"Bring food from the woods",1=>"Prepare a woodland village",2=>"Support the village and woods",_=>"Settlement complete"} : IsQuarryCampaign ? Campaign!.Quarry!.Phase switch {0=>"Build a shared place",1=>"Keep the gathering place working",_=>"Settlement complete"} : IsRiverCampaign ? Campaign!.River!.Phase switch {0=>"Prepare the first neighborhood",1=>"Prove the first neighborhood",2=>"Prepare the final expansion",3=>"Prove the expanded village",_=>"Settlement complete"} :
+    public string CampaignPhaseTitle => IsFinaleCampaign ? Campaign!.Finale!.Phase switch {0=>"Prepare twelve residents",1=>"Support the first neighborhood",2=>"First neighborhood earned · expand to twenty",3=>"Support the expanded village",4=>"Both assessments earned · prepare supper",_=>"Settlement complete"} : IsWoodsCampaign ? Campaign!.Woods!.Phase switch {0=>"Bring food from the woods",1=>"Prepare a woodland village",2=>"Support the village and woods",_=>"Settlement complete"} : IsQuarryCampaign ? Campaign!.Quarry!.Phase switch {0=>"Build a shared place",1=>"Keep the gathering place working",_=>"Settlement complete"} : IsRiverCampaign ? Campaign!.River!.Phase switch {0=>"Prepare the first neighborhood",1=>"Prove the first neighborhood",2=>"Prepare the final expansion",3=>"Prove the expanded village",_=>"Settlement complete"} :
         IsLakeCampaign ? Campaign!.Lake!.Phase switch {0=>"Open a fishing route",1=>"Prepare the lakeside village",2=>"Prove the lakeside village",_=>"Settlement complete"} : "Village goals";
 }

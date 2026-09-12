@@ -4,7 +4,7 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    // F11b5 decision prototype, not a selectable campaign level.
+    // Shared authored layout for the decision experiments and campaign level ten.
     public static World NewLastingVillageMap()
     {
         var w=NewQuarryMap();

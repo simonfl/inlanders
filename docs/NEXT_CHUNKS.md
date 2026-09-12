@@ -4,7 +4,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## Review conclusions
 
-- **Campaign depth is the largest design gap.** Nine levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
+- **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
 - **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge presentation and the relationship between buildings, shore and woodland are the next coherent targets. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Prioritize explaining habitat loss versus depleted animal stock and making the recovery action discoverable; do not add another dashboard without a demonstrated problem.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; continue with F11b6/F18b6. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; continue with F12g/F23b9. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -55,7 +55,9 @@ Follow one actual meal, home-rest and recreation problem in the later scenario o
 
 Implement the best-supported navigation, wording or placement-feedback correction. Keep the scope to the observed problem; no automatic assignment system, new needs meter or productivity dashboard. Verify the repair changes the actual service outcome and remains readable at 960/1440. If the current interface already explains it adequately, record that result and skip speculative UI work.
 
-## 6. F11b6 / F18b6 — integrate the lasting village
+## 6. F11b6 / F18b6 — integrate the lasting village (delivered)
+
+[Campaign integration and route evidence](FINAL_CAMPAIGN_F11B6.md): level ten is playable with earned assessments, later supper, extra residents, recovery and replay. The original brief follows.
 
 After the service review, add level ten selection, arrival guidance, earned twelve-person progress, supported twenty-person growth and a player-triggered shared supper. Prevent early supper from banking completion. Support extra residents with explicit current-population requirements, phase saves, replay and completion navigation. Keep all buildings available and avoid prescribed production layouts. Repeat both food routes and saved poor-allocation recovery through real campaign states; inspect Goals at 960/1440. No post-supper waiting gate. Human pacing remains TBD.
 
@@ -65,4 +67,4 @@ The prototype overview exposes a sparse eastern bank and regular tree perimeter.
 
 ## Reevaluate after each delivery
 
-Record what shipped, evidence, unresolved player questions and the next recommendation. Keep completed work out of the active queue. Full finale integration is conditional on chunk 4; optional comfort/civic ambitions, audio/music polish and menu artwork follow evidence rather than a promise to implement every idea. Seasons and save migration remain excluded.
+Record what shipped, evidence, unresolved player questions and the next recommendation. Keep completed work out of the active queue. Finale integration is delivered; optional comfort/civic ambitions, audio/music polish and menu artwork follow evidence rather than a promise to implement every idea. Seasons and save migration remain excluded.

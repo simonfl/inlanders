@@ -6,11 +6,11 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F11b6 / F18b6 — integrate A lasting village as level ten.** The [bread investigation](BREAD_SERVICE_F21N.md) now connects supper to actual deliveries, eating, central reserves and bakery/pantry controls. Integrate the tested finale with earned phases and current-population supper requirements, then improve its landscape composition.
+**Next: F12g / F23b9 — authored landscape composition.** [A lasting village](FINAL_CAMPAIGN_F11B6.md) is playable as level ten, with earned neighborhood assessments and a shared supper. Improve its sparse expansion bank and geometric landscape while preserving the tested budget, access and alternative layouts.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
-Current foundation: **17 building types, nine campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
+Current foundation: **17 building types, ten campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
 ## Current delivery queue
 
@@ -18,8 +18,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F11b6 / F18b6 | Ready | Integrate A lasting village as level ten: earned growth, supported neighborhoods and a later shared supper. |
-| 2 | F12g / F23b9 | Scoped | Give the finale a convincing landscape composition while preserving its tested material budget and playable plots. |
+| 1 | F12g / F23b9 | Scoped | Give the finale a convincing landscape composition while preserving its tested material budget and playable plots. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -37,7 +36,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale prototype has a conditional go decision and the bread-service explanation has shipped. Campaign integration comes next, followed by authored landscape composition. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale and bread-service explanation have shipped. Authored landscape composition comes next. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -51,8 +50,9 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F11b6 / F18b6 | Level ten: A lasting village, earned twelve/twenty-resident assessments, later central-bread supper, extra residents, recovery, phase saves and completion/replay. Full simulation suite and 960/1440 finale/woodland navigation checks pass. [Review](FINAL_CAMPAIGN_F11B6.md). |
 | F21n / F07c3 | Expandable bread evidence: recent deliveries versus eating, central/local/reserved stock and bakery/pantry links from Goals. Actual local delivery/return, paused saves and 960/1440 navigation verified. [Review](BREAD_SERVICE_F21N.md). |
-| F11b5 / F18b5 | Design prototype: five lasting-village routes, later supper commitment, poor-placement recovery, exact saves and rendered 960/1440 captures. Conditional go for integration; not selectable level ten. [Decision](LASTING_VILLAGE_F11B5.md). |
+| F11b5 / F18b5 | Design prototype: five lasting-village routes, later supper commitment, poor-placement recovery, exact saves and rendered 960/1440 captures. Prototype evidence retained; campaign integration shipped in F11b6/F18b6. [Decision](LASTING_VILLAGE_F11B5.md). |
 | F23b8 | Supported dock decks, striped canvas, side net and mooring equipment; heavier bridge beams and braced rails. Four-orientation construction/fishing/recall/recovery, active boat saves, required worker crossing and demolition protection verified. [Review](SHORE_ART_F23B8.md). |
 | F23b7 | Taller hunting-lodge frame, layered roof, log walls, open bay and bow rack; fitted thumbnail. Mature-tree ground cover and bounded deer follow actual habitat/unclaimed game. Four-orientation work/reload and habitat-state captures pass. [Review](WOODLAND_ART_F23B7.md). |
 | F26c2b | Living woods: ninth campaign, earned game delivery, player-triggered assessment, twelve or more housed residents, current mature habitat/unclaimed stock and fresh meal evidence. Preservation/mixed routes, stock/clearing recovery, exact saves and 960/1440 UI verified. [Review](WOODS_CAMPAIGN_REVIEW.md). |
@@ -133,7 +133,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 ## Current campaign reference — F11 / F18
 
-Nine campaign levels are playable: five introductory settlements followed by river, lake, quarry and woodland scenarios. Each starts with eight villagers; introductory levels introduce a building or connected group. All buildings and tools remain available on every level. **Per-level availability and progressive unlocks are a later addition**, once the game is more polished; an unrestricted replay option remains worth considering.
+Ten campaign levels are playable: five introductory settlements followed by river, lake, quarry, woodland and lasting-village scenarios. Each starts with eight villagers; introductory levels introduce a building or connected group. All buildings and tools remain available on every level. **Per-level availability and progressive unlocks are a later addition**, once the game is more polished; an unrestricted replay option remains worth considering.
 
 | Level | Introduces | Starting village | Required goals |
 | --- | --- | --- | --- |
@@ -146,6 +146,7 @@ Nine campaign levels are playable: five introductory settlements followed by riv
 | 7. Life by the lake | Fishing, constrained shore sites and service placement | Eight residents, limited home-shore land/timber and natural food | First catch, prepared growth to twelve, actual rest/recreation and fresh mixed-food assessment; inspect current phase rules in Goals |
 | 8. Built to last | Finite stone and an attended civic project | Eight-person village with two outcrops | Build a hall; actual recent hall visits, homes and continuing food |
 | 9. The living woods | Timber versus wildlife habitat; stock versus tree recovery | Two six-tree habitats, eight housed residents, 16 yard logs and 32 berries | Four game delivered, twelve housed residents, four mature trees and two unclaimed game in each wood, actual meals and fresh supply |
+| 10. A lasting village | Evolving neighborhoods, prime land and a later civic commitment | Working west-bank village and larger eastern bank | Earn twelve-person food assessment, then twenty-person food/rest/recreation assessment; host supper with two unreserved central loaves per current resident |
 
 Invitations are optional in the five introductory levels; Across the river requires staged expansion. Supper requires everyone housed, two loaves per current villager, and one reachable gathering tile per person near the square. That is 16 loaves for the original eight; choosing to grow increases the requirements.
 
@@ -164,11 +165,11 @@ Keep the existing lessons available while reviewing the first substantial scenar
 | **Across the river** — implemented proof, pacing review pending | 20–30 minutes | Begin with a small functioning village and modest reserves. Nearby land can feed the initial population but offers limited room for growth; the far bank provides alternative field sites and woodland. Choose bridge position, construction order and when to shift labor from food into expansion. Prepare housing and supply before inviting a second group. | Establish an inhabited far-bank neighborhood, house the expanded population, and demonstrate that the expanded village can feed itself across a short, clearly explained meal window. Food may travel across the river; implemented local pantries are an optional alternative. |
 | **The long haul** | 30–40 minutes | Productive clearings are separated by distance. Decide between compact housing and production closer to resources; invest in paths and log stockpiles, then reconsider routes as the village grows. | Complete and support two occupied areas with continuing food and timber work. Judge viable operation, not a mandatory stockpile layout or an arbitrary delivery quota. |
 | **Room to grow** | 30–45 minutes | Limited level building land creates competition between fields, cottages and more efficient lodges. Expand in player-triggered stages, balancing milling, construction and food labor. | Support a larger village within the authored terrain and finish a recognizable village center. Several housing/food mixes should work; exact population follows balance and performance checks. |
-| **A lasting village** — chapter finale | 40–60 minutes | Combine a crossing, distant timber and limited prime land. Plan growth and replenishment, then redirect workers toward a shared gathering without draining everyday supplies. | A housed, reliably fed settlement with replenished woodland and a completed celebration. Assess several systems working together; avoid mandatory ownership of every building. |
+| **A lasting village** — implemented level ten | Human time TBD; tested routes 26–39 simulated minutes | Cross the channel, expand supported neighborhoods and redevelop for a later supper. | Earned food/rest/recreation assessments, current housing and a completed supper. Woodland restoration remains level nine rather than a repeated gate. |
 
 These are exploratory first-time human play targets with ordinary use of pause and speed controls, not minimum times, deadlines, or measured current runtimes. This concept table is not the implementation queue: long haul and room to grow may become ingredients of other maps. Skilled play should finish faster. Quiet watching belongs in the pacing, but the player should have worthwhile decisions beyond the opening placement burst.
 
-**F11b2 / F18b2 — implemented difficulty slice:** the revised lake makes scarce central plots, limited natural food, distant timber and service travel matter without changing population targets or proof length. See the [comparison and recovery review](LAKE_DIFFICULTY_F11B2.md). The next campaign step is a human play review: can players identify why supply falls behind and choose a useful response? Keep the 10/18-minute deliberate routes and 16-minute recovery as simulation evidence, not a promised first-play duration. Fishing, stone and wildlife systems are already implemented; the implemented quarry and upcoming woodland scenario should be assessed alongside this feedback.
+**F11b2 / F18b2 — implemented difficulty slice:** the revised lake makes scarce central plots, limited natural food, distant timber and service travel matter without changing population targets or proof length. See the [comparison and recovery review](LAKE_DIFFICULTY_F11B2.md). The next campaign step is a human play review: can players identify why supply falls behind and choose a useful response? Keep the 10/18-minute deliberate routes and 16-minute recovery as simulation evidence, not a promised first-play duration. Fishing, stone and wildlife systems are already implemented; the implemented quarry and woodland scenarios should be assessed alongside this feedback.
 
 **Recovery design:** F16b returns all construction materials through worker trips. Start the river proof with this forgiving rule; judge whether lost worker time and temporary service/housing disruption provide enough consequence before considering material loss. Do not make a salvage penalty or relocation tool a prerequisite for the scenario.
 
@@ -215,7 +216,7 @@ The expanded candidate palette includes orchards, a river-powered mill, pasture/
 
 **Scope of the next needs pass:** food, home/rest and recreation are the core; comfort is an improvement, with learning and reflection optional later ambitions. The [systems plan](CAMPAIGN_SYSTEMS.md#later-needs-small-independently-reviewable-chunks) gives F25b–e individual experiments and cut criteria. Follow each resource all the way to its resident benefit: fish/game into actual meals, stone into an attended civic place, planks into occupied home improvements. New foods must not make every existing diet inadequate. Campaign difficulty comes from competing land, access and worker time, with visible recovery options—not accumulating mandatory needs or construction checklists.
 
-Keep Across the river as the first longer level using existing systems. Life by the lake is now implemented as a resource introduction. Built to last is level eight and The living woods is level nine. Later campaign roles: optional **A place to call home**, then an expanded **A lasting village**. The long haul and Room to grow can become challenges within these maps or optional scenarios, rather than padding the sequence with overlapping levels. These additions are planned, not implemented. All-building availability and the removal of seasons remain unchanged.
+Keep Across the river as the first longer level using existing systems. Life by the lake is now implemented as a resource introduction. Built to last is level eight and The living woods is level nine. A lasting village is implemented as level ten. **A place to call home** remains an optional campaign concept. The long haul and Room to grow can become challenges within these maps or optional scenarios, rather than padding the sequence with overlapping levels. The optional concepts remain planned, not implemented. All-building availability and the removal of seasons remain unchanged.
 
 ## Optional follow-ups
 

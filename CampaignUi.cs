@@ -19,7 +19,7 @@ public partial class Game
     private void MakeCampaignUi(VBoxContainer column)
     {
         _campaignControls = new(); column.AddChild(_campaignControls);
-        _riverAction = Button("", () => { if (_world.IsWoodsCampaign ? _world.AdvanceWoodsPhase() : _world.IsQuarryCampaign ? _world.AdvanceQuarryPhase() : _world.IsLakeCampaign ? _world.AdvanceLakePhase() : _world.AdvanceRiverPhase()) SaveWorld(); else Notice((_world.IsWoodsCampaign ? _world.WoodsActionProblem() : _world.IsQuarryCampaign ? _world.QuarryActionProblem() : _world.IsLakeCampaign ? _world.LakeActionProblem() : _world.RiverActionProblem()) ?? "Keep developing the village."); });
+        _riverAction = Button("", () => { if (_world.IsFinaleCampaign ? _world.AdvanceFinalePhase() : _world.IsWoodsCampaign ? _world.AdvanceWoodsPhase() : _world.IsQuarryCampaign ? _world.AdvanceQuarryPhase() : _world.IsLakeCampaign ? _world.AdvanceLakePhase() : _world.AdvanceRiverPhase()) SaveWorld(); else Notice((_world.IsFinaleCampaign ? _world.FinaleActionProblem() : _world.IsWoodsCampaign ? _world.WoodsActionProblem() : _world.IsQuarryCampaign ? _world.QuarryActionProblem() : _world.IsLakeCampaign ? _world.LakeActionProblem() : _world.RiverActionProblem()) ?? "Keep developing the village."); });
         _goalDashboard.AddChild(_riverAction);_goalDashboard.MoveChild(_riverAction,1);
         _tutorialText = Text("", 15, true); _campaignControls.AddChild(_tutorialText);
         _dismissHint = Button("Dismiss this hint", () => { var hint = _world.CurrentCampaignHint(); if (hint != null) _world.Campaign!.Dismissed.Add(hint.Id); }); _campaignControls.AddChild(_dismissHint);
@@ -83,7 +83,7 @@ public partial class Game
             if (_world.Creative) _world.SaveFile(CurrentSavePath); else book.Capture(_world);
             if (replay && book.Settlements.TryGetValue(level, out var previous)) book.BeforeReplay[level] = previous;
             book.Capture(next); book.SaveFile(_campaignPath);
-            _campaignBook = book; AdoptWorld(next); ToggleDrawer(2);
+            _campaignBook = book; AdoptWorld(next); ToggleDrawer(2); _drawerPages[2].ScrollVertical=0;
             Notice("Settlement ready and paused. Press Space to begin; Goals [G] has your objectives and hints.");
         }
         catch (Exception e) { Notice("Could not switch settlements; current village kept. " + e.Message); }
@@ -107,8 +107,8 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
-        _riverAction.Visible = campaign?.Complete != true && (_world.IsWoodsCampaign && campaign!.Woods!.Phase<2 || _world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2 || _world.IsQuarryCampaign && campaign!.Quarry!.Phase==0);
-        if (_riverAction.Visible) { var problem=_world.IsWoodsCampaign?_world.WoodsActionProblem():_world.IsQuarryCampaign?_world.QuarryActionProblem():_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsWoodsCampaign?_world.WoodsActionLabel:_world.IsQuarryCampaign?"Assess the gathering place":_world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
+        _riverAction.Visible = campaign?.Complete != true && (_world.IsFinaleCampaign && campaign!.Finale!.Phase is 0 or 2 || _world.IsWoodsCampaign && campaign!.Woods!.Phase<2 || _world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2 || _world.IsQuarryCampaign && campaign!.Quarry!.Phase==0);
+        if (_riverAction.Visible) { var problem=_world.IsFinaleCampaign?_world.FinaleActionProblem():_world.IsWoodsCampaign?_world.WoodsActionProblem():_world.IsQuarryCampaign?_world.QuarryActionProblem():_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsFinaleCampaign?_world.FinaleActionLabel:_world.IsWoodsCampaign?_world.WoodsActionLabel:_world.IsQuarryCampaign?"Assess the gathering place":_world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
         UpdateGoalDashboard();
         UpdateTrackedGoal();
         _progress.Visible = !_world.Creative;
@@ -120,7 +120,7 @@ public partial class Game
             _objective.Text = "All decorations are available. Select a completed building to remove it and recover its stored goods. Keep entrances and crossings connected.";
             return;
         }
-        _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
+        _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4 || _world.IsFinaleCampaign && campaign.Finale!.Phase>=4;
         _supperBreadLink.Visible=_supperButton.Visible && !_world.Food.SupperComplete && !_world.Food.Celebrating;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;

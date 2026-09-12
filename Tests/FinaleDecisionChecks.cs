@@ -3,14 +3,14 @@ using Inlanders.Simulation;
 static class FinaleDecisionChecks
 {
     static void Check(bool ok,string why){if(!ok)throw new Exception(why);}
-    static void Until(World w,Func<bool> done,string why,int limit=24000)
+    internal static void Until(World w,Func<bool> done,string why,int limit=24000)
     {
         for(int i=0;i<limit && !done();i++){w.Tick(.1f);if(i%100==0)w.Validate();}
         if(!done()) {File.WriteAllText("artifacts/finale-stalled.json",w.SaveJson());Console.WriteLine($"Bread {w.Food.Bread}, grain {w.Food.Grain}, baked {w.Food.BakedBread}, eaten bread {w.Food.EatenBread}");foreach(var c in w.Cottages.Where(c=>c.Kind is BuildingKind.Farm or BuildingKind.Bakery))Console.WriteLine($"{c.Kind} {c.Cell} target {c.OutputTarget}: {w.ReadWorkplace(c)}");}
         w.Validate();Check(done(),$"{why} stalled at {w.Food.Time:F0}s: residents {w.Population}, beds {w.Beds}, food {w.EdibleStored}, rested {w.People.Count(w.RecentlyRested)}, recreation {Recreation(w)}; {w.ReadMealAssessment().Summary}");
     }
-    static Cottage Build(World w,Cell c,BuildingKind kind,int r=0)=>w.Place(c,r,kind)??throw new Exception($"Cannot place {kind} at {c}: {w.PlacementProblem(c,r,kind)}");
-    static void Grow(World w,int target)
+    internal static Cottage Build(World w,Cell c,BuildingKind kind,int r=0)=>w.Place(c,r,kind)??throw new Exception($"Cannot place {kind} at {c}: {w.PlacementProblem(c,r,kind)}");
+    internal static void Grow(World w,int target)
     {
         while(w.Population<target){Until(w,()=>w.InvitationProblem()==null,"newcomer provisions");Check(w.InviteNewcomers(),"Invitation failed");}
     }
@@ -82,7 +82,7 @@ static class FinaleDecisionChecks
         Console.WriteLine($"Finale {(local?"local":"central")}, prebuild {prebuild}, early staffing {earlyStaff}, poor {poor}: supper begins {celebration:F0}s, finishes {after:F0}s, renewed support {w.Food.Time:F0}s; {w.Food.SupperBread} bread shared.");
         File.WriteAllText($"artifacts/finale-celebrated-{stem}.json",w.SaveJson());
     }
-    static void SecondBuild(World w,bool local)
+    internal static void SecondBuild(World w,bool local)
     {
         foreach(var c in new[]{new Cell(10,0),new(14,0),new(18,0),new(18,4)})Build(w,c,BuildingKind.Cottage);
         if(!local)
@@ -110,7 +110,7 @@ static class FinaleDecisionChecks
         Check(w.RequestDemolition(site.Id),"Central civic plot conversion rejected");
         Until(w,()=>!w.Cottages.Contains(site),"recover central plot materials");
     }
-    static void CelebrationBuild(World w,bool local,bool remote)
+    internal static void CelebrationBuild(World w,bool local,bool remote)
     {
         if(remote){Build(w,new(22,7),BuildingKind.Farm);Until(w,()=>w.PlacementProblem(new(8,10),0,BuildingKind.Bakery)==null,"remote bakery access");Build(w,new(8,10),BuildingKind.Bakery);return;}
         FreeCentralPlot(w,local,new(1,5),new(21,10));
