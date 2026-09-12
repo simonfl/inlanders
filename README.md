@@ -422,3 +422,5 @@ Cottage finish checks: `./Play.ps1 -CottageFinishSmokeTest` verifies live swatch
 **Creative area removal:** Build → Landscape → Remove an area. Drag to select whole buildings, decorations and paths, then confirm. Escape/right-click cancels. Trees, resources and terrain stay; unsafe groups are rejected without partial removal.
 
 **Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 37 requires fresh saves.
+
+**Creative bush movement:** Build → Landscape → **Move berry bush · Creative**. Select an existing bush, click a destination and press **Move here**. Berries and regrowth are retained; the current picker releases the bush, while gathered berries continue to storage. Paths, grove orders, occupied ground and blocked access are rejected. Escape/right-click cancels. [Rules and checks](docs/BUSH_RELOCATION_F16F.md).

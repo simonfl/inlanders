@@ -8,7 +8,7 @@ namespace Inlanders.Simulation;
 public sealed class BerryBush
 {
     public int Id { get; init; }
-    public Cell Cell { get; init; }
+    [JsonInclude] public Cell Cell { get; internal set; }
     public int Ripe { get; set; } = 8;
     public float Regrowth { get; set; }
     public int? Owner { get; set; }

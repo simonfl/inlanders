@@ -19,6 +19,7 @@ public partial class Game
         bool survey=_surveying || _placing && (_buildKind==BuildingKind.HuntingLodge || _clearingTrees || _woodlandTool>0);
         string floorKey=string.Join(';',_world.Map.Wildlife.Select(h=>string.Join(',',WoodlandFloorTrees(h).Select(t=>t.Id))));
         string key=string.Join(";",_world.Map.Wildlife.Select(h=>$"{h.Id}:{(int)h.Stock}:{_world.AvailableGame(h)}:{_world.HabitatTrees(h)}"))+$"/{survey}/{floorKey}/{_world.Cottages.Count}/{_world.Trees.Count}/{_world.Decorations.Count}";
+        key+="/"+string.Join(';',_world.Bushes.Select(b=>$"{b.Id}:{b.Cell.X},{b.Cell.Z}"));
         if(key!=_wildlifeKey)
         {
             _wildlifeKey=key; foreach(var node in _wildlifeViews) node.QueueFree(); _wildlifeViews.Clear();

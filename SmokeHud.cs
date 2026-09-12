@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--bush-move")){_paused=true;await CheckBushMoveUi();return;}
         if(OS.GetCmdlineUserArgs().Contains("--creative-stock")){_paused=true;await CheckCreativeStockUi();return;}
         if(OS.GetCmdlineUserArgs().Contains("--area-removal")){_paused=true;await CheckAreaRemoval();return;}
         if(OS.GetCmdlineUserArgs().Contains("--forager-art")){_paused=true;await CheckForagerArt();return;}

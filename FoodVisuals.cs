@@ -57,7 +57,8 @@ public partial class Game
         RenderFishingGrounds();
         foreach (var bush in _world.Bushes)
         {
-            if (_bushViews.TryGetValue(bush.Id, out var old) && old.Ripe == bush.Ripe) continue;
+            if (_bushViews.TryGetValue(bush.Id, out var old) && old.Ripe == bush.Ripe)
+            {var position=OnGround(bush.Cell.X,bush.Cell.Z);if(old.Body.Position!=position)old.Body.Position=position;continue;}
             if (old.Body != null) old.Body.QueueFree();
             var body = new Node3D { Position = OnGround(bush.Cell.X, bush.Cell.Z) }; _dynamic.AddChild(body);
             Mesh(body, new SphereMesh { Radius = 0.45f, Height = 0.75f, RadialSegments = 7, Rings = 4 }, new(0, 0.3f, 0), new("496d48"));

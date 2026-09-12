@@ -156,10 +156,19 @@ Existing role assignment is village-wide. With several quarries or food producer
 Start with a short game-designer/UX review of two same-role sites and their current dispatch. Define the difference between automatic and assigned work, capacity conflicts, rest/meals, role changes, paused/removed/exhausted sites, and whether fallback should wait or select another site. Choose one consistent policy and visible explanation before coding. Keep automatic dispatch as the default. The first implementation should cover the supported workplace roles coherently, with explicit scope for roaming loggers and builders, current saves, real interrupted cargo, and narrow/wide inspector controls. No new productivity dashboard, worker traits or labor schedule.
 
 This promotes an existing management follow-up rather than adding a new economic requirement. Audio listening stays open; the next periodic four-role review is due at checkpoint 5 in the ledger.
-## 3. F16f — Creative berry-bush rearrangement: design first
+## F16f delivered — Creative berry-bush rearrangement
+
+[Implementation and verification](BUSH_RELOCATION_F16F.md): explicit source/destination/confirmation, preserved identity/berries/regrowth, picker release, path/grove/access protection and narrow/wide controls. Wildlife population rules are unaffected. The original brief follows.
 
 Promote the existing Creative bush-arrangement follow-up. A bush currently blocks a village layout and serves as a food source; Creative building/area tools deliberately leave it untouched. Review a single-bush move operation using the established preview/confirm/cancel language, with clear source identification and occupancy/access rejection.
 
 Preserve the bush's identity, ripe stock and regrowth state. Define how existing forager claims and trips finish or release before moving it; do not duplicate food, strand a worker, or silently remove neighboring resources. Inspect any wildlife habitat dependence before choosing behavior and describe the consequence honestly. Start with relocation of an existing bush, not resource painting, deleting arbitrary sources or replenishing food. Keep this Creative-only; normal clearing and finite deposits stay outside the scope. Verify actual foraging before/after, interrupted work, repeated moves, invalid destinations, cancellation, current saves and 960/1440 controls.
 
 Do the source/design review before implementation. If moving bushes creates a larger ecology-editing dependency than the arrangement benefit warrants, retain the finding and defer it rather than hiding that dependency. Audio audition stays open, and the periodic four-role review remains due at checkpoint 5.
+## 3. F12h — player terrain shaping: design first
+
+Promote the existing landscaping follow-up. Start by inspecting the current height representation, slopes, level-building rules, camera/ground picking and route costs. Obtain a bounded design review and propose the smallest useful Creative raise/lower/level operation on dry land, with visible before/after terrain and explicit confirmation/cancellation.
+
+Define height increments and limits, footprint/border blending, restrictions around buildings/resources/water and active trips, and how an unwanted committed change can be corrected. Choose whether occupied terrain is protected or can safely move its occupants; do not silently tilt buildings or strand residents. Prove a legal usable building terrace and preserved route access with the existing terrain model before implementing a brush UI. Compare the benefit with merely expanding decoration tools; retain unresolved sculpting questions explicitly.
+
+Normal-play landscaping costs, watercourse editing, map expansion, ramps and retaining walls remain distinct decisions. Avoid introducing them as hidden prerequisites for the first Creative operation. Audio audition stays open; checkpoint 5 still triggers the periodic four-role review.
