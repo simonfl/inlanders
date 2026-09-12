@@ -2,7 +2,11 @@
 
 Accepted by the user on September 12, 2026. This is the repository's checkpoint-based review policy. Track progress in [the checkpoint ledger](CHECKPOINTS.md); this is not a time-based scheduled task.
 
-Every **five playable checkpoints**, review a fixed commit/build with four roles:
+Every **five playable checkpoints**, review the **entire project and game** at a fixed commit/build with four roles. Recent changes are context, never the boundary of the scheduled review. Assess where the whole game stands: campaign progression and sustained decisions, the complete building/economy/needs set, normal and Creative play, menu/onboarding/management, village appearance and daily life, sound/music, reliability, saves and performance. Each role covers its discipline across that whole-game scope, then prioritizes the strongest findings rather than manufacturing findings for every subsystem.
+
+Use representative ordinary and dense settlements, introductory and later campaign content, and the title/menu. Evaluate how the game looks and reads as a whole, not only close-ups of new assets. Record areas with insufficient evidence explicitly. Feature-specific reviews can supplement this assessment but cannot replace it.
+
+The four roles are:
 
 | Reviewer | Primary question | Evidence |
 | --- | --- | --- |

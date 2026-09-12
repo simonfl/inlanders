@@ -6,9 +6,9 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is delivered; Creative terrace shaping (F12h) is delivered with Before/After, Apply and Undo; fence gateways (F09e) are delivered. Checkpoint five now requires the independent four-role review before further implementation. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: following the checkpoint-five whole-project review, improve terrain recovery and assignment guidance, test campaign alternatives, finish listening reviews and investigate long frames.** Local stone storage, named workplace assignments, bush relocation, Creative terraces and gateways are delivered. Human enjoyment, audio acceptance and wider performance remain open; recent feature completion does not settle those questions.
 
-The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
+The [checkpoint-five whole-project review](REVIEW_CHECKPOINT_5.md) records overall status, evidence and limitations. The [current next-five queue](NEXT_CHUNKS.md) defines bounded priorities and checks; the native playtest did not occur and remains an explicit follow-up, not a claimed pass. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
 Current foundation: **18 building types, ten campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
@@ -18,9 +18,11 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
-| 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | Review 5 | Due | Review the committed checkpoint-five build with game design, UX/onboarding, playtest and development lead; consolidate findings and choose the next five chunks before implementation. |
+| 1 | F12h4 | Planned | Identify terrain blockers visibly, explain blocked Undo inline and keep rejection feedback clear at 960. |
+| 2 | F21u | Planned | Correct orchard assignment guidance and strengthen original-versus-reload checks for active work/cargo. |
+| 3 | F11d / F18d | Investigation | Observe the campaign operating loop and isolate finale bread capacity versus placement; correct only demonstrated issues. |
+| 4 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
+| 5 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
 
 Recent deliveries include [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -264,17 +266,17 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F16 — Creative | Relocation, area removal and central resource setup delivered in F16c/d/e; bush movement delivered in F16f; population preferences remain a candidate. Keep normal economy saves separate. |
 | F07 — Storage and hauling | Yard visuals shipped in F23b5; loose-source stacks are F23c1. Review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
-| F08 — Materials | More plank/stone consumers and upgrades. Mixed plank/stone construction shipped with the hall; local stone storage remains a candidate. Adjustable workplace stock targets shipped in F21h. |
+| F08 — Materials | More plank/stone consumers and upgrades. Mixed plank/stone construction shipped with the hall; local stone storage is delivered in F07d. Adjustable workplace stock targets shipped in F21h. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F25 — Home routines | Playtest rest duration and commute cost; consider household swaps and grouping advanced home controls if needed. Keep comfort, learning and reflection behind a distinct resident benefit. No synchronized nightly sleep or fatigue penalty yet. |
-| F09 — Village character | Cottage finishes, connected fences and decoration brush strokes shipped in F09b/c/d. More cottage details, richer ornamental planting and gates remain separate candidates. |
-| F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
+| F09 — Village character | Cottage finishes, connected fences and decoration brush strokes shipped in F09b/c/d. Gateways shipped in F09e. More cottage details and richer ornamental planting remain candidates. |
+| F10 / F17 — Audio | Spatial work sounds, three musical candidates and quiet transitions are implemented. Listening acceptance, supported mix/variation changes and tighter impact timing remain open. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
-| F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
+| F12c / F12d — Landscaping | Creative rectangular terrace shaping and session Undo shipped in F12h; broader sculpting, normal-play costs, clearing-time tuning, grass/earth painting, ramps and retaining walls remain candidates. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Keyboard navigation shipped in F19c and composed title artwork in F19d. Save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
-| F21 — Management | Construction-catalog keyboard focus shipped in F21o; other management keyboard navigation, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
+| F21 — Management | Construction-catalog keyboard focus shipped in F21o; People/Economy/Goals/survey keyboard navigation and named workplace assignments are delivered. Supply-route emphasis, resource filters, longer productivity history and configurable alerts remain candidates. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
 | F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
