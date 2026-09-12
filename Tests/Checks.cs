@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--terrain-shaping-review")) {try{TerrainShapingReview.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--bush-relocation")) {try{BushRelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--workplace-assignment")) {try{WorkplaceAssignmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--stone-staging-playable")) {try{StoneStagingPlayable.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

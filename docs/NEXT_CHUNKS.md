@@ -165,7 +165,9 @@ Promote the existing Creative bush-arrangement follow-up. A bush currently block
 Preserve the bush's identity, ripe stock and regrowth state. Define how existing forager claims and trips finish or release before moving it; do not duplicate food, strand a worker, or silently remove neighboring resources. Inspect any wildlife habitat dependence before choosing behavior and describe the consequence honestly. Start with relocation of an existing bush, not resource painting, deleting arbitrary sources or replenishing food. Keep this Creative-only; normal clearing and finite deposits stay outside the scope. Verify actual foraging before/after, interrupted work, repeated moves, invalid destinations, cancellation, current saves and 960/1440 controls.
 
 Do the source/design review before implementation. If moving bushes creates a larger ecology-editing dependency than the arrangement benefit warrants, retain the finding and defer it rather than hiding that dependency. Audio audition stays open, and the periodic four-role review remains due at checkpoint 5.
-## 3. F12h — player terrain shaping: design first
+## 3. F12h — Creative terraces: transaction, then controls
+
+**F12h1 foundation delivered:** [Reviewed policy and geometry evidence](TERRAIN_SHAPING_F12H1.md). Three distinct usable terraces pass; their nine-cell selections affect 25–45 cells. Proceed with F12h2 authoritative preview/apply and terrain-only undo, then F12h3 rendered selection, full-border feedback and controls. F12h remains unfinished and the playable count remains 3. The original brief follows.
 
 Promote the existing landscaping follow-up. Start by inspecting the current height representation, slopes, level-building rules, camera/ground picking and route costs. Obtain a bounded design review and propose the smallest useful Creative raise/lower/level operation on dry land, with visible before/after terrain and explicit confirmation/cancellation.
 

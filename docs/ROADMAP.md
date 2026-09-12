@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is delivered; terrain shaping (F12h) is the next independent design chunk. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is delivered; terrain shaping (F12h) has a reviewed terrace design and geometry proof; its transaction and controls are next. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F12h | Design | Define a first Creative terrain-shaping operation, with occupied-ground/access protection, clear preview/cancel and recovery rules before coding. |
+| 3 | F12h | In progress | [Terrace design and geometry proof](TERRAIN_SHAPING_F12H1.md) delivered. Next: authoritative apply/undo, then visible selection, full-border preview and controls. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
