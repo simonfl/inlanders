@@ -194,6 +194,7 @@ public partial class Game : Node3D
     public override void _Process(double delta)
     {
         if (_atMainMenu) { UpdateMainMenuFocus();RenderActors(0); RenderFoodViews(); UpdateAudio(Math.Min((float)delta, 0.1f)); return; }
+        BeginFrameTrace(delta);
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
@@ -205,8 +206,11 @@ public partial class Game : Node3D
             var cell = new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
-        if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { _world.Tick(0.1f); _accumulator -= 0.1f; } }
-        AdvanceAutosave(delta); UpdateRecoveryUi(); RenderActors(dt); UpdateAtmosphere(); UpdateFollowing(); RenderFoodViews(); UpdateHud(); UpdateWatchUi(); UpdateAudio(dt);
+        TracePhase(0);
+        if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
+        TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
+        RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
+        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
     {
@@ -216,8 +220,10 @@ public partial class Game : Node3D
             var p = _world.People[_people.Count]; var view = MakeVillager(p.Id);
             _dynamic.AddChild(view.Body); view.Body.Position = OnGround(p.Position.X, p.Position.Y); _people.Add(view);
         }
+        TraceActorPart(0);
         foreach (var v in _world.People)
         {
+            ulong personTraceStart=_traceFrames?Time.GetTicksUsec():0;
             var view = _people[v.Id]; var target = OnGround(v.Position.X, v.Position.Y);
             var movement = target - view.Body.Position; movement.Y = 0;
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
@@ -228,8 +234,10 @@ public partial class Game : Node3D
                 view.Body.Position=new(boat.Position.X,.19f,boat.Position.Y);
                 view.Body.Rotation=new(0,boat.Heading,0);
             }
-            AnimateVillager(view, v);
+            if(_traceFrames)_frameTrace.PersonMovementMs+=(Time.GetTicksUsec()-personTraceStart)/1000d;
+            AnimateVillager(view, v);TracePerson(v.Id,(int)v.Task,personTraceStart);
         }
+        TraceActorPart(1);
         foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
         {
             _trees[id].Top.QueueFree(); _trees[id].Pile.QueueFree(); _trees.Remove(id);
@@ -279,6 +287,7 @@ public partial class Game : Node3D
             }
             BatchStaticGeometry(view.Pile);
         }
+        TraceActorPart(2);
         if (_lastStored != _world.YardLogs || _lastPlanks != _world.YardPlanks)
         {
             // Full racks summarize large reserves; changes above the visual cap need no rebuild.
@@ -291,6 +300,7 @@ public partial class Game : Node3D
             }
             _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks;
         }
+        TraceActorPart(3);
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)
         {
@@ -320,5 +330,6 @@ public partial class Game : Node3D
             if (stage == 3 && h.Kind == BuildingKind.Bakery)
                 view.Body.GetNode<Node3D>("OvenGlow").Visible = _world.People.Any(p => p.WorkplaceId == h.Id && p.Task == Work.Baking);
         }
+        TraceActorPart(4);
     }
 }

@@ -33,6 +33,7 @@ public partial class Game
             if(group.Count()<2) continue;
             using var surface=new SurfaceTool(); surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
             foreach(var piece in group) surface.AppendFrom(piece.Mesh.Mesh,0,piece.Transform);
+            if(_traceFrames)_traceMeshes++;
             var combined=new MeshInstance3D { Mesh=surface.Commit(),MaterialOverride=group.First().Mesh.MaterialOverride };
             parent.AddChild(combined);
             foreach(var piece in group) { piece.Mesh.GetParent().RemoveChild(piece.Mesh); piece.Mesh.QueueFree(); }

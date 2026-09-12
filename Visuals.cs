@@ -7,6 +7,7 @@ public partial class Game : Node3D
     private StandardMaterial3D Material(Color color) => new() { AlbedoColor = color, Roughness = 0.95f };
     private MeshInstance3D Mesh(Node3D parent, Mesh mesh, Vector3 at, Color color)
     {
+        if(_traceFrames)_traceMeshes++;
         var result = new MeshInstance3D { Mesh = mesh, Position = at, MaterialOverride = Material(color) };
         parent.AddChild(result); return result;
     }

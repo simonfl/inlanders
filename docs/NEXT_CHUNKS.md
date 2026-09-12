@@ -1,6 +1,6 @@
-# Next chunks — sound, management and a useful late-game project
+# Next chunks — sound, music and working-village composition
 
-September 12, 2026, after F25e3. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F23c3. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -12,7 +12,7 @@ September 12, 2026, after F25e3. This is the active queue. Delivered acceptance 
 | Visuals and village life | Building families, four-way rotation, shoreline structures, woodland, cottage finishes and civic identities have shipped. Quiet civic visits now follow real attendance. Sparse Creative fixtures still show regular ground/edges; individual poses are subtle at village zoom. | Judge composed working villages as well as isolated models. Keep terrain/shore and menu art visible in the backlog; do not equate more geometry with stronger art direction. |
 | Interface and controls | Service and goal evidence are substantial. Main menu and Build catalog have keyboard focus. Other management pages still lack a complete focus path. | Extend one useful task end to end: inspect a resident, understand their activity, change a role and return. No new dashboard until an observed question requires it. |
 | Audio and music | Procedural positional work sounds and one original looping musical miniature exist. Real-time sound limits already prevent fast-forward from multiplying every cue. | Compare quiet and busy soundscapes, then improve the highest-impact repetition/mix problem. A bell on every routine chapel arrival would overstate the event; it remains silent. |
-| Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios already exist. Broad decorated-population performance is not established. | Measure a representative settlement before expanding population or terrain size. Terrain sculpting is a separate design project. |
+| Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios exist. Normal 20/32-resident profiles and decoration batching are delivered; long frames persist in normal-process traces. | No population or terrain-size performance promise. Further stall work needs native profiling; the failed visibility experiment does not justify removing animations. Terrain sculpting is a separate design project. |
 | Architecture and reliability | Current-format roundtrips, simulation routes and rendered interaction checks cover delivered slices. There are many partial Game files and specialized smoke fixtures. | Keep checks specific to behavior; do not turn the feature roadmap into a generic cleanup campaign. No save migration. |
 
 This review uses repository code, existing route reports and the new civic rendered checks. It is not a new human campaign playtest or listening test. The biggest unanswered question remains whether players enjoy maintaining and improving a working village after its opening build.
@@ -33,19 +33,15 @@ F25d2 is [delivered](RESTORATION_F25D2.md). The crossing shortens the route, but
 
 F23c2 is [delivered](LARGE_VILLAGE_F23C2.md): real 20/32-resident profiles, an isolated decoration cost and regional ornament batching. Typical dense frames improved; isolated long stalls remain unresolved.
 
-## 1. F23c3 — diagnose intermittent long frames
+## F23c3 delivered — stalls remain unresolved
 
-**Outcome:** determine whether the observed stalls are reproducible game work and remove one supported cause.
+[Normal-process traces](FRAME_STALLS_F23C3.md) reproduce cold visibility-call stalls and a separate warmed pause outside the measured callback. Removing stool visibility churn moved the cold stall to another prop; that attempted correction is discarded. No performance fix is claimed. The harness and exact continuation checks are retained. Reopen targeted optimization when native engine/driver profiling identifies the cost; do not keep broad speculative rewrites ahead of player-facing work.
 
-Use the preserved larger-village snapshots. Compare longer cold/warm runs, including normal `_Process` rather than only the manual timing harness. Warm actual simulation/render state, not just frozen frames. Record frame outliers alongside fixed ticks, actor and food-view rebuilds, geometry creation, allocations/GC and engine/render waits. Keep renderer, window, camera, speed and sync settings explicit. Separate scene adoption and menu opening from sustained play; do not attribute a long frame to the GPU from residual wall time alone.
-
-If a particular rebuild or allocation reliably coincides with stalls, make one bounded correction and replay the same events to check it. Preserve actual crop/cargo/building changes and current saves. If the cause is only host/driver noise or cannot be reproduced, record that result without an unsupported architecture rewrite. Do not use a lower median to claim the tail is fixed. This follows measured outliers; it is not a blanket performance rewrite.
-
-## 2. F10b2 — listen and refine the mix
+## 1. F10b2 — listen and refine the mix
 
 Use the matched recordings and remaining F10b brief above. Audition rather than infer preference from peaks or cue counts. A correction is conditional on those findings; retain the spatial fix independently. This review remains unfinished.
 
-## 3. F17b — musical variation and transitions
+## 2. F17b — musical variation and transitions
 
 **Outcome:** longer settlements have gentle musical variation without distracting state changes or repetitive restarts.
 
@@ -53,9 +49,17 @@ After the soundscape pass, compare the current single miniature with two related
 
 Listen through complete transitions, pause, loading and mute/unmute. Check bounded streams/players, no clipping and existing settings controls. Do not add a large adaptive score, mandatory external assets or victory fanfare for every minor milestone. Leave instrumentation and exact durations TBD until auditioned.
 
+## 3. F23b10 — compose a working neighborhood
+
+**Outcome:** a populated settlement feels more inviting at normal play zoom while remaining easy to read.
+
+Start from the ordinary and dense saved villages, plus one working shoreline scene. Capture matched daylight views at normal zoom and two rotations; include the interface and a clean Watch view. Identify one dominant problem in ground, shore rims, paths or the relationship between buildings and open space. Compare a bounded treatment against the original before expanding it. Favor coherent material/color, silhouettes and purposeful gaps over uniformly adding props. Exact treatment remains TBD from those comparisons.
+
+Check actual entrances, workers, cargo and placement previews against the edited ground; retain four-way building readability. Keep terrain access and simulation rules intact. Compare geometry/draw counts and typical frames in the same populated fixture so the art pass does not silently undo decoration batching. Record visual judgment separately from performance counters. Title artwork remains F19d; this chunk does not require another building family or a terrain-sculpting tool.
+
 ## Retained follow-ups
 
-- **Visuals:** F23b10 working-neighborhood composition; softer shore rims, better ground variation and clear paths. First compare a populated scene at matched normal zoom. F19d title artwork remains separate from menu behavior.
+- **Visuals:** further neighborhood treatments depend on the composition comparison. F19d title artwork remains separate from menu behavior.
 - **Management:** remaining inspectors, Goals/Economy focus, source-route emphasis, and resource filters follow demonstrated tasks. Avoid catalog search while categories suffice.
 - **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
 - **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.

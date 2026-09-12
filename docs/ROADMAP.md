@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23c3 — diagnose intermittent long frames.** [F23c2](LARGE_VILLAGE_F23C2.md) measures normal 20-resident and decorated 32-resident villages and ships regional ornament batching. Typical dense frame times improve modestly; occasional long stalls remain unexplained. Investigate those before increasing map/population claims. F10b2 listening review remains open.
+**Next: F10b2 listening review, then F17b musical variation and F23b10 working-neighborhood composition.** [F23c3](FRAME_STALLS_F23C3.md) delivers reproducible normal-process traces; stalls remain unresolved and the attempted visibility correction was rejected. Further performance work needs native profiling before another optimization. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,9 +18,9 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F23c3 | Scoped | Reproduce long frames in cold/warm normal play, identify the responsible work or host noise, and fix one demonstrated cause. |
-| 2 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
-| 3 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
+| 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
+| 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
+| 3 | F23b10 | Scoped | Improve one demonstrated composition problem in a populated neighborhood at normal zoom, preserving route/build clarity. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -34,13 +34,13 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 | Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Use the neighborhood review; do not require local pantries in every solution. |
 | Comfort — F25b3 | Are visible improvements and fewer rest journeys rewarding? | Keep optional. Existing comparisons show no food-output gain; no comfort scenario yet. |
 | Quarry/hall and wildlife — F26b/c | Are their geographical tradeoffs worth the investment? | Both scenarios shipped; assess their different geographical tradeoffs. Neither must beat every alternative. |
-| Performance — F23c/d | F23c2 measured 20/32 residents and reduced ornament meshes from 312 to 160; long outliers remain. | F23c3 compares cold/warm normal play and correlates stalls before another optimization or population increase. |
+| Performance — F23c/d | F23c2 reduced ornament meshes from 312 to 160. F23c3 reproduces cold visibility-call and warmed external-to-callback stalls; a visibility experiment failed. | Native engine/driver capture is needed before a further targeted fix. Preserve the risk; no population increase or claim that the tail is solved. |
 
 ## After this queue / parked
 
 The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. Resident selection/assignment focus is delivered; other management focus remains open; civic identities and quiet visit presentation are delivered. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
-F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. F23c2 now measures a decorated 32-resident settlement; intermittent long frames remain F23c3.
+F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. F23c2 measures a decorated 32-resident settlement; F23c3 preserves repeatable traces of unresolved long frames. Further targeted optimization needs native profiling evidence.
 
 Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. F25d2 tested a functional crossing and cut separate integration; ordinary bridges already provide the payoff. Education/restoration, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
@@ -52,7 +52,8 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
-| F23c2 | Representative 20/32-resident profiles, real cargo/routes, CPU phases and saved continuation. Regional fixed-ornament batching preserves triangles/image while reducing draws; long stalls remain F23c3. [Review](LARGE_VILLAGE_F23C2.md). |
+| F23c3 | Normal-process cold/warm tracing, raw frame intervals, work/mesh/GC and Windows thread-CPU evidence, exact tick replay and saves. Visibility experiment rejected after the stall moved to another prop; no fix claimed. [Investigation](FRAME_STALLS_F23C3.md). |
+| F23c2 | Representative 20/32-resident profiles, real cargo/routes, CPU phases and saved continuation. Regional fixed-ornament batching preserves triangles/image while reducing draws; long stalls investigated in F23c3 remain unresolved. [Review](LARGE_VILLAGE_F23C2.md). |
 | F25d2 | Functional-crossing experiment: five routes, actual path/use/service, food recovery and partial salvage/rebuild. Separate F25d3 crossing integration cut; staged construction did not create a second commitment. [Decision](RESTORATION_F25D2.md). |
 | F21p | Keyboard resident roster/filter, current activity, named explicit role assignment, safe return and focus cancellation. 24-resident navigation, disabled actions, saves and mouse/typing/world handoffs verified at 960/1440. [Review](PEOPLE_KEYBOARD_F21P.md). |
 | F10b1 | Dedicated spatial listener follows viewed ground and zoom, independent of map clipping distance; existing audio controls verified and matched scene recordings generated. Listening review remains F10b2. [Review](SPATIAL_AUDIO_F10B1.md). |
