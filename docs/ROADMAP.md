@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F21m — fix narrow Goals layout.** The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance and found horizontal overflow in the 960px Goals drawer. Fix that evidenced UI problem, then continue storage presentation and the quarry scenario. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
+**Next: F23b5 — compact storage and calmer surroundings.** The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance. Its suspected Goals overflow was ruled out by a follow-up width audit. Continue storage presentation, then the quarry scenario. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -18,12 +18,12 @@ Current foundation: **17 building types, seven campaign levels**, actual meals, 
 | --- | --- | --- | --- |
 | 1 | F23b4 | Implemented; visual feedback open | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
 | 2 | F11b3 / F18b3 | Agent review/correction complete; human pacing open | Current routes and recovery reviewed; lake blockers now describe all valid recreation venues and earned rest windows. [Findings](CAMPAIGN_REVIEW_F11B3.md). |
-| 3 | F21m | Ready | Fix confirmed Goals horizontal overflow at 960px through readable wrapping/layout, with expanded-state width checks. [Brief](GOALS_LAYOUT_F21M.md). |
+| 3 | F21m | Audit complete; no layout defect found | Actual control-width checks pass; the suspected scrollbar was campaign progress. Expanded-state checks retained. [Audit](GOALS_LAYOUT_F21M.md). |
 | 4 | F23b5 | Ready | A compact timber yard and legible stockpile: bounded visible stacks, honest exact counts, distinct empty/stocked states and clear collection frontage. Include a small path/ground contrast pass in the same representative scene. |
 | 5 | F26b2a | Ready for design using review findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
 | 6 | F26b2b | Conditional on a viable brief | One playable quarry scenario using existing systems, staged goals, readable source choices and actual hall use. Verify two approaches and recovery; no new material chain or mandatory home upgrades. |
 
-The original five-chunk sequence gained F21m because the review exposed a concrete UI issue. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
+The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
 ## Review questions, not a second work queue
 

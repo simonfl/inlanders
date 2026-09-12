@@ -1,9 +1,9 @@
-# F21m — Goals without horizontal scrolling
+# F21m — Goals width audit
 
-Status: planned from the [campaign review](CAMPAIGN_REVIEW_F11B3.md).
+Status: verified; suspected defect ruled out. No product layout change needed.
 
-The 960px river and lake captures (`artifacts/goals-6-960.png` and `goals-7-960.png`) show a horizontal scrollbar and clipped goal content. The current navigation checks pass because they do not assert the content width. Diagnose the minimum-width contributors rather than hiding clipped content.
+The [campaign review](CAMPAIGN_REVIEW_F11B3.md) initially mistook the campaign progress bar for a horizontal scrollbar. Source inspection confirms it is a `ProgressBar`; horizontal scrolling is already disabled. The original claim of confirmed overflow was incorrect.
 
-Scope: make phase actions, condition rows, explanations, resident/place/Plan links, meal evidence and tracking controls fit the actual drawer width. Wrap long labels or stack a row where needed. Preserve vertical scrolling, font readability, pointer isolation and all gameplay state. No smaller global UI scale or new dashboard.
+`SmokeGoals.cs` now checks the actual horizontal bounds of visible controls within the Goals content, allowing space for the vertical scrollbar. River and lake fixtures pass at 960/1440, including meal explanations and navigation. A separate lake fixture expands all condition explanations and adds an under-construction gathering hall to exercise relevant-place labels. The expanded 960px capture was also visually inspected: readable wrapped text, vertical scrolling and no horizontal overflow.
 
-Check both campaigns at 960/1440, collapsed and expanded rows, long assessment blockers, food evidence and relevant-place lists. Assert that horizontal scrolling is unnecessary and important controls remain reachable; inspect screenshots as well. Navigation must leave saves unchanged. This is the next chunk, ahead of storage presentation.
+Verification: `Play.ps1 -GoalsSmokeTest` passes, including existing exact-save navigation checks. These fixtures are bounded coverage, not a claim about every possible future label. Keep the width assertions to catch regressions. F23b5 storage presentation remains next; do not invent a UI change to justify the mistaken finding.

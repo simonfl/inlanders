@@ -10,12 +10,28 @@ public partial class Game
     {
         async Task Frames(){for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
+        void CheckGoalWidths()
+        {
+            var page=_drawerPages[2];var bounds=page.GetGlobalRect();
+            float right=bounds.End.X-(page.GetVScrollBar().Visible?page.GetVScrollBar().Size.X:0);
+            void Visit(Node node)
+            {
+                if(node is Control c && c.IsVisibleInTree())
+                {
+                    var rect=c.GetGlobalRect();
+                    Check(rect.Position.X>=bounds.Position.X-1 && rect.End.X<=right+1,$"Goals overflow: {c.GetType().Name} {(c is Button b?b.Text:c.Name.ToString())}, end {rect.End.X}, available {right}");
+                }
+                foreach(var child in node.GetChildren())Visit(child);
+            }
+            Visit(page.GetChild(0));Check(!page.GetHScrollBar().Visible,"Unexpected horizontal scrollbar");
+        }
         foreach(int width in new[]{960,1440})
         foreach(int level in new[]{6,7})
         {
             GetWindow().Size=new(width,width==960?640:900);AdoptWorld(World.NewCampaign(level));
             if(level==6)_world.Campaign!.River!.Phase=2;else _world.Campaign!.Lake!.Phase=1;
             await OpenMenu(2);await Frames();string saved=_world.SaveJson();
+            CheckGoalWidths();
             Check(_goalDashboard.Visible && !_objective.Visible && !_goalArrival.Visible,"Long objective still displaces condition cards");
             Check(_riverAction.IsVisibleInTree() && _riverAction.GetGlobalRect().End.Y<GetWindow().Size.Y-80,"Phase action is not near top");
             string key=level==6?"east-recreation":"rest";
@@ -48,7 +64,14 @@ public partial class Game
             await OpenMenu(2);await Frames();await UiClick(_goalMealEconomy);await Frames();Check(_tabs.CurrentTab==4,"Economy link failed");
             Check(_world.SaveJson()==saved,"Meal assessment navigation changed world");
             await OpenMenu(2);await Frames();
+            CheckGoalWidths();
         }
+        var lake=World.NewCampaign(7);lake.Campaign!.Lake!.Phase=1;
+        var plot=lake.Map.Land.First(c=>lake.PlacementProblem(c,0,BuildingKind.GatheringHall)==null);
+        lake.Place(plot,0,BuildingKind.GatheringHall);AdoptWorld(lake);_paused=true;
+        GetWindow().Size=new(960,640);await OpenMenu(2);await Frames();
+        foreach(var item in _goalItems.Values)item.Help.Show();await Frames();CheckGoalWidths();
+        await Capture("artifacts/goals-expanded-960.png");
         AdoptWorld(World.NewCreative());await Frames();Check(!_goalDashboard.Visible,"Campaign cards leaked into Creative");
         GD.Print("PASS: compact river/lake goals, top phase action, collapsible explanations, exact read-only navigation and 960/1440 layouts.");
     }
