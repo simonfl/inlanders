@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **6**.
+- Playable checkpoints since adoption: **7**.
 - Last periodic review: **checkpoint 5**, [whole-project assessment](REVIEW_CHECKPOINT_5.md). Four roles reported; interactive playtest not performed (native capture hung).
 - Next four-role review: **checkpoint 10**, with whole-project scope and the visual/audio role. Interactive campaign observation remains an earlier follow-up.
 - Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
@@ -20,6 +20,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 4 | `9c46539` | F12h: Creative terrace selection, Before/After, full-border preview, Apply and Undo. [Evidence](TERRAIN_SHAPING_F12H3.md). | Presentation review corrected board/scenery preservation and border legibility; four-role review remains due at 5. |
 | 5 | `1c89149` | F09e: always-open fence gateways, path coexistence, four saved facings and side-only connections. [Evidence](FENCE_GATEWAY_F09E2.md). | Presentation review accepted the model and verified clarity fixes; whole-project review recorded below; interactive play remains unverified. |
 | 6 | `5e5fdb5` | F12h4: distinct terrain blocker markers, actionable refusal and inline blocked Undo with retry. [Evidence](TERRAIN_FEEDBACK_F12H4.md). | Focused simulation and rendered UI checks at 960/1440; whole-project review remains due at 10. |
+| 7 | `4307a8f` | F21u: accurate orchard assignment guidance, UI recovery and stronger original-versus-reload evidence. [Evidence](ASSIGNMENT_GUIDANCE_F21U.md). | Focused simulation and rendered People/inspector checks at 960/1440; whole-project review remains due at 10. |
 
 F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md). F12h3 now delivers their player controls; the combined feature counts once as checkpoint 4. Its bounded game-design review does not replace the periodic review.
 
