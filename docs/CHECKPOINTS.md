@@ -17,7 +17,6 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 1 | `74c4f75` | F07d: playable local stone stockpiles, complete-project comparisons, UI and physical recovery. [Evidence](STONE_STORAGE_F07D2.md). | Bounded game-designer review informed comparisons; periodic four-role review remains due at 5. |
 | 2 | `3b85cf4` | F21t: optional named workplace assignments, reserved slots, explicit controls and safe job transitions. [Evidence](WORKPLACE_ASSIGNMENTS_F21T.md). | Bounded game-design/UX reviews informed policy; periodic four-role review remains due at 5. |
 | 3 | `a41c734` | F16f: Creative bush relocation with preserved food state, picker release, protected routes and explicit confirmation. [Evidence](BUSH_RELOCATION_F16F.md). | Bounded source/game-design review informed scope; periodic four-role review remains due at 5. |
-
 | 4 | `9c46539` | F12h: Creative terrace selection, Before/After, full-border preview, Apply and Undo. [Evidence](TERRAIN_SHAPING_F12H3.md). | Presentation review corrected board/scenery preservation and border legibility; four-role review remains due at 5. |
 
 F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md). F12h3 now delivers their player controls; the combined feature counts once as checkpoint 4. Its bounded game-design review does not replace the periodic review.
