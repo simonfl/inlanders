@@ -38,6 +38,8 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 ## Campaign: five introductions and five working settlements
 
+**Construction catalog:** press **B** to open keyboard browsing or return to it from a preview. Tab/Shift-Tab or Up/Down selects the category control and cards; Left/Right changes the focused category. Focused cards show their real costs and descriptions. Enter/Space selects a building and returns control to pointer placement, R rotation and camera movement. Esc or B closes keyboard browsing. Mouse clicks take over normally; Landscape and Existing retain their mouse controls.
+
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.

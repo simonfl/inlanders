@@ -5,7 +5,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 ## Review conclusions
 
 - **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard navigation has also shipped; construction-catalog focus is the next concrete UI gap. Matched screenshots support comparisons; player appeal remains an open question.
+- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have also shipped. Other management focus work remains open. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d and F19c are delivered; continue with F21o. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d, F19c and F21o are delivered; continue with F25d1/F25e1. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -103,13 +103,25 @@ Cover Continue, Campaign, Free play, Creative, Settings and confirmation/error p
 
 Exercise an entire keyboard-only start/back/settings/replay-confirmation path with isolated test saves, disabled Continue, long campaign lists and narrow layout. Verify visible focus, actual setting changes, canceled confirmations and keyboard-to-mouse transitions. Controller support, title artwork and save-slot browsing remain separate. This addresses an observed entry-point gap; further in-game focus work remains F21.
 
-## 12. F21o — keyboard navigation in the construction catalog
+## 12. F21o — keyboard navigation in the construction catalog (delivered)
+
+[Interaction and verification](CATALOG_KEYBOARD_F21O.md). The original acceptance brief follows.
 
 Extend the menu focus work into one in-game task: open Build with B, move through construction categories and building cards, read their actual descriptions/costs and choose a building. The catalog currently uses the shared buttons with focus disabled. Provide a visible focus and predictable Tab/arrows/activation, including scrolling at 960/1440. Keep the existing mouse catalog and category filtering.
 
 Define the handoff between catalog focus and world placement. Activating a building should select its real placement tool, release catalog focus and preserve R rotation, camera controls and pointer placement. Escape should leave the current focus/tool layer predictably; reopening Build should focus a useful current card. Keyboard navigation inside the catalog must not move the camera, rotate a ghost or trigger unrelated shortcuts. Do not promise keyboard-only map placement in this chunk.
 
 Verify opening/navigation/selection with actual keys, all categories and building types, narrow scrolling, disabled/refused actions, typing in existing controls, mouse takeover, rotation after selection and cancellation. Capture focused cards and the resulting preview. Scope to construction selection; Landscape tools, Existing directory, inspectors and other management pages remain separate focus follow-ups. Controller support, title artwork and save-slot browsing remain on their own tracks.
+
+## 13. F25d1 / F25e1 — optional civic ambition design
+
+Return to the planned learning/restoration and quiet civic-place concepts in CAMPAIGN_SYSTEMS.md. The resource scenarios and finale now exist, and recent village-character/UI work has shipped. Define one project for each concept and compare their actual player decisions before expanding the building menu or needs system.
+
+For learning, specify what residents learn, how that changes their contribution to a visible restoration, and why ordinary builder labor would not provide the same experience. For reflection, compare a chapel/shrine and a secular garden as village identities sharing recreation rules before proposing a separate satisfaction meter. Keep both optional; no compulsory religion, children/schools, universal productivity multiplier or research queue.
+
+Budget each concept against an existing working settlement: exact logs/planks/stone, labor diverted from food/services, valuable land, progress stages, finished use and a recoverable pause/cancel route. Compare two credible choices and a poor allocation. Sketch the on-screen progress and the finished scene; do not substitute attendance quotas for a meaningful project.
+
+Deliver a go/revise/merge decision and a bounded implementation brief for the strongest prototype. An executable existing-system budget/route fixture should support claims about affordability or recovery; clearly separate unimplemented mechanics from measured evidence. Do not immediately add another campaign level or make either concept a requirement for current settlements. Further management keyboard work, audio/music and menu artwork remain independent follow-ups.
 
 ## Reevaluate after each delivery
 

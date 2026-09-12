@@ -39,6 +39,7 @@ public partial class Game
         _inspector.Position = new(width - 324, 92); _inspector.Size = new(308, Math.Min(620, height - 184));
         _hintPanel.Position = new(Math.Max(16, (width - 650) / 2), height - 140); _hintPanel.Size = new(Math.Min(650, width - 32), 0);
         if (width < 1100 && _drawer.Visible && _inspector.Visible) _inspector.Hide();
+        if(_catalogKeyboard && GetViewport().GuiGetFocusOwner() is Control focus)FocusCatalogControl(focus);
     }
     private void ToggleDrawer(int index)
     {
@@ -46,7 +47,7 @@ public partial class Game
         _tabs.CurrentTab = index; _drawerTitle.Text = MenuNames[index]; _drawer.Show();
         if (_hud.Size.X < 1100) _inspector.Hide();
     }
-    private void CloseDrawer() => _drawer.Hide();
+    private void CloseDrawer() { StopCatalogKeyboard();_drawer.Hide(); }
     private void LayoutPlacementHint()
     {
         float left = _drawer.Visible ? _drawer.GetGlobalRect().End.X + 12 : 16;
@@ -61,5 +62,5 @@ public partial class Game
     private void SelectPerson(int id) { _selectedSource=null; _sourceReport=null; _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
-    private void BeginPlacement(BuildingKind kind) { _woodlandTool=0; if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
+    private void BeginPlacement(BuildingKind kind) { StopCatalogKeyboard();_catalogLastKind=kind; _woodlandTool=0; if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }
