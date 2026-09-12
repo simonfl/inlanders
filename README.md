@@ -275,7 +275,7 @@ Villagers have stepping feet, distinct work motions and tools, and occasional id
 
 In **Options**, the **Effects** slider controls footsteps, work sounds, hauling, construction completion, and UI cues. **Nature** controls quiet wind and occasional birds. Press **M** or click **Mute sound** to mute all audio, retaining their volume settings. Work sounds stop while paused; nature ambience continues. Sounds use a limited number of voices and real-time repetition limits at faster game speeds.
 
-Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. Effects are synthesized, and the original 96-second procedural piece with quiet intervals has independent volume and mute controls.
+Audio preferences persist in `saves/audio.cfg`, independently of settlement saves, resets, and loads. Effects are synthesized, and three original 96-second procedural pieces with quiet intervals has independent volume and mute controls.
 
 | Control | Action |
 | --- | --- |
@@ -385,7 +385,7 @@ Villagers take short breaks at completed village squares between jobs and delive
 
 **Decorative landscaping:** Build → Landscape → Decorate offers free flowers, shrubs, low fences, ornamental trees, and pebble ground cover. Choose an item, click Place decoration, then click or drag on the map; R rotates and Esc finishes. Use Remove decorations to clear a tile before building there. Solid decorations preserve access and redirect walking; pebble cover stays walkable with no speed bonus. Decorative trees supply no timber. Fences join adjacent fence tiles automatically; R turns isolated pieces. Placement and removal both support continuous drag strokes, including reversible diagonal staircases. Blocked tiles are skipped with a reason, and entering the HUD stops the stroke until the next click. Gathering halls offer **Identity → Hall / Chapel / Planted court** in their inspector, including on construction plans. Every identity costs the same and provides the same recreation service; court planting supplies no timber or habitat. Cottages automatically use three stable roof colours. Select a cottage and expand **Finish** to choose Clay, Sage, Ochre, Slate or Rose; **Automatic** restores its original colors. This free cosmetic choice is saved per cottage and works during construction and after home improvement.
 
-**Music:** An original 96-second procedural piece combines soft plucked notes and sustained chords. It finishes, leaves a short quiet interval, and resumes; playback continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.
+**Music:** Three related original 96-second procedural pieces combine soft plucked notes and sustained chords. They cycle without immediate repeats, with quiet intervals between pieces; playback continues while paused, in menus, and across settlement changes. Options and main-menu Settings share independent Music volume and mute controls; M mutes all audio. Preferences are saved locally.
 
 **Happiness:** People shows village happiness. Select a villager and expand their mood button below the work controls to see the score: starting optimism, meals, village food variety based on portions actually eaten at the last meal, an assigned home, recent home rest, and a completed square break in the past two minutes. Cheerful villagers wave while idle; unsettled villagers look down. Happiness adds no productivity penalty.
 

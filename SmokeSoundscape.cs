@@ -65,7 +65,7 @@ public partial class Game
                     AdoptWorld(World.LoadJson(saved));_paused=false;_focus=scene.focus;_camera.Size=zoom;UpdateCamera();ResetWorldAudio();
                     if(legacy)_villageListener.ClearCurrent();else _villageListener.MakeCurrent();
                     _effectsVolume=65;_ambienceVolume=40;_musicVolume=35;ApplyAudioSettings();
-                    _musicRest.Stop();_music.Play(12);_wind.Seek(0);_bird.Stop();_soundTime=0;_nextBird=2;
+                    _musicRest.Stop();_musicThemeIndex=0;_music.Stream=_musicThemes[0];_music.Play(12);_wind.Seek(0);_bird.Stop();_soundTime=0;_nextBird=2;
                     await Wait(.25f);capture.ClearBuffer();count=_worldSoundCount;
                     var copy=World.LoadJson(saved);
                     for(int tick=0;tick<80;tick++)

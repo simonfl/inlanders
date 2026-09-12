@@ -9,6 +9,8 @@ public partial class Game
     {
         void Check(bool ok,string message) { if(!ok) throw new Exception(message); }
         async Task Wait(float seconds) => await ToSignal(GetTree().CreateTimer(seconds),SceneTreeTimer.SignalName.Timeout);
+        _musicRest.Stop();_musicThemeIndex=0;_music.Stream=_musicThemes[0];_music.Play();
+        ExportMusicCandidates();
         var stream=(AudioStreamWav)_music.Stream;
         var data=stream.Data; int peak=0;
         for(int i=0;i<data.Length;i+=2) peak=Math.Max(peak,Math.Abs((int)BitConverter.ToInt16(data,i)));
@@ -47,11 +49,14 @@ public partial class Game
             AdoptWorld(Inlanders.Simulation.World.LoadJson(saved));_paused=true;
             _speed=4;await Wait(.5f);
             Check(!_music.Playing && _musicRest.TimeLeft<remaining && _musicRest.TimeLeft>remaining-2,"Load or speed changed quiet interval");
+            Check(_music.Stream==originalStream,"Load changed current theme");
             await Wait((float)_musicRest.TimeLeft+.3f);
             Check(_music.Playing && _music.GetPlaybackPosition()<2 && _musicRest.IsStopped(),"Quiet interval did not resume music once");
-            Check(_music.Stream==originalStream && _music.GetInstanceId()==playerId,"Sequencing replaced stream or player");
+            Check(_musicThemeIndex==1 && _music.Stream==_musicThemes[1] && _music.GetInstanceId()==playerId,"Sequencing failed to advance with existing player/stream");
             _music.Seek(95.8f);await Wait(.6f);
             Check(!_music.Playing && _musicRest.TimeLeft>24 && _musicRest.TimeLeft<=26,"Second phrase did not select next quiet interval");
+            _musicRest.Stop();PlayNextMusicTheme();Check(_musicThemeIndex==2 && _music.Stream==_musicThemes[2],"Third theme not selected");
+            PlayNextMusicTheme();Check(_musicThemeIndex==0 && _music.Stream==_musicThemes[0],"Theme cycle does not wrap");
             _musicRest.Stop();_music.Play();_speed=1;
             Check(saved==_world.SaveJson(),"Music changed simulation");
             _drawerPages[3].EnsureControlVisible(_musicSlider); await Wait(.1f);

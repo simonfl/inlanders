@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F17b2 candidate themes and transition exports can proceed independently; final selection still needs listening. F17b1 sequencing and quiet intervals are delivered. F23b12 shelter readability is delivered. F11c/F18c diagnostic review is delivered; human first-play feedback remains open. F16c Creative relocation is delivered.** [F05c](ORCHARDS_F05C.md) delivers orchards, visible establishment/repeated picking and distinct fruit in the existing food loop. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 soundscape listening and F17b music audition; Creative multi-object removal (F16d) can proceed independently.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -19,8 +19,8 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
-| 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F17b2 | Scoped | Two related candidate themes, bounded selection without immediate repeats, and full-piece/transition exports for audition. |
+| 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
+| 3 | F16d | Scoped | Creative multi-object removal with a visible selection, explicit confirmation and safe handling of goods, routes and cancellation. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F17b2 | Three related candidates, fixed cycle without immediate repeats, bounded pre-rendered PCM, full audition exports, live audio/menu checks. Final listening remains open. [Review](MUSIC_CANDIDATES_F17B2.md). |
 | F17b1 | Phrase completion, rotating quiet intervals, one reusable player/stream/timer, preserved menu/load/pause transport, live audio and menu regressions. [Review](MUSIC_SEQUENCING_F17B1.md). |
 | F23b12 | Warmer forager roof, darker poles and lighter rear weave; matched populated four-way captures, construction, delivery, previews and saves. [Review](FORAGER_READABILITY_F23B12.md). |
 | F11c / F18c | Opening/lake diagnostic review, contextual hunger recovery, actual shortage and alternative/recovery routes, 960/1440 visible guidance. Human first-play remains open. [Review](CAMPAIGN_REVIEW_F11C.md). |
