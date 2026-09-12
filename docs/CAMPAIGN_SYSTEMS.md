@@ -2,7 +2,7 @@
 
 Working design, not a locked specification. Costs, yields, population sizes, service capacity and final level order remain TBD. The aim is to give longer settlements different problems to solve and satisfying places to build.
 
-For current implementation status and ordering, use the [roadmap](ROADMAP.md) and [next chunks](NEXT_CHUNKS.md). Quarry, woodland and the finale are now playable. The [civic ambition decision](CIVIC_AMBITIONS_F25D1_E1.md) promotes chapel/court identities using existing hall recreation; a separate learning prerequisite needs revision before implementation. The historical tables below retain exploratory alternatives and do not supersede current costs or commit us to every proposed need/building.
+For current implementation status and ordering, use the [roadmap](ROADMAP.md) and [next chunks](NEXT_CHUNKS.md). Quarry, woodland and the finale are now playable. The [civic ambition decision](CIVIC_AMBITIONS_F25D1_E1.md) led to the implemented [chapel/court identities](CIVIC_IDENTITIES_F25E2.md) using existing hall recreation; a separate learning prerequisite needs revision before implementation. The historical tables below retain exploratory alternatives and do not supersede current costs or commit us to every proposed need/building.
 
 **Design loop:** a resident need gives a project a purpose; geography offers different ways to meet it; buildings turn that opportunity into a functioning service; residents visibly use the result. Each new system should strengthen that loop rather than add another mandatory meter.
 

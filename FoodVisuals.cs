@@ -35,7 +35,7 @@ public partial class Game
         if(site.Kind==BuildingKind.SeatingGarden) { MakeSeatingGarden(parent,stage); return; }
         if(site.Kind==BuildingKind.HuntingLodge) { MakeHuntingLodge(parent,stage); return; }
         if(site.Kind==BuildingKind.Quarry) { MakeQuarryCamp(parent,stage); return; }
-        if(site.Kind==BuildingKind.GatheringHall) { MakeGatheringHall(parent,stage); return; }
+        if(site.Kind==BuildingKind.GatheringHall) { MakeCivicVenue(parent,stage,site.Identity); return; }
         if (site.Kind == BuildingKind.FishingDock) { MakeFishingDock(parent,stage); return; }
         if (site.Kind == BuildingKind.Stockpile) { MakeStockpile(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Bridge) { MakeBridge(parent,stage); return; }
