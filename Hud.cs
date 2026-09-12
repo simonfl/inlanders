@@ -98,6 +98,7 @@ public partial class Game
         MakeBuildFooter(drawerColumn);
         _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
         var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
+        _economyBack=Button("Back to Economy [Esc]",()=>OpenEconomyKeyboard(true));inspection.AddChild(_economyBack);_economyBack.Hide();
         var inspectHeading = new HBoxContainer(); inspection.AddChild(inspectHeading);
         var inspectLabel = Text("SELECTED", 12); inspectLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; inspectLabel.Modulate = new("a8bcb0"); inspectHeading.AddChild(inspectLabel);
         inspectHeading.AddChild(Button("×", ClearSelection, 32));
@@ -301,6 +302,8 @@ public partial class Game
         }
         if(_surveying) _hint.Text="Survey resources · click a marker or choose a source · U / Esc finishes";
         UpdatePeopleKeyboard();
+        UpdateEconomyKeyboard();
+        if(_economyKeyboard)_hint.Text=_economyInspecting?"Page ↑↓ read inspector · Esc returns to Economy · I closes":"Tab / ↑↓ select · Enter inspect or toggle · Page ↑↓ scroll · Esc closes";
         if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
         if(_catalogKeyboard)_hint.Text=CatalogKeyboardHint();
         _hintPanel.Visible = _hint.Text.Length > 0;

@@ -1,6 +1,6 @@
-# Next chunks — sound, music and Economy navigation
+# Next chunks — sound, music and Goals navigation
 
-September 12, 2026, after F23b11. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F21q. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -10,7 +10,7 @@ September 12, 2026, after F23b11. This is the active queue. Delivered acceptance
 | Buildings and costs | Seventeen types cover the core economy. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
 | Needs and progression | Meals, assigned homes/rest and recreation are real routines. Comfort reduces homeward trips without a demonstrated food-output gain. Chapel/court use recreation. | Keep optional improvements honest. No automatic thirst, education, spirituality or technology meter. Restoration needs a finished function, not an attendance prerequisite. |
 | Visuals and village life | Building families, four-way rotation, woodland, cottage/civic identities and quiet visits have shipped. Populated comparisons now support quieter shores and continuous ground color. Outer outlines and subtle poses remain open visual questions. | Keep menu art and player visual feedback visible. Do not automatically follow each art pass with another terrain rewrite or equate more geometry with stronger art direction. |
-| Interface and controls | Main menu, Build catalog and resident inspection/assignment have keyboard focus. Economy and other management pages still lack a complete focus path. | Extend one useful task end to end: inspect supply/storage from Economy and return. No new dashboard until an observed question requires it. |
+| Interface and controls | Menu, Build, resident assignment and Economy inspection/return have keyboard focus. Goals and broader inspector actions remain open. | Extend Goals evidence and deliberate campaign action navigation next. No new dashboard until an observed question requires it. |
 | Audio and music | Procedural positional work sounds and one original looping musical miniature exist. Real-time sound limits already prevent fast-forward from multiplying every cue. | Compare quiet and busy soundscapes, then improve the highest-impact repetition/mix problem. A bell on every routine chapel arrival would overstate the event; it remains silent. |
 | Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios exist. Normal 20/32-resident profiles and decoration batching are delivered; long frames persist in normal-process traces. | No population or terrain-size performance promise. Further stall work needs native profiling; the failed visibility experiment does not justify removing animations. Terrain sculpting is a separate design project. |
 | Architecture and reliability | Current-format roundtrips, simulation routes and rendered interaction checks cover delivered slices. There are many partial Game files and specialized smoke fixtures. | Keep checks specific to behavior; do not turn the feature roadmap into a generic cleanup campaign. No save migration. |
@@ -57,13 +57,17 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Five-map comparisons](GROUND_COLOR_F23B11.md) support continuous vertex color across adjoining grass tiles. Heights, access, authored meadow variation, paths and placement feedback are retained. Flat-map hidden faces and original grass mesh counts fall. Shared-color, 960/1440 preview, exact continuation and existing slope checks pass. Outer outlines and planting remain feedback questions rather than another automatic terrain chunk.
 
-## 3. F21q — Economy keyboard inspection
+## F21q delivered — Economy keyboard inspection
 
-**Outcome:** inspect a supply or storage problem from Economy using the keyboard, open its relevant place/resident, and return without losing context.
+[Economy inspection](ECONOMY_KEYBOARD_F21Q.md) now provides visible focus, long-list scrolling, stable issue/place/worker identities, read-only inspector return, keyboard/mouse handoffs and reset. Focused 960/1440 checks, full HUD and People regressions pass. Full inspector editing and resource-survey keyboard navigation remain separate.
 
-Review the existing Economy controls before choosing the precise route. Provide an explicit entry shortcut, visible focus, Tab/arrows and activation, scroll offscreen targets into view, and return to the originating control after inspection. Preserve source/resident identity across live list refreshes; handle vanished targets without activating a replacement row. Keep transfers, staffing and other state changes explicit. Escape should back out and then return movement keys to the world. Retain mouse behavior and text-entry shortcuts. Verify 960/1440 views, a long list, live updates, reload/map switching and unchanged state for read-only navigation. Follow the existing menu/Build/People focus conventions without forcing every tab into a new UI architecture.
+## 3. F21r — Goals keyboard evidence and actions
 
-This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review. Goals keyboard focus and broader inspector actions remain separate follow-ups.
+**Outcome:** read a campaign goal, inspect why it is or is not satisfied, follow a relevant link and return, then deliberately activate a ready campaign action using the keyboard.
+
+Use existing goal/evidence controls and campaign rules. Provide visible focus, Tab/arrows, scroll-to-focus and explicit activation through G. Preserve goal and resident/place identity across changing evidence; returning should restore the relevant goal even if its count changed. Revalidate readiness before an assessment/growth action; never activate a replacement button when a phase completes or a list refreshes. Skip disabled actions and keep explanations readable. Escape backs out then returns keys to the world; mouse and text entry still work. Check 960/1440, a short introductory goal and a multi-phase late campaign, completion/phase transitions, reload, and exact unchanged saves for read-only paths. Keep existing confirmation behavior; do not add campaign waits or alter thresholds for navigation convenience.
+
+This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review. Broader inspector editing and source-survey focus remain follow-ups.
 
 ## Retained follow-ups
 
