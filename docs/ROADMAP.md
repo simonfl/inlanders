@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F26b2a — design the quarry/hall scenario.** Compact yard racks and the local stockpile presentation have shipped. The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance; its suspected Goals overflow was ruled out by a follow-up width audit. Use the existing systems for a distinct resource/geography choice; adding more needs is not the immediate priority.
+**Next: F26b2b — implement and assess Built to last.** The [quarry/hall brief](QUARRY_CAMPAIGN_F26B2.md) now has an accounted map prototype and two working construction/visit routes: two camps shorten stone hauling; a distant-only camp saves infrastructure. Campaign progression, food-service proof and poor-layout recovery remain to implement. The short diagnostic routes do not yet establish a longer, satisfying level.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -20,8 +20,8 @@ Current foundation: **17 building types, seven campaign levels**, actual meals, 
 | 2 | F11b3 / F18b3 | Agent review/correction complete; human pacing open | Current routes and recovery reviewed; lake blockers now describe all valid recreation venues and earned rest windows. [Findings](CAMPAIGN_REVIEW_F11B3.md). |
 | 3 | F21m | Audit complete; no layout defect found | Actual control-width checks pass; the suspected scrollbar was campaign progress. Expanded-state checks retained. [Audit](GOALS_LAYOUT_F21M.md). |
 | 4 | F23b5 | Implemented; visual feedback open | Bounded batched yard racks, unchanged exact inventories, stronger local stockpile framing and softer ground/path colors. Fill/drain/reload and high-stock checks pass. [Review](STORAGE_F23B5.md). |
-| 5 | F26b2a | Ready for design using review findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
-| 6 | F26b2b | Conditional on a viable brief | One playable quarry scenario using existing systems, staged goals, readable source choices and actual hall use. Verify two approaches and recovery; no new material chain or mandatory home upgrades. |
+| 5 | F26b2a | Brief/map prototype complete | [Built to last](QUARRY_CAMPAIGN_F26B2.md): exact starting budget, legal plots, optional nearby source and two actual hall construction/visit routes. Full service/recovery and human pacing remain unproven. |
+| 6 | F26b2b | Ready for implementation and route assessment | Integrate the quarry scenario, staged goals, readable source choices and actual hall use. Verify two full approaches, path tradeoffs and poor-layout recovery; no new material chain, waiting quota or mandatory home upgrades. |
 
 The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
