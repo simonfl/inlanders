@@ -9,6 +9,7 @@ public partial class Game
     {
         try
         {
+            if(OS.GetCmdlineUserArgs().Contains("--loose-stock")){await CheckLooseStock();GetTree().Quit();return;}
             async System.Threading.Tasks.Task Frames() { for(int i=0;i<5;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame); }
             var w=World.NewCreative(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
             w.Assign(0,Role.Logger); AdoptWorld(w); _paused=true; CloseDrawer();

@@ -123,6 +123,8 @@ Filters only affect the view; they do not pause jobs, change assignments, or ent
 
 Timber-yard racks summarize reserves (up to 24 visible logs and 18 planks); use the HUD and Economy for exact quantities. Local stockpiles display their full 12-unit capacity.
 
+Loose timber and salvage show up to 12 pieces. Larger piles have an exact quantity label, which follows the World labels preference. Loggers still collect every unit; clearing an exhausted stump works normally. Run `./Play.ps1 -LooseStockSmokeTest` for large-source collection and rendering checks.
+
 Build a **Stockpile** for **4 logs** near timber production and construction. Each holds **12 logs or 12 planks**, one material at a time, and starts with a target of **6**. Choose its material in the inspector, including while it is under construction. Local logger/sawyer deposits and builder pickups need **no hauler**. Assign an optional **Hauler** to redistribute stocks. Use **− 2 target / + 2 target** to change the target from 0 to 12.
 
 Producers drop timber at nearby matching storage with room. Builders collect near their work site; sawyers collect logs locally. Haulers carry two matching units at a time, refill targets from central storage or another pile's surplus, and return excess. Target **0** drains a stockpile; already committed loads finish. Producers may still deliver, so target zero does not close the pile. To change material, stop incoming production, drain it, and wait for committed trips to finish.

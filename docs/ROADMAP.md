@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23c1 — bound loose timber/salvage presentation.** Built to last is now playable as level eight, with two full supply routes and saved recovery from a competing-venue layout. [Implementation review](QUARRY_CAMPAIGN_REVIEW.md). Its competent routes take six to eight simulated minutes; longer, more demanding campaign play remains an F11/F18 follow-up. Fix the already-observed loose-stack towers next, then revisit campaign challenge and the remaining building art families.
+**Next: F11b4 / F18b4 — quarry challenge experiment.** Stored and loose high reserves now have bounded visuals. Built to last is playable with two source routes and saved recovery, but competent runs take six to eight simulated minutes with little need to adjust the starter economy. Compare constrained starting reserves and production/labor choices; retain two viable routes and recovery. Change decisions, not just elapsed time. [Current campaign evidence](QUARRY_CAMPAIGN_REVIEW.md).
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -22,7 +22,8 @@ Current foundation: **17 building types, eight campaign levels**, actual meals, 
 | 4 | F23b5 | Implemented; visual feedback open | Bounded batched yard racks, unchanged exact inventories, stronger local stockpile framing and softer ground/path colors. Fill/drain/reload and high-stock checks pass. [Review](STORAGE_F23B5.md). |
 | 5 | F26b2a | Brief/map prototype complete | [Built to last](QUARRY_CAMPAIGN_F26B2.md): exact starting budget, legal plots, optional nearby source and two actual hall construction/visit routes. Full service/recovery and human pacing remain unproven. |
 | 6 | F26b2b | Implemented; human pacing open | Level eight, staged hall/service proof, source links, actual hall use, two full routes with paths and saved competing-venue recovery. [Review](QUARRY_CAMPAIGN_REVIEW.md). No new material chain or mandatory upgrades. |
-| 7 | F23c1 | Ready | Cap/batch loose timber and salvage display geometry while keeping exact source quantities, cargo, collection access and clearing behavior. Test repeated collection and unusually large recovered piles; retain empty states. This is the observed counterpart to completed yard storage work. |
+| 7 | F23c1 | Implemented | Twelve-piece loose stock cap, exact large-source labels and batched geometry; real collection, threshold/drain, saves, felling and clearing pass. [Review](LOOSE_STOCK_F23C1.md). |
+| 8 | F11b4 / F18b4 | Ready for experiment | Compare the quarry baseline with tighter initial timber/food and competing production/labor commitments. Record player-action proxies and actual service failures, both source routes and saved recovery. Adopt a supported choice improvement; reject changes that only delay the same build queue. No extra proof timer or arbitrary stone quota. |
 
 The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
@@ -42,7 +43,7 @@ The original five-chunk sequence gained a short F21m audit; it ruled out an inco
 
 Continue the dock and bridge family only after reviewing the current scene. A **Living woods** scenario can follow the quarry scenario if it offers a different land-use decision. The long-haul and limited-land concepts are ingredients or optional challenges, not three additional committed levels. A chapter finale follows successful individual scenarios.
 
-Storage review follow-up under F23c: bound unusually large loose timber/salvage displays while retaining exact resource quantities and pickup locations. The F23b5 fixture shows these can still form towers; central and local storage are already covered.
+F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
 Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Education/reflection, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
@@ -54,6 +55,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23c1 | Loose timber/plank/stone salvage displays capped and batched, with exact labels above twelve pieces. Real collection updates labels without rebuilding full piles; fourteen-unit drain, exact saves, stumps, felling and clearing verified. [Review](LOOSE_STOCK_F23C1.md). |
 | F26b2b | Built to last: two stone sources, eight-person village, hall construction and real recent hall use plus continuing food service; campaign picker, replay/restore and exact saves. Two routes, path comparison and adverse placement recovery pass. Narrow stone-resource bar fixed. [Review](QUARRY_CAMPAIGN_REVIEW.md). |
 | F11b3 / F18b3 | Agent review of current river/lake routes, UI, service recovery and waiting; lake phase blockers/objective corrected to accept all recreation venues and describe improved-home rest. No win-rule changes. [Measurements and remaining questions](CAMPAIGN_REVIEW_F11B3.md). |
 | F23b4 | Open civic arbor and serving table, separate frontage stones, no fictitious occupied benches or permanent food stock. Build guidance distinguishes two-tile break and four-tile supper areas. Actual four-orientation breaks/supper and saved completion pass; [comparison and review](SQUARE_F23B4.md). |

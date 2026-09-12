@@ -10,7 +10,8 @@ public partial class Game : Node3D
     private World _world = World.NewScenario();
     private Camera3D _camera = null!;
     private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!;
-    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public int Logs = -1, Stage = -1; public bool ObservedStanding; public float? FallStarted; }
+    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public Label3D? Amount; public int Logs = -1, Stage = -1; public bool ObservedStanding; public float? FallStarted; }
+    private const int LooseStockDisplayLimit=12;
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
     private readonly Dictionary<int, (Node3D Body, int Stage)> _cottages = new();
@@ -243,7 +244,13 @@ public partial class Game : Node3D
             AnimateTimberTree(view,t);
             int treeStage = (t.NeedsPlanting ? 0 : t.Felled ? 2 : 1) + (t.ClearRequested ? 10 : 0) + (t.Preserved?20:0);
             if (view.Logs == t.Logs && view.Stage == treeStage) continue;
-            view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);
+            if(view.Logs>LooseStockDisplayLimit && t.Logs>LooseStockDisplayLimit && view.Stage==treeStage)
+            {
+                view.Logs=t.Logs;
+                if(view.Amount!=null)view.Amount.Text=$"{t.Logs} {t.Material.ToString().ToLowerInvariant()}";
+                continue;
+            }
+            view.Logs = t.Logs; view.Stage = treeStage; Clear(view.Pile);view.Amount=null;
             if(t.Preserved) Cylinder(view.Pile,new(0,.48f,0),.22f,.09f,new("8dac78"));
             if (t.ClearRequested)
             {
@@ -258,11 +265,18 @@ public partial class Game : Node3D
             }
             if (!t.Felled) continue;
             if (!t.Salvage) Cylinder(view.Pile, new(0, 0.12f, 0), 0.17f, 0.24f, _wood);
-            for (int i = 0; i < t.Logs; i++)
+            for (int i = 0; i < Math.Min(t.Logs,LooseStockDisplayLimit); i++)
             {
                 var at = new Vector3(0, 0.16f + i / 3 * 0.22f, -0.5f + i % 3 * 0.28f);
                 if (t.Material == Resource.Stone) StonePiece(view.Pile,at); else if (t.Material == Resource.Planks) Plank(view.Pile, at); else Log(view.Pile, at, 0.65f);
             }
+            if(t.Logs>LooseStockDisplayLimit)
+            {
+                view.Amount=new Label3D {Name="LooseAmount",Text=$"{t.Logs} {t.Material.ToString().ToLowerInvariant()}",Position=new(0,1.2f,0),FontSize=24,PixelSize=.009f,
+                    Billboard=BaseMaterial3D.BillboardModeEnum.Enabled,Modulate=_cream,OutlineSize=5};
+                view.Pile.AddChild(view.Amount);
+            }
+            BatchStaticGeometry(view.Pile);
         }
         if (_lastStored != _world.YardLogs || _lastPlanks != _world.YardPlanks)
         {
