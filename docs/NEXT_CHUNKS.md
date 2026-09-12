@@ -19,7 +19,7 @@ This review uses repository code, existing route reports and the new civic rende
 
 ## F10b1 delivered; F10b2 listening review remains open
 
-[Spatial audio review](SPATIAL_AUDIO_F10B1.md): the map-dependent camera/listener defect is fixed, existing controls pass, and matched recordings support a remaining listening review. This does not yet prove a more pleasant soundscape. Continue with F21p while retaining F10b2 before musical variation.
+[Spatial audio review](SPATIAL_AUDIO_F10B1.md): the map-dependent camera/listener defect is fixed, existing controls pass, and matched recordings support a remaining listening review. This does not yet prove a more pleasant soundscape. F21p is now delivered; retain F10b2 before musical variation.
 
 **Outcome:** a busy village remains pleasant to listen to at normal and accelerated speed.
 
@@ -27,15 +27,9 @@ Capture the current mix in the same quiet, busy construction/production and wate
 
 Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-## 1. F21p — keyboard management of residents
+F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). Continue with the restoration experiment below.
 
-**Outcome:** open People, inspect a resident, understand their current job and change their role through a visible keyboard path.
-
-Audit the existing People list and selected-person controls before changing focus. Support predictable Tab/arrows, explicit activation, scroll-into-view and Escape back through the current layer. Remember a useful selection. Handle a resident becoming unavailable or a row rebuilding while focused without silently assigning someone else. Preserve mouse takeover, typing, camera shortcuts outside management and existing assignment rules.
-
-Verify real role changes and their visible outcome at 960/1440, a longer population list, disabled actions, opening/closing, world changes and keyboard-to-mouse transition. Do not extend every inspector and management tab at once. Permanent workplace assignments and household swaps remain separate features.
-
-## 2. F25d2 — restore something with a useful finished function
+## 1. F25d2 — restore something with a useful finished function
 
 **Outcome:** decide whether an optional restoration gives a working settlement a worthwhile second commitment.
 
@@ -45,7 +39,7 @@ Start from an imperfect working village. Budget actual materials, hauling and la
 
 Deliver an executable map/route prototype, a small progress UI sketch and a go/revise/cut decision. F25d3 campaign or feature integration is conditional on this result, not automatically promised. No new level, building-menu entry or need meter in this chunk.
 
-## 3. F23c2 — representative larger-village performance
+## 2. F23c2 — representative larger-village performance
 
 **Outcome:** know how much village we can comfortably support on this Windows machine and remove a demonstrated bottleneck if present.
 
@@ -53,11 +47,11 @@ Use an ordinary established settlement and a denser decorated version with actua
 
 Implement at most the most significant measured bottleneck, if one threatens the intended experience. Validate identical simulation continuation and visible quantities before/after; record frame-time distributions rather than only average FPS. If the representative village already runs comfortably, deliver the measurements and stop. No renderer rewrite or larger map/population claim from a tiny test scene.
 
-## 4. F10b2 — listen and refine the mix
+## 3. F10b2 — listen and refine the mix
 
 Use the matched recordings and remaining F10b brief above. Audition rather than infer preference from peaks or cue counts. A correction is conditional on those findings; retain the spatial fix independently. This review remains unfinished.
 
-## 5. F17b — musical variation and transitions
+## 4. F17b — musical variation and transitions
 
 **Outcome:** longer settlements have gentle musical variation without distracting state changes or repetitive restarts.
 

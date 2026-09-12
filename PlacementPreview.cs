@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandlePeopleKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleCatalogKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         // Handle Tab before GUI focus traversal consumes it after clicking Watch controls.
         if(_watching && input is InputEventKey { Pressed:true, Echo:false, Keycode:Key.Tab })

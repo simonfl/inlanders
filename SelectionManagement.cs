@@ -29,6 +29,7 @@ public partial class Game
     }
     private void MakeJobChoice()
     {
+        _peopleBackButton=Button("Back to residents [Esc]",OpenPeopleKeyboard);_personDetails.AddChild(_peopleBackButton);_peopleBackButton.Hide();
         _jobChoice = new OptionButton { CustomMinimumSize = new(0,34), SizeFlagsHorizontal = Control.SizeFlags.ExpandFill };
         foreach(var role in Enum.GetValues<Role>()) _jobChoice.AddItem(RoleName(role), (int)role);
         _jobChoice.ItemSelected += _ => UpdateManagementControls();
@@ -56,7 +57,7 @@ public partial class Game
             var person=_world.People[_selectedPerson];
             if(_jobChoicePerson!=person.Id) { _jobChoice.Select((int)person.Role); _jobChoicePerson=person.Id; }
             _jobChoice.Disabled = _world.Food.Celebrating;
-            _assignButton.Text = "Assign: " + RoleName((Role)_jobChoice.GetSelectedId());
+            _assignButton.Text = (_peopleKeyboard && _peopleKeyboardPerson==person.Id ? $"Assign {person.Name}: " : "Assign: ") + RoleName((Role)_jobChoice.GetSelectedId());
             _assignButton.Disabled = _world.Food.Celebrating || _jobChoice.GetSelectedId()==(int)person.Role;
         } else _jobChoicePerson=-1;
         _followButton.Text = _followPerson ? "Stop following" : "Follow villager";

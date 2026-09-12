@@ -300,6 +300,8 @@ public partial class Game
             else if(!_plantingTrees && !_decorating && _pathTool==0 && _woodlandTool==0 && _buildKind==BuildingKind.HuntingLodge) _hint.Text+="\n"+_world.WildlifeSurvey(_hover);
         }
         if(_surveying) _hint.Text="Survey resources · click a marker or choose a source · U / Esc finishes";
+        UpdatePeopleKeyboard();
+        if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
         if(_catalogKeyboard)_hint.Text=CatalogKeyboardHint();
         _hintPanel.Visible = _hint.Text.Length > 0;
         if (_hintPanel.Visible) LayoutPlacementHint();

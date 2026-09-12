@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F21p — keyboard management of residents.** [F10b1 spatial sound](SPATIAL_AUDIO_F10B1.md) fixes map-size-dependent attenuation and adds matched recordings. F10b2 listening review remains open; new variations and mix changes need perceptual evidence. Civic presentation is delivered, while functional restoration still needs a useful finished purpose.
+**Next: F25d2 — functional restoration prototype.** [Resident keyboard management](PEOPLE_KEYBOARD_F21P.md) is delivered. Test whether restoring access or a productive site creates a worthwhile second commitment; keep the rejected attendance/learning gate out. F10b2 listening review remains open.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,11 +18,10 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F21p | Scoped | Keyboard path through People: inspect a resident, read activity, assign a role and return safely. |
-| 2 | F25d2 | Experiment | Prototype a functional restoration with alternatives, actual budgets and recovery; reject a larger-invoice-only project. |
-| 3 | F23c2 | Measurement | Profile representative decorated settlements on this machine; fix a demonstrated bottleneck if needed. |
-| 4 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
-| 5 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
+| 1 | F25d2 | Experiment | Prototype a functional restoration with alternatives, actual budgets and recovery; reject a larger-invoice-only project. |
+| 2 | F23c2 | Measurement | Profile representative decorated settlements on this machine; fix a demonstrated bottleneck if needed. |
+| 3 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
+| 4 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -40,7 +39,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. People management focus is queued; civic identities and quiet visit presentation are delivered. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. Resident selection/assignment focus is delivered; other management focus remains open; civic identities and quiet visit presentation are delivered. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -54,6 +53,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F21p | Keyboard resident roster/filter, current activity, named explicit role assignment, safe return and focus cancellation. 24-resident navigation, disabled actions, saves and mouse/typing/world handoffs verified at 960/1440. [Review](PEOPLE_KEYBOARD_F21P.md). |
 | F10b1 | Dedicated spatial listener follows viewed ground and zoom, independent of map clipping distance; existing audio controls verified and matched scene recordings generated. Listening review remains F10b2. [Review](SPATIAL_AUDIO_F10B1.md). |
 | F25e3 | Quiet arrived Chapel/court poses; walking, pause/reload, interruption and Hall restoration preserved. Four-orientation actual visits and identical simulation continuation pass. Bell remains silent pending a useful sound purpose. [Review](QUIET_CIVIC_F25E3.md). |
 | F25e2 | Saved Hall/Chapel/Planted court choices on planned/built gathering halls, distinct four-stage/four-orientation models and compact inspector. Actual visits, identical simulation continuation, saves and demolition verified. [Review](CIVIC_IDENTITIES_F25E2.md). |
