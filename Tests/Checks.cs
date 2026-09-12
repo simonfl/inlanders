@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--gateways")) {try{GatewayChecks.Run();DecorationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--terrain-shaping")) {try{TerrainShapingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--terrain-shaping-review")) {try{TerrainShapingReview.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--bush-relocation")) {try{BushRelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -185,6 +186,7 @@ RelocationChecks.Run();
 CreativeRemovalChecks.Run();
 CreativeStockChecks.Run();
 LeisureChecks.Run();
+GatewayChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();
 MealVarietyChecks.Run();

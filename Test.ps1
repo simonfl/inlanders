@@ -1,4 +1,4 @@
-param([switch]$TerrainShaping, [switch]$TerrainShapingReview, [switch]$BushRelocation, [switch]$WorkplaceAssignment, [switch]$StoneStagingPlayable, [switch]$StoneStorage, [switch]$StoneStaging, [switch]$CreativeStock, [switch]$CreativeRemoval, [switch]$CampaignReview, [switch]$Relocation, [switch]$OrchardPlayable, [switch]$Orchard, [switch]$Restoration, [switch]$CivicBudget, [switch]$FinaleCampaign, [switch]$FinaleDecision, [switch]$WoodsBrief, [switch]$QuarryChallenge, [switch]$Rendered, [switch]$Balance, [switch]$ComfortComparison)
+param([switch]$Gateways, [switch]$TerrainShaping, [switch]$TerrainShapingReview, [switch]$BushRelocation, [switch]$WorkplaceAssignment, [switch]$StoneStagingPlayable, [switch]$StoneStorage, [switch]$StoneStaging, [switch]$CreativeStock, [switch]$CreativeRemoval, [switch]$CampaignReview, [switch]$Relocation, [switch]$OrchardPlayable, [switch]$Orchard, [switch]$Restoration, [switch]$CivicBudget, [switch]$FinaleCampaign, [switch]$FinaleDecision, [switch]$WoodsBrief, [switch]$QuarryChallenge, [switch]$Rendered, [switch]$Balance, [switch]$ComfortComparison)
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 $env:DOTNET_ROOT = Join-Path $PSScriptRoot '.tools\dotnet'
@@ -6,7 +6,8 @@ $env:PATH = "$env:DOTNET_ROOT;$env:PATH"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot '.tools\dotnet-home'
 $env:APPDATA = Join-Path $PSScriptRoot '.tools\appdata'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-if ($TerrainShaping) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --terrain-shaping }
+if ($Gateways) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --gateways }
+elseif ($TerrainShaping) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --terrain-shaping }
 elseif ($TerrainShapingReview) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --terrain-shaping-review }
 elseif ($BushRelocation) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --bush-relocation }
 elseif ($WorkplaceAssignment) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --workplace-assignment }

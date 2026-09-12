@@ -157,7 +157,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
-            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating?2:4); RefreshGhost(); }
+            if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating && _decorationKind!=DecorationKind.Gateway?2:4); RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.I) ToggleDrawer(4);
             if (key.Keycode == Key.B) ToggleDrawer(1);

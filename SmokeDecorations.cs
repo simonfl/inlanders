@@ -24,7 +24,7 @@ public partial class Game
             }
             await Frames();
             int vertices=Vertices(_decorationView);
-            if(_world.Decorations.Count!=5 || vertices==0) throw new Exception("Decoration geometry missing");
+            if(_world.Decorations.Count!=i || vertices==0) throw new Exception("Decoration geometry missing");
             CloseDrawer(); _placing=false; RefreshGhost(); _focus=new(4,0,-2); _camera.Size=12; UpdateCamera();
             await Frames(); await Capture("artifacts/f09-palette.png");
             string saved=_world.SaveJson(); AdoptWorld(World.LoadJson(saved)); _paused=true; await Frames();
@@ -32,7 +32,7 @@ public partial class Game
             GetWindow().Size=new(960,640); await UiClick(_eraseDecorationButton); await Frames();
             await Capture("artifacts/f09-controls-960.png");
             PlaceCottage(new(2,-2)); await Frames();
-            if(_world.Decorations.Count!=4 || Vertices(_decorationView)>=vertices) throw new Exception("Decoration removal failed");
+            if(_world.Decorations.Count!=i-1 || Vertices(_decorationView)>=vertices) throw new Exception("Decoration removal failed");
             BeginPlacement(BuildingKind.Cottage); if(_decorating) throw new Exception("Building mode kept decorations");
             BeginDecorating(false); TogglePaths(1); if(_decorating) throw new Exception("Path mode kept decorations");
             BeginDecorating(false); ToggleTreePlanting(); if(_decorating) throw new Exception("Planting mode kept decorations");

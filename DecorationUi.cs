@@ -14,10 +14,10 @@ public partial class Game
     private Node3D _decorationView = null!;
     private World? _decorationWorld;
     private int _decorationRevision = -1;
-    private static string DecorationName(DecorationKind kind) => kind == DecorationKind.OrnamentalTree ? "Ornamental tree" : kind.ToString();
+    private static string DecorationName(DecorationKind kind) => kind == DecorationKind.Gateway ? "Fence gateway" : kind == DecorationKind.OrnamentalTree ? "Ornamental tree" : kind.ToString();
     private string DecorationDescription => !_removeDecoration && _decorationKind == DecorationKind.Sunflowers && !_world.SunflowersUnlocked ? "SUNFLOWERS\n" + _world.SunflowerLockReason + "\nAll ordinary decorations remain free." : _removeDecoration ? "REMOVE DECORATIONS\nClick or drag to remove decorations instantly. No resources are spent or recovered. Entering the HUD stops the stroke; click again to continue." :
         $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click or drag a one-tile strip. " + (_decorationKind==DecorationKind.Fence ? "" : "R rotates. ") +
-        (_decorationKind == DecorationKind.Fence ? "Joins neighboring fences automatically; R turns isolated pieces. Occupies one tile; keep entrances and routes open." : _decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
+        (_decorationKind == DecorationKind.Gateway ? "Always open; villagers and paths pass through. R changes facing. Fences join the side posts, never the opening. " : _decorationKind == DecorationKind.Fence ? "Joins neighboring fences automatically; R turns isolated pieces. Occupies one tile; keep entrances and routes open." : _decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
         "Occupies one tile. Villagers walk around it; entrances and existing routes stay accessible. Ornamental trees provide no timber.") +
         "\nUnsafe tiles are skipped. Entering the HUD stops the stroke; click again to continue. Use Remove decorations before building here.";
 
@@ -43,7 +43,7 @@ public partial class Game
     }
     private void RefreshDecorationGhost()
     {
-        bool fence=_removeDecoration ? _world.Decorations.Any(d=>d.Cell==_hover && d.Kind==DecorationKind.Fence) : _decorationKind==DecorationKind.Fence;
+        bool fence=_removeDecoration ? _world.Decorations.Any(d=>d.Cell==_hover && (d.Kind is DecorationKind.Fence or DecorationKind.Gateway)) : _decorationKind is DecorationKind.Fence or DecorationKind.Gateway;
         string key="decoration:"+(_removeDecoration?"remove":_decorationKind.ToString())+(fence?$":{_hover}:{_rotation}:{_world.DecorationRevision}:{_ghostValid}":"");
         if(_ghostModelKey!=key || fence && _fencePreviewWorld!=_world)
         {
@@ -53,7 +53,7 @@ public partial class Game
             PreparePreview(_ghostModel);
         }
         var color=_ghostValid?new Color("aed2a0"):new Color("e38673");
-        foreach(var material in _previewMaterials) material.AlbedoColor=new(color.R,color.G,color.B,.48f);
+        foreach(var material in _previewMaterials) material.AlbedoColor=_ghostValid && _decorationKind==DecorationKind.Gateway?new Color(.88f,.79f,.56f,.72f):new(color.R,color.G,color.B,.48f);
         _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = fence ? Basis.Identity : _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,(_rotation%2!=0) ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,(_rotation%2!=0));
         Clear(_ghostCells);
         if(_removeDecoration) ClearingCross(_ghostCells,OnGround(_hover.X,_hover.Z,.1f),color,.9f);
@@ -67,8 +67,8 @@ public partial class Game
         var clusters=new Dictionary<(int,int),Node3D>();
         foreach(var decoration in _world.Decorations)
         {
-            var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind == DecorationKind.Fence ? Basis.Identity : decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
-            if(_batchDecorationClusters && decoration.Kind!=DecorationKind.Fence)
+            var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind is DecorationKind.Fence or DecorationKind.Gateway ? Basis.Identity : decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
+            if(_batchDecorationClusters && decoration.Kind is not (DecorationKind.Fence or DecorationKind.Gateway))
             {
                 var key=((int)MathF.Floor(decoration.Cell.X/8f),(int)MathF.Floor(decoration.Cell.Z/8f));
                 if(!clusters.TryGetValue(key,out var cluster)){cluster=new Node3D();clusters[key]=cluster;_decorationView.AddChild(cluster);}
@@ -87,7 +87,7 @@ public partial class Game
                 }
                 BatchStaticGeometry(body);
             }
-            else if(decoration.Kind==DecorationKind.Fence) { _fenceBodies[decoration.Cell]=body;MakeFence(body,decoration.Cell,decoration.Rotated,FenceConnections(decoration.Cell)); }
+            else if(decoration.Kind is DecorationKind.Fence or DecorationKind.Gateway) { _fenceBodies[decoration.Cell]=body;MakeBoundary(body,decoration,FenceConnections(decoration.Cell)); }
             else MakeDecoration(body,decoration.Kind);
         }
         foreach(var cluster in clusters.Values)BatchStaticGeometry(cluster,true);

@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is delivered; Creative terrace shaping (F12h) is delivered with Before/After, Apply and Undo; fence gateways (F09e) have a reviewed design and are next for implementation. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is delivered; Creative terrace shaping (F12h) is delivered with Before/After, Apply and Undo; fence gateways (F09e) are delivered. Checkpoint five now requires the independent four-role review before further implementation. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,9 +20,9 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F09e | In progress | [Reviewed gateway design](FENCE_GATEWAY_F09E1.md): always open, path-compatible, four facings and side-only fence connections. Implement and verify readable courtyard entrances. |
+| 3 | Review 5 | Due | Review the committed checkpoint-five build with game design, UX/onboarding, playtest and development lead; consolidate findings and choose the next five chunks before implementation. |
 
-Recent deliveries include [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
+Recent deliveries include [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
 ## Review questions, not a second work queue
 

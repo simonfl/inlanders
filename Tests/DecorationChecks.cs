@@ -16,7 +16,7 @@ public static class DecorationChecks
             Check(w.Stored==logs,"Decoration spent timber");
             Check(!w.PlaceDecoration(cell,kind),"Overlapping decoration accepted");
             Check(w.PlantingProblem(cell)!=null,"Planting overlaps decoration");
-            Check(w.SetPath(cell,true)==(kind==DecorationKind.Pebbles),"Decoration path rule incorrect");
+            Check(w.SetPath(cell,true)==(kind is DecorationKind.Pebbles or DecorationKind.Gateway),"Decoration path rule incorrect");
             w.Validate();
             string saved=w.SaveJson(); var loaded=World.LoadJson(saved);
             Check(loaded.SaveJson()==saved,"Decoration save differs");

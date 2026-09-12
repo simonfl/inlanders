@@ -66,7 +66,7 @@ public partial class Game
                 if(_decorationStrokeProblem==null) { _decorationStrokeProblem=problem;firstRejection=true;Notice("Decoration skipped: "+problem); }
                 return;
             }
-            changed|=_removeDecoration?_world.RemoveDecoration(at):_world.PlaceDecoration(at,_decorationKind,_rotation%2!=0);
+            changed|=_removeDecoration?_world.RemoveDecoration(at):_world.PlaceDecoration(at,_decorationKind,_rotation%2!=0,_rotation);
         }
         if(_lastDecorationCell is Cell previous)foreach(var at in DecorationStrokeLine(previous,cell))Apply(at);
         else Apply(cell);
