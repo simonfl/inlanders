@@ -20,12 +20,12 @@ public sealed partial class World
 
     private void ClaimSawWork(Villager v)
     {
-        var mill = FoodSite(BuildingKind.Sawmill, c => c.OutputPlanks > 0) ?? FoodSite(BuildingKind.Sawmill, c => c.InputLogs > 0);
+        var mill = FoodSite(v,BuildingKind.Sawmill, c => c.OutputPlanks > 0) ?? FoodSite(v,BuildingKind.Sawmill, c => c.InputLogs > 0);
         if (mill == null && Available >= 2)
-            mill = FoodSite(BuildingKind.Sawmill, c => BelowOutputTarget(c) && TryLogSource(c.Entrance, 2, out _));
+            mill = FoodSite(v,BuildingKind.Sawmill, c => BelowOutputTarget(c) && TryLogSource(c.Entrance, 2, out _));
         if (mill == null)
         {
-            v.Status = ProductionWait(Role.Sawyer);
+            v.Status = ProductionWait(v);
             return;
         }
         v.WorkplaceId = mill.Id;

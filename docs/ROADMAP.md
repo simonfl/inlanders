@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) is delivered; optional workplace assignments (F21t) are the next independent design chunk. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) and optional workplace assignments (F21t) are delivered. Creative bush rearrangement (F16f) is the next independent design chunk. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F21t | Design | Review optional named workplace assignments for workers sharing a role, starting with quarry/food-site choice. Define automatic fallback and pause/removal behavior before implementation; see the active queue. |
+| 3 | F16f | Design | Review moving existing berry bushes in Creative: preserve identity, regrowth, stock and forager claims, with honest habitat consequences. Scope and cut criteria are in the active queue. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -42,7 +42,7 @@ The finale, bread-service explanation and authored landscape composition have sh
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. F23c2 measures a decorated 32-resident settlement; F23c3 preserves repeatable traces of unresolved long frames. Further targeted optimization needs native profiling evidence.
 
-Permanent workplace assignments, household swaps and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. F25d2 tested a functional crossing and cut separate integration; ordinary bridges already provide the payoff. Education/restoration, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
+Household swaps and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. F25d2 tested a functional crossing and cut separate integration; ordinary bridges already provide the payoff. Education/restoration, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
 The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current behavior comes from implementation and the current reviews linked below; do not reuse its old prices or pre-household descriptions as live facts.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F21t | Optional named workplaces across ten building types, reserved slots, strict waiting, next-job changes, mouse/keyboard Apply, honest staffing lists, lifecycle recovery and save 37. [Review](WORKPLACE_ASSIGNMENTS_F21T.md). |
 | F07d | Optional stone stockpiles, direct quarry deposits, builder pickups, hauling targets, physical recovery, local/central UI and art, save 36. Complete normal-play comparisons show strong and weak placements. [Review](STONE_STORAGE_F07D2.md). |
 | F16e | Creative central stock controls for ten resources, reserved minima, separate adjustment ledgers, truthful production/deliveries and save 35. [Review](CREATIVE_STOCK_F16E.md). |
 | F16d | Creative rectangle selection for buildings/decorations/paths, whole-object markers, atomic confirmation, cancellation and mode handoffs. [UI and verification](CREATIVE_REMOVAL_F16D2.md). |
@@ -157,7 +158,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 | F21j | Direct map resource survey through U or Economy: fish grounds, stone outcrops and woodland habitat, current stock/claims/recovery/access, related workplace links and Back to source. Source picker reaches offscreen locations; Watch/placement/Esc exit safely. Rules and saves unchanged; see [survey review](RESOURCE_SURVEY_F21J.md). |
 | F21i | Collapsible rest/recreation coverage at the top of People, missing-visit filters, actual recent-visit counts and shared resident explanations. Resident, home and current/last venue links; square/hall benefit guidance, removal/reload safety and narrow/wide checks. Rules and saves unchanged. |
 | F21k | Economy-to-People meal investigation: current-hunger/recent-miss filter, per-resident meal explanations and inspection links. Late nourishment recovery does not hide recent misses; flags expire with service history. Focused simulation and rendered 960/1440 service checks pass with read-only navigation and current saves. |
-| F21h | Workplace input/work/travel/collection/paused/target states, source and worker links, explicit named global role transfers, pause after current work, and per-workplace 0–200/no-limit targets counting village-wide stock and committed production. Recent 180-second pantry arrivals versus meals, shortage-to-resume links, current-format saves and narrow/wide controls. Local plank logistics shipped in F07b2 and neighborhood food service in F07c2; permanent workplace assignment remains a follow-up. |
+| F21h | Workplace input/work/travel/collection/paused/target states, source and worker links, explicit named global role transfers, pause after current work, and per-workplace 0–200/no-limit targets counting village-wide stock and committed production. Recent 180-second pantry arrivals versus meals, shortage-to-resume links, current-format saves and narrow/wide controls. Local plank logistics shipped in F07b2 and neighborhood food service in F07c2; optional named workplace assignment shipped in F21t. |
 | F22 | Distinct farm/forager construction stages and wheat growth through progressively harvested rows and stubble. Bakery and other buildings also have distinct procedural models. |
 | F24a | Shared building definitions; hut/farm/garden/stockpile 4 logs, bakery 8 logs, cottage/mill/square/bridge 6 logs, lodge 12 planks and matching mill target. Footprints/timing/recipes unchanged. Comparable campaign, housing, food and storage experiments documented; F24b completes the initial payoff review below. |
 | F24b | Four-loaf bakery deliveries and four-grain harvest loads with visible cargo and safe interruption/saves. Matched food layouts show a modest bread payoff; a woodland stockpile repays setup over sustained construction, while haulers trade extra labor for speed. Guidance now calls haulers optional. Costs, growth and recipes unchanged; see the measured F24b review for limits. |
@@ -272,7 +273,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Keyboard navigation shipped in F19c and composed title artwork in F19d. Save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
-| F21 — Management | Construction-catalog keyboard focus shipped in F21o; other management keyboard navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
+| F21 — Management | Construction-catalog keyboard focus shipped in F21o; other management keyboard navigation, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
 | F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**

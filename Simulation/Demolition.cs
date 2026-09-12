@@ -11,6 +11,7 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (Creative || site == null || site.DemolitionRequested || RemovalProblem(id) != null) return false;
         site.DemolitionRequested = true; site.DemolitionWasPaused = site.WorkPaused; site.WorkPaused = true;
+        ClearWorkplaceAssignments(id);
         StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         ReconcileHomes();

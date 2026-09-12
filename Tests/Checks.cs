@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--workplace-assignment")) {try{WorkplaceAssignmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--stone-staging-playable")) {try{StoneStagingPlayable.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--stone-storage")) {try{StoneStorageChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--stone-staging")) {try{StoneStagingReview.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -200,6 +201,7 @@ ManagedWoodlandChecks.Run();
 SupplyRouteChecks.Run();
 PlankStorageChecks.Run();
 StoneStorageChecks.Run();
+WorkplaceAssignmentChecks.Run();
 QuarryChecks.Run();
 QuarryCampaignChecks.Run();
 WoodsCampaignChecks.Run();

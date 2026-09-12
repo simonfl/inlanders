@@ -66,8 +66,8 @@ public sealed partial class World
     }
     private void ClaimComfort(Villager worker)
     {
-        var workshop=FoodSite(BuildingKind.Carpenter,c=>!c.DemolitionRequested && FindPath(At(worker),c.Entrance,Blocked)!=null);
-        if(workshop==null) {worker.Status="Needs an open carpenter workshop with a free worker slot";return;}
+        var workshop=FoodSite(worker,BuildingKind.Carpenter,c=>!c.DemolitionRequested && FindPath(At(worker),c.Entrance,Blocked)!=null);
+        if(workshop==null) {worker.Status=ProductionWait(worker);return;}
         foreach(var home in Cottages.Where(c=>IsHome(c) && c.ImprovementRequested && People.Any(p=>p.HomeId==c.Id) && !People.Any(p=>p.ComfortHomeId==c.Id)).OrderBy(c=>c.ImprovementOrderedAt).ThenBy(c=>c.Id))
         {
             if(FindPath(At(worker),home.Entrance,Blocked)==null) continue;

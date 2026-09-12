@@ -34,8 +34,8 @@ public sealed partial class World
 
     private void ClaimQuarry(Villager person)
     {
-        var camp=FoodSite(BuildingKind.Quarry,c=>BelowOutputTarget(c) && QuarryDeposits(c).Any(d=>AvailableDeposit(d)>0));
-        if(camp==null) { person.Status=ProductionWait(Role.Quarrier); return; }
+        var camp=FoodSite(person,BuildingKind.Quarry,c=>BelowOutputTarget(c) && QuarryDeposits(c).Any(d=>AvailableDeposit(d)>0));
+        if(camp==null) { person.Status=ProductionWait(person); return; }
         var deposit=QuarryDeposits(camp).Where(d=>AvailableDeposit(d)>0).OrderBy(d=>TravelCost(At(person),d.Access)).ThenBy(d=>d.Id).First();
         person.WorkplaceId=camp.Id; person.DepositId=deposit.Id; person.Reserved=Math.Min(2,AvailableDeposit(deposit)); person.Cargo=Resource.Stone;
         Go(person,deposit.Access,Work.ToQuarry,$"Walking to outcrop {deposit.Id} for {person.Reserved} stone");

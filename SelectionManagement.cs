@@ -37,7 +37,8 @@ public partial class Game
     }
     private void MakeManagementControls()
     {
-        _workplaceButton = Button("Inspect workplace", () => { if (SelectedWorkplace() is int id) SelectBuilding(id); });
+        MakeWorkplaceAssignmentControls();
+        _workplaceButton = Button("Inspect current job site", () => { if (SelectedWorkplace() is int id) SelectBuilding(id); });
         _personDetails.AddChild(_workplaceButton);
         _followButton = Button("Follow villager", () => _followPerson = !_followPerson); _personDetails.AddChild(_followButton);
         _workplaceControls = new(); _buildingDetails.AddChild(_workplaceControls);
@@ -53,12 +54,14 @@ public partial class Game
     }
     private void UpdateManagementControls()
     {
+        UpdateWorkplaceAssignmentControls();
         if (_selectedPerson >= 0) {
             var person=_world.People[_selectedPerson];
             if(_jobChoicePerson!=person.Id) { _jobChoice.Select((int)person.Role); _jobChoicePerson=person.Id; }
             _jobChoice.Disabled = _world.Food.Celebrating;
             _assignButton.Text = (_peopleKeyboard && _peopleKeyboardPerson==person.Id ? $"Assign {person.Name}: " : "Assign: ") + RoleName((Role)_jobChoice.GetSelectedId());
             _assignButton.Disabled = _world.Food.Celebrating || _jobChoice.GetSelectedId()==(int)person.Role;
+            _assignButton.TooltipText="Changing role returns workplace assignment to Automatic.";
         } else _jobChoicePerson=-1;
         _followButton.Text = _followPerson ? "Stop following" : "Follow villager";
         _workplaceButton.Disabled = SelectedWorkplace()==null;
@@ -69,7 +72,7 @@ public partial class Game
             int assigned=_world.People.Count(p=>p.Role==job);
             int active=_world.People.Count(p=>p.WorkplaceId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id || p.FoodDestinationId==site.Id || p.FoodSourceId==site.Id);
             int capacity=Buildings.Get(site.Kind).Slots;
-            _workplaceStaff.Text=site.Kind is BuildingKind.Stockpile or BuildingKind.Pantry ? $"{active} visiting · {assigned} haulers village-wide\nHaulers share stockpiles and pantries. Targets reserve space for incoming loads." : $"{active}/{capacity} working here · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nWorkers share workplaces; + uses a spare worker or transfers one from another job.";
+            _workplaceStaff.Text=site.Kind is BuildingKind.Stockpile or BuildingKind.Pantry ? $"{active} visiting · {assigned} haulers village-wide\nHaulers share stockpiles and pantries. Targets reserve space for incoming loads." : $"{_world.AssignedWorkers(site.Id)}/{capacity} assigned here · {active} working now · {assigned} {RoleName(job).ToLowerInvariant()}s village-wide\nAssign a workplace in the resident inspector. + changes their village-wide role.";
             _staffMinus.Disabled=_world.Food.Celebrating || assigned==0;
             _staffPlus.Disabled=_world.Food.Celebrating || assigned==_world.Population;
             var candidate = _world.WorkerAdjustmentCandidate(job, 1);
@@ -78,8 +81,8 @@ public partial class Game
         }
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];
-            button.Visible=site!=null && (p.WorkplaceId==site.Id || p.SiteId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id || p.FoodDestinationId==site.Id || p.FoodSourceId==site.Id);
-            button.Text=$"{p.Name} · {TaskName(p.Task)}";
+            button.Visible=site!=null && (p.AssignedWorkplaceId==site.Id || p.WorkplaceId==site.Id || p.SiteId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id || p.FoodDestinationId==site.Id || p.FoodSourceId==site.Id);
+            button.Text=$"{p.Name} · {(p.AssignedWorkplaceId==site?.Id?"assigned · ":"")}{TaskName(p.Task)}";
         }
     }
     private void UpdateFollowing()

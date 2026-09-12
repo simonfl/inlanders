@@ -50,9 +50,17 @@ public sealed partial class World
         };
     }
     private bool BelowOutputTarget(Cottage site) => site.OutputTarget < 0 || ProductionOutput(site.Kind) is Resource output && ProductionCommitted(output) < site.OutputTarget;
-    private string ProductionWait(Role role)
+    private string ProductionWait(Villager person)
     {
+        var role=person.Role;
+        if(person.AssignedWorkplaceId is int assigned)
+        {
+            var site=Cottages.Single(c=>c.Id==assigned);
+            return !FreeStation(site)?"Assigned workplace: waiting for current worker to finish":
+                $"Assigned {Buildings.Get(site.Kind).Name} {assigned}: {ReadWorkplace(site).State}. Choose Automatic to work elsewhere.";
+        }
         var sites = Cottages.Where(c => c.Complete && Buildings.Get(c.Kind).Worker == role).ToArray();
+        if(sites.Length>0 && sites.All(c=>AssignedWorkers(c.Id)>=Buildings.Get(c.Kind).Slots))return "Workplaces fully assigned — choose another site or release an assigned slot";
         return sites.Length == 0 ? $"Needs a finished workplace for {role.ToString().ToLowerInvariant()}s" :
             string.Join("; ", sites.Select(c => $"{Buildings.Get(c.Kind).Name} {c.Id}: {ReadWorkplace(c).State}"));
     }
@@ -91,7 +99,7 @@ public sealed partial class World
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;
-        if (role != null && !People.Any(p => p.Role == role)) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Assignments are village-wide.");
+        if (role != null && !People.Any(p => p.Role == role && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
         if (site.Kind == BuildingKind.Bakery && !remaining && Food.Grain - ReservedGrain < 2)
             return new("Missing grain", "Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess);
         if (site.Kind == BuildingKind.Sawmill && !remaining && !TryLogSource(site.Entrance, 2, out _))
@@ -111,6 +119,7 @@ public sealed partial class World
     }
     private void ValidateProduction()
     {
+        ValidateWorkplaceAssignments();
         foreach (var c in Cottages)
             if (c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested && c.Kind!=BuildingKind.Carpenter || c.OutputTarget != -1)))
                 throw new InvalidOperationException("Invalid workplace controls");

@@ -61,6 +61,7 @@ public partial class Game
             await Press(Key.O);await Frames();_viewName.GrabFocus();await Press(Key.V);Check(!_peopleKeyboard,"Typing opened People");_viewName.ReleaseFocus();
             await Press(Key.V);AdoptWorld(World.NewCreative());await Frames();Check(!_peopleKeyboard && _roster.Count==8,"Smaller world retained focus");
         }
+        await CheckWorkplaceAssignmentUi();
         GD.Print("PASS: People keyboard inspect/explicit role assignment, 24-person scrolling, disabled/filtered controls, return paths, typing, mouse/Build handoff, current saves and world reset at 960/1440.");
     }
 }

@@ -26,7 +26,7 @@ public sealed partial class World
         ? Cottages.FirstOrDefault(c => c.Id == person.WorkplaceId)?.Boat : null;
     private void ClaimFishing(Villager person)
     {
-        foreach(var dock in Cottages.Where(c => c.Kind == BuildingKind.FishingDock && c.Complete && !c.DemolitionRequested && !c.WorkPaused && BelowOutputTarget(c))
+        foreach(var dock in Cottages.Where(c => c.Kind == BuildingKind.FishingDock && c.Complete && !c.DemolitionRequested && !c.WorkPaused && CanClaimWorkplace(person,c) && BelowOutputTarget(c))
             .OrderBy(c => Vector2.DistanceSquared(c.Entrance.Point,person.Position)).ThenBy(c=>c.Id))
         {
             if(dock.Boat?.FisherId != null || !Accessible(dock.Entrance)) continue;
@@ -44,7 +44,7 @@ public sealed partial class World
                 return;
             }
         }
-        person.Status=ProductionWait(Role.Fisher);
+        person.Status=ProductionWait(person);
     }
     private void ReturnBoat(Cottage dock)
     {

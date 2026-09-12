@@ -41,6 +41,7 @@ public sealed class Villager
     [JsonInclude]    public Cell Destination { get; internal set; }
     [JsonInclude]    public Resource Cargo { get; internal set; }
     [JsonInclude]    public int? WorkplaceId { get; internal set; }
+    [JsonInclude]    public int? AssignedWorkplaceId { get; internal set; }
     [JsonInclude]    public int? BushId { get; internal set; }
     [JsonInclude]    public int FoodReserved { get; internal set; }
     [JsonInclude]    public int? StorageId { get; internal set; }
@@ -231,7 +232,7 @@ public sealed partial class World
         if (!Enum.IsDefined(role)) throw new ArgumentOutOfRangeException(nameof(role));
         var v = People.Single(v => v.Id == id);
         if (v.Role == role) return;
-        Interrupt(v); v.Role = role; _retry = 0;
+        Interrupt(v); v.AssignedWorkplaceId=null; v.Role = role; _retry = 0;
     }
     public bool AdjustWorkers(Role role, int delta)
     {

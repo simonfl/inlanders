@@ -37,6 +37,7 @@ public sealed partial class World
     {
         if (!Creative || RemovalProblem(id) != null) return false;
         var site = Cottages.Single(c => c.Id == id);
+        ClearWorkplaceAssignments(id);
         StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||

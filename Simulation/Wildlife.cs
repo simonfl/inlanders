@@ -43,8 +43,8 @@ public sealed partial class World
     }
     private void ClaimHunting(Villager person)
     {
-        var lodge=FoodSite(BuildingKind.HuntingLodge,c=>BelowOutputTarget(c) && HuntingGrounds(c.Cell).Any(h=>AvailableGame(h)>0));
-        if(lodge==null) { person.Status=ProductionWait(Role.Hunter); return; }
+        var lodge=FoodSite(person,BuildingKind.HuntingLodge,c=>BelowOutputTarget(c) && HuntingGrounds(c.Cell).Any(h=>AvailableGame(h)>0));
+        if(lodge==null) { person.Status=ProductionWait(person); return; }
         var habitat=HuntingGrounds(lodge.Cell).Where(h=>AvailableGame(h)>0).OrderBy(h=>TravelCost(At(person),h.Cell)).ThenBy(h=>h.Id).First();
         person.WorkplaceId=lodge.Id; person.HabitatId=habitat.Id; person.Reserved=Math.Min(2,AvailableGame(habitat)); person.Cargo=Resource.Game;
         Go(person,habitat.Cell,Work.ToHunt,$"Tracking game in woodland {habitat.Id}");

@@ -147,10 +147,19 @@ Let the player explicitly set central stock for arranging and trying villages. S
 
 Review existing quarry-to-central-yard-to-civic-project routes. Compare optional local stone stockpiles on a near-source and a distant-project route, including the cost and worker time of staging. Keep finite deposits, physical cargo, reservations and normal construction costs. Integrate stone into existing stockpiles if the comparison shows a meaningful placement choice; otherwise retain findings without manufacturing a new consumer or compulsory warehouse. Implementation needs visible stone stacks, material selection, actual quarry/builder/hauler work, interruption/demolition recovery and current-format saves. Existing log/plank storage must keep working.
 
-## 3. F21t — optional workplace assignments: design first
+## F21t delivered — optional workplace assignments
+
+[Implementation and verification](WORKPLACE_ASSIGNMENTS_F21T.md): strict named assignments reserve existing slots; current jobs and cargo finish first; Automatic remains the default. Ten building types, lifecycle cleanup, current saves and narrow/wide keyboard/mouse controls are covered. The original design brief follows.
 
 Existing role assignment is village-wide. With several quarries or food producers, a player can pause a site but cannot keep a named worker at a chosen site while the other stays active. Review whether an optional preferred workplace provides useful control without requiring every worker to be micromanaged.
 
 Start with a short game-designer/UX review of two same-role sites and their current dispatch. Define the difference between automatic and assigned work, capacity conflicts, rest/meals, role changes, paused/removed/exhausted sites, and whether fallback should wait or select another site. Choose one consistent policy and visible explanation before coding. Keep automatic dispatch as the default. The first implementation should cover the supported workplace roles coherently, with explicit scope for roaming loggers and builders, current saves, real interrupted cargo, and narrow/wide inspector controls. No new productivity dashboard, worker traits or labor schedule.
 
 This promotes an existing management follow-up rather than adding a new economic requirement. Audio listening stays open; the next periodic four-role review is due at checkpoint 5 in the ledger.
+## 3. F16f — Creative berry-bush rearrangement: design first
+
+Promote the existing Creative bush-arrangement follow-up. A bush currently blocks a village layout and serves as a food source; Creative building/area tools deliberately leave it untouched. Review a single-bush move operation using the established preview/confirm/cancel language, with clear source identification and occupancy/access rejection.
+
+Preserve the bush's identity, ripe stock and regrowth state. Define how existing forager claims and trips finish or release before moving it; do not duplicate food, strand a worker, or silently remove neighboring resources. Inspect any wildlife habitat dependence before choosing behavior and describe the consequence honestly. Start with relocation of an existing bush, not resource painting, deleting arbitrary sources or replenishing food. Keep this Creative-only; normal clearing and finite deposits stay outside the scope. Verify actual foraging before/after, interrupted work, repeated moves, invalid destinations, cancellation, current saves and 960/1440 controls.
+
+Do the source/design review before implementation. If moving bushes creates a larger ecology-editing dependency than the arrangement benefit warrants, retain the finding and defer it rather than hiding that dependency. Audio audition stays open, and the periodic four-role review remains due at checkpoint 5.

@@ -12,7 +12,7 @@ public partial class Game
     private bool PeopleKeyboardOpen=>!_watching && _hud.IsVisibleInTree() &&
         (_peopleKeyboardPerson>=0 ? _inspector.Visible && _selectedPerson==_peopleKeyboardPerson : _drawer.Visible && _tabs.CurrentTab==0);
     private Control[] PeopleKeyboardControls()=> (_peopleKeyboardPerson>=0
-        ? new Control[]{_peopleBackButton,_jobChoice,_assignButton}
+        ? new Control[]{_peopleBackButton,_jobChoice,_assignButton,_assignmentChoice,_assignmentApply,_assignmentVisit}
         : new Control[]{_rosterFilter}.Concat(_roster).ToArray())
         .Where(c=>c.IsVisibleInTree() && !(c is BaseButton b && b.Disabled)).ToArray();
     private void StopPeopleKeyboard()
@@ -67,6 +67,7 @@ public partial class Game
         if(key.Keycode is Key.B or Key.H or Key.G or Key.O or Key.I){StopPeopleKeyboard();return false;}
         if(key.Keycode==Key.Escape)
         {
+            _assignmentPerson=-1;
             if(_peopleKeyboardPerson>=0)OpenPeopleKeyboard();else{StopPeopleKeyboard();CloseDrawer();}return true;
         }
         var controls=PeopleKeyboardControls();var focus=GetViewport().GuiGetFocusOwner();
@@ -92,12 +93,16 @@ public partial class Game
             else if(focus==_peopleBackButton)OpenPeopleKeyboard();
             else if(focus==_assignButton && !_assignButton.Disabled && _selectedPerson==_peopleKeyboardPerson)
             { _assignButton.EmitSignal(BaseButton.SignalName.Pressed);UpdateManagementControls();FocusPeopleControl(_jobChoice); }
+            else if(focus==_assignmentApply && !_assignmentApply.Disabled)
+            {_assignmentApply.EmitSignal(BaseButton.SignalName.Pressed);UpdateManagementControls();FocusPeopleControl(_assignmentChoice);}
+            else if(focus==_assignmentVisit && _assignmentVisit.IsVisibleInTree())
+            {_assignmentVisit.EmitSignal(BaseButton.SignalName.Pressed);StopPeopleKeyboard();}
         }
         return true;
     }
     private string PeopleKeyboardHint()
     {
-        if(_peopleKeyboardPerson>=0)return "←→ choose role · Tab to Assign · Enter confirms\nEsc returns to residents · V closes";
+        if(_peopleKeyboardPerson>=0)return "←→ choose role / workplace · Tab to Apply · Enter confirms\nEsc returns to residents · V closes";
         var focus=GetViewport().GuiGetFocusOwner();int id=_roster.FindIndex(b=>b==focus);
         return (id>=0?$"{_world.People[id].Name} · {_world.People[id].Role} · {_world.People[id].Status}\n":"←→ filter residents · ")+"Tab / ↑↓ select · Enter inspect · Esc close";
     }

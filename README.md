@@ -42,7 +42,7 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 36; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 37; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
@@ -122,6 +122,8 @@ This offers a simpler food source with fewer buildings and jobs; grain plus baki
 ### Finding villagers, buildings, and supplies
 
 **People [V]** shows each villager's name and role. Filter the roster to a role, Unassigned, or Idle; the count shows how many match. Newcomer invitations sit above the roster.
+
+In a resident inspector, **Workplace** defaults to **Automatic**. Choose a named workplace and **Apply workplace** to keep new jobs at that site. Existing work and deliveries finish first. Named workers reserve the site's worker slots and wait when it is paused, growing or out of work; meals and breaks continue. Choose Automatic to let them work elsewhere. Role changes and workplace removal/demolition clear the assignment. Loggers, builders and haulers remain village-wide. A forager's hut does not restrict berry territory. Workplace inspectors list assigned residents even during breaks. See [assignment rules and checks](docs/WORKPLACE_ASSIGNMENTS_F21T.md).
 
 At the top of People, expand **Rest / recreation** to see who lacks recent completed visits. Filter for rest, recreation, either, or everyone; follow resident, home and current/last venue links to investigate. Counts come from actual visits. A square gives two minutes of recreation benefit, a hall four; new residents may simply be waiting for their first outing. The resident inspector also links to their recreation venue.
 
@@ -419,4 +421,4 @@ Cottage finish checks: `./Play.ps1 -CottageFinishSmokeTest` verifies live swatch
 
 **Creative area removal:** Build → Landscape → Remove an area. Drag to select whole buildings, decorations and paths, then confirm. Escape/right-click cancels. Trees, resources and terrain stay; unsafe groups are rejected without partial removal.
 
-**Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 36 requires fresh saves.
+**Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 37 requires fresh saves.
