@@ -22,8 +22,8 @@ public sealed partial class World
     {
         if(Population<12) return "Prepare food and spare beds, then invite newcomers from People to reach twelve residents.";
         if(Housed<Population) return "Finish homes for everyone, including extra newcomers.";
-        if(LakeRested<(Population*3+3)/4) return $"At least {(Population*3+3)/4} residents need a completed home rest in the last four minutes; currently {LakeRested}. Inspect home access and travel.";
-        if(LakeRecreation<(Population+1)/2) return $"At least {(Population+1)/2} residents need a completed square visit in the last two minutes; currently {LakeRecreation}. Leave space and time for breaks.";
+        if(LakeRested<(Population*3+3)/4) return $"At least {(Population*3+3)/4} residents need a recent completed home rest; currently {LakeRested}. Rest counts for four minutes, or five after an improved-home visit. Inspect home access and travel.";
+        if(LakeRecreation<(Population+1)/2) return $"At least {(Population+1)/2} residents need a completed recreation visit in the last two minutes; currently {LakeRecreation}. Squares, seating gardens and halls all count. Leave space and time for breaks.";
         return null;
     }
     public string LakeActionLabel => Campaign?.Lake?.Phase==0 ? "Prepare the lakeside village" : "Assess the lakeside village";
@@ -60,8 +60,8 @@ public sealed partial class World
         get
         {
             var lake=Campaign!.Lake!;
-            if(lake.Phase==0) return $"Open a fishing route\n\nFish delivered to pantry: {Math.Min(4,DeliveredFish)}/4\nBuild a dock on accessible shore and assign a fisher. Grounds replenish {Map.FishingGrounds.Sum(g=>g.RegrowthPerSecond)*60:0.#} fish/minute in total, shared by all docks. Delivered supply can be lower because of travel.\n\nNext: support twelve residents with mixed meals, home rest and square visits. Every resident eats once a minute. Plan cultivation and reserve useful space near the village before expanding.";
-            return $"{(lake.Phase==1?"Prepare a lakeside community":"Prove the village works")}\n\nResidents: {Population}/12 minimum\nHoused: {Housed}/{Population}\nRested in last 4 minutes: {LakeRested}/{(Population*3+3)/4}\nSquare visit in last 2 minutes: {LakeRecreation}/{(Population+1)/2}\n\n"+
+            if(lake.Phase==0) return $"Open a fishing route\n\nFish delivered to pantry: {Math.Min(4,DeliveredFish)}/4\nBuild a dock on accessible shore and assign a fisher. Grounds replenish {Map.FishingGrounds.Sum(g=>g.RegrowthPerSecond)*60:0.#} fish/minute in total, shared by all docks. Delivered supply can be lower because of travel.\n\nNext: support twelve residents with mixed meals, home rest and recreation. Every resident eats once a minute. Plan cultivation and reserve useful space near the village before expanding.";
+            return $"{(lake.Phase==1?"Prepare a lakeside community":"Prove the village works")}\n\nResidents: {Population}/12 minimum\nHoused: {Housed}/{Population}\nRecently rested (4m; improved visits 5m): {LakeRested}/{(Population*3+3)/4}\nRecreation visit in last 2 minutes: {LakeRecreation}/{(Population+1)/2}\n\n"+
                 (lake.Phase==1 ? "Prepare production before each newcomer pair. Fish, berries, vegetables and bread can share the work. Begin assessment when ready." :
                 $"Meal service · last 3 minutes since assessment began\n{ReadMealAssessment(lake.AssessmentStarted).Summary}\n{lake.LastResult}");
         }

@@ -50,6 +50,7 @@ public static class LakeChecks
             Check(w.Campaign!.Lake!.Meals==3 && World.LoadJson(w.SaveJson()).Campaign!.Complete,"Lake completion not saved");
             if(!bread)
             {
+                CheckServiceGuidance(w);
                 System.IO.Directory.CreateDirectory("artifacts");
                 System.IO.File.WriteAllText("artifacts/f11b2-complete.json",w.SaveJson());
                 Recovery(w);
@@ -83,6 +84,20 @@ public static class LakeChecks
         w=World.LoadJson(recovery);
         Until(w,()=>w.Campaign!.Complete,"nearby square recovery");
         Check(w.Food.Time<1200,"Nearby square did not recover materially faster than waiting out the rough layout");
+    }
+    static void CheckServiceGuidance(World completed)
+    {
+        var w=World.LoadJson(completed.SaveJson());w.Campaign!.Complete=false;
+        w.Campaign.Lake!.Phase=1;w.Campaign.Lake.Meals=0;
+        // Expired visit histories isolate each real phase-action blocker.
+        foreach(var p in w.People) {p.LastRestTime=w.Food.Time-301;p.LastLeisureTime=w.Food.Time-121;}
+        w.Validate();
+        Check(w.LakeRested==0 && w.LakeActionProblem()!.Contains("five after an improved-home visit"),"Rest blocker hides earned improved-home duration");
+        foreach(var p in w.People) p.LastRestTime=w.Food.Time;
+        w.Validate();
+        Check(w.LakeRested==w.Population && w.LakeRecreation==0 && w.LakeActionProblem()!.Contains("Squares, seating gardens and halls all count"),"Recreation blocker excludes valid venues");
+        Check(w.LakeObjective.Contains("Recreation visit") && !w.LakeObjective.Contains("Square visit"),"Objective still demands one venue kind");
+        Check(World.LoadJson(w.SaveJson()).LakeActionProblem()==w.LakeActionProblem(),"Saved guidance differs");
     }
     static void Recovery(World completed)
     {

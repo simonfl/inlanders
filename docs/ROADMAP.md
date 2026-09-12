@@ -6,23 +6,24 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F11b3 / F18b3 — campaign decision and clarity review.** F23b4 square presentation is implemented ([review](SQUARE_F23B4.md)). Continue with campaign review, storage presentation, and a new scenario using existing systems. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
+**Next: F21m — fix narrow Goals layout.** The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance and found horizontal overflow in the 960px Goals drawer. Fix that evidenced UI problem, then continue storage presentation and the quarry scenario. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
 Current foundation: **17 building types, seven campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river and lake are the two longer scenarios. Cottage/bakery/sawmill, lodge, forager and field art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
-## Next five chunks
+## Current delivery queue
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
 | 1 | F23b4 | Implemented; visual feedback open | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
-| 2 | F11b3 / F18b3 | Ready for review | Review levels 6 and 7 from the current player UI; record decisions, unclear causes and waiting. Implement at most one supported pacing/clarity correction, or close with findings if none is justified. Do not add another dashboard by default. |
-| 3 | F23b5 | Ready | A compact timber yard and legible stockpile: bounded visible stacks, honest exact counts, distinct empty/stocked states and clear collection frontage. Include a small path/ground contrast pass in the same representative scene. |
-| 4 | F26b2a | Design after chunk 2 findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
-| 5 | F26b2b | Conditional on a viable brief | One playable quarry scenario using existing systems, staged goals, readable source choices and actual hall use. Verify two approaches and recovery; no new material chain or mandatory home upgrades. |
+| 2 | F11b3 / F18b3 | Agent review/correction complete; human pacing open | Current routes and recovery reviewed; lake blockers now describe all valid recreation venues and earned rest windows. [Findings](CAMPAIGN_REVIEW_F11B3.md). |
+| 3 | F21m | Ready | Fix confirmed Goals horizontal overflow at 960px through readable wrapping/layout, with expanded-state width checks. [Brief](GOALS_LAYOUT_F21M.md). |
+| 4 | F23b5 | Ready | A compact timber yard and legible stockpile: bounded visible stacks, honest exact counts, distinct empty/stocked states and clear collection frontage. Include a small path/ground contrast pass in the same representative scene. |
+| 5 | F26b2a | Ready for design using review findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
+| 6 | F26b2b | Conditional on a viable brief | One playable quarry scenario using existing systems, staged goals, readable source choices and actual hall use. Verify two approaches and recovery; no new material chain or mandatory home upgrades. |
 
-Chunk 2's human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing chunk 5.
+The original five-chunk sequence gained F21m because the review exposed a concrete UI issue. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
 ## Review questions, not a second work queue
 
@@ -49,6 +50,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F11b3 / F18b3 | Agent review of current river/lake routes, UI, service recovery and waiting; lake phase blockers/objective corrected to accept all recreation venues and describe improved-home rest. No win-rule changes. [Measurements and remaining questions](CAMPAIGN_REVIEW_F11B3.md). |
 | F23b4 | Open civic arbor and serving table, separate frontage stones, no fictitious occupied benches or permanent food stock. Build guidance distinguishes two-tile break and four-tile supper areas. Actual four-orientation breaks/supper and saved completion pass; [comparison and review](SQUARE_F23B4.md). |
 | F23b3 | Separate tapered farm rows and garden beds replace full plinths and continuous rims. Lower markers and partial garden boards preserve plot identity; crop positions and work contact unchanged. Four-orientation field-work checks pass; [matched comparison](FIELDS_F23B3.md). |
 | F23b2 | Open forager shelter with pole frame/braces, layered lean-to roof, low woven windbreak, sorting bench and empty gathering equipment. Separate feet replace the solid plinth; permanent decorative berry stock removed. Four stages and matched camera views; [before/after](FORAGER_F23B2.md). |
