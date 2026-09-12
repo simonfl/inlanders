@@ -276,7 +276,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
 
-The [periodic reviewer-team proposal](REVIEW_CADENCE_PROPOSAL.md) records the suggested five-checkpoint cadence. It is not an adopted automation or mandatory review gate.
+The accepted [periodic reviewer policy](REVIEW_CADENCE_PROPOSAL.md) runs game design, UX/onboarding, playtest and development-lead reviews every five playable checkpoints, adding visual/audio review every ten or after substantial presentation changes. Track completed outcomes and the next review in [the checkpoint ledger](CHECKPOINTS.md).
 
 ## How we take a chunk
 
