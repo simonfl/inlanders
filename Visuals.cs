@@ -46,8 +46,9 @@ public partial class Game : Node3D
         for (int x = -9; x <= 9; x++) for (int z = -8; z <= 8; z++)
         {
             float tint = (float)random.NextDouble() * 0.045f;
-            Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), GroundTint(x, z));
+            if(!_smoothGround)Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), GroundTint(x, z));
         }
+        if(_smoothGround)MakeOriginalGrass();
         foreach (var p in new[] { new Vector3(-9,0,-8), new(-6,0,-8), new(-9,0,-4), new(9,0,-7), new(9,0,-3), new(6,0,-8), new(-9,0,8), new(9,0,8) })
             MakeTree(p, 0.8f + (float)random.NextDouble() * 0.35f, new("698458")).Reparent(_landscape);
         for (int i = 0; i < 65; i++)

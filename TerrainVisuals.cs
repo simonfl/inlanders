@@ -23,14 +23,23 @@ public partial class Game
         var sides = new SurfaceTool(); sides.Begin(Godot.Mesh.PrimitiveType.Triangles);
         foreach (var cell in _world.Map.Land)
         {
-            var a = OnGround(cell.X-.5f,cell.Z-.5f); var b = OnGround(cell.X+.5f,cell.Z-.5f);
-            var c = OnGround(cell.X+.5f,cell.Z+.5f); var d = OnGround(cell.X-.5f,cell.Z+.5f);
+            bool flatBoxes=_world.Map.Heights.Length==0 && !_world.Map.RiverMeadow;
+            float lift=flatBoxes?.01f:0; // Match the former instanced grass-box top.
+            var a = OnGround(cell.X-.5f,cell.Z-.5f,lift); var b = OnGround(cell.X+.5f,cell.Z-.5f,lift);
+            var c = OnGround(cell.X+.5f,cell.Z+.5f,lift); var d = OnGround(cell.X-.5f,cell.Z+.5f,lift);
             var color = GroundTint(cell.X,cell.Z).Lightened(Height(cell.X,cell.Z)*.025f);
             if(_world.Map.RiverMeadow){MeadowTriangle(top,a,d,c);MeadowTriangle(top,a,c,b);}
+            else if(_smoothGround){GroundColorTriangle(top,a,d,c);GroundColorTriangle(top,a,c,b);}
             else {Triangle(top,a,d,c,color); Triangle(top,a,c,b,color);}
             void Edge(Vector3 first, Vector3 second, Cell neighbor)
             {
                 if (_world.Map.Contains(neighbor) && !_world.Map.Water.Contains(neighbor)) return;
+                if(flatBoxes)
+                {
+                    var lowerFirst=first with{Y=-.07f};var lowerSecond=second with{Y=-.07f};
+                    GroundColorTriangle(top,first,second,lowerSecond);GroundColorTriangle(top,first,lowerSecond,lowerFirst);
+                    first=lowerFirst;second=lowerSecond;
+                }
                 var lowFirst = first with { Y = -1.67f }; var lowSecond = second with { Y = -1.67f };
                 Triangle(sides,first,second,lowSecond,new("877d62")); Triangle(sides,first,lowSecond,lowFirst,new("877d62"));
             }
