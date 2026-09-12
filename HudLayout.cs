@@ -43,7 +43,7 @@ public partial class Game
     }
     private void ToggleDrawer(int index)
     {
-        CancelAreaRemoval();CancelBushMove();
+        CancelAreaRemoval();CancelBushMove();CancelTerrain();
         if (_drawer.Visible && _tabs.CurrentTab == index) { CloseDrawer(); return; }
         _tabs.CurrentTab = index; _drawerTitle.Text = MenuNames[index]; _drawer.Show();
         if (_hud.Size.X < 1100) _inspector.Hide();
@@ -58,10 +58,10 @@ public partial class Game
         _hintPanel.Position = new(left + Math.Max(0, (right - left - width) / 2), _bottomBar.Position.Y - _hintPanel.Size.Y - 10);
     }
     private void ClearSelection() { StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
-    private void CloseManagementUi() { CancelAreaRemoval();CancelBushMove();CancelRelocation(false);StopGoalsKeyboard();StopEconomyKeyboard();_economyFocusKey="survey";_economyReturnKey="survey";StopPeopleKeyboard();_peopleLastPerson=0; if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
+    private void CloseManagementUi() { CancelAreaRemoval();CancelBushMove();CancelTerrain();CancelRelocation(false);StopGoalsKeyboard();StopEconomyKeyboard();_economyFocusKey="survey";_economyReturnKey="survey";StopPeopleKeyboard();_peopleLastPerson=0; if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
         CancelDecorationStroke(); StopResourceSurvey(); _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
     private void SelectPerson(int id) { if(_peopleKeyboard && _peopleKeyboardPerson!=id)StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }
-    private void BeginPlacement(BuildingKind kind) { CancelAreaRemoval();CancelBushMove();DiscardRelocation();StopCatalogKeyboard();_catalogLastKind=kind; _woodlandTool=0; if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
+    private void BeginPlacement(BuildingKind kind) { CancelAreaRemoval();CancelBushMove();CancelTerrain();DiscardRelocation();StopCatalogKeyboard();_catalogLastKind=kind; _woodlandTool=0; if (_buildingFilter != null && _buildingFilter.Selected != 0 && _buildingFilter.Selected != BuildingCategory(kind)) _buildingFilter.Select(0); ClearSelection(); _pathTool = 0; _decorating = false; _buildKind = kind; _clearingTrees = false; _plantingTrees = false; _placing = true; RefreshGhost(); }
 }

@@ -19,8 +19,8 @@ public partial class Game
         using var surface=new SurfaceTool();surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
         for(int x=-9;x<=9;x++)for(int z=-8;z<=8;z++)
         {
-            var a=new Vector3(x-.5f,-.01f,z-.5f);var b=new Vector3(x+.5f,-.01f,z-.5f);
-            var c=new Vector3(x+.5f,-.01f,z+.5f);var d=new Vector3(x-.5f,-.01f,z+.5f);
+            var a=OnGround(x-.5f,z-.5f,-.01f);var b=OnGround(x+.5f,z-.5f,-.01f);
+            var c=OnGround(x+.5f,z+.5f,-.01f);var d=OnGround(x-.5f,z+.5f,-.01f);
             GroundColorTriangle(surface,a,d,c);GroundColorTriangle(surface,a,c,b);
             void Rim(Vector3 p,Vector3 q){GroundColorTriangle(surface,p,q,q with{Y=-.08f});GroundColorTriangle(surface,p,q with{Y=-.08f},p with{Y=-.08f});}
             if(z==-8)Rim(a,b);if(x==9)Rim(b,c);if(z==8)Rim(c,d);if(x==-9)Rim(d,a);

@@ -46,16 +46,16 @@ public partial class Game : Node3D
         for (int x = -9; x <= 9; x++) for (int z = -8; z <= 8; z++)
         {
             float tint = (float)random.NextDouble() * 0.045f;
-            if(!_smoothGround)Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), GroundTint(x, z));
+            if(!_smoothGround && _world.Map.Heights.Length==0 && _terrainRenderMap==null)Box(_landscape, new(x, -0.045f, z), new(1.0f, 0.07f, 1.0f), GroundTint(x, z));
         }
-        if(_smoothGround)MakeOriginalGrass();
+        if(_smoothGround || _world.Map.Heights.Length>0 || _terrainRenderMap!=null)MakeOriginalGrass();
         foreach (var p in new[] { new Vector3(-9,0,-8), new(-6,0,-8), new(-9,0,-4), new(9,0,-7), new(9,0,-3), new(6,0,-8), new(-9,0,8), new(9,0,8) })
-            MakeTree(p, 0.8f + (float)random.NextDouble() * 0.35f, new("698458")).Reparent(_landscape);
+            MakeTree(p with{Y=Height(p.X,p.Z)}, 0.8f + (float)random.NextDouble() * 0.35f, new("698458")).Reparent(_landscape);
         for (int i = 0; i < 65; i++)
         {
             float x = (float)random.NextDouble() * 18 - 9, z = (float)random.NextDouble() * 16 - 8;
             if (Math.Abs(x) < 7.5f && Math.Abs(z) < 6.5f) continue;
-            var rock = Mesh(_landscape, new SphereMesh { Radius = 0.22f, Height = 0.36f, RadialSegments = 5, Rings = 3 }, new(x, 0.04f, z), new("b7b299"));
+            var rock = Mesh(_landscape, new SphereMesh { Radius = 0.22f, Height = 0.36f, RadialSegments = 5, Rings = 3 }, OnGround(x,z,.04f), new("b7b299"));
             rock.Scale = new(1.5f, 0.8f, 1);
         }
         MakeYard();

@@ -4,7 +4,7 @@ using System;
 
 public partial class Game
 {
-    private float Height(float x, float z) => _world.Map.SurfaceHeight(x, z);
+    private float Height(float x, float z) => (_terrainRenderMap??_world.Map).SurfaceHeight(x, z);
     private Vector3 OnGround(float x, float z, float lift = 0) => new(x, Height(x,z) + lift, z);
     private static void Triangle(SurfaceTool surface, Vector3 a, Vector3 b, Vector3 c, Color color)
     {
@@ -72,7 +72,7 @@ public partial class Game
     private Vector3? Ground(Vector2 screen)
     {
         var origin=_camera.ProjectRayOrigin(screen); var direction=_camera.ProjectRayNormal(screen);
-        if (_world.Map.Heights.Length == 0) return new Plane(Vector3.Up,0).IntersectsRay(origin,direction);
+        if (_terrainRenderMap==null && _world.Map.Heights.Length == 0) return new Plane(Vector3.Up,0).IntersectsRay(origin,direction);
         float closest=float.PositiveInfinity;
         void Hit(Vector3 a, Vector3 b, Vector3 c)
         {
