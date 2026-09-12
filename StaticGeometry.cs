@@ -6,7 +6,7 @@ public partial class Game
 {
     // Bake only fixed, ordinary primitive pieces within one model/stage. Named
     // displays and child rigs retain their identity for animation and buffer updates.
-    private void BatchStaticGeometry(Node3D parent)
+    private void BatchStaticGeometry(Node3D parent,bool includeBaked=false)
     {
         var pieces=new List<(MeshInstance3D Mesh,Transform3D Transform)>();
         void Collect(Node3D node,Transform3D transform)
@@ -15,7 +15,7 @@ public partial class Game
             {
                 if(!child.Name.ToString().StartsWith("@") || !child.Visible || child.GetGroups().Count>0) continue;
                 var local=transform*child.Transform;
-                if(child is MeshInstance3D m && m.GetChildCount()==0 && m.Mesh is BoxMesh or CylinderMesh or SphereMesh &&
+                if(child is MeshInstance3D m && m.GetChildCount()==0 && (m.Mesh is BoxMesh or CylinderMesh or SphereMesh || includeBaked && m.Mesh is ArrayMesh array && array.GetSurfaceCount()==1) &&
                     m.MaterialOverride is StandardMaterial3D material &&
                     material.Transparency==BaseMaterial3D.TransparencyEnum.Disabled &&
                     material.ShadingMode==BaseMaterial3D.ShadingModeEnum.PerPixel &&

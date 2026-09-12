@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--large-village")) { _paused=true;await ProfileLargeVillage();return; }
         if(OS.GetCmdlineUserArgs().Contains("--restoration-views")) { _paused=true;await CheckRestorationViews();return; }
         if(OS.GetCmdlineUserArgs().Contains("--people-keyboard")) { _paused=true;await CheckPeopleKeyboard();return; }
         if(OS.GetCmdlineUserArgs().Contains("--civic-identities")) { _paused=true;await CheckCivicIdentities();return; }

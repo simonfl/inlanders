@@ -2,10 +2,12 @@ using Godot;
 using Inlanders.Simulation;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 public partial class Game
 {
     private bool _decorating, _removeDecoration;
+    private bool _batchDecorationClusters=true;
     private DecorationKind _decorationKind;
     private OptionButton _decorationChoice = null!;
     private Button _decorateButton = null!, _eraseDecorationButton = null!;
@@ -62,10 +64,17 @@ public partial class Game
         if(_decorationView==null) { _decorationView=new(); AddChild(_decorationView); }
         if(_decorationWorld==_world && _decorationRevision==_world.DecorationRevision) { UpdateFencePreviewVisibility(); return; }
         Clear(_decorationView); _fenceBodies.Clear(); _decorationWorld=_world; _decorationRevision=_world.DecorationRevision;
+        var clusters=new Dictionary<(int,int),Node3D>();
         foreach(var decoration in _world.Decorations)
         {
             var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind == DecorationKind.Fence ? Basis.Identity : decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
-            _decorationView.AddChild(body);
+            if(_batchDecorationClusters && decoration.Kind!=DecorationKind.Fence)
+            {
+                var key=((int)MathF.Floor(decoration.Cell.X/8f),(int)MathF.Floor(decoration.Cell.Z/8f));
+                if(!clusters.TryGetValue(key,out var cluster)){cluster=new Node3D();clusters[key]=cluster;_decorationView.AddChild(cluster);}
+                cluster.AddChild(body);
+            }
+            else _decorationView.AddChild(body);
             if (decoration.Kind == DecorationKind.Pebbles)
             {
                 body.Transform = Transform3D.Identity;
@@ -81,6 +90,7 @@ public partial class Game
             else if(decoration.Kind==DecorationKind.Fence) { _fenceBodies[decoration.Cell]=body;MakeFence(body,decoration.Cell,decoration.Rotated,FenceConnections(decoration.Cell)); }
             else MakeDecoration(body,decoration.Kind);
         }
+        foreach(var cluster in clusters.Values)BatchStaticGeometry(cluster,true);
         if(_placing && _decorating) RefreshGhost();
         UpdateFencePreviewVisibility();
     }

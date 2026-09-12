@@ -1,0 +1,512 @@
+[
+  {
+    "fixture": "ordinary",
+    "mode": "render-floor",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 0,
+    "movingFrames": 2880,
+    "adoptionCpuMs": 123.551,
+    "adoptionThroughFirstFrameMs": 728.3585,
+    "frameMs": {
+      "median": 9.128,
+      "p95": 12.699,
+      "max": 14.445
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.001,
+      "max": 0.0044
+    },
+    "sceneCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0021,
+      "max": 0.0087
+    },
+    "uiCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0001,
+      "max": 0.0002
+    },
+    "audioCpuMs": {
+      "median": 0,
+      "p95": 0.0001,
+      "max": 0.01
+    },
+    "draws": 2002,
+    "objects": 2126,
+    "nodes": 3182
+  },
+  {
+    "fixture": "ordinary",
+    "mode": "live-1x",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 20,
+    "cargoFrames": 0,
+    "movingFrames": 2675,
+    "adoptionCpuMs": 112.861,
+    "adoptionThroughFirstFrameMs": 504.4436,
+    "frameMs": {
+      "median": 10.34,
+      "p95": 14.151,
+      "max": 240.187
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0611,
+      "max": 0.0999
+    },
+    "sceneCpuMs": {
+      "median": 0.6262,
+      "p95": 0.9149,
+      "max": 2.358
+    },
+    "uiCpuMs": {
+      "median": 0.7198,
+      "p95": 1.068,
+      "max": 7.005
+    },
+    "audioCpuMs": {
+      "median": 0.016,
+      "p95": 0.0518,
+      "max": 1.9124
+    },
+    "draws": 2025,
+    "objects": 2148,
+    "nodes": 3183
+  },
+  {
+    "fixture": "ordinary",
+    "mode": "live-4x",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 4,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 85,
+    "cargoFrames": 400,
+    "movingFrames": 1756,
+    "adoptionCpuMs": 73.6519,
+    "adoptionThroughFirstFrameMs": 341.7964,
+    "frameMs": {
+      "median": 11.222,
+      "p95": 15.125,
+      "max": 40.931
+    },
+    "simulationCpuMs": {
+      "median": 0.0003,
+      "p95": 0.0886,
+      "max": 1.0843
+    },
+    "sceneCpuMs": {
+      "median": 0.6821,
+      "p95": 1.111,
+      "max": 4.054
+    },
+    "uiCpuMs": {
+      "median": 0.6918,
+      "p95": 1.0749,
+      "max": 4.3641
+    },
+    "audioCpuMs": {
+      "median": 0.0153,
+      "p95": 0.0513,
+      "max": 0.0959
+    },
+    "draws": 2049,
+    "objects": 2172,
+    "nodes": 3177
+  },
+  {
+    "fixture": "ordinary",
+    "mode": "orbit-1x",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 20,
+    "cargoFrames": 0,
+    "movingFrames": 2687,
+    "adoptionCpuMs": 67.7347,
+    "adoptionThroughFirstFrameMs": 403.2391,
+    "frameMs": {
+      "median": 10.859,
+      "p95": 13.518,
+      "max": 42.207
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0522,
+      "max": 0.0759
+    },
+    "sceneCpuMs": {
+      "median": 0.6255,
+      "p95": 0.7766,
+      "max": 1.0822
+    },
+    "uiCpuMs": {
+      "median": 0.6845,
+      "p95": 0.9727,
+      "max": 4.8157
+    },
+    "audioCpuMs": {
+      "median": 0.015,
+      "p95": 0.0458,
+      "max": 0.0794
+    },
+    "draws": 2236,
+    "objects": 2359,
+    "nodes": 3183
+  },
+  {
+    "fixture": "ordinary",
+    "mode": "economy-1x",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 22,
+    "cargoFrames": 0,
+    "movingFrames": 2644,
+    "adoptionCpuMs": 65.5594,
+    "adoptionThroughFirstFrameMs": 467.5629,
+    "frameMs": {
+      "median": 11.402,
+      "p95": 13.909,
+      "max": 362.951
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0522,
+      "max": 0.0839
+    },
+    "sceneCpuMs": {
+      "median": 0.6177,
+      "p95": 0.7817,
+      "max": 1.1321
+    },
+    "uiCpuMs": {
+      "median": 0.7083,
+      "p95": 0.9956,
+      "max": 3.3925
+    },
+    "audioCpuMs": {
+      "median": 0.0147,
+      "p95": 0.0447,
+      "max": 0.0754
+    },
+    "draws": 2039,
+    "objects": 3030,
+    "nodes": 3183
+  },
+  {
+    "fixture": "dense",
+    "mode": "render-floor",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 1080,
+    "movingFrames": 2340,
+    "adoptionCpuMs": 97.3118,
+    "adoptionThroughFirstFrameMs": 733.6951,
+    "frameMs": {
+      "median": 18.945,
+      "p95": 24.119,
+      "max": 26.315
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0003,
+      "max": 0.0004
+    },
+    "sceneCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0002,
+      "max": 0.0004
+    },
+    "uiCpuMs": {
+      "median": 0,
+      "p95": 0.0001,
+      "max": 0.0001
+    },
+    "audioCpuMs": {
+      "median": 0,
+      "p95": 0.0001,
+      "max": 0.0001
+    },
+    "draws": 3802,
+    "objects": 3926,
+    "nodes": 4777
+  },
+  {
+    "fixture": "dense",
+    "mode": "live-1x",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 39,
+    "cargoFrames": 1194,
+    "movingFrames": 1883,
+    "adoptionCpuMs": 201.6887,
+    "adoptionThroughFirstFrameMs": 1033.7281,
+    "frameMs": {
+      "median": 20.398,
+      "p95": 26.749,
+      "max": 185.97
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.1613,
+      "max": 2.8596
+    },
+    "sceneCpuMs": {
+      "median": 0.9866,
+      "p95": 3.106,
+      "max": 129.6784
+    },
+    "uiCpuMs": {
+      "median": 0.8258,
+      "p95": 1.2511,
+      "max": 7.5857
+    },
+    "audioCpuMs": {
+      "median": 0.0169,
+      "p95": 0.0606,
+      "max": 0.3664
+    },
+    "draws": 3843,
+    "objects": 3966,
+    "nodes": 4785
+  },
+  {
+    "fixture": "dense",
+    "mode": "live-4x",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 4,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 169,
+    "cargoFrames": 1082,
+    "movingFrames": 2117,
+    "adoptionCpuMs": 110.7072,
+    "adoptionThroughFirstFrameMs": 834.0382,
+    "frameMs": {
+      "median": 22.06,
+      "p95": 30.836,
+      "max": 122.733
+    },
+    "simulationCpuMs": {
+      "median": 0.0728,
+      "p95": 2.0859,
+      "max": 9.379
+    },
+    "sceneCpuMs": {
+      "median": 0.9802,
+      "p95": 5.2449,
+      "max": 45.4802
+    },
+    "uiCpuMs": {
+      "median": 0.8524,
+      "p95": 1.1681,
+      "max": 2.4922
+    },
+    "audioCpuMs": {
+      "median": 0.0175,
+      "p95": 0.0536,
+      "max": 0.072
+    },
+    "draws": 3953,
+    "objects": 4076,
+    "nodes": 4831
+  },
+  {
+    "fixture": "dense",
+    "mode": "orbit-1x",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 39,
+    "cargoFrames": 1206,
+    "movingFrames": 1892,
+    "adoptionCpuMs": 97.2159,
+    "adoptionThroughFirstFrameMs": 846.5786,
+    "frameMs": {
+      "median": 20.717,
+      "p95": 26.591,
+      "max": 1159.315
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.1695,
+      "max": 2.0331
+    },
+    "sceneCpuMs": {
+      "median": 1.0177,
+      "p95": 3.3423,
+      "max": 334.1316
+    },
+    "uiCpuMs": {
+      "median": 0.8372,
+      "p95": 1.0452,
+      "max": 9.4598
+    },
+    "audioCpuMs": {
+      "median": 0.0162,
+      "p95": 0.052,
+      "max": 0.0809
+    },
+    "draws": 3154,
+    "objects": 3277,
+    "nodes": 4785
+  },
+  {
+    "fixture": "dense",
+    "mode": "economy-1x",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 43,
+    "cargoFrames": 1250,
+    "movingFrames": 1907,
+    "adoptionCpuMs": 97.299,
+    "adoptionThroughFirstFrameMs": 794.9422,
+    "frameMs": {
+      "median": 22.605,
+      "p95": 29.937,
+      "max": 353.191
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.3856,
+      "max": 2.1266
+    },
+    "sceneCpuMs": {
+      "median": 0.9669,
+      "p95": 3.3169,
+      "max": 161.501
+    },
+    "uiCpuMs": {
+      "median": 0.856,
+      "p95": 1.3145,
+      "max": 5.1625
+    },
+    "audioCpuMs": {
+      "median": 0.017,
+      "p95": 0.0577,
+      "max": 0.1418
+    },
+    "draws": 3864,
+    "objects": 4856,
+    "nodes": 4785
+  }
+]

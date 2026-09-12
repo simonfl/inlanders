@@ -1,0 +1,206 @@
+[
+  {
+    "fixture": "ordinary",
+    "mode": "render-floor",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 0,
+    "movingFrames": 2880,
+    "adoptionCpuMs": 118.7209,
+    "adoptionThroughFirstFrameMs": 704.7666,
+    "frameMs": {
+      "median": 8.938,
+      "p95": 12.501,
+      "max": 12.837
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0009,
+      "max": 0.0037
+    },
+    "sceneCpuMs": {
+      "median": 0.0022,
+      "p95": 0.0029,
+      "max": 0.0033
+    },
+    "uiCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0002,
+      "max": 0.0002
+    },
+    "audioCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0002,
+      "max": 0.0102
+    },
+    "draws": 2002,
+    "objects": 2126,
+    "nodes": 3182
+  },
+  {
+    "fixture": "ordinary",
+    "mode": "render-no-decor",
+    "population": 20,
+    "buildings": 22,
+    "paths": 0,
+    "decorations": 0,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 0,
+    "movingFrames": 2880,
+    "adoptionCpuMs": 114.099,
+    "adoptionThroughFirstFrameMs": 489.6389,
+    "frameMs": {
+      "median": 9.208,
+      "p95": 13.124,
+      "max": 22.715
+    },
+    "simulationCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0003,
+      "max": 0.0004
+    },
+    "sceneCpuMs": {
+      "median": 0.0021,
+      "p95": 0.0028,
+      "max": 0.0101
+    },
+    "uiCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0001,
+      "max": 0.0002
+    },
+    "audioCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0001,
+      "max": 0.0001
+    },
+    "draws": 2002,
+    "objects": 2126,
+    "nodes": 3182
+  },
+  {
+    "fixture": "dense",
+    "mode": "render-floor",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 1080,
+    "movingFrames": 2340,
+    "adoptionCpuMs": 90.9742,
+    "adoptionThroughFirstFrameMs": 819.4028,
+    "frameMs": {
+      "median": 18.322,
+      "p95": 23.949,
+      "max": 128.941
+    },
+    "simulationCpuMs": {
+      "median": 0.0002,
+      "p95": 0.0003,
+      "max": 0.0004
+    },
+    "sceneCpuMs": {
+      "median": 0.0023,
+      "p95": 0.003,
+      "max": 0.0164
+    },
+    "uiCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0002,
+      "max": 0.0002
+    },
+    "audioCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0001,
+      "max": 0.0002
+    },
+    "draws": 3802,
+    "objects": 3926,
+    "nodes": 4777
+  },
+  {
+    "fixture": "dense",
+    "mode": "render-no-decor",
+    "population": 32,
+    "buildings": 30,
+    "paths": 51,
+    "decorations": 104,
+    "mapWidth": 36,
+    "mapDepth": 22,
+    "resolution": "1440x900",
+    "zoom": 32,
+    "speed": 1,
+    "vsync": "Disabled",
+    "maxFps": 0,
+    "renderer": "gl_compatibility",
+    "adapter": "Intel(R) Iris(R) Xe Graphics",
+    "samples": 180,
+    "ticks": 0,
+    "cargoFrames": 1080,
+    "movingFrames": 2340,
+    "adoptionCpuMs": 91.5088,
+    "adoptionThroughFirstFrameMs": 810.6651,
+    "frameMs": {
+      "median": 14.479,
+      "p95": 18.981,
+      "max": 86.122
+    },
+    "simulationCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0003,
+      "max": 0.0004
+    },
+    "sceneCpuMs": {
+      "median": 0.0022,
+      "p95": 0.0028,
+      "max": 0.0167
+    },
+    "uiCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0002,
+      "max": 0.0106
+    },
+    "audioCpuMs": {
+      "median": 0.0001,
+      "p95": 0.0001,
+      "max": 0.0001
+    },
+    "draws": 3085,
+    "objects": 3209,
+    "nodes": 4777
+  }
+]

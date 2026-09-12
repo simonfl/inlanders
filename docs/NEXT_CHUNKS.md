@@ -27,17 +27,19 @@ Capture the current mix in the same quiet, busy construction/production and wate
 
 Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). The restoration experiment is also delivered; continue with performance below.
+F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). The restoration experiment is also delivered; continue with the remaining long-frame investigation below.
 
 F25d2 is [delivered](RESTORATION_F25D2.md). The crossing shortens the route, but staged restoration adds no second commitment; separate F25d3 crossing integration is cut. Keep the ordinary bridge option and require a new functional brief before reopening restoration.
 
-## 1. F23c2 — representative larger-village performance
+F23c2 is [delivered](LARGE_VILLAGE_F23C2.md): real 20/32-resident profiles, an isolated decoration cost and regional ornament batching. Typical dense frames improved; isolated long stalls remain unresolved.
 
-**Outcome:** know how much village we can comfortably support on this Windows machine and remove a demonstrated bottleneck if present.
+## 1. F23c3 — diagnose intermittent long frames
 
-Use an ordinary established settlement and a denser decorated version with actual residents, workplaces, cargo and paths. State population, objects, resolution, camera, speed, renderer and frame-sync settings. Measure steady state, camera motion and management opening; separate simulation work, rendering cost and one-off scene construction. Preserve the original fixture and comparable settings.
+**Outcome:** determine whether the observed stalls are reproducible game work and remove one supported cause.
 
-Implement at most the most significant measured bottleneck, if one threatens the intended experience. Validate identical simulation continuation and visible quantities before/after; record frame-time distributions rather than only average FPS. If the representative village already runs comfortably, deliver the measurements and stop. No renderer rewrite or larger map/population claim from a tiny test scene.
+Use the preserved larger-village snapshots. Compare longer cold/warm runs, including normal `_Process` rather than only the manual timing harness. Warm actual simulation/render state, not just frozen frames. Record frame outliers alongside fixed ticks, actor and food-view rebuilds, geometry creation, allocations/GC and engine/render waits. Keep renderer, window, camera, speed and sync settings explicit. Separate scene adoption and menu opening from sustained play; do not attribute a long frame to the GPU from residual wall time alone.
+
+If a particular rebuild or allocation reliably coincides with stalls, make one bounded correction and replay the same events to check it. Preserve actual crop/cargo/building changes and current saves. If the cause is only host/driver noise or cannot be reproduced, record that result without an unsupported architecture rewrite. Do not use a lower median to claim the tail is fixed. This follows measured outliers; it is not a blanket performance rewrite.
 
 ## 2. F10b2 — listen and refine the mix
 
