@@ -4,7 +4,7 @@ public partial class Game
 {
     private void MakeForagerHut(Node3D parent,int stage)
     {
-        var poles=new Color("806748");var weave=new Color("a99165");
+        var poles=new Color("665039");var weave=new Color("bea275");
         // Separate feet leave the woodland floor visible through the open shelter.
         foreach(float x in new[]{-1.13f,1.13f}) foreach(float z in new[]{-.70f,.61f})
             StoneFoot(parent,new(x,.10f,z),new(.32f,.18f,.32f));
@@ -36,7 +36,8 @@ public partial class Game
             for(int panel=-1;panel<=1;panel++)
             {
                 // Each course sits slightly above the previous slope; coplanar overlaps flicker.
-                var course=Box(parent,new(panel*.94f,2.38f-row*.150f,z),new(.93f,.17f,.53f),new Color("75866c").Lightened(((row+panel+3)%3)*.035f));
+                // Warm bark roofing separates the shelter from meadow and foliage.
+                var course=Box(parent,new(panel*.94f,2.38f-row*.150f,z),new(.93f,.17f,.53f),new Color("89664f").Lightened(((row+panel+3)%3)*.035f));
                 course.RotationDegrees=new(20.8f,0,0);
             }
         }

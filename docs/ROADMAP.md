@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F23b12 village-scale building readability can proceed independently. F11c/F18c diagnostic review is delivered; human first-play feedback remains open. F16c Creative relocation is delivered.** [F05c](ORCHARDS_F05C.md) delivers orchards, visible establishment/repeated picking and distinct fruit in the existing food loop. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F17b1 music sequencing and quiet intervals can proceed independently. F23b12 shelter readability is delivered. F11c/F18c diagnostic review is delivered; human first-play feedback remains open. F16c Creative relocation is delivered.** [F05c](ORCHARDS_F05C.md) delivers orchards, visible establishment/repeated picking and distinct fruit in the existing food loop. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F23b12 | Scoped review | Compare the forager shelter in the populated opening scene at ordinary zoom; improve material/depth separation if matched views support it. |
+| 3 | F17b1 | Scoped | Implement bounded music sequencing and quiet intervals; preserve playback through menus, saves and pause. New themes and mix judgement remain subject to listening. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b12 | Warmer forager roof, darker poles and lighter rear weave; matched populated four-way captures, construction, delivery, previews and saves. [Review](FORAGER_READABILITY_F23B12.md). |
 | F11c / F18c | Opening/lake diagnostic review, contextual hunger recovery, actual shortage and alternative/recovery routes, 960/1440 visible guidance. Human first-play remains open. [Review](CAMPAIGN_REVIEW_F11C.md). |
 | F16c | Creative inspector Move, stateful four-way preview, live validation, cancellation and retained building identity/goods. [UI and verification](RELOCATION_UI_F16C2.md). |
 | F05c | Orchards: 4 logs, shared farmers, three-minute establishment, minute-long repeat growth, eight fruit, visible picking/carrying, distinct food accounting and pantry service. Four orientations, targets/interruption/recovery, save 34, real meal comparisons, full simulation and HUD pass. [Review](ORCHARDS_F05C.md). |
@@ -254,7 +255,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F03 / F22 — Work and construction presentation | Smoother interruption/stance transitions, character variation, material piles/scaffolding and smoother crop growth. Logging falls and distinct field harvesting have shipped; judge their readability in ordinary village play before adding particles or more motions. |
 | F05 — Food choices | Orchard comparison and playable integration delivered in F05b/c. Orchard campaign use remains behind feedback; recipe variety, garden/grain balance and further diet choices remain candidates. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
-| F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
+| F16 — Creative | Relocation delivered in F16c; multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
 | F07 — Storage and hauling | Yard visuals shipped in F23b5; loose-source stacks are F23c1. Review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
 | F08 — Materials | More plank/stone consumers and upgrades. Mixed plank/stone construction shipped with the hall; local stone storage remains a candidate. Adjustable workplace stock targets shipped in F21h. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
