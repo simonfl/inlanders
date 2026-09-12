@@ -30,10 +30,10 @@ public partial class Game
             FoodSign(body,deposit.Remaining>0?$"STONE {deposit.Remaining}":"EXHAUSTED",1.5f);
             _depositViews[deposit.Id]=(body,deposit.Remaining);
         }
-        if(_shownStone==_world.Stone) return;
-        _shownStone=_world.Stone; _stoneStoreView?.QueueFree(); _stoneStoreView=new(); _dynamic.AddChild(_stoneStoreView);
+        if(_shownStone==_world.YardStone) return;
+        _shownStone=_world.YardStone; _stoneStoreView?.QueueFree(); _stoneStoreView=new(); _dynamic.AddChild(_stoneStoreView);
         _stoneStoreView.Position=OnGround(_world.Stockpile.X-1.1f,_world.Stockpile.Z+1.1f);
-        for(int i=0;i<Math.Min(12,_world.Stone);i++) StonePiece(_stoneStoreView,new(i%3*.3f,.12f+i/6*.23f,i%6/3*.3f),.17f);
+        for(int i=0;i<Math.Min(12,_world.YardStone);i++) StonePiece(_stoneStoreView,new(i%3*.3f,.12f+i/6*.23f,i%6/3*.3f),.17f);
     }
     private void MakeQuarryCamp(Node3D parent,int stage)
     {

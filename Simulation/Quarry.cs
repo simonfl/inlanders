@@ -22,9 +22,11 @@ public sealed partial class MapLayout
 public sealed partial class World
 {
     private int _stone;
-    public int Stone => _stone;
+    public int YardStone => _stone;
+    public int Stone => _stone+Cottages.Sum(c=>c.StoredStone);
     public int QuarriedStone { get; private set; }
-    public int AvailableStone => Stone-ReservedMaterialAt(null,Resource.Stone);
+    public int ReservedStone => People.Where(v=>v.Cargo==Resource.Stone && v.Task is Work.ToMaterials or Work.ToHaulPickup).Sum(v=>v.Reserved);
+    public int AvailableStone => Stone-ReservedStone;
     public int AvailableDeposit(StoneDeposit deposit) => deposit.Remaining-People.Where(p=>p.DepositId==deposit.Id).Sum(p=>p.Reserved);
     private IEnumerable<StoneDeposit> QuarryDeposits(Cottage camp) => Map.StoneDeposits.Where(d=>(d.Cell.Point-camp.Cell.Point).LengthSquared()<=16 && Accessible(d.Access));
     public string QuarrySurvey(Cell cell) => string.Join("\n",Map.StoneDeposits.Where(d=>(d.Cell.Point-cell.Point).LengthSquared()<=16)

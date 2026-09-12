@@ -42,7 +42,7 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 35; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 36; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
@@ -137,11 +137,11 @@ Timber-yard racks summarize reserves (up to 24 visible logs and 18 planks); use 
 
 Loose timber and salvage show up to 12 pieces. Larger piles have an exact quantity label, which follows the World labels preference. Loggers still collect every unit; clearing an exhausted stump works normally. Run `./Play.ps1 -LooseStockSmokeTest` for large-source collection and rendering checks.
 
-Build a **Stockpile** for **4 logs** near timber production and construction. Each holds **12 logs or 12 planks**, one material at a time, and starts with a target of **6**. Choose its material in the inspector, including while it is under construction. Local logger/sawyer deposits and builder pickups need **no hauler**. Assign an optional **Hauler** to redistribute stocks. Use **− 2 target / + 2 target** to change the target from 0 to 12.
+Build a **Stockpile** for **4 logs** near timber production and construction. Each holds **12 logs, 12 planks or 12 stone**, one material at a time, and starts with a target of **6**. Choose its material in the inspector, including while it is under construction. Local logger/sawyer/quarrier deposits and builder pickups need **no hauler**. Assign an optional **Hauler** to redistribute stocks. Use **− 2 target / + 2 target** to change the target from 0 to 12.
 
-Producers drop timber at nearby matching storage with room. Builders collect near their work site; sawyers collect logs locally. Haulers carry two matching units at a time, refill targets from central storage or another pile's surplus, and return excess. Target **0** drains a stockpile; already committed loads finish. Producers may still deliver, so target zero does not close the pile. To change material, stop incoming production, drain it, and wait for committed trips to finish.
+Producers drop materials at nearby matching storage with room. Builders collect near their work site; sawyers collect logs locally. Haulers carry two matching units at a time, refill targets from central storage or another pile's surplus, and return excess. Target **0** drains a stockpile; already committed loads finish. Producers may still deliver, so target zero does not close the pile. To change material, stop incoming production, drain it, and wait for committed trips to finish.
 
-A pile is an investment: a nearby plank pile reduced travel for a remote mill/lodge cluster in the [logistics experiment](docs/LOGISTICS_F07B.md), while an awkward pile added work. Logs and Planks totals include central and local stores. Inspect stored, reserved and incoming counts; **Economy [I]** lists locations. The pile displays its actual logs or planks. Normal demolition evacuates stored goods before dismantling; Creative removal returns them immediately. Edible food can also use neighborhood pantries; grain stays central. Run `./Play.ps1 -PlankStorageSmokeTest` for the rendered check.
+A pile is an investment: a nearby plank pile reduced travel for a remote mill/lodge cluster in the [logistics experiment](docs/LOGISTICS_F07B.md), while an awkward pile added work. Logs, Planks and Stone totals include central and local stores. Inspect stored, reserved and incoming counts; **Economy [I]** lists locations. The pile displays its actual logs, planks or stone. Normal demolition evacuates stored goods before dismantling; Creative removal returns them immediately. Edible food can also use neighborhood pantries; grain stays central. Run `./Play.ps1 -PlankStorageSmokeTest` for the rendered check.
 
 ### Welcoming newcomers
 
@@ -217,7 +217,7 @@ Mature trees within five tiles of a habitat marker support its stock: two capaci
 
 ### Stone and the gathering hall
 
-Start fresh Three clearings to find two finite stone outcrops. A quarry camp costs 6 logs and supports one quarrier; place it within four tiles of a reachable outcrop. Workers extract and carry stone to central storage. Pause/stock targets conserve the remaining deposit. Local stockpiles still hold logs or planks.
+Start fresh Three clearings to find two finite stone outcrops. A quarry camp costs 6 logs and supports one quarrier; place it within four tiles of a reachable outcrop. Workers extract and carry stone to central storage or a nearby stone stockpile with room. Pause/stock targets conserve the remaining deposit. Optional local piles can shorten quarry-to-project trips without a hauler; see the [complete-project comparison](docs/STONE_STORAGE_F07D2.md).
 
 A gathering hall costs 8 planks + 12 stone. It serves eight residents with 12-second visits, four minutes of recreation benefit and two minutes between outings. Squares remain cheaper, quicker alternatives. Builders deliver and recover both materials physically. See [the prototype findings](docs/QUARRY_HALL_F26B1.md); run `./Play.ps1 -QuarrySmokeTest` for the rendered check.
 
@@ -419,4 +419,4 @@ Cottage finish checks: `./Play.ps1 -CottageFinishSmokeTest` verifies live swatch
 
 **Creative area removal:** Build → Landscape → Remove an area. Drag to select whole buildings, decorations and paths, then confirm. Escape/right-click cancels. Trees, resources and terrain stay; unsafe groups are rejected without partial removal.
 
-**Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 35 requires fresh saves.
+**Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 36 requires fresh saves.

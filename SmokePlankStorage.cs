@@ -35,9 +35,35 @@ public partial class Game
             SelectBuilding(pile.Id); await Frames();
             if(_storageMaterial.Disabled) throw new Exception("Drained pile cannot change material");
             _storageMaterial.EmitSignal(BaseButton.SignalName.Pressed); await Frames();
+            _storageMaterial.EmitSignal(BaseButton.SignalName.Pressed); await Frames();
             if(pile.StorageMaterial!=Resource.Logs || _cottages[pile.Id].Stage>=1000) throw new Exception("Empty pile material/model did not change");
-            GD.Print("PASS: planned material control, local plank delivery/model, occupied switch guard, current save, drain and material change at 960/1440."); GetTree().Quit();
+            await CheckStoneStorageUi();
+            GD.Print("PASS: plank regression and stone selection, hauling, stacks, reservations, current save and drain at 960/1440."); GetTree().Quit();
         }
         catch(Exception e) { GD.PrintErr(e); GetTree().Quit(1); }
+    }
+    private async System.Threading.Tasks.Task CheckStoneStorageUi()
+    {
+        async System.Threading.Tasks.Task Frames(){for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        foreach(int width in new[]{960,1440})
+        {
+            var w=World.NewCreative();foreach(var p in w.People)w.Assign(p.Id,Role.Unassigned);
+            var pile=w.Place(new(3,0),width==960?1:3,BuildingKind.Stockpile)!;
+            AdoptWorld(w);_paused=true;GetWindow().Size=new(width,width==960?640:900);SelectBuilding(pile.Id);await Frames();
+            _inspectionScroll.EnsureControlVisible(_storageMaterial);await Frames();
+            await UiClick(_storageMaterial);await Frames();await UiClick(_storageMaterial);await Frames();
+            if(pile.StorageMaterial!=Resource.Stone || !_storageMaterial.Text.Contains("Stone"))throw new Exception("Stone selection through UI failed");
+            w.SetCreativeCentralStock(Resource.Stone,20);w.SetStorageTarget(pile.Id,12);w.Assign(0,Role.Hauler);
+            for(int i=0;i<6000 && pile.StoredStone<12;i++){w.Tick(.1f);w.Validate();}
+            await Frames();
+            if(pile.StoredStone!=12 || _cottages[pile.Id].Stage<2000 || !_storageMaterial.Disabled || !_siteInfo.Text.Contains("Stone") || _shownStone!=w.YardStone)throw new Exception("Stone model, central/local split or inspector missing");
+            _focus=new(3,0,0);_camera.Size=12;UpdateCamera();await Frames();await Capture($"artifacts/stone-staging/stone-pile-{width}.png");
+            string saved=w.SaveJson();AdoptWorld(World.LoadJson(saved));_paused=true;SelectBuilding(pile.Id);await Frames();
+            if(_world.SaveJson()!=saved)throw new Exception("Stone UI reload changed inventory");
+            w=_world;pile=w.Cottages.Single(c=>c.Id==pile.Id);w.SetStorageTarget(pile.Id,0);
+            for(int i=0;i<6000 && w.StorageMaterialProblem(pile.Id)!=null;i++){w.Tick(.1f);w.Validate();}
+            await Frames();_inspectionScroll.EnsureControlVisible(_storageMaterial);await Frames();await UiClick(_storageMaterial);await Frames();
+            if(pile.StorageMaterial!=Resource.Logs || _cottages[pile.Id].Stage>=1000)throw new Exception("Stone drain/switch did not refresh model");
+        }
     }
 }

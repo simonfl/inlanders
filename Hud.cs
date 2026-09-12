@@ -239,7 +239,7 @@ public partial class Game
         // Conditional resource columns can grow the panel before their visibility settles.
         // Reapply the viewport width so switching villages can shrink it again.
         _topBar.Size=new(_hud.Size.X-32,68);
-        _resourceValues[Resource.Stone].GetParent<Control>().TooltipText=$"{_world.Stone-_world.AvailableStone} stone reserved. Central store; local piles currently hold logs or planks.";
+        _resourceValues[Resource.Stone].GetParent<Control>().TooltipText=$"{_world.Stone-_world.AvailableStone} stone reserved. {_world.YardStone} central · {_world.Stone-_world.YardStone} in local piles.";
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread))} / {_world.SupperCost}";
         _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread)) / (float)_world.SupperCost * 50;
         _supperButton.Disabled = !_world.CanCelebrate;
@@ -266,7 +266,7 @@ public partial class Game
         _siteInfo.Text = selected == null ? "" : $"{BuildingName(selected.Kind).ToUpperInvariant()} {selected.Id}\n\n" + (selected.Complete ? selected.Kind switch
         {
             BuildingKind.Carpenter => "One carpenter installs occupied-home improvements using planks. Order at a cottage or lodge; homes stay available during work.",
-            BuildingKind.Stockpile => $"{selected.StorageMaterial} storage · {_world.MaterialAt(selected.Id,selected.StorageMaterial)}/{World.StockpileCapacity}\n{_world.ReservedMaterialAt(selected.Id,selected.StorageMaterial)} reserved · {_world.IncomingMaterialAt(selected.Id,selected.StorageMaterial)} arriving\nTarget: {selected.StorageTarget} {selected.StorageMaterial}\nBuilders and sawyers collect here; haulers balance targets.",
+            BuildingKind.Stockpile => $"{selected.StorageMaterial} storage · {_world.MaterialAt(selected.Id,selected.StorageMaterial)}/{World.StockpileCapacity}\n{_world.ReservedMaterialAt(selected.Id,selected.StorageMaterial)} reserved · {_world.IncomingMaterialAt(selected.Id,selected.StorageMaterial)} arriving\nTarget: {selected.StorageTarget} {selected.StorageMaterial}\n{(selected.StorageMaterial==Resource.Logs?"Builders and sawyers":"Builders")} collect here; haulers balance targets.",
             BuildingKind.Cottage or BuildingKind.Lodge => $"{Buildings.Get(selected.Kind).Beds} beds ready\nResidents: {string.Join(", ",_world.People.Where(p=>p.HomeId==selected.Id).Select(p=>p.Name))}\n{_world.People.Count(p=>p.HomeId==selected.Id && p.Task==Work.Resting)} resting here. Change homes from a resident's inspector.",
             BuildingKind.Bridge => "Open crossing · no staff\nVillagers can walk across. Keep both banks clear.",
             BuildingKind.FishingDock => "Fishing dock · 1 fisher slot\nOne boat carries catches from shared fishing grounds to this landing.",

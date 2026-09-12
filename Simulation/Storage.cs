@@ -10,7 +10,9 @@ public sealed partial class World
     private IEnumerable<int?> MaterialStores(Resource material) => new int?[] { null }.Concat(Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete && !c.DemolitionRequested && c.StorageMaterial==material).Select(c => (int?)c.Id));
     private Cottage Store(int id) => Cottages.Single(c => c.Id == id && c.Kind == BuildingKind.Stockpile && c.Complete);
     private Cell StorageAccess(int? id) => id is int n ? Store(n).Entrance : YardAccess;
-    public int MaterialAt(int? id,Resource material) => material==Resource.Stone ? id==null ? _stone : 0 : id is int n ? material==Resource.Logs ? Store(n).StoredLogs : Store(n).StoredPlanks : material==Resource.Logs ? _yardLogs : _yardPlanks;
+    public int MaterialAt(int? id,Resource material) => id is int n
+        ? material switch { Resource.Logs=>Store(n).StoredLogs, Resource.Planks=>Store(n).StoredPlanks, Resource.Stone=>Store(n).StoredStone, _=>throw new ArgumentOutOfRangeException(nameof(material)) }
+        : material switch { Resource.Logs=>_yardLogs, Resource.Planks=>_yardPlanks, Resource.Stone=>_stone, _=>throw new ArgumentOutOfRangeException(nameof(material)) };
     public int LogsAt(int? id) => MaterialAt(id,Resource.Logs);
     public int ReservedLogsAt(int? id) => ReservedMaterialAt(id,Resource.Logs);
     public int IncomingLogsAt(int? id) => IncomingMaterialAt(id,Resource.Logs);
@@ -25,18 +27,18 @@ public sealed partial class World
     private void ChangeLogs(int? id,int amount) => ChangeMaterial(id,Resource.Logs,amount);
     private void ChangeMaterial(int? id,Resource material,int amount)
     {
-        if(id is int n) { if(material==Resource.Logs) Store(n).StoredLogs+=amount; else Store(n).StoredPlanks+=amount; }
+        if(id is int n) { if(material==Resource.Stone) Store(n).StoredStone+=amount; else if(material==Resource.Logs) Store(n).StoredLogs+=amount; else Store(n).StoredPlanks+=amount; }
         else if(material==Resource.Stone) _stone+=amount; else if(material==Resource.Logs) _yardLogs+=amount; else _yardPlanks+=amount;
     }
     public string? StorageMaterialProblem(int id)
     {
         var site=Cottages.FirstOrDefault(c=>c.Id==id && c.Kind==BuildingKind.Stockpile);
         return site==null ? "Choose a stockpile or its construction plan." : site.DemolitionRequested || Food.Celebrating ? "Wait until the current village order finishes." :
-            site.StoredLogs+site.StoredPlanks>0 || People.Any(p=>p.StorageId==id || p.HaulTargetId==id) ? "Drain the pile and wait for committed trips before changing its material." : null;
+            site.StoredLogs+site.StoredPlanks+site.StoredStone>0 || People.Any(p=>p.StorageId==id || p.HaulTargetId==id) ? "Drain the pile and wait for committed trips before changing its material." : null;
     }
     public bool SetStorageMaterial(int id,Resource material)
     {
-        if(material is not (Resource.Logs or Resource.Planks) || StorageMaterialProblem(id)!=null) return false;
+        if(material is not (Resource.Logs or Resource.Planks or Resource.Stone) || StorageMaterialProblem(id)!=null) return false;
         Cottages.Single(c=>c.Id==id).StorageMaterial=material; _retry=0; return true;
     }
     public bool SetStorageTarget(int id, int target)
@@ -113,11 +115,12 @@ public sealed partial class World
         void Check(bool ok, string message) { if (!ok) throw new InvalidOperationException(message); }
         foreach (var c in Cottages)
         {
-            Check(c.StorageTarget is >= 0 and <= StockpileCapacity, "Invalid log target");
+            Check(c.StorageTarget is >= 0 and <= StockpileCapacity, "Invalid stockpile target");
             Check(c.Kind == BuildingKind.Stockpile && c.Complete || c.StoredLogs == 0, "Logs stored outside a completed stockpile");
-            Check(c.StorageMaterial is Resource.Logs or Resource.Planks && c.StoredLogs>=0 && c.StoredPlanks>=0 &&
-                (c.Kind==BuildingKind.Stockpile && c.Complete || c.StoredPlanks==0) &&
-                (c.StorageMaterial==Resource.Logs ? c.StoredPlanks==0 : c.StoredLogs==0) && c.StoredLogs+c.StoredPlanks<=StockpileCapacity,"Invalid stockpile material/inventory");
+            Check(c.StorageMaterial is Resource.Logs or Resource.Planks or Resource.Stone && c.StoredLogs>=0 && c.StoredPlanks>=0 && c.StoredStone>=0 &&
+                (c.Kind==BuildingKind.Stockpile && c.Complete || c.StoredPlanks+c.StoredStone==0) &&
+                (c.StorageMaterial==Resource.Logs || c.StoredLogs==0) && (c.StorageMaterial==Resource.Planks || c.StoredPlanks==0) &&
+                (c.StorageMaterial==Resource.Stone || c.StoredStone==0) && c.StoredLogs+c.StoredPlanks+c.StoredStone<=StockpileCapacity,"Invalid stockpile material/inventory");
         }
         foreach(var material in new[]{Resource.Logs,Resource.Planks,Resource.Stone})
         foreach (var id in MaterialStores(material))
@@ -132,8 +135,8 @@ public sealed partial class World
             Check(v.Task == Work.ToHaulPickup || v.HaulTargetId == null, "Orphaned hauling destination");
             if(v.StorageId is int store) Check(Store(store).StorageMaterial==v.Cargo,"Wrong material at claimed store");
             if(v.HaulTargetId is int target) Check(Store(target).StorageMaterial==v.Cargo,"Wrong material at hauling destination");
-            if (v.Task == Work.ToHaulPickup) Check(v.Reserved is > 0 and <= 2 && v.Carried == 0 && v.Cargo is Resource.Logs or Resource.Planks && v.StorageId != v.HaulTargetId, "Invalid hauling pickup");
-            if (v.Task == Work.ToHaulDrop) Check(v.Reserved == 0 && v.Carried is > 0 and <= 2 && v.Cargo is Resource.Logs or Resource.Planks, "Invalid hauling delivery");
+            if (v.Task == Work.ToHaulPickup) Check(v.Reserved is > 0 and <= 2 && v.Carried == 0 && v.Cargo is Resource.Logs or Resource.Planks or Resource.Stone && v.StorageId != v.HaulTargetId, "Invalid hauling pickup");
+            if (v.Task == Work.ToHaulDrop) Check(v.Reserved == 0 && v.Carried is > 0 and <= 2 && v.Cargo is Resource.Logs or Resource.Planks or Resource.Stone, "Invalid hauling delivery");
         }
     }
 }

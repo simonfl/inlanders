@@ -120,6 +120,7 @@ public sealed class Cottage
     [JsonInclude]    public float Construction { get; internal set; }
     [JsonInclude]    public int StoredLogs { get; internal set; }
     [JsonInclude] public int StoredPlanks { get; internal set; }
+    [JsonInclude] public int StoredStone { get; internal set; }
     [JsonInclude] public Resource StorageMaterial { get; internal set; } = Resource.Logs;
     [JsonInclude]    public int StorageTarget { get; internal set; } = 6;
     public bool Complete => Construction >= 1;

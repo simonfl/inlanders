@@ -51,7 +51,7 @@ public sealed partial class World
             if(Campaign.Quarry!.Phase==0)
             {
                 rows.Add(new("hall-planks","Planks delivered to hall",hall?.Delivered??0,8,"A sawyer turns four logs into eight planks. Builders deliver them to the hall; incorporated materials still count."));
-                rows.Add(new("hall-stone","Stone delivered to hall",hall?.DeliveredStone??0,12,"The nearby outcrop holds eight stone; the distant one holds thirty-six. Two camps shorten hauling; one distant camp saves six logs. Stone goes to the central yard before builders collect it. Use survey links below."));
+                rows.Add(new("hall-stone","Stone delivered to hall",hall?.DeliveredStone??0,12,"The nearby outcrop holds eight stone; the distant one holds thirty-six. Two camps shorten hauling; one distant camp saves six logs. Quarriers deliver to central storage or a nearby stone pile; builders collect for the hall. Local piles are optional. Use survey links below."));
             }
             else
             {

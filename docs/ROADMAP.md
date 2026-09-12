@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Local stone storage review (F07d) can proceed independently. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: F10b2 soundscape listening and F17b music audition; Local stone storage (F07d) is delivered; optional workplace assignments (F21t) are the next independent design chunk. Creative area removal and central resource setup (F16d/e) are delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F07d | In progress | [Route screen](STONE_STAGING_F07D1.md) supports an optional local-stone prototype. Actual worker/cost comparison, stockpile integration and visual checks remain F07d2. |
+| 3 | F21t | Design | Review optional named workplace assignments for workers sharing a role, starting with quarry/food-site choice. Define automatic fallback and pause/removal behavior before implementation; see the active queue. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -42,7 +42,7 @@ The finale, bread-service explanation and authored landscape composition have sh
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. F23c2 measures a decorated 32-resident settlement; F23c3 preserves repeatable traces of unresolved long frames. Further targeted optimization needs native profiling evidence.
 
-Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. F25d2 tested a functional crossing and cut separate integration; ordinary bridges already provide the payoff. Education/restoration, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
+Permanent workplace assignments, household swaps and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. F25d2 tested a functional crossing and cut separate integration; ordinary bridges already provide the payoff. Education/restoration, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
 The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current behavior comes from implementation and the current reviews linked below; do not reuse its old prices or pre-household descriptions as live facts.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F07d | Optional stone stockpiles, direct quarry deposits, builder pickups, hauling targets, physical recovery, local/central UI and art, save 36. Complete normal-play comparisons show strong and weak placements. [Review](STONE_STORAGE_F07D2.md). |
 | F16e | Creative central stock controls for ten resources, reserved minima, separate adjustment ledgers, truthful production/deliveries and save 35. [Review](CREATIVE_STOCK_F16E.md). |
 | F16d | Creative rectangle selection for buildings/decorations/paths, whole-object markers, atomic confirmation, cancellation and mode handoffs. [UI and verification](CREATIVE_REMOVAL_F16D2.md). |
 | F17b2 | Three related candidates, fixed cycle without immediate repeats, bounded pre-rendered PCM, full audition exports, live audio/menu checks. Final listening remains open. [Review](MUSIC_CANDIDATES_F17B2.md). |

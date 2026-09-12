@@ -22,7 +22,7 @@ public partial class Game
         BuildingKind.Orchard => "Establish trees for repeat fruit harvests",
         BuildingKind.Bakery => "Turn grain into bread",
         BuildingKind.Sawmill => "Turn logs into planks",
-        BuildingKind.Stockpile => "Keep timber close to work",
+        BuildingKind.Stockpile => "Keep materials close to work",
         BuildingKind.Bridge => "Cross a water tile",
         BuildingKind.FishingDock => "Bring fish ashore",
         BuildingKind.HuntingLodge => "Hunt in retained woodland",

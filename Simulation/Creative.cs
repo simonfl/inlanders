@@ -47,7 +47,7 @@ public sealed partial class World
         ReconcileHomes();
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
         _yardPlanks += site.ImprovementPlanks + site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
-        _stone+=site.DeliveredStone;
+        _stone+=site.DeliveredStone+site.StoredStone;
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
         Food.Fruit += site.Kind == BuildingKind.Orchard ? site.Harvest : 0;

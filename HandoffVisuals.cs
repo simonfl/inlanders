@@ -5,7 +5,7 @@ using System.Linq;
 public partial class Game
 {
     private bool HasHammerWork(Villager worker) => worker.Task is Work.Building or Work.InstallingComfort || worker.Task==Work.Demolishing &&
-        _world.Cottages.Any(c=>c.Id==worker.SiteId && c.DemolitionProgress<1 && c.StoredLogs+c.StoredPlanks+c.InputLogs+c.OutputPlanks+c.InputGrain+c.OutputBread+c.Harvest==0);
+        _world.Cottages.Any(c=>c.Id==worker.SiteId && c.DemolitionProgress<1 && c.StoredLogs+c.StoredPlanks+c.StoredStone+c.InputLogs+c.OutputPlanks+c.InputGrain+c.OutputBread+c.Harvest==0);
     private static bool DeliveryTask(Work task) => task is Work.ToStockpile or Work.ToHaulDrop or Work.ToPantry or Work.ToCottage or Work.ToComfortHome or Work.ToOven or Work.ToSawmill;
     private static bool PickupTask(Work task) => task is Work.ToMaterials or Work.ToComfortPlanks or Work.ToGrain or Work.ToSawLogs or Work.ToBread or Work.ToPlanks or Work.ToHaulPickup;
     private static float ArrivalReach(Villager worker)

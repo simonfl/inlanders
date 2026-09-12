@@ -108,6 +108,7 @@ public partial class Game
     {
         _logLocations.Text="STORAGE LOCATIONS · SELECT TO VISIT";
         _yardLink.Text=$"Central stores · {_world.YardLogs} logs · {_world.YardPlanks} planks\nLogs: {_world.ReservedLogsAt(null)} reserved · {_world.IncomingLogsAt(null)} arriving\nPlanks: {_world.ReservedMaterialAt(null,Inlanders.Simulation.Resource.Planks)} reserved · {_world.IncomingMaterialAt(null,Inlanders.Simulation.Resource.Planks)} arriving";
+        _yardLink.Text+=$"\nStone: {_world.YardStone} central · {_world.ReservedMaterialAt(null,Inlanders.Simulation.Resource.Stone)} reserved · {_world.IncomingMaterialAt(null,Inlanders.Simulation.Resource.Stone)} arriving";
         _yardLink.Text+="\nCentral food: "+string.Join(" · ",World.EdibleKinds.Select(k=>$"{_world.CentralFood(k)} {k.ToString().ToLowerInvariant()}"));
         var stores=_world.Cottages.Where(c=>c.Kind is BuildingKind.Stockpile or BuildingKind.Pantry && c.Complete).ToArray();
         foreach(int id in _storageLinks.Keys.Where(id=>!stores.Any(c=>c.Id==id)).ToArray())

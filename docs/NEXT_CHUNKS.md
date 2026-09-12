@@ -143,6 +143,14 @@ Let the player explicitly set central stock for arranging and trying villages. S
 
 ## F07d — local stone staging comparison
 
-**In progress:** [F07d1 route evidence](STONE_STAGING_F07D1.md) shows a strong distant-project opportunity and a case where setup outweighs savings. These are weighted route costs, not measured completion times. F07d2 must implement/prove actual optional staging with costs, workers, recovery and presentation before local stone storage is delivered.
+**Delivered:** [F07d2 playable stone storage](STONE_STORAGE_F07D2.md). Normal-play complete projects include setup: distant direct staging finishes in 315s versus 408s centrally; weak staging finishes in 407s versus 406s, and replacing a builder with a hauler takes 416s. Local stone controls, stacks, recovery and save 36 are verified. Keep storage optional and campaign goals unchanged. The original brief follows.
 
 Review existing quarry-to-central-yard-to-civic-project routes. Compare optional local stone stockpiles on a near-source and a distant-project route, including the cost and worker time of staging. Keep finite deposits, physical cargo, reservations and normal construction costs. Integrate stone into existing stockpiles if the comparison shows a meaningful placement choice; otherwise retain findings without manufacturing a new consumer or compulsory warehouse. Implementation needs visible stone stacks, material selection, actual quarry/builder/hauler work, interruption/demolition recovery and current-format saves. Existing log/plank storage must keep working.
+
+## 3. F21t — optional workplace assignments: design first
+
+Existing role assignment is village-wide. With several quarries or food producers, a player can pause a site but cannot keep a named worker at a chosen site while the other stays active. Review whether an optional preferred workplace provides useful control without requiring every worker to be micromanaged.
+
+Start with a short game-designer/UX review of two same-role sites and their current dispatch. Define the difference between automatic and assigned work, capacity conflicts, rest/meals, role changes, paused/removed/exhausted sites, and whether fallback should wait or select another site. Choose one consistent policy and visible explanation before coding. Keep automatic dispatch as the default. The first implementation should cover the supported workplace roles coherently, with explicit scope for roaming loggers and builders, current saves, real interrupted cargo, and narrow/wide inspector controls. No new productivity dashboard, worker traits or labor schedule.
+
+This promotes an existing management follow-up rather than adding a new economic requirement. Audio listening stays open; the next periodic four-role review is due at checkpoint 5 in the ledger.
