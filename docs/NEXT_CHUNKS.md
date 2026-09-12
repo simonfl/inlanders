@@ -27,19 +27,11 @@ Capture the current mix in the same quiet, busy construction/production and wate
 
 Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). Continue with the restoration experiment below.
+F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). The restoration experiment is also delivered; continue with performance below.
 
-## 1. F25d2 — restore something with a useful finished function
+F25d2 is [delivered](RESTORATION_F25D2.md). The crossing shortens the route, but staged restoration adds no second commitment; separate F25d3 crossing integration is cut. Keep the ordinary bridge option and require a new functional brief before reopening restoration.
 
-**Outcome:** decide whether an optional restoration gives a working settlement a worthwhile second commitment.
-
-The prior learning-gate proposal duplicated builder labor and ended in recreation; that version was rejected. Prototype one functional restoration, with two candidate payoffs considered briefly before choosing: a reopened crossing that changes access, or a recovered productive site that changes food/material routes. Prefer existing systems for the first executable probe. A reading workshop or education attendance requirement is not part of this experiment.
-
-Start from an imperfect working village. Budget actual materials, hauling and labor diverted from food, and compare restoration with improving existing routes/production. The first stage must change the value of the next choice. Record what remains to do after funding the project, its visible final use and a recoverable pause/cancel path. Test two credible routes and one poor allocation with current saves. Reject a project whose only distinction is a larger invoice or elapsed time.
-
-Deliver an executable map/route prototype, a small progress UI sketch and a go/revise/cut decision. F25d3 campaign or feature integration is conditional on this result, not automatically promised. No new level, building-menu entry or need meter in this chunk.
-
-## 2. F23c2 — representative larger-village performance
+## 1. F23c2 — representative larger-village performance
 
 **Outcome:** know how much village we can comfortably support on this Windows machine and remove a demonstrated bottleneck if present.
 
@@ -47,11 +39,11 @@ Use an ordinary established settlement and a denser decorated version with actua
 
 Implement at most the most significant measured bottleneck, if one threatens the intended experience. Validate identical simulation continuation and visible quantities before/after; record frame-time distributions rather than only average FPS. If the representative village already runs comfortably, deliver the measurements and stop. No renderer rewrite or larger map/population claim from a tiny test scene.
 
-## 3. F10b2 — listen and refine the mix
+## 2. F10b2 — listen and refine the mix
 
 Use the matched recordings and remaining F10b brief above. Audition rather than infer preference from peaks or cue counts. A correction is conditional on those findings; retain the spatial fix independently. This review remains unfinished.
 
-## 4. F17b — musical variation and transitions
+## 3. F17b — musical variation and transitions
 
 **Outcome:** longer settlements have gentle musical variation without distracting state changes or repetitive restarts.
 
@@ -63,7 +55,7 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 - **Visuals:** F23b10 working-neighborhood composition; softer shore rims, better ground variation and clear paths. First compare a populated scene at matched normal zoom. F19d title artwork remains separate from menu behavior.
 - **Management:** remaining inspectors, Goals/Economy focus, source-route emphasis, and resource filters follow demonstrated tasks. Avoid catalog search while categories suffice.
-- **Campaign:** human first-play clarity/pacing, optional comfort scenario and conditional F25d3 restoration integration. Do not require every institution or diet.
+- **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
 - **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
 - **Economy:** orchards, pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.
 

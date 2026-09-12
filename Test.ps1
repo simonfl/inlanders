@@ -1,4 +1,4 @@
-param([switch]$CivicBudget, [switch]$FinaleCampaign, [switch]$FinaleDecision, [switch]$WoodsBrief, [switch]$QuarryChallenge, [switch]$Rendered, [switch]$Balance, [switch]$ComfortComparison)
+param([switch]$Restoration, [switch]$CivicBudget, [switch]$FinaleCampaign, [switch]$FinaleDecision, [switch]$WoodsBrief, [switch]$QuarryChallenge, [switch]$Rendered, [switch]$Balance, [switch]$ComfortComparison)
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 $env:DOTNET_ROOT = Join-Path $PSScriptRoot '.tools\dotnet'
@@ -6,7 +6,8 @@ $env:PATH = "$env:DOTNET_ROOT;$env:PATH"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot '.tools\dotnet-home'
 $env:APPDATA = Join-Path $PSScriptRoot '.tools\appdata'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-if ($CivicBudget) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --civic-budget }
+if ($Restoration) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --restoration }
+elseif ($CivicBudget) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --civic-budget }
 elseif ($FinaleCampaign) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --finale-campaign }
 elseif ($FinaleDecision) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --finale-decision }
 elseif ($WoodsBrief) { & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --woods-brief }
