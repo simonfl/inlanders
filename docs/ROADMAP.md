@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F19c — main-menu keyboard navigation.** [Decoration brush strokes](DECORATION_BRUSH_F09D.md) now make boundaries and planting strips easier to arrange. Main-menu buttons currently disable keyboard focus; make the title screen and its subpages usable from the keyboard with visible focus and predictable return navigation.
+**Next: F21o — keyboard navigation in the construction catalog.** [Main-menu keyboard navigation](MENU_KEYBOARD_F19C.md) now covers the title screen, settings and campaign pages. The in-game catalog still uses buttons with focus disabled; extend focused navigation to choosing buildings while preserving camera, rotation and pointer placement controls.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,7 +18,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F19c | Scoped | Navigate title/campaign/free-play/Creative/settings pages using the keyboard, with visible focus, scrolling and safe Back behavior. |
+| 1 | F21o | Scoped | Open Build, navigate construction categories/cards and choose a building from the keyboard; clearly hand control back to world placement. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -36,7 +36,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard navigation is the next UI slice. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard navigation has shipped; construction-catalog navigation is the next UI slice. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -50,6 +50,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F19c | Visible keyboard focus, Tab/arrows/activation/Back, remembered and scrolled menu focus, saved keyboard slider changes, safe replay/replacement confirmations and focus release into gameplay. Keyboard and existing menu/recovery checks pass at 960/1440. [Review](MENU_KEYBOARD_F19C.md). |
 | F09d | Click/drag decoration placement and removal, continuous reversible one-tile staircases, per-tile refusals, repeat suppression and safe stroke cancellation. Garden access, saves and input checks pass at 960/1440. [Review](DECORATION_BRUSH_F09D.md). |
 | F09c | Connected straight/corner/T/cross fences, terrain-following rails and upright posts. Neighbor-aware placement/removal previews, isolated rotation, cancellation, reload and protected cottage access verified. [Review](CONNECTED_FENCES_F09C.md). |
 | F09b | Five named cottage finishes plus Automatic in a compact inspector palette. Live roof/plaster changes, four orientations, construction/demolition, improved shutters and exact saves verified at 960/1440. [Review](COTTAGE_FINISHES_F09B.md). |
@@ -242,9 +243,9 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
-| F19 — Main menu | Keyboard navigation is queued as F19c. Title artwork, save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
+| F19 — Main menu | Keyboard navigation shipped in F19c. Title artwork, save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
-| F21 — Management | Keyboard focus navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
+| F21 — Management | Construction-catalog keyboard focus is queued as F21o; other management keyboard navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
 | F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**

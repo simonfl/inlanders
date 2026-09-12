@@ -12,6 +12,7 @@ public partial class Game
         _creativeSavePath = stem + "-creative.json"; _creativeLargeSavePath = stem + "-creative-large.json";
         _savePath = stem + "-original.json"; _largeSavePath = stem + "-large.json";
         _campaignPath = stem + "-campaign.json"; _continuePath = stem + "-continue.json";
+        _audioSettingsPath=stem+"-audio.cfg";
         try
         {
             void Check(bool value, string message) { if (!value) throw new Exception(message); }
@@ -20,11 +21,13 @@ public partial class Game
             {
                 var button = _mainButtons[label]; _mainScroll.EnsureControlVisible(button); await Frames();
                 await Click(button.GetGlobalRect().GetCenter()); await Frames();
+                if(_mainButtons.ContainsKey("Cancel") && _mainButtons.TryGetValue(label,out var confirm)) { await Click(confirm.GetGlobalRect().GetCenter());await Frames(); }
             }
             MakeMainMenu(); await Frames();
+            if(Array.IndexOf(OS.GetCmdlineUserArgs(),"--menu-keyboard")>=0) { await CheckMenuKeyboard();await Frames();GD.Print("SMOKE PASS: menu keyboard navigation.");GetTree().Quit();return; }
             Check(_atMainMenu && !_hud.Visible && _mainButtons["Continue"].Disabled, "Fresh title screen incorrect");
             string initial = _world.SaveJson();
-            await Press(Key.Space); await Press(Key.T); await Press(Key.P); await Frames();
+            await Press(Key.R); await Press(Key.T); await Press(Key.P); await Frames();
             Check(_world.SaveJson() == initial && !_placing && _paused, "Menu input leaked into simulation");
             foreach (var size in new[] { new Vector2I(1440, 900), new(960, 640) })
             {
@@ -111,6 +114,7 @@ public partial class Game
         catch (Exception e) { GD.PrintErr("MENU SMOKE FAIL: " + e); GetTree().Quit(1); }
         finally
         {
+            if(File.Exists(_audioSettingsPath))File.Delete(_audioSettingsPath);
             foreach (string kind in new[] { "original", "large", "campaign", "continue", "creative", "creative-large" })
                 foreach (string suffix in new[] { "", ".bak", ".tmp", ".before-new", ".before-new.bak", ".before-restore", ".before-recovery", ".before-recovery.bak", ".autosave", ".autosave.bak", ".level-1.autosave", ".level-1.before-recovery", ".level-2.autosave", ".level-2.before-recovery", ".level-2.before-recovery.bak" }) { string path = stem + "-" + kind + ".json" + suffix; if (File.Exists(path)) File.Delete(path); }
         }

@@ -21,7 +21,9 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 ## Main menu
 
-Launching opens a quiet, paused village behind the title screen:
+Launching opens a quiet, paused village behind the title screen. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Replay and replacing an existing village ask for confirmation, initially focused on Cancel.
+
+The title screen offers:
 
 - **Continue** restores the last settlement saved or opened, including Campaign, Free play, or Creative on either map. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
 - **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.

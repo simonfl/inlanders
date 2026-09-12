@@ -12,7 +12,7 @@ public partial class Game
     private Vector2 _pointerPosition;
     public override void _Input(InputEvent input)
     {
-        if (_atMainMenu) return;
+        if (_atMainMenu) { HandleMainMenuKey(input);return; }
         // Handle Tab before GUI focus traversal consumes it after clicking Watch controls.
         if(_watching && input is InputEventKey { Pressed:true, Echo:false, Keycode:Key.Tab })
         { ToggleCleanWatch(); GetViewport().SetInputAsHandled(); return; }

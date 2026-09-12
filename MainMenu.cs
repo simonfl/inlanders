@@ -23,20 +23,31 @@ public partial class Game
         _mainPanel = HudPanel(_mainMenu); _mainPanel.Theme = HudTheme();
         _mainScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _mainPanel.AddChild(_mainScroll);
         _mainColumn = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; _mainColumn.AddThemeConstantOverride("separation", 12); _mainScroll.AddChild(_mainColumn);
+        _menuFocusRing=new Panel { MouseFilter=Control.MouseFilterEnum.Ignore,Visible=false };
+        var focusStyle=new StyleBoxFlat { BgColor=new(0,0,0,0),BorderColor=new("efd08c"),BorderWidthLeft=2,BorderWidthRight=2,BorderWidthTop=2,BorderWidthBottom=2,CornerRadiusTopLeft=6,CornerRadiusTopRight=6,CornerRadiusBottomLeft=6,CornerRadiusBottomRight=6 };
+        _menuFocusRing.AddThemeStyleboxOverride("panel",focusStyle);_mainMenu.AddChild(_menuFocusRing);
         _mainMenu.Resized += LayoutMainMenu;
         LayoutMainMenu(); ShowMainMenu();
     }
-    private void LayoutMainMenu() { _mainPanel.Position = new(40, 40); _mainPanel.Size = new(400, Math.Max(400, _mainMenu.Size.Y - 80)); }
+    private void LayoutMainMenu()
+    {
+        _mainPanel.Position = new(40, 40); _mainPanel.Size = new(400, Math.Max(400, _mainMenu.Size.Y - 80));
+        var focus=GetViewport().GuiGetFocusOwner();
+        if(_atMainMenu && focus!=null && _mainColumn.IsAncestorOf(focus))RevealMenuFocusAfterLayout(focus,_menuPageRevision);
+    }
     private void MenuPage(string title)
     {
+        _menuControls.Clear();_menuBack=null;_menuPageTitle=title;
+        int revision=++_menuPageRevision;Callable.From(()=>FocusMenuPage(revision)).CallDeferred();
         foreach (var child in _mainColumn.GetChildren()) { _mainColumn.RemoveChild(child); child.QueueFree(); }
         _mainButtons.Clear(); _mainColumn.AddChild(Text("INLANDERS", 32, true)); _mainColumn.AddChild(Text(title, 20, true));
         _mainScroll.ScrollVertical = 0;
         _menuMessage = Text("", 14, true); _mainColumn.AddChild(_menuMessage);
     }
-    private Button MenuButton(string label, Action action)
+    private Button MenuButton(string label, Action action,string? focusKey=null)
     {
-        var button = Button(label, action); button.CustomMinimumSize = new(0, 44); _mainColumn.AddChild(button); _mainButtons[label] = button; return button;
+        var button = Button(label, action); button.CustomMinimumSize = new(0, 44); _mainColumn.AddChild(button); _mainButtons[label] = button;
+        RegisterMenuControl(button,focusKey??label);if(label is "Back" or "Cancel")_menuBack=action;return button;
     }
     private void ShowMainMenu()
     {
@@ -63,6 +74,7 @@ public partial class Game
         world.SaveFile(_continuePath);
         if (book != null) { book.Capture(world); _campaignBook = book; }
         AdoptWorld(world);
+        GetViewport().GuiGetFocusOwner()?.ReleaseFocus();
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
         if (world.Campaign != null) ToggleDrawer(2);
         Notice("Settlement ready and paused. Press Space to play.");
@@ -98,7 +110,7 @@ public partial class Game
                 int id = level.Id;
                 _mainColumn.AddChild(Text($"{id}. {level.Title}" + (book.Completed.Contains(id) ? " · Complete" : ""), 17, true));
                 MenuButton(book.Settlements.ContainsKey(id) ? $"Resume level {id}" : $"Start level {id}", () => OpenMenuCampaign(id, false));
-                if (book.Settlements.ContainsKey(id)) MenuButton($"Replay level {id}", () => OpenMenuCampaign(id, true));
+                if (book.Settlements.ContainsKey(id)) MenuButton($"Replay level {id}", () => ConfirmMenu($"Replay level {id}","Start this level again? The preceding village remains recoverable from Goals.",()=>OpenMenuCampaign(id,true),CampaignMenu));
             }
             _mainColumn.AddChild(Text("Replay retains the preceding village, recoverable from Goals. All buildings remain available.", 14, true));
         }
@@ -129,12 +141,13 @@ public partial class Game
             string name = large ? "Three clearings" : "Original clearing", path = SandboxSavePath(large, creative);
             _mainColumn.AddChild(Text(name, 18));
             if (File.Exists(path)) MenuButton("Resume " + name, () => MenuAttempt(() => EnterFromMenu(World.LoadFile(path))));
-            MenuButton("New " + name, () => MenuAttempt(() =>
+            void StartNew()=>MenuAttempt(() =>
             {
                 var world = creative ? World.NewCreative(large) : large ? World.NewLargeMap() : World.NewScenario();
                 if (File.Exists(path)) File.Copy(path, path + ".before-new", true);
                 world.SaveFile(path); EnterFromMenu(world);
-            }));
+            });
+            MenuButton("New " + name, () => { if(File.Exists(path)) ConfirmMenu("New "+name,"Start a new village? The preceding village will be kept under Restore previous.",StartNew,()=>FreePlayMenu(creative));else StartNew(); });
             if (File.Exists(path + ".before-new")) MenuButton("Restore previous " + name, () => MenuAttempt(() =>
             {
                 var world = World.LoadFile(path + ".before-new");
@@ -148,18 +161,19 @@ public partial class Game
     private void MainSettings()
     {
         MenuPage("Sound");
-        var mute = MenuButton(_soundMuted ? "Unmute sound" : "Mute sound", () => { ToggleSoundMute(); MainSettings(); });
+        var mute = MenuButton(_soundMuted ? "Unmute sound" : "Mute sound", () => { ToggleSoundMute(); MainSettings(); },"sound-mute");
         void Slider(string title, float value, Action<float> set)
         {
             _mainColumn.AddChild(Text(title, 16));
             var slider = new HSlider { MinValue = 0, MaxValue = 100, Step = 5, Value = value, CustomMinimumSize = new(0, 36) };
             slider.ValueChanged += n => { set((float)n); AudioVolumeChanged(); };
             slider.DragEnded += changed => { if (changed) SaveAudioSettings(); }; _mainColumn.AddChild(slider);
+            RegisterMenuControl(slider,title);
         }
         Slider("Effects", _effectsVolume, n => { _effectsVolume = n; _effectsSlider.SetValueNoSignal(n); });
         Slider("Nature", _ambienceVolume, n => { _ambienceVolume = n; _ambienceSlider.SetValueNoSignal(n); });
         Slider("Music", _musicVolume, n => { _musicVolume = n; _musicSlider.SetValueNoSignal(n); });
-        MenuButton(_musicMuted ? "Unmute music" : "Mute music", () => { ToggleMusicMute(); MainSettings(); });
+        MenuButton(_musicMuted ? "Unmute music" : "Mute music", () => { ToggleMusicMute(); MainSettings(); },"music-mute");
         MenuButton("Back", () => { SaveAudioSettings(); ShowMainMenu(); });
     }
 }

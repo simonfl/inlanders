@@ -5,7 +5,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 ## Review conclusions
 
 - **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard focus is the next concrete UI gap. Matched screenshots support comparisons; player appeal remains an open question.
+- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard navigation has also shipped; construction-catalog focus is the next concrete UI gap. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d are delivered; continue with F19c. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d and F19c are delivered; continue with F21o. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -93,13 +93,23 @@ Use the existing decoration command and access check at every cell. Do not repla
 
 Stop or break strokes on release, Escape, focus loss, tool/world changes and entering the HUD; never bridge across the HUD when returning to the map. Preserve camera dragging and the existing path/woodland tools. Verify long/fast strokes, diagonal corners, repeat visits, removal, blocked entrances, crossed UI, cancellation and current saves at 960/1440. Compare the interaction on the cottage garden and a longer planting strip. Broad brushes, fill, gates, terrain sculpting and undo are separate decisions.
 
-## 11. F19c — main-menu keyboard navigation
+## 11. F19c — main-menu keyboard navigation (delivered)
+
+[Interaction and verification](MENU_KEYBOARD_F19C.md). The original acceptance brief follows.
 
 The title menu uses the shared button helper, which sets FocusMode.None. Add keyboard navigation specifically to the menu and its subpages: a visible initial focus, Tab/Shift-Tab and directional movement, activation, and Escape/Back. Skip disabled actions. Scroll focused controls into view at 960/1440, including later campaign entries. Returning from a subpage should restore a useful parent focus; entering a settlement should release menu focus and preserve existing game shortcuts.
 
 Cover Continue, Campaign, Free play, Creative, Settings and confirmation/error pages. Settings must allow keyboard changes to their actual controls without invoking village shortcuts underneath. A navigation key must not accept replay, overwrite, start a village or quit; those require explicit activation of the relevant control. Keep existing mouse behavior and save/error handling. Do not globally change every gameplay button's focus policy in this slice.
 
 Exercise an entire keyboard-only start/back/settings/replay-confirmation path with isolated test saves, disabled Continue, long campaign lists and narrow layout. Verify visible focus, actual setting changes, canceled confirmations and keyboard-to-mouse transitions. Controller support, title artwork and save-slot browsing remain separate. This addresses an observed entry-point gap; further in-game focus work remains F21.
+
+## 12. F21o — keyboard navigation in the construction catalog
+
+Extend the menu focus work into one in-game task: open Build with B, move through construction categories and building cards, read their actual descriptions/costs and choose a building. The catalog currently uses the shared buttons with focus disabled. Provide a visible focus and predictable Tab/arrows/activation, including scrolling at 960/1440. Keep the existing mouse catalog and category filtering.
+
+Define the handoff between catalog focus and world placement. Activating a building should select its real placement tool, release catalog focus and preserve R rotation, camera controls and pointer placement. Escape should leave the current focus/tool layer predictably; reopening Build should focus a useful current card. Keyboard navigation inside the catalog must not move the camera, rotate a ghost or trigger unrelated shortcuts. Do not promise keyboard-only map placement in this chunk.
+
+Verify opening/navigation/selection with actual keys, all categories and building types, narrow scrolling, disabled/refused actions, typing in existing controls, mouse takeover, rotation after selection and cancellation. Capture focused cards and the resulting preview. Scope to construction selection; Landscape tools, Existing directory, inspectors and other management pages remain separate focus follow-ups. Controller support, title artwork and save-slot browsing remain on their own tracks.
 
 ## Reevaluate after each delivery
 

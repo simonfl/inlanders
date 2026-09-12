@@ -192,7 +192,7 @@ public partial class Game : Node3D
     }
     public override void _Process(double delta)
     {
-        if (_atMainMenu) { RenderActors(0); RenderFoodViews(); UpdateAudio(Math.Min((float)delta, 0.1f)); return; }
+        if (_atMainMenu) { UpdateMainMenuFocus();RenderActors(0); RenderFoodViews(); UpdateAudio(Math.Min((float)delta, 0.1f)); return; }
         float dt = Math.Min((float)delta, 0.1f); _clock += dt * (_paused ? 0 : _speed); _uiTime += dt;
         var pan = new Vector3((Input.IsPhysicalKeyPressed(Key.D) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.A) ? 1 : 0), 0,
             (Input.IsPhysicalKeyPressed(Key.S) ? 1 : 0) - (Input.IsPhysicalKeyPressed(Key.W) ? 1 : 0));
