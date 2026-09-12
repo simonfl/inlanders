@@ -17,7 +17,9 @@ September 12, 2026, after F25e3. This is the active queue. Delivered acceptance 
 
 This review uses repository code, existing route reports and the new civic rendered checks. It is not a new human campaign playtest or listening test. The biggest unanswered question remains whether players enjoy maintaining and improving a working village after its opening build.
 
-## 1. F10b — a calmer working soundscape
+## F10b1 delivered; F10b2 listening review remains open
+
+[Spatial audio review](SPATIAL_AUDIO_F10B1.md): the map-dependent camera/listener defect is fixed, existing controls pass, and matched recordings support a remaining listening review. This does not yet prove a more pleasant soundscape. Continue with F21p while retaining F10b2 before musical variation.
 
 **Outcome:** a busy village remains pleasant to listen to at normal and accelerated speed.
 
@@ -25,7 +27,7 @@ Capture the current mix in the same quiet, busy construction/production and wate
 
 Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-## 2. F21p — keyboard management of residents
+## 1. F21p — keyboard management of residents
 
 **Outcome:** open People, inspect a resident, understand their current job and change their role through a visible keyboard path.
 
@@ -33,7 +35,7 @@ Audit the existing People list and selected-person controls before changing focu
 
 Verify real role changes and their visible outcome at 960/1440, a longer population list, disabled actions, opening/closing, world changes and keyboard-to-mouse transition. Do not extend every inspector and management tab at once. Permanent workplace assignments and household swaps remain separate features.
 
-## 3. F25d2 — restore something with a useful finished function
+## 2. F25d2 — restore something with a useful finished function
 
 **Outcome:** decide whether an optional restoration gives a working settlement a worthwhile second commitment.
 
@@ -43,13 +45,17 @@ Start from an imperfect working village. Budget actual materials, hauling and la
 
 Deliver an executable map/route prototype, a small progress UI sketch and a go/revise/cut decision. F25d3 campaign or feature integration is conditional on this result, not automatically promised. No new level, building-menu entry or need meter in this chunk.
 
-## 4. F23c2 — representative larger-village performance
+## 3. F23c2 — representative larger-village performance
 
 **Outcome:** know how much village we can comfortably support on this Windows machine and remove a demonstrated bottleneck if present.
 
 Use an ordinary established settlement and a denser decorated version with actual residents, workplaces, cargo and paths. State population, objects, resolution, camera, speed, renderer and frame-sync settings. Measure steady state, camera motion and management opening; separate simulation work, rendering cost and one-off scene construction. Preserve the original fixture and comparable settings.
 
 Implement at most the most significant measured bottleneck, if one threatens the intended experience. Validate identical simulation continuation and visible quantities before/after; record frame-time distributions rather than only average FPS. If the representative village already runs comfortably, deliver the measurements and stop. No renderer rewrite or larger map/population claim from a tiny test scene.
+
+## 4. F10b2 — listen and refine the mix
+
+Use the matched recordings and remaining F10b brief above. Audition rather than infer preference from peaks or cue counts. A correction is conditional on those findings; retain the spatial fix independently. This review remains unfinished.
 
 ## 5. F17b — musical variation and transitions
 

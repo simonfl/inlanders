@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b — a calmer working soundscape.** [Quiet civic visits](QUIET_CIVIC_F25E3.md) complete the first Chapel/Planted court presentation. The refreshed five-chunk queue balances sound, management, a functional restoration experiment, representative performance and music. Learning/restoration still needs a distinct finished purpose.
+**Next: F21p — keyboard management of residents.** [F10b1 spatial sound](SPATIAL_AUDIO_F10B1.md) fixes map-size-dependent attenuation and adds matched recordings. F10b2 listening review remains open; new variations and mix changes need perceptual evidence. Civic presentation is delivered, while functional restoration still needs a useful finished purpose.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,10 +18,10 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F10b | Scoped | Compare quiet/busy mixes and improve the strongest repetition or distance-balance problem; retain actual work cues and settings. |
-| 2 | F21p | Scoped | Keyboard path through People: inspect a resident, read activity, assign a role and return safely. |
-| 3 | F25d2 | Experiment | Prototype a functional restoration with alternatives, actual budgets and recovery; reject a larger-invoice-only project. |
-| 4 | F23c2 | Measurement | Profile representative decorated settlements on this machine; fix a demonstrated bottleneck if needed. |
+| 1 | F21p | Scoped | Keyboard path through People: inspect a resident, read activity, assign a role and return safely. |
+| 2 | F25d2 | Experiment | Prototype a functional restoration with alternatives, actual budgets and recovery; reject a larger-invoice-only project. |
+| 3 | F23c2 | Measurement | Profile representative decorated settlements on this machine; fix a demonstrated bottleneck if needed. |
+| 4 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 5 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
@@ -54,6 +54,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F10b1 | Dedicated spatial listener follows viewed ground and zoom, independent of map clipping distance; existing audio controls verified and matched scene recordings generated. Listening review remains F10b2. [Review](SPATIAL_AUDIO_F10B1.md). |
 | F25e3 | Quiet arrived Chapel/court poses; walking, pause/reload, interruption and Hall restoration preserved. Four-orientation actual visits and identical simulation continuation pass. Bell remains silent pending a useful sound purpose. [Review](QUIET_CIVIC_F25E3.md). |
 | F25e2 | Saved Hall/Chapel/Planted court choices on planned/built gathering halls, distinct four-stage/four-orientation models and compact inspector. Actual visits, identical simulation continuation, saves and demolition verified. [Review](CIVIC_IDENTITIES_F25E2.md). |
 | F25d1 / F25e1 | Civic design decision plus four executable budget/service probes and partial-build salvage recovery. Go for hall identities; revise a separate learning gate. No new needs or campaign level. [Decision](CIVIC_AMBITIONS_F25D1_E1.md). |

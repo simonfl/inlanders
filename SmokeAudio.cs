@@ -8,7 +8,9 @@ public partial class Game
 {
     private async void RunAudioSmoke()
     {
-        try { await CheckAudio(); await CheckMusic(); GD.Print("SMOKE PASS: PCM bounds/loop seam, live mixer output, mute silence, UI volume persistence, pause suppression, voice limits, and simulation independence."); GetTree().Quit(); }
+        try { if(OS.GetCmdlineUserArgs().Contains("--soundscape")) await CheckSoundscape();
+            else { await CheckAudio(); await CheckMusic(); }
+            GD.Print("SMOKE PASS: audio checks."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("AUDIO SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
     private async Task CheckAudio()

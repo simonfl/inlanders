@@ -1,0 +1,152 @@
+[
+  {
+    "probe": "focused hammer",
+    "legacy": 0.0065053273,
+    "close": 0.09980981,
+    "wide": 0.02605474
+  },
+  {
+    "name": "quiet-12-1x-before",
+    "peak": 0.052085474,
+    "frames": 397824,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-12-1x-after",
+    "peak": 0.052085474,
+    "frames": 397312,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-12-4x-before",
+    "peak": 0.052085474,
+    "frames": 399360,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-12-4x-after",
+    "peak": 0.052085474,
+    "frames": 397824,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-40-1x-before",
+    "peak": 0.052085474,
+    "frames": 402944,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-40-1x-after",
+    "peak": 0.052085474,
+    "frames": 400384,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-40-4x-before",
+    "peak": 0.052085474,
+    "frames": 404992,
+    "worldCues": 0
+  },
+  {
+    "name": "quiet-40-4x-after",
+    "peak": 0.052085474,
+    "frames": 403968,
+    "worldCues": 0
+  },
+  {
+    "name": "working-12-1x-before",
+    "peak": 0.052085474,
+    "frames": 395264,
+    "worldCues": 5
+  },
+  {
+    "name": "working-12-1x-after",
+    "peak": 0.14633834,
+    "frames": 401408,
+    "worldCues": 5
+  },
+  {
+    "name": "working-12-4x-before",
+    "peak": 0.052085474,
+    "frames": 393728,
+    "worldCues": 13
+  },
+  {
+    "name": "working-12-4x-after",
+    "peak": 0.15301618,
+    "frames": 393728,
+    "worldCues": 13
+  },
+  {
+    "name": "working-40-1x-before",
+    "peak": 0.052085474,
+    "frames": 411136,
+    "worldCues": 5
+  },
+  {
+    "name": "working-40-1x-after",
+    "peak": 0.052085474,
+    "frames": 398336,
+    "worldCues": 5
+  },
+  {
+    "name": "working-40-4x-before",
+    "peak": 0.052085474,
+    "frames": 403456,
+    "worldCues": 13
+  },
+  {
+    "name": "working-40-4x-after",
+    "peak": 0.05271542,
+    "frames": 399360,
+    "worldCues": 13
+  },
+  {
+    "name": "waterfront-12-1x-before",
+    "peak": 0.052085474,
+    "frames": 393728,
+    "worldCues": 3
+  },
+  {
+    "name": "waterfront-12-1x-after",
+    "peak": 0.060510896,
+    "frames": 396800,
+    "worldCues": 3
+  },
+  {
+    "name": "waterfront-12-4x-before",
+    "peak": 0.052085474,
+    "frames": 393728,
+    "worldCues": 10
+  },
+  {
+    "name": "waterfront-12-4x-after",
+    "peak": 0.14742294,
+    "frames": 396288,
+    "worldCues": 10
+  },
+  {
+    "name": "waterfront-40-1x-before",
+    "peak": 0.052085474,
+    "frames": 403968,
+    "worldCues": 3
+  },
+  {
+    "name": "waterfront-40-1x-after",
+    "peak": 0.052085474,
+    "frames": 399360,
+    "worldCues": 3
+  },
+  {
+    "name": "waterfront-40-4x-before",
+    "peak": 0.052085474,
+    "frames": 399360,
+    "worldCues": 10
+  },
+  {
+    "name": "waterfront-40-4x-after",
+    "peak": 0.056559525,
+    "frames": 402432,
+    "worldCues": 10
+  }
+]

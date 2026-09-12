@@ -11,6 +11,7 @@ public partial class Game
     private readonly List<AudioStreamPlayer3D> _voices = new();
     private AudioStreamPlayer _uiSound = null!, _wind = null!;
     private AudioStreamPlayer3D _bird = null!;
+    private AudioListener3D _villageListener = null!;
     private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree, HammerSite; public int ChopBeat=-1,HammerBeat=-1; }
     private readonly Dictionary<int, SoundTrace> _soundTraces = new();
     private readonly HashSet<int> _heardBuildings = new();
@@ -25,6 +26,7 @@ public partial class Game
 
     private void MakeAudio()
     {
+        _villageListener=new AudioListener3D(); AddChild(_villageListener); _villageListener.MakeCurrent();
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _audioSettingsPath = "artifacts/f10-audio.cfg";
         foreach (var name in new[] { EffectsBus, AmbienceBus, MusicBus })
         {
@@ -66,6 +68,7 @@ public partial class Game
     }
     private void UpdateAudio(float dt)
     {
+        UpdateAudioListener();
         _soundTime += dt;
         if (_audioSettingsDirty && _soundTime >= _audioSettingsWriteAt) SaveAudioSettings();
         if (_soundTime >= _nextBird)
@@ -123,6 +126,17 @@ public partial class Game
         foreach (var site in _world.Cottages.Where(c => c.Complete))
             if (_heardBuildings.Add(site.Id)) WorldCue(Cue.Complete, OnGround(site.Cell.X,site.Cell.Z,1));
         if (_world.Food.SupperComplete && !_heardSupper) { _heardSupper = true; UiCue(Cue.Complete); }
+    }
+
+    private void UpdateAudioListener()
+    {
+        // Orthographic camera distance is chosen for map clipping, not zoom.
+        // Listen above the viewed ground instead, preserving the camera's stereo
+        // orientation. Larger views gently recede without silencing large maps.
+        if(_camera==null || _villageListener==null) return;
+        float distance=Mathf.Clamp(_camera.Size*.8f,12,40);
+        _villageListener.GlobalTransform=new(_camera.GlobalBasis,
+            _focus+(_camera.GlobalPosition-_focus).Normalized()*distance);
     }
 
     private void ReadAudioSettings()

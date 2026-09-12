@@ -95,6 +95,7 @@ public partial class Game : Node3D
         float distance = Math.Max(25, Math.Max(map.Width, map.Depth) * 1.5f);
         _camera.Far = distance * 4;
         _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * 0.96f, MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
+        UpdateAudioListener();
     }
     private void RefreshSelection()
     {
