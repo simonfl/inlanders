@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F11b4 / F18b4 — quarry challenge experiment.** Stored and loose high reserves now have bounded visuals. Built to last is playable with two source routes and saved recovery, but competent runs take six to eight simulated minutes with little need to adjust the starter economy. Compare constrained starting reserves and production/labor choices; retain two viable routes and recovery. Change decisions, not just elapsed time. [Current campaign evidence](QUARRY_CAMPAIGN_REVIEW.md).
+**Next: F23b6 — gathering hall architecture.** The [quarry challenge experiment](QUARRY_CHALLENGE_F11B4.md) rejected reserve-only difficulty changes: fourteen runs completed without missed meals, and longer routes mostly added waiting. The shipped scenario remains unchanged; stronger campaign design is still needed. Improve the visibly plain hall next, then develop the existing Living woods concept around habitat/timber/food consequences.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -23,7 +23,8 @@ Current foundation: **17 building types, eight campaign levels**, actual meals, 
 | 5 | F26b2a | Brief/map prototype complete | [Built to last](QUARRY_CAMPAIGN_F26B2.md): exact starting budget, legal plots, optional nearby source and two actual hall construction/visit routes. Full service/recovery and human pacing remain unproven. |
 | 6 | F26b2b | Implemented; human pacing open | Level eight, staged hall/service proof, source links, actual hall use, two full routes with paths and saved competing-venue recovery. [Review](QUARRY_CAMPAIGN_REVIEW.md). No new material chain or mandatory upgrades. |
 | 7 | F23c1 | Implemented | Twelve-piece loose stock cap, exact large-source labels and batched geometry; real collection, threshold/drain, saves, felling and clearing pass. [Review](LOOSE_STOCK_F23C1.md). |
-| 8 | F11b4 / F18b4 | Ready for experiment | Compare the quarry baseline with tighter initial timber/food and competing production/labor commitments. Record player-action proxies and actual service failures, both source routes and saved recovery. Adopt a supported choice improvement; reject changes that only delay the same build queue. No extra proof timer or arbitrary stone quota. |
+| 8 | F11b4 / F18b4 | Experiment complete; changes rejected | Fourteen accounted comparisons show lower reserves mostly delay the same plan; food investment adds opening commands. One late garden accelerates a slow assessment but is not necessary for eventual completion. [Evidence](QUARRY_CHALLENGE_F11B4.md). Longer, demanding campaign play remains open. |
+| 9 | F23b6 | Ready | A distinctive gathering hall silhouette and welcoming frontage using actual visitor positions. Preserve cost/capacity/visit timing; verify four orientations, construction stages and real attendance. Follow the current homes/sawmill/square art language. |
 
 The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
@@ -33,7 +34,7 @@ The original five-chunk sequence gained a short F21m audit; it ruled out an inco
 | --- | --- | --- |
 | Art — F23a/b | Does the village feel inviting at ordinary zoom, including all four sides? | Use matched scenes and feedback. Iterate the offending type; avoid an automatic wholesale art rewrite. |
 | Campaign/UI — F21l, F11b/F18b | Can a player explain a falling goal count and recover? Is there meaningful work beyond opening placements? | Chunk 2. Preserve completed milestones; cut waiting rather than increase quotas to promise a duration. |
-| Campaign challenge — F11/F18 | Quarry competent routes remain six to eight simulated minutes despite a real source tradeoff. Does play involve enough decisions after the opening queue? | Revisit existing scenario commitments and labor/land competition after F23c1; do not equate a longer proof timer with difficulty. Human timing remains unverified. |
+| Campaign challenge — F11/F18 | Quarry competent routes remain six to eight simulated minutes; reserve-only changes failed to create sustained decisions. | Use changing commitments/environmental consequences in later scenario design, starting with the existing Living woods concept. Human timing remains unverified. [Rejected experiment](QUARRY_CHALLENGE_F11B4.md). |
 | Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Include one relevant meal problem in chunk 2; do not require local pantries in every solution. |
 | Comfort — F25b3 | Are visible improvements and fewer rest journeys rewarding? | Keep optional. Existing comparisons show no food-output gain; no comfort scenario yet. |
 | Quarry/hall and wildlife — F26b/c | Are their geographical tradeoffs worth the investment? | Quarry brief next; woodland campaign later. Neither must beat every alternative. |

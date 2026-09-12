@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--quarry-challenge")) {try{QuarryChallengeExperiment.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--quarry-campaign")) {try{QuarryCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--quarry-brief")) {try{QuarryBriefChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--rotation")) {try{RotationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
