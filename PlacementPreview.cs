@@ -17,6 +17,7 @@ public partial class Game
         if(_watching && input is InputEventKey { Pressed:true, Echo:false, Keycode:Key.Tab })
         { ToggleCleanWatch(); GetViewport().SetInputAsHandled(); return; }
         if (input is InputEventMouse mouse) _pointerPosition = mouse.Position;
+        HandleDecorationStroke(input);
         if (HandleCameraDrag(input)) { GetViewport().SetInputAsHandled(); return; }
         if (input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastPathCell = null;
         if(input is InputEventMouseMotion && PointerOverHud(_pointerPosition)) _lastWoodlandCell=null;
@@ -66,6 +67,7 @@ public partial class Game
 
     private void RefreshGhost()
     {
+        if(!_placing || !_decorating) CancelDecorationStroke();
         if(_placing) StopResourceSurvey();
         if (_ghostCells == null)
         {

@@ -57,7 +57,7 @@ public partial class Game
     }
     private void ClearSelection() { _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
     private void CloseManagementUi() { if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
-        StopResourceSurvey(); _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
+        CancelDecorationStroke(); StopResourceSurvey(); _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
     private void SelectPerson(int id) { _selectedSource=null; _sourceReport=null; _jobChoice.Select((int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
     private void SelectBuilding(int id) { _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedSite = id; _selectedPerson = -1; ShowInspector(); RefreshSelection(); }
     private void ShowInspector() { if (_hud.Size.X < 1100) CloseDrawer(); _inspector.Show(); }

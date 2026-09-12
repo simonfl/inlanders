@@ -5,7 +5,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 ## Review conclusions
 
 - **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finish selection and connected fences have shipped; decoration brush strokes are next. Matched screenshots support comparisons; player appeal remains an open question.
+- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu keyboard focus is the next concrete UI gap. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b and F09c are delivered; continue with F09d. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d are delivered; continue with F19c. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -83,13 +83,23 @@ Make adjacent decorative fence tiles form coherent straight runs and corners. Pr
 
 Inspect a cottage garden and a longer boundary at ordinary zoom. Verify all connection directions, corners, interruption/removal, adjacent buildings and refused placements that would cut off access. Keep preview and placed models consistent. Gates, new navigation rules and drag painting are separate follow-ups rather than prerequisites.
 
-## 10. F09d — decoration brush strokes
+## 10. F09d — decoration brush strokes (delivered)
+
+[Interaction and verification](DECORATION_BRUSH_F09D.md). The original acceptance brief follows.
 
 Let the existing Place/Remove decorations tools support a held left-button stroke, with one-cell width and the selected decoration/orientation. A click still edits one tile. Interpolate skipped cells deterministically so fast movement leaves a continuous run; choose a consistent cardinal route for diagonal fence strokes and document it. Preview remains read-only; edits happen only while the stroke is active.
 
 Use the existing decoration command and access check at every cell. Do not replace another decoration automatically or spend resources. Preserve accepted edits when a later tile is refused; show a concise reason without repeating error sounds every frame. Locked sunflowers stay locked. Fence neighbors update as the stroke progresses.
 
 Stop or break strokes on release, Escape, focus loss, tool/world changes and entering the HUD; never bridge across the HUD when returning to the map. Preserve camera dragging and the existing path/woodland tools. Verify long/fast strokes, diagonal corners, repeat visits, removal, blocked entrances, crossed UI, cancellation and current saves at 960/1440. Compare the interaction on the cottage garden and a longer planting strip. Broad brushes, fill, gates, terrain sculpting and undo are separate decisions.
+
+## 11. F19c — main-menu keyboard navigation
+
+The title menu uses the shared button helper, which sets FocusMode.None. Add keyboard navigation specifically to the menu and its subpages: a visible initial focus, Tab/Shift-Tab and directional movement, activation, and Escape/Back. Skip disabled actions. Scroll focused controls into view at 960/1440, including later campaign entries. Returning from a subpage should restore a useful parent focus; entering a settlement should release menu focus and preserve existing game shortcuts.
+
+Cover Continue, Campaign, Free play, Creative, Settings and confirmation/error pages. Settings must allow keyboard changes to their actual controls without invoking village shortcuts underneath. A navigation key must not accept replay, overwrite, start a village or quit; those require explicit activation of the relevant control. Keep existing mouse behavior and save/error handling. Do not globally change every gameplay button's focus policy in this slice.
+
+Exercise an entire keyboard-only start/back/settings/replay-confirmation path with isolated test saves, disabled Continue, long campaign lists and narrow layout. Verify visible focus, actual setting changes, canceled confirmations and keyboard-to-mouse transitions. Controller support, title artwork and save-slot browsing remain separate. This addresses an observed entry-point gap; further in-game focus work remains F21.
 
 ## Reevaluate after each delivery
 

@@ -13,11 +13,11 @@ public partial class Game
     private World? _decorationWorld;
     private int _decorationRevision = -1;
     private static string DecorationName(DecorationKind kind) => kind == DecorationKind.OrnamentalTree ? "Ornamental tree" : kind.ToString();
-    private string DecorationDescription => !_removeDecoration && _decorationKind == DecorationKind.Sunflowers && !_world.SunflowersUnlocked ? "SUNFLOWERS\n" + _world.SunflowerLockReason + "\nAll ordinary decorations remain free." : _removeDecoration ? "REMOVE DECORATIONS\nClick a decoration to remove it instantly. No resources are spent or recovered." :
-        $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click to place repeatedly. " + (_decorationKind==DecorationKind.Fence ? "" : "R rotates. ") +
+    private string DecorationDescription => !_removeDecoration && _decorationKind == DecorationKind.Sunflowers && !_world.SunflowersUnlocked ? "SUNFLOWERS\n" + _world.SunflowerLockReason + "\nAll ordinary decorations remain free." : _removeDecoration ? "REMOVE DECORATIONS\nClick or drag to remove decorations instantly. No resources are spent or recovered. Entering the HUD stops the stroke; click again to continue." :
+        $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click or drag a one-tile strip. " + (_decorationKind==DecorationKind.Fence ? "" : "R rotates. ") +
         (_decorationKind == DecorationKind.Fence ? "Joins neighboring fences automatically; R turns isolated pieces. Occupies one tile; keep entrances and routes open." : _decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
         "Occupies one tile. Villagers walk around it; entrances and existing routes stay accessible. Ornamental trees provide no timber.") +
-        "\nUse Remove decorations before building on decorated ground.";
+        "\nUnsafe tiles are skipped. Entering the HUD stops the stroke; click again to continue. Use Remove decorations before building here.";
 
     private void MakeDecorationMenu(VBoxContainer column)
     {
@@ -30,14 +30,14 @@ public partial class Game
     }
     private void BeginDecorating(bool remove)
     {
+        CancelDecorationStroke();
         ClearSelection(); _woodlandTool=0; _pathTool=0; _pathStroke=false; _lastPathCell=null; _clearingTrees=_plantingTrees=false;
         _decorating=_placing=true; _removeDecoration=remove; _decorationKind=(DecorationKind)_decorationChoice.GetSelectedId();
         RefreshGhost();
     }
     private void EditDecoration(Cell cell)
     {
-        bool changed=_removeDecoration?_world.RemoveDecoration(cell):_world.PlaceDecoration(cell,_decorationKind,(_rotation%2!=0));
-        UiCue(changed?Cue.Place:Cue.Reject); RefreshGhost();
+        BeginDecorationStroke(cell);
     }
     private void RefreshDecorationGhost()
     {
