@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F21n / F07c3 — explain and repair neighborhood service.** The [lasting-village prototype](LASTING_VILLAGE_F11B5.md) supports a later bread/supper commitment, including recovery from poor placement. Explain eaten versus stored bread and local versus central supplies, then integrate the finale and improve its landscape composition.
+**Next: F11b6 / F18b6 — integrate A lasting village as level ten.** The [bread investigation](BREAD_SERVICE_F21N.md) now connects supper to actual deliveries, eating, central reserves and bakery/pantry controls. Integrate the tested finale with earned phases and current-population supper requirements, then improve its landscape composition.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,9 +18,8 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F21n / F07c3 | Review/fix | Explain actual bread consumption, central supper reserves and neighborhood service using the finale fixture. |
-| 2 | F11b6 / F18b6 | Ready after clarity review | Integrate A lasting village as level ten: earned growth, supported neighborhoods and a later shared supper. |
-| 3 | F12g / F23b9 | Scoped | Give the finale a convincing landscape composition while preserving its tested material budget and playable plots. |
+| 1 | F11b6 / F18b6 | Ready | Integrate A lasting village as level ten: earned growth, supported neighborhoods and a later shared supper. |
+| 2 | F12g / F23b9 | Scoped | Give the finale a convincing landscape composition while preserving its tested material budget and playable plots. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -38,7 +37,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale prototype has a conditional go decision. Service clarity precedes campaign integration, followed by authored landscape composition. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale prototype has a conditional go decision and the bread-service explanation has shipped. Campaign integration comes next, followed by authored landscape composition. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -52,6 +51,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F21n / F07c3 | Expandable bread evidence: recent deliveries versus eating, central/local/reserved stock and bakery/pantry links from Goals. Actual local delivery/return, paused saves and 960/1440 navigation verified. [Review](BREAD_SERVICE_F21N.md). |
 | F11b5 / F18b5 | Design prototype: five lasting-village routes, later supper commitment, poor-placement recovery, exact saves and rendered 960/1440 captures. Conditional go for integration; not selectable level ten. [Decision](LASTING_VILLAGE_F11B5.md). |
 | F23b8 | Supported dock decks, striped canvas, side net and mooring equipment; heavier bridge beams and braced rails. Four-orientation construction/fishing/recall/recovery, active boat saves, required worker crossing and demolition protection verified. [Review](SHORE_ART_F23B8.md). |
 | F23b7 | Taller hunting-lodge frame, layered roof, log walls, open bay and bow rack; fitted thumbnail. Mature-tree ground cover and bounded deer follow actual habitat/unclaimed game. Four-orientation work/reload and habitat-state captures pass. [Review](WOODLAND_ART_F23B7.md). |

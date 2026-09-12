@@ -114,13 +114,14 @@ public partial class Game
         _progress.Visible = !_world.Creative;
         if (_world.Creative)
         {
-            _campaignControls.Hide(); _standaloneGuide.Hide(); _supperButton.Hide();
+            _campaignControls.Hide(); _standaloneGuide.Hide(); _supperButton.Hide(); _supperBreadLink.Hide();
             _goalTitle.Text = "Creative · arrange and watch";
             _goalArrival.Text = "Build instantly for free. Villagers keep working, growing crops and taking breaks; meals and hunger are disabled.";
             _objective.Text = "All decorations are available. Select a completed building to remove it and recover its stored goods. Keep entrances and crossings connected.";
             return;
         }
         _campaignControls.Visible = campaign != null; _standaloneGuide.Visible = campaign == null; _supperButton.Visible = campaign == null || campaign.Level == 4;
+        _supperBreadLink.Visible=_supperButton.Visible && !_world.Food.SupperComplete && !_world.Food.Celebrating;
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
         if (_world.IsRiverCampaign && campaign!.River!.Phase>0) _goalArrival.Text = "Grow at your own pace. Food can come from either bank; assessments count actual pantry deliveries, meals and square visits.";

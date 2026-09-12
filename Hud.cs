@@ -177,6 +177,7 @@ public partial class Game
         _objective = Text("", 18, true); column.AddChild(_objective);
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 8) }; column.AddChild(_progress);
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
+        _supperBreadLink=Button("Inspect bread supply",OpenBreadReserve);column.AddChild(_supperBreadLink);
         _standaloneGuide = new(); column.AddChild(_standaloneGuide);
         _standaloneGuide.AddChild(Text("GETTING THERE", 12));
         _standaloneGuide.AddChild(Text("Forager hut → berries\nVegetable garden → ready-to-eat food\nFarm → grain → bakery → bread\nSawmill → planks → four-bed lodge\n\nMeals use one food per person daily, sharing available food types. Grain must be baked. Cottages house two; lodges four. Invite newcomers from People when you have spare beds and food.", 15, true));

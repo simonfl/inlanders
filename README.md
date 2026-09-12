@@ -402,3 +402,5 @@ Home comfort: build a carpenter workshop (6 logs), assign a carpenter, then sele
 Campaign Goals: river/lake conditions have **Why?** explanations with resident inspection, relevant place links and build previews. **Track while playing** keeps one count visible with Goals closed. Food assessment shows current request, variety and fresh-delivery evidence. Tracking is temporary and does not alter saves. See [the campaign goals guide](docs/CAMPAIGN_GOALS_F21L.md).
 
 Finale design prototype (not yet selectable): run ./Test.ps1 -FinaleDecision for route comparisons or ./Play.ps1 -FinalePrototypeSmokeTest for rendered fixtures. See [the decision brief](docs/LASTING_VILLAGE_F11B5.md).
+
+Bread investigation: Goals → Inspect bread supply opens recent bread deliveries/eating, central and local reserves, and bakery/pantry links. Run ./Play.ps1 -BreadSupplySmokeTest; see [the service review](docs/BREAD_SERVICE_F21N.md).

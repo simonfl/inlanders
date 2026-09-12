@@ -68,7 +68,7 @@ public sealed partial class World
     };
     public double CampaignProgress => IsWoodsCampaign ? WoodsCompletion : IsQuarryCampaign ? QuarryCompletion : IsLakeCampaign ? LakeCompletion : IsRiverCampaign ? RiverCompletion : ActiveGoals.Length == 0 ? 0 : ActiveGoals.Average(g => Math.Clamp(GoalValue(g.Kind) / (double)g.Target, 0, 1));
     public string CampaignObjective => IsWoodsCampaign ? WoodsObjective : IsQuarryCampaign ? QuarryObjective : IsLakeCampaign ? LakeObjective : IsRiverCampaign ? RiverObjective : string.Join("\n", ActiveGoals.Select(g => $"{g.Label}: {Math.Min(g.Target, GoalValue(g.Kind))} / {g.Target}")) +
-        (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread for supper: {Food.Bread} / {SupperCost}" : "");
+        (Campaign?.Level is 1 or 2 or 5 ? "\nMeals never erase delivery progress." : Campaign?.Level == 4 && !Food.SupperComplete ? $"\nBread available centrally for supper: {CentralFoodAvailable(Resource.Bread)} / {SupperCost}" : "");
     private void UpdateCampaign()
     {
         if (Campaign != null && CampaignProgress >= 1) Campaign.Complete = true;

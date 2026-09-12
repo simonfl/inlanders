@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; continue with F21n/F07c3. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; continue with F11b6/F18b6. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -45,7 +45,9 @@ Account for exact materials, labor and accessible plots. Compare two credible st
 
 Deliver a map/route prototype and a go/revise/defer decision. Only promote full campaign integration after the prototype demonstrates a meaningful later choice. Human first-play duration remains TBD.
 
-## 5. F21n / F07c3 — understand and repair a neighborhood
+## 5. F21n / F07c3 — understand and repair a neighborhood (delivered)
+
+[Bread investigation and verification](BREAD_SERVICE_F21N.md). The delivered fix connects supper to actual bread eating and storage evidence, then to existing bakery/pantry controls. No service rules changed. The brief follows.
 
 Start with the finale fixture: distinguish bread baked/delivered, bread eaten, locally stored bread and central bread available for supper. One bakery can be busy while reserves stay empty. Use existing explanations first, and verify any correction against actual counters and destinations.
 

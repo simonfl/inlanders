@@ -25,6 +25,7 @@ public partial class Game
         _mealAttention=Button("Inspect meal service",OpenMealCoverage); column.AddChild(_mealAttention);
         column.AddChild(Text("RECENT FOOD FLOW",12));
         _foodFlow = Text("",14,true); column.AddChild(_foodFlow);
+        MakeBreadReserveUi(column);
         column.AddChild(Text("NEEDS ATTENTION",12)); _economySummary=Text("",14,true); column.AddChild(_economySummary);
         for(int i=0;i<12;i++) {
             int index=i; var button=Button("",()=>ActOnEconomyIssue(index));
@@ -61,6 +62,7 @@ public partial class Game
     private void UpdateEconomyUi()
     {
         _economyReport=_world.ReadEconomy();
+        UpdateBreadReserveUi();
         int mealAttention=_world.People.Count(_world.NeedsMealAttention);
         _mealAttention.Visible=!_world.Creative;
         _mealAttention.Text=mealAttention>0?$"Inspect {mealAttention} residents · hungry / recent missed meals":"Inspect meal service · no recent misses";
