@@ -2,6 +2,7 @@ using Godot;
 using Inlanders.Simulation;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 public partial class Game
@@ -26,6 +27,7 @@ public partial class Game
             MakeMainMenu(); await Frames();
             if(Array.IndexOf(OS.GetCmdlineUserArgs(),"--menu-keyboard")>=0) { await CheckMenuKeyboard();await Frames();GD.Print("SMOKE PASS: menu keyboard navigation.");GetTree().Quit();return; }
             Check(_atMainMenu && !_hud.Visible && _mainButtons["Continue"].Disabled, "Fresh title screen incorrect");
+            byte[] titleArt=_menuVillage.Texture.GetImage().GetData();
             string initial = _world.SaveJson();
             await Press(Key.R); await Press(Key.T); await Press(Key.P); await Frames();
             Check(_world.SaveJson() == initial && !_placing && _paused, "Menu input leaked into simulation");
@@ -33,6 +35,7 @@ public partial class Game
             {
                 GetWindow().Size = size; await Frames();
                 Check(_mainPanel.GetGlobalRect().End.Y <= size.Y && _mainPanel.GetGlobalRect().End.X <= size.X, "Title screen outside viewport");
+                Check(!_mainPanel.GetGlobalRect().Intersects(_menuVillage.GetGlobalRect()) && _menuVillage.GetGlobalRect().End.X<=size.X,"Title composition overlaps controls or viewport");
                 await Capture($"artifacts/f19-menu-{size.X}.png");
             }
             await MenuClick("Settings"); bool muted = _soundMuted;
@@ -47,6 +50,7 @@ public partial class Game
             Check(!_atMainMenu && _hud.Visible && _world.Map.OriginalOutline && _paused, "New free play failed");
             _world.SetPath(new(3, 0), true); _world.Tick(0.1f); string original = _world.SaveJson();
             ReturnToMainMenu(); await Frames(); Check(_atMainMenu, "Return to menu failed");
+            Check(titleArt.SequenceEqual(_menuVillage.Texture.GetImage().GetData()),"Title artwork changed with the live settlement");
             await MenuClick("Continue"); Check(_world.SaveJson() == original, "Continue lost original settlement");
             ReturnToMainMenu(); await Frames();
             await MenuClick("Free play"); await MenuClick("New Three clearings");
@@ -104,6 +108,13 @@ public partial class Game
             ReturnToMainMenu(); await Frames(); await MenuClick("Free play"); await MenuClick("Resume Original clearing");
             Check(!_world.Creative && _world.SaveJson() == original && _progress.Visible, "Creative overwrote normal save or left stale UI");
             await CheckRecoveryUi();
+            var busy=World.NewCreative(true);
+            foreach(var cell in busy.Map.Land){if(busy.Cottages.Count>=30)break;if(busy.PlacementProblem(cell,0,BuildingKind.Cottage)==null)busy.Place(cell,0,BuildingKind.Cottage);}
+            Check(busy.Cottages.Count==30,"Busy menu composition fixture failed");
+            AdoptWorld(busy);await Frames();string busyState=busy.SaveJson();ReturnToMainMenu();await Frames();
+            Check(busy.SaveJson()==busyState && titleArt.SequenceEqual(_menuVillage.Texture.GetImage().GetData()),"Returning from busy settlement changed village or title artwork");
+            await Capture("artifacts/f19-menu-busy-return.png");
+            await MenuClick("Continue"); // The existing window-close check below exercises active gameplay.
             GD.Print("SMOKE PASS: main menu at 1440/960, input isolation, settings, new/resume/replay, all Continue modes, corruption recovery, separate saves, Creative placement/removal and map switching.");
             await Frames();
             _world.Tick(.1f); string exitState = _world.SaveJson();

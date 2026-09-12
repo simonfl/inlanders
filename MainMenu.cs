@@ -19,7 +19,7 @@ public partial class Game
         _menuEnabled = true; GetTree().AutoAcceptQuit = false;
         var layer = new CanvasLayer { Layer = 20 }; AddChild(layer);
         _mainMenu = new Control(); layer.AddChild(_mainMenu); _mainMenu.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        var shade = new ColorRect { Color = new(0.07f, 0.13f, 0.11f, 0.35f) }; _mainMenu.AddChild(shade); shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        MakeMenuArt();
         _mainPanel = HudPanel(_mainMenu); _mainPanel.Theme = HudTheme();
         _mainScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _mainPanel.AddChild(_mainScroll);
         _mainColumn = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; _mainColumn.AddThemeConstantOverride("separation", 12); _mainScroll.AddChild(_mainColumn);
@@ -32,6 +32,7 @@ public partial class Game
     private void LayoutMainMenu()
     {
         _mainPanel.Position = new(40, 40); _mainPanel.Size = new(400, Math.Max(400, _mainMenu.Size.Y - 80));
+        LayoutMenuArt();
         var focus=GetViewport().GuiGetFocusOwner();
         if(_atMainMenu && focus!=null && _mainColumn.IsAncestorOf(focus))RevealMenuFocusAfterLayout(focus,_menuPageRevision);
     }

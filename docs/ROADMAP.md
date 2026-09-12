@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F19d title-screen composition can proceed independently.** [F21s](SURVEY_KEYBOARD_F21S.md) delivers source selection, current evidence and workplace/source return, following Goals and Economy navigation. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F05b orchard design/comparison can proceed independently.** [F19d](TITLE_COMPOSITION_F19D.md) delivers a composed title village, following resource-survey navigation. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F19d | Scoped | Welcoming title-screen composition with readable controls, consistent village art and preserved save/replay behavior. Can proceed while audio awaits listening. |
+| 3 | F05b | Scoped experiment | Compare a permanent orchard against gardens on constrained land; prove a useful establishment/tending/harvest choice before adding another producer. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F19d | Static title village built from existing models, separate from live settlement/camera, softer light and readable foreground. 960/1440 menu/keyboard checks, exact artwork after return from 30 buildings, saves/recovery and settings pass. [Review](TITLE_COMPOSITION_F19D.md). |
 | F21s | Resource-survey keyboard picker, current evidence, workplace/source return, stable source identities, safe removal/empty maps and Goals/Economy handoffs. 960/1440 navigation, simulation stock changes, mouse return and exact saves verified. [Review](SURVEY_KEYBOARD_F21S.md). |
 | F21r | Goals reading, explanations, counted resident/place links and return, fresh readiness, safe phase/completion focus, explicit actions and handoffs. Intro/finale 960/1440, real assessment/supper/completion, layout/Economy/HUD regressions and saves pass. [Review](GOALS_KEYBOARD_F21R.md). |
 | F21q | Economy keyboard disclosures/storage/bread/route/idle links, read-only inspector return, stable identities across refresh/removal, scrolling, mouse/shortcut/typing handoffs and reset. Focused 960/1440, HUD/People regressions and saves pass. [Review](ECONOMY_KEYBOARD_F21Q.md). |
@@ -259,7 +260,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
-| F19 — Main menu | Keyboard navigation shipped in F19c. Title artwork, save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
+| F19 — Main menu | Keyboard navigation shipped in F19c and composed title artwork in F19d. Save-slot browsing and controller navigation remain separate follow-ups. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |
 | F21 — Management | Construction-catalog keyboard focus shipped in F21o; other management keyboard navigation, permanent workplace assignments, supply-route filtering/selection emphasis, resource filters, longer or per-workplace productivity history, and configurable alerts. Basic workplace diagnostics and recent food rates shipped in F21h; assess their clarity before adding more metrics. Add catalog search only if categories stop being sufficient. |
 | F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |

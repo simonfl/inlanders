@@ -1,6 +1,6 @@
-# Next chunks — sound, music and title-screen composition
+# Next chunks — sound, music and orchard design
 
-September 12, 2026, after F21s. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F19d. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -69,19 +69,25 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Source navigation](SURVEY_KEYBOARD_F21S.md) now covers fish, stone and woodland selection, current evidence, workplace inspection and source return. Selection survives picker reordering; disappearing sources/workplaces cannot silently select replacements. Focused 960/1440, stock recovery, Goals/Economy entry, mouse and save checks pass. Broader inspector editing remains separate.
 
-## 3. F19d — title-screen composition
+## F19d delivered — title-screen composition
 
-**Outcome:** opening the game presents an inviting settlement and an immediately readable set of choices.
+[Title composition](TITLE_COMPOSITION_F19D.md) replaces the arbitrary live-map backdrop with a static miniature built from current models. Softer lighting and separated foreground planting/gathering spaces remain readable at 960/1440. Menu, keyboard, exact artwork after returning from a 30-building settlement, save/recovery and settings checks pass.
 
-Review the existing translucent left panel over the village, then compare a composed title treatment at 960/1440. Prefer the game's building, terrain and color vocabulary; choose a deliberate focal point and negative space for controls. An authored scene or a captured in-engine composition may be enough; choose the asset approach after comparison. Keep the background quiet, with no independent simulation that changes the player's saved village. Exact framing, lettering and decoration remain TBD.
+## 3. F05b — orchard design and comparison
 
-Verify root menu, long Campaign list, Free play, Sound, confirmation and error pages with mouse and keyboard. Preserve remembered focus, scroll visibility, Continue/replay/recovery behavior and sound settings. Compare initial launch and return from a busy settlement. Cut ornamental motion if it distracts from choosing a game. This is not a save-slot browser, controller project or a new art direction for every building.
+**Outcome:** decide whether permanent fruit planting creates a useful land and labor commitment beyond the existing quick garden and retained hunting woodland.
+
+Start from the [orchard/place brief](CAMPAIGN_SYSTEMS.md#choose-the-next-buildings-through-contrasting-places). Write the player decisions and compare a bounded prototype on the same constrained map: gardens only, early grove investment, mixed planting and recovery after abandoning part of the grove. Account for establishment food, occupied land, worker travel/tending, repeated harvest and clearance/replanting. Use actual existing meal and hauling behavior for the baseline; label any candidate model assumptions explicitly.
+
+Look for choices after opening placement: changing labor between tending and harvesting, preserving productive trees versus freeing useful land, and useful mixed layouts. Do not manufacture differences through a mandatory fruit quota, oversized yield, seasons, hidden fertility or a new happiness meter. Specify whether existing roles/storage can serve the idea before adding new ones. Costs, tree count, maturation and fruit representation remain TBD pending the comparison.
+
+Record go/revise/cut with evidence. If useful, scope F05c playable integration with visible establishment/harvest stages, placement guidance, interruption/clearance/recovery and current-save checks. If it only behaves like a slower garden, cut or revise it instead of writing a campaign around waiting. No new campaign level in the experiment.
 
 This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
 ## Retained follow-ups
 
-- **Visuals:** further neighborhood treatments depend on composition feedback. F19d is now the bounded independent visual chunk.
+- **Visuals:** title composition is delivered. Further neighborhood treatments depend on composition feedback.
 - **Management:** broader inspector editing, source-route emphasis, and resource filters follow demonstrated tasks. Goals/Economy/survey navigation is delivered. Avoid catalog search while categories suffice.
 - **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
 - **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
