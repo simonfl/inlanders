@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d, F19c and F21o are delivered; continue with F25d1/F25e1. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d, F19c and F21o are delivered; F25d1/F25e1 design is also delivered; continue with F25e2. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -113,7 +113,9 @@ Define the handoff between catalog focus and world placement. Activating a build
 
 Verify opening/navigation/selection with actual keys, all categories and building types, narrow scrolling, disabled/refused actions, typing in existing controls, mouse takeover, rotation after selection and cancellation. Capture focused cards and the resulting preview. Scope to construction selection; Landscape tools, Existing directory, inspectors and other management pages remain separate focus follow-ups. Controller support, title artwork and save-slot browsing remain on their own tracks.
 
-## 13. F25d1 / F25e1 — optional civic ambition design
+## 13. F25d1 / F25e1 — optional civic ambition design (delivered)
+
+[Decision, measured budgets and implementation brief](CIVIC_AMBITIONS_F25D1_E1.md): go for civic identities using hall recreation; revise the separate learning prerequisite. The original acceptance brief follows.
 
 Return to the planned learning/restoration and quiet civic-place concepts in CAMPAIGN_SYSTEMS.md. The resource scenarios and finale now exist, and recent village-character/UI work has shipped. Define one project for each concept and compare their actual player decisions before expanding the building menu or needs system.
 
@@ -122,6 +124,14 @@ For learning, specify what residents learn, how that changes their contribution 
 Budget each concept against an existing working settlement: exact logs/planks/stone, labor diverted from food/services, valuable land, progress stages, finished use and a recoverable pause/cancel route. Compare two credible choices and a poor allocation. Sketch the on-screen progress and the finished scene; do not substitute attendance quotas for a meaningful project.
 
 Deliver a go/revise/merge decision and a bounded implementation brief for the strongest prototype. An executable existing-system budget/route fixture should support claims about affordability or recovery; clearly separate unimplemented mechanics from measured evidence. Do not immediately add another campaign level or make either concept a requirement for current settlements. Further management keyboard work, audio/music and menu artwork remain independent follow-ups.
+
+## 14. F25e2 — civic identities
+
+Add a saved Hall / Chapel / Planted court choice to gathering halls, with a compact inspector control on plans and built venues. Default is Hall. The choice is free and cosmetic: retain the current 8-plank/12-stone cost, six-tile footprint, entrance, eight recreation slots and all visit timing. Do not add another building kind, belief/learning meter or campaign requirement. Dismantling keeps its appearance and disables identity edits.
+
+Implement distinct four-sided chapel and planted-court models through the existing construction stages, preserving the ordinary hall. Keep the entrance and actual visitor area unobstructed and readable. Court planting is ornamental, with no timber/habitat effect. Retain material batching and fit the models to normal village zoom. Quiet poses, bell cues and ceremonies are separate follow-ups tied to actual visits.
+
+Use the central budget fixture and a mixed neighborhood for matched camera/light comparisons. Check four orientations, real construction and visitors, style changes, cancellation/demolition, exact saves and compact inspector controls at 960/1440. Prove changing/restoring identity cannot change simulation state outside that choice. Do not turn the favorable budget probe into a claim of greater campaign depth or assured player enjoyment. The learning/restoration concept remains open until its finished function supplies a distinct reason for the project.
 
 ## Reevaluate after each delivery
 

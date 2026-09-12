@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--civic-budget")) {try{CivicBudgetChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--finale-campaign")) {try{FinaleCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--finale-decision")) {try{FinaleDecisionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--woods-campaign")) {try{WoodsCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

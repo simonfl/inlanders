@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F25d1 / F25e1 — optional civic ambition design.** [Construction-catalog keyboard navigation](CATALOG_KEYBOARD_F21O.md) has shipped. Return to the planned learning/reflection concepts: define a visible project and a distinct player decision before adding another need or building.
+**Next: F25e2 — civic identities.** The [civic ambition review](CIVIC_AMBITIONS_F25D1_E1.md) supports prototyping Hall, Chapel and Planted court appearances with identical hall costs and recreation rules. A separate teaching prerequisite for restoration needs revision; the larger budget alone did not justify it.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,7 +18,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F25d1 / F25e1 | Scoped | Compare a learning/restoration project and a quiet civic place, with material/labor budgets, alternatives and recovery; choose a bounded playable prototype or revise the concepts. |
+| 1 | F25e2 | Scoped | Choose Hall, Chapel or Planted court identity for a gathering hall; distinct architecture, compact inspector and saved choice with unchanged costs/service. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -36,11 +36,11 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. Other management focus work remains open; optional civic ambition design is next. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. Other management focus work remains open; the civic ambition design is delivered and the identity prototype is next. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
-Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Education/reflection, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
+Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Reflection now has a bounded identity prototype queued as F25e2. Education/restoration, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
 The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current behavior comes from implementation and the current reviews linked below; do not reuse its old prices or pre-household descriptions as live facts.
 
@@ -50,6 +50,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F25d1 / F25e1 | Civic design decision plus four executable budget/service probes and partial-build salvage recovery. Go for hall identities; revise a separate learning gate. No new needs or campaign level. [Decision](CIVIC_AMBITIONS_F25D1_E1.md). |
 | F21o | B opens focused construction browsing, with category/card navigation, actual cost/description guidance, scrolling and clear handoff to pointer placement/rotation/camera. All building types, refusals, typing and mouse takeover verified at 960/1440. [Review](CATALOG_KEYBOARD_F21O.md). |
 | F19c | Visible keyboard focus, Tab/arrows/activation/Back, remembered and scrolled menu focus, saved keyboard slider changes, safe replay/replacement confirmations and focus release into gameplay. Keyboard and existing menu/recovery checks pass at 960/1440. [Review](MENU_KEYBOARD_F19C.md). |
 | F09d | Click/drag decoration placement and removal, continuous reversible one-tile staircases, per-tile refusals, repeat suppression and safe stroke cancellation. Garden access, saves and input checks pass at 960/1440. [Review](DECORATION_BRUSH_F09D.md). |
