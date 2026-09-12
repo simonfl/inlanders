@@ -32,9 +32,10 @@ public partial class Game
             }
             _landscape.AddChild(new MultiMeshInstance3D { Multimesh = mesh, MaterialOverride = new StandardMaterial3D { VertexColorUseAsAlbedo = true, Roughness = 1 } });
         }
-        if (_world.Map.Heights.Length > 0) MakeTerrainSurface();
+        if (_world.Map.Heights.Length > 0 || _world.Map.RiverMeadow) MakeTerrainSurface();
         else { Layer(1.6f, -0.87f, false); Layer(0.08f, -0.03f, true); }
-        foreach (var cell in _world.Map.Water)
+        if(_world.Map.RiverMeadow)MakeRiverMeadowWater();
+        else foreach (var cell in _world.Map.Water)
         {
             Box(_landscape, new(cell.X, -0.5f, cell.Z), new(1, 0.8f, 1), new("687d73"));
             Box(_landscape, new(cell.X, -0.11f, cell.Z), new(1, 0.06f, 1), new("639baf"));

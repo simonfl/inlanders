@@ -8,6 +8,7 @@ namespace Inlanders.Simulation;
 public sealed partial class MapLayout
 {
     public string Name { get; set; } = "Original clearing";
+    public bool RiverMeadow { get; set; }
     public int MinX { get; set; } = -8;
     public int MinZ { get; set; } = -7;
     public int Width { get; set; } = 17;

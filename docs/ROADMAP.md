@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F12g / F23b9 — authored landscape composition.** [A lasting village](FINAL_CAMPAIGN_F11B6.md) is playable as level ten, with earned neighborhood assessments and a shared supper. Improve its sparse expansion bank and geometric landscape while preserving the tested budget, access and alternative layouts.
+**Next: F09b — choose cottage finishes.** The finale now has [grouped timber, water inlets and a blended meadow surface](RIVER_MEADOW_F12G.md), with its routes and timber budget verified. Give players control of cottage colors through the existing inspector so established neighborhoods can develop their own appearance.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,7 +18,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F12g / F23b9 | Scoped | Give the finale a convincing landscape composition while preserving its tested material budget and playable plots. |
+| 1 | F09b | Scoped | Choose cottage finishes from a bounded palette in the inspector, including a return to automatic colors; preserve four-way models and improved-home details. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -36,7 +36,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale and bread-service explanation have shipped. Authored landscape composition comes next. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes are the next village-character slice. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -50,6 +50,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F12g / F23b9 | Finale composition: grouped timber, inlets, blended meadow colors and bounded shore details; outward terrain sides restored. Material budget, campaign routes, bridge preview and raised-map rendering/saves verified. [Review](RIVER_MEADOW_F12G.md). |
 | F11b6 / F18b6 | Level ten: A lasting village, earned twelve/twenty-resident assessments, later central-bread supper, extra residents, recovery, phase saves and completion/replay. Full simulation suite and 960/1440 finale/woodland navigation checks pass. [Review](FINAL_CAMPAIGN_F11B6.md). |
 | F21n / F07c3 | Expandable bread evidence: recent deliveries versus eating, central/local/reserved stock and bakery/pantry links from Goals. Actual local delivery/return, paused saves and 960/1440 navigation verified. [Review](BREAD_SERVICE_F21N.md). |
 | F11b5 / F18b5 | Design prototype: five lasting-village routes, later supper commitment, poor-placement recovery, exact saves and rendered 960/1440 captures. Prototype evidence retained; campaign integration shipped in F11b6/F18b6. [Decision](LASTING_VILLAGE_F11B5.md). |
@@ -234,7 +235,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F25 — Home routines | Playtest rest duration and commute cost; consider household swaps and grouping advanced home controls if needed. Keep comfort, learning and reflection behind a distinct resident benefit. No synchronized nightly sleep or fatigue penalty yet. |
-| F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
+| F09 — Village character | Cottage finish selection is queued as F09b. More cottage details, connected fence runs, decoration brush strokes, and richer ornamental planting. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |

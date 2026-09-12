@@ -13,6 +13,8 @@ static class FinaleCampaignChecks
     {
         Directory.CreateDirectory("artifacts");
         var opening=World.NewCampaign(10);
+        Check(opening.InitialLogs==168 && opening.YardLogs==16 && opening.Trees.Count==15 && opening.Trees.Where(t=>t.Cell.X>6).Sum(t=>t.Logs)==96,"Finale material budget changed");
+        Check(opening.Map.Water.Count(c=>opening.PlacementProblem(c,1,BuildingKind.Bridge)==null)>=3,"Finale lost alternative crossings");
         Check(opening.IsFinaleCampaign && !opening.AdvanceFinalePhase() && !opening.BeginSupper(),"Opening gates failed");
         // Isolate the early-supper gate with housing and bread otherwise ready.
         opening.Food.Bread=opening.Food.BakedBread=16;opening.Food.GrownGrain=opening.Food.UsedGrain=8;

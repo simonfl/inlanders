@@ -116,7 +116,9 @@ static class FinaleDecisionChecks
         FreeCentralPlot(w,local,new(1,5),new(21,10));
         FreeCentralPlot(w,local,new(-2,0),new(10,-3),2);
         FreeCentralPlot(w,true,new(-6,4),new(14,-3),2);
-        Build(w,new(-2,0),BuildingKind.Farm);Build(w,new(1,5),BuildingKind.Bakery);
+        Build(w,new(-2,0),BuildingKind.Farm);
+        Until(w,()=>w.PlacementProblem(new(1,5),0,BuildingKind.Bakery)==null,"central bakery approach");
+        Build(w,new(1,5),BuildingKind.Bakery);
         Build(w,new(-6,4),BuildingKind.Bakery);
         Until(w,()=>w.PlacementProblem(new(0,2),0,BuildingKind.SeatingGarden)==null,"local break space");
         Build(w,new(0,2),BuildingKind.SeatingGarden);

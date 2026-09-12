@@ -406,3 +406,5 @@ Campaign Goals: river/lake conditions have **Why?** explanations with resident i
 Original finale design experiments (the integrated campaign is now level ten): run ./Test.ps1 -FinaleDecision for route comparisons or ./Play.ps1 -FinalePrototypeSmokeTest for rendered fixtures. See [the decision brief](docs/LASTING_VILLAGE_F11B5.md).
 
 Bread investigation: Goals → Inspect bread supply opens recent bread deliveries/eating, central and local reserves, and bakery/pantry links. Run ./Play.ps1 -BreadSupplySmokeTest; see [the service review](docs/BREAD_SERVICE_F21N.md).
+
+Replay **A lasting village** for the river-meadow landscape: grouped timber, small inlets and softer grass/shore presentation. The timber budget and tested expansion routes are retained. See [the landscape comparison](docs/RIVER_MEADOW_F12G.md); ./Play.ps1 -RiverMeadowSmokeTest repeats route and rendered checks.

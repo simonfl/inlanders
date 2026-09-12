@@ -1,19 +1,19 @@
-# Next chunks — after the Living woods prototype
+# Next chunks — settlement depth and village character
 
 September 12, 2026. This supersedes the ordering in the earlier [roadmap review](ROADMAP_REVIEW_2026_09_12.md). The roadmap is the priority index; this document defines the next deliverables. Scripted runs establish behavior, not enjoyment.
 
 ## Review conclusions
 
 - **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge presentation and the relationship between buildings, shore and woodland are the next coherent targets. Matched screenshots support comparisons; player appeal remains an open question.
-- **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Prioritize explaining habitat loss versus depleted animal stock and making the recovery action discoverable; do not add another dashboard without a demonstrated problem.
+- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finish selection is the next player-expression slice. Matched screenshots support comparisons; player appeal remains an open question.
+- **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
 - **Audio and menu have first versions.** Retain their polish backlog. New needs, production chains and population growth are candidates, not prerequisites for making the current game enjoyable.
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; continue with F12g/F23b9. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; continue with F09b. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -61,9 +61,17 @@ Implement the best-supported navigation, wording or placement-feedback correctio
 
 After the service review, add level ten selection, arrival guidance, earned twelve-person progress, supported twenty-person growth and a player-triggered shared supper. Prevent early supper from banking completion. Support extra residents with explicit current-population requirements, phase saves, replay and completion navigation. Keep all buildings available and avoid prescribed production layouts. Repeat both food routes and saved poor-allocation recovery through real campaign states; inspect Goals at 960/1440. No post-supper waiting gate. Human pacing remains TBD.
 
-## 7. F12g / F23b9 — authored landscape composition
+## 7. F12g / F23b9 — authored landscape composition (delivered)
+
+[Landscape comparison and route verification](RIVER_MEADOW_F12G.md). Grouped timber, water inlets and blended grass ship with the same timber budget; all four campaign routes pass. The original brief follows.
 
 The prototype overview exposes a sparse eastern bank and regular tree perimeter. Improve ground/shore silhouettes and natural grouping, with clear neighborhood sites and views at ordinary zoom. Preserve the tested resource budget, access and enough credible alternative plots; rerun routes if gameplay geometry changes. Compare matched initial and settled views. This is authored map/art work, not a terrain editor or a larger map requirement.
+
+## 8. F09b — choose cottage finishes
+
+Let the player select a cottage finish from a small, coherent set in its existing inspector and return to the automatic colors. Use named palettes, preview the actual selected house, and retain roof/wall/timber contrast and clear entrances. This is a free cosmetic choice, with no new production chain, work task or satisfaction benefit.
+
+Keep the controls compact at 960/1440. Verify choice persistence, automatic reset, four orientations, construction/demolition appearance and improved-home shutters. Compare a settled neighborhood using both automatic and chosen finishes under matched light. Carry further facade details, connected fences and brush painting forward separately; do not turn this into a general material editor.
 
 ## Reevaluate after each delivery
 

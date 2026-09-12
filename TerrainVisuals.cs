@@ -26,12 +26,13 @@ public partial class Game
             var a = OnGround(cell.X-.5f,cell.Z-.5f); var b = OnGround(cell.X+.5f,cell.Z-.5f);
             var c = OnGround(cell.X+.5f,cell.Z+.5f); var d = OnGround(cell.X-.5f,cell.Z+.5f);
             var color = GroundTint(cell.X,cell.Z).Lightened(Height(cell.X,cell.Z)*.025f);
-            Triangle(top,a,d,c,color); Triangle(top,a,c,b,color);
+            if(_world.Map.RiverMeadow){MeadowTriangle(top,a,d,c);MeadowTriangle(top,a,c,b);}
+            else {Triangle(top,a,d,c,color); Triangle(top,a,c,b,color);}
             void Edge(Vector3 first, Vector3 second, Cell neighbor)
             {
                 if (_world.Map.Contains(neighbor) && !_world.Map.Water.Contains(neighbor)) return;
                 var lowFirst = first with { Y = -1.67f }; var lowSecond = second with { Y = -1.67f };
-                Triangle(sides,first,lowSecond,second,new("877d62")); Triangle(sides,first,lowFirst,lowSecond,new("877d62"));
+                Triangle(sides,first,second,lowSecond,new("877d62")); Triangle(sides,first,lowSecond,lowFirst,new("877d62"));
             }
             Edge(a,b,new(cell.X,cell.Z-1)); Edge(b,c,new(cell.X+1,cell.Z));
             Edge(c,d,new(cell.X,cell.Z+1)); Edge(d,a,new(cell.X-1,cell.Z));
