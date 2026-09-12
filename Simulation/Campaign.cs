@@ -116,7 +116,7 @@ public sealed partial class World
         var hints = new List<CampaignHint>();
         void Hint(string id, string text, bool when = true) { if (when) hints.Add(new(id, text)); }
         bool planned = Cottages.Any(c => !c.Complete);
-        Hint("hunger", "Food ran short. Staff a finished forager hut in People. Nobody dies; regular meals restore work speed.", Food.Hunger > 0);
+        Hint("hunger", CampaignHungerGuidance(), Food.Hunger > 0);
         Hint("welcome", "WASD moves the camera; the wheel zooms. Space pauses. Open Build [B] for a forager hut, then cottages. R rotates entrances.", Campaign.Level == 1 && Cottages.Count == 0);
         Hint("builders", "Plans need builders. Open People [V] and use + beside Builder.", planned && !People.Any(v => v.Role == Role.Builder));
         Hint("loggers", "Assign loggers in People. Timber must reach the yard or a stockpile before builders can collect it.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
@@ -158,6 +158,17 @@ public sealed partial class World
             Hint("garden-choice", $"Serve everyone, with at least {(Population + 3) / 4} vegetable portions and {(Population + 3) / 4} other food portions per meal. Meals share available types. Economy shows what was eaten; two qualifying meals are needed.");
         }
         return hints.FirstOrDefault(h => !Campaign.Dismissed.Contains(h.Id));
+    }
+    private string CampaignHungerGuidance()
+    {
+        var huts=Cottages.Where(c=>c.Kind==BuildingKind.ForagerHut && !c.DemolitionRequested).ToArray();
+        string action=!huts.Any(c=>c.Complete)
+            ? huts.Length==0?"Build a forager hut from Build [B], with builders and loggers assigned in People [V]."
+                :"Finish the planned forager hut. Keep builders and loggers assigned in People [V]; inspect the plan for missing materials or access."
+            :huts.Where(c=>c.Complete).All(c=>c.WorkPaused)?"Select a finished forager hut and resume its work. Keep foragers assigned in People [V]."
+            :!People.Any(p=>p.Role==Role.Forager)?"Assign foragers in People [V] to staff the finished hut."
+            :"Inspect the forager hut for available berries and access. Open Economy for food supply and People for missed meal trips.";
+        return "Food ran short. "+action+" Nobody dies; regular meals restore work speed.";
     }
 }
 // One resumable snapshot per settlement; completion survives replay and loading an older save.

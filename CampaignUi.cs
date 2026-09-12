@@ -126,7 +126,7 @@ public partial class Game
         _goalTitle.Text = campaign == null ? "The first village supper" : $"{campaign.Level}. {World.CampaignLevels[campaign.Level - 1].Title}";
         _goalArrival.Text = campaign == null ? "Give your neighbors a home and enough bread to celebrate together." : World.CampaignLevels[campaign.Level - 1].Arrival;
         if (_world.IsRiverCampaign && campaign!.River!.Phase>0) _goalArrival.Text = "Grow at your own pace. Food can come from either bank; assessments count actual pantry deliveries, meals and square visits.";
-        if (_world.IsLakeCampaign && campaign!.Lake!.Phase>0) _goalArrival.Text = "Grow when ready. Choose a food mix and give residents time to rest and meet. The assessment needs three consecutive full mixed meals with fresh supply.";
+        if (_world.IsLakeCampaign && campaign!.Lake!.Phase>0) _goalArrival.Text = "Grow when ready. Keep meals, home rest and recreation working. Assessment uses the last three in-game minutes since it began: two closed meal requests per resident, none missed or skipped, at least a quarter of food eaten outside the dominant food, and fresh deliveries covering demand. Earlier misses stop counting as they leave this window.";
         _campaignRecord.Text = _campaignBook?.Completed.Count > 0 ? "Completed: " + string.Join(", ", _campaignBook.Completed.OrderBy(i => i)) : $"{World.CampaignLevels.Length} settlements to learn at your own pace.";
         if (campaign == null) return;
         _restoreReplay.Visible = _campaignBook?.BeforeReplay.ContainsKey(campaign.Level) == true;

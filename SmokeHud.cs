@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--campaign-review")){_paused=true;await CheckCampaignReview();return;}
         if(OS.GetCmdlineUserArgs().Contains("--relocation")){_paused=true;await CheckRelocationUi();return;}
         if(OS.GetCmdlineUserArgs().Contains("--orchard")){_paused=true;await CheckOrchardUi();return;}
         if(OS.GetCmdlineUserArgs().Contains("--survey-keyboard")) { _paused=true;await CheckSurveyKeyboard();return; }

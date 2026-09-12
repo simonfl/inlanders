@@ -91,17 +91,19 @@ Start from its inspector with Move, a destination preview and existing four-way 
 
 Test home, productive orchard, stocked workplace/pantry, civic venue and shore cases. Cover current work/cargo, blocked destinations, cancelled/failed moves, rotation, exact save continuation and 960/1440 preview/inspector feedback. Normal-play movement, group selection, terrain editing and undo history remain separate. The first slice is Creative relocation with honest behavior, not a free workaround for normal-play clearance.
 
-Relocation is complete; campaign review below can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
+Relocation and the campaign diagnostic are complete; F23b12 can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
-## 3. F11c / F18c — first-play campaign decisions and recovery
+## F11c / F18c delivered — campaign diagnostic and recovery
+
+[Review and correction](CAMPAIGN_REVIEW_F11C.md): contextual opening hunger recovery, current lake goal-card inspection and rerun alternative/recovery routes. Human first-play remains unverified. The acceptance brief below is retained as scope.
 
 Review the merged opening lesson and one later operational map through the ordinary interface. Record the first meaningful choice, unclear wording, time spent with no useful action, a recoverable mistake, and the visible payoff. Separate actual human observations from scripted diagnostic runs. Request player impressions when available; missing impressions need not block a reproducible wording or interaction defect.
 
 Deliver a short findings table and implement the highest-supported correction. Check a competent route and a recoverable poor layout, narrow/wide goals, cumulative versus recent progress, and current-format saves. Keep level count and prices unchanged unless the finding specifically warrants a change. If the issue is only waiting, remove or redesign the wait; do not raise quotas to imply difficulty. Larger scenario changes receive a separate brief.
 
-## 4. F23b12 — one building's village-scale readability
+## 3. F23b12 — one building's village-scale readability
 
-Use the same populated campaign scene to choose the weakest building family, with all four sides and ordinary camera zoom. Capture before/after under unchanged lighting. Improve silhouette, roof/wall depth or material separation according to the identified defect. Preserve entrance, work contact, construction stages and footprint. Check 960/1440 placement and live production. Keep costs and simulation unchanged. If no specific weakness emerges, retain this as a review question instead of manufacturing another art pass.
+Start with the forager shelter in the populated opening/recovery captures from F11c, with all four sides and ordinary camera zoom. Capture before/after under unchanged lighting. Improve silhouette, roof/wall depth or material separation according to the identified defect. Preserve entrance, work contact, construction stages and footprint. Check 960/1440 placement and live production. Keep costs and simulation unchanged. If no specific weakness emerges, retain this as a review question instead of manufacturing another art pass.
 
 ## Retained follow-ups
 

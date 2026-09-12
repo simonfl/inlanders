@@ -5,6 +5,19 @@ using Inlanders.Simulation;
 
 public static class CampaignChecks
 {
+    static void HungerRecovery()
+    {
+        var w=World.NewCampaign(1);foreach(var p in w.People)w.Assign(p.Id,Role.Unassigned);
+        Until(w,()=>w.Food.Hunger>0);
+        void Hint(string expected){string saved=w.SaveJson();Check(w.CurrentCampaignHint() is {Id:"hunger"} h && h.Text.Contains(expected),"Hunger recovery guidance missing: "+expected);Check(w.SaveJson()==saved,"Hint changed simulation");}
+        Hint("Build a forager hut");var hut=w.Place(new(0,0),false,BuildingKind.ForagerHut)!;
+        Hint("Finish the planned");w.Assign(0,Role.Logger);w.Assign(1,Role.Builder);Until(w,()=>hut.Complete);
+        w.SetWorkplacePaused(hut.Id,true);Hint("resume its work");w.SetWorkplacePaused(hut.Id,false);
+        Hint("Assign foragers");w.Assign(2,Role.Forager);Hint("available berries and access");
+        System.IO.Directory.CreateDirectory("artifacts/campaign-review");System.IO.File.WriteAllText("artifacts/campaign-review/hunger.json",w.SaveJson());
+        Until(w,()=>w.Food.Hunger==0);Check(w.CurrentCampaignHint()?.Id!="hunger","Recovery hint persisted after meals restored");
+        Console.WriteLine("PASS: actual opening food shortage, missing/planned/paused/unstaffed/working hut guidance and meal recovery.");
+    }
     static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }
     static void Until(World w, Func<bool> done)
     {
@@ -15,6 +28,7 @@ public static class CampaignChecks
         Check(w.Place(cell, false, kind) != null, $"Rejected {kind} at {cell}");
     public static void Run()
     {
+        HungerRecovery();
         var book = new CampaignBook();
         Cell[] supperSpots = Array.Empty<Cell>();
         for (int level = 1; level <= 5; level++)
