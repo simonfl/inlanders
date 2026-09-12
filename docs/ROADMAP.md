@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23b8 — docks, bridges and inhabited shores.** The hunting-lodge and woodland pass is implemented: stronger timber/roof depth, a fitted thumbnail and habitat cover/deer tied to actual state. [Comparison](WOODLAND_ART_F23B7.md). Keep shoreline work bounded, then prototype deeper settlement commitments in F11b5/F18b5.
+**Next: F11b5 / F18b5 — A lasting village decision prototype.** Shore structures now have supported decks, stronger rails and a distinct working dock. [Comparison](SHORE_ART_F23B8.md). Return to campaign depth: establish a meaningful second commitment using land, distance and existing services before integrating a finale.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,9 +18,8 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F23b8 | Planned | Docks and bridges with stronger structure and shoreline connection, preserving actual approach, crossing and boat behavior. |
-| 2 | F11b5 / F18b5 | Design/prototype | A lasting village: test a second meaningful settlement commitment using imperfect starting layouts, competing land and distance. Integration depends on the result. |
-| 3 | F21n / F07c3 | Evidence-led review/fix | Follow a real neighborhood service problem from goal to resident to remedy; improve the highest-supported explanation or interaction. |
+| 1 | F11b5 / F18b5 | Design/prototype | A lasting village: test a second meaningful settlement commitment using imperfect starting layouts, competing land and distance. Integration depends on the result. |
+| 2 | F21n / F07c3 | Evidence-led review/fix | Follow a real neighborhood service problem from goal to resident to remedy; improve the highest-supported explanation or interaction. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -38,7 +37,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The queue now includes shoreline presentation, followed by a chapter-finale decision prototype. The long-haul and limited-land concepts are ingredients or optional challenges, not additional committed levels. Full finale integration depends on evidence from that prototype.
+The queue now begins with the chapter-finale decision prototype, followed by an evidence-led service-clarity review. The long-haul and limited-land concepts are ingredients or optional challenges, not additional committed levels. Full finale integration depends on evidence from that prototype.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -52,6 +51,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b8 | Supported dock decks, striped canvas, side net and mooring equipment; heavier bridge beams and braced rails. Four-orientation construction/fishing/recall/recovery, active boat saves, required worker crossing and demolition protection verified. [Review](SHORE_ART_F23B8.md). |
 | F23b7 | Taller hunting-lodge frame, layered roof, log walls, open bay and bow rack; fitted thumbnail. Mature-tree ground cover and bounded deer follow actual habitat/unclaimed game. Four-orientation work/reload and habitat-state captures pass. [Review](WOODLAND_ART_F23B7.md). |
 | F26c2b | Living woods: ninth campaign, earned game delivery, player-triggered assessment, twelve or more housed residents, current mature habitat/unclaimed stock and fresh meal evidence. Preservation/mixed routes, stock/clearing recovery, exact saves and 960/1440 UI verified. [Review](WOODS_CAMPAIGN_REVIEW.md). |
 | F23b6 | Taller civic hall with stone piers, timber gables, side lights, roof lantern and clear entrance. Four construction stages and fitted catalog thumbnail; actual four-orientation visitors/reload and quarry routes verified. [Review](HALL_F23B6.md). |
@@ -233,7 +233,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F25 — Home routines | Playtest rest duration and commute cost; consider household swaps and grouping advanced home controls if needed. Keep comfort, learning and reflection behind a distinct resident benefit. No synchronized nightly sleep or fatigue penalty yet. |
 | F09 — Village character | More palettes and cottage details, player-selected house colours, connected fence runs, decoration brush strokes, and richer ornamental planting. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
-| F12a / F12b — Maps and water | More authored geography, richer map edges and shores, wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
+| F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |
 | F19 — Main menu | Title artwork, save-slot browsing, and keyboard/controller navigation. Music settings belong with F17. |
 | F20 — Atmosphere | Day/night progression, weather, water highlights, atmospheric particles, and richer wind animation. |

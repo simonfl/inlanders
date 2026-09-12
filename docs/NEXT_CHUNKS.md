@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 is also delivered; continue with F23b8. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; continue with F11b5/F18b5. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -27,7 +27,9 @@ Give woodland edges, hunting lodges and tracking clearings a coherent normal-zoo
 
 Show four orientations, construction stages, active work and protected saplings in the same camera/light conditions. Confirm selection, clearing previews, approach cells and pause/reload still agree with simulation. Keep geometry bounded. This is a targeted family pass, not a new ecosystem or renderer rewrite; retain successful existing models where appropriate.
 
-## 3. F23b8 — docks, bridges and inhabited shores
+## 3. F23b8 — docks, bridges and inhabited shores (delivered)
+
+[Structure comparison and verification](SHORE_ART_F23B8.md). The original scope below is retained for reference.
 
 Make shoreline structures feel anchored to the terrain, with recognizable supports, deck thickness and clear approach/launch space. Preserve existing footprints, crossing rules and boat routes. Inspect the current scene before choosing details; water effects are optional only if they improve readability within this slice.
 

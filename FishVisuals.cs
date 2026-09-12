@@ -5,28 +5,6 @@ using System.Linq;
 
 public partial class Game
 {
-    private void MakeFishingDock(Node3D parent,int stage)
-    {
-        foreach(float x in new[]{-.36f,.36f})
-            foreach(float z in new[]{.25f,-.95f})
-                Cylinder(parent,new(x,.1f,z),.07f,.7f,_wood);
-        if(stage>=1)
-            for(int i=0;i<(stage>=2?8:4);i++)
-                Box(parent,new(0,.23f,.35f-i*.18f),new(.88f,.08f,.15f),new("bda27c"));
-        if(stage>=2)
-        {
-            foreach(float x in new[]{-.32f,.32f}) Box(parent,new(x,.7f,.12f),new(.07f,.9f,.07f),_wood);
-            Box(parent,new(0,1.14f,.12f),new(.8f,.1f,.09f),_wood);
-        }
-        if(stage>=3)
-        {
-            var awning=Box(parent,new(0,1.18f,.05f),new(.95f,.08f,.75f),new("708e86"));
-            awning.RotationDegrees=new(-12,0,0);
-            for(int i=0;i<5;i++) Box(parent,new(-.27f+i*.09f,.8f,.15f),new(.014f,.42f,.018f),new("c8bb91"));
-            for(int i=0;i<4;i++) Box(parent,new(-.09f,.61f+i*.1f,.15f),new(.39f,.014f,.018f),new("c8bb91"));
-            Cylinder(parent,new(.3f,.34f,-.72f),.09f,.16f,new("d2bc89"));
-        }
-    }
     private World? _fishViewWorld;
     private Node3D? _fishGroundView;
     private readonly Dictionary<int,(Label3D Label,Node3D[] Fish)> _fishGrounds=new();
