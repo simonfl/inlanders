@@ -121,14 +121,14 @@ public partial class Game
             Check(gray.SavePng("artifacts/f23a-grayscale.png") == Error.Ok, "Grayscale capture failed");
             // A separate presentation sheet checks all construction stages and rotation.
             _dynamic.Hide(); _landscape.Hide(); _pathView.Hide(); var sheet = new Node3D(); AddChild(sheet);
-            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2), (BuildingKind.Lodge, 3), (BuildingKind.ForagerHut,4) })
+            foreach (var (kind, row) in new[] { (BuildingKind.Cottage, 0), (BuildingKind.Bakery, 1), (BuildingKind.Sawmill, 2), (BuildingKind.Lodge, 3), (BuildingKind.ForagerHut,4), (BuildingKind.Square,5) })
                 for (int stage = 0; stage < 4; stage++)
                 {
                     var body = new Node3D { Position = new(stage * 4 - 6, 0, row * 4 - 4), RotationDegrees = new(0, stage == 3 ? 90 : 0, 0) }; sheet.AddChild(body);
                     MakeBuilding(body, new Cottage { Kind = kind }, stage);
                 }
-            Box(sheet, new(0, -.12f, 4), new(18, .15f, 22), new("777f62"));
-            _focus = new(0,0,4); _camera.Size = 30; UpdateCamera(); HideLabels(sheet); await Frames();
+            Box(sheet, new(0, -.12f, 6), new(18, .15f, 26), new("777f62"));
+            _focus = new(0,0,6); _camera.Size = 34; UpdateCamera(); HideLabels(sheet); await Frames();
             await Capture("artifacts/f23a-construction.png");
             Clear(sheet);
             foreach(var (kind,row) in new[]{(BuildingKind.Farm,0),(BuildingKind.VegetableGarden,1)})

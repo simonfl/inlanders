@@ -35,7 +35,7 @@ public partial class Game
         (true, BuildingKind.Stockpile) => "Stores up to 12 real logs. Loggers drop timber nearby; haulers balance its target.",
         (true, BuildingKind.Farm) => "Supports 1 farmer. Crops grow for 45 seconds, yielding 6 grain for bakers. Food needs are disabled.",
         (true, BuildingKind.VegetableGarden) => "Supports 1 farmer. Crops grow for 60 seconds, yielding 8 vegetables. Food needs are disabled.",
-        (true, BuildingKind.Square) => "Up to four villagers take short breaks between jobs. No staff. Leave open space nearby.",
+        (true, BuildingKind.Square) => "Up to four villagers take short breaks between jobs. No staff. Visitors stand on reachable ground within 2 tiles of the marked entrance; keep that frontage open.",
         _ => OrdinaryBuildingDescription(kind)
     };
     private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
@@ -48,7 +48,7 @@ public partial class Game
         BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
         BuildingKind.Stockpile => "Stores 12 logs or planks; choose its material when empty. Producers deposit locally and builders collect here without haulers. Optional haulers balance targets. Food stays at the pantry.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
-        BuildingKind.Square => "Up to four villagers take short breaks here between jobs. Also hosts village supper. No staff. Leave one walkable tile per villager within four tiles of the entrance.",
+        BuildingKind.Square => "Up to four villagers take short breaks on reachable ground within 2 tiles of the marked entrance. Keep that frontage open. Supper needs one reachable tile per villager within four tiles of the entrance. No staff; the table is a serving place, not assigned seating.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",

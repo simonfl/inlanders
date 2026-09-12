@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23b4 — a village square that looks like a used gathering place.** Then alternate campaign review, village presentation, and a new scenario using existing systems. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
+**Next: F11b3 / F18b3 — campaign decision and clarity review.** F23b4 square presentation is implemented ([review](SQUARE_F23B4.md)). Continue with campaign review, storage presentation, and a new scenario using existing systems. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -16,7 +16,7 @@ Current foundation: **17 building types, seven campaign levels**, actual meals, 
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F23b4 | Ready | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
+| 1 | F23b4 | Implemented; visual feedback open | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
 | 2 | F11b3 / F18b3 | Ready for review | Review levels 6 and 7 from the current player UI; record decisions, unclear causes and waiting. Implement at most one supported pacing/clarity correction, or close with findings if none is justified. Do not add another dashboard by default. |
 | 3 | F23b5 | Ready | A compact timber yard and legible stockpile: bounded visible stacks, honest exact counts, distinct empty/stocked states and clear collection frontage. Include a small path/ground contrast pass in the same representative scene. |
 | 4 | F26b2a | Design after chunk 2 findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
@@ -49,6 +49,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b4 | Open civic arbor and serving table, separate frontage stones, no fictitious occupied benches or permanent food stock. Build guidance distinguishes two-tile break and four-tile supper areas. Actual four-orientation breaks/supper and saved completion pass; [comparison and review](SQUARE_F23B4.md). |
 | F23b3 | Separate tapered farm rows and garden beds replace full plinths and continuous rims. Lower markers and partial garden boards preserve plot identity; crop positions and work contact unchanged. Four-orientation field-work checks pass; [matched comparison](FIELDS_F23B3.md). |
 | F23b2 | Open forager shelter with pole frame/braces, layered lean-to roof, low woven windbreak, sorting bench and empty gathering equipment. Separate feet replace the solid plinth; permanent decorative berry stock removed. Four stages and matched camera views; [before/after](FORAGER_F23B2.md). |
 | F23b1 | Distinct taller lodge with timber frame, loft windows, sheltered entrance, stone feet, thick roof and four construction stages. Comfort shutters follow the new loft windows. Art/home checks pass; [matched before/after](LODGE_F23B1.md) awaits player feedback. |
