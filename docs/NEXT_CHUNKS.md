@@ -4,7 +4,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## Review conclusions
 
-- **Campaign depth is the largest design gap.** Eight levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
+- **Campaign depth is the largest design gap.** Nine levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
 - **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge presentation and the relationship between buildings, shore and woodland are the next coherent targets. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Prioritize explaining habitat loss versus depleted animal stock and making the recovery action discoverable; do not add another dashboard without a demonstrated problem.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; continue with F11b5/F18b5. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; continue with F21n/F07c3. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -35,7 +35,9 @@ Make shoreline structures feel anchored to the terrain, with recognizable suppor
 
 Compare ordinary village views before/after. Exercise all legal orientations, construction, boarding/return, a busy crossing and demolition protection. No wider-bridge simulation, freight boats or new shoreline placement rules in this chunk. If a geometry change needs different navigation, split that design out.
 
-## 4. F11b5 / F18b5 — a lasting village, decision prototype
+## 4. F11b5 / F18b5 — a lasting village, decision prototype (delivered)
+
+[Prototype decision and five measured routes](LASTING_VILLAGE_F11B5.md): conditional go. Successful supper routes finish in 26–31 simulated minutes, with a recoverable poor allocation at 39. These are automated timings, not human pacing. The original brief follows.
 
 Design one later settlement around an imperfect working village, competing prime land and a second player-triggered commitment. Draw from the long-haul and limited-land concepts instead of adding both as overlapping levels. The first improvement should change where the next investment makes sense: for example, a new neighborhood changes which production and services are worth moving or duplicating.
 
@@ -45,9 +47,19 @@ Deliver a map/route prototype and a go/revise/defer decision. Only promote full 
 
 ## 5. F21n / F07c3 — understand and repair a neighborhood
 
+Start with the finale fixture: distinguish bread baked/delivered, bread eaten, locally stored bread and central bread available for supper. One bakery can be busy while reserves stay empty. Use existing explanations first, and verify any correction against actual counters and destinations.
+
 Follow one actual meal, home-rest and recreation problem in the later scenario or an existing dispersed-village fixture. Trace what the player sees from the falling condition to the resident, destination and available remedy. Compare a central-service solution with a local pantry/layout solution, including setup labor.
 
 Implement the best-supported navigation, wording or placement-feedback correction. Keep the scope to the observed problem; no automatic assignment system, new needs meter or productivity dashboard. Verify the repair changes the actual service outcome and remains readable at 960/1440. If the current interface already explains it adequately, record that result and skip speculative UI work.
+
+## 6. F11b6 / F18b6 — integrate the lasting village
+
+After the service review, add level ten selection, arrival guidance, earned twelve-person progress, supported twenty-person growth and a player-triggered shared supper. Prevent early supper from banking completion. Support extra residents with explicit current-population requirements, phase saves, replay and completion navigation. Keep all buildings available and avoid prescribed production layouts. Repeat both food routes and saved poor-allocation recovery through real campaign states; inspect Goals at 960/1440. No post-supper waiting gate. Human pacing remains TBD.
+
+## 7. F12g / F23b9 — authored landscape composition
+
+The prototype overview exposes a sparse eastern bank and regular tree perimeter. Improve ground/shore silhouettes and natural grouping, with clear neighborhood sites and views at ordinary zoom. Preserve the tested resource budget, access and enough credible alternative plots; rerun routes if gameplay geometry changes. Compare matched initial and settled views. This is authored map/art work, not a terrain editor or a larger map requirement.
 
 ## Reevaluate after each delivery
 

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--finale-decision")) {try{FinaleDecisionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--woods-campaign")) {try{WoodsCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--woods-brief")) {try{LivingWoodsBriefChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--quarry-challenge")) {try{QuarryChallengeExperiment.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
