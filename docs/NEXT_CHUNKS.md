@@ -174,7 +174,9 @@ Promote the existing landscaping follow-up. Start by inspecting the current heig
 Define height increments and limits, footprint/border blending, restrictions around buildings/resources/water and active trips, and how an unwanted committed change can be corrected. Choose whether occupied terrain is protected or can safely move its occupants; do not silently tilt buildings or strand residents. Prove a legal usable building terrace and preserved route access with the existing terrain model before implementing a brush UI. Compare the benefit with merely expanding decoration tools; retain unresolved sculpting questions explicitly.
 
 Normal-play landscaping costs, watercourse editing, map expansion, ramps and retaining walls remain distinct decisions. Avoid introducing them as hidden prerequisites for the first Creative operation. Audio audition stays open; checkpoint 5 still triggers the periodic four-role review.
-## 3. F09e — fence gates: design first
+## 3. F09e — implement the reviewed fence gateway
+
+**F09e1 design delivered:** [Decision and acceptance checks](FENCE_GATEWAY_F09E1.md). Implement the always-open, path-compatible gateway with four saved facings and connections only at its side posts. Preserve service workspaces, actual walking cargo and the free decoration economy. Compare its readability with an empty gap before claiming the player outcome. This documentation chunk leaves the playable count at 4. The original brief follows.
 
 Promote the existing gate candidate. Review current fence connections, path occupancy and route rules with a bounded game-design review. The player purpose is a clear entrance to an arranged courtyard or garden. Compare a visibly framed, always-passable opening with a controllable gate; do not assume locking, schedules or worker permissions are needed. State collision, path coexistence, orientation, neighboring fence connections, costs and removal rules before coding.
 
