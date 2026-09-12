@@ -130,6 +130,16 @@ public partial class Game
             Box(sheet, new(0, -.12f, 4), new(18, .15f, 22), new("777f62"));
             _focus = new(0,0,4); _camera.Size = 30; UpdateCamera(); HideLabels(sheet); await Frames();
             await Capture("artifacts/f23a-construction.png");
+            Clear(sheet);
+            foreach(var (kind,row) in new[]{(BuildingKind.Farm,0),(BuildingKind.VegetableGarden,1)})
+                for(int stage=0;stage<4;stage++)
+                {
+                    var bed=new Node3D {Position=new(stage*4-6,0,row*4-2),RotationDegrees=new(0,stage*90,0)};sheet.AddChild(bed);
+                    MakeBuilding(bed,new Cottage {Kind=kind},stage);
+                }
+            Box(sheet,new(0,-.12f,0),new(18,.15f,10),new("777f62"));
+            _focus=Vector3.Zero;_camera.Size=21;UpdateCamera();HideLabels(sheet);await Frames();
+            await Capture("artifacts/f23b3-field-construction.png");
             GD.Print("PASS: art scene, real bakery/sawmill buffers, working/paused saw, oven state, four camera directions at 960/1440 and construction sheet. Visual appeal requires human review.");
             GetTree().Quit();
         }

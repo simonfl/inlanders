@@ -5,21 +5,22 @@ public partial class Game
 {
     private void MakeVegetableGarden(Node3D root, int stage)
     {
-        Box(root,new(0,.04f,0),new(2.8f,.08f,1.8f),new("a18c63"));
         foreach(float x in new[]{-1.3f,1.3f}) foreach(float z in new[]{-.82f,.82f})
-            Box(root,new(x,.2f,z),new(.06f,.4f,.06f),_wood);
+            Box(root,new(x,.13f,z),new(.06f,.26f,.06f),_wood);
         if(stage<1) return;
         foreach(float z in new[]{-.45f,.45f})
         {
-            Box(root,new(0,.14f,z),new(2.55f,.2f,.66f),new("66523b"));
-            foreach(float edge in new[]{-.34f,.34f})
-                Box(root,new(0,.22f,z+edge),new(2.65f,.16f,.07f),new("b08a57"));
+            SoilBed(root,new(0,0,z),2.78f,.78f,.24f,new("705c42"));
         }
         if(stage<2) return;
-        foreach(float x in new[]{-1.3f,1.3f}) foreach(float z in new[]{-.45f,.45f})
-            Box(root,new(x,.22f,z),new(.07f,.16f,.72f),new("b08a57"));
+        // Partial retaining boards identify tended beds without a continuous tray rim.
+        foreach(float z in new[]{-.45f,.45f})
+        {
+            Box(root,new(-.66f,.12f,z-.35f),new(1.12f,.15f,.07f),new("a68b61"));
+            Box(root,new(.66f,.12f,z+.35f),new(1.12f,.15f,.07f),new("a68b61"));
+        }
         if(stage<3) return;
-        Cylinder(root,new(-1.1f,.43f,.75f),.12f,.3f,new("738d89"));
+        Cylinder(root,new(-1.12f,.16f,.76f),.12f,.3f,new("738d89"));
         FoodSign(root,"VEGETABLES",1.35f);
     }
     private void MakeSquash(Node3D root,Vector3 at,float radius)

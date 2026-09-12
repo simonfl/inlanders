@@ -3,21 +3,24 @@ using Inlanders.Simulation;
 
 public partial class Game
 {
+    private void SoilBed(Node3D parent,Vector3 at,float width,float depth,float height,Color color)
+    {
+        // Tapered, faceted earth meets the grass without a full rectangular plinth.
+        var bed=Mesh(parent,new CylinderMesh {BottomRadius=1,TopRadius=.93f,Height=height,RadialSegments=12},at+new Vector3(0,height/2,0),color);
+        bed.Scale=new(width/2,1,depth/2);
+    }
     private void MakeFarm(Node3D parent, int stage)
     {
-        Box(parent, new(0,0.04f,0),new(2.8f,0.08f,1.8f),new("74654b"));
         foreach(float x in new[]{-1.35f,1.35f}) foreach(float z in new[]{-0.85f,0.85f})
-            Box(parent,new(x,0.18f,z),new(0.055f,0.36f,0.055f),_wood);
+            Box(parent,new(x,0.11f,z),new(0.055f,0.22f,0.055f),_wood);
         if(stage<1) return;
-        // Beds are dug before the final timber edging is fitted.
+        // Two worked strips become three; crop origins remain at the soil surface.
         for(int row=0;row<(stage<2?2:3);row++)
-            Box(parent,new(0,0.10f,-0.56f+row*0.56f),new(2.55f,0.1f,0.38f),new("594f37"));
-        if(stage<2) return;
-        foreach(float z in new[]{-0.88f,0.88f})
-            Box(parent,new(0,0.16f,z),new(2.8f,0.12f,0.07f),new("b99b6f"));
+            SoilBed(parent,new(0,0,-.56f+row*.56f),2.72f,.46f,.15f,new Color("746348").Lightened(row*.018f));
         if(stage<3) return;
-        foreach(float x in new[]{-1.38f,1.38f})
-            Box(parent,new(x,0.16f,0),new(0.07f,0.12f,1.8f),new("b99b6f"));
+        // Short end markers leave all three rows open, rather than boxing in the field.
+        foreach(float z in new[]{-.56f,0f,.56f})
+            Box(parent,new(-1.34f,.07f,z),new(.07f,.10f,.24f),new("998060"));
         FoodSign(parent,"FARM",1.65f);
     }
     private void MakeCrops(Node3D root,Cottage farm,int stage)
