@@ -1,4 +1,5 @@
 using Godot;
+using Inlanders.Simulation;
 using System;
 
 public partial class Game
@@ -12,7 +13,7 @@ public partial class Game
     }
 
     // A thick pitched roof with exposed end grain; ridge and eaves read at town scale.
-    private void VillageRoof(Node3D parent, Vector3 center, float width, float depth, float rise, Color color, bool enclosed)
+    private void VillageRoof(Node3D parent, Vector3 center, float width, float depth, float rise, Color color, bool enclosed, Color? gableColor=null)
     {
         float half = depth / 2;
         float slope = MathF.Atan2(rise, half);
@@ -36,7 +37,7 @@ public partial class Game
             surface.AddVertex(center + new Vector3(x, -.08f, half - .12f));
         }
         surface.GenerateNormals();
-        var gable = Mesh(parent, surface.Commit(), Vector3.Zero, new("d5c4a0"));
+        var gable = Mesh(parent, surface.Commit(), Vector3.Zero, gableColor??new("d5c4a0"));
         ((StandardMaterial3D)gable.MaterialOverride).CullMode = BaseMaterial3D.CullModeEnum.Disabled;
     }
 
@@ -58,7 +59,7 @@ public partial class Game
         if(shutter) Box(opening, new(.47f, 0, .045f), new(.19f, .57f, .07f), new("647b6b"));
     }
 
-    private void MakeCottage(Node3D parent, int stage, int variant = 0)
+    private void MakeCottage(Node3D parent, int stage, int variant = 0, CottageFinish finish=CottageFinish.Automatic)
     {
         // Individual wall feet and a doorstep replace the full rectangular display plinth.
         StoneFoot(parent, new(0, .16f, -.23f), new(2.4f, .28f, 1.22f));
@@ -72,7 +73,8 @@ public partial class Game
         }
         foreach (float z in new[] { -.74f, .66f }) Box(parent, new(0, 1.83f, z), new(2.48f, .20f, .18f), _frameTimber);
         if (stage < 2) return;
-        var plaster = new Color("e2cfaa");
+        var palette=CottagePalette(finish==CottageFinish.Automatic?(CottageFinish)(1+variant):finish);
+        var plaster = palette.Wall;
         Box(parent, new(0, 1.02f, -.25f), new(2.22f, 1.48f, 1.02f), plaster);
         Box(parent, new(.63f, 1.02f, .46f), new(.96f, 1.48f, .41f), plaster);
         // The door sits behind the porch posts, giving a real shaded entry corner.
@@ -85,8 +87,8 @@ public partial class Game
         CottageWindow(parent, new(-1.13f, 1.10f, -.20f), -90);
         CottageWindow(parent, new(-.20f, 1.10f, -.77f), 180);
         if (stage < 3) return;
-        var roofColor = variant == 1 ? new Color("768478") : variant == 2 ? new Color("a28d63") : new Color("ae7156");
-        VillageRoof(parent, new(0, 1.87f, -.02f), 2.78f, 1.95f, .84f, roofColor, true);
+        VillageRoof(parent, new(0, 1.87f, -.02f), 2.78f, 1.95f, .84f, palette.Roof, true,
+            finish is CottageFinish.Slate or CottageFinish.Rose?plaster.Darkened(.055f):null);
         Box(parent, new(.75f, 2.49f, -.37f), new(.39f, 1.18f, .42f), _stone.Darkened(.10f));
         Box(parent, new(.75f, 3.10f, -.37f), new(.52f, .16f, .55f), _stone);
         Box(parent, new(.75f, 3.185f, -.37f), new(.25f, .015f, .28f), _recess);

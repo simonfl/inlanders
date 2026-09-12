@@ -75,6 +75,7 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public CottageFinish Finish { get; internal set; }
     public bool ImprovementRequested { get; set; }
     public bool Improved { get; set; }
     public int ImprovementPlanks { get; set; }
@@ -440,6 +441,7 @@ public sealed partial class World
         ValidateComfort();
         foreach (var site in Cottages)
         {
+            Check(Enum.IsDefined(site.Finish) && (site.Kind==BuildingKind.Cottage || site.Finish==CottageFinish.Automatic),"Invalid cottage finish");
             Check(site.Rotation is >=0 and <=3,"Invalid building orientation");
             Check(site.Incoming == People.Where(v => v.SiteId == site.Id && v.Cargo!=Resource.Stone).Sum(v => v.Reserved), "Orphaned site reservation");
             Check(site.Delivered >= 0 && site.Incoming >= 0 && site.Delivered + site.Incoming <= site.Required, "Over-delivery");

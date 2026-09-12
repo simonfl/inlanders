@@ -108,6 +108,7 @@ public partial class Game
         _siteInfo = Text("", 16, true); _buildingDetails.AddChild(_siteInfo);
         MakePantryControls();
         MakeComfortControls();
+        MakeCottageFinishControls();
         var priorities = new HBoxContainer(); _buildingDetails.AddChild(priorities);
         for (int i = 0; i < 3; i++)
         {
@@ -287,6 +288,7 @@ public partial class Game
         UpdateStorageControls();
         UpdatePantryControls();
         UpdateComfortControls();
+        UpdateCottageFinishControls();
         UpdateBuildDescription();
         UpdateBuildCatalog();
         _hint.Text = _placing ? (_woodlandTool>0 ? $"{WoodlandToolName} · click or drag · Esc finishes" : _decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "1 shore tile + launch" : _buildKind == BuildingKind.SeatingGarden ? "1 tile" : _rotation%2!=0 ? "2 × 3" : "3 × 2")} · R / Shift+R rotates · Esc cancels") : "";

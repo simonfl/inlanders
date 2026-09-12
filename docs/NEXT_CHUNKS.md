@@ -5,7 +5,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 ## Review conclusions
 
 - **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finish selection is the next player-expression slice. Matched screenshots support comparisons; player appeal remains an open question.
+- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finish selection has shipped; connected fences are next. Matched screenshots support comparisons; player appeal remains an open question.
 - **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
 - **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
 - **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
@@ -13,7 +13,7 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; continue with F09b. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b is delivered; continue with F09c. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
@@ -67,11 +67,19 @@ After the service review, add level ten selection, arrival guidance, earned twel
 
 The prototype overview exposes a sparse eastern bank and regular tree perimeter. Improve ground/shore silhouettes and natural grouping, with clear neighborhood sites and views at ordinary zoom. Preserve the tested resource budget, access and enough credible alternative plots; rerun routes if gameplay geometry changes. Compare matched initial and settled views. This is authored map/art work, not a terrain editor or a larger map requirement.
 
-## 8. F09b — choose cottage finishes
+## 8. F09b — choose cottage finishes (delivered)
+
+[Palette comparison and verification](COTTAGE_FINISHES_F09B.md): five named choices plus Automatic, saved per cottage, with all four orientations and improved homes verified. The original brief follows.
 
 Let the player select a cottage finish from a small, coherent set in its existing inspector and return to the automatic colors. Use named palettes, preview the actual selected house, and retain roof/wall/timber contrast and clear entrances. This is a free cosmetic choice, with no new production chain, work task or satisfaction benefit.
 
 Keep the controls compact at 960/1440. Verify choice persistence, automatic reset, four orientations, construction/demolition appearance and improved-home shutters. Compare a settled neighborhood using both automatic and chosen finishes under matched light. Carry further facade details, connected fences and brush painting forward separately; do not turn this into a general material editor.
+
+## 9. F09c — connected fence runs
+
+Make adjacent decorative fence tiles form coherent straight runs and corners. Preserve the existing solid footprint and protected-access rules; this changes presentation, not where villagers can walk. Isolated pieces retain understandable orientation controls. Show the resulting joins during placement and update neighbors after placement, removal and reload.
+
+Inspect a cottage garden and a longer boundary at ordinary zoom. Verify all connection directions, corners, interruption/removal, adjacent buildings and refused placements that would cut off access. Keep preview and placed models consistent. Gates, new navigation rules and drag painting are separate follow-ups rather than prerequisites.
 
 ## Reevaluate after each delivery
 

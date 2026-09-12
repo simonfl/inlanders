@@ -46,7 +46,7 @@ public partial class Game
         if (site.Kind == BuildingKind.VegetableGarden) { MakeVegetableGarden(parent, stage); return; }
         if (site.Kind == BuildingKind.Farm) { MakeFarm(parent, stage); return; }
         if (site.Kind == BuildingKind.ForagerHut) { MakeForagerHut(parent, stage); return; }
-        MakeCottage(parent, stage, site.Id % 3);
+        MakeCottage(parent, stage, site.Id % 3, site.Finish);
     }
     private void RenderFoodViews()
     {
