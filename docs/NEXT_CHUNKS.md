@@ -83,6 +83,8 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 ## 3. F16c — Creative building relocation
 
+**In progress:** [F16c1 simulation foundation](RELOCATION_CORE_F16C1.md) now preserves identity/state, checks old and new connectivity, interrupts affected work and handles moored docks. Focused checks cover four-way moves, goods, actual cargo/visits and occupied bridges. **F16c2 is next:** the player-facing inspector/preview/cancellation flow and rendered verification. The overall F16c feature is not delivered yet.
+
 **Outcome:** rearrange a finished Creative building without deleting and rebuilding it, preserving what makes it that building.
 
 Start from its inspector with Move, a destination preview and existing four-way rotation. Confirm a valid destination deliberately; Escape/right-click cancellation and invalid placement preserve the original world exactly. Keep building identity, goods, targets, priorities, finishes, civic identity, home improvements and orchard maturity. Do not duplicate construction material or crop stock. Resolve affected work/visitor/home routes using existing interruption and access rules; explain any movement restriction before confirmation. Preserve bridge connectivity and dock/boat safety rather than silently stranding residents or cargo.

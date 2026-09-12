@@ -90,10 +90,10 @@ public sealed class Cottage
     [JsonInclude] public bool WorkPaused { get; internal set; }
     [JsonInclude] public int OutputTarget { get; internal set; } = -1;
     public int Id { get; init; }
-    public Cell Cell { get; init; }
-    public int Rotation { get; init; }
-    public bool BridgeFromFar { get; init; }
-    public bool DockFromFar { get; init; }
+    [JsonInclude] public Cell Cell { get; internal set; }
+    [JsonInclude] public int Rotation { get; internal set; }
+    [JsonInclude] public bool BridgeFromFar { get; internal set; }
+    [JsonInclude] public bool DockFromFar { get; internal set; }
     public FishingBoat? Boat { get; set; }
     public BuildingKind Kind { get; init; }
     [JsonInclude]    public bool Planted { get; internal set; }

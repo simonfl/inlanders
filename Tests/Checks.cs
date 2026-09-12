@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--relocation")) {try{RelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--orchard-playable")) {try{OrchardChecks.Run();PantryProducerChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--orchard")) {try{OrchardComparison.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--restoration")) {try{RestorationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -170,6 +171,7 @@ PopulationChecks.Run();
 StorageChecks.Run();
 VegetableChecks.Run();
 OrchardChecks.Run();
+RelocationChecks.Run();
 LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();
