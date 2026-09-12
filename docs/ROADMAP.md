@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23b6 — gathering hall architecture.** The [quarry challenge experiment](QUARRY_CHALLENGE_F11B4.md) rejected reserve-only difficulty changes: fourteen runs completed without missed meals, and longer routes mostly added waiting. The shipped scenario remains unchanged; stronger campaign design is still needed. Improve the visibly plain hall next, then develop the existing Living woods concept around habitat/timber/food consequences.
+**Next: F26c2a — Living woods scenario design.** The hall architecture pass is complete. Develop the existing woodland concept around actual habitat/timber/food consequences, with a budgeted map and distinct preservation/mixed-food routes before campaign integration. The [quarry challenge experiment](QUARRY_CHALLENGE_F11B4.md) rejected reserve-only difficulty changes; longer waiting is not the acceptance criterion.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -24,7 +24,9 @@ Current foundation: **17 building types, eight campaign levels**, actual meals, 
 | 6 | F26b2b | Implemented; human pacing open | Level eight, staged hall/service proof, source links, actual hall use, two full routes with paths and saved competing-venue recovery. [Review](QUARRY_CAMPAIGN_REVIEW.md). No new material chain or mandatory upgrades. |
 | 7 | F23c1 | Implemented | Twelve-piece loose stock cap, exact large-source labels and batched geometry; real collection, threshold/drain, saves, felling and clearing pass. [Review](LOOSE_STOCK_F23C1.md). |
 | 8 | F11b4 / F18b4 | Experiment complete; changes rejected | Fourteen accounted comparisons show lower reserves mostly delay the same plan; food investment adds opening commands. One late garden accelerates a slow assessment but is not necessary for eventual completion. [Evidence](QUARRY_CHALLENGE_F11B4.md). Longer, demanding campaign play remains open. |
-| 9 | F23b6 | Ready | A distinctive gathering hall silhouette and welcoming frontage using actual visitor positions. Preserve cost/capacity/visit timing; verify four orientations, construction stages and real attendance. Follow the current homes/sawmill/square art language. |
+| 9 | F23b6 | Implemented; visual feedback open | Civic front gable, framed stonework, side lights, roof lantern and open arch/frontage; four stages and fitted thumbnail. Four-orientation construction/visits and exact reload pass. [Comparison](HALL_F23B6.md). |
+| 10 | F26c2a | Ready for design/prototype | Living woods: explicit timber/habitat/food and land budgets; preservation versus mixed cultivation/hunting; a clearing mistake with interim food and actual woodland recovery. Verify consequences before thresholds. Use existing systems, no new material chain. |
+| 11 | F26c2b | Conditional on supported design | Implement the woodland scenario with staged decisions, source/clearing explanations, actual supported habitat and meals, two routes and saved recovery. Reject a lodge-count checklist or a timer-only extension. |
 
 The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
 
@@ -56,6 +58,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b6 | Taller civic hall with stone piers, timber gables, side lights, roof lantern and clear entrance. Four construction stages and fitted catalog thumbnail; actual four-orientation visitors/reload and quarry routes verified. [Review](HALL_F23B6.md). |
 | F23c1 | Loose timber/plank/stone salvage displays capped and batched, with exact labels above twelve pieces. Real collection updates labels without rebuilding full piles; fourteen-unit drain, exact saves, stumps, felling and clearing verified. [Review](LOOSE_STOCK_F23C1.md). |
 | F26b2b | Built to last: two stone sources, eight-person village, hall construction and real recent hall use plus continuing food service; campaign picker, replay/restore and exact saves. Two routes, path comparison and adverse placement recovery pass. Narrow stone-resource bar fixed. [Review](QUARRY_CAMPAIGN_REVIEW.md). |
 | F11b3 / F18b3 | Agent review of current river/lake routes, UI, service recovery and waiting; lake phase blockers/objective corrected to accept all recreation venues and describe improved-home rest. No win-rule changes. [Measurements and remaining questions](CAMPAIGN_REVIEW_F11B3.md). |

@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--hall-art")) { _paused=true;await CheckHallArchitecture();return; }
         if(OS.GetCmdlineUserArgs().Contains("--quarry-campaign")) { _paused=true;await CheckQuarryCampaignUi();return; }
         if(OS.GetCmdlineUserArgs().Contains("--storage-review")) { _paused=true;await CheckStoragePresentation();await CheckStorageUi();return; }
         if(OS.GetCmdlineUserArgs().Contains("--goals-only")) { _paused=true;await CheckGoalDashboard();return; }

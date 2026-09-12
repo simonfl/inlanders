@@ -108,8 +108,9 @@ public partial class Game
         root.AddChild(new DirectionalLight3D { RotationDegrees = new(-50, -30, 0), LightEnergy = .8f, ShadowEnabled = true });
         var model = new Node3D(); root.AddChild(model); MakeBuilding(model, new Cottage { Kind = kind }, 3);
         HideModelLabels(model);
-        var camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = 4.7f, Position = new(5, 5, 7), Current = true };
-        root.AddChild(camera); camera.LookAt(new(0, 1.0f, 0));
+        bool tallHall=kind==BuildingKind.GatheringHall;
+        var camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = tallHall?5.4f:4.7f, Position = new(5, 5, 7), Current = true };
+        root.AddChild(camera); camera.LookAt(new(0, tallHall?1.5f:1.0f, 0));
         return viewport.GetTexture();
     }
     private static void HideModelLabels(Node node)
