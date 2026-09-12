@@ -2,6 +2,8 @@
 
 Baseline: `e9e4f67`. This is a source/document review and a plan, not a new playtest or an implementation claim. Recent rendered comparisons and simulation reports are supporting evidence; human enjoyment remains unverified.
 
+> Historical baseline: this sequence has been delivered. See [the current next chunks](NEXT_CHUNKS.md) for the updated assessment and order. Counts and unimplemented items below describe the baseline revision.
+
 ## Assessment
 
 The prototype has enough systems to support a richer game. The priority is making the existing village understandable, attractive and worth improving, then using its resource/geography choices in authored scenarios. Repeatedly adding art details alone will not answer whether the campaign is enjoyable; repeatedly adding needs will make an already substantial interface harder to learn.

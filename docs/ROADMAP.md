@@ -6,45 +6,41 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F26c2a — Living woods scenario design.** The hall architecture pass is complete. Develop the existing woodland concept around actual habitat/timber/food consequences, with a budgeted map and distinct preservation/mixed-food routes before campaign integration. The [quarry challenge experiment](QUARRY_CHALLENGE_F11B4.md) rejected reserve-only difficulty changes; longer waiting is not the acceptance criterion.
+**Next: F26c2b — integrate Living woods and assess its full routes.** The [budgeted map prototype](LIVING_WOODS_F26C2.md) supports preservation/hunting and mixed cultivation. Pausing hunting restores animal stock; over-clearing requires protected replacement trees to mature. The early setups are short, so full campaign challenge remains unproven. Longer waiting is not the acceptance criterion.
 
-The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
+The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
 Current foundation: **17 building types, eight campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake and quarry are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
 ## Current delivery queue
 
+Only unfinished deliveries belong here. Scope, acceptance checks and cut criteria are in [the next-chunk review](NEXT_CHUNKS.md).
+
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F23b4 | Implemented; visual feedback open | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
-| 2 | F11b3 / F18b3 | Agent review/correction complete; human pacing open | Current routes and recovery reviewed; lake blockers now describe all valid recreation venues and earned rest windows. [Findings](CAMPAIGN_REVIEW_F11B3.md). |
-| 3 | F21m | Audit complete; no layout defect found | Actual control-width checks pass; the suspected scrollbar was campaign progress. Expanded-state checks retained. [Audit](GOALS_LAYOUT_F21M.md). |
-| 4 | F23b5 | Implemented; visual feedback open | Bounded batched yard racks, unchanged exact inventories, stronger local stockpile framing and softer ground/path colors. Fill/drain/reload and high-stock checks pass. [Review](STORAGE_F23B5.md). |
-| 5 | F26b2a | Brief/map prototype complete | [Built to last](QUARRY_CAMPAIGN_F26B2.md): exact starting budget, legal plots, optional nearby source and two actual hall construction/visit routes. Full service/recovery and human pacing remain unproven. |
-| 6 | F26b2b | Implemented; human pacing open | Level eight, staged hall/service proof, source links, actual hall use, two full routes with paths and saved competing-venue recovery. [Review](QUARRY_CAMPAIGN_REVIEW.md). No new material chain or mandatory upgrades. |
-| 7 | F23c1 | Implemented | Twelve-piece loose stock cap, exact large-source labels and batched geometry; real collection, threshold/drain, saves, felling and clearing pass. [Review](LOOSE_STOCK_F23C1.md). |
-| 8 | F11b4 / F18b4 | Experiment complete; changes rejected | Fourteen accounted comparisons show lower reserves mostly delay the same plan; food investment adds opening commands. One late garden accelerates a slow assessment but is not necessary for eventual completion. [Evidence](QUARRY_CHALLENGE_F11B4.md). Longer, demanding campaign play remains open. |
-| 9 | F23b6 | Implemented; visual feedback open | Civic front gable, framed stonework, side lights, roof lantern and open arch/frontage; four stages and fitted thumbnail. Four-orientation construction/visits and exact reload pass. [Comparison](HALL_F23B6.md). |
-| 10 | F26c2a | Ready for design/prototype | Living woods: explicit timber/habitat/food and land budgets; preservation versus mixed cultivation/hunting; a clearing mistake with interim food and actual woodland recovery. Verify consequences before thresholds. Use existing systems, no new material chain. |
-| 11 | F26c2b | Conditional on supported design | Implement the woodland scenario with staged decisions, source/clearing explanations, actual supported habitat and meals, two routes and saved recovery. Reject a lodge-count checklist or a timer-only extension. |
+| 1 | F26c2b | Ready; map prototype tested | Play Living woods with two food/land-use strategies, actual habitat and meal evidence, and clear recovery from hunting pressure or over-clearing. Full campaign integration remains. |
+| 2 | F23b7 | Planned | Woodland and hunting-lodge presentation: readable habitat, distinct architecture and visible restoration at ordinary zoom. |
+| 3 | F23b8 | Planned | Docks and bridges with stronger structure and shoreline connection, preserving actual approach, crossing and boat behavior. |
+| 4 | F11b5 / F18b5 | Design/prototype | A lasting village: test a second meaningful settlement commitment using imperfect starting layouts, competing land and distance. Integration depends on the result. |
+| 5 | F21n / F07c3 | Evidence-led review/fix | Follow a real neighborhood service problem from goal to resident to remedy; improve the highest-supported explanation or interaction. |
 
-The original five-chunk sequence gained a short F21m audit; it ruled out an incorrect visual diagnosis without changing the UI. Human feedback remains useful, but unavailable feedback does not block unrelated visual work or exploratory design. Record what was reviewed by a person, by an agent, or by scripted checks. Never report human enjoyment from automated completion. If the quarry brief cannot establish a meaningful choice or worthwhile hall, revise/cut it before implementing F26b2b.
+Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods map/route prototype](LIVING_WOODS_F26C2.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
 ## Review questions, not a second work queue
 
 | Area | What remains uncertain | How it affects decisions |
 | --- | --- | --- |
 | Art — F23a/b | Does the village feel inviting at ordinary zoom, including all four sides? | Use matched scenes and feedback. Iterate the offending type; avoid an automatic wholesale art rewrite. |
-| Campaign/UI — F21l, F11b/F18b | Can a player explain a falling goal count and recover? Is there meaningful work beyond opening placements? | Chunk 2. Preserve completed milestones; cut waiting rather than increase quotas to promise a duration. |
+| Campaign/UI — F21l, F11b/F18b | Can a player explain a falling goal count and recover? Is there meaningful work beyond opening placements? | Use the woodland integration and later neighborhood review. Preserve completed milestones; cut waiting rather than increase quotas to promise a duration. |
 | Campaign challenge — F11/F18 | Quarry competent routes remain six to eight simulated minutes; reserve-only changes failed to create sustained decisions. | Use changing commitments/environmental consequences in later scenario design, starting with the existing Living woods concept. Human timing remains unverified. [Rejected experiment](QUARRY_CHALLENGE_F11B4.md). |
-| Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Include one relevant meal problem in chunk 2; do not require local pantries in every solution. |
+| Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Use the neighborhood review; do not require local pantries in every solution. |
 | Comfort — F25b3 | Are visible improvements and fewer rest journeys rewarding? | Keep optional. Existing comparisons show no food-output gain; no comfort scenario yet. |
-| Quarry/hall and wildlife — F26b/c | Are their geographical tradeoffs worth the investment? | Quarry brief next; woodland campaign later. Neither must beat every alternative. |
-| Performance — F23c/d | Larger decorated settlements remain unmeasured; frame sync affected older results. | Profile the actual target if population/density grows. Chunk 3 checks high-stock geometry specifically. |
+| Quarry/hall and wildlife — F26b/c | Are their geographical tradeoffs worth the investment? | Quarry shipped; woodland integration next. Neither must beat every alternative. |
+| Performance — F23c/d | Larger decorated settlements remain unmeasured; frame sync affected older results. | Profile the actual target if population/density grows. Bounded yard and loose-stock geometry have shipped; profile representative larger villages before expanding scale. |
 
 ## After this queue / parked
 
-Continue the dock and bridge family only after reviewing the current scene. A **Living woods** scenario can follow the quarry scenario if it offers a different land-use decision. The long-haul and limited-land concepts are ingredients or optional challenges, not three additional committed levels. A chapter finale follows successful individual scenarios.
+The queue now includes woodland and shoreline presentation, followed by a chapter-finale decision prototype. The long-haul and limited-land concepts are ingredients or optional challenges, not additional committed levels. Full finale integration depends on evidence from that prototype.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -155,7 +151,7 @@ Vegetable deliveries and qualifying meal times are cumulative; carried or still-
 
 ## Campaign expansion — F11b / F18b
 
-**The first five settlements are the introductory chapter; levels 6 and 7 provide the current mastery prototypes.** The campaign should teach and then test mastery: planning construction order, allocating scarce labor, choosing food production, reading geography, and expanding without exhausting the economy that supports expansion. A later level can introduce a new problem using familiar buildings; it does not need a new building to justify its existence.
+**The first five settlements are the introductory chapter; levels 6–8 provide the current operational prototypes.** The campaign should teach and then test mastery: planning construction order, allocating scarce labor, choosing food production, reading geography, and expanding without exhausting the economy that supports expansion. A later level can introduce a new problem using familiar buildings; it does not need a new building to justify its existence.
 
 Keep the existing lessons available while reviewing the first substantial scenario. Later, review whether to combine or make some lessons optional. Final chapter names, numbering, populations, starting stocks and thresholds remain TBD. Do not promise a duration by multiplying delivery goals or slowing production.
 
@@ -168,11 +164,11 @@ Keep the existing lessons available while reviewing the first substantial scenar
 
 These are exploratory first-time human play targets with ordinary use of pause and speed controls, not minimum times, deadlines, or measured current runtimes. This concept table is not the implementation queue: long haul and room to grow may become ingredients of other maps. Skilled play should finish faster. Quiet watching belongs in the pacing, but the player should have worthwhile decisions beyond the opening placement burst.
 
-**F11b2 / F18b2 — implemented difficulty slice:** the revised lake makes scarce central plots, limited natural food, distant timber and service travel matter without changing population targets or proof length. See the [comparison and recovery review](LAKE_DIFFICULTY_F11B2.md). The next campaign step is a human play review: can players identify why supply falls behind and choose a useful response? Keep the 10/18-minute deliberate routes and 16-minute recovery as simulation evidence, not a promised first-play duration. Fishing, stone and wildlife systems are already implemented; the next quarry scenario should incorporate this feedback.
+**F11b2 / F18b2 — implemented difficulty slice:** the revised lake makes scarce central plots, limited natural food, distant timber and service travel matter without changing population targets or proof length. See the [comparison and recovery review](LAKE_DIFFICULTY_F11B2.md). The next campaign step is a human play review: can players identify why supply falls behind and choose a useful response? Keep the 10/18-minute deliberate routes and 16-minute recovery as simulation evidence, not a promised first-play duration. Fishing, stone and wildlife systems are already implemented; the implemented quarry and upcoming woodland scenario should be assessed alongside this feedback.
 
 **Recovery design:** F16b returns all construction materials through worker trips. Start the river proof with this forgiving rule; judge whether lost worker time and temporary service/housing disruption provide enough consequence before considering material loss. Do not make a salvage penalty or relocation tool a prerequisite for the scenario.
 
-**First chunk implemented:** [Across the river](ACROSS_THE_RIVER.md) supports opening → crossing → prepared growth → supported neighborhood, including a cottage/garden and bread/lodge approach. The east-bank square must actually serve residents. F25a now assigns individual homes and rest visits; river goals still use east-bank bed capacity. F11b2 has now revised the lake with competing sites and recoverable service-travel costs. Next campaign work is human pacing review of the river and lake before authoring another substantial scenario. Defer goals that require unimplemented local services or per-workplace assignments.
+**First chunk implemented:** [Across the river](ACROSS_THE_RIVER.md) supports opening → crossing → prepared growth → supported neighborhood, including a cottage/garden and bread/lodge approach. The east-bank square must actually serve residents. F25a now assigns individual homes and rest visits; river goals still use east-bank bed capacity. F11b2 has now revised the lake with competing sites and recoverable service-travel costs. River/lake agent review and the quarry scenario have shipped. Human pacing remains open; current campaign work follows the delivery queue. Defer goals that require unimplemented local services or per-workplace assignments.
 
 **Objective rules:** use visible milestones and a small number of simultaneous outcome conditions. A brief operational check after growth distinguishes a sustainable settlement from a one-time stockpile, but must not become the main source of level length. Show what counts, progress and why a condition is unmet. Completed construction milestones stay completed; operational conditions may recover when missed. Stage transitions and arrivals are player-triggered, explained in advance, and saved. Failure to meet a condition invites adjustment, not restart. No deaths, forced failure, surprise disasters or deadlines.
 
@@ -200,8 +196,8 @@ See the [campaign systems plan](CAMPAIGN_SYSTEMS.md) for the need → building �
 
 - **Food, shelter/rest and company now have a first shared loop.** F14b measures actual meals; F25a adds assigned homes, real rest visits and recreation explanations using cottages/lodges and squares. See [the home-life review](HOME_LIFE_F25A.md). Comfort can later motivate visible home improvements.
 - **F26a, implemented: water → fishing dock/boat → food.** Shared fish habitat, shoreline access and complete water/pantry trips distinguish fishing from gardens. Life by the lake introduces the system; F11b2 now adds constrained sites and meaningful service-placement choices.
-- **F26b1, implemented: rock outcrop → quarry → gathering hall.** Finite stone and mixed construction/recovery now work. Hall visits trade a larger investment and longer attendance for fewer repeat journeys. F26b2 remains the later authored campaign scenario; no iron/tool-wear chain.
-- **F26c, prototype implemented: retained woodland → wildlife habitat → hunting lodge/game.** Shared stock and recovery depend on mature trees. Pause hunting for stock recovery; regrow woodland for capacity. The living woods scenario remains future work; no full ecosystem simulation.
+- **F26b1, implemented: rock outcrop → quarry → gathering hall.** Finite stone and mixed construction/recovery now work. Hall visits trade a larger investment and longer attendance for fewer repeat journeys. F26b2 is implemented as level eight; no iron/tool-wear chain.
+- **F26c, prototype implemented: retained woodland → wildlife habitat → hunting lodge/game.** Shared stock and recovery depend on mature trees. Pause hunting for stock recovery; regrow woodland for capacity. The Living woods map and recovery routes are prototyped; campaign integration is next; no full ecosystem simulation.
 - **F25b — Comfort at home, prototype/comparison complete:** [F25b2 results](HOME_COMFORT_COMPARISON.md) show reduced homeward travel, ordinary-home viability, and no food-output gain over twenty minutes. Full and partially occupied lodges were compared with cottages, relocation and food investment. Keep costs/intervals provisional and scenario adoption behind F25b3 player review.
 - **F25c — Recreation alternatives, implemented:** one-tile seating gardens, squares and halls offer different footprint/capacity/investment choices with actual visits. Compare their usefulness in normal play before adding more venues.
 - **F25d — Learning through a shared project, exploratory:** adult workshop/reading room, attendance and a concrete civic project. Define that payoff first; no school-age simulation or generic research tree.
@@ -209,7 +205,7 @@ See the [campaign systems plan](CAMPAIGN_SYSTEMS.md) for the need → building �
 
 **Building shortlist and design gates:** the gathering hall is now the first stone consumer. The campaign systems plan retains carpenter-funded home improvements, the implemented small recreation gardens, and later learning/reflection venues. Choose between candidates through a playable purpose, not a larger construction menu. F25a now explains actual meals, home/rest and recreation participation; F26 must show habitat/deposit quality and access before investment. Balance new producers against construction, labor, transport and land use on contrasting maps. Costs and detailed need schedules remain TBD; later needs can be merged or cut if they duplicate recreation.
 
-**Next campaign-system review:** [F26b1 findings](QUARRY_HALL_F26B1.md) show a real difference between nearby/distant stone and a conditional travel benefit from halls. F21i service coverage now exposes current reasons and destination links; review whether those explanations help players improve a dispersed village. Keep F26b2 separate until human pacing feedback. F26c now tests retained mature woodland against hunting and clearing, with separate recoverable consequences. F21j brings shared-source feedback into direct map inspection; see the [scenario briefs](CAMPAIGN_SYSTEMS.md#next-design-decisions-make-each-addition-earn-its-place).
+**Next campaign-system review:** [F26b1 findings](QUARRY_HALL_F26B1.md) show a real difference between nearby/distant stone and a conditional travel benefit from halls. F21i service coverage now exposes current reasons and destination links; review whether those explanations help players improve a dispersed village. F26b2 has shipped; its short competent routes leave human pacing and deeper challenge open. F26c now tests retained mature woodland against hunting and clearing, with separate recoverable consequences. F21j brings shared-source feedback into direct map inspection; see the [scenario briefs](CAMPAIGN_SYSTEMS.md#next-design-decisions-make-each-addition-earn-its-place).
 
 The expanded candidate palette includes orchards, a river-powered mill, pasture/herder shelter, a civic well, a learning workshop/restoration project, and chapel/reflection-garden alternatives. These are exploratory, not new commitments or prerequisites: each needs a distinct land, labor or resident-service choice. No automatic thirst meter, mandatory flour chain, school-age population or separate religion gauge. Food, actual home rest and recreation remain the core; comfort and chosen civic ambitions provide later progression.
 
@@ -219,7 +215,7 @@ Keep Across the river as the first longer level using existing systems. Life by 
 
 ## Optional follow-ups
 
-These are remaining possibilities, not a second priority list. Items promoted into the ordered second phase above take precedence; the notes here describe possible extensions beyond those first chunks.
+These are remaining possibilities, not a second priority list. Items promoted into the current delivery queue take precedence; the notes here describe possible extensions beyond those first chunks.
 
 | Area | Ideas to revisit |
 | --- | --- |
