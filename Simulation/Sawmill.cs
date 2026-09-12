@@ -69,7 +69,7 @@ public sealed partial class World
         Check(Planks >= 0 && AvailablePlanks >= 0 && SawnLogs >= 0, "Invalid plank inventory");
         Check(Planks + People.Where(v => v.Cargo == Resource.Planks).Sum(v => v.Carried) +
             Cottages.Sum(c => c.OutputPlanks + c.ImprovementPlanks) + Cottages.Where(c => c.Material == Resource.Planks).Sum(c => c.Delivered) +
-            Trees.Where(t => t.Material == Resource.Planks).Sum(t => t.Logs) == SawnLogs * 2, "Plank conservation failed");
+            Trees.Where(t => t.Material == Resource.Planks).Sum(t => t.Logs) == SawnLogs * 2 + CreativeNet(Resource.Planks), "Plank conservation failed");
         foreach (var c in Cottages)
             Check(c.InputLogs is >= 0 and <= 2 && c.OutputPlanks is >= 0 and <= 4 && float.IsFinite(c.SawProgress) && c.SawProgress >= 0 && c.SawProgress < 1 &&
                 (c.Kind == BuildingKind.Sawmill || (c.InputLogs == 0 && c.OutputPlanks == 0 && c.SawProgress == 0)), "Invalid sawmill buffer");

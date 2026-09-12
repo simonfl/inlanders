@@ -46,7 +46,7 @@ public sealed partial class World
     private int DeliveredFood(Resource kind)
     {
         int moving=People.Where(p=>p.Cargo==kind && (p.FoodTransfer || p.Meal is {Carrying:true})).Sum(p=>p.Carried);
-        return StoredFood(kind)+moving+(kind switch
+        return StoredFood(kind)+moving-(int)CreativeNet(kind)+(kind switch
         {
             Resource.Berries=>Food.EatenBerries+Food.TradedBerries-Food.InitialBerries,
             Resource.Vegetables=>Food.EatenVegetables,

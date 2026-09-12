@@ -52,7 +52,7 @@ public sealed partial class World
             Map.StoneDeposits.Any(d=>d.Id<0 || d.Capacity<=0 || d.Remaining<0 || d.Remaining>d.Capacity || AvailableDeposit(d)<0 || !Map.Contains(d.Cell) || Map.Water.Contains(d.Cell)))
             throw new InvalidOperationException("Invalid stone deposits");
         if(Stone<0 || AvailableStone<0 || QuarriedStone<0 || Map.StoneDeposits.Sum(d=>d.Capacity-d.Remaining)!=QuarriedStone ||
-            Stone+People.Where(p=>p.Cargo==Resource.Stone).Sum(p=>p.Carried)+Cottages.Sum(c=>c.DeliveredStone)+Trees.Where(t=>t.Material==Resource.Stone).Sum(t=>t.Logs)!=QuarriedStone)
+            Stone+People.Where(p=>p.Cargo==Resource.Stone).Sum(p=>p.Carried)+Cottages.Sum(c=>c.DeliveredStone)+Trees.Where(t=>t.Material==Resource.Stone).Sum(t=>t.Logs)!=QuarriedStone+CreativeNet(Resource.Stone))
             throw new InvalidOperationException("Stone conservation failed");
         foreach(var person in People)
         {

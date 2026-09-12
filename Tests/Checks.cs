@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--creative-stock")) {try{CreativeStockChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--creative-removal")) {try{CreativeRemovalChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--campaign-review")) {try{CampaignChecks.Run();LakeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--relocation")) {try{RelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
@@ -175,6 +176,7 @@ VegetableChecks.Run();
 OrchardChecks.Run();
 RelocationChecks.Run();
 CreativeRemovalChecks.Run();
+CreativeStockChecks.Run();
 LeisureChecks.Run();
 DecorationChecks.Run();
 HappinessChecks.Run();

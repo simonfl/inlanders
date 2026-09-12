@@ -42,7 +42,7 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 34; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 35; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
@@ -418,3 +418,5 @@ Replay **A lasting village** for the river-meadow landscape: grouped timber, sma
 Cottage finish checks: `./Play.ps1 -CottageFinishSmokeTest` verifies live swatches, four orientations, construction/demolition, improved homes and saves. See [the comparison](docs/COTTAGE_FINISHES_F09B.md).
 
 **Creative area removal:** Build → Landscape → Remove an area. Drag to select whole buildings, decorations and paths, then confirm. Escape/right-click cancels. Trees, resources and terrain stay; unsafe groups are rejected without partial removal.
+
+**Creative resource setup:** Options lets you set central stock (0–9,999) with an explicit Apply button. Reserved inputs set a protected minimum. Local inventories and cargo stay intact, and additions/removals are recorded separately from production. Save format 35 requires fresh saves.

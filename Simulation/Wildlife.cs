@@ -67,7 +67,7 @@ public sealed partial class World
                 (p.Cargo!=Resource.Game || p.Carried!=0 || p.Reserved is <1 or >2 || !Map.Wildlife.Any(h=>h.Id==id && h.Cell==p.Destination) ||
                  !Cottages.Any(c=>c.Id==p.WorkplaceId && c.Complete && c.Kind==BuildingKind.HuntingLodge)))
                 throw new InvalidOperationException("Invalid hunter claim");
-        if(Food.Game<0 || Food.HuntedGame<0 || Food.EatenGame<0 || StoredFood(Resource.Game)+Food.EatenGame+People.Where(p=>p.Cargo==Resource.Game).Sum(p=>p.Carried)!=Food.HuntedGame)
+        if(Food.Game<0 || Food.HuntedGame<0 || Food.EatenGame<0 || StoredFood(Resource.Game)+Food.EatenGame+People.Where(p=>p.Cargo==Resource.Game).Sum(p=>p.Carried)!=Food.HuntedGame+CreativeNet(Resource.Game))
             throw new InvalidOperationException("Game conservation failed");
     }
 }

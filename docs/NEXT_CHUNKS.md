@@ -91,7 +91,7 @@ Start from its inspector with Move, a destination preview and existing four-way 
 
 Test home, productive orchard, stocked workplace/pantry, civic venue and shore cases. Cover current work/cargo, blocked destinations, cancelled/failed moves, rotation, exact save continuation and 960/1440 preview/inspector feedback. Normal-play movement, group selection, terrain editing and undo history remain separate. The first slice is Creative relocation with honest behavior, not a free workaround for normal-play clearance.
 
-Relocation and the campaign diagnostic are complete; F16e Creative resource setup can proceed independently while F10b2/F17b await listening feedback. Musical composition still follows the sound review.
+Relocation and the campaign diagnostic are complete; F07d local stone storage review can proceed independently while F10b2/F17b await listening feedback. Musical composition still follows the sound review.
 
 ## F11c / F18c delivered — campaign diagnostic and recovery
 
@@ -135,6 +135,12 @@ Create two related original candidates alongside the existing piece, with a fixe
 
 Extend village arrangement with a visible multi-selection and explicit Remove selected action. Start from the existing Creative removal rules; define which objects are selected, show the affected count and explain protected objects before committing. Escape/right-click cancels without mutation. Validate the entire requested operation against current residents, bridges, boats, routes and goods; never silently perform half a rejected operation. Return recoverable stocks through existing rules and refresh all affected views once. Keep normal construction/demolition unchanged. Review building, decoration and path selection scope before implementation, and document any deferred object classes explicitly rather than claiming universal area editing. Verify mixed selection, stale confirmation, cancellation, current saves, actual cargo and narrow/wide UI. Undo history and terrain sculpting remain separate.
 
-## F16e — Creative central resource setup
+## F16e delivered — Creative central resource setup
+
+[Controls and accounting](CREATIVE_STOCK_F16E.md) deliver ten resources, protected reservations, explicit Apply, separate ledgers and save 35. Simulation and narrow/wide UI checks pass. The original brief below is retained.
 
 Let the player explicitly set central stock for arranging and trying villages. Show the current quantity and protected minimum; do not edit carried goods, local inventories or construction reservations to force a number. Track Creative additions/removals honestly in conservation totals rather than pretending villagers produced them. Keep ordinary games unchanged, use bounded integer inputs and explicit Apply, preserve current saves, and verify jobs with reserved inputs can continue. Resource list, limits and exact controls should follow a brief source/design review before implementation. No trade economy, automatic replenishment or normal-play cheat toggle.
+
+## F07d — local stone staging comparison
+
+Review existing quarry-to-central-yard-to-civic-project routes. Compare optional local stone stockpiles on a near-source and a distant-project route, including the cost and worker time of staging. Keep finite deposits, physical cargo, reservations and normal construction costs. Integrate stone into existing stockpiles if the comparison shows a meaningful placement choice; otherwise retain findings without manufacturing a new consumer or compulsory warehouse. Implementation needs visible stone stacks, material selection, actual quarry/builder/hauler work, interruption/demolition recovery and current-format saves. Existing log/plank storage must keep working.

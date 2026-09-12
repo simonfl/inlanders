@@ -8,7 +8,9 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 34;
+    public int Version { get; set; } = 35;
+    public Dictionary<Resource,long> CreativeAdded { get; set; } = new();
+    public Dictionary<Resource,long> CreativeRemoved { get; set; } = new();
     public List<FoodFlowEvent> RecentFood { get; set; } = new();
     public bool Creative { get; set; }
     public VisitorState Gardener { get; set; }
@@ -45,6 +47,7 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
+            CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
             Creative = Creative, Gardener = Gardener, CameraViews = CameraViews, Decorations = Decorations, TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = _yardPlanks, Stone=_stone, QuarriedStone=QuarriedStone, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History, RecentFood = RecentFood, ManagedWoodland=ManagedWoodland
         }, SaveOptions);
@@ -52,7 +55,7 @@ public sealed partial class World
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version != 34) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
+        if (s.Version != 35) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
         if (s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && ((s.Campaign.Level < 1 || s.Campaign.Level > CampaignLevels.Length) || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
@@ -75,6 +78,7 @@ public sealed partial class World
         var w = new World(0) { TreesPlanted = s.TreesPlanted, InitialLogs = s.InitialLogs, GrownLogs = s.GrownLogs, _yardLogs = s.Stored, _yardPlanks = s.Planks, _stone=s.Stone, QuarriedStone=s.QuarriedStone, SawnLogs = s.SawnLogs, _nextSite = s.NextSite, _nextTree = s.NextTree, _retry = s.Retry, Food = s.Food };
         if (s.Creative && s.Campaign != null) throw new InvalidDataException("Creative campaign is invalid");
         w.Creative = s.Creative; w.Campaign = s.Campaign; w.Map = map; w.RecentFood = s.RecentFood;
+        w._creativeAdded=s.CreativeAdded;w._creativeRemoved=s.CreativeRemoved;
         w.People.Clear(); w.People.AddRange(s.People); w.Trees.Clear(); w.Trees.AddRange(s.Trees);
         w.Cottages.AddRange(s.Buildings); w.Bushes.Clear(); w.Bushes.AddRange(s.Bushes);
         w.MeetingSpots.AddRange(s.MeetingSpots); w.History.AddRange(s.History);

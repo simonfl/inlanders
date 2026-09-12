@@ -254,16 +254,16 @@ public sealed partial class World
     {
         void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
-        Check(Food.Fruit>=0 && Food.GrownFruit>=0 && Food.EatenFruit>=0 && StoredFood(Resource.Fruit)+Cargo(Resource.Fruit)+Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest)+Food.EatenFruit==Food.GrownFruit,"Fruit conservation failed");
+        Check(Food.Fruit>=0 && Food.GrownFruit>=0 && Food.EatenFruit>=0 && StoredFood(Resource.Fruit)+Cargo(Resource.Fruit)+Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest)+Food.EatenFruit==Food.GrownFruit+CreativeNet(Resource.Fruit),"Fruit conservation failed");
         Check(Cottages.All(c=>(!c.OrchardMature || c.Kind==BuildingKind.Orchard && c.Complete) && (c.Kind!=BuildingKind.Orchard || c.Harvest<=8 && (c.Harvest==0 || c.OrchardMature))),"Invalid orchard state");
         Check(Food.Berries >= 0 && Food.Grain >= ReservedGrain && Food.Bread >= 0, "Negative or over-reserved food");
-        Check(Food.InitialBerries >= 0 && StoredFood(Resource.Berries) + Cargo(Resource.Berries) + Food.EatenBerries + Food.TradedBerries == Food.InitialBerries + Food.GatheredBerries, "Berry conservation failed");
-        Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain, "Grain conservation failed");
-        Check(StoredFood(Resource.Bread) + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread, "Bread conservation failed");
+        Check(Food.InitialBerries >= 0 && StoredFood(Resource.Berries) + Cargo(Resource.Berries) + Food.EatenBerries + Food.TradedBerries == Food.InitialBerries + Food.GatheredBerries + CreativeNet(Resource.Berries), "Berry conservation failed");
+        Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain + CreativeNet(Resource.Grain), "Grain conservation failed");
+        Check(StoredFood(Resource.Bread) + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread + CreativeNet(Resource.Bread), "Bread conservation failed");
         Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
-            StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables, "Vegetable conservation failed");
+            StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables + CreativeNet(Resource.Vegetables), "Vegetable conservation failed");
         Check(Food.BakedBread == Food.UsedGrain * 2, "Recipe conversion failed");
-        Check(Food.Fish>=0 && Food.EatenFish>=0 && Food.CaughtFish>=0 && StoredFood(Resource.Fish)+Food.EatenFish+Cargo(Resource.Fish)+Cottages.Sum(c=>c.Boat?.Fish??0)==Food.CaughtFish,"Fish conservation failed");
+        Check(Food.Fish>=0 && Food.EatenFish>=0 && Food.CaughtFish>=0 && StoredFood(Resource.Fish)+Food.EatenFish+Cargo(Resource.Fish)+Cottages.Sum(c=>c.Boat?.Fish??0)==Food.CaughtFish+CreativeNet(Resource.Fish),"Fish conservation failed");
         foreach (var bush in Bushes)
         {
             var owners = People.Where(v => v.BushId == bush.Id).ToArray();
