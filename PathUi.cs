@@ -44,10 +44,10 @@ public partial class Game
         Clear(_pathView); _pathWorld = _world; _pathRevision = _world.PathsRevision;
         foreach (var cell in _world.Paths)
         {
-            GroundPatch(_pathView,cell.X,cell.Z,.66f,.66f,new("b8a17b"));
+            GroundPatch(_pathView,cell.X,cell.Z,.66f,.66f,new("afa17f"));
             foreach (var offset in new[] { new Cell(1, 0), new(-1, 0), new(0, 1), new(0, -1) })
                 if (_world.Paths.Contains(new(cell.X + offset.X, cell.Z + offset.Z)))
-                    GroundPatch(_pathView,cell.X+offset.X*.4f,cell.Z+offset.Z*.4f,offset.X != 0 ? .34f : .66f,offset.Z != 0 ? .34f : .66f,new("b8a17b"));
+                    GroundPatch(_pathView,cell.X+offset.X*.4f,cell.Z+offset.Z*.4f,offset.X != 0 ? .34f : .66f,offset.Z != 0 ? .34f : .66f,new("afa17f"));
         }
     }
     private void RefreshPathGhost()

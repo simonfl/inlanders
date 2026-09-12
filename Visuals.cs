@@ -60,8 +60,15 @@ public partial class Game : Node3D
     }
     private void MakeYard()
     {
-        Box(_landscape, new(-3, 0.04f, 3), new(1.5f, 0.08f, 1.5f), new("bda47c"));
+        Box(_landscape, new(-3, 0.025f, 3), new(1.5f, 0.05f, 1.5f), new("a69d79"));
         for (int i = 0; i < 4; i++) Box(_landscape, new(-3.65f + i * 0.43f, 0.11f, 3), new(0.10f, 0.12f, 1.5f), _wood);
+        foreach(float x in new[]{-3.8f,-2.2f})
+        {
+            Box(_landscape,new(x,.43f,2.4f),new(.12f,.82f,.12f),_frameTimber);
+            Box(_landscape,new(x,.43f,3.45f),new(.12f,.82f,.12f),_frameTimber);
+        }
+        foreach(float x in new[]{-3.3f,-2.7f})
+            Box(_landscape,new(x,.08f,4.72f),new(.12f,.12f,.78f),_frameTimber);
         Sign(new(-3, 0, 4), "TIMBER YARD");
     }
     private void Sign(Vector3 at, string text)

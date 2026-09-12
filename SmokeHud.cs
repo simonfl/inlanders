@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--storage-review")) { _paused=true;await CheckStoragePresentation();await CheckStorageUi();return; }
         if(OS.GetCmdlineUserArgs().Contains("--goals-only")) { _paused=true;await CheckGoalDashboard();return; }
         if(OS.GetCmdlineUserArgs().Contains("--comfort-review")) { _paused=true;await CheckComfortReview();return; }
         if(OS.GetCmdlineUserArgs().Contains("--camera-drag-only")) { _paused=true;await CheckCameraDrag();return; }

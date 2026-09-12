@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23b5 — compact storage and calmer surroundings.** The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance. Its suspected Goals overflow was ruled out by a follow-up width audit. Continue storage presentation, then the quarry scenario. We have enough systems to make interesting settlements; adding more needs is not the immediate priority.
+**Next: F26b2a — design the quarry/hall scenario.** Compact yard racks and the local stockpile presentation have shipped. The [campaign review](CAMPAIGN_REVIEW_F11B3.md) corrected misleading lake service guidance; its suspected Goals overflow was ruled out by a follow-up width audit. Use the existing systems for a distinct resource/geography choice; adding more needs is not the immediate priority.
 
 The [September 12 roadmap review and next five chunks](ROADMAP_REVIEW_2026_09_12.md) records the source audit, current building costs, reasons for this order, scope, checks and cut criteria. It supersedes older ordering recommendations in linked feature reviews. Historical measurements remain evidence, not current specifications.
 
@@ -19,7 +19,7 @@ Current foundation: **17 building types, seven campaign levels**, actual meals, 
 | 1 | F23b4 | Implemented; visual feedback open | A more inviting square whose entrance, gathering space and visible visitors agree with actual recreation/supper behavior. Keep existing cost/capacity; include only the placement explanation needed for the design. |
 | 2 | F11b3 / F18b3 | Agent review/correction complete; human pacing open | Current routes and recovery reviewed; lake blockers now describe all valid recreation venues and earned rest windows. [Findings](CAMPAIGN_REVIEW_F11B3.md). |
 | 3 | F21m | Audit complete; no layout defect found | Actual control-width checks pass; the suspected scrollbar was campaign progress. Expanded-state checks retained. [Audit](GOALS_LAYOUT_F21M.md). |
-| 4 | F23b5 | Ready | A compact timber yard and legible stockpile: bounded visible stacks, honest exact counts, distinct empty/stocked states and clear collection frontage. Include a small path/ground contrast pass in the same representative scene. |
+| 4 | F23b5 | Implemented; visual feedback open | Bounded batched yard racks, unchanged exact inventories, stronger local stockpile framing and softer ground/path colors. Fill/drain/reload and high-stock checks pass. [Review](STORAGE_F23B5.md). |
 | 5 | F26b2a | Ready for design using review findings | A concrete **Built to last** quarry/hall scenario brief and map layout: starting village, finite resources, competing approaches, recovery and a used civic-place payoff. Explicit resource budget; thresholds remain provisional. |
 | 6 | F26b2b | Conditional on a viable brief | One playable quarry scenario using existing systems, staged goals, readable source choices and actual hall use. Verify two approaches and recovery; no new material chain or mandatory home upgrades. |
 
@@ -39,6 +39,8 @@ The original five-chunk sequence gained a short F21m audit; it ruled out an inco
 ## After this queue / parked
 
 Continue the dock and bridge family only after reviewing the current scene. A **Living woods** scenario can follow the quarry scenario if it offers a different land-use decision. The long-haul and limited-land concepts are ingredients or optional challenges, not three additional committed levels. A chapter finale follows successful individual scenarios.
+
+Storage review follow-up under F23c: bound unusually large loose timber/salvage displays while retaining exact resource quantities and pickup locations. The F23b5 fixture shows these can still form towers; central and local storage are already covered.
 
 Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Education/reflection, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 

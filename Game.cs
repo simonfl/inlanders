@@ -266,9 +266,15 @@ public partial class Game : Node3D
         }
         if (_lastStored != _world.YardLogs || _lastPlanks != _world.YardPlanks)
         {
-            _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks; Clear(_stored);
-            for (int i = 0; i < _world.YardLogs; i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
-            for (int i = 0; i < _world.YardPlanks; i++) Plank(_stored, new(-3, 0.18f + i / 3 * 0.12f, 4.5f + i % 3 * 0.22f));
+            // Full racks summarize large reserves; changes above the visual cap need no rebuild.
+            if (Math.Min(_lastStored,24)!=Math.Min(_world.YardLogs,24) || Math.Min(_lastPlanks,18)!=Math.Min(_world.YardPlanks,18))
+            {
+                Clear(_stored);
+                for (int i = 0; i < Math.Min(_world.YardLogs,24); i++) Log(_stored, new(-3.4f + (i % 2) * 0.65f, 0.25f + i / 8 * 0.22f, 2.5f + i / 2 % 4 * 0.3f), 0.55f);
+                for (int i = 0; i < Math.Min(_world.YardPlanks,18); i++) Plank(_stored, new(-3, 0.18f + i / 3 * 0.12f, 4.5f + i % 3 * 0.22f));
+                BatchStaticGeometry(_stored);
+            }
+            _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks;
         }
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)
