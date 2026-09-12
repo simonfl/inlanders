@@ -13,12 +13,13 @@ static class WorkplaceAssignmentChecks
     }
     static void Roundtrip(World w)
     {
-        string saved=w.SaveJson();var a=World.LoadJson(saved);var b=World.LoadJson(saved);Check(a.SaveJson()==saved,"Assignment save changed");Step(a,100);Step(b,100);Check(a.SaveJson()==b.SaveJson(),"Assignment continuation diverged");
+        string saved=w.SaveJson();var loaded=World.LoadJson(saved);Check(loaded.SaveJson()==saved,"Assignment save changed");
+        for(int i=0;i<100;i++){Step(w);Step(loaded);Check(w.SaveJson()==loaded.SaveJson(),$"Original assignment continuation diverged at tick {i+1}");}
     }
     public static void Run()
     {
         foreach(var kind in new[]{BuildingKind.ForagerHut,BuildingKind.Farm,BuildingKind.VegetableGarden,BuildingKind.Orchard,BuildingKind.Bakery,BuildingKind.Sawmill,BuildingKind.Quarry,BuildingKind.HuntingLodge}) BoundRole(kind);
-        BoundCarpenter();BoundFishing();CapacityAndChanges();GrowingAndRemoval();
+        BoundCarpenter();BoundFishing();CapacityAndChanges();GrowingAndRemoval();OrchardGuidance();
         Console.WriteLine("PASS: all supported workplace kinds, reserved slots, strict waiting, next-job changes, boat return, role/removal cleanup, growing fields, automatic fallback by choice, exact saves and invalid assignments.");
     }
     static void BoundRole(BuildingKind kind)
@@ -81,6 +82,24 @@ static class WorkplaceAssignmentChecks
         var mill=Place(normal,BuildingKind.Sawmill,new(6,0));normal.Assign(0,Role.Builder);Until(normal,()=>mill.Complete,"Normal mill incomplete");normal.Assign(0,Role.Sawyer);normal.SetWorkplaceAssignment(0,mill.Id);
         Check(normal.RequestDemolition(mill.Id) && normal.People[0].AssignedWorkplaceId==null,"Demolition kept assignment");
         Check(normal.CancelDemolition(mill.Id) && normal.People[0].AssignedWorkplaceId==null,"Demolition cancellation restored old assignment");Roundtrip(normal);
+    }
+    static void OrchardGuidance()
+    {
+        Directory.CreateDirectory("artifacts/workplace-assignment");
+        foreach(bool mature in new[]{false,true})
+        {
+            var w=World.NewCreative(true);foreach(var resident in w.People)w.Assign(resident.Id,Role.Unassigned);
+            var orchard=Place(w,BuildingKind.Orchard,new(0,0));w.Assign(0,Role.Farmer);w.SetWorkplaceAssignment(0,orchard.Id);
+            Until(w,()=>orchard.Planted && orchard.Harvest==0 && orchard.OrchardMature==mature && w.People[0].WorkplaceId==null,"Orchard growth stage not reached");
+            var field=Place(w,BuildingKind.Farm,new(6,0));Step(w,100);
+            Check(!field.Planted && w.People[0].WorkplaceId==null && w.People[0].AssignedWorkplaceId==orchard.Id,"Bound orchard farmer worked elsewhere during growth");
+            var report=w.ReadWorkplace(orchard);
+            Check(report.State==(mature?"Fruit growing":"Trees establishing") && report.Detail.Contains("Automatic farmers can work elsewhere") && report.Detail.Contains("Assigned farmers wait") && report.Detail.Contains("People"),"Orchard guidance hides assignment rule or recovery");
+            w.SaveFile($"artifacts/workplace-assignment/orchard-{(mature?"growing":"establishing")}.json");Roundtrip(w);
+            Check(w.SetWorkplaceAssignment(0,null),"Cannot release orchard farmer");
+            Until(w,()=>field.Planted,"Automatic orchard farmer did not sow available field");
+            Check(orchard.Planted && orchard.Harvest==0,"Other field was not sown during orchard growth");Roundtrip(w);
+        }
     }
     static void BoundFishing()
     {

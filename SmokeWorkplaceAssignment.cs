@@ -39,6 +39,23 @@ public partial class Game
             Check(_world.SaveJson()==saved && _assignmentChoice.GetSelectedId()==first.Id,"Reload did not show actual assignment");
             _world.Assign(0,Role.Logger);await Frames();Check(!_assignmentChoice.Visible && _assignmentState.Text.Contains("across the village"),"Roaming role has misleading workplace picker");
         }
+        foreach(int width in new[]{960,1440})foreach(string stage in new[]{"establishing","growing"})
+        {
+            var w=World.LoadFile($"artifacts/workplace-assignment/orchard-{stage}.json");AdoptWorld(w);_paused=true;
+            GetWindow().Size=new(width,width==960?640:900);var orchard=w.Cottages.Single(c=>c.Kind==BuildingKind.Orchard);
+            _focus=OnGround(orchard.Cell.X,orchard.Cell.Z);_camera.Size=14;UpdateCamera();SelectBuilding(orchard.Id);await Frames();
+            _inspectionScroll.EnsureControlVisible(_productionState);await Frames();
+            Check(_productionState.Text.Contains("Automatic farmers can work elsewhere") && _productionState.Text.Contains("Assigned farmers wait") && _productionState.Text.Contains("People"),"Orchard inspector lacks assignment guidance");
+            var bounds=_productionState.GetGlobalRect();var viewport=_inspectionScroll.GetGlobalRect();
+            Check(bounds.Position.Y>=viewport.Position.Y && bounds.End.Y<=viewport.End.Y,"Orchard guidance clipped");
+            await Capture($"artifacts/workplace-assignment/orchard-{stage}-{width}.png");
+            SelectPerson(0);await Frames();_inspectionScroll.EnsureControlVisible(_assignmentChoice);await Frames();
+            _assignmentChoice.Select(_assignmentChoice.GetItemIndex(0));_assignmentChoice.EmitSignal(OptionButton.SignalName.ItemSelected,(long)_assignmentChoice.Selected);await Frames();
+            await UiClick(_assignmentApply);Check(w.People[0].AssignedWorkplaceId==null,"Could not release orchard worker through People");
+            var field=w.Cottages.Single(c=>c.Kind==BuildingKind.Farm);
+            for(int i=0;i<500 && !field.Planted;i++){w.Tick(.1f);w.Validate();}
+            Check(field.Planted && orchard.Planted && orchard.Harvest==0,"Released farmer did not sow another field during orchard growth");
+        }
         GD.Print("PASS: workplace keyboard/mouse drafts, explicit Apply, capacity conflict, paused reason, assigned worker links, Esc, removal, role change and current saves at 960/1440.");
     }
 }

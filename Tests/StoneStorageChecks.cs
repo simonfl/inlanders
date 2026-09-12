@@ -8,8 +8,9 @@ static class StoneStorageChecks
     static void Until(World w,Func<bool> done,string why){for(int i=0;i<12000 && !done();i++)Step(w);Check(done(),why+" · "+string.Join("; ",w.People.Select(p=>p.Status)));}
     static void Roundtrip(World w)
     {
-        string save=w.SaveJson();var a=World.LoadJson(save);var b=World.LoadJson(save);
-        Check(a.SaveJson()==save,"Stone save changed on load");Step(a,100);Step(b,100);Check(a.SaveJson()==b.SaveJson(),"Stone continuation diverged");
+        string save=w.SaveJson();var loaded=World.LoadJson(save);
+        Check(loaded.SaveJson()==save,"Stone save changed on load");
+        for(int i=0;i<100;i++){Step(w);Step(loaded);Check(w.SaveJson()==loaded.SaveJson(),$"Original stone continuation diverged at tick {i+1}");}
     }
     public static void Run()
     {
@@ -29,8 +30,9 @@ static class StoneStorageChecks
         var hall=w.Place(new(6,3),0,BuildingKind.GatheringHall)??throw new Exception("Hall fixture placement");
         w.Assign(2,Role.Builder);
         Until(w,()=>w.People[2].Task==Work.ToMaterials && w.People[2].Cargo==Resource.Stone,"No builder stone claim");
-        Check(w.People[2].StorageId==pile.Id && w.ReservedStone==2 && w.ReadEconomy().Stocks.Single(s=>s.Resource==Resource.Stone).Reserved==2,"Local builder reservation absent from economy");Roundtrip(w);
-        var cancelled=World.LoadJson(w.SaveJson());Check(cancelled.Cancel(hall.Id),"Hall cancel rejected");
+        Check(w.People[2].StorageId==pile.Id && w.ReservedStone==2 && w.ReadEconomy().Stocks.Single(s=>s.Resource==Resource.Stone).Reserved==2,"Local builder reservation absent from economy");
+        string claimed=w.SaveJson();Roundtrip(w);
+        var cancelled=World.LoadJson(claimed);Check(cancelled.Cancel(hall.Id),"Hall cancel rejected");
         Until(cancelled,()=>cancelled.People.All(p=>p.Cargo!=Resource.Stone || p.Carried==0),"Cancelled stone claim stranded");cancelled.Validate();
         Until(w,()=>hall.DeliveredStone==12,"Local stone never reached hall");
         w.Assign(2,Role.Unassigned);Check(w.Cancel(hall.Id),"Partial hall cancel rejected");
@@ -50,10 +52,10 @@ static class StoneStorageChecks
         w.Assign(0,Role.Hauler);w.Assign(1,Role.Hauler);
         foreach(var phase in new[]{Work.ToHaulPickup,Work.ToHaulDrop})
         {
-            Until(w,()=>w.People.Any(p=>p.Task==phase),"Missing stone hauling phase");Roundtrip(w);
-            var interrupted=World.LoadJson(w.SaveJson());foreach(var p in interrupted.People)interrupted.Assign(p.Id,Role.Unassigned);
+            Until(w,()=>w.People.Any(p=>p.Task==phase),"Missing stone hauling phase");string phaseSave=w.SaveJson();Roundtrip(w);
+            var interrupted=World.LoadJson(phaseSave);foreach(var p in interrupted.People)interrupted.Assign(p.Id,Role.Unassigned);
             Until(interrupted,()=>interrupted.People.All(p=>p.Carried==0),"Hauler interruption stranded stone");Check(interrupted.Stone==20,"Interrupted hauling lost stone");
-            var removed=World.LoadJson(w.SaveJson());Check(removed.RemoveBuilding(pile.Id),"Active stone pile removal rejected");Until(removed,()=>removed.People.All(p=>p.Carried==0),"Removed pile left cargo");Check(removed.Stone==20 && removed.YardStone==20,"Removal lost stone");
+            var removed=World.LoadJson(phaseSave);Check(removed.RemoveBuilding(pile.Id),"Active stone pile removal rejected");Until(removed,()=>removed.People.All(p=>p.Carried==0),"Removed pile left cargo");Check(removed.Stone==20 && removed.YardStone==20,"Removal lost stone");
         }
         Until(w,()=>pile.StoredStone==12 && w.People.All(p=>p.Task is not (Work.ToHaulPickup or Work.ToHaulDrop)),"Stone target not filled");
         Check(w.YardStone==8 && !w.SetStorageMaterial(pile.Id,Resource.Planks),"Occupied pile switch or aggregate failed");

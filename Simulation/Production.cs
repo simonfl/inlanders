@@ -95,7 +95,7 @@ public sealed partial class World
         }
         if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes; assign a carpenter and supply planks.");
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
-        if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Farmers can work elsewhere. Mature trees stay for repeat harvests.");
+        if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Automatic farmers can work elsewhere. Assigned farmers wait for this orchard; choose Automatic in People to release them. Mature trees stay for repeat harvests.");
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;

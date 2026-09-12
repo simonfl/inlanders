@@ -8,7 +8,8 @@ static class BushRelocationChecks
     static Cell Destination(World w,int id)=>w.Map.Land.Where(c=>w.Bushes.Single(b=>b.Id==id).Cell!=c && w.BushMoveProblem(id,c)==null).OrderBy(c=>(new Cell(c.X+1,c.Z).Point-w.YardAccess.Point).LengthSquared()).First();
     static void Roundtrip(World w)
     {
-        string saved=w.SaveJson();var a=World.LoadJson(saved);var b=World.LoadJson(saved);Check(a.SaveJson()==saved,"Moved bush save changed");Step(a,100);Step(b,100);Check(a.SaveJson()==b.SaveJson(),"Moved bush continuation diverged");
+        string saved=w.SaveJson();var loaded=World.LoadJson(saved);Check(loaded.SaveJson()==saved,"Moved bush save changed");
+        for(int i=0;i<100;i++){Step(w);Step(loaded);Check(w.SaveJson()==loaded.SaveJson(),$"Original moved bush continuation diverged at tick {i+1}");}
     }
     public static void Run()
     {
@@ -27,9 +28,9 @@ static class BushRelocationChecks
             Check(picker.AssignedWorkplaceId==hut.Id && picker.Role==Role.Forager,"Move changed worker assignment");
             if(phase==Work.ToPantry)Check(picker.Task==task && picker.Carried==carried,"Move interrupted already harvested cargo");
             else Check(picker.BushId==null && bush.Owner==null,"Move kept old picker claim");
-            Roundtrip(w);
             // Move again without advancing time or replenishing food.
             var second=Destination(w,id);Check(w.MoveBush(id,second) && bush.Ripe==ripe && bush.Regrowth==regrowth,"Repeated move reset regrowth");
+            Roundtrip(w);
             Until(w,()=>w.People[0].BushId==id,"Forager did not return to the moved bush");
             Until(w,()=>w.Food.GatheredBerries>gathered && w.People[0].Carried>0,"Forager never resumed after relocation");
             Until(w,()=>w.DeliveredBerries>0 && w.People[0].Carried==0,"Post-move delivery failed");w.Validate();

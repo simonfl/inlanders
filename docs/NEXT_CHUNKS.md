@@ -6,13 +6,11 @@ The game has eighteen building types and ten campaign levels. Local stone storag
 
 ## Delivered: F12h4 — visible terrain blockers and Undo recovery
 
-Delivered September 12: [implementation and evidence](TERRAIN_FEEDBACK_F12H4.md). Specific blockers retain gold/blue plot borders and receive a red cross. Undo explains obstructions inline, retains its inverse while blocked and supports retry. Path, hidden access, building and temporary route fixtures passed at 960/1440, including Close visibility. F21u is next; no broader terrain scope was added.
+Delivered September 12: [implementation and evidence](TERRAIN_FEEDBACK_F12H4.md). Specific blockers retain gold/blue plot borders and receive a red cross. Undo explains obstructions inline, retains its inverse while blocked and supports retry. Path, hidden access, building and temporary route fixtures passed at 960/1440, including Close visibility. No broader terrain scope was added.
 
-## 2. F21u — assignment guidance and continuation evidence
+## Delivered: F21u — assignment guidance and continuation evidence
 
-The orchard inspector currently says farmers can work elsewhere during growth even when named assignments make them wait. Distinguish Automatic farmers from assigned farmers in the actual producer guidance. Verify establishing/growing orchards alongside another field needing labor, including the visible inspector. Keep strict assignment behavior and capacity rules.
-
-Strengthen the existing workplace, stone-storage and bush-relocation save checks: advance the original world and one reload with identical ticks in active-job/cargo cases. Two deterministic reloads are useful but cannot establish original-versus-reload equivalence. Preserve physical goods, claims and current-format saves; fix a defect only if the stronger check reveals one. No save migration or general test-suite rewrite. Test-only changes do not count as a separate playable checkpoint.
+Delivered September 12: [implementation and evidence](ASSIGNMENT_GUIDANCE_F21U.md). The orchard inspector distinguishes Automatic from assigned farmers in establishment and repeat growth, with a working People recovery path at 960/1440. Original-world versus one-reload continuation now passes for the existing workplace, stone-storage and bush-relocation active-job cases. No save defect was exposed and no runtime save changes were needed. F11d/F18d is next; ordinary campaign observation remains unverified.
 
 ## 3. F11d / F18d — campaign operating loop and finale alternatives
 

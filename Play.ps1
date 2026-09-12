@@ -29,7 +29,11 @@ if ($GatewaySmokeTest -or $TerrainSmokeTest -or $BushMoveSmokeTest -or $Creative
     elseif ($FrameStallSmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --frame-stalls }
     elseif ($LargeVillageSmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --large-village }
     elseif ($RestorationSmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --restoration-views }
-    elseif ($PeopleKeyboardSmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --people-keyboard }
+    elseif ($PeopleKeyboardSmokeTest) {
+        & "$env:DOTNET_ROOT\dotnet.exe" run --project Tests/SimulationTests.csproj -- --workplace-assignment
+        if ($LASTEXITCODE -ne 0) { throw 'Workplace assignment fixtures failed' }
+        & $engine --path $PSScriptRoot -- --hud-smoke-test --people-keyboard
+    }
     elseif ($SoundscapeSmokeTest) { & $engine --path $PSScriptRoot -- --audio-smoke-test --soundscape }
     elseif ($CivicIdentitySmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --civic-identities }
     elseif ($CatalogKeyboardSmokeTest) { & $engine --path $PSScriptRoot -- --hud-smoke-test --catalog-keyboard }
