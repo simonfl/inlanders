@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandleGoalsKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleEconomyKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandlePeopleKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleCatalogKeyboard(input)) { GetViewport().SetInputAsHandled();return; }

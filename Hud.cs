@@ -91,6 +91,7 @@ public partial class Game
         var heading = new HBoxContainer(); drawerColumn.AddChild(heading);
         _drawerTitle = Text("Build", 21); _drawerTitle.Modulate = _cream; _drawerTitle.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; heading.AddChild(_drawerTitle);
         heading.AddChild(Button("×", CloseDrawer, 32));
+        _goalsBackList=Button("Back to Goals [Esc]",BackFromGoalsLink);drawerColumn.AddChild(_goalsBackList);_goalsBackList.Hide();
         MakeBuildNavigation(drawerColumn);
         _tabs = new TabContainer { TabsVisible = false, SizeFlagsVertical = Control.SizeFlags.ExpandFill }; drawerColumn.AddChild(_tabs);
         var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options"); var economy = DrawerPage("Economy");
@@ -99,6 +100,7 @@ public partial class Game
         _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
         var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
         _economyBack=Button("Back to Economy [Esc]",()=>OpenEconomyKeyboard(true));inspection.AddChild(_economyBack);_economyBack.Hide();
+        _goalsBackInspect=Button("Back to goal evidence [Esc]",BackFromGoalsLink);inspection.AddChild(_goalsBackInspect);_goalsBackInspect.Hide();
         var inspectHeading = new HBoxContainer(); inspection.AddChild(inspectHeading);
         var inspectLabel = Text("SELECTED", 12); inspectLabel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; inspectLabel.Modulate = new("a8bcb0"); inspectHeading.AddChild(inspectLabel);
         inspectHeading.AddChild(Button("×", ClearSelection, 32));
@@ -174,6 +176,7 @@ public partial class Game
     private void MakeGoalsMenu(VBoxContainer column)
     {
         _goalTitle = Text("", 20, true); column.AddChild(_goalTitle);
+        _goalsOverview=Button("Read objectives · Page ↑↓",()=>{});column.AddChild(_goalsOverview);_goalsOverview.Hide();
         MakeGoalDashboard(column);
         _goalArrival = Text("", 15, true); column.AddChild(_goalArrival);
         _objective = Text("", 18, true); column.AddChild(_objective);
@@ -303,6 +306,8 @@ public partial class Game
         if(_surveying) _hint.Text="Survey resources · click a marker or choose a source · U / Esc finishes";
         UpdatePeopleKeyboard();
         UpdateEconomyKeyboard();
+        UpdateGoalsKeyboard();
+        if(_goalsKeyboard)_hint.Text=(_goalsPage==0 && _goalsInspectPage<0?"←→ filter residents · ":"")+"Tab / ↑↓ select · Enter activate · Page ↑↓ read · Esc back · G closes";
         if(_economyKeyboard)_hint.Text=_economyInspecting?"Page ↑↓ read inspector · Esc returns to Economy · I closes":"Tab / ↑↓ select · Enter inspect or toggle · Page ↑↓ scroll · Esc closes";
         if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
         if(_catalogKeyboard)_hint.Text=CatalogKeyboardHint();

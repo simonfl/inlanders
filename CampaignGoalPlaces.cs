@@ -62,7 +62,7 @@ public partial class Game
             foreach(var site in sites)
             {
                 int id=site.Id;string status=site.DemolitionRequested?" · removing":!site.Complete?" · building":"";
-                panel.AddChild(Button($"Show {BuildingName(site.Kind)} {id}{status}",()=>ShowServicePlace(id)));
+                var link=Button($"Show {BuildingName(site.Kind)} {id}{status}",()=>ShowServicePlace(id));link.SetMeta("place_id",id);panel.AddChild(link);
             }
             panel.AddChild(Button(key=="game"?"Plan a hunting lodge":key.StartsWith("hall")?"Plan a gathering hall":key=="fish"?"Plan a fishing dock":key.Contains("recreation")?"Plan a Square":"Plan a cottage",()=>PlanGoalBuilding(key)));
             if(key is "hall-stone" or "game")foreach(var source in _world.ResourceSources().Where(s=>s.Key.Kind==(key=="game"?SourceKind.Woodland:SourceKind.Stone)))

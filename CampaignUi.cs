@@ -15,6 +15,7 @@ public partial class Game
     private bool _completionAnnounced;
     private Button _restoreReplay = null!;
     private Button _riverAction = null!;
+    private Button _standaloneLevel = null!;
 
     private void MakeCampaignUi(VBoxContainer column)
     {
@@ -37,7 +38,7 @@ public partial class Game
             var button = Button($"{id}. {level.Title}", () => SwitchCampaign(id, false));
             button.AddThemeFontSizeOverride("font_size", 14); column.AddChild(button); _levelButtons.Add(button);
         }
-        column.AddChild(Button("Return to standalone supper", () => SwitchCampaign(0, false)));
+        _standaloneLevel=Button("Return to standalone supper", () => SwitchCampaign(0, false));column.AddChild(_standaloneLevel);
         column.AddChild(Text("Choose a settlement to start or resume it. Switching saves the village you leave. All buildings are available.", 14, true));
     }
     private CampaignBook ReadCampaignBook()

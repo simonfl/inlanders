@@ -1,6 +1,6 @@
-# Next chunks — sound, music and Goals navigation
+# Next chunks — sound, music and resource-survey navigation
 
-September 12, 2026, after F21q. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F21r. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -10,7 +10,7 @@ September 12, 2026, after F21q. This is the active queue. Delivered acceptance b
 | Buildings and costs | Seventeen types cover the core economy. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
 | Needs and progression | Meals, assigned homes/rest and recreation are real routines. Comfort reduces homeward trips without a demonstrated food-output gain. Chapel/court use recreation. | Keep optional improvements honest. No automatic thirst, education, spirituality or technology meter. Restoration needs a finished function, not an attendance prerequisite. |
 | Visuals and village life | Building families, four-way rotation, woodland, cottage/civic identities and quiet visits have shipped. Populated comparisons now support quieter shores and continuous ground color. Outer outlines and subtle poses remain open visual questions. | Keep menu art and player visual feedback visible. Do not automatically follow each art pass with another terrain rewrite or equate more geometry with stronger art direction. |
-| Interface and controls | Menu, Build, resident assignment and Economy inspection/return have keyboard focus. Goals and broader inspector actions remain open. | Extend Goals evidence and deliberate campaign action navigation next. No new dashboard until an observed question requires it. |
+| Interface and controls | Menu, Build, resident assignment, Economy inspection and Goals evidence/actions have keyboard focus. Resource survey and broader inspector editing remain open. | Complete source selection and workplace/source return next. No new dashboard until an observed question requires it. |
 | Audio and music | Procedural positional work sounds and one original looping musical miniature exist. Real-time sound limits already prevent fast-forward from multiplying every cue. | Compare quiet and busy soundscapes, then improve the highest-impact repetition/mix problem. A bell on every routine chapel arrival would overstate the event; it remains silent. |
 | Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios exist. Normal 20/32-resident profiles and decoration batching are delivered; long frames persist in normal-process traces. | No population or terrain-size performance promise. Further stall work needs native profiling; the failed visibility experiment does not justify removing animations. Terrain sculpting is a separate design project. |
 | Architecture and reliability | Current-format roundtrips, simulation routes and rendered interaction checks cover delivered slices. There are many partial Game files and specialized smoke fixtures. | Keep checks specific to behavior; do not turn the feature roadmap into a generic cleanup campaign. No save migration. |
@@ -61,13 +61,17 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Economy inspection](ECONOMY_KEYBOARD_F21Q.md) now provides visible focus, long-list scrolling, stable issue/place/worker identities, read-only inspector return, keyboard/mouse handoffs and reset. Focused 960/1440 checks, full HUD and People regressions pass. Full inspector editing and resource-survey keyboard navigation remain separate.
 
-## 3. F21r — Goals keyboard evidence and actions
+## F21r delivered — Goals evidence and actions
 
-**Outcome:** read a campaign goal, inspect why it is or is not satisfied, follow a relevant link and return, then deliberately activate a ready campaign action using the keyboard.
+[Goals keyboard navigation](GOALS_KEYBOARD_F21R.md) now covers reading, disclosures, counted/not-counted residents, place links, return context and deliberate campaign actions. Live readiness and phase/completion changes cannot activate replacement buttons. Intro/finale 960/1440, actual assessment/supper/completion, layout, Economy and HUD checks pass. Source-survey interaction and broader inspector editing remain separate.
 
-Use existing goal/evidence controls and campaign rules. Provide visible focus, Tab/arrows, scroll-to-focus and explicit activation through G. Preserve goal and resident/place identity across changing evidence; returning should restore the relevant goal even if its count changed. Revalidate readiness before an assessment/growth action; never activate a replacement button when a phase completes or a list refreshes. Skip disabled actions and keep explanations readable. Escape backs out then returns keys to the world; mouse and text entry still work. Check 960/1440, a short introductory goal and a multi-phase late campaign, completion/phase transitions, reload, and exact unchanged saves for read-only paths. Keep existing confirmation behavior; do not add campaign waits or alter thresholds for navigation convenience.
+## 3. F21s — resource-survey keyboard navigation
 
-This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review. Broader inspector editing and source-survey focus remain follow-ups.
+**Outcome:** choose fish grounds, stone or woodland from the survey without mouse picking, read current stock/access/habitat evidence, inspect a related workplace and return to that source.
+
+Build on the existing U shortcut, source picker and workplace links. Use visible focus, source identity rather than a recycled row index, scrolling, explicit activation and Back/Escape conventions. Keep camera/source emphasis consistent with mouse selection. Handle empty maps, disappearing workplaces and changed source availability without stale activation. Test 960/1440, all three source kinds, live changes, keyboard entry from relevant Goals/Economy links, placement/Watch handoff and reload. Read-only navigation must preserve exact simulation state. Do not add a resource browser redesign, workplace assignment rules or production filters in this chunk.
+
+This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review. Broader inspector editing remains a follow-up.
 
 ## Retained follow-ups
 
