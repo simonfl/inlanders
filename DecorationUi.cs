@@ -14,8 +14,8 @@ public partial class Game
     private int _decorationRevision = -1;
     private static string DecorationName(DecorationKind kind) => kind == DecorationKind.OrnamentalTree ? "Ornamental tree" : kind.ToString();
     private string DecorationDescription => !_removeDecoration && _decorationKind == DecorationKind.Sunflowers && !_world.SunflowersUnlocked ? "SUNFLOWERS\n" + _world.SunflowerLockReason + "\nAll ordinary decorations remain free." : _removeDecoration ? "REMOVE DECORATIONS\nClick a decoration to remove it instantly. No resources are spent or recovered." :
-        $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click to place repeatedly; R rotates. " +
-        (_decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
+        $"{DecorationName(_decorationKind).ToUpperInvariant()}\nFree, instant landscaping. Click to place repeatedly. " + (_decorationKind==DecorationKind.Fence ? "" : "R rotates. ") +
+        (_decorationKind == DecorationKind.Fence ? "Joins neighboring fences automatically; R turns isolated pieces. Occupies one tile; keep entrances and routes open." : _decorationKind == DecorationKind.Pebbles ? "Walkable ground cover with no speed bonus; paths can cross it." :
         "Occupies one tile. Villagers walk around it; entrances and existing routes stay accessible. Ornamental trees provide no timber.") +
         "\nUse Remove decorations before building on decorated ground.";
 
@@ -41,16 +41,18 @@ public partial class Game
     }
     private void RefreshDecorationGhost()
     {
-        string key="decoration:"+(_removeDecoration?"remove":_decorationKind.ToString());
-        if(_ghostModelKey!=key)
+        bool fence=_removeDecoration ? _world.Decorations.Any(d=>d.Cell==_hover && d.Kind==DecorationKind.Fence) : _decorationKind==DecorationKind.Fence;
+        string key="decoration:"+(_removeDecoration?"remove":_decorationKind.ToString())+(fence?$":{_hover}:{_rotation}:{_world.DecorationRevision}:{_ghostValid}":"");
+        if(_ghostModelKey!=key || fence && _fencePreviewWorld!=_world)
         {
             Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey=key;
-            if(!_removeDecoration) MakeDecoration(_ghostModel,_decorationKind);
+            _fencePreviewCells.Clear();
+            if(fence) MakeFencePreview(); else if(!_removeDecoration) MakeDecoration(_ghostModel,_decorationKind);
             PreparePreview(_ghostModel);
         }
         var color=_ghostValid?new Color("aed2a0"):new Color("e38673");
         foreach(var material in _previewMaterials) material.AlbedoColor=new(color.R,color.G,color.B,.48f);
-        _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,(_rotation%2!=0) ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,(_rotation%2!=0));
+        _ghostModel.Position=OnGround(_hover.X,_hover.Z,.05f); _ghostModel.Basis = fence ? Basis.Identity : _decorationKind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,(_rotation%2!=0) ? Mathf.Pi/2 : 0) : GroundBasis(_hover.X,_hover.Z,(_rotation%2!=0));
         Clear(_ghostCells);
         if(_removeDecoration) ClearingCross(_ghostCells,OnGround(_hover.X,_hover.Z,.1f),color,.9f);
         else GroundPatch(_ghostCells,_hover.X,_hover.Z,.96f,.96f,color.Darkened(.15f));
@@ -58,11 +60,11 @@ public partial class Game
     private void RenderDecorations()
     {
         if(_decorationView==null) { _decorationView=new(); AddChild(_decorationView); }
-        if(_decorationWorld==_world && _decorationRevision==_world.DecorationRevision) return;
-        Clear(_decorationView); _decorationWorld=_world; _decorationRevision=_world.DecorationRevision;
+        if(_decorationWorld==_world && _decorationRevision==_world.DecorationRevision) { UpdateFencePreviewVisibility(); return; }
+        Clear(_decorationView); _fenceBodies.Clear(); _decorationWorld=_world; _decorationRevision=_world.DecorationRevision;
         foreach(var decoration in _world.Decorations)
         {
-            var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
+            var body=new Node3D { Position=OnGround(decoration.Cell.X,decoration.Cell.Z), Basis = decoration.Kind == DecorationKind.Fence ? Basis.Identity : decoration.Kind == DecorationKind.OrnamentalTree ? new Basis(Vector3.Up,decoration.Rotated ? Mathf.Pi/2 : 0) : GroundBasis(decoration.Cell.X,decoration.Cell.Z,decoration.Rotated) };
             _decorationView.AddChild(body);
             if (decoration.Kind == DecorationKind.Pebbles)
             {
@@ -76,8 +78,11 @@ public partial class Game
                 }
                 BatchStaticGeometry(body);
             }
+            else if(decoration.Kind==DecorationKind.Fence) { _fenceBodies[decoration.Cell]=body;MakeFence(body,decoration.Cell,decoration.Rotated,FenceConnections(decoration.Cell)); }
             else MakeDecoration(body,decoration.Kind);
         }
+        if(_placing && _decorating) RefreshGhost();
+        UpdateFencePreviewVisibility();
     }
     private void MakeDecoration(Node3D root,DecorationKind kind)
     {

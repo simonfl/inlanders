@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F09c — connected fence runs.** [Cottage finish selection](COTTAGE_FINISHES_F09B.md) now lets players coordinate individual homes. Make adjacent decorative fences read as connected runs and corners, using existing placement/access rules and consistent previews.
+**Next: F09d — decoration brush strokes.** [Connected fences](CONNECTED_FENCES_F09C.md) now form runs and corners with matching neighbor previews. Let players draw those boundaries and planting strips without clicking every tile, retaining per-tile access checks.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,7 +18,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F09c | Scoped | Adjacent decorative fences form coherent runs and corners; preview and neighbor updates agree while existing access rules stay authoritative. |
+| 1 | F09d | Scoped | Click-drag to place or remove decorations, with continuous one-tile strokes, clear refusals and safe cancellation at UI boundaries. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -36,7 +36,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes have shipped; connected fences are the next village-character slice. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes and connected fences have shipped; decoration brush strokes are the next village-character slice. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -50,6 +50,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F09c | Connected straight/corner/T/cross fences, terrain-following rails and upright posts. Neighbor-aware placement/removal previews, isolated rotation, cancellation, reload and protected cottage access verified. [Review](CONNECTED_FENCES_F09C.md). |
 | F09b | Five named cottage finishes plus Automatic in a compact inspector palette. Live roof/plaster changes, four orientations, construction/demolition, improved shutters and exact saves verified at 960/1440. [Review](COTTAGE_FINISHES_F09B.md). |
 | F12g / F23b9 | Finale composition: grouped timber, inlets, blended meadow colors and bounded shore details; outward terrain sides restored. Material budget, campaign routes, bridge preview and raised-map rendering/saves verified. [Review](RIVER_MEADOW_F12G.md). |
 | F11b6 / F18b6 | Level ten: A lasting village, earned twelve/twenty-resident assessments, later central-bread supper, extra residents, recovery, phase saves and completion/replay. Full simulation suite and 960/1440 finale/woodland navigation checks pass. [Review](FINAL_CAMPAIGN_F11B6.md). |
@@ -236,7 +237,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |
 | F14 — Happiness | Playtest thresholds and break duration, richer reactions, and additional reasons only when they create useful decisions. |
 | F25 — Home routines | Playtest rest duration and commute cost; consider household swaps and grouping advanced home controls if needed. Keep comfort, learning and reflection behind a distinct resident benefit. No synchronized nightly sleep or fatigue penalty yet. |
-| F09 — Village character | Cottage finish selection shipped in F09b; connected fence runs are queued as F09c. More cottage details, decoration brush strokes, and richer ornamental planting remain. |
+| F09 — Village character | Cottage finishes and connected fences shipped in F09b/c; decoration brush strokes are queued as F09d. More cottage details, richer ornamental planting and gates remain separate candidates. |
 | F10 / F17 — Audio | More organic sounds, extra variations, mixing by zoom, tighter impact timing, more musical themes, and music transitions. |
 | F12a / F12b — Maps and water | More authored geography, richer map edges and shores (including softer bright rims/water marks noted in F23b8), wider bridges, islands, water animation, and bridge variants. Normal-play demolition and protected access shipped in F16b. |
 | F12c / F12d — Landscaping | Player terrain shaping, area selection, clearing-time tuning, grass/earth painting, constructed ramps, retaining walls, and raise/lower/level tools. Decorative objects belong in the shared F09 palette. |

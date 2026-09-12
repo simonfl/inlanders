@@ -17,7 +17,7 @@ public partial class Game
             foreach(var kind in Enum.GetValues<DecorationKind>().Where(k=>k!=DecorationKind.Sunflowers))
             {
                 _decorationChoice.Select((int)kind); await UiClick(_decorateButton); await Frames();
-                if(!_decorating || _ghostModelKey!="decoration:"+kind) throw new Exception("Decoration palette failed");
+                if(!_decorating || _removeDecoration || _decorationKind!=kind || _ghostModel.GetChildCount()==0) throw new Exception("Decoration palette failed");
                 var cell=new Cell(2+i,-2); _rotation=1; PlaceCottage(cell); i++;
                 if(!_world.Decorations.Any(d=>d.Cell==cell && d.Rotated)) throw new Exception("Decoration click/rotation failed");
             }
