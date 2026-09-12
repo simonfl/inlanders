@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandleRelocationInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleSurveyKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleGoalsKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleEconomyKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
@@ -65,7 +66,7 @@ public partial class Game
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_trackedGoalPanel!=null && _trackedGoalPanel.Visible && _trackedGoalPanel.GetGlobalRect().HasPoint(point)) ||
@@ -73,6 +74,7 @@ public partial class Game
 
     private void RefreshGhost()
     {
+        if(_movingSite>=0 && (!_placing || _plantingTrees || _clearingTrees || _decorating || _pathTool>0 || _woodlandTool>0))DiscardRelocation();
         if(!_placing || !_decorating) CancelDecorationStroke();
         if(_placing) StopResourceSurvey();
         if (_ghostCells == null)
@@ -87,27 +89,29 @@ public partial class Game
         if (_pathTool > 0) { RefreshPathGhost(); return; }
         if (_clearingTrees) { RefreshClearingGhost(); return; }
         var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
-        string key = _plantingTrees ? "tree" : _buildKind.ToString();
+        var moving=_movingSite>=0?_world.Cottages.FirstOrDefault(c=>c.Id==_movingSite):null;
+        string key = moving!=null?RelocationModelKey(moving):_plantingTrees ? "tree" : _buildKind.ToString();
         if (_ghostModelKey != key)
         {
             Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = key;
             if (_plantingTrees) MakeTree(Vector3.Zero, 0.4f, new("8cad69")).Reparent(_ghostModel, false);
-            else MakeBuilding(_ghostModel, new Cottage { Kind = _buildKind }, 3);
-            if(!_plantingTrees && _buildKind==BuildingKind.Orchard)MakeOrchardTrees(_ghostModel,new Cottage{Kind=_buildKind,Planted=true,OrchardMature=true,Harvest=8},4);
-            PreparePreview(_ghostModel);
+            else MakeBuilding(_ghostModel, moving??new Cottage { Kind = _buildKind }, 3);
+            if(!_plantingTrees && _buildKind==BuildingKind.Orchard)MakeOrchardTrees(_ghostModel,moving??new Cottage{Kind=_buildKind,Planted=true,OrchardMature=true,Harvest=8},moving==null?4:moving.Harvest>0?4:moving.Planted?1+(int)(moving.Growth*2.9f):0);
+            PreparePreview(_ghostModel,moving!=null);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
-        bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && _world.DockEntrance(_hover,_rotation)==World.FarBank(_hover,_rotation);
+        var moveDoor=moving!=null?_world.RelocationEntrance(moving.Id,_hover,_rotation):(Cell?)null;
+        bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && (moveDoor??_world.DockEntrance(_hover,_rotation))==World.FarBank(_hover,_rotation);
         _ghostModel.Position = _plantingTrees?OnGround(_hover.X,_hover.Z,.1f):BuildingPosition(_hover,_rotation,_buildKind,.1f);
         _ghostModel.RotationDegrees = new(0, (_plantingTrees?0:_rotation*90)+(dockFar?180:0), 0);
         Clear(_ghostCells);
         var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotation, _buildKind);
         foreach (var cell in footprint) GroundPatch(_ghostCells,cell.X,cell.Z,.94f,.94f,tint.Darkened(.15f),.06f);
-        var door = _plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotation) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotation) : World.Door(_hover, _rotation);
+        var door = moveDoor??(_plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotation) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotation) : World.Door(_hover, _rotation));
         var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees?90:_rotation*90) + (dockFar || !_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotation) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
         if(!_plantingTrees && _buildKind==BuildingKind.FishingDock)
         {
-            var launch=_world.DockLaunch(_hover,_rotation);
+            var launch=moveDoor!=null?(dockFar?World.Door(_hover,_rotation):World.FarBank(_hover,_rotation)):_world.DockLaunch(_hover,_rotation);
             GroundPatch(_ghostCells,launch.X,launch.Z,.88f,.88f,tint,.06f);
             var sign=new Node3D { Position=OnGround(launch.X,launch.Z,.2f) }; _ghostCells.AddChild(sign); FoodSign(sign,"LAUNCH",.25f);
         }
@@ -119,21 +123,22 @@ public partial class Game
         marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 4 });
     }
-    private void PreparePreview(Node root)
+    private void PreparePreview(Node root,bool retainColors=false)
     {
         foreach (var child in root.GetChildren())
         {
             if (child is Label3D label) { label.Hide(); continue; }
             if (child is MeshInstance3D mesh)
             {
-                var material = new StandardMaterial3D { Transparency = BaseMaterial3D.TransparencyEnum.Alpha, ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded };
+                var material = new StandardMaterial3D { VertexColorUseAsAlbedo=retainColors,Transparency = BaseMaterial3D.TransparencyEnum.Alpha, ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded };
                 mesh.MaterialOverride = material; mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off; _previewMaterials.Add(material);
             }
-            PreparePreview(child);
+            PreparePreview(child,retainColors);
         }
     }
     private void UpdateBuildDescription()
     {
+        if(_movingSite>=0){_buildDescription.Text=$"MOVE {BuildingName(_buildKind).ToUpperInvariant()} {_movingSite}\nRetains goods, controls and improvements.\nClick a valid destination · R / Shift+R rotates · Esc cancels";return;}
         if(_woodlandTool>0 && _placing)
         {
             _buildDescription.Text=_woodlandTool switch {

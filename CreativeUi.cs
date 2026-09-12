@@ -8,6 +8,7 @@ public partial class Game
     private Button _cancelDemolition = null!;
     private void MakeCreativeControls()
     {
+        _moveButton=Button("Move building",BeginRelocation);_buildingDetails.AddChild(_moveButton);
         _removeBuildingButton = Button("Remove building", () =>
         {
             if (!_world.Creative)
@@ -30,6 +31,9 @@ public partial class Game
     private void UpdateCreativeControls(Cottage? selected)
     {
         bool visible = selected?.Complete == true;
+        _moveButton.Visible=visible && _world.Creative;
+        string? moveProblem=visible?_world.RelocationProblem(selected!.Id):null;
+        _moveButton.Disabled=moveProblem!=null;_moveButton.TooltipText=moveProblem??"Choose a new location and orientation. Retains this building and its stored goods.";
         _cancelDemolition.Visible = visible && selected!.DemolitionRequested && selected.DemolitionProgress == 0;
         _cancelDemolition.Disabled = _world.Food.Celebrating;
         _removeBuildingButton.Visible = _removalInfo.Visible = visible;

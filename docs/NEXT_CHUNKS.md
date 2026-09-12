@@ -1,4 +1,4 @@
-# Next chunks — sound, music and Creative relocation
+# Next chunks — sound, campaign clarity and visual appeal
 
 September 12, 2026, after F05c. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
@@ -81,9 +81,9 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Playable orchards](ORCHARDS_F05C.md) establish in three minutes and retain mature trees for minute-long repeat harvests. Eight fruit per crop, shared farmers, targets, visible growth/picking/carrying, honest fruit accounting and local pantry service are integrated. Four-orientation saves, interruptions and recovery, actual meal routes, full simulation/HUD and focused 960/1440 checks pass. Human balance/enjoyment and a possible orchard campaign remain review questions.
 
-## 3. F16c — Creative building relocation
+## F16c delivered — Creative building relocation
 
-**In progress:** [F16c1 simulation foundation](RELOCATION_CORE_F16C1.md) now preserves identity/state, checks old and new connectivity, interrupts affected work and handles moored docks. Focused checks cover four-way moves, goods, actual cargo/visits and occupied bridges. **F16c2 is next:** the player-facing inspector/preview/cancellation flow and rendered verification. The overall F16c feature is not delivered yet.
+**Delivered:** [F16c1 simulation foundation](RELOCATION_CORE_F16C1.md) and [F16c2 player controls](RELOCATION_UI_F16C2.md). The latter records exact coverage and remaining rendered shore/human review limitations.
 
 **Outcome:** rearrange a finished Creative building without deleting and rebuilding it, preserving what makes it that building.
 
@@ -91,14 +91,24 @@ Start from its inspector with Move, a destination preview and existing four-way 
 
 Test home, productive orchard, stocked workplace/pantry, civic venue and shore cases. Cover current work/cargo, blocked destinations, cancelled/failed moves, rotation, exact save continuation and 960/1440 preview/inspector feedback. Normal-play movement, group selection, terrain editing and undo history remain separate. The first slice is Creative relocation with honest behavior, not a free workaround for normal-play clearance.
 
-This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
+Relocation is complete; campaign review below can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
+
+## 3. F11c / F18c — first-play campaign decisions and recovery
+
+Review the merged opening lesson and one later operational map through the ordinary interface. Record the first meaningful choice, unclear wording, time spent with no useful action, a recoverable mistake, and the visible payoff. Separate actual human observations from scripted diagnostic runs. Request player impressions when available; missing impressions need not block a reproducible wording or interaction defect.
+
+Deliver a short findings table and implement the highest-supported correction. Check a competent route and a recoverable poor layout, narrow/wide goals, cumulative versus recent progress, and current-format saves. Keep level count and prices unchanged unless the finding specifically warrants a change. If the issue is only waiting, remove or redesign the wait; do not raise quotas to imply difficulty. Larger scenario changes receive a separate brief.
+
+## 4. F23b12 — one building's village-scale readability
+
+Use the same populated campaign scene to choose the weakest building family, with all four sides and ordinary camera zoom. Capture before/after under unchanged lighting. Improve silhouette, roof/wall depth or material separation according to the identified defect. Preserve entrance, work contact, construction stages and footprint. Check 960/1440 placement and live production. Keep costs and simulation unchanged. If no specific weakness emerges, retain this as a review question instead of manufacturing another art pass.
 
 ## Retained follow-ups
 
 - **Visuals:** title composition is delivered. Further neighborhood treatments depend on composition feedback.
 - **Management:** broader inspector editing, source-route emphasis, and resource filters follow demonstrated tasks. Goals/Economy/survey navigation is delivered. Avoid catalog search while categories suffice.
 - **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
-- **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
+- **Village arrangement:** gates with explicit walking rules, richer planting and area tools; terrain shaping needs its own cost/access/undo design.
 - **Economy:** orchards are delivered; pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.
 
 Seasons, save migration, combat and multiplayer remain excluded. The broad roadmap is a set of revisable directions, not a promise to implement every parked idea. Record delivered results in the roadmap, keep this active queue short, and retain failed experiments as evidence rather than reopening them under a new ID.

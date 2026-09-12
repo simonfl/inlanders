@@ -115,6 +115,7 @@ public partial class Game : Node3D
     private void PlaceCottage(Cell at)
     {
         _hover = at;
+        if(_movingSite>=0){ConfirmRelocation(at);return;}
         if(_woodlandTool>0) { _woodlandStroke=true; PaintWoodland(at); return; }
         if (_decorating) { EditDecoration(at); return; }
         if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }

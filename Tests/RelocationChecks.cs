@@ -12,7 +12,7 @@ static class RelocationChecks
         foreach(var at in w.Map.Land.Where(c=>c!=site.Cell))
         {
             var problem=w.RelocationProblem(site.Id,at,rotation);Check(w.SaveJson()==saved,"Destination query changed world");
-            if(problem==null)return at;
+            if(problem==null && w.PlacementProblem(at,rotation,site.Kind)==null)return at;
         }
         throw new Exception("No move destination for "+site.Kind);
     }
@@ -40,8 +40,13 @@ static class RelocationChecks
                 string before=w.SaveJson();Check(w.MoveBuilding(site.Id,site.Cell,site.Rotation) && w.SaveJson()==before,"No-op move changed state");
                 Check(!w.MoveBuilding(site.Id,new(999,999),rotation) && w.SaveJson()==before,"Failed move changed state");
                 var target=Destination(w,site,rotation);
+                string queried=w.SaveJson();w.RelocationEntrance(site.Id,target,rotation);Check(w.SaveJson()==queried,"Entrance query changed state");
+                var footprint=World.Footprint(target,rotation,kind).ToArray();
+                w.Paths.Add(footprint[0]);w.ManagedWoodland.Add(footprint[1]);
+                queried=w.SaveJson();Check(w.RelocationProblem(site.Id,target,rotation)==null && w.SaveJson()==queried,"Preview cleared destination landscaping");
                 int fruit=site.Harvest,localFruit=site.PantryFood[5],logs=site.StoredLogs,grain=site.InputGrain;
                 Check(w.MoveBuilding(site.Id,target,rotation),"Move rejected checked destination");w.Validate();
+                Check(!w.Paths.Contains(footprint[0]) && !w.ManagedWoodland.Contains(footprint[1]),"Move retained landscaping under footprint");
                 Check(ReferenceEquals(site,w.Cottages.Single(c=>c.Id==site.Id)) && site.Cell==target && site.Rotation==rotation,"Move replaced identity");
                 Check(site.Harvest==fruit && site.PantryFood[5]==localFruit && site.StoredLogs==logs && site.InputGrain==grain && site.Priority==2 && site.OutputTarget==targetStock && site.StorageTarget==10 && site.Finish==finish,"Move changed stored state");
                 Roundtrip(w);
@@ -83,6 +88,6 @@ static class RelocationChecks
         Check(dock.Boat?.FisherId==null,"Boat did not return");
         var shore=lake.Map.Land.Concat(lake.Map.Water).SelectMany(c=>Enumerable.Range(0,4).Select(r=>(Cell:c,Rotation:r))).First(p=>p.Cell!=dock.Cell && lake.RelocationProblem(dock.Id,p.Cell,p.Rotation)==null);
         Check(lake.MoveBuilding(dock.Id,shore.Cell,shore.Rotation),"Moored dock refused move");lake.Validate();Check(dock.Boat!.Position==dock.Launch.Point,"Boat remained at old dock");Roundtrip(lake);
-        Console.WriteLine("PASS: relocation core preserves identity, four-way state/goods, read-only failures, mature orchard/cargo, active/moored dock safety and exact continuation. Player preview remains pending.");
+        Console.WriteLine("PASS: relocation core preserves identity, four-way state/goods, read-only failures, mature orchard/cargo, active/moored dock safety and exact continuation.");
     }
 }

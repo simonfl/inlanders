@@ -295,11 +295,13 @@ public partial class Game
         UpdatePantryControls();
         UpdateComfortControls();
         UpdateCottageFinishControls();UpdateCivicIdentityControls();
+        UpdateRelocation();
         UpdateBuildDescription();
         UpdateBuildCatalog();
         _hint.Text = _placing ? (_woodlandTool>0 ? $"{WoodlandToolName} · click or drag · Esc finishes" : _decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "1 shore tile + launch" : _buildKind == BuildingKind.SeatingGarden ? "1 tile" : _rotation%2!=0 ? "2 × 3" : "3 × 2")} · R / Shift+R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_woodlandTool>0 ? "Click or drag to apply woodland settings" : _pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
+        if(_movingSite>=0)_hint.Text=$"Move {BuildingName(_buildKind)} {_movingSite} · R / Shift+R rotates · Esc / right-click cancels\n"+(PointerOverHud(_pointerPosition)?"Choose a destination on the map.":_ghostValid?"Click to move this building":_placementProblem);
         if(_placing && !PointerOverHud(_pointerPosition))
         {
             if(_clearingTrees) _hint.Text+="\n"+_world.HabitatLoss(_hover);

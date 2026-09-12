@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F16c Creative building relocation can proceed independently.** [F05c](ORCHARDS_F05C.md) delivers orchards, visible establishment/repeated picking and distinct fruit in the existing food loop. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F11c/F18c first-play campaign review can proceed independently. F16c Creative relocation is delivered.** [F05c](ORCHARDS_F05C.md) delivers orchards, visible establishment/repeated picking and distinct fruit in the existing food loop. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,8 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F16c | In progress | Checked simulation relocation is implemented in [F16c1](RELOCATION_CORE_F16C1.md). Move/rotate preview, cancellation, view refresh and rendered checks remain F16c2. |
+| 3 | F11c / F18c | Scoped | Review first-play decisions and recovery in an introductory and a later level; implement the highest-supported clarity or waiting correction. |
+| 4 | F23b12 | Conditional | Use campaign review captures to correct one weak building silhouette/material treatment at ordinary zoom. Scope follows evidence. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +53,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F16c | Creative inspector Move, stateful four-way preview, live validation, cancellation and retained building identity/goods. [UI and verification](RELOCATION_UI_F16C2.md). |
 | F05c | Orchards: 4 logs, shared farmers, three-minute establishment, minute-long repeat growth, eight fruit, visible picking/carrying, distinct food accounting and pantry service. Four orientations, targets/interruption/recovery, save 34, real meal comparisons, full simulation and HUD pass. [Review](ORCHARDS_F05C.md). |
 | F05b | Orchard timing experiment: 48 actual-food-loop comparisons, interim food, farmer diversion and physical plot recovery. Modest perennial benefit; proceed to F05c without a new role/need or campaign requirement. Not a playable orchard yet. [Decision](ORCHARD_COMPARISON_F05B.md). |
 | F19d | Static title village built from existing models, separate from live settlement/camera, softer light and readable foreground. 960/1440 menu/keyboard checks, exact artwork after return from 30 buildings, saves/recovery and settings pass. [Review](TITLE_COMPOSITION_F19D.md). |

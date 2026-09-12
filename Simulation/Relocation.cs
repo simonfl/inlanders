@@ -56,9 +56,18 @@ public sealed partial class World
         site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));
         site.DockFromFar=site.Kind==BuildingKind.FishingDock && DockEntrance(at,rotation)==FarBank(at,rotation);
         site.Cell=at;site.Rotation=rotation;Cottages.Insert(index,site);
+        RemovePaths(Footprint(at,rotation,site.Kind));
+        ManagedWoodland.ExceptWith(Footprint(at,rotation,site.Kind).Append(site.Entrance));
+        if(site.Kind==BuildingKind.Bridge){ManagedWoodland.Remove(Door(at,rotation));ManagedWoodland.Remove(FarBank(at,rotation));}
         if(site.Boat is {} boat){boat.Position=site.Launch.Point;boat.Heading=rotation*MathF.PI/2+(site.DockFromFar?MathF.PI:0);}
         ReconcileHomes();
         foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.StorageId==id && person.Task==Work.ToStockpile?site.Entrance:person.Destination);
         History.Add($"Moved {Buildings.Get(site.Kind).Name} {id} to {at.X}, {at.Z}.");_retry=0;return true;
+    }
+    public Cell RelocationEntrance(int id,Cell at,int rotation)
+    {
+        var site=Cottages.Single(c=>c.Id==id);int index=Cottages.IndexOf(site);Cottages.RemoveAt(index);
+        try{return site.Kind==BuildingKind.FishingDock?DockEntrance(at,rotation):site.Kind==BuildingKind.Bridge?BridgeEntrance(at,rotation):Door(at,rotation);}
+        finally{Cottages.Insert(index,site);}
     }
 }
