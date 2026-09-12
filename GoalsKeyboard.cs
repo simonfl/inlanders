@@ -128,6 +128,7 @@ public partial class Game
             else if(_drawer.Visible && _tabs.CurrentTab==0)
             {_goalsPage=0;_goalsBackList.Show();UpdateServiceCoverage();_goalsFocus="filter";}
             else if(_drawer.Visible && _tabs.CurrentTab==4){StopGoalsKeyboard();OpenEconomyKeyboard();}
+            else if(_surveying){StopGoalsKeyboard();OpenSurveyKeyboard();}
             else if(!GoalsKeyboardOpen)StopGoalsKeyboard();else FocusGoal(intended);
         }
         return true;

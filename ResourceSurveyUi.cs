@@ -33,7 +33,7 @@ public partial class Game
         _sourceInfo=Text("",14,true); _surveyDetails.AddChild(_sourceInfo);
         _sourceWorkplaceHeading=Text("",12,true); _surveyDetails.AddChild(_sourceWorkplaceHeading);
         _sourceWorkplaces=new VBoxContainer(); _surveyDetails.AddChild(_sourceWorkplaces);
-        _surveyDetails.AddChild(Button("Finish survey [U / Esc]",StopResourceSurvey));
+        _surveyFinish=Button("Finish survey [U / Esc]",StopResourceSurvey);_surveyDetails.AddChild(_surveyFinish);
         _surveyDetails.Hide();
     }
     private void ToggleResourceSurvey()
@@ -41,8 +41,15 @@ public partial class Game
         if(_surveying) { StopResourceSurvey(); return; }
         ExitWatch(); _placing=false; _pathStroke=false; _woodlandStroke=false; _showSupplyRoutes=false; RefreshGhost(); ClearSelection();
         _surveying=true; _sourceMarkers.Show();
+        RefreshSurveySources(true);
+        ShowInspector(); _nextSourceRefresh=0; UpdateResourceSurvey();
+    }
+    private void RefreshSurveySources(bool force=false)
+    {
+        var sources=_world.ResourceSources().ToArray();
+        if(!force && sources.SequenceEqual(_sourceList))return;
         foreach(var button in _sourceButtons.Values) { _sourceMarkers.RemoveChild(button); button.QueueFree(); } _sourceButtons.Clear();
-        _sourceList.Clear(); _sourceList.AddRange(_world.ResourceSources());
+        _sourceList.Clear(); _sourceList.AddRange(sources);
         _sourceChoice.Clear(); _sourceChoice.AddItem("Choose a map source");
         foreach(var source in _sourceList)
         {
@@ -52,10 +59,13 @@ public partial class Game
             button.TooltipText="Inspect source stock, access and related workplaces.";
             _sourceMarkers.AddChild(button); _sourceButtons[key]=button;
         }
-        ShowInspector(); _nextSourceRefresh=0; UpdateResourceSurvey();
+        if(_selectedSource is SourceKey selected && !_sourceList.Any(s=>s.Key==selected))_selectedSource=null;
+        if(_lastSurveySource is SourceKey last && !_sourceList.Any(s=>s.Key==last))_lastSurveySource=null;
+        _sourceChoice.Select(_sourceList.FindIndex(s=>s.Key==_selectedSource)+1);_sourceChoice.Disabled=_sourceList.Count==0;
     }
     private void StopResourceSurvey()
     {
+        StopSurveyKeyboard();
         if(!_surveying) return;
         bool selected=_selectedSource!=null || (_selectedSite<0 && _selectedPerson<0);
         _surveying=false; _selectedSource=null; _lastSurveySource=null; _sourceReport=null; _surveyDetails.Hide(); _surveyBack.Hide(); _sourceMarkers.Hide();
@@ -89,6 +99,7 @@ public partial class Game
             foreach(var node in region.GetChildren().OfType<Node3D>())
                 foreach(var label in node.GetChildren().OfType<Label3D>()) label.Visible=WorldLabelsVisible && !_surveying;
         if(!_surveying) return;
+        if(_uiTime>=_nextSourceRefresh)RefreshSurveySources();
         foreach(var source in _sourceList)
         {
             var button=_sourceButtons[source.Key];

@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F21s resource-survey keyboard navigation can proceed independently.** [F21r](GOALS_KEYBOARD_F21R.md) delivers Goals evidence, inspection return and deliberate actions, following Economy navigation. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F19d title-screen composition can proceed independently.** [F21s](SURVEY_KEYBOARD_F21S.md) delivers source selection, current evidence and workplace/source return, following Goals and Economy navigation. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F21s | Scoped | Resource-source selection, current evidence, workplace inspection and source return using the keyboard. Can proceed while audio awaits listening. |
+| 3 | F19d | Scoped | Welcoming title-screen composition with readable controls, consistent village art and preserved save/replay behavior. Can proceed while audio awaits listening. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F21s | Resource-survey keyboard picker, current evidence, workplace/source return, stable source identities, safe removal/empty maps and Goals/Economy handoffs. 960/1440 navigation, simulation stock changes, mouse return and exact saves verified. [Review](SURVEY_KEYBOARD_F21S.md). |
 | F21r | Goals reading, explanations, counted resident/place links and return, fresh readiness, safe phase/completion focus, explicit actions and handoffs. Intro/finale 960/1440, real assessment/supper/completion, layout/Economy/HUD regressions and saves pass. [Review](GOALS_KEYBOARD_F21R.md). |
 | F21q | Economy keyboard disclosures/storage/bread/route/idle links, read-only inspector return, stable identities across refresh/removal, scrolling, mouse/shortcut/typing handoffs and reset. Focused 960/1440, HUD/People regressions and saves pass. [Review](ECONOMY_KEYBOARD_F21Q.md). |
 | F23b11 | Continuous vertex ground color on original, flat and raised terrain; authored meadow preserved. Five-map comparisons, shared-color seams, 960/1440 placement, normal tick replay and existing slope/map checks pass. Fewer hidden flat-terrain faces and original grass meshes. [Review](GROUND_COLOR_F23B11.md). |

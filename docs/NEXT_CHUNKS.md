@@ -1,6 +1,6 @@
-# Next chunks — sound, music and resource-survey navigation
+# Next chunks — sound, music and title-screen composition
 
-September 12, 2026, after F21r. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F21s. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -10,7 +10,7 @@ September 12, 2026, after F21r. This is the active queue. Delivered acceptance b
 | Buildings and costs | Seventeen types cover the core economy. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
 | Needs and progression | Meals, assigned homes/rest and recreation are real routines. Comfort reduces homeward trips without a demonstrated food-output gain. Chapel/court use recreation. | Keep optional improvements honest. No automatic thirst, education, spirituality or technology meter. Restoration needs a finished function, not an attendance prerequisite. |
 | Visuals and village life | Building families, four-way rotation, woodland, cottage/civic identities and quiet visits have shipped. Populated comparisons now support quieter shores and continuous ground color. Outer outlines and subtle poses remain open visual questions. | Keep menu art and player visual feedback visible. Do not automatically follow each art pass with another terrain rewrite or equate more geometry with stronger art direction. |
-| Interface and controls | Menu, Build, resident assignment, Economy inspection and Goals evidence/actions have keyboard focus. Resource survey and broader inspector editing remain open. | Complete source selection and workplace/source return next. No new dashboard until an observed question requires it. |
+| Interface and controls | Menu, Build, resident assignment, Economy inspection, Goals evidence/actions and resource surveys have keyboard focus. Broader inspector editing remains open. | Park further editing until a concrete task is selected. No new dashboard until an observed question requires it. |
 | Audio and music | Procedural positional work sounds and one original looping musical miniature exist. Real-time sound limits already prevent fast-forward from multiplying every cue. | Compare quiet and busy soundscapes, then improve the highest-impact repetition/mix problem. A bell on every routine chapel arrival would overstate the event; it remains silent. |
 | Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios exist. Normal 20/32-resident profiles and decoration batching are delivered; long frames persist in normal-process traces. | No population or terrain-size performance promise. Further stall work needs native profiling; the failed visibility experiment does not justify removing animations. Terrain sculpting is a separate design project. |
 | Architecture and reliability | Current-format roundtrips, simulation routes and rendered interaction checks cover delivered slices. There are many partial Game files and specialized smoke fixtures. | Keep checks specific to behavior; do not turn the feature roadmap into a generic cleanup campaign. No save migration. |
@@ -65,18 +65,24 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Goals keyboard navigation](GOALS_KEYBOARD_F21R.md) now covers reading, disclosures, counted/not-counted residents, place links, return context and deliberate campaign actions. Live readiness and phase/completion changes cannot activate replacement buttons. Intro/finale 960/1440, actual assessment/supper/completion, layout, Economy and HUD checks pass. Source-survey interaction and broader inspector editing remain separate.
 
-## 3. F21s — resource-survey keyboard navigation
+## F21s delivered — resource-survey keyboard navigation
 
-**Outcome:** choose fish grounds, stone or woodland from the survey without mouse picking, read current stock/access/habitat evidence, inspect a related workplace and return to that source.
+[Source navigation](SURVEY_KEYBOARD_F21S.md) now covers fish, stone and woodland selection, current evidence, workplace inspection and source return. Selection survives picker reordering; disappearing sources/workplaces cannot silently select replacements. Focused 960/1440, stock recovery, Goals/Economy entry, mouse and save checks pass. Broader inspector editing remains separate.
 
-Build on the existing U shortcut, source picker and workplace links. Use visible focus, source identity rather than a recycled row index, scrolling, explicit activation and Back/Escape conventions. Keep camera/source emphasis consistent with mouse selection. Handle empty maps, disappearing workplaces and changed source availability without stale activation. Test 960/1440, all three source kinds, live changes, keyboard entry from relevant Goals/Economy links, placement/Watch handoff and reload. Read-only navigation must preserve exact simulation state. Do not add a resource browser redesign, workplace assignment rules or production filters in this chunk.
+## 3. F19d — title-screen composition
 
-This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review. Broader inspector editing remains a follow-up.
+**Outcome:** opening the game presents an inviting settlement and an immediately readable set of choices.
+
+Review the existing translucent left panel over the village, then compare a composed title treatment at 960/1440. Prefer the game's building, terrain and color vocabulary; choose a deliberate focal point and negative space for controls. An authored scene or a captured in-engine composition may be enough; choose the asset approach after comparison. Keep the background quiet, with no independent simulation that changes the player's saved village. Exact framing, lettering and decoration remain TBD.
+
+Verify root menu, long Campaign list, Free play, Sound, confirmation and error pages with mouse and keyboard. Preserve remembered focus, scroll visibility, Continue/replay/recovery behavior and sound settings. Compare initial launch and return from a busy settlement. Cut ornamental motion if it distracts from choosing a game. This is not a save-slot browser, controller project or a new art direction for every building.
+
+This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
 ## Retained follow-ups
 
-- **Visuals:** further neighborhood treatments depend on the composition comparison. F19d title artwork remains separate from menu behavior.
-- **Management:** remaining inspectors, Goals/Economy focus, source-route emphasis, and resource filters follow demonstrated tasks. Avoid catalog search while categories suffice.
+- **Visuals:** further neighborhood treatments depend on composition feedback. F19d is now the bounded independent visual chunk.
+- **Management:** broader inspector editing, source-route emphasis, and resource filters follow demonstrated tasks. Goals/Economy/survey navigation is delivered. Avoid catalog search while categories suffice.
 - **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
 - **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
 - **Economy:** orchards, pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.

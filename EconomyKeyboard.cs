@@ -96,6 +96,7 @@ public partial class Game
             if(_inspector.Visible && (_selectedSite>=0 || _selectedPerson>=0))
             {_economyInspecting=true;_economySite=_selectedSite;_economyPerson=_selectedPerson;_economyBack.Show();FocusEconomy("back");}
             else if(_drawer.Visible && _tabs.CurrentTab==0){StopEconomyKeyboard();OpenPeopleKeyboard();}
+            else if(_surveying){StopEconomyKeyboard();OpenSurveyKeyboard();}
             else if(!EconomyKeyboardOpen)StopEconomyKeyboard();
             else FocusEconomy(intended);
         }

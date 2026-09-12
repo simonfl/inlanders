@@ -307,6 +307,8 @@ public partial class Game
         UpdatePeopleKeyboard();
         UpdateEconomyKeyboard();
         UpdateGoalsKeyboard();
+        UpdateSurveyKeyboard();
+        if(_surveyKeyboard)_hint.Text=_surveyKeyboardSite>=0?"Page ↑↓ read · Esc returns to source · U finishes":"←→ choose source · Tab / ↑↓ select · Enter inspect · Page ↑↓ read · Esc finishes";
         if(_goalsKeyboard)_hint.Text=(_goalsPage==0 && _goalsInspectPage<0?"←→ filter residents · ":"")+"Tab / ↑↓ select · Enter activate · Page ↑↓ read · Esc back · G closes";
         if(_economyKeyboard)_hint.Text=_economyInspecting?"Page ↑↓ read inspector · Esc returns to Economy · I closes":"Tab / ↑↓ select · Enter inspect or toggle · Page ↑↓ scroll · Esc closes";
         if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
