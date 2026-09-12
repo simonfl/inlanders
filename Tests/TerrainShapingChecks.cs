@@ -41,10 +41,17 @@ static class TerrainShapingChecks
         var flat=Fresh();var firstSite=Site(flat,.4f);var draft=firstSite.Preview;
         var border=draft.ChangedCells.First(c=>c.X<firstSite.First.X || c.X>firstSite.Last.X || c.Z<firstSite.First.Z || c.Z>firstSite.Last.Z);
         Check(flat.SetPath(border,true),"Border path fixture failed");UnchangedRefusal(flat,draft);
+        var blockedPreview=flat.PreviewTerrain(firstSite.First,firstSite.Last,.4f);
+        Check(blockedPreview.Blocker is {Kind:"Path"} && blockedPreview.Blocker.Cell==border,"Path blocker not identified");
         Check(flat.SetPath(border,false) && flat.ApplyTerrain(draft),"Fresh revalidation failed after clearing path");
         Check(flat.SetPath(border,true),"Undo path fixture failed");
         string withPath=flat.SaveJson();Check(!flat.UndoTerrain() && flat.SaveJson()==withPath,"New border path did not block undo");
+        Check(flat.TerrainUndoBlocker() is {Kind:"Path"} undoBlocker && undoBlocker.Cell==border,"Undo blocker not identified");
         Check(flat.SetPath(border,false),"Cannot clear undo path");
+        flat.People[0].Route.Enqueue(border);
+        Check(flat.TerrainUndoBlocker() is {Kind:"Walking route"} traffic && traffic.Cell==border,"Walking reservation lacks recovery guidance");
+        string trafficSave=flat.SaveJson();Check(!flat.UndoTerrain() && flat.SaveJson()==trafficSave,"Blocked traffic Undo mutated world");
+        flat.People[0].Route.Clear();Check(flat.TerrainUndoProblem()==null,"Cleared traffic kept Undo blocked");
         var noop=flat.PreviewTerrain(firstSite.First,firstSite.Last,.4f);
         Check(noop.ChangedCells.Count==0 && flat.ApplyTerrain(noop),"No-op failed");
         foreach(float target in new[]{float.NaN,float.PositiveInfinity,-.4f,4.4f,.3f})UnchangedRefusal(flat,flat.PreviewTerrain(firstSite.First,firstSite.Last,target));

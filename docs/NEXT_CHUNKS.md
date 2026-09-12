@@ -4,11 +4,9 @@ September 12, 2026. This queue follows the [whole-project review](REVIEW_CHECKPO
 
 The game has eighteen building types and ten campaign levels. Local stone storage, optional workplace assignments, bush relocation, Creative terraces and fence gateways are delivered. Three musical candidates and quiet transitions exist; their perceptual acceptance remains open. The next work should improve operating and understanding this game, not automatically expand its systems.
 
-## 1. F12h4 — visible terrain blockers and Undo recovery
+## Delivered: F12h4 — visible terrain blockers and Undo recovery
 
-The current refusal gives a generic coordinate while marking the entire changed area red. Return a specific blocker cell and cause category from terrain validation. Highlight that cell separately from the plateau/border and explain whether to change the selection, remove an object or wait for traffic. Cover visible paths, invisible service access and transient walking routes. Preserve whole-area protection and fresh Apply/Undo validation.
-
-Show a blocked Undo reason inline, including when the player reopens the tool after placing a building on the terrace. Qualify the Apply success message: the inverse remains stored, but Undo requires the affected ground to be clear. Avoid duplicating the panel error in a notice that obscures Close at 960. Verify path/building rejection, temporary traffic clearing, retry, cancellation and longest messages at 960/1440. No broader terrain brush, multi-step undo history or normal-play cost system.
+Delivered September 12: [implementation and evidence](TERRAIN_FEEDBACK_F12H4.md). Specific blockers retain gold/blue plot borders and receive a red cross. Undo explains obstructions inline, retains its inverse while blocked and supports retry. Path, hidden access, building and temporary route fixtures passed at 960/1440, including Close visibility. F21u is next; no broader terrain scope was added.
 
 ## 2. F21u — assignment guidance and continuation evidence
 

@@ -5,6 +5,19 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
+public sealed record TerrainBlocker(Cell Cell,string Kind,string Guidance)
+{
+    public string Message=>$"{Kind} at {Cell.X}, {Cell.Z}. {Guidance}";
+    public string UndoMessage=>$"{Kind} at {Cell.X}, {Cell.Z}. "+(Kind switch
+    {
+        "Building"=>"Remove the building before retrying Undo.",
+        "Path"=>"Remove this path before retrying Undo.",
+        "Decoration"=>"Remove this decoration before retrying Undo.",
+        "Villager" or "Walking route" or "Work destination" or "Reserved meal seat"=>Guidance,
+        _=>"Clear this use of the tile before retrying Undo."
+    });
+}
+
 public sealed class TerrainEditPreview
 {
     internal World Owner { get; }
@@ -15,11 +28,12 @@ public sealed class TerrainEditPreview
     public IReadOnlyList<float> Heights { get; }
     public IReadOnlyList<Cell> ChangedCells { get; }
     public string? Problem { get; }
-    internal TerrainEditPreview(World owner,float[] before,float[] after,Cell[] changed,string? problem)
+    public TerrainBlocker? Blocker { get; }
+    internal TerrainEditPreview(World owner,float[] before,float[] after,Cell[] changed,string? problem,TerrainBlocker? blocker=null)
     {
         Owner=owner;Map=owner.Map;Before=before;After=after;
         Bounds=(Map.MinX,Map.MinZ,Map.Width,Map.Depth);
-        Heights=Array.AsReadOnly(after);ChangedCells=Array.AsReadOnly(changed);Problem=problem;
+        Heights=Array.AsReadOnly(after);ChangedCells=Array.AsReadOnly(changed);Problem=problem;Blocker=blocker;
     }
 }
 
@@ -28,29 +42,43 @@ public sealed partial class World
     // Session-local, deliberately absent from saves. World replacement discards undo.
     private TerrainEditPreview? _terrainUndo;
 
-    private HashSet<Cell> TerrainProtectedCells()=>new[]{Stockpile,YardAccess}
-        .Concat(Trees.SelectMany(t=>new[]{t.Cell,t.Access})).Concat(Bushes.SelectMany(b=>new[]{b.Cell,b.Access}))
-        .Concat(Map.StoneDeposits.SelectMany(d=>new[]{d.Cell,d.Access})).Concat(Map.Wildlife.Select(h=>h.Cell))
-        .Concat(Cottages.SelectMany(c=>Footprint(c.Cell,c.Rotation,c.Kind).Append(c.Entrance)
-            .Concat(c.Kind==BuildingKind.Bridge?new[]{Door(c.Cell,c.Rotation),FarBank(c.Cell,c.Rotation)}:Array.Empty<Cell>())
-            .Concat(c.Kind==BuildingKind.FishingDock?new[]{c.Launch}:Array.Empty<Cell>())))
-        .Concat(Paths).Concat(ManagedWoodland).Concat(Decorations.Select(d=>d.Cell))
-        .Concat(People.Select(At)).Concat(People.SelectMany(p=>p.Route))
-        .Concat(People.Where(p=>p.Task!=Work.Waiting).Select(p=>p.Destination))
-        .Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat))
-        .Concat(MeetingSpots).ToHashSet();
+    private TerrainBlocker? TerrainAreaBlocker(IEnumerable<Cell> changed)
+    {
+        var protectedCells=new Dictionary<Cell,TerrainBlocker>();
+        void Add(IEnumerable<Cell> cells,string kind,string guidance)
+        {foreach(var cell in cells)protectedCells.TryAdd(cell,new(cell,kind,guidance));}
+        const string avoid="Keep this tile outside the plot and border.";
+        Add(new[]{Stockpile},"Village yard",avoid);
+        Add(new[]{YardAccess},"Yard access",avoid);
+        Add(Trees.Select(t=>t.Cell),"Tree",avoid);Add(Trees.Select(t=>t.Access),"Tree access",avoid);
+        Add(Bushes.Select(b=>b.Cell),"Berry bush",avoid);Add(Bushes.Select(b=>b.Access),"Bush access",avoid);
+        Add(Map.StoneDeposits.Select(d=>d.Cell),"Stone deposit",avoid);Add(Map.StoneDeposits.Select(d=>d.Access),"Stone access",avoid);
+        Add(Map.Wildlife.Select(h=>h.Cell),"Wildlife tracking ground",avoid);
+        Add(Cottages.SelectMany(c=>Footprint(c.Cell,c.Rotation,c.Kind)),"Building","Remove the building or change the terrace.");
+        Add(Cottages.Select(c=>c.Entrance),"Building entrance",avoid);
+        Add(Cottages.Where(c=>c.Kind==BuildingKind.Bridge).SelectMany(c=>new[]{Door(c.Cell,c.Rotation),FarBank(c.Cell,c.Rotation)}),"Bridge access",avoid);
+        Add(Cottages.Where(c=>c.Kind==BuildingKind.FishingDock).Select(c=>c.Launch),"Dock launch",avoid);
+        Add(Paths,"Path","Remove this path or change the terrace.");
+        Add(ManagedWoodland,"Managed woodland",avoid);
+        Add(Decorations.Select(d=>d.Cell),"Decoration","Remove this decoration or change the terrace.");
+        Add(MeetingSpots,"Meeting spot",avoid);
+        Add(People.Select(At),"Villager","Wait for the villager to move, then retry.");
+        Add(People.SelectMany(p=>p.Route),"Walking route","Wait for traffic to pass, then retry.");
+        Add(People.Where(p=>p.Task!=Work.Waiting).Select(p=>p.Destination),"Work destination","Wait for the task to finish, then retry.");
+        Add(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat),"Reserved meal seat","Wait for the meal to finish, then retry.");
+        foreach(var cell in changed)
+        {
+            if(!Map.Contains(cell) || Map.Water.Contains(cell))return new(cell,"Water or map edge","Keep the terrace and border on dry land.");
+            if(protectedCells.TryGetValue(cell,out var blocker))return blocker;
+        }
+        return null;
+    }
 
     private string? TerrainAreaProblem(IEnumerable<Cell> changed)
     {
         if(!Creative)return "Terrain shaping is available in Creative only.";
         if(Food.Celebrating)return "Wait until supper finishes.";
-        var protectedCells=TerrainProtectedCells();
-        foreach(var cell in changed)
-        {
-            if(!Map.Contains(cell) || Map.Water.Contains(cell))return "Keep the terrace and its sloped border on dry land.";
-            if(protectedCells.Contains(cell))return $"Keep occupied ground and access clear at {cell.X}, {cell.Z}, including the sloped border.";
-        }
-        return null;
+        return TerrainAreaBlocker(changed)?.Message;
     }
 
     public TerrainEditPreview PreviewTerrain(Cell first,Cell last,float target)
@@ -76,7 +104,8 @@ public sealed partial class World
         for(int z=0;z<Map.Depth;z++)for(int x=0;x<Map.Width;x++)
             if(Different(x,z)||Different(x+1,z)||Different(x,z+1)||Different(x+1,z+1))changed.Add(new(Map.MinX+x,Map.MinZ+z));
         bool Different(int x,int z)=>Map.CornerHeight(x,z)!=after[z*(Map.Width+1)+x];
-        return new(this,before,after,changed.ToArray(),TerrainAreaProblem(changed));
+        var blocker=TerrainAreaBlocker(changed);
+        return new(this,before,after,changed.ToArray(),TerrainAreaProblem(changed),blocker);
     }
 
     public string? TerrainApplyProblem(TerrainEditPreview preview)
@@ -104,10 +133,13 @@ public sealed partial class World
     }
     public string? TerrainUndoProblem()
     {
-        if(_terrainUndo==null)return "No terrain change to undo in this village.";
+        if(_terrainUndo==null)return "No terrain change to undo.";
         if(!ReferenceEquals(_terrainUndo.Map,Map) || _terrainUndo.Bounds!=(Map.MinX,Map.MinZ,Map.Width,Map.Depth) || !Map.Heights.SequenceEqual(_terrainUndo.After))return "The terrain changed since this edit.";
-        return TerrainAreaProblem(_terrainUndo.ChangedCells);
+        if(!Creative)return "Terrain shaping is available in Creative only.";
+        if(Food.Celebrating)return "Wait until supper finishes.";
+        return TerrainAreaBlocker(_terrainUndo.ChangedCells)?.UndoMessage;
     }
+    public TerrainBlocker? TerrainUndoBlocker()=>_terrainUndo==null?null:TerrainAreaBlocker(_terrainUndo.ChangedCells);
     public bool UndoTerrain()
     {
         if(TerrainUndoProblem()!=null)return false;

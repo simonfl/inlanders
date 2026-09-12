@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: following the checkpoint-five whole-project review, improve terrain recovery and assignment guidance, test campaign alternatives, finish listening reviews and investigate long frames.** Local stone storage, named workplace assignments, bush relocation, Creative terraces and gateways are delivered. Human enjoyment, audio acceptance and wider performance remain open; recent feature completion does not settle those questions.
+**Next: following the checkpoint-five whole-project review, improve assignment guidance, test campaign alternatives, finish listening reviews and investigate long frames.** Local stone storage, named workplace assignments, bush relocation, Creative terraces and gateways are delivered. Human enjoyment, audio acceptance and wider performance remain open; recent feature completion does not settle those questions.
 
 The [checkpoint-five whole-project review](REVIEW_CHECKPOINT_5.md) records overall status, evidence and limitations. The [current next-five queue](NEXT_CHUNKS.md) defines bounded priorities and checks; the native playtest did not occur and remains an explicit follow-up, not a claimed pass. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,13 +18,12 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F12h4 | Planned | Identify terrain blockers visibly, explain blocked Undo inline and keep rejection feedback clear at 960. |
-| 2 | F21u | Planned | Correct orchard assignment guidance and strengthen original-versus-reload checks for active work/cargo. |
-| 3 | F11d / F18d | Investigation | Observe the campaign operating loop and isolate finale bread capacity versus placement; correct only demonstrated issues. |
-| 4 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
-| 5 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
+| 1 | F21u | Planned | Correct orchard assignment guidance and strengthen original-versus-reload checks for active work/cargo. |
+| 2 | F11d / F18d | Investigation | Observe the campaign operating loop and isolate finale bread capacity versus placement; correct only demonstrated issues. |
+| 3 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
+| 4 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
 
-Recent deliveries include [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
+Recent deliveries include [terrain blockers and Undo recovery](TERRAIN_FEEDBACK_F12H4.md), [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
 ## Review questions, not a second work queue
 

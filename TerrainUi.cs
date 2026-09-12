@@ -12,7 +12,9 @@ public partial class Game
     private MapLayout? _terrainRenderMap;
     private Button _terrainEntry=null!,_terrainApply=null!,_terrainUndoButton=null!,_terrainCompare=null!;
     private SpinBox _terrainTarget=null!;
-    private Label _terrainText=null!;
+    private Label _terrainText=null!,_terrainUndoText=null!;
+    private Button _terrainClose=null!;
+    private Cell? _terrainMarkedBlocker;
     private PanelContainer _terrainPanel=null!;
     private Node3D _terrainMarks=null!;
     private float _terrainRefresh;
@@ -22,7 +24,7 @@ public partial class Game
         _terrainEntry=Button("Level terrace · Creative",BeginTerrain);_buildSections[1].AddChild(_terrainEntry);
         _terrainPanel=HudPanel(_hud);_terrainPanel.Hide();var column=new VBoxContainer();_terrainPanel.AddChild(column);
         column.AddChild(Text("LEVEL TERRACE",16));
-        column.AddChild(Text("Drag a rectangle on bare ground. Include room for building entrances. Middle-drag / WASD moves the camera.",14,true));
+        column.AddChild(Text("Drag bare ground, including room for entrances. Middle-drag / WASD: camera.",14,true));
         var row=new HBoxContainer();column.AddChild(row);row.AddChild(Text("Elevation",14));
         _terrainTarget=new SpinBox{MinValue=0,MaxValue=4,Step=.4,Value=.4,CustomMinimumSize=new(150,36)};row.AddChild(_terrainTarget);
         _terrainTarget.ValueChanged+=_=>{_terrainRefresh=0;UpdateTerrainUi();};
@@ -30,7 +32,8 @@ public partial class Game
         _terrainCompare=Button("Show before",()=>{_terrainAfter=!_terrainAfter;_terrainDrawKey="";_terrainRefresh=0;UpdateTerrainUi();});column.AddChild(_terrainCompare);
         _terrainApply=Button("Apply terrace",ConfirmTerrain);column.AddChild(_terrainApply);
         _terrainUndoButton=Button("Undo last terrain change",UndoTerrainUi);column.AddChild(_terrainUndoButton);
-        column.AddChild(Button("Close [Esc]",CancelTerrain));_terrainMarks=new();AddChild(_terrainMarks);
+        _terrainUndoText=Text("",14,true);column.AddChild(_terrainUndoText);
+        _terrainClose=Button("Close [Esc]",CancelTerrain);column.AddChild(_terrainClose);_terrainMarks=new();AddChild(_terrainMarks);
     }
     private void BeginTerrain()
     {
@@ -61,21 +64,26 @@ public partial class Game
         var preview=_terrainPreview;
         _terrainApply.Disabled=preview==null || preview.Problem!=null || preview.ChangedCells.Count==0 || _terrainDragging;
         var undoProblem=_world.TerrainUndoProblem();_terrainUndoButton.Disabled=undoProblem!=null;_terrainUndoButton.TooltipText=undoProblem??"Restore the previous terrain; keeps elapsed time and goods.";
+        _terrainUndoText.Text=undoProblem==null?"Undo needs clear ground. Kept until next edit or load.":$"Undo: {undoProblem}";
+        var blocker=preview?.Blocker ?? (preview==null?_world.TerrainUndoBlocker():null);
         _terrainCompare.Disabled=preview==null || preview.Heights.Count==0;
         _terrainCompare.Text=_terrainAfter?"Show before":"Show after";
-        _terrainText.Text=preview==null?"Choose a terrace. Gold marks the level plot; blue marks its sloped border.":
+        _terrainText.Text=preview==null?(undoProblem==null?"Terrace applied. Choose another plot, or Undo to restore previous heights.":"Choose a terrace. Gold marks the level plot; blue marks its sloped border."):
             $"{(_terrainAfter?"AFTER":"BEFORE")} · {preview.ChangedCells.Count} affected tiles\n"+(preview.Problem??(preview.ChangedCells.Count==0?"Already at this elevation.":"Gold: level plot. Blue: sloped border. Ready to apply."));
-        string key=$"{_terrainFirst}:{_terrainLast}:{_terrainTarget.Value}:{_terrainAfter}:{preview?.Problem}";
+        if(blocker!=null)_terrainText.Text="Red cross: blocking tile.\n"+(preview?.Problem??"Choose another plot or clear the Undo obstruction below.");
+        string key=$"{_terrainFirst}:{_terrainLast}:{_terrainTarget.Value}:{_terrainAfter}:{preview?.Problem}:{blocker}";
         bool sameHeights=previous==null && preview==null || previous!=null && preview!=null && previous.Heights.SequenceEqual(preview.Heights);
         if(key==_terrainDrawKey && sameHeights)return;_terrainDrawKey=key;Clear(_terrainMarks);
         _terrainRenderMap=_terrainAfter && preview is {Problem:null,Heights.Count:>0}?new MapLayout{MinX=_world.Map.MinX,MinZ=_world.Map.MinZ,Width=_world.Map.Width,Depth=_world.Map.Depth,Heights=preview.Heights.ToArray()}:null;
         RefreshTerrainRendering();
-        if(preview==null || _terrainFirst is not Cell a || _terrainLast is not Cell b)return;
+        _terrainMarkedBlocker=blocker?.Cell;
         var marks=new SurfaceTool();marks.Begin(Godot.Mesh.PrimitiveType.Triangles);int count=0;
-        foreach(var cell in preview.ChangedCells.Concat(_world.Map.Land.Where(c=>c.X>=Math.Min(a.X,b.X)&&c.X<=Math.Max(a.X,b.X)&&c.Z>=Math.Min(a.Z,b.Z)&&c.Z<=Math.Max(a.Z,b.Z))).Distinct())
+        var a=_terrainFirst??default;var b=_terrainLast??default;
+        var cells=preview==null?Array.Empty<Cell>():preview.ChangedCells.Concat(_world.Map.Land.Where(c=>c.X>=Math.Min(a.X,b.X)&&c.X<=Math.Max(a.X,b.X)&&c.Z>=Math.Min(a.Z,b.Z)&&c.Z<=Math.Max(a.Z,b.Z))).Distinct().ToArray();
+        foreach(var cell in cells)
         {
             bool selected=cell.X>=Math.Min(a.X,b.X)&&cell.X<=Math.Max(a.X,b.X)&&cell.Z>=Math.Min(a.Z,b.Z)&&cell.Z<=Math.Max(a.Z,b.Z);
-            Color color=new(preview.Problem!=null?"ed7761":selected?"eac04a":"429fd0");
+            Color color=new(selected?"eac04a":"429fd0");
             // Narrow corner-following rims leave the terrain itself visible.
             var corners=new[]{OnGround(cell.X-.49f,cell.Z-.49f,.025f),OnGround(cell.X+.49f,cell.Z-.49f,.025f),OnGround(cell.X+.49f,cell.Z+.49f,.025f),OnGround(cell.X-.49f,cell.Z+.49f,.025f)};
             for(int i=0;i<4;i++)
@@ -84,23 +92,33 @@ public partial class Game
                 Triangle(marks,p,q+inward,q,color);Triangle(marks,p,p+inward,q+inward,color);count++;
             }
         }
-        if(count>0){var mesh=SurfaceMesh(_terrainMarks,marks);((StandardMaterial3D)mesh.MaterialOverride).ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;}
+        if(blocker is {Cell:var blocked})
+        {
+            // A cross stays distinct from both plot and apron rims, including hidden access tiles.
+            foreach(float sign in new[]{-1f,1f})
+            {
+                var p=OnGround(blocked.X-.4f,blocked.Z-.4f*sign,.065f);var q=OnGround(blocked.X+.4f,blocked.Z+.4f*sign,.065f);
+                var side=new Vector3(-sign,0,1).Normalized()*.065f;var color=new Color("ff5440");
+                Triangle(marks,p-side,q+side,q-side,color);Triangle(marks,p-side,p+side,q+side,color);count++;
+            }
+        }
+        if(count>0){var mesh=SurfaceMesh(_terrainMarks,marks);var material=(StandardMaterial3D)mesh.MaterialOverride;material.ShadingMode=BaseMaterial3D.ShadingModeEnum.Unshaded;material.NoDepthTest=true;}
     }
     private void ConfirmTerrain()
     {
         if(!_terrainEditing || _terrainWorld!=_world || _terrainPreview==null)return;
         string? problem=_world.TerrainApplyProblem(_terrainPreview);
-        if(problem!=null || !_world.ApplyTerrain(_terrainPreview)){Notice(problem??"Terrain could not be changed. Preview again.");_terrainRefresh=0;UpdateTerrainUi();UiCue(Cue.Reject);return;}
+        if(problem!=null || !_world.ApplyTerrain(_terrainPreview)){_terrainRefresh=0;UpdateTerrainUi();if(_terrainPreview?.Problem==null)_terrainText.Text=problem??"Terrain could not be changed. Preview again.";UiCue(Cue.Reject);return;}
         _terrainRenderMap=null;_terrainFirst=null;_terrainLast=null;_terrainPreview=null;_terrainDrawKey="";Clear(_terrainMarks);RefreshTerrainRendering();
-        _terrainRefresh=0;UpdateTerrainUi();Notice("Terrace applied. Undo remains available until the next terrain edit or village load.");UiCue(Cue.Place);
+        _terrainRefresh=0;UpdateTerrainUi();UiCue(Cue.Place);
     }
     private void UndoTerrainUi()
     {
         if(!_terrainEditing || _terrainWorld!=_world)return;
         var problem=_world.TerrainUndoProblem();
-        if(problem!=null || !_world.UndoTerrain()){Notice(problem??"Terrain could not be restored.");return;}
+        if(problem!=null || !_world.UndoTerrain()){_terrainRefresh=0;UpdateTerrainUi();_terrainUndoText.Text=$"Undo: {problem??"Terrain could not be restored."}";return;}
         _terrainRenderMap=null;_terrainFirst=null;_terrainLast=null;_terrainPreview=null;_terrainDrawKey="";Clear(_terrainMarks);RefreshTerrainRendering();
-        _terrainRefresh=0;UpdateTerrainUi();Notice("Previous terrain restored; village time and goods kept.");
+        _terrainRefresh=0;UpdateTerrainUi();UiCue(Cue.Place);
     }
     private bool HandleTerrainInput(InputEvent input)
     {
