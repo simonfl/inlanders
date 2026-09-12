@@ -167,7 +167,7 @@ Preserve the bush's identity, ripe stock and regrowth state. Define how existing
 Do the source/design review before implementation. If moving bushes creates a larger ecology-editing dependency than the arrangement benefit warrants, retain the finding and defer it rather than hiding that dependency. Audio audition stays open, and the periodic four-role review remains due at checkpoint 5.
 ## 3. F12h — Creative terraces: transaction, then controls
 
-**F12h1 foundation delivered:** [Reviewed policy and geometry evidence](TERRAIN_SHAPING_F12H1.md). Three distinct usable terraces pass; their nine-cell selections affect 25–45 cells. Proceed with F12h2 authoritative preview/apply and terrain-only undo, then F12h3 rendered selection, full-border feedback and controls. F12h remains unfinished and the playable count remains 3. The original brief follows.
+**F12h1 foundation delivered:** [Reviewed policy and geometry evidence](TERRAIN_SHAPING_F12H1.md). Three distinct usable terraces pass; their nine-cell selections affect 25–45 cells. [F12h2 authoritative preview/apply and terrain-only undo](TERRAIN_SHAPING_F12H2.md) is implemented. Proceed with F12h3 rendered selection, full-border feedback, controls, cache/picking checks and a presentation review. F12h remains unfinished and the playable count remains 3. The original brief follows.
 
 Promote the existing landscaping follow-up. Start by inspecting the current height representation, slopes, level-building rules, camera/ground picking and route costs. Obtain a bounded design review and propose the smallest useful Creative raise/lower/level operation on dry land, with visible before/after terrain and explicit confirmation/cancellation.
 

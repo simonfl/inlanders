@@ -18,7 +18,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 2 | `3b85cf4` | F21t: optional named workplace assignments, reserved slots, explicit controls and safe job transitions. [Evidence](WORKPLACE_ASSIGNMENTS_F21T.md). | Bounded game-design/UX reviews informed policy; periodic four-role review remains due at 5. |
 | 3 | `a41c734` | F16f: Creative bush relocation with preserved food state, picker release, protected routes and explicit confirmation. [Evidence](BUSH_RELOCATION_F16F.md). | Bounded source/game-design review informed scope; periodic four-role review remains due at 5. |
 
-F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands and controls remain outstanding. Its bounded game-design review does not replace the periodic review.
+F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md); player controls remain outstanding. Both chunks are foundations and leave the count unchanged. Its bounded game-design review does not replace the periodic review.
 
 For each subsequent chunk, append its commit and outcome. Assign the next checkpoint number only when a committed playable outcome is delivered; use a dash for non-playable work. Update the totals and due checkpoints above. Group commits that deliver one playable outcome in one numbered entry.
 
