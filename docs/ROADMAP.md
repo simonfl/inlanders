@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F07d | Scoped review | Compare local stone staging against current quarry/yard/project routes; integrate only with a useful geographic/logistical payoff. |
+| 3 | F07d | In progress | [Route screen](STONE_STAGING_F07D1.md) supports an optional local-stone prototype. Actual worker/cost comparison, stockpile integration and visual checks remain F07d2. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -275,6 +275,8 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F21e — Watching | Clean view, optional slow orbit and drag-to-pan have shipped. Review their use before adding camera paths, direction/speed settings or more viewing controls. Keep manual takeover immediate. |
 
 The original **milestone 4 — “Make it enjoyable to watch”** spans F03, F10, F17, F20, F21, and F22. All now have a first pass. **F04 is the separate gathering-places feature.**
+
+The [periodic reviewer-team proposal](REVIEW_CADENCE_PROPOSAL.md) records the suggested five-checkpoint cadence. It is not an adopted automation or mandatory review gate.
 
 ## How we take a chunk
 

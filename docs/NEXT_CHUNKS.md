@@ -143,4 +143,6 @@ Let the player explicitly set central stock for arranging and trying villages. S
 
 ## F07d — local stone staging comparison
 
+**In progress:** [F07d1 route evidence](STONE_STAGING_F07D1.md) shows a strong distant-project opportunity and a case where setup outweighs savings. These are weighted route costs, not measured completion times. F07d2 must implement/prove actual optional staging with costs, workers, recovery and presentation before local stone storage is delivered.
+
 Review existing quarry-to-central-yard-to-civic-project routes. Compare optional local stone stockpiles on a near-source and a distant-project route, including the cost and worker time of staging. Keep finite deposits, physical cargo, reservations and normal construction costs. Integrate stone into existing stockpiles if the comparison shows a meaningful placement choice; otherwise retain findings without manufacturing a new consumer or compulsory warehouse. Implementation needs visible stone stacks, material selection, actual quarry/builder/hauler work, interruption/demolition recovery and current-format saves. Existing log/plank storage must keep working.
