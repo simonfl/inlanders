@@ -13,7 +13,7 @@ public partial class Game
         var data=stream.Data; int peak=0;
         for(int i=0;i<data.Length;i+=2) peak=Math.Max(peak,Math.Abs((int)BitConverter.ToInt16(data,i)));
         Check(peak>1000 && peak<26000 && stream.GetLength()==96,"Music length/PCM bounds incorrect");
-        Check(Math.Abs(BitConverter.ToInt16(data,0)-BitConverter.ToInt16(data,data.Length-2))<10,"Music loop clicks");
+        Check(stream.LoopMode==AudioStreamWav.LoopModeEnum.Disabled && Math.Abs(BitConverter.ToInt16(data,0))<10 && Math.Abs(BitConverter.ToInt16(data,data.Length-2))<10,"Music phrase boundaries do not fade to silence");
         Check(stream.SaveToWav("artifacts/f17-music.wav")==Error.Ok,"Music export failed");
         _paused=true; _soundMuted=_musicMuted=false;
         _effectsVolume=_ambienceVolume=0; _musicSlider.Value=65; _musicVolume=65; ApplyAudioSettings();
@@ -39,12 +39,24 @@ public partial class Game
             await Wait(.2f); capture.ClearBuffer(); await Wait(.3f);
             Check(Peak()<.00001f,"Master mute left music audible");
             _soundMuted=false; ApplyAudioSettings();
-            _music.Seek(95.8f); await Wait(.6f);
-            Check(_music.Playing && _music.GetPlaybackPosition()<2,"Music did not loop");
+            _musicRest.Stop();_musicGapIndex=0;_music.Seek(95.8f); await Wait(.6f);
+            Check(!_music.Playing && _musicRest.TimeLeft>16 && _musicRest.TimeLeft<=18,"Phrase did not enter quiet interval");
+            capture.ClearBuffer();await Wait(.3f);Check(Peak()<.00001f,"Quiet interval has music output");
+            double remaining=_musicRest.TimeLeft;
+            var originalStream=_music.Stream;var playerId=_music.GetInstanceId();
+            AdoptWorld(Inlanders.Simulation.World.LoadJson(saved));_paused=true;
+            _speed=4;await Wait(.5f);
+            Check(!_music.Playing && _musicRest.TimeLeft<remaining && _musicRest.TimeLeft>remaining-2,"Load or speed changed quiet interval");
+            await Wait((float)_musicRest.TimeLeft+.3f);
+            Check(_music.Playing && _music.GetPlaybackPosition()<2 && _musicRest.IsStopped(),"Quiet interval did not resume music once");
+            Check(_music.Stream==originalStream && _music.GetInstanceId()==playerId,"Sequencing replaced stream or player");
+            _music.Seek(95.8f);await Wait(.6f);
+            Check(!_music.Playing && _musicRest.TimeLeft>24 && _musicRest.TimeLeft<=26,"Second phrase did not select next quiet interval");
+            _musicRest.Stop();_music.Play();_speed=1;
             Check(saved==_world.SaveJson(),"Music changed simulation");
             _drawerPages[3].EnsureControlVisible(_musicSlider); await Wait(.1f);
             await Capture("artifacts/f17-music-controls.png");
-            GD.Print("PASS: 96-second original music, PCM/loop, isolated live mix, independent mute/volume, master mute, persistence and pause independence.");
+            GD.Print("PASS: 96-second original music, faded phrase boundaries, actual timed silence/resume, bounded player/stream, load/speed independence, live mute/volume and settings.");
         }
         finally { AudioServer.RemoveBusEffect(0,index); _effectsVolume=65; _ambienceVolume=40; ApplyAudioSettings(); SaveAudioSettings(); }
     }

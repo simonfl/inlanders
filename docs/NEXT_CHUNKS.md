@@ -91,7 +91,7 @@ Start from its inspector with Move, a destination preview and existing four-way 
 
 Test home, productive orchard, stocked workplace/pantry, civic venue and shore cases. Cover current work/cargo, blocked destinations, cancelled/failed moves, rotation, exact save continuation and 960/1440 preview/inspector feedback. Normal-play movement, group selection, terrain editing and undo history remain separate. The first slice is Creative relocation with honest behavior, not a free workaround for normal-play clearance.
 
-Relocation and the campaign diagnostic are complete; F17b1 can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
+Relocation and the campaign diagnostic are complete; F17b2 candidate creation can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
 ## F11c / F18c delivered — campaign diagnostic and recovery
 
@@ -117,6 +117,12 @@ Start with the forager shelter in the populated opening/recovery captures from F
 
 Seasons, save migration, combat and multiplayer remain excluded. The broad roadmap is a set of revisable directions, not a promise to implement every parked idea. Record delivered results in the roadmap, keep this active queue short, and retain failed experiments as evidence rather than reopening them under a new ID.
 
-## F17b1 — music sequencing and quiet intervals
+## F17b1 delivered — music sequencing and quiet intervals
+
+[Verified transport](MUSIC_SEQUENCING_F17B1.md): natural completion, timed silence, menu/load preservation, live mixer and settings checks. Existing piece only; new themes and subjective review remain open.
 
 Implement bounded playback selection and intentional silence between pieces, independent of simulation speed. Preserve position through menu, pause, loading and mute/unmute; avoid restarting the opening phrase on each transition. Verify player/stream bounds, settings and phrase completion. Start with the existing original material; new related themes and final interval/mix preferences remain F17b listening work. This foundation can proceed before perceptual feedback, but does not complete F10b2 or F17b as a whole.
+
+## F17b2 — related theme candidates and audition exports
+
+Create two related original candidates alongside the existing piece, with a fixed set of pre-rendered streams and no immediate theme repeats. Preserve natural phrase endings and F17b1 transport. Export complete themes and transitions for listening, measure bounded memory and PCM/voice safety, and retain mute/menu/load checks. Candidate generation may proceed now; do not claim perceptual improvement or final acceptance without listening. Instrumentation, final theme selection and gap durations remain revisable.
