@@ -1,6 +1,6 @@
 # Next chunks — sound, music and working-village composition
 
-September 12, 2026, after F23c3. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F23b10. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -27,7 +27,7 @@ Capture the current mix in the same quiet, busy construction/production and wate
 
 Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). The restoration experiment is also delivered; continue with the remaining long-frame investigation below.
+F21p resident selection and explicit role assignment are [delivered](PEOPLE_KEYBOARD_F21P.md). The restoration experiment and long-frame investigation are also delivered; their findings remain below.
 
 F25d2 is [delivered](RESTORATION_F25D2.md). The crossing shortens the route, but staged restoration adds no second commitment; separate F25d3 crossing integration is cut. Keep the ordinary bridge option and require a new functional brief before reopening restoration.
 
@@ -49,13 +49,17 @@ After the soundscape pass, compare the current single miniature with two related
 
 Listen through complete transitions, pause, loading and mute/unmute. Check bounded streams/players, no clipping and existing settings controls. Do not add a large adaptive score, mandatory external assets or victory fanfare for every minor milestone. Leave instrumentation and exact durations TBD until auditioned.
 
-## 3. F23b10 — compose a working neighborhood
+## F23b10 delivered — quieter shorelines
 
-**Outcome:** a populated settlement feels more inviting at normal play zoom while remaining easy to read.
+[Matched populated comparisons](COMPOSITION_F23B10.md) retain ordinary/dense finale views and improve the working lake's distracting bright border and repetitive water marks. The quieter treatment preserves launch/access rules and reduces lake landscape triangles without changing decoration batches. Visual preference remains open; this is not a completed art direction.
 
-Start from the ordinary and dense saved villages, plus one working shoreline scene. Capture matched daylight views at normal zoom and two rotations; include the interface and a clean Watch view. Identify one dominant problem in ground, shore rims, paths or the relationship between buildings and open space. Compare a bounded treatment against the original before expanding it. Favor coherent material/color, silhouettes and purposeful gaps over uniformly adding props. Exact treatment remains TBD from those comparisons.
+## 3. F23b11 — continuous ground color
 
-Check actual entrances, workers, cargo and placement previews against the edited ground; retain four-way building readability. Keep terrain access and simulation rules intact. Compare geometry/draw counts and typical frames in the same populated fixture so the art pass does not silently undo decoration batching. Record visual judgment separately from performance counters. Title artwork remains F19d; this chunk does not require another building family or a terrain-sculpting tool.
+**Outcome:** open land reads as connected terrain without the conspicuous alternating tile colors seen in the working lake review.
+
+Compare continuous world-position color across adjoining tiles against the current per-tile tint, using the same lake, ordinary/dense villages and a raised-terrain map. Preserve the warm green palette and authored meadow variation; avoid noisy texture or a new material per cell. Retain height, land/water boundaries, hit testing and exact simulation state. Check paths, entrance steps, cargo and valid/invalid placement previews at 960/1440 and two camera angles. Compare geometry and typical frames before accepting the implementation. Smooth color first; outer cut/shore geometry needs a separate evidence-based decision if it still dominates the scene. No terrain shaping tool is implied.
+
+This visual chunk can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
 ## Retained follow-ups
 

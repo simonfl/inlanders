@@ -15,7 +15,7 @@ public partial class Game
         surface.SetNormal((b-a).Cross(c-a).Normalized());
         foreach(var vertex in new[]{a,c,b}){surface.SetColor(MeadowGroundTint(vertex.X,vertex.Z));surface.AddVertex(vertex);}
     }
-    private void MakeRiverMeadowWater()
+    private void MakeNaturalWater()
     {
         var water=new Node3D{Name="RiverMeadowWater"};_landscape.AddChild(water);
         var directions=new[]{new Cell(1,0),new(-1,0),new(0,1),new(0,-1)};
@@ -36,7 +36,9 @@ public partial class Game
                 // Short earth shelves interrupt the old continuous bright outline. All stay in water cells.
                 float length=.60f+hash%3*.10f;
                 Box(water,new(cell.X+d.X*.475f,-.035f,cell.Z+d.Z*.475f),new(d.X==0?length:.05f,.06f,d.Z==0?length:.05f),new("929272"));
-                if(cell.X==6 || hash%3!=0)continue; // Keep the narrow crossing channel open visually.
+                // General shore maps keep launch edges free of tall props. The
+                // authored meadow retains its existing planting outside the channel.
+                if(!_world.Map.RiverMeadow || cell.X==6 || hash%3!=0)continue;
                 var at=new Vector3(cell.X+d.X*.32f,-.04f,cell.Z+d.Z*.32f);
                 for(int i=0;i<3;i++)
                 {

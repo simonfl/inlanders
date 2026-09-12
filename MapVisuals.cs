@@ -5,6 +5,7 @@ using System.Linq;
 
 public partial class Game
 {
+    private bool _naturalShore=true; // Comparison switch used only by the composition review.
     private float MaximumZoom => _world.MaximumViewZoom;
     private void FrameMap()
     {
@@ -34,7 +35,7 @@ public partial class Game
         }
         if (_world.Map.Heights.Length > 0 || _world.Map.RiverMeadow) MakeTerrainSurface();
         else { Layer(1.6f, -0.87f, false); Layer(0.08f, -0.03f, true); }
-        if(_world.Map.RiverMeadow)MakeRiverMeadowWater();
+        if(_world.Map.RiverMeadow || _naturalShore)MakeNaturalWater();
         else foreach (var cell in _world.Map.Water)
         {
             Box(_landscape, new(cell.X, -0.5f, cell.Z), new(1, 0.8f, 1), new("687d73"));

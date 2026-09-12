@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation and F23b10 working-neighborhood composition.** [F23c3](FRAME_STALLS_F23C3.md) delivers reproducible normal-process traces; stalls remain unresolved and the attempted visibility correction was rejected. Further performance work needs native profiling before another optimization. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F23b11 continuous ground color can proceed independently.** [F23b10](COMPOSITION_F23B10.md) compares populated villages and quiets distracting shorelines. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F23b10 | Scoped | Improve one demonstrated composition problem in a populated neighborhood at normal zoom, preserving route/build clarity. |
+| 3 | F23b11 | Scoped | Replace conspicuous tile-color seams with continuous ground color, preserving terrain/access and placement clarity. Can proceed while audio awaits listening. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b10 | Ordinary/dense/lake matched composition review, two rotations and HUD/clean views. Muted water, sparse ripples and low earth shelves replace older bright shore rims; lake triangles reduced, decoration batching retained, actual four-way shore work/preview and save checks pass. [Review](COMPOSITION_F23B10.md). |
 | F23c3 | Normal-process cold/warm tracing, raw frame intervals, work/mesh/GC and Windows thread-CPU evidence, exact tick replay and saves. Visibility experiment rejected after the stall moved to another prop; no fix claimed. [Investigation](FRAME_STALLS_F23C3.md). |
 | F23c2 | Representative 20/32-resident profiles, real cargo/routes, CPU phases and saved continuation. Regional fixed-ornament batching preserves triangles/image while reducing draws; long stalls investigated in F23c3 remain unresolved. [Review](LARGE_VILLAGE_F23C2.md). |
 | F25d2 | Functional-crossing experiment: five routes, actual path/use/service, food recovery and partial salvage/rebuild. Separate F25d3 crossing integration cut; staged construction did not create a second commitment. [Decision](RESTORATION_F25D2.md). |

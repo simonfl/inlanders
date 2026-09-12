@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--composition")) { _paused=true;await CheckComposition();return; }
         if(OS.GetCmdlineUserArgs().Contains("--frame-stalls")) { _paused=true;await CheckFrameStalls();return; }
         if(OS.GetCmdlineUserArgs().Contains("--large-village")) { _paused=true;await ProfileLargeVillage();return; }
         if(OS.GetCmdlineUserArgs().Contains("--restoration-views")) { _paused=true;await CheckRestorationViews();return; }
