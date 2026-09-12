@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandleAreaRemovalInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleRelocationInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleSurveyKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
         if(HandleGoalsKeyboard(input)) { GetViewport().SetInputAsHandled();return; }
@@ -69,6 +70,7 @@ public partial class Game
     private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
+        (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||
         (_trackedGoalPanel!=null && _trackedGoalPanel.Visible && _trackedGoalPanel.GetGlobalRect().HasPoint(point)) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));
 

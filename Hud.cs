@@ -97,6 +97,7 @@ public partial class Game
         var people = DrawerPage("People"); var build = DrawerPage("Build"); var goals = DrawerPage("Goals"); var options = DrawerPage("Options"); var economy = DrawerPage("Economy");
         MakePeopleMenu(people); MakeBuildMenu(build); MakeGoalsMenu(goals); MakeOptionsMenu(options); MakeEconomyMenu(economy);
         MakeBuildFooter(drawerColumn);
+        MakeAreaRemovalUi();
         _inspector = HudPanel(_hud); _inspectionScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; _inspector.AddChild(_inspectionScroll);
         var inspection = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; inspection.AddThemeConstantOverride("separation", 12); _inspectionScroll.AddChild(inspection);
         _economyBack=Button("Back to Economy [Esc]",()=>OpenEconomyKeyboard(true));inspection.AddChild(_economyBack);_economyBack.Hide();
@@ -298,6 +299,7 @@ public partial class Game
         UpdateRelocation();
         UpdateBuildDescription();
         UpdateBuildCatalog();
+        UpdateAreaRemoval();
         _hint.Text = _placing ? (_woodlandTool>0 ? $"{WoodlandToolName} · click or drag · Esc finishes" : _decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : $"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes") : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "1 shore tile + launch" : _buildKind == BuildingKind.SeatingGarden ? "1 tile" : _rotation%2!=0 ? "2 × 3" : "3 × 2")} · R / Shift+R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_woodlandTool>0 ? "Click or drag to apply woodland settings" : _pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
@@ -317,6 +319,7 @@ public partial class Game
         if(_economyKeyboard)_hint.Text=_economyInspecting?"Page ↑↓ read inspector · Esc returns to Economy · I closes":"Tab / ↑↓ select · Enter inspect or toggle · Page ↑↓ scroll · Esc closes";
         if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
         if(_catalogKeyboard)_hint.Text=CatalogKeyboardHint();
+        if(_areaRemoving)_hint.Text="Drag to select · Middle-drag / WASD pans · Esc / right-click cancels";
         _hintPanel.Visible = _hint.Text.Length > 0;
         if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));

@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 soundscape listening and F17b music audition; Creative multi-object removal (F16d) can proceed independently.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
+**Next: F10b2 soundscape listening and F17b music audition; Creative resource setup (F16e) can proceed independently. Area removal (F16d) is delivered.** Three candidate themes, quiet intervals and full transition exports are delivered; final musical acceptance remains open. Campaign human feedback and long-frame performance investigation remain unresolved. See the queue and linked reviews for evidence.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Review | Audition the three candidate pieces and full transitions; retain or revise instrumentation, themes and quiet intervals. |
-| 3 | F16d | In progress | [Atomic transaction foundation](CREATIVE_REMOVAL_F16D1.md) is implemented. Area highlights, explicit confirmation, cancellation and rendered checks remain F16d2. |
+| 3 | F16e | Scoped | Creative central-resource setup with explicit changes, reservation safety and honest conservation accounting. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F16d | Creative rectangle selection for buildings/decorations/paths, whole-object markers, atomic confirmation, cancellation and mode handoffs. [UI and verification](CREATIVE_REMOVAL_F16D2.md). |
 | F17b2 | Three related candidates, fixed cycle without immediate repeats, bounded pre-rendered PCM, full audition exports, live audio/menu checks. Final listening remains open. [Review](MUSIC_CANDIDATES_F17B2.md). |
 | F17b1 | Phrase completion, rotating quiet intervals, one reusable player/stream/timer, preserved menu/load/pause transport, live audio and menu regressions. [Review](MUSIC_SEQUENCING_F17B1.md). |
 | F23b12 | Warmer forager roof, darker poles and lighter rear weave; matched populated four-way captures, construction, delivery, previews and saves. [Review](FORAGER_READABILITY_F23B12.md). |
@@ -257,7 +258,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | F03 / F22 — Work and construction presentation | Smoother interruption/stance transitions, character variation, material piles/scaffolding and smoother crop growth. Logging falls and distinct field harvesting have shipped; judge their readability in ordinary village play before adding particles or more motions. |
 | F05 — Food choices | Orchard comparison and playable integration delivered in F05b/c. Orchard campaign use remains behind feedback; recipe variety, garden/grain balance and further diet choices remain candidates. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
-| F16 — Creative | Relocation delivered in F16c; multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
+| F16 — Creative | Relocation and area removal delivered in F16c/d; resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
 | F07 — Storage and hauling | Yard visuals shipped in F23b5; loose-source stacks are F23c1. Review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
 | F08 — Materials | More plank/stone consumers and upgrades. Mixed plank/stone construction shipped with the hall; local stone storage remains a candidate. Adjustable workplace stock targets shipped in F21h. |
 | F15 — Visitors | More encounters and rewards after playtesting the first offer; no seed inventory, repeat-trade economy, or production bonus in the first version. |

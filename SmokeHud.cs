@@ -16,6 +16,7 @@ public partial class Game
     }
     private async Task CheckHud()
     {
+        if(OS.GetCmdlineUserArgs().Contains("--area-removal")){_paused=true;await CheckAreaRemoval();return;}
         if(OS.GetCmdlineUserArgs().Contains("--forager-art")){_paused=true;await CheckForagerArt();return;}
         if(OS.GetCmdlineUserArgs().Contains("--campaign-review")){_paused=true;await CheckCampaignReview();return;}
         if(OS.GetCmdlineUserArgs().Contains("--relocation")){_paused=true;await CheckRelocationUi();return;}

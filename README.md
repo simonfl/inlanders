@@ -416,3 +416,5 @@ Bread investigation: Goals → Inspect bread supply opens recent bread deliverie
 Replay **A lasting village** for the river-meadow landscape: grouped timber, small inlets and softer grass/shore presentation. The timber budget and tested expansion routes are retained. See [the landscape comparison](docs/RIVER_MEADOW_F12G.md); ./Play.ps1 -RiverMeadowSmokeTest repeats route and rendered checks.
 
 Cottage finish checks: `./Play.ps1 -CottageFinishSmokeTest` verifies live swatches, four orientations, construction/demolition, improved homes and saves. See [the comparison](docs/COTTAGE_FINISHES_F09B.md).
+
+**Creative area removal:** Build → Landscape → Remove an area. Drag to select whole buildings, decorations and paths, then confirm. Escape/right-click cancels. Trees, resources and terrain stay; unsafe groups are rejected without partial removal.
