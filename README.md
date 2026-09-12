@@ -201,7 +201,7 @@ Open **Economy → Show supply routes** to see actual worker and boat trips. Gol
 
 ### Woodland wildlife
 
-Fresh Three clearings maps contain two marked habitats. A six-log **Hunting lodge** supports one Hunter within eight tiles of a reachable habitat. Hunters reserve up to two game, spend ten work seconds hunting, then carry it to the pantry. Game is edible and contributes to the existing meal variety rule; every food type is not required.
+Fresh Three clearings maps contain two marked habitats. Hunting lodges have timber frames, layered green roofs and side-mounted bows. Mature habitat trees have low leaf cover; representative deer appear only while unclaimed game remains. `./Play.ps1 -WoodsArtSmokeTest` checks all four lodge orientations and habitat recovery views. A six-log **Hunting lodge** supports one Hunter within eight tiles of a reachable habitat. Hunters reserve up to two game, spend ten work seconds hunting, then carry it to the pantry. Game is edible and contributes to the existing meal variety rule; every food type is not required.
 
 Mature trees within five tiles of a habitat marker support its stock: two capacity and half a game per minute per tree, capped at twelve stock and three per minute. Lodges share the supply. Pause hunting to recover stock; preserve or regrow trees to maintain capacity. Clearing previews show the loss before you click. Saplings and ornamental trees do not replace mature habitat; the marked tracking clearing must remain open. See [the wildlife review](docs/WILDLIFE_F26C.md).
 

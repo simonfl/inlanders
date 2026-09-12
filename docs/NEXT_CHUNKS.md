@@ -13,13 +13,15 @@ September 12, 2026. This supersedes the ordering in the earlier [roadmap review]
 
 ## 1. F26c2b — a playable Living woods settlement (delivered)
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). Continue with F23b7. The remaining scope below records the acceptance brief.
+Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 is also delivered; continue with F23b8. The remaining scope below records the acceptance brief.
 
 Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
 
 Check both complete routes, additional residents, a saved over-clearing recovery and an intact-but-depleted habitat. Inspect goals and source links at 960/1440. Record when decisions occur and how much of the final stage is idle. If the full route is only an opening checklist, leave challenge unresolved and revise its commitments; do not call it a longer mastery level.
 
-## 2. F23b7 — woodland character and visible consequences
+## 2. F23b7 — woodland character and visible consequences (delivered)
+
+[Matched comparison and verification](WOODLAND_ART_F23B7.md). The acceptance brief is retained below.
 
 Give woodland edges, hunting lodges and tracking clearings a coherent normal-zoom presentation. Start by capturing intact, actively hunted, depleted and recovering states. Strengthen the lodge silhouette and habitat context where those views show a weak distinction. Keep actual tree growth and wildlife stock authoritative: no permanent deer or decorative mature trees implying a healthy source.
 

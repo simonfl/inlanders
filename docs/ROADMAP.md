@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F23b7 — woodland character and visible consequences.** Living woods is now level nine, with preservation and cultivation routes, actual habitat/meal proof and saved recovery. Competent runs remain five to six simulated minutes; the later finale prototype must establish deeper decisions rather than add waiting. [Implementation review](WOODS_CAMPAIGN_REVIEW.md).
+**Next: F23b8 — docks, bridges and inhabited shores.** The hunting-lodge and woodland pass is implemented: stronger timber/roof depth, a fitted thumbnail and habitat cover/deer tied to actual state. [Comparison](WOODLAND_ART_F23B7.md). Keep shoreline work bounded, then prototype deeper settlement commitments in F11b5/F18b5.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,10 +18,9 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F23b7 | Planned | Woodland and hunting-lodge presentation: readable habitat, distinct architecture and visible restoration at ordinary zoom. |
-| 2 | F23b8 | Planned | Docks and bridges with stronger structure and shoreline connection, preserving actual approach, crossing and boat behavior. |
-| 3 | F11b5 / F18b5 | Design/prototype | A lasting village: test a second meaningful settlement commitment using imperfect starting layouts, competing land and distance. Integration depends on the result. |
-| 4 | F21n / F07c3 | Evidence-led review/fix | Follow a real neighborhood service problem from goal to resident to remedy; improve the highest-supported explanation or interaction. |
+| 1 | F23b8 | Planned | Docks and bridges with stronger structure and shoreline connection, preserving actual approach, crossing and boat behavior. |
+| 2 | F11b5 / F18b5 | Design/prototype | A lasting village: test a second meaningful settlement commitment using imperfect starting layouts, competing land and distance. Integration depends on the result. |
+| 3 | F21n / F07c3 | Evidence-led review/fix | Follow a real neighborhood service problem from goal to resident to remedy; improve the highest-supported explanation or interaction. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -39,7 +38,7 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The queue now includes woodland and shoreline presentation, followed by a chapter-finale decision prototype. The long-haul and limited-land concepts are ingredients or optional challenges, not additional committed levels. Full finale integration depends on evidence from that prototype.
+The queue now includes shoreline presentation, followed by a chapter-finale decision prototype. The long-haul and limited-land concepts are ingredients or optional challenges, not additional committed levels. Full finale integration depends on evidence from that prototype.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
@@ -53,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F23b7 | Taller hunting-lodge frame, layered roof, log walls, open bay and bow rack; fitted thumbnail. Mature-tree ground cover and bounded deer follow actual habitat/unclaimed game. Four-orientation work/reload and habitat-state captures pass. [Review](WOODLAND_ART_F23B7.md). |
 | F26c2b | Living woods: ninth campaign, earned game delivery, player-triggered assessment, twelve or more housed residents, current mature habitat/unclaimed stock and fresh meal evidence. Preservation/mixed routes, stock/clearing recovery, exact saves and 960/1440 UI verified. [Review](WOODS_CAMPAIGN_REVIEW.md). |
 | F23b6 | Taller civic hall with stone piers, timber gables, side lights, roof lantern and clear entrance. Four construction stages and fitted catalog thumbnail; actual four-orientation visitors/reload and quarry routes verified. [Review](HALL_F23B6.md). |
 | F23c1 | Loose timber/plank/stone salvage displays capped and batched, with exact labels above twelve pieces. Real collection updates labels without rebuilding full piles; fourteen-unit drain, exact saves, stumps, felling and clearing verified. [Review](LOOSE_STOCK_F23C1.md). |
