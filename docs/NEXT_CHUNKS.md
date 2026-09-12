@@ -1,6 +1,6 @@
-# Next chunks — sound, music and orchard design
+# Next chunks — sound, music and playable orchards
 
-September 12, 2026, after F19d. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F05b. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
@@ -73,15 +73,17 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [Title composition](TITLE_COMPOSITION_F19D.md) replaces the arbitrary live-map backdrop with a static miniature built from current models. Softer lighting and separated foreground planting/gathering spaces remain readable at 960/1440. Menu, keyboard, exact artwork after returning from a 30-building settlement, save/recovery and settings checks pass.
 
-## 3. F05b — orchard design and comparison
+## F05b delivered — orchard design and comparison
 
-**Outcome:** decide whether permanent fruit planting creates a useful land and labor commitment beyond the existing quick garden and retained hunting woodland.
+[The experiment and design review](ORCHARD_COMPARISON_F05B.md) cover 48 actual-food-loop comparisons with explicitly modeled orchard timing. At 180/60 seconds without background foraging, groves deliver 146 units versus gardens' 142 in twenty minutes, using about 11% less farmer time with a workplace claim. Slower repeat cycles and clearing plots expose shortages; mixed planting buffers establishment. This modest tradeoff supports a small playable slice, not another mandatory need or a long campaign wait.
 
-Start from the [orchard/place brief](CAMPAIGN_SYSTEMS.md#choose-the-next-buildings-through-contrasting-places). Write the player decisions and compare a bounded prototype on the same constrained map: gardens only, early grove investment, mixed planting and recovery after abandoning part of the grove. Account for establishment food, occupied land, worker travel/tending, repeated harvest and clearance/replanting. Use actual existing meal and hauling behavior for the baseline; label any candidate model assumptions explicitly.
+## 3. F05c — playable orchards
 
-Look for choices after opening placement: changing labor between tending and harvesting, preserving productive trees versus freeing useful land, and useful mixed layouts. Do not manufacture differences through a mandatory fruit quota, oversized yield, seasons, hidden fertility or a new happiness meter. Specify whether existing roles/storage can serve the idea before adding new ones. Costs, tree count, maturation and fruit representation remain TBD pending the comparison.
+**Outcome:** establish visible fruit trees, let existing farmers harvest them repeatedly, and weigh retaining the grove against quick food and useful building land.
 
-Record go/revise/cut with evidence. If useful, scope F05c playable integration with visible establishment/harvest stages, placement guidance, interruption/clearance/recovery and current-save checks. If it only behaves like a slower garden, cut or revise it instead of writing a campaign around waiting. No new campaign level in the experiment.
+Use the [integration brief](ORCHARD_COMPARISON_F05B.md#f05c-integration-brief): visible initial planting/immature/mature/ripe/picked stages, distinct fruit accounting through real hauling/storage/meals, and existing Farmer role. Start near tested 180/60 growth, eight-unit yield and six-tile footprint, but recheck balance with actual costs and handling. Explain first-harvest delay and permanent regrowth. Support targets, priorities, pause, interruption, demolition and food recovery. Verify four orientations, immature/ripe/carried-fruit saves, long-run food service, ordinary-garden alternatives and 960/1440 feedback.
+
+No new worker role, need meter, seasons, hidden fertility or campaign requirement. Human satisfaction and visual clarity remain acceptance questions after the playable slice; the proxy does not prove them.
 
 This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 

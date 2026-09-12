@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F10b2 listening review, then F17b musical variation; F05b orchard design/comparison can proceed independently.** [F19d](TITLE_COMPOSITION_F19D.md) delivers a composed title village, following resource-survey navigation. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
+**Next: F10b2 listening review, then F17b musical variation; F05c playable orchards can proceed independently.** [F05b](ORCHARD_COMPARISON_F05B.md) finds a modest perennial-food tradeoff and scopes integration using existing farmers. [F23c3](FRAME_STALLS_F23C3.md) retains reproducible traces of unresolved stalls; further performance work needs native profiling. Do not increase map/population performance claims.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -20,7 +20,7 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 | --- | --- | --- | --- |
 | 1 | F10b2 | Review | Listen to matched scene recordings; choose any remaining repetition/variation/mix correction from perceptual evidence. |
 | 2 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
-| 3 | F05b | Scoped experiment | Compare a permanent orchard against gardens on constrained land; prove a useful establishment/tending/harvest choice before adding another producer. |
+| 3 | F05c | Scoped | Playable orchard establishment/repeated harvest, existing farmers, honest fruit accounting and visible stages; preserve ordinary gardens and validate balance again. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -52,6 +52,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F05b | Orchard timing experiment: 48 actual-food-loop comparisons, interim food, farmer diversion and physical plot recovery. Modest perennial benefit; proceed to F05c without a new role/need or campaign requirement. Not a playable orchard yet. [Decision](ORCHARD_COMPARISON_F05B.md). |
 | F19d | Static title village built from existing models, separate from live settlement/camera, softer light and readable foreground. 960/1440 menu/keyboard checks, exact artwork after return from 30 buildings, saves/recovery and settings pass. [Review](TITLE_COMPOSITION_F19D.md). |
 | F21s | Resource-survey keyboard picker, current evidence, workplace/source return, stable source identities, safe removal/empty maps and Goals/Economy handoffs. 960/1440 navigation, simulation stock changes, mouse return and exact saves verified. [Review](SURVEY_KEYBOARD_F21S.md). |
 | F21r | Goals reading, explanations, counted resident/place links and return, fresh readiness, safe phase/completion focus, explicit actions and handoffs. Intro/finale 960/1440, real assessment/supper/completion, layout/Economy/HUD regressions and saves pass. [Review](GOALS_KEYBOARD_F21R.md). |
@@ -248,7 +249,7 @@ These are remaining possibilities, not a second priority list. Items promoted in
 | --- | --- |
 | F01 / F02 — Paths and woodland | More path styles, worker-built roads/costs, traffic feedback, larger grove brushes, a forester, tree species and growth/yield choices. |
 | F03 / F22 — Work and construction presentation | Smoother interruption/stance transitions, character variation, material piles/scaffolding and smoother crop growth. Logging falls and distinct field harvesting have shipped; judge their readability in ordinary village play before adding particles or more motions. |
-| F05 — Food choices | More crops or orchards, recipe variety, garden/grain balance, and further diet choices building on the actual-meal rule shipped in F14b. |
+| F05 — Food choices | Orchard comparison delivered in F05b; playable integration scoped in F05c. Recipe variety, garden/grain balance and further diet choices remain candidates building on the actual-meal rule shipped in F14b. |
 | F06 — Population | Arrival journeys/timing, larger-population balancing and performance, population preferences, families, and more names/appearances. |
 | F16 — Creative | Relocation, multi-object removal, resource setup controls, population preferences, and bush rearrangement if arranging villages calls for them. Keep normal economy saves separate. |
 | F07 — Storage and hauling | Yard visuals shipped in F23b5; loose-source stacks are F23c1. Review of neighborhood food service (F07c3), resource filters, delivery priorities, capacities, broader logistics controls, and relocation. Normal-play demolition shipped in F16b; retain its physical goods recovery. |
