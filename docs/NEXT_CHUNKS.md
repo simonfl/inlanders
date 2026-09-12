@@ -1,148 +1,70 @@
-# Next chunks — settlement depth and village character
+# Next chunks — sound, management and a useful late-game project
 
-September 12, 2026. This supersedes the ordering in the earlier [roadmap review](ROADMAP_REVIEW_2026_09_12.md). The roadmap is the priority index; this document defines the next deliverables. Scripted runs establish behavior, not enjoyment.
+September 12, 2026, after F25e3. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
-## Review conclusions
+## Comprehensive review
 
-- **Campaign depth is the largest design gap.** Ten levels exist, but the first five are lessons. Quarry routes finish in six to eight simulated minutes; fourteen reserve/food experiments mostly delayed the same opening plan. Keep those lessons and reject timer inflation. Later settlements need a second meaningful commitment after the village starts working.
-- **Visual progress is substantial but uneven.** Homes, workshops, fields, forager shelter, square, storage and hall have received distinct treatments. Dock/bridge, woodland and finale landscape passes have now shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have also shipped. Other management focus work remains open. Matched screenshots support comparisons; player appeal remains an open question.
-- **UI needs explanations at the point of decision.** Goals already expose service evidence and relevant places. The recent width audit found no Goals layout defect. Habitat recovery and bread-reserve investigation now connect evidence to existing controls. Keep future UI work tied to demonstrated problems.
-- **The building set is sufficient for the next scenarios.** Seventeen types already cover food, homes, work, storage, access and recreation. The earlier review's cost table remains the building reference. Costs alone omit labor, travel and land: cheap gardens, grain/bread, fishing and hunting should be compared in their intended landscapes before repricing them. Halls and comfort reduce repeated journeys; neither has demonstrated a general food-output benefit.
-- **Map expansion should first mean better authored space.** Irregular ground, water, crossings, raised terrain and clearing exist. Use competing sites, distant resources and evolving neighborhoods before increasing raw map size or adding terrain sculpting.
-- **Audio and menu have first versions.** Retain their polish backlog. New needs, production chains and population growth are candidates, not prerequisites for making the current game enjoyable.
+| Area | Current assessment | Decision |
+| --- | --- | --- |
+| Campaign and enjoyment | Ten levels exist. Five are lessons; later maps exercise access, finite resources, habitat and neighborhood support. Finale routes demonstrate later commitments, but automated timings do not establish human enjoyment. | Preserve introductory levels. Add a distinct functional project prototype before proposing level eleven. Do not inflate waiting, population or attendance quotas. |
+| Buildings and costs | Seventeen types cover the core economy. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
+| Needs and progression | Meals, assigned homes/rest and recreation are real routines. Comfort reduces homeward trips without a demonstrated food-output gain. Chapel/court use recreation. | Keep optional improvements honest. No automatic thirst, education, spirituality or technology meter. Restoration needs a finished function, not an attendance prerequisite. |
+| Visuals and village life | Building families, four-way rotation, shoreline structures, woodland, cottage finishes and civic identities have shipped. Quiet civic visits now follow real attendance. Sparse Creative fixtures still show regular ground/edges; individual poses are subtle at village zoom. | Judge composed working villages as well as isolated models. Keep terrain/shore and menu art visible in the backlog; do not equate more geometry with stronger art direction. |
+| Interface and controls | Service and goal evidence are substantial. Main menu and Build catalog have keyboard focus. Other management pages still lack a complete focus path. | Extend one useful task end to end: inspect a resident, understand their activity, change a role and return. No new dashboard until an observed question requires it. |
+| Audio and music | Procedural positional work sounds and one original looping musical miniature exist. Real-time sound limits already prevent fast-forward from multiplying every cue. | Compare quiet and busy soundscapes, then improve the highest-impact repetition/mix problem. A bell on every routine chapel arrival would overstate the event; it remains silent. |
+| Maps and scale | Irregular ground, crossings, raised terrain, clearing and authored scenarios already exist. Broad decorated-population performance is not established. | Measure a representative settlement before expanding population or terrain size. Terrain sculpting is a separate design project. |
+| Architecture and reliability | Current-format roundtrips, simulation routes and rendered interaction checks cover delivered slices. There are many partial Game files and specialized smoke fixtures. | Keep checks specific to behavior; do not turn the feature roadmap into a generic cleanup campaign. No save migration. |
 
-## 1. F26c2b — a playable Living woods settlement (delivered)
+This review uses repository code, existing route reports and the new civic rendered checks. It is not a new human campaign playtest or listening test. The biggest unanswered question remains whether players enjoy maintaining and improving a working village after its opening build.
 
-Implemented as level nine; [route and UI evidence](WOODS_CAMPAIGN_REVIEW.md). F23b7 and F23b8 are also delivered; F11b5/F18b5 is also delivered; F21n/F07c3 is delivered too; F11b6/F18b6 is delivered; F12g/F23b9 is delivered; F09b/c/d, F19c and F21o are delivered; F25d1/F25e1 design is also delivered; F25e2 is also delivered; continue with F25e3. The remaining scope below records the acceptance brief.
+## 1. F10b — a calmer working soundscape
 
-Use the [budgeted prototype](LIVING_WOODS_F26C2.md). Integrate campaign selection, arrival guidance, earned milestones, an explicit assessment start, replay and saves. Support both preservation/hunting and selective clearing/cultivation. Count real meals, mature habitat and available stock after hunter claims. Explain the difference between pausing hunting and restoring protected trees.
+**Outcome:** a busy village remains pleasant to listen to at normal and accelerated speed.
 
-Check both complete routes, additional residents, a saved over-clearing recovery and an intact-but-depleted habitat. Inspect goals and source links at 960/1440. Record when decisions occur and how much of the final stage is idle. If the full route is only an opening checklist, leave challenge unresolved and revise its commitments; do not call it a longer mastery level.
+Capture the current mix in the same quiet, busy construction/production and waterfront scenes at close and village zoom, at 1x and fast-forward. Include music and nature together; document their settings. Listen before selecting the correction. Prioritize repetitive impacts/footsteps, voice competition and distance balance; implement the strongest evidenced correction plus a small bounded set of variations if helpful. Preserve actual work-contact timing and the existing Effects/Nature/Music controls.
 
-## 2. F23b7 — woodland character and visible consequences (delivered)
+Check mute/zero volume, pause/resume, camera distance, saved settings and reload without old one-shot events. Avoid allocating voices or generating samples every frame. Keep comparisons reproducible and do not claim perceptual improvement from counters alone. New music themes and transitions are F17b; chapel bells are optional only if the listening comparison supplies a clear purpose.
 
-[Matched comparison and verification](WOODLAND_ART_F23B7.md). The acceptance brief is retained below.
+## 2. F21p — keyboard management of residents
 
-Give woodland edges, hunting lodges and tracking clearings a coherent normal-zoom presentation. Start by capturing intact, actively hunted, depleted and recovering states. Strengthen the lodge silhouette and habitat context where those views show a weak distinction. Keep actual tree growth and wildlife stock authoritative: no permanent deer or decorative mature trees implying a healthy source.
+**Outcome:** open People, inspect a resident, understand their current job and change their role through a visible keyboard path.
 
-Show four orientations, construction stages, active work and protected saplings in the same camera/light conditions. Confirm selection, clearing previews, approach cells and pause/reload still agree with simulation. Keep geometry bounded. This is a targeted family pass, not a new ecosystem or renderer rewrite; retain successful existing models where appropriate.
+Audit the existing People list and selected-person controls before changing focus. Support predictable Tab/arrows, explicit activation, scroll-into-view and Escape back through the current layer. Remember a useful selection. Handle a resident becoming unavailable or a row rebuilding while focused without silently assigning someone else. Preserve mouse takeover, typing, camera shortcuts outside management and existing assignment rules.
 
-## 3. F23b8 — docks, bridges and inhabited shores (delivered)
+Verify real role changes and their visible outcome at 960/1440, a longer population list, disabled actions, opening/closing, world changes and keyboard-to-mouse transition. Do not extend every inspector and management tab at once. Permanent workplace assignments and household swaps remain separate features.
 
-[Structure comparison and verification](SHORE_ART_F23B8.md). The original scope below is retained for reference.
+## 3. F25d2 — restore something with a useful finished function
 
-Make shoreline structures feel anchored to the terrain, with recognizable supports, deck thickness and clear approach/launch space. Preserve existing footprints, crossing rules and boat routes. Inspect the current scene before choosing details; water effects are optional only if they improve readability within this slice.
+**Outcome:** decide whether an optional restoration gives a working settlement a worthwhile second commitment.
 
-Compare ordinary village views before/after. Exercise all legal orientations, construction, boarding/return, a busy crossing and demolition protection. No wider-bridge simulation, freight boats or new shoreline placement rules in this chunk. If a geometry change needs different navigation, split that design out.
+The prior learning-gate proposal duplicated builder labor and ended in recreation; that version was rejected. Prototype one functional restoration, with two candidate payoffs considered briefly before choosing: a reopened crossing that changes access, or a recovered productive site that changes food/material routes. Prefer existing systems for the first executable probe. A reading workshop or education attendance requirement is not part of this experiment.
 
-## 4. F11b5 / F18b5 — a lasting village, decision prototype (delivered)
+Start from an imperfect working village. Budget actual materials, hauling and labor diverted from food, and compare restoration with improving existing routes/production. The first stage must change the value of the next choice. Record what remains to do after funding the project, its visible final use and a recoverable pause/cancel path. Test two credible routes and one poor allocation with current saves. Reject a project whose only distinction is a larger invoice or elapsed time.
 
-[Prototype decision and five measured routes](LASTING_VILLAGE_F11B5.md): conditional go. Successful supper routes finish in 26–31 simulated minutes, with a recoverable poor allocation at 39. These are automated timings, not human pacing. The original brief follows.
+Deliver an executable map/route prototype, a small progress UI sketch and a go/revise/cut decision. F25d3 campaign or feature integration is conditional on this result, not automatically promised. No new level, building-menu entry or need meter in this chunk.
 
-Design one later settlement around an imperfect working village, competing prime land and a second player-triggered commitment. Draw from the long-haul and limited-land concepts instead of adding both as overlapping levels. The first improvement should change where the next investment makes sense: for example, a new neighborhood changes which production and services are worth moving or duplicating.
+## 4. F23c2 — representative larger-village performance
 
-Account for exact materials, labor and accessible plots. Compare two credible strategies and one recoverable poor allocation. Record the decisions before and after expansion, including whether simply prebuilding everything removes the intended choice. Use existing systems; all buildings remain available. Do not enforce one food mix, require every civic building or manufacture difficulty with surprise deadlines.
+**Outcome:** know how much village we can comfortably support on this Windows machine and remove a demonstrated bottleneck if present.
 
-Deliver a map/route prototype and a go/revise/defer decision. Only promote full campaign integration after the prototype demonstrates a meaningful later choice. Human first-play duration remains TBD.
+Use an ordinary established settlement and a denser decorated version with actual residents, workplaces, cargo and paths. State population, objects, resolution, camera, speed, renderer and frame-sync settings. Measure steady state, camera motion and management opening; separate simulation work, rendering cost and one-off scene construction. Preserve the original fixture and comparable settings.
 
-## 5. F21n / F07c3 — understand and repair a neighborhood (delivered)
+Implement at most the most significant measured bottleneck, if one threatens the intended experience. Validate identical simulation continuation and visible quantities before/after; record frame-time distributions rather than only average FPS. If the representative village already runs comfortably, deliver the measurements and stop. No renderer rewrite or larger map/population claim from a tiny test scene.
 
-[Bread investigation and verification](BREAD_SERVICE_F21N.md). The delivered fix connects supper to actual bread eating and storage evidence, then to existing bakery/pantry controls. No service rules changed. The brief follows.
+## 5. F17b — musical variation and transitions
 
-Start with the finale fixture: distinguish bread baked/delivered, bread eaten, locally stored bread and central bread available for supper. One bakery can be busy while reserves stay empty. Use existing explanations first, and verify any correction against actual counters and destinations.
+**Outcome:** longer settlements have gentle musical variation without distracting state changes or repetitive restarts.
 
-Follow one actual meal, home-rest and recreation problem in the later scenario or an existing dispersed-village fixture. Trace what the player sees from the falling condition to the resident, destination and available remedy. Compare a central-service solution with a local pantry/layout solution, including setup labor.
+After the soundscape pass, compare the current single miniature with two related original themes and intentional quiet intervals. Use a small deterministic or bounded selection scheme that avoids immediate repeats, and crossfade or finish phrases cleanly. Keep music independent of simulation speed and preserve its volume/mute settings. Menu/game transitions should not restart the same opening phrase every time a panel or save is opened.
 
-Implement the best-supported navigation, wording or placement-feedback correction. Keep the scope to the observed problem; no automatic assignment system, new needs meter or productivity dashboard. Verify the repair changes the actual service outcome and remains readable at 960/1440. If the current interface already explains it adequately, record that result and skip speculative UI work.
+Listen through complete transitions, pause, loading and mute/unmute. Check bounded streams/players, no clipping and existing settings controls. Do not add a large adaptive score, mandatory external assets or victory fanfare for every minor milestone. Leave instrumentation and exact durations TBD until auditioned.
 
-## 6. F11b6 / F18b6 — integrate the lasting village (delivered)
+## Retained follow-ups
 
-[Campaign integration and route evidence](FINAL_CAMPAIGN_F11B6.md): level ten is playable with earned assessments, later supper, extra residents, recovery and replay. The original brief follows.
+- **Visuals:** F23b10 working-neighborhood composition; softer shore rims, better ground variation and clear paths. First compare a populated scene at matched normal zoom. F19d title artwork remains separate from menu behavior.
+- **Management:** remaining inspectors, Goals/Economy focus, source-route emphasis, and resource filters follow demonstrated tasks. Avoid catalog search while categories suffice.
+- **Campaign:** human first-play clarity/pacing, optional comfort scenario and conditional F25d3 restoration integration. Do not require every institution or diet.
+- **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
+- **Economy:** orchards, pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.
 
-After the service review, add level ten selection, arrival guidance, earned twelve-person progress, supported twenty-person growth and a player-triggered shared supper. Prevent early supper from banking completion. Support extra residents with explicit current-population requirements, phase saves, replay and completion navigation. Keep all buildings available and avoid prescribed production layouts. Repeat both food routes and saved poor-allocation recovery through real campaign states; inspect Goals at 960/1440. No post-supper waiting gate. Human pacing remains TBD.
-
-## 7. F12g / F23b9 — authored landscape composition (delivered)
-
-[Landscape comparison and route verification](RIVER_MEADOW_F12G.md). Grouped timber, water inlets and blended grass ship with the same timber budget; all four campaign routes pass. The original brief follows.
-
-The prototype overview exposes a sparse eastern bank and regular tree perimeter. Improve ground/shore silhouettes and natural grouping, with clear neighborhood sites and views at ordinary zoom. Preserve the tested resource budget, access and enough credible alternative plots; rerun routes if gameplay geometry changes. Compare matched initial and settled views. This is authored map/art work, not a terrain editor or a larger map requirement.
-
-## 8. F09b — choose cottage finishes (delivered)
-
-[Palette comparison and verification](COTTAGE_FINISHES_F09B.md): five named choices plus Automatic, saved per cottage, with all four orientations and improved homes verified. The original brief follows.
-
-Let the player select a cottage finish from a small, coherent set in its existing inspector and return to the automatic colors. Use named palettes, preview the actual selected house, and retain roof/wall/timber contrast and clear entrances. This is a free cosmetic choice, with no new production chain, work task or satisfaction benefit.
-
-Keep the controls compact at 960/1440. Verify choice persistence, automatic reset, four orientations, construction/demolition appearance and improved-home shutters. Compare a settled neighborhood using both automatic and chosen finishes under matched light. Carry further facade details, connected fences and brush painting forward separately; do not turn this into a general material editor.
-
-## 9. F09c — connected fence runs (delivered)
-
-[Implementation and verification](CONNECTED_FENCES_F09C.md). The acceptance brief below is retained for reference.
-
-Make adjacent decorative fence tiles form coherent straight runs and corners. Preserve the existing solid footprint and protected-access rules; this changes presentation, not where villagers can walk. Isolated pieces retain understandable orientation controls. Show the resulting joins during placement and update neighbors after placement, removal and reload.
-
-Inspect a cottage garden and a longer boundary at ordinary zoom. Verify all connection directions, corners, interruption/removal, adjacent buildings and refused placements that would cut off access. Keep preview and placed models consistent. Gates, new navigation rules and drag painting are separate follow-ups rather than prerequisites.
-
-## 10. F09d — decoration brush strokes (delivered)
-
-[Interaction and verification](DECORATION_BRUSH_F09D.md). The original acceptance brief follows.
-
-Let the existing Place/Remove decorations tools support a held left-button stroke, with one-cell width and the selected decoration/orientation. A click still edits one tile. Interpolate skipped cells deterministically so fast movement leaves a continuous run; choose a consistent cardinal route for diagonal fence strokes and document it. Preview remains read-only; edits happen only while the stroke is active.
-
-Use the existing decoration command and access check at every cell. Do not replace another decoration automatically or spend resources. Preserve accepted edits when a later tile is refused; show a concise reason without repeating error sounds every frame. Locked sunflowers stay locked. Fence neighbors update as the stroke progresses.
-
-Stop or break strokes on release, Escape, focus loss, tool/world changes and entering the HUD; never bridge across the HUD when returning to the map. Preserve camera dragging and the existing path/woodland tools. Verify long/fast strokes, diagonal corners, repeat visits, removal, blocked entrances, crossed UI, cancellation and current saves at 960/1440. Compare the interaction on the cottage garden and a longer planting strip. Broad brushes, fill, gates, terrain sculpting and undo are separate decisions.
-
-## 11. F19c — main-menu keyboard navigation (delivered)
-
-[Interaction and verification](MENU_KEYBOARD_F19C.md). The original acceptance brief follows.
-
-The title menu uses the shared button helper, which sets FocusMode.None. Add keyboard navigation specifically to the menu and its subpages: a visible initial focus, Tab/Shift-Tab and directional movement, activation, and Escape/Back. Skip disabled actions. Scroll focused controls into view at 960/1440, including later campaign entries. Returning from a subpage should restore a useful parent focus; entering a settlement should release menu focus and preserve existing game shortcuts.
-
-Cover Continue, Campaign, Free play, Creative, Settings and confirmation/error pages. Settings must allow keyboard changes to their actual controls without invoking village shortcuts underneath. A navigation key must not accept replay, overwrite, start a village or quit; those require explicit activation of the relevant control. Keep existing mouse behavior and save/error handling. Do not globally change every gameplay button's focus policy in this slice.
-
-Exercise an entire keyboard-only start/back/settings/replay-confirmation path with isolated test saves, disabled Continue, long campaign lists and narrow layout. Verify visible focus, actual setting changes, canceled confirmations and keyboard-to-mouse transitions. Controller support, title artwork and save-slot browsing remain separate. This addresses an observed entry-point gap; further in-game focus work remains F21.
-
-## 12. F21o — keyboard navigation in the construction catalog (delivered)
-
-[Interaction and verification](CATALOG_KEYBOARD_F21O.md). The original acceptance brief follows.
-
-Extend the menu focus work into one in-game task: open Build with B, move through construction categories and building cards, read their actual descriptions/costs and choose a building. The catalog currently uses the shared buttons with focus disabled. Provide a visible focus and predictable Tab/arrows/activation, including scrolling at 960/1440. Keep the existing mouse catalog and category filtering.
-
-Define the handoff between catalog focus and world placement. Activating a building should select its real placement tool, release catalog focus and preserve R rotation, camera controls and pointer placement. Escape should leave the current focus/tool layer predictably; reopening Build should focus a useful current card. Keyboard navigation inside the catalog must not move the camera, rotate a ghost or trigger unrelated shortcuts. Do not promise keyboard-only map placement in this chunk.
-
-Verify opening/navigation/selection with actual keys, all categories and building types, narrow scrolling, disabled/refused actions, typing in existing controls, mouse takeover, rotation after selection and cancellation. Capture focused cards and the resulting preview. Scope to construction selection; Landscape tools, Existing directory, inspectors and other management pages remain separate focus follow-ups. Controller support, title artwork and save-slot browsing remain on their own tracks.
-
-## 13. F25d1 / F25e1 — optional civic ambition design (delivered)
-
-[Decision, measured budgets and implementation brief](CIVIC_AMBITIONS_F25D1_E1.md): go for civic identities using hall recreation; revise the separate learning prerequisite. The original acceptance brief follows.
-
-Return to the planned learning/restoration and quiet civic-place concepts in CAMPAIGN_SYSTEMS.md. The resource scenarios and finale now exist, and recent village-character/UI work has shipped. Define one project for each concept and compare their actual player decisions before expanding the building menu or needs system.
-
-For learning, specify what residents learn, how that changes their contribution to a visible restoration, and why ordinary builder labor would not provide the same experience. For reflection, compare a chapel/shrine and a secular garden as village identities sharing recreation rules before proposing a separate satisfaction meter. Keep both optional; no compulsory religion, children/schools, universal productivity multiplier or research queue.
-
-Budget each concept against an existing working settlement: exact logs/planks/stone, labor diverted from food/services, valuable land, progress stages, finished use and a recoverable pause/cancel route. Compare two credible choices and a poor allocation. Sketch the on-screen progress and the finished scene; do not substitute attendance quotas for a meaningful project.
-
-Deliver a go/revise/merge decision and a bounded implementation brief for the strongest prototype. An executable existing-system budget/route fixture should support claims about affordability or recovery; clearly separate unimplemented mechanics from measured evidence. Do not immediately add another campaign level or make either concept a requirement for current settlements. Further management keyboard work, audio/music and menu artwork remain independent follow-ups.
-
-## 14. F25e2 — civic identities (delivered)
-
-[Models, inspector and verification](CIVIC_IDENTITIES_F25E2.md). The original acceptance brief follows.
-
-Add a saved Hall / Chapel / Planted court choice to gathering halls, with a compact inspector control on plans and built venues. Default is Hall. The choice is free and cosmetic: retain the current 8-plank/12-stone cost, six-tile footprint, entrance, eight recreation slots and all visit timing. Do not add another building kind, belief/learning meter or campaign requirement. Dismantling keeps its appearance and disables identity edits.
-
-Implement distinct four-sided chapel and planted-court models through the existing construction stages, preserving the ordinary hall. Keep the entrance and actual visitor area unobstructed and readable. Court planting is ornamental, with no timber/habitat effect. Retain material batching and fit the models to normal village zoom. Quiet poses, bell cues and ceremonies are separate follow-ups tied to actual visits.
-
-Use the central budget fixture and a mixed neighborhood for matched camera/light comparisons. Check four orientations, real construction and visitors, style changes, cancellation/demolition, exact saves and compact inspector controls at 960/1440. Prove changing/restoring identity cannot change simulation state outside that choice. Do not turn the favorable budget probe into a claim of greater campaign depth or assured player enjoyment. The learning/restoration concept remains open until its finished function supplies a distinct reason for the project.
-
-## 15. F25e3 — quiet civic visits
-
-Use the implemented civic identities to distinguish actual chapel/court breaks from the hall's social gathering. Derive restrained body/head/hand poses and facing from an arrived visitor's existing leisure state; walking arrivals and departing workers retain their real actions. Keep ordinary Hall visits unchanged. Do not put permanent worshippers, seated people or simulated interior visitors in the models.
-
-Preserve service capacity, duration, cooldowns, destinations and accounting. Pause must freeze animation; interruption, identity switching and save/load must not retain a stale pose. Check all orientations and pairs/groups so quiet visitors neither gesture through one another nor imply an extra spiritual need.
-
-Assess one soft chapel arrival cue tied to actual completed arrival, under existing Effects/mute/positional controls. Add it only if it helps at ordinary zoom; do not replay it on load, every render refresh or repeatedly for a crowded group. Bells, if used, are scene feedback rather than a ceremony or objective. Court can remain silent. Compare matched attended scenes and verify real visit completion with unchanged simulation continuation. No new need meter, learning gate or campaign level.
-
-## Reevaluate after each delivery
-
-Record what shipped, evidence, unresolved player questions and the next recommendation. Keep completed work out of the active queue. Finale integration is delivered; optional comfort/civic ambitions, audio/music polish and menu artwork follow evidence rather than a promise to implement every idea. Seasons and save migration remain excluded.
+Seasons, save migration, combat and multiplayer remain excluded. The broad roadmap is a set of revisable directions, not a promise to implement every parked idea. Record delivered results in the roadmap, keep this active queue short, and retain failed experiments as evidence rather than reopening them under a new ID.

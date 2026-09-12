@@ -32,6 +32,11 @@ public partial class Game
     private void AnimateSquareVisit(PersonView view,Villager person)
     {
         var venue=_world.Cottages.FirstOrDefault(c=>c.Id==person.LeisureSiteId);
+        if(venue?.Kind==BuildingKind.GatheringHall && venue.Identity!=CivicIdentity.Hall)
+        {
+            AnimateQuietCivicVisit(view,person,venue);
+            return;
+        }
         if(venue?.Kind==BuildingKind.SeatingGarden)
         {
             view.RestStool.Visible=true;
@@ -57,6 +62,32 @@ public partial class Game
         view.LeftArm.Rotation=new(.12f,0,.06f);
         view.Head.Rotation=new(speaker ? .04f : .04f+.09f*gesture,0,0);
         view.Torso.Rotation=new(-.025f,0,0);
+    }
+
+    private void AnimateQuietCivicVisit(PersonView view,Villager person,Cottage venue)
+    {
+        // These are actual outdoor breaks, not simulated seats or interior attendance.
+        // Keep arms within the visitor's reserved cell and derive all motion from
+        // saved visit time, so pause and reconstruction produce the same pose.
+        var toward=new Vector3(venue.Cell.X,view.Body.Position.Y,venue.Cell.Z)-view.Body.Position;
+        float settle=Mathf.SmoothStep(0,1,person.Timer/.8f);
+        float breath=MathF.Sin(person.Timer*1.2f+person.Id*.7f);
+        if(venue.Identity==CivicIdentity.Chapel)
+        {
+            FaceVisit(view,toward);
+            view.Head.Rotation=new(.18f*settle,0,0);
+            view.Torso.Rotation=new(.025f*settle,0,0);
+            view.Arm.Rotation=new(.28f*settle,0,.10f*settle);
+            view.LeftArm.Rotation=new(.28f*settle,0,-.10f*settle);
+        }
+        else
+        {
+            FaceVisit(view,-toward);
+            view.Head.Rotation=new(.025f,MathF.Sin(person.Timer*.35f+person.Id)*.12f*settle,0);
+            view.Arm.Rotation=new(.08f,0,-.025f);
+            view.LeftArm.Rotation=new(.08f,0,.025f);
+        }
+        view.Rig.Position=new(0,breath*.006f*settle,0);
     }
 
     private void AnimateHomeRest(PersonView view,Villager person)

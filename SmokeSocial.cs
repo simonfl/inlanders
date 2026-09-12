@@ -87,6 +87,7 @@ public partial class Game
             if(!w.People.Any(p=>p.Task==Work.Resting) || !w.People.Any(p=>p.Task==Work.Leisure)) throw new Exception("Working village did not show both visit routines");
             await Frames(); await CaptureVisit("inhabited",new(3,0,3)); w.Validate();
             await CheckSquareOrientations();
+            await CheckQuietCivicVisits();
             GD.Print("PASS: mutual actual visitors, quiet/gesture intervals, lone/departed visitors, outward seated home rest, pause/reload/completion/interruption and 960/1440 inhabited-village captures."); GetTree().Quit();
         }
         catch(Exception e) { GD.PrintErr(e); GetTree().Quit(1); }

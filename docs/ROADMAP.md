@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: F25e3 — quiet civic visits.** [Hall, Chapel and Planted court identities](CIVIC_IDENTITIES_F25E2.md) now provide distinct saved appearances with unchanged service. Give actual chapel/court visitors a restrained quiet-break presentation, then assess whether a visit-driven chapel sound improves the scene. Learning/restoration still needs a distinct finished purpose.
+**Next: F10b — a calmer working soundscape.** [Quiet civic visits](QUIET_CIVIC_F25E3.md) complete the first Chapel/Planted court presentation. The refreshed five-chunk queue balances sound, management, a functional restoration experiment, representative performance and music. Learning/restoration still needs a distinct finished purpose.
 
 The [current next-chunk review](NEXT_CHUNKS.md) records priorities, scope, checks and cut criteria. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
@@ -18,7 +18,11 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F25e3 | Scoped | Quiet poses for actual chapel/court visits, with pause/reload/interruption fidelity; assess one restrained arrival cue without changing service. |
+| 1 | F10b | Scoped | Compare quiet/busy mixes and improve the strongest repetition or distance-balance problem; retain actual work cues and settings. |
+| 2 | F21p | Scoped | Keyboard path through People: inspect a resident, read activity, assign a role and return safely. |
+| 3 | F25d2 | Experiment | Prototype a functional restoration with alternatives, actual budgets and recovery; reject a larger-invoice-only project. |
+| 4 | F23c2 | Measurement | Profile representative decorated settlements on this machine; fix a demonstrated bottleneck if needed. |
+| 5 | F17b | Scoped | Related musical themes, quiet intervals and clean transitions, informed by the soundscape review. |
 
 Recent deliveries include square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -36,11 +40,11 @@ Recent deliveries include square/storage/hall art, the Goals width audit, quarry
 
 ## After this queue / parked
 
-The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. Other management focus work remains open; the civic ambition design and identity prototype are delivered; quiet visit presentation is next. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
+The finale, bread-service explanation and authored landscape composition have shipped. Cottage finishes, connected fences and decoration brush strokes have shipped. Main-menu and construction-catalog keyboard navigation have shipped. People management focus is queued; civic identities and quiet visit presentation are delivered. The long-haul and limited-land concepts remain ingredients rather than overlapping additional levels. First-play pacing and enjoyment still need feedback.
 
 F23c1 resolves the unusually large loose timber/salvage towers found in the storage review. Broader high-population rendering remains a separate measurement question.
 
-Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation is queued as F25e3. Education/restoration, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
+Permanent workplace assignments, household swaps, local stone storage and broader route controls remain candidates when a concrete player problem warrants them. Reflection identities shipped in F25e2; quiet visit presentation shipped in F25e3. Functional restoration is the F25d2 experiment. Education/restoration, orchards, pasture, river mills, thirst, new visitors, day/night, weather and terrain sculpting remain exploratory. No new mandatory need, technology tree, seasons, combat or multiplayer. Audio and main menu already have first versions; their follow-ups remain in the optional table below.
 
 The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current behavior comes from implementation and the current reviews linked below; do not reuse its old prices or pre-household descriptions as live facts.
 
@@ -50,6 +54,7 @@ The original [design review](DESIGN_REVIEW.md) is a historical baseline. Current
 
 | ID | Shipped |
 | --- | --- |
+| F25e3 | Quiet arrived Chapel/court poses; walking, pause/reload, interruption and Hall restoration preserved. Four-orientation actual visits and identical simulation continuation pass. Bell remains silent pending a useful sound purpose. [Review](QUIET_CIVIC_F25E3.md). |
 | F25e2 | Saved Hall/Chapel/Planted court choices on planned/built gathering halls, distinct four-stage/four-orientation models and compact inspector. Actual visits, identical simulation continuation, saves and demolition verified. [Review](CIVIC_IDENTITIES_F25E2.md). |
 | F25d1 / F25e1 | Civic design decision plus four executable budget/service probes and partial-build salvage recovery. Go for hall identities; revise a separate learning gate. No new needs or campaign level. [Decision](CIVIC_AMBITIONS_F25D1_E1.md). |
 | F21o | B opens focused construction browsing, with category/card navigation, actual cost/description guidance, scrolling and clear handoff to pointer placement/rotation/camera. All building types, refusals, typing and mouse takeover verified at 960/1440. [Review](CATALOG_KEYBOARD_F21O.md). |
@@ -214,7 +219,7 @@ See the [campaign systems plan](CAMPAIGN_SYSTEMS.md) for the need → building �
 - **F25b — Comfort at home, prototype/comparison complete:** [F25b2 results](HOME_COMFORT_COMPARISON.md) show reduced homeward travel, ordinary-home viability, and no food-output gain over twenty minutes. Full and partially occupied lodges were compared with cottages, relocation and food investment. Keep costs/intervals provisional and scenario adoption behind F25b3 player review.
 - **F25c — Recreation alternatives, implemented:** one-tile seating gardens, squares and halls offer different footprint/capacity/investment choices with actual visits. Compare their usefulness in normal play before adding more venues.
 - **F25d — Learning through a shared project, exploratory:** adult workshop/reading room, attendance and a concrete civic project. Define that payoff first; no school-age simulation or generic research tree.
-- **F25e — Reflection and village identity, exploratory:** chapel/shrine or secular reflection garden with quiet visits. May remain a recreation alternative if a separate need adds little. No compulsory religion or requirement to own every civic building.
+- **F25e — Reflection and village identity, implemented:** Hall/Chapel/Planted court choices and actual quiet visits share hall recreation. No separate need, compulsory religion or requirement to own every civic building. Further ceremonies remain exploratory.
 
 **Building shortlist and design gates:** the gathering hall is now the first stone consumer. The campaign systems plan retains carpenter-funded home improvements, the implemented small recreation gardens, and later learning/reflection venues. Choose between candidates through a playable purpose, not a larger construction menu. F25a now explains actual meals, home/rest and recreation participation; F26 must show habitat/deposit quality and access before investment. Balance new producers against construction, labor, transport and land use on contrasting maps. Costs and detailed need schedules remain TBD; later needs can be merged or cut if they duplicate recreation.
 
