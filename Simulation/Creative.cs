@@ -50,6 +50,7 @@ public sealed partial class World
         _stone+=site.DeliveredStone;
         Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
+        Food.Fruit += site.Kind == BuildingKind.Orchard ? site.Harvest : 0;
         Food.Bread += site.OutputBread;
         foreach (var person in affected) Interrupt(person);
         foreach (var person in People.Where(p => p.Route.Count > 0)) SetRoute(person, person.Destination);

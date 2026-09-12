@@ -30,7 +30,8 @@ public static class Buildings
         new("Hunting lodge", 6, Resource.Logs, Worker: Role.Hunter, Slots: 1),
         new("Seating garden", 4, Resource.Logs, RecreationSlots: 2),
         new("Neighborhood pantry", 6, Resource.Logs, Worker:Role.Hauler),
-        new("Carpenter workshop",6,Resource.Logs,Worker:Role.Carpenter,Slots:1)
+        new("Carpenter workshop",6,Resource.Logs,Worker:Role.Carpenter,Slots:1),
+        new("Orchard",4,Resource.Logs,Worker:Role.Farmer,Slots:1)
     };
     public static BuildingDefinition Get(BuildingKind kind) => (uint)kind < Definitions.Length
         ? Definitions[(int)kind] : throw new ArgumentOutOfRangeException(nameof(kind));

@@ -78,7 +78,7 @@ public sealed partial class World
     {
         foreach(var c in Cottages)
         {
-            if(c.PantryFood==null || c.PantryFood.Length!=5 || c.PantryFood.Any(n=>n<0) || c.PantryTarget<0 || c.PantryTarget>PantryCapacity ||
+            if(c.PantryFood==null || c.PantryFood.Length!=EdibleKinds.Length || c.PantryFood.Any(n=>n<0) || c.PantryTarget<0 || c.PantryTarget>PantryCapacity ||
                 c.Kind!=BuildingKind.Pantry && c.PantryFood.Any(n=>n!=0) || c.PantryFood.Sum()+FoodIncoming(c.Id)>PantryCapacity)
                 throw new InvalidOperationException("Invalid pantry stock/capacity");
             if(c.Kind==BuildingKind.Pantry && c.Complete) foreach(var kind in EdibleKinds)

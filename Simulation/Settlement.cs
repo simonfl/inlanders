@@ -8,8 +8,8 @@ namespace Inlanders.Simulation;
 
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
 public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter, Carpenter }
-public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter }
+public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game, Fruit }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter, Orchard }
 public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
     ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting, ToMealSupply, ToMealSeat, EatingMeal, ReturnMeal, ToFoodPickup, ToComfortPlanks, ToComfortHome, ToComfortInstall, InstallingComfort, ToComfortRecovery }
@@ -82,7 +82,7 @@ public sealed class Cottage
     public int ImprovementPlanks { get; set; }
     public float ImprovementProgress { get; set; }
     public float ImprovementOrderedAt { get; set; }
-    public int[] PantryFood { get; set; } = new int[5];
+    public int[] PantryFood { get; set; } = new int[6];
     public int PantryTarget { get; set; } = 12;
     [JsonInclude] public bool DemolitionRequested { get; internal set; }
     [JsonInclude] public bool DemolitionWasPaused { get; internal set; }
@@ -97,6 +97,7 @@ public sealed class Cottage
     public FishingBoat? Boat { get; set; }
     public BuildingKind Kind { get; init; }
     [JsonInclude]    public bool Planted { get; internal set; }
+    [JsonInclude]    public bool OrchardMature { get; internal set; }
     [JsonInclude]    public float Growth { get; internal set; }
     [JsonInclude]    public int Harvest { get; internal set; }
     [JsonInclude]    public int InputGrain { get; internal set; }

@@ -25,8 +25,9 @@ public static class PantryChecks
             case Resource.Bread: w.Food.BakedBread=w.Food.Bread=1000; w.Food.GrownGrain=w.Food.UsedGrain=500; break;
             case Resource.Fish: w.Food.CaughtFish=w.Food.Fish=1000; break;
             case Resource.Game: w.Food.HuntedGame=w.Food.Game=1000; break;
+            case Resource.Fruit: w.Food.GrownFruit=w.Food.Fruit=1000; break;
         }
-        int Eaten()=>w.Food.EatenBerries+w.Food.EatenVegetables+w.Food.EatenBread+w.Food.EatenFish+w.Food.EatenGame;
+        int Eaten()=>w.Food.EatenBerries+w.Food.EatenVegetables+w.Food.EatenBread+w.Food.EatenFish+w.Food.EatenGame+w.Food.EatenFruit;
         var pantry=w.Place(new(3,0),false,BuildingKind.Pantry)!;
         Until(w,()=>pantry.Complete,"Pantry not built");
         Check(pantry.Delivered==6,"Pantry construction cost wrong");

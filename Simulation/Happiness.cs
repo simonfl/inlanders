@@ -23,14 +23,14 @@ public sealed partial class World
         Food.LastMealNonDominant /
         Math.Max(1, Food.LastMealRequired - (int)Math.Ceiling(Food.LastMealRequired / 3f))));
     public string LastMealSummary => Food.LastMealRequired == 0 ? "No meal served yet." :
-        $"Latest minute snapshot: {Food.LastMealServed}/{Food.LastMealRequired} residents ate\n{Food.LastMealBerries} berries · {Food.LastMealVegetables} vegetables · {Food.LastMealBread} bread"+(Food.LastMealFish>0 ? $" · {Food.LastMealFish} fish" : "")+(Food.LastMealGame>0 ? $" · {Food.LastMealGame} game" : "")+$"\nUses each resident's latest eaten portion in that minute; collected food does not count. Village meal variety: +{MealVarietyScore}/20. Three balanced foods can earn full credit; every food type is not required.";
+        $"Latest minute snapshot: {Food.LastMealServed}/{Food.LastMealRequired} residents ate\n{Food.LastMealBerries} berries · {Food.LastMealVegetables} vegetables · {Food.LastMealBread} bread"+(Food.LastMealFish>0 ? $" · {Food.LastMealFish} fish" : "")+(Food.LastMealGame>0 ? $" · {Food.LastMealGame} game" : "")+(Food.LastMealFruit>0 ? $" · {Food.LastMealFruit} fruit" : "")+$"\nUses each resident's latest eaten portion in that minute; collected food does not count. Village meal variety: +{MealVarietyScore}/20. Three balanced foods can earn full credit; every food type is not required.";
     private void ValidateHappiness()
     {
         if (Food.LastMealRequired < 0 || Food.LastMealBerries < 0 || Food.LastMealVegetables < 0 || Food.LastMealBread < 0 || Food.LastMealFish < 0 || Food.LastMealGame < 0 ||
             Food.LastMealServed > Food.LastMealRequired ||
-            Food.LastMealChoices != new[] { Food.LastMealBerries, Food.LastMealVegetables, Food.LastMealBread, Food.LastMealFish, Food.LastMealGame }.Count(n => n > 0))
+            Food.LastMealFruit<0 || Food.LastMealChoices != new[] { Food.LastMealBerries, Food.LastMealVegetables, Food.LastMealBread, Food.LastMealFish, Food.LastMealGame, Food.LastMealFruit }.Count(n => n > 0))
             throw new InvalidOperationException("Invalid actual meal history");
-        if (People.Any(p=>p.LastLeisureWindow is not (120 or 240)) || Food.VegetableChoiceMeals < 0 || Food.LastMealChoices is < 0 or > 5 || People.Any(p => p.LastLeisureTime is float t &&
+        if (People.Any(p=>p.LastLeisureWindow is not (120 or 240)) || Food.VegetableChoiceMeals < 0 || Food.LastMealChoices<0 || Food.LastMealChoices>EdibleKinds.Length || People.Any(p => p.LastLeisureTime is float t &&
             (!float.IsFinite(t) || t < 0 || t > Food.Time)))
             throw new InvalidOperationException("Invalid happiness history");
     }

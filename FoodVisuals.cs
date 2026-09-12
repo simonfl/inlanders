@@ -44,6 +44,7 @@ public partial class Game
         if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
         if (site.Kind == BuildingKind.VegetableGarden) { MakeVegetableGarden(parent, stage); return; }
+        if(site.Kind==BuildingKind.Orchard){MakeOrchardPlot(parent,stage);return;}
         if (site.Kind == BuildingKind.Farm) { MakeFarm(parent, stage); return; }
         if (site.Kind == BuildingKind.ForagerHut) { MakeForagerHut(parent, stage); return; }
         MakeCottage(parent, stage, site.Id % 3, site.Finish);
@@ -69,19 +70,19 @@ public partial class Game
         }
         foreach (int id in _cropViews.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cropViews[id].Body.QueueFree(); _cropViews.Remove(id); }
         foreach (int id in _cropViews.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cropViews[id].Body.QueueFree(); _cropViews.Remove(id); }
-        foreach (var farm in _world.Cottages.Where(c => (c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden) && c.Complete))
+        foreach (var farm in _world.Cottages.Where(c => (c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Orchard) && c.Complete))
         {
             int stage = farm.Harvest > 0 ? 4 : farm.Planted ? 1 + (int)(farm.Growth * 2.9f) : 0;
-            int viewKey=stage*10+farm.Harvest;
+            int viewKey=stage*10+farm.Harvest+(farm.OrchardMature?100:0);
             if (_cropViews.TryGetValue(farm.Id, out var old) && old.Stage == viewKey) continue;
             if (old.Body != null) old.Body.QueueFree();
             var root = new Node3D { Position = BuildingPosition(farm.Cell,farm.Rotation,farm.Kind), RotationDegrees = new(0, farm.Rotation * 90, 0) };
             _dynamic.AddChild(root);
-            if (farm.Kind == BuildingKind.VegetableGarden) MakeVegetables(root, farm, stage);
+            if(farm.Kind==BuildingKind.Orchard)MakeOrchardTrees(root,farm,stage); else if (farm.Kind == BuildingKind.VegetableGarden) MakeVegetables(root, farm, stage);
             else MakeCrops(root, farm, stage);
             _cropViews[farm.Id] = (root, viewKey);
         }
-        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}/{_world.Food.Vegetables}/{_world.Food.Fish}";
+        string key = $"{_world.Food.Berries}/{_world.Food.Grain}/{_world.Food.Bread}/{_world.Food.Vegetables}/{_world.Food.Fish}/{_world.Food.Fruit}";
         if (_pantryKey == key) return;
         _pantryKey = key; Clear(_pantry);
         if(_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0)
@@ -90,7 +91,7 @@ public partial class Game
             if(_world.Food.Fish>0) MakeFish(_pantry,new(-1.2f,.43f,3.85f));
         }
         // The pantry shares the timber yard; displayed baskets summarize its inventories.
-        foreach (var (amount, color, x) in new[] { (_world.Food.Berries, new Color("a95172"), -3.6f), (_world.Food.Grain, new Color("dabb69"), -3.0f), (_world.Food.Bread, new Color("cf914e"), -2.4f), (_world.Food.Vegetables, new Color("d88739"), -1.8f) })
+        foreach (var (amount, color, x) in new[] { (_world.Food.Berries, new Color("a95172"), -3.6f), (_world.Food.Grain, new Color("dabb69"), -3.0f), (_world.Food.Bread, new Color("cf914e"), -2.4f), (_world.Food.Vegetables, new Color("d88739"), -1.8f), (_world.Food.Fruit,new Color("bd5544"),-.6f) })
         {
             Cylinder(_pantry, new(x, 0.24f, 3.85f), 0.22f, 0.35f, new("a58256"));
             if (amount > 0) Mesh(_pantry, new SphereMesh { Radius = 0.19f, Height = 0.22f, RadialSegments = 7, Rings = 3 }, new(x, 0.43f, 3.85f), color);

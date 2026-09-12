@@ -21,11 +21,11 @@ public sealed record MealConsumption(int Request,int Person,float Time,Resource 
 
 public sealed partial class World
 {
-    public static readonly Resource[] EdibleKinds={Resource.Berries,Resource.Vegetables,Resource.Bread,Resource.Fish,Resource.Game};
+    public static readonly Resource[] EdibleKinds={Resource.Berries,Resource.Vegetables,Resource.Bread,Resource.Fish,Resource.Game,Resource.Fruit};
     public int CentralFood(Resource kind) => kind switch
     {
         Resource.Berries=>Food.Berries, Resource.Vegetables=>Food.Vegetables, Resource.Bread=>Food.Bread,
-        Resource.Fish=>Food.Fish, Resource.Game=>Food.Game, _=>0
+        Resource.Fish=>Food.Fish, Resource.Game=>Food.Game, Resource.Fruit=>Food.Fruit, _=>0
     };
     private void ChangeCentralFood(Resource kind,int amount)
     {
@@ -36,6 +36,7 @@ public sealed partial class World
             case Resource.Bread: Food.Bread+=amount; break;
             case Resource.Fish: Food.Fish+=amount; break;
             case Resource.Game: Food.Game+=amount; break;
+            case Resource.Fruit: Food.Fruit+=amount; break;
             default: throw new InvalidOperationException("Not an edible food");
         }
     }
@@ -52,6 +53,7 @@ public sealed partial class World
             Resource.Bread=>Food.EatenBread+Food.SupperBread,
             Resource.Fish=>Food.EatenFish,
             Resource.Game=>Food.EatenGame,
+            Resource.Fruit=>Food.EatenFruit,
             _=>throw new InvalidOperationException("Not an edible delivery")
         });
     }
@@ -143,6 +145,7 @@ public sealed partial class World
                     case Resource.Bread: Food.EatenBread++; break;
                     case Resource.Fish: Food.EatenFish++; break;
                     case Resource.Game: Food.EatenGame++; break;
+                    case Resource.Fruit: Food.EatenFruit++; break;
                 }
                 p.Carried=0; r.Carrying=false; r.Eaten=true; p.Fed=true;
                 Food.MealConsumptions.Add(new(r.Id,p.Id,Food.Time,r.Kind,r.Closed));
@@ -161,6 +164,7 @@ public sealed partial class World
         int Count(Resource kind)=>meals.Count(m=>m.Kind==kind);
         Food.LastMealBerries=Count(Resource.Berries); Food.LastMealVegetables=Count(Resource.Vegetables);
         Food.LastMealBread=Count(Resource.Bread); Food.LastMealFish=Count(Resource.Fish); Food.LastMealGame=Count(Resource.Game);
+        Food.LastMealFruit=Count(Resource.Fruit);
         Food.LastMealRequired=Population; Food.LastMealChoices=meals.Select(m=>m.Kind).Distinct().Count();
         int quarter=(Population+3)/4;
         if(meals.Length==Population && Food.LastMealVegetables>=quarter && meals.Length-Food.LastMealVegetables>=quarter) Food.VegetableChoiceMeals++;

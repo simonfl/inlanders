@@ -11,6 +11,7 @@ public sealed partial class World
     {
         BuildingKind.ForagerHut => Resource.Berries, BuildingKind.Farm => Resource.Grain,
         BuildingKind.VegetableGarden => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
+        BuildingKind.Orchard => Resource.Fruit,
         BuildingKind.HuntingLodge => Resource.Game, BuildingKind.Quarry => Resource.Stone, BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
     };
     public bool SetWorkplacePaused(int id, bool paused)
@@ -42,6 +43,7 @@ public sealed partial class World
             Resource.Berries => StoredFood(Resource.Berries) + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
             Resource.Grain => Food.Grain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
             Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8),
+            Resource.Fruit => StoredFood(Resource.Fruit) + cargo + Crops(BuildingKind.Orchard, 8),
             Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * 2) +
                 People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * 2) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * 2),
             _ => Stored + cargo
@@ -85,6 +87,7 @@ public sealed partial class World
         }
         if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes; assign a carpenter and supply planks.");
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
+        if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Farmers can work elsewhere. Mature trees stay for repeat harvests.");
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;

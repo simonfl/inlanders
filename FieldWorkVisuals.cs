@@ -13,6 +13,7 @@ public partial class Game
         Vector3 local=sowing ? new(0,.25f,.45f) : vegetables
             ? new(-.96f+plant%4*.64f+.08f,.35f,plant/4==0?-.42f:.48f)
             : new(-1.05f+Math.Min(2,plant)*.42f,.38f,.56f);
+        if(field.Kind==BuildingKind.Orchard && !sowing)local=OrchardFruitPosition(plant);
         return BuildingPosition(field.Cell,field.Rotation,field.Kind)
             +local.Rotated(Vector3.Up,field.Rotation*Mathf.Pi/2);
     }
@@ -20,7 +21,7 @@ public partial class Game
     private void AnimateFieldWork(PersonView view,Villager worker)
     {
         var field=_world.Cottages.FirstOrDefault(c=>c.Id==worker.WorkplaceId);
-        if(field==null || !field.Complete || field.Kind is not (BuildingKind.Farm or BuildingKind.VegetableGarden)) return;
+        if(field==null || !field.Complete || field.Kind is not (BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Orchard)) return;
         bool sowing=worker.Task==Work.Planting, grain=field.Kind==BuildingKind.Farm;
         var target=FieldWorkTarget(field,sowing);
         var direction=target-view.Body.Position;
@@ -43,6 +44,12 @@ public partial class Game
         var armBasis=Basis.FromEuler(new(grain && !sowing?0:.8f,0,0));
         var tip=grain && !sowing ? new Vector3(.16f,-.32f,-.48f) : new Vector3(0,-.36f,0);
         var contact=new Vector3(0,.43f,0)+torsoBasis*(new Vector3(.28f,.36f,0)+armBasis*tip);
+        if(field.Kind==BuildingKind.Orchard && !sowing)
+        {
+            view.Torso.Rotation=new(-.1f*stance,0,0);view.Arm.Rotation=new(-2.4f*stance,0,-sweep*.15f*stance);view.LeftArm.Rotation=new(-1.2f*stance,0,.1f*stance);
+            contact=new Vector3(0,.43f,0)+Basis.FromEuler(new(-.1f,0,0))*(new Vector3(.28f,.36f,0)+Basis.FromEuler(new(-2.4f,0,0))*new Vector3(0,-.36f,0));
+        }
         view.Rig.Position=(view.Body.ToLocal(target)-contact)*stance;
+        if(field.Kind==BuildingKind.Orchard && !sowing)view.Rig.Position=new(view.Rig.Position.X,0,view.Rig.Position.Z);
     }
 }

@@ -1,13 +1,13 @@
-# Next chunks — sound, music and playable orchards
+# Next chunks — sound, music and Creative relocation
 
-September 12, 2026, after F05b. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
+September 12, 2026, after F05c. This is the active queue. Delivered acceptance briefs are preserved in [the previous queue](NEXT_CHUNKS_HISTORY_2026_09_12.md); the [roadmap](ROADMAP.md) remains the feature/status index. Reevaluate after each delivery.
 
 ## Comprehensive review
 
 | Area | Current assessment | Decision |
 | --- | --- | --- |
 | Campaign and enjoyment | Ten levels exist. Five are lessons; later maps exercise access, finite resources, habitat and neighborhood support. Finale routes demonstrate later commitments, but automated timings do not establish human enjoyment. | Preserve introductory levels. Add a distinct functional project prototype before proposing level eleven. Do not inflate waiting, population or attendance quotas. |
-| Buildings and costs | Seventeen types cover the core economy. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
+| Buildings and costs | Eighteen types cover the core economy, including orchards. Hall identities add appearance, not new building types. Existing [cost audit](ROADMAP_REVIEW_2026_09_12.md#current-building-palette) and civic budgets show construction, hauling, land and food-labor tradeoffs. | No blanket repricing. A future building must offer a different placement or operating choice; compare alternatives on the same map. |
 | Needs and progression | Meals, assigned homes/rest and recreation are real routines. Comfort reduces homeward trips without a demonstrated food-output gain. Chapel/court use recreation. | Keep optional improvements honest. No automatic thirst, education, spirituality or technology meter. Restoration needs a finished function, not an attendance prerequisite. |
 | Visuals and village life | Building families, four-way rotation, woodland, cottage/civic identities and quiet visits have shipped. Populated comparisons now support quieter shores and continuous ground color. Outer outlines and subtle poses remain open visual questions. | Keep menu art and player visual feedback visible. Do not automatically follow each art pass with another terrain rewrite or equate more geometry with stronger art direction. |
 | Interface and controls | Menu, Build, resident assignment, Economy inspection, Goals evidence/actions and resource surveys have keyboard focus. Broader inspector editing remains open. | Park further editing until a concrete task is selected. No new dashboard until an observed question requires it. |
@@ -77,13 +77,17 @@ Listen through complete transitions, pause, loading and mute/unmute. Check bound
 
 [The experiment and design review](ORCHARD_COMPARISON_F05B.md) cover 48 actual-food-loop comparisons with explicitly modeled orchard timing. At 180/60 seconds without background foraging, groves deliver 146 units versus gardens' 142 in twenty minutes, using about 11% less farmer time with a workplace claim. Slower repeat cycles and clearing plots expose shortages; mixed planting buffers establishment. This modest tradeoff supports a small playable slice, not another mandatory need or a long campaign wait.
 
-## 3. F05c — playable orchards
+## F05c delivered — playable orchards
 
-**Outcome:** establish visible fruit trees, let existing farmers harvest them repeatedly, and weigh retaining the grove against quick food and useful building land.
+[Playable orchards](ORCHARDS_F05C.md) establish in three minutes and retain mature trees for minute-long repeat harvests. Eight fruit per crop, shared farmers, targets, visible growth/picking/carrying, honest fruit accounting and local pantry service are integrated. Four-orientation saves, interruptions and recovery, actual meal routes, full simulation/HUD and focused 960/1440 checks pass. Human balance/enjoyment and a possible orchard campaign remain review questions.
 
-Use the [integration brief](ORCHARD_COMPARISON_F05B.md#f05c-integration-brief): visible initial planting/immature/mature/ripe/picked stages, distinct fruit accounting through real hauling/storage/meals, and existing Farmer role. Start near tested 180/60 growth, eight-unit yield and six-tile footprint, but recheck balance with actual costs and handling. Explain first-harvest delay and permanent regrowth. Support targets, priorities, pause, interruption, demolition and food recovery. Verify four orientations, immature/ripe/carried-fruit saves, long-run food service, ordinary-garden alternatives and 960/1440 feedback.
+## 3. F16c — Creative building relocation
 
-No new worker role, need meter, seasons, hidden fertility or campaign requirement. Human satisfaction and visual clarity remain acceptance questions after the playable slice; the proxy does not prove them.
+**Outcome:** rearrange a finished Creative building without deleting and rebuilding it, preserving what makes it that building.
+
+Start from its inspector with Move, a destination preview and existing four-way rotation. Confirm a valid destination deliberately; Escape/right-click cancellation and invalid placement preserve the original world exactly. Keep building identity, goods, targets, priorities, finishes, civic identity, home improvements and orchard maturity. Do not duplicate construction material or crop stock. Resolve affected work/visitor/home routes using existing interruption and access rules; explain any movement restriction before confirmation. Preserve bridge connectivity and dock/boat safety rather than silently stranding residents or cargo.
+
+Test home, productive orchard, stocked workplace/pantry, civic venue and shore cases. Cover current work/cargo, blocked destinations, cancelled/failed moves, rotation, exact save continuation and 960/1440 preview/inspector feedback. Normal-play movement, group selection, terrain editing and undo history remain separate. The first slice is Creative relocation with honest behavior, not a free workaround for normal-play clearance.
 
 This task can proceed independently while F10b2 awaits listening feedback. Musical composition still follows the sound review.
 
@@ -93,6 +97,6 @@ This task can proceed independently while F10b2 awaits listening feedback. Music
 - **Management:** broader inspector editing, source-route emphasis, and resource filters follow demonstrated tasks. Goals/Economy/survey navigation is delivered. Avoid catalog search while categories suffice.
 - **Campaign:** human first-play clarity/pacing, optional comfort scenario and future productive-restoration design (F25d3 crossing integration is cut). Do not require every institution or diet.
 - **Village arrangement:** gates with explicit walking rules, richer planting, relocation and area tools; terrain shaping needs its own cost/access/undo design.
-- **Economy:** orchards, pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.
+- **Economy:** orchards are delivered; pasture, river mills, local stone storage and workplace assignments remain candidates. No new producer without a terrain/labor/service comparison.
 
 Seasons, save migration, combat and multiplayer remain excluded. The broad roadmap is a set of revisable directions, not a promise to implement every parked idea. Record delivered results in the roadmap, keep this active queue short, and retain failed experiments as evidence rather than reopening them under a new ID.

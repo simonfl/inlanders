@@ -34,6 +34,7 @@ public static class MealServiceChecks
                     single.Food.GrownGrain=single.Food.UsedGrain=20; break;
                 case Resource.Fish: single.Food.CaughtFish=single.Food.Fish=40; break;
                 case Resource.Game: single.Food.HuntedGame=single.Food.Game=40; break;
+                case Resource.Fruit: single.Food.GrownFruit=single.Food.Fruit=40; break;
             }
             Step(single,1250);
             Check(single.Food.MealConsumptions.Count>=16 && single.Food.MealConsumptions.All(m=>m.Kind==kind),$"Actual meals failed for {kind}");

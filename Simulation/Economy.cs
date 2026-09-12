@@ -24,6 +24,7 @@ public sealed partial class World
             People.Where(p=>p.Cargo==r).Sum(p=>p.Carried) + (r==Resource.Fish ? Cottages.Sum(c=>c.Boat?.Fish??0) : 0),
             r switch { Resource.Logs => Cottages.Sum(c=>c.InputLogs), Resource.Planks => Cottages.Sum(c=>c.OutputPlanks),
                 Resource.Vegetables => Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest),
+                Resource.Fruit => Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest),
                 Resource.Grain => Cottages.Where(c=>c.Kind==BuildingKind.Farm).Sum(c=>c.Harvest)+Cottages.Sum(c=>c.InputGrain), Resource.Bread => Cottages.Sum(c=>c.OutputBread), _ => 0 },
             Need(r))).ToArray();
         var issues = new List<EconomyIssue>();
@@ -40,7 +41,7 @@ public sealed partial class World
         {
             if(!Creative && EdibleStored<Population*2)
             {
-                var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource.Berries or Resource.Vegetables or Resource.Bread or Resource.Fish or Resource.Game).ToArray();
+                var foodSites = Cottages.Where(c => c.Complete && ProductionOutput(c.Kind) is Resource output && EdibleKinds.Contains(output)).ToArray();
                 if (foodSites.Length > 0 && foodSites.All(c => c.WorkPaused))
                     issues.Add(new("food-paused", "Food is below two meals and edible-food workplaces are paused. Inspect a workplace to resume it.", Workplace: foodSites[0].Id));
                 else

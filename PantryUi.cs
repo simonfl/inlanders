@@ -39,9 +39,13 @@ public partial class Game
         Box(parent,new(0,.6f,.55f),new(2.5f,.18f,.42f),new("bb9b67"));
         if(stage<3) return;
         VillageRoof(parent,new(0,1.85f,0),2.9f,1.95f,.35f,new("798963"),false);
-        var colors=new Color[]{new("ba7183"),new("87a05e"),new("d8b575"),new("8badae"),new("b08067")};
-        for(int kind=0;kind<5;kind++) for(int n=0;n<site.PantryFood[kind];n++)
-            Box(parent,new(-.96f+kind*.48f,.62f+n/4*.12f,-.62f+n%4*.12f),new(.22f,.10f,.10f),colors[kind]);
+        var colors=new Color[]{new("ba7183"),new("87a05e"),new("d8b575"),new("8badae"),new("b08067"),new("bd5544")};
+        for(int kind=0;kind<World.EdibleKinds.Length;kind++) for(int n=0;n<site.PantryFood[kind];n++)
+        {
+            var at=new Vector3(-1f+kind*.4f,.62f+n/4*.12f,-.62f+n%4*.12f);
+            if(World.EdibleKinds[kind]==Inlanders.Simulation.Resource.Fruit)MakeFruit(parent,at,.06f);
+            else Box(parent,at,new(.22f,.10f,.10f),colors[kind]);
+        }
         FoodSign(parent,"NEIGHBORHOOD PANTRY",2.6f);
     }
 }

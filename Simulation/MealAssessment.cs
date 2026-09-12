@@ -26,7 +26,7 @@ public sealed partial class World
         var eaten=Food.MealConsumptions.Where(m=>m.Time>cutoff).ToArray();
         int served=People.Count(p=>outcomes.Count(m=>m.Person==p.Id && !m.Skipped)>=2);
         int dominant=eaten.GroupBy(m=>m.Kind).Select(g=>g.Count()).DefaultIfEmpty(0).Max();
-        int deliveries=RecentFood.Where(e=>e.Time>cutoff).Sum(e=>e.Berries+e.Vegetables+e.Bread+e.Fish+e.Game);
+        int deliveries=RecentFood.Where(e=>e.Time>cutoff).Sum(e=>e.Berries+e.Vegetables+e.Bread+e.Fish+e.Game+e.Fruit);
         return new(served,Population,outcomes.Count(m=>!m.Skipped),outcomes.Count(m=>!m.Skipped && !m.Timely),
             outcomes.Count(m=>m.Skipped),eaten.Length,eaten.Length-dominant,deliveries);
     }

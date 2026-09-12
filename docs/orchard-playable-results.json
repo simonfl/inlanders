@@ -1,0 +1,71 @@
+[
+  {
+    "route": "gardens",
+    "sawMiss": false,
+    "grownFruit": 0,
+    "eatenFruit": 0,
+    "grownVegetables": 144,
+    "stored": 6,
+    "meal": {
+      "ResidentsWithHistory": 8,
+      "Residents": 8,
+      "Closed": 24,
+      "Missed": 0,
+      "Skipped": 0,
+      "Eaten": 24,
+      "NonDominant": 0,
+      "Delivered": 28,
+      "Reliable": true,
+      "Varied": false,
+      "FreshSupply": true,
+      "Summary": "Residents with two closed meal requests: 8/8\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 24 \u00B7 outside dominant food: 0\nFresh deliveries: 28/24",
+      "Problem": "At least a quarter of food actually eaten must be outside the dominant food."
+    }
+  },
+  {
+    "route": "orchards",
+    "sawMiss": false,
+    "grownFruit": 152,
+    "eatenFruit": 136,
+    "grownVegetables": 0,
+    "stored": 10,
+    "meal": {
+      "ResidentsWithHistory": 8,
+      "Residents": 8,
+      "Closed": 24,
+      "Missed": 0,
+      "Skipped": 0,
+      "Eaten": 24,
+      "NonDominant": 0,
+      "Delivered": 26,
+      "Reliable": true,
+      "Varied": false,
+      "FreshSupply": true,
+      "Summary": "Residents with two closed meal requests: 8/8\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 24 \u00B7 outside dominant food: 0\nFresh deliveries: 26/24",
+      "Problem": "At least a quarter of food actually eaten must be outside the dominant food."
+    }
+  },
+  {
+    "route": "mixed",
+    "sawMiss": false,
+    "grownFruit": 64,
+    "eatenFruit": 61,
+    "grownVegetables": 88,
+    "stored": 8,
+    "meal": {
+      "ResidentsWithHistory": 8,
+      "Residents": 8,
+      "Closed": 24,
+      "Missed": 0,
+      "Skipped": 0,
+      "Eaten": 24,
+      "NonDominant": 11,
+      "Delivered": 22,
+      "Reliable": true,
+      "Varied": true,
+      "FreshSupply": false,
+      "Summary": "Residents with two closed meal requests: 8/8\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 24 \u00B7 outside dominant food: 11\nFresh deliveries: 22/24",
+      "Problem": "Fresh deliveries must cover actual eating and closed or skipped meal demand."
+    }
+  }
+]

@@ -42,7 +42,7 @@ public partial class Game
     private static int BuildingCategory(BuildingKind kind) => kind switch
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
-        BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
+        BuildingKind.Orchard or BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
         BuildingKind.Carpenter or BuildingKind.Sawmill or BuildingKind.Quarry=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
@@ -61,6 +61,7 @@ public partial class Game
             BuildingKind.Cottage=>"2 beds", BuildingKind.Lodge=>"4 beds",
             BuildingKind.Stockpile=>$"{_world.MaterialAt(site.Id,site.StorageMaterial)}/12 {site.StorageMaterial} · target {site.StorageTarget}",
             BuildingKind.VegetableGarden=>site.Harvest>0?$"{site.Harvest} vegetables ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to plant",
+            BuildingKind.Orchard=>site.Harvest>0?$"{site.Harvest} fruit ripe":site.Planted?$"{(site.OrchardMature?"Fruit growing":"Trees establishing")} · {site.Growth:P0}":site.OrchardMature?"Mature trees · batch held":"Ready to plant trees",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
             BuildingKind.Quarry or BuildingKind.HuntingLodge=>_world.ReadWorkplace(site).State,

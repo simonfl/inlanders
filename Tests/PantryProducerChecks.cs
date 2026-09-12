@@ -36,6 +36,8 @@ public static class PantryProducerChecks
                     w.Bushes.Clear();w.Bushes.Add(bush);origin=bush.Access;break;
                 case Resource.Vegetables:
                     origin=Ready(w,new(3,-3),BuildingKind.VegetableGarden).Entrance;role=Role.Farmer;break;
+                case Resource.Fruit:
+                    origin=Ready(w,new(3,-3),BuildingKind.Orchard).Entrance;role=Role.Farmer;break;
                 case Resource.Bread:
                     origin=Ready(w,new(6,-3),BuildingKind.Bakery).Entrance;role=Role.Baker;
                     w.Food.Grain=w.Food.GrownGrain=20;break;
@@ -59,6 +61,7 @@ public static class PantryProducerChecks
             Until(w,()=>w.FoodAt(pantry.Id,kind)>0,$"{kind} not deposited locally");
             Check(w.ReadFoodFlow().Delivered>0 && !w.People.Any(p=>p.Role==Role.Hauler),"Direct supply needed a hauler or failed fresh-delivery credit");
             Check(World.LoadJson(w.SaveJson()).SaveJson()==w.SaveJson(),"Deposited pantry save changed");
+            if(kind==Resource.Fruit){System.IO.Directory.CreateDirectory("artifacts/orchard-playable");w.SaveFile("artifacts/orchard-playable/pantry-fruit.json");}
             Console.WriteLine($"PASS: actual {kind} production, direct local deposit without hauler, in-flight save and closure redirection.");
         }
     }

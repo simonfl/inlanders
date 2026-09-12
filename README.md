@@ -21,7 +21,7 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 ## Main menu
 
-Launching opens a quiet, paused village behind the title screen. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Replay and replacing an existing village ask for confirmation, initially focused on Cancel.
+Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Replay and replacing an existing village ask for confirmation, initially focused on Cancel.
 
 The title screen offers:
 
@@ -41,6 +41,8 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 **Construction catalog:** press **B** to open keyboard browsing or return to it from a preview. Tab/Shift-Tab or Up/Down selects the category control and cards; Left/Right changes the focused category. Focused cards show their real costs and descriptions. Enter/Space selects a building and returns control to pointer placement, R rotation and camera movement. Esc or B closes keyboard browsing. Mouse clicks take over normally; Landscape and Existing retain their mouse controls.
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
+
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 34; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
@@ -143,7 +145,7 @@ A pile is an investment: a nearby plank pile reduced travel for a remote mill/lo
 
 ### Welcoming newcomers
 
-Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored berries/vegetables/bread for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
+Open **People [V] → Invite 2 newcomers**. You need two spare completed beds and stored edible food for two full meals after the pair arrives: **ten beds and 20 food** for your first invitation. Grain and food still being carried or produced do not count. The food stays in storage for meals.
 
 The pair joins near the timber yard, unassigned. Select them in People and choose their jobs. Keep adding housing and food to invite more pairs. Arrivals are optional in the five introductory campaigns and free play; Across the river requires expansion. Every new settlement starts with eight people.
 
@@ -171,7 +173,7 @@ Choose **Orbit [J]** for a slow two-minute circle around the current focus. This
 
 Press **U** or choose **Economy → Survey map resources** to inspect fish grounds, stone outcrops and woodland habitat. Click a marker or choose a source in the inspector to see stock, reservations, recovery and access. Workplace links open related sites; **Back to source** returns to the resource. **U / Esc** finishes surveying. Placement and Watch mode also end it. See the [resource survey review](docs/RESOURCE_SURVEY_F21J.md).
 
-Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored berries, vegetables, and bread and assumes no new deliveries.
+Open **Economy [I]** or click a resource in the top bar. See available, reserved, carried, and workplace inventories, remaining construction demand, and full meals in storage. Food coverage counts only stored edible food and assumes no new deliveries.
 
 The Economy badge counts current issues. Click a shortage message to open the relevant build, staffing or resume controls. If edible-food workplaces are paused, a low-food warning opens a workplace instead of asking for more staff. Idle-worker links show the actual waiting reason. Warnings clear as conditions improve; ordinary crop growth and full stock targets can leave workers idle without indicating a problem.
 
@@ -187,7 +189,7 @@ Expand the **resource target** button to set a threshold from 0–200 in steps o
 
 ### Food and work
 
-- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, sharing available berries, vegetables and bread as evenly as supply allows. Raw grain is not edible.
+- One game day lasts 60 simulation seconds. One food unit per villager is consumed each day, sharing available edible foods as evenly as supply allows. Raw grain is not edible.
 - Berry bushes regenerate. A forager hut supports two foragers; each farm and bakery supports one active worker at a time.
 - Farms show staked soil, dug beds, and timber edging during construction; forager huts gain posts, rafters, and a green canopy.
 - Wheat grows from green shoots to golden ears. Harvested grain leaves matching columns of stubble, making the remaining crop visible.

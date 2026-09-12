@@ -60,6 +60,7 @@ public partial class Game
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",
         BuildingKind.VegetableGarden => "Supports 1 farmer. Grows 8 vegetables in 60 seconds after planting; harvested in pairs and carried to the pantry. Eaten directly without a bakery. Farmers share gardens and grain farms.",
         BuildingKind.Farm => "Supports 1 farmer. Grows 6 grain in 45 seconds; harvest loads hold up to 4. Grain needs a bakery before villagers can eat it.",
+        BuildingKind.Orchard => "1 farmer plants trees once. First fruit takes 3 minutes; mature trees grow 8 fruit every 60 seconds after picking. Farmers carry pairs to food storage. Keep quick food during establishment. Targets hold new batches; clearing loses mature trees.",
         BuildingKind.Bakery => "Supports 1 baker. Bakes 2 grain into 4 loaves in 10 work seconds; carries the whole batch. Build near the pantry to shorten trips.",
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
@@ -92,6 +93,7 @@ public partial class Game
             Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = key;
             if (_plantingTrees) MakeTree(Vector3.Zero, 0.4f, new("8cad69")).Reparent(_ghostModel, false);
             else MakeBuilding(_ghostModel, new Cottage { Kind = _buildKind }, 3);
+            if(!_plantingTrees && _buildKind==BuildingKind.Orchard)MakeOrchardTrees(_ghostModel,new Cottage{Kind=_buildKind,Planted=true,OrchardMature=true,Harvest=8},4);
             PreparePreview(_ghostModel);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);

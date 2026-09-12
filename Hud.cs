@@ -61,7 +61,7 @@ public partial class Game
         layer.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _topBar = HudPanel(_hud); var top = new HBoxContainer(); top.AddThemeConstantOverride("separation", 16); _topBar.AddChild(top);
         _brand = Text("INLANDERS", 18); _brand.Modulate = _cream; top.AddChild(_brand);
-        foreach (var resource in new[] { Resource.Logs, Resource.Planks, Resource.Berries, Resource.Grain, Resource.Bread, Resource.Vegetables, Resource.Fish, Resource.Stone, Resource.Game })
+        foreach (var resource in new[] { Resource.Logs, Resource.Planks, Resource.Berries, Resource.Grain, Resource.Bread, Resource.Vegetables, Resource.Fish, Resource.Stone, Resource.Game, Resource.Fruit })
         {
             var col = new VBoxContainer { CustomMinimumSize = new(62, 0), SizeFlagsHorizontal = Control.SizeFlags.ExpandFill };
             col.AddThemeConstantOverride("separation", 0); top.AddChild(col);
@@ -231,6 +231,7 @@ public partial class Game
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
         _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · select a sawmill to inspect its stock target";
         _resourceValues[Resource.Game].GetParent<Control>().Visible=_world.Map.Wildlife.Count>0 || _world.Food.HuntedGame>0;
+        _resourceValues[Resource.Fruit].GetParent<Control>().Visible=_world.Cottages.Any(c=>c.Kind==BuildingKind.Orchard) || _world.Food.GrownFruit>0;
         _resourceValues[Resource.Fish].GetParent<Control>().Visible=_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0;
         _resourceValues[Resource.Stone].GetParent<Control>().Visible=_world.Map.StoneDeposits.Count>0 || _world.Stone>0;
         // Conditional resource columns can grow the panel before their visibility settles.
@@ -276,6 +277,7 @@ public partial class Game
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.VegetableGarden => $"Vegetables · 1 farmer slot\nCrop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe\n8 food per harvest · eaten directly",
+            BuildingKind.Orchard => OrchardDescription(selected),
             BuildingKind.Farm => $"Crop {selected.Growth:P0}\n{selected.Harvest} grain ripe", _ => $"Oven: {selected.InputGrain} grain\n{selected.OutputBread} loaves ready"
         } : $"Construction {selected.Construction:P0}\n{selected.Delivered}/{selected.Required} {selected.Material.ToString().ToLowerInvariant()} delivered\n{selected.Incoming} on the way"+(selected.RequiredStone>0?$"\n{selected.DeliveredStone}/{selected.RequiredStone} stone delivered · {selected.IncomingStone} on the way":""));
         foreach (var b in _priorityButtons) b.Visible = selected != null && !selected.Complete;
