@@ -3,9 +3,9 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **4**.
+- Playable checkpoints since adoption: **5**.
 - Last periodic review: **none yet**.
-- Next four-role review: **checkpoint 5**.
+- Next four-role review: **checkpoint 5 — due now, before further implementation**.
 - Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
@@ -18,6 +18,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 2 | `3b85cf4` | F21t: optional named workplace assignments, reserved slots, explicit controls and safe job transitions. [Evidence](WORKPLACE_ASSIGNMENTS_F21T.md). | Bounded game-design/UX reviews informed policy; periodic four-role review remains due at 5. |
 | 3 | `a41c734` | F16f: Creative bush relocation with preserved food state, picker release, protected routes and explicit confirmation. [Evidence](BUSH_RELOCATION_F16F.md). | Bounded source/game-design review informed scope; periodic four-role review remains due at 5. |
 | 4 | `9c46539` | F12h: Creative terrace selection, Before/After, full-border preview, Apply and Undo. [Evidence](TERRAIN_SHAPING_F12H3.md). | Presentation review corrected board/scenery preservation and border legibility; four-role review remains due at 5. |
+| 5 | `1c89149` | F09e: always-open fence gateways, path coexistence, four saved facings and side-only connections. [Evidence](FENCE_GATEWAY_F09E2.md). | Presentation review accepted the model and verified clarity fixes; periodic four-role review is now due. |
 
 F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md). F12h3 now delivers their player controls; the combined feature counts once as checkpoint 4. Its bounded game-design review does not replace the periodic review.
 
@@ -28,5 +29,7 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 ## Review records
 
 Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TERRAIN_SHAPING_F12H3.md). One independent visual reviewer verified corrected scenery preservation and plot/border legibility; no human play, motion or listening claimed. The periodic four-role review remains due at 5.
+
+Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; periodic four-role review remains outstanding.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
