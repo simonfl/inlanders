@@ -3,13 +3,15 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **8**.
+- Playable checkpoints since adoption: **9**.
 - Last periodic review: **checkpoint 5**, [whole-project assessment](REVIEW_CHECKPOINT_5.md). Four roles reported; interactive playtest not performed (native capture hung).
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 10**, with whole-project scope and the visual/audio role. Interactive campaign observation remains an earlier follow-up.
 - Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**F27a combined delivery — `d27335c`, September 13, 2026:** [chosen entry, complete player-control journey and limits](NEIGHBORHOOD_DELIVERY_F27A.md). Scripted construction/facing, welcome, natural food shortage, replacement food-chain recovery and save/load pass at 960/1440. Paused producer meal reservations are corrected and regression-tested. Multiple viable arrangements were established by the paired comparisons. Count the combined gameplay outcome once as **9**; its foundations did not count. This is an introduction, not the challenging campaign or a human enjoyment verdict. Next is one food/land situation and the mandatory whole-project checkpoint-ten review. F27b remains unaccepted.
 
 **T02 siting decision — September 13, 2026:** [six-arm follow-up](WORKPLACE_FOOD_T02.md) establishes viable western foraging without a pantry and meadow foraging with one. Corrected interpretation of the prior orientation-first placement helper; no runtime balance change. Choose workplace production/distribution and stop balance iteration. Supply help now reflects actual routes; rendered probe passes. Evidence and a guidance fix within the same experiment, count **8**.
 
@@ -41,6 +43,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 6 | `5e5fdb5` | F12h4: distinct terrain blocker markers, actionable refusal and inline blocked Undo with retry. [Evidence](TERRAIN_FEEDBACK_F12H4.md). | Focused simulation and rendered UI checks at 960/1440; whole-project review remains due at 10. |
 | 7 | `4307a8f` | F21u: accurate orchard assignment guidance, UI recovery and stronger original-versus-reload evidence. [Evidence](ASSIGNMENT_GUIDANCE_F21U.md). | Focused simulation and rendered People/inspector checks at 960/1440; whole-project review remains due at 10. |
 | 8 | `3d857aa` | F11d/F18d: ordinary opening/river observation, matched finale alternatives and recovery, clearer central-grain guidance. [Evidence](CAMPAIGN_REVIEW_F11D.md). | Real native play and separate simulation/rendered checks; does not backdate checkpoint-five playtest. Whole-project review remains due at 10. |
+| 9 | `d27335c` | F27a: chosen neighborhood workflow, real welcome and recoverable local food economy; [full UI journey and evidence](NEIGHBORHOOD_DELIVERY_F27A.md). | Scripted controls at 960/1440, paired recovery/siting and current saves. Native play/listening and human enjoyment unknown. Whole-project five-role review due at 10. |
 
 F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md). F12h3 now delivers their player controls; the combined feature counts once as checkpoint 4. Its bounded game-design review does not replace the periodic review.
 
