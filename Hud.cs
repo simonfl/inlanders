@@ -16,6 +16,7 @@ public partial class Game
     private readonly List<Button> _roster = new(), _priorityButtons = new(), _menuButtons = new();
     private readonly Dictionary<int, Button> _queueButtons = new();
     private readonly Dictionary<BuildingKind, Button> _kindButtons = new();
+    private VBoxContainer _legacyMapOptions=null!;
     private VBoxContainer _queue = null!, _personDetails = null!, _buildingDetails = null!;
     private ProgressBar _progress = null!;
     private TabContainer _tabs = null!;
@@ -202,9 +203,10 @@ public partial class Game
         _resetButton = Button("Start again (keeps previous village)", Reset); column.AddChild(_resetButton);
         MakeRecoveryUi(column);
         column.AddChild(Button("Return to main menu", ReturnToMainMenu));
-        column.AddChild(Button("Explore larger map", OpenLargeMap));
-        column.AddChild(Button("Return to original map", OpenOriginalMap));
-        column.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
+        _legacyMapOptions=new();column.AddChild(_legacyMapOptions);
+        _legacyMapOptions.AddChild(Button("Explore larger map", OpenLargeMap));
+        _legacyMapOptions.AddChild(Button("Return to original map", OpenOriginalMap));
+        _legacyMapOptions.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
         MakeAtmosphereUi(column);
         column.AddChild(Text("SOUND", 12)); MakeAudioUi(column);
         column.AddChild(Text("CONTROLS", 12));
@@ -226,6 +228,7 @@ public partial class Game
         UpdateCameraViewsUi(); UpdateVisitorUi();
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
+        _legacyMapOptions.Visible=_world.Neighborhood==null;
         _foodStatus.Text = _world.Creative ? (_world.IsArrangementCourt?"Free arrangement":"Creative") : _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
         _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? (_world.IsArrangementCourt?"Real meals without hunger penalties. Work stays at full speed; missing food does not lower mood. Construction is instant and free.":"Creative: food needs disabled; full work speed. Production and hauling still use real resources.") : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");

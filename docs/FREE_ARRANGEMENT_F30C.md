@@ -1,6 +1,6 @@
 # F30c — free arrangement and daily life
 
-September 13, 2026. One playable outcome, checkpoint **22**. The presentation review will assess the fixed implementation commit before the next feature. Periodic whole-project review remains **25**.
+September 13, 2026. One playable outcome, checkpoint **22**. The [independent presentation review](PRESENTATION_REVIEW_F30C.md) assessed fixed commit `83f99c4` and prioritizes recognizable daily life before campaign selection. Periodic whole-project review remains **25**.
 
 ## What changed
 
@@ -23,12 +23,12 @@ The resident card starts with the current activity and a short meal heading. Jou
 
 These are deterministic behavior observations, not preference scores or an isolated causal experiment. Layout and forgiving rules both differ. A separate quiet-village arm observes home waiting, removes a home, runs a genuine shortage, resumes production, removes a selected welcome table, then removes a producer with a live local meal claim. Resource validation and exact saves pass. Free construction/removal also preserves accounting.
 
-The normal court layout/paused-shortage comparison, relocation, batch removal and daily journey reader checks pass. Both projects build without warnings. The full rendered main-menu/recovery suite passes at 960/1440 for historical campaign/sandbox paths. New scripted Creative court controls pass at 1440 from the opposite camera: menu, two paused moves, actual placement/removal, real collection/eating, card dismissal, save/load, Continue/Resume, normal-slot isolation and Reset. Clean fixed-source 960/1440 presentation captures and review follow in the presentation report; early dirty-source captures are exploratory only.
+The normal court layout/paused-shortage comparison, relocation, batch removal and daily journey reader checks pass. Both projects build without warnings. The full rendered main-menu/recovery suite passes at 960/1440 for historical campaign/sandbox paths. New scripted Creative court controls pass at 1440 from the opposite camera: menu, two paused moves, actual placement/removal, real collection/eating, card dismissal, save/load, Continue/Resume, normal-slot isolation and Reset. Clean fixed-source 960/1440 presentation captures and the independent verdict are recorded in the presentation report; early dirty-source captures are exploratory only.
 
 ## Product limits and next decision
 
 The opening can now be rearranged freely while daily life continues. Early expanded views show people at more home/river/garden locations, but roof occlusion and small activity silhouettes remain. Shorter cards cover less ground; they cannot establish that the closed-card village is self-explanatory. No native uncoached play, human preference, continuous-motion judgment, listening or native frame-performance acceptance is claimed.
 
-Keep the content freeze. The next decision is whether constrained settlement transformation or free place-making gives a reason to observe and continue. Do not manufacture another level, resource or quota to avoid that question. Use the [observation sheet](COURT_OBSERVATION.md); let the fixed-source independent presentation verdict revise F30d before further implementation.
+Keep the content freeze. The next decision is whether constrained settlement transformation or free place-making gives a reason to observe and continue. Do not manufacture another level, resource or quota to avoid that question. Use the [observation sheet](COURT_OBSERVATION.md); the independent verdict now splits F30d into recognizable daily life (F30d1), then the supported-experience decision (F30d2).
 
 Tooling used existing named fixtures, capture/provenance and build preflight. No new framework. The same-age expanded/arranged fixtures eliminate replaying an invitation and construction sequence manually for every camera; maintenance is two small fixture variants. More capture machinery cannot replace the missing human observation.

@@ -15,6 +15,10 @@ public partial class Game
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();
         await UiClick(_mainButtons["New free arrangement"]);await Frames();
         Check(_world.Creative && _world.IsArrangementCourt && _paused && !_drawer.Visible && CurrentSavePath==CreativeCourtPath,"Free arrangement entry/slot failed");
+        Check(_notice.Contains("Real meals") && _notice.Contains("Space"),"Entry guidance was overwritten");
+        ToggleDrawer(3);await Frames();Check(!_legacyMapOptions.IsVisibleInTree(),"Court exposes historical map shortcuts");
+        string same=_world.SaveJson();OpenLargeMap();OpenOriginalMap();Check(_world.SaveJson()==same && _world.SimulatesMeals,"Map shortcut silently changed rules");CloseDrawer();
+        ToggleDrawer(1);await Frames();Check(_inviteButton.TooltipText.Contains("eight shared workers"),"Arrival guidance has wrong count");CloseDrawer();
         _noticeUntil=0;await CaptureReviewBundle("free-opening");
         var homes=_world.Cottages.Where(c=>c.Kind==BuildingKind.Cottage).Take(2).ToArray();
         foreach(var home in homes)
@@ -48,6 +52,9 @@ public partial class Game
         }
         Check(collected && _world.Food.EatenBerries+_world.Food.EatenVegetables>0 && _world.Food.Hunger==0,"Free village did not collect and eat real meals");
         _focus=OnGround(3,3);_camera.Size=29;UpdateCamera();_noticeUntil=0;await Frames();Check(!_dailyCard.Visible,"Closed card reopened");await CaptureReviewBundle("free-daily-life-card-closed");
+        ToggleDrawer(4);await Frames();
+        Check(_economyFood.IsVisibleInTree() && !_economyFood.Text.Contains("no meals are consumed") && !_economyFood.Text.Contains("full credit") && _economyFood.Text.Contains("do not slow work") && _foodFlow.Text.Contains($"current meal demand {_world.Population} / minute"),"Economy contradicts physical Creative meals");
+        _drawerPages[4].EnsureControlVisible(_economyFood);await Frames();await CaptureReviewBundle("free-economy-rules");CloseDrawer();
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved,"Free save/load changed village");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==saved,"Continue changed free mode");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();await UiClick(_mainButtons["Resume free arrangement"]);await Frames();

@@ -73,9 +73,10 @@ public partial class Game
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
             $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game · {flow.Fruit} fruit\n" +
             $"Portions eaten: {flow.Eaten} · closed/skipped demand: {flow.Required}\n" +
-            (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.Creative ? 0 : _world.Population)} / minute\n" : "Rates appear after one minute.\n") +
+            (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.SimulatesMeals ? _world.Population : 0)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts first producer deliveries; transfers are not new supply. Eating and deadlines occur at different times. Excludes supper and trades.";
-        _economyFood.Text = _world.Creative ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} population-sized meals in storage\n{_world.Population} portions requested per minute, staggered by resident\nFood must be collected and eaten; stored portions do not prove service. Grain is not edible.";
+        _economyFood.Text = !_world.SimulatesMeals ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} population-sized meals in storage\n{_world.Population} portions requested per minute, staggered by resident\nFood must be collected and eaten; stored portions do not prove service. Grain is not edible.";
+        if(_world.Creative && _world.SimulatesMeals)_economyFood.Text+="\nMissing meals do not slow work or lower mood in free arrangement.";
         if(!_world.Creative) _economyFood.Text+="\n\n"+_world.ReadMealAssessment().Summary;
         if (!_world.Creative) _economyFood.Text += "\n\n" + _world.LastMealSummary;
         int count=_economyReport.Issues.Length;

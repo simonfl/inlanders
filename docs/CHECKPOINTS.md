@@ -8,12 +8,12 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
 - Next four-role review: **checkpoint 25**, whole-project scope. Native observation remains outstanding.
-- Latest presentation-triggered review: **checkpoint 21**, [fresh independent visual/audio role](PRESENTATION_REVIEW_F30AB.md), fixed `b85455c`.
-- Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including F30c if it changes activity/occlusion, trigger earlier reviews.
+- Latest presentation-triggered review: **checkpoint 22**, [fresh independent visual/audio role](PRESENTATION_REVIEW_F30C.md), fixed `83f99c4`. Whole-game still/source review; no native play/listening acceptance.
+- Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including the next F30d1 activity/occlusion comparison, trigger earlier reviews.
 
 ## Chunk ledger
 
-**F30c free arrangement — September 13, 2026:** [Delivery and comparison](FREE_ARRANGEMENT_F30C.md). Unified Creative court with physical meals/shared work, free multi-building editing, home waiting and a compact dismissible resident card. One playable outcome, count **22**. Presentation-triggered review is pending on the fixed implementation commit; do not implement the next feature until synthesis. Periodic review remains **25**.
+**F30c free arrangement — September 13, 2026:** [Delivery and comparison](FREE_ARRANGEMENT_F30C.md). Unified Creative court with physical meals/shared work, free multi-building editing, home waiting and a compact dismissible resident card. One playable outcome, count **22**. [Independent presentation review completed](PRESENTATION_REVIEW_F30C.md) on `83f99c4`: retain free editing and art direction, prioritize recognizable daily life before campaign choice. Entry notice and historical-map shortcut corrections follow the fixed review; no additional outcome. Periodic review remains **25**.
 
 **F30a/F30b Willow court — September 13, 2026:** [Combined arrangement-and-life comparison](COURT_F30AB.md). Composed inherited court, direct actual/available meal routes, one-building reversible trial, shared-work advice and bounded diagnostic/preflight tools. One playable outcome, count **21**. [Independent presentation review completed](PRESENTATION_REVIEW_F30AB.md) on `b85455c`: retain court composition, advance to forgiving multi-building place-making with activity/occlusion criteria. No native play/listening acceptance. Periodic whole-project review stays **25**.
 

@@ -58,6 +58,7 @@ public partial class Game
     private string CurrentSavePath => _world.Creative && _world.IsArrangementCourt?CreativeCourtPath:_world.Neighborhood!=null?_neighborhoodPath:SandboxSavePath(_world.Map.Name == "Three clearings", _world.Creative);
     private void OpenLargeMap()
     {
+        if(_world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
         try
         {
             if (_world.Map.Name == "Three clearings") { FrameMap(); CloseDrawer(); return; }
@@ -71,6 +72,7 @@ public partial class Game
     }
     private void OpenOriginalMap()
     {
+        if(_world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
         try
         {
             if (_world.Campaign == null && _world.Map.OriginalOutline) { FrameMap(); CloseDrawer(); return; }

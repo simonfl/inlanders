@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**F30c delivered; fixed-source presentation review next, then F30d's experience decision.** [Free arrangement and comparison](FREE_ARRANGEMENT_F30C.md) aligns ordinary Creative with shared work and physical meals, free multi-building editing and explicit hunger forgiveness. Court workers wait near home when work is quiet; the resident card is compact and dismissible. Sixteen-resident meals/rest/recreation and current saves pass; roof occlusion and enjoyment remain open. Count **22**; periodic whole-game review **25**. New levels/resources/needs stay frozen. The pending independent presentation synthesis must revise the next decision before implementation.
+**Active next: F30d1, recognizable daily life before campaign selection.** [F30c delivered](FREE_ARRANGEMENT_F30C.md); its [independent presentation review](PRESENTATION_REVIEW_F30C.md) retains free arrangement, shared physical life and current art language. Multi-building edits open real space and home waiting disperses people, but readable activity remains unresolved. Compare normal framing, activity silhouettes/contact and foreground obstruction as one experience; then F30d2 chooses finite transformation, a village toy or a justified combination. Count **22**; periodic whole-game review **25**. New levels/resources/needs stay frozen.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
@@ -18,7 +18,7 @@ Current foundation: **opening and Willow inlet, a meadow comparison, 18 building
 
 ## Delivered F28 sequence
 
-The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is delivered. The checkpoint-20 review merges food interaction and scene composition into one experiment; Creative rule alignment and progression cleanup follow conditionally. The active queue supersedes separate F30a/F30b delivery.
+The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is delivered. The checkpoint-20 review merges food interaction and scene composition into one experiment; Creative rule alignment is delivered in F30c; progression cleanup follows the F30d1 activity comparison and F30d2 experience choice. The active queue supersedes separate F30a/F30b delivery.
 
 | Order | ID | Status | Player outcome / decision |
 | --- | --- | --- | --- |

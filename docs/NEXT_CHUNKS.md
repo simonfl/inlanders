@@ -1,20 +1,22 @@
-# Next chunks — a place worth arranging and watching
+# Next chunks — readable daily life before more campaign
 
-September 13, 2026. Count **22**. [F30c delivery](FREE_ARRANGEMENT_F30C.md) completes the forgiving arrangement comparison. Run its fixed-source independent presentation review before the next feature. Next periodic whole-game review **25**, regular visual/audio **30**, plus substantial-presentation triggers.
+September 13, 2026. Count **22**. [F30c delivery](FREE_ARRANGEMENT_F30C.md) and [independent whole-game presentation review](PRESENTATION_REVIEW_F30C.md) are complete. Next periodic whole-game review **25**, regular visual/audio **30**, plus substantial-presentation triggers.
 
-Free construction now keeps actual meals/shared work and optional welcoming. Home waiting spreads available residents toward their homes; compact cards expose less of the village. Functional correctness and early stills support trying this direction, not accepting its enjoyment or declaring occlusion solved. Freeze new levels, resources and needs. All buildings remain available, seasons removed, saves disposable.
+Free arrangement opens meaningful village space and preserves daily life. Home waiting disperses available residents; compact cards cover less ground. The unresolved question is whether players can recognize activity and find a reason to keep watching. Keep current art language and free editing; freeze new levels/resources/needs. All buildings remain available, seasons removed, saves disposable.
 
-## 1. F30c — delivered; presentation verdict pending
+## 1. F30d1 — recognizable daily life as an experience
 
-Free multi-building editing, instant construction/removal, hunger forgiveness, home waiting, compact/dismissible cards and separate current saves are implemented. Matched sixteen-resident edits preserve ongoing meals, home rest and recreation. Full menu/recovery and targeted simulation checks pass. See delivery for evidence and limits.
+Compare the current inhabited court with one coherent presentation candidate. Change normal camera scale, activity silhouette/contact and foreground obstruction together where needed. Occupied ground and visible actions should lead the scene; buildings should frame them. Reuse real working, eating, resting and recreation routines. Do not add forced longer journeys, new jobs, hunger pressure, tiny ornamental props or permanent task labels to manufacture visible life.
 
-Review clean fixed-source expanded/no-edit versus freely arranged scenes at 960/1440 and opposite cameras, with the diagnostic card closed. Keep ordinary campaign, dense settlement and title evidence in whole-game context. Assess whether activity is recognizable and the arrangement worthwhile; record unobserved motion/audio and human preference honestly. The independent synthesis may retain, narrow or replace F30d. No routine queue execution before that verdict.
+Use sixteen residents, no-change and self-chosen free arrangement, 960/1440 and opposite cameras. Observe with cards closed at 1×; use 3× for waits. An observer should point out work, food collection/eating and time near home/a shared place, explain what their arrangement changed, and name a desired second change without receiving an objective. Preserve direct editing/inspection as fallback. Record missing human observation honestly; script completion is not perceptual acceptance.
 
-## 2. F30d — choose the supported experience and small campaign
+Reject a candidate that works only in a staged close-up, one camera, source explanation or an open card. If clearer activity still offers no reason to continue, stop treating endless place-making as the assumed core pleasure. One coherent outcome, followed by a fresh presentation review for substantial changes; periodic count does not reset.
 
-Use the comparisons and actual player observation to choose finite settlements, arrangement-led continuation or a justified combination. Keep opening/inlet only if they offer distinct experiences. Meadow is a comparison, not a promised third act. Retire unsuccessful player-facing experiment entries; retain fixtures and useful river/lake/quarry/woodland geography. Archive redundant recipes and assessment progression.
+## 2. F30d2 — choose the supported experience and small campaign
 
-Decide whether orchard, comfort and three civic scales provide distinct pleasure or should be consolidated/de-emphasized. No further level until we can state why someone wants to play it. No compulsory building restrictions or new needs just to make the catalogue count grow.
+After the activity comparison, choose finite authored transformation, a free village toy or a justified combination. These are alternatives, not commitments to preserve both. Keep opening/inlet only if they offer distinct experiences. Meadow is a comparison, not a promised third act. Retire unsuccessful ordinary experiment entries while preserving fixtures and useful river/lake/quarry/woodland geography. Archive redundant recipes and assessment progression.
+
+Decide whether orchard, comfort and three civic scales supply distinct pleasure or should be consolidated/de-emphasized. No additional level until its intended decisions and satisfaction are clear. Do not add building restrictions, quotas or needs merely to make the catalogue serve as progression.
 
 ## Tooling: use what is now available
 

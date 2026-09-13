@@ -55,7 +55,7 @@ public partial class Game
         _inviteButton.Text=_world.Neighborhood!=null?$"Welcome {_world.NeighborhoodArrivalWord} neighbors":"Invite 2 newcomers";
         if(_world.Neighborhood!=null) {
             _arrivalInfo.Text=_world.NeighborhoodStatus+(_world.Neighborhood.CommittedAt==null?"\n"+(problem??"Ready to commit. No spare beds or food reserve required."):"");
-            _inviteButton.TooltipText="One commitment: four shared workers arrive after 90 seconds. Insufficient housing or food does not cancel their arrival.";
+            _inviteButton.TooltipText=$"One commitment: {_world.NeighborhoodArrivalWord} shared workers arrive after 90 seconds. Insufficient housing or food does not cancel their arrival.";
         }
         _housing.GetParent<Control>().TooltipText = $"{_world.Housed} housed of {_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare";
     }
