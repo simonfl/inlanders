@@ -83,7 +83,9 @@ public partial class Game
                 File.WriteAllText(Path.Combine(_reviewDirectory,"observation.json"),JsonSerializer.Serialize(new{
                     startSimulationSeconds=start,endSimulationSeconds=_world.Food.Time,speed=_speed,
                     wallSeconds=_reviewTimer.Elapsed.TotalSeconds-wallStart,
-                    mode="Normal process advancement with before/after snapshots; not a recording or human observation",
+                    mode=request.TryGetProperty("movieFps",out var movieFps) && movieFps.GetInt32()>0?
+                        $"Engine movie at {movieFps.GetInt32()} fixed frames/second; recording/encoding time is not native frame performance":
+                        "Normal process advancement with before/after snapshots; not a recording or human observation",
                     tasks=_world.People.GroupBy(p=>p.Task.ToString()).ToDictionary(g=>g.Key,g=>g.Count())},new JsonSerializerOptions{WriteIndented=true}));
                 await CaptureReviewBundle();
             }

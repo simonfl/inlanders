@@ -1,6 +1,6 @@
 # Next chunks — neighborhood redesign
 
-September 13, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. T01 is delivered; **F27b is active**. F27a remains unaccepted after spatial and recovery comparisons. Campaign changes depend on the experience decision.
+September 13, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. T01 is delivered; **T02 is active**. F27a remains unaccepted after spatial and recovery comparisons. Campaign changes depend on the experience decision.
 
 ## 1. T01 — reach and inspect useful game states cheaply
 
@@ -30,9 +30,9 @@ Deliver a playable start → commitment → shortage/recovery → inhabited payo
 
 ## 3. F27b — make the whole neighborhood inviting
 
-**In progress:** the [first presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the board treatment; the [valley follow-up](PRESENTATION_REVIEW_F27B_2.md) retains the experimental direction but withholds acceptance. A major HUD landing-search stall is fixed and measured. Next distinguish inaccessible woodland/ground and connect one outdoor cluster, then inspect awkward layouts and actual motion. Current compact Goals, contextual labels and original camera are retained. No playable increment yet.
+**Retained comparison candidate:** [third independent review](PRESENTATION_REVIEW_F27B_3.md) supports the bounded valley treatment and says to move to T02 now. Land distinction, connected outdoor ground and awkward/dense evidence are sufficient for experience comparison; do not start another general art pass. F27b is not fully accepted: motion, audio and unfamiliar-player interpretation remain open.
 
-**Active next chunk.** Gameplay experiments exposed unresolved economics; whole-scene appeal can be tested independently. Preserve the blockout as a comparison and do not claim F27a complete to advance here. See the [direction decision](NEIGHBORHOOD_HUNGER_EXPERIMENT.md).
+Gameplay experiments exposed unresolved economics; the retained scene is ready for experience comparison. Preserve the blockout as a comparison and do not claim F27a complete to advance here. See the [direction decision](NEIGHBORHOOD_HUNGER_EXPERIMENT.md).
 
 Apply a coherent alternative to the running slice: shore/land contours, vegetation groups, building masses and silhouettes, outdoor work/social spaces, lighting, camera framing and normal management UI. Favor an authored storybook landscape; compare a deliberately crafted tabletop treatment if cheap. No isolated hero building or automatic prop-density pass.
 
@@ -41,6 +41,8 @@ Try a narrow authored Godot scene/mesh seam if it speeds changes to a home, work
 Reject a treatment that succeeds only as a staged screenshot, obscures actions or requires disproportionate custom dressing. Check representative frame behavior; investigate native stalls before optimization if they compromise comparison. The playable scene treatment counts once, provisionally checkpoint 10. Run the regular whole-project review at that checkpoint, including independent visual/audio and actual play attempts, before further delivery. The strategic review's thread-limit/context and no-new-gameplay limitations do not waive cadence requirements.
 
 ## 4. T02 — compare experiences and choose what survives
+
+**Active now.** Use the retained original/valley scenes and the awkward mixed-facing meadow fixture. Stop static art iteration. Preserve the user's demand for skill and recoverable decisions: post-welcome idleness is not a successful core loop. Actual motion, interaction and sound evidence take priority over more images; document access limits honestly.
 
 Finish the narrow runner begun with F27a: shared baseline, named variants, observation windows, concise results, failed layouts and recovery branches. Reuse the finale runner's orchestration pattern. Avoid a universal rules editor or generalized replay system. On its second use, measure setup code/time saved and maintenance required.
 

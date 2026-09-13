@@ -6,9 +6,9 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active next: F27b, whole-scene presentation and village-arrangement comparison.** [Removing the hunger slowdown](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) did not stabilize the replacement food strategies. Stop incremental recovery adjustments; keep the welcome introductory and F27a unaccepted. Test the whole visual/interaction experience before choosing optional-production village-making versus a substantial logistics redesign. No campaign rollout yet.
+**Active next: T02, experience comparison and direction decision.** [Removing the hunger slowdown](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) did not stabilize the replacement food strategies. Stop incremental recovery adjustments; keep the welcome introductory and F27a unaccepted. Test the whole visual/interaction experience before choosing optional-production village-making versus a substantial logistics redesign. No campaign rollout yet.
 
-The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. Next resolve decorative-land/resource ambiguity and connected outdoor space. No visual acceptance or playable checkpoint is claimed.
+The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
 The [strategic review](STRATEGIC_REVIEW_8.md) replaces incremental polishing with comparative redesign. Current features and ten levels are hypotheses, not commitments to preserve.
 
@@ -24,8 +24,8 @@ The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md).
 | --- | --- | --- | --- |
 | 1 | T01 | Delivered | [Four named scenes and evidence bundles](REVIEW_TOOLING_T01.md); explicit preparation/checks, F8 capture, reopening and stale rejection; warm captures 9–13s. Measure upkeep during actual redesign. |
 | 2 | F27a | In progress | [Neighborhood experiment](NEIGHBORHOOD_F27A.md): local grain, shared work, building staffing, committed arrivals and physical welcome activity implemented; normal menu/goals/save integration implemented; authored layout decisions, strategy/recovery comparisons and ordinary play still required. No playable checkpoint yet. |
-| 3 | F27b | In progress | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
-| 4 | T02 | Alongside experiment, then decision | Reusable matched comparisons and ordinary play; explicitly retain, cut or redesign based on experience, not completion alone. |
+| 3 | F27b | Candidate retained; acceptance pending | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
+| 4 | T02 | Active | Reusable matched comparisons and ordinary play; explicitly retain, cut or redesign based on experience, not completion alone. |
 | 5 | F27c | Conditional | Consolidate introductions and replace repetitive campaign objectives with distinct situations, only after choosing the direction from comparison. |
 
 Tooling is a first-class investment with bounded cost, beneficiaries and payoff measurements in the [tooling assessment](ITERATION_TOOLING_REVIEW.md). Reuse existing capture/fixtures before building infrastructure. UI is central to F27a/b, not a later polish item. F21v feeds placement clarity where needed; audio listening accompanies F27b; native stall attribution remains open and moves forward if it compromises the slice. Defer new needs/producers and broad Creative expansion.

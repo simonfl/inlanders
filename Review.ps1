@@ -9,7 +9,8 @@ param(
     [string]$Bundle,
     [switch]$ProbeControls,
     [switch]$Storybook,
-    [ValidateRange(0,60)][int]$ObserveSeconds=0
+    [ValidateRange(0,60)][int]$ObserveSeconds=0,
+    [switch]$Movie
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
@@ -21,7 +22,8 @@ if ($scenarioEntry.Count -ne 1) { throw "Unknown scenario '$Scenario'. Run ./Rev
 $scenarioEntry=$scenarioEntry[0]
 if($Bundle -and $Action -notin @('Inspect','Capture','Check')) { throw '-Bundle applies to Inspect, Capture or Check.' }
 if($ProbeControls -and $Action -ne 'Capture') { throw '-ProbeControls requires Capture.' }
-if($ObserveSeconds -gt 0 -and $Action -ne 'Capture'){throw 'Observation output requires Capture.'}
+if(($Movie -or $ObserveSeconds -gt 0) -and $Action -ne 'Capture'){throw 'Observation output requires Capture.'}
+if($Movie -and $ObserveSeconds -eq 0){$ObserveSeconds=5}
 $env:DOTNET_ROOT=Join-Path $PSScriptRoot '.tools/dotnet'
 $env:DOTNET_CLI_HOME=Join-Path $PSScriptRoot '.tools/dotnet-home'
 $env:APPDATA=Join-Path $PSScriptRoot '.tools/appdata'
@@ -111,11 +113,12 @@ if($bundleRecord) {
     $request.angle=$bundleRecord.camera.angle;$request.view=$bundleRecord.rendering;$request.audio=$bundleRecord.audio;$request.selected=$bundleRecord.selected
 }
 $requestPath=Join-Path $runDir 'request.json';WriteJson $request $requestPath
-$request.observeSeconds=$ObserveSeconds;WriteJson $request $requestPath
+$request.observeSeconds=$ObserveSeconds;$request.movieFps=if($Movie){24}else{0};WriteJson $request $requestPath
 if($Storybook -and -not $Bundle){$request.storybook=$true;WriteJson $request $requestPath}
 if($ProbeControls) { $request.probeControls=$true;WriteJson $request $requestPath }
 $engine=Join-Path $PSScriptRoot '.tools/godot/Godot_v4.6-stable_mono_win64/Godot_v4.6-stable_mono_win64_console.exe'
 $launchArgs=@('--path',('"'+$PSScriptRoot+'"'),'--','--review-run',('"'+$requestPath+'"'))
+if($Movie){$launchArgs=@('--path',('"'+$PSScriptRoot+'"'),'--write-movie',('"'+(Join-Path $runDir 'observation.avi')+'"'),'--fixed-fps','24','--','--review-run',('"'+$requestPath+'"'))}
 $windowStyle=if($Action -eq 'Inspect'){'Normal'}else{'Hidden'}
 $reviewProcess=Start-Process -FilePath $engine -ArgumentList $launchArgs -WindowStyle $windowStyle -PassThru -RedirectStandardOutput (Join-Path $runDir 'stdout.log') -RedirectStandardError (Join-Path $runDir 'stderr.log')
 Write-Output "Review PID $($reviewProcess.Id): $runDir"
@@ -124,4 +127,5 @@ $reviewProcess.WaitForExit();$reviewProcess.Refresh()
 if($reviewProcess.ExitCode -ne 0 -or -not (Test-Path -LiteralPath (Join-Path $runDir 'capture-0001/manifest.json'))) {
     Get-Content -LiteralPath (Join-Path $runDir 'stderr.log');throw 'Review capture failed; inspect the run logs.'
 }
+if($Movie -and (-not (Test-Path -LiteralPath (Join-Path $runDir 'observation.avi')) -or -not (Select-String -LiteralPath (Join-Path $runDir 'stdout.log') -SimpleMatch 'Done recording movie' -Quiet))){throw 'Movie was not finalized; inspect run logs.'}
 Write-Output "Captured $Scenario in $([math]::Round($timer.Elapsed.TotalSeconds,2))s: $runDir"

@@ -28,6 +28,22 @@ static class WelcomeMealChecks
         for(int i=0;i<2;i++){var home=PlaceEast(w,BuildingKind.Cottage);Until(w,()=>home.Complete,"Review home");}
         Until(w,()=>w.Neighborhood!.Complete,"Review completion");return w;
     }
+    public static World PrepareAwkwardReview()
+    {
+        var w=World.NewNeighborhoodLandscapeExperiment();var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;
+        Until(w,()=>bridge.Complete,"Awkward review crossing");
+        Cottage Build(BuildingKind kind,Cell near,int rotation)
+        {
+            var cell=w.Map.Land.Where(c=>c.X>6).OrderBy(c=>(c.Point-near.Point).LengthSquared())
+                .First(c=>w.PlacementProblem(c,rotation,kind)==null);
+            var site=w.Place(cell,rotation,kind)!;Until(w,()=>site.Complete,"Awkward review "+kind);return site;
+        }
+        // Legal mixed orientations and a separated meadow cluster, with normal construction and meals.
+        Build(BuildingKind.Cottage,new(17,3),1);Build(BuildingKind.Cottage,new(21,8),2);
+        var venue=Build(BuildingKind.SeatingGarden,new(19,6),3);
+        Check(w.ChooseWelcomeVenue(venue.Id) && w.InviteNewcomers(),"Awkward review commitment");
+        Until(w,()=>w.Neighborhood!.Complete,"Awkward review welcome");return w;
+    }
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/welcome-meal");

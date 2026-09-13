@@ -22,6 +22,7 @@ static class ReviewFixtures
             "neighborhood"=>World.NewNeighborhoodExperiment(),
             "neighborhood-landscape"=>World.NewNeighborhoodLandscapeExperiment(),
             "neighborhood-complete"=>WelcomeMealChecks.PrepareCompletedReview(),
+            "neighborhood-awkward"=>WelcomeMealChecks.PrepareAwkwardReview(),
             "welcome-meal"=>WelcomeMealChecks.PrepareReview(),
             "ordinary"=>FinaleCampaignChecks.RunRoute(true,false,false),
             "dense"=>Inlanders.Development.ReviewWorlds.Dense(FinaleCampaignChecks.RunRoute(true,false,true)),
