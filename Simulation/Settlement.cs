@@ -16,6 +16,8 @@ public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottag
 
 public sealed class Villager
 {
+    public int? GrainSourceId { get; set; }
+    public int? GrainDestinationId { get; set; }
     public int? ComfortHomeId { get; set; }
     public bool ImprovedRest { get; set; }
     public float LastRestWindow { get; set; } = 240;
@@ -76,6 +78,7 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public int StoredGrain { get; internal set; }
     [JsonInclude] public CottageFinish Finish { get; internal set; }
     [JsonInclude] public CivicIdentity Identity { get; internal set; }
     public bool ImprovementRequested { get; set; }

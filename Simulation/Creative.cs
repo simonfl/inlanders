@@ -40,6 +40,7 @@ public sealed partial class World
         ClearWorkplaceAssignments(id);
         StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
+        if(site.Kind==BuildingKind.Farm) CloseGrainStore(id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();
         // Remove the destination before returning cargo, so it cannot be chosen again.
@@ -49,7 +50,7 @@ public sealed partial class World
         _yardLogs += site.StoredLogs + site.InputLogs + (site.Material == Resource.Logs ? site.Delivered : 0);
         _yardPlanks += site.ImprovementPlanks + site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
         _stone+=site.DeliveredStone+site.StoredStone;
-        Food.Grain += site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
+        Food.Grain += site.StoredGrain+site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
         Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
         Food.Fruit += site.Kind == BuildingKind.Orchard ? site.Harvest : 0;
         Food.Bread += site.OutputBread;

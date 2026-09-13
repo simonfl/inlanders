@@ -41,7 +41,7 @@ public sealed partial class World
             Resource.Planks => PendingPlanks,
             Resource.Fish => StoredFood(Resource.Fish) + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
             Resource.Berries => StoredFood(Resource.Berries) + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
-            Resource.Grain => Food.Grain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
+            Resource.Grain => StoredGrain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
             Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8),
             Resource.Fruit => StoredFood(Resource.Fruit) + cargo + Crops(BuildingKind.Orchard, 8),
             Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * 2) +
@@ -81,8 +81,9 @@ public sealed partial class World
             var p = workers[0];
             Cell? source = p.HabitatId is int habitat ? Map.Wildlife.Single(h=>h.Id==habitat).Cell : p.BushId is int bush ? Bushes.Single(b => b.Id == bush).Access :
                 p.Task==Work.ToStockpile ? StorageAccess(p.StorageId) :
-                p.Task==Work.ToPantry ? FoodAccess(p.FoodDestinationId) :
-                p.Task is Work.ToGrain or Work.ToOven ? YardAccess :
+                p.Task==Work.ToPantry ? p.GrainDestinationId is int grainDestination?GrainAccess(grainDestination):FoodAccess(p.FoodDestinationId) :
+                p.Task==Work.ToGrain ? GrainAccess(p.GrainSourceId) :
+                p.Task==Work.ToOven ? LocalGrainSupply?site.Entrance:YardAccess :
                 p.Task == Work.ToSawLogs ? StorageAccess(p.StorageId) : null;
             string state = p.Task switch
             {
@@ -91,7 +92,7 @@ public sealed partial class World
                 Work.Baking => "Baking", Work.Sawing => "Sawing", Work.Planting => "Sowing",
                 Work.Hunting => "Hunting", Work.Quarrying => "Quarrying", Work.Harvesting => "Harvesting", Work.Foraging => "Picking berries", _ => "Walking to work"
             };
-            return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
+            return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task==Work.ToGrain?p.GrainSourceId:p.Task==Work.ToPantry && p.GrainDestinationId!=null?p.GrainDestinationId:p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
         if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes; assign a carpenter and supply planks.");
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
@@ -100,8 +101,8 @@ public sealed partial class World
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;
         if (role != null && !People.Any(p => p.Role == role && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
-        if (site.Kind == BuildingKind.Bakery && !remaining && Food.Grain - ReservedGrain < 2)
-            return new("Missing grain", "Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess);
+        if (site.Kind == BuildingKind.Bakery && !remaining && !TryGrainSource(site.Entrance,site.Entrance,out _))
+            return new("Missing grain", LocalGrainSupply?"Needs 2 grain at a reachable farm store or central pantry. Harvest and deliver grain first.":"Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess);
         if (site.Kind == BuildingKind.Sawmill && !remaining && !TryLogSource(site.Entrance, 2, out _))
             return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess);
         if (site.Kind == BuildingKind.ForagerHut && !Bushes.Any(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)))

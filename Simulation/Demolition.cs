@@ -14,6 +14,7 @@ public sealed partial class World
         ClearWorkplaceAssignments(id);
         StopImprovement(site);
         if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
+        if(site.Kind==BuildingKind.Farm) CloseGrainStore(id);
         ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);
         History.Add($"Demolition ordered for {site.Kind} {id}; builders recover goods and timber."); _retry = 0; return true;
@@ -54,7 +55,7 @@ public sealed partial class World
             Take(site.StoredPlanks, n => site.StoredPlanks = n, Resource.Planks) ||
             Take(site.StoredStone, n => site.StoredStone = n, Resource.Stone) ||
             Take(site.InputLogs, n => site.InputLogs = n, Resource.Logs) || Take(site.OutputPlanks, n => site.OutputPlanks = n, Resource.Planks) ||
-            Take(site.InputGrain, n => site.InputGrain = n, Resource.Grain) || Take(site.OutputBread, n => site.OutputBread = n, Resource.Bread) ||
+            Take(site.StoredGrain,n=>site.StoredGrain=n,Resource.Grain,true) || Take(site.InputGrain, n => site.InputGrain = n, Resource.Grain) || Take(site.OutputBread, n => site.OutputBread = n, Resource.Bread) ||
             Take(site.Harvest, n => { site.Harvest = n; if (n == 0) { site.Planted = false; site.Growth = 0; } }, site.Kind==BuildingKind.Orchard?Resource.Fruit:site.Kind == BuildingKind.Farm ? Resource.Grain : Resource.Vegetables)) return;
         if (site.DemolitionProgress < 1)
         {

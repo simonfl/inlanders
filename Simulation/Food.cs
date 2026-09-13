@@ -71,7 +71,7 @@ public sealed partial class World
     public FoodState Food { get; private set; } = new();
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
-    public int ReservedGrain => People.Where(v => v.Task == Work.ToGrain).Sum(v => v.FoodReserved);
+    public int ReservedGrain => GrainReservedAt(null);
     public bool CanCelebrate => !Creative && FinaleSupperProblem()==null && Housed == Population && CentralFoodAvailable(Resource.Bread) >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
@@ -88,7 +88,7 @@ public sealed partial class World
     private void ReleaseFoodClaims(Villager v)
     {
         if (v.BushId is int id) Bushes.Single(b => b.Id == id).Owner = null;
-        v.BushId = null; v.WorkplaceId = null; v.FoodReserved = 0;
+        v.BushId = null; v.WorkplaceId = null; v.FoodReserved = 0;v.GrainSourceId=null;v.GrainDestinationId=null;
     }
     private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Orchard;
     private bool FreeStation(Cottage c) => People.Count(v => v.WorkplaceId == c.Id) < Buildings.Get(c.Kind).Slots;
@@ -116,7 +116,7 @@ public sealed partial class World
             Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? $"Walking to harvest {crop}" : $"Walking to sow {crop}"); return;
         }
         var bakery = FoodSite(v,BuildingKind.Bakery, c => c.OutputBread > 0) ?? FoodSite(v,BuildingKind.Bakery, c => c.InputGrain > 0)
-            ?? FoodSite(v,BuildingKind.Bakery, c => BelowOutputTarget(c) && Food.Grain - ReservedGrain >= 2);
+            ?? FoodSite(v,BuildingKind.Bakery, c => BelowOutputTarget(c) && TryGrainSource(At(v),c.Entrance,out _));
         if (bakery == null)
         {
             v.Status = ProductionWait(v); return;
@@ -124,7 +124,12 @@ public sealed partial class World
         v.WorkplaceId = bakery.Id;
         if (bakery.OutputBread > 0) Go(v, bakery.Entrance, Work.ToBread, "Collecting baked bread");
         else if (bakery.InputGrain > 0) Go(v, bakery.Entrance, Work.ToOven, "Resuming the bakery's batch");
-        else { v.FoodReserved = 2; Go(v, YardAccess, Work.ToGrain, "Fetching 2 reserved grain for the bakery"); }
+        else
+        {
+            if(!TryGrainSource(At(v),bakery.Entrance,out var source))throw new InvalidOperationException("Claimed bakery lost grain source");
+            v.FoodReserved=2;v.GrainSourceId=source;
+            Go(v,GrainAccess(source),Work.ToGrain,source is int id?$"Fetching 2 grain from farm {id} for bakery {bakery.Id}":"Fetching 2 reserved grain from the central pantry");
+        }
     }
     private void TickFoodWork(Villager v, float dt)
     {
@@ -153,7 +158,7 @@ public sealed partial class World
                 if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; }
                 CarryFood(ProductionOutput(farm.Kind)!.Value, grain); break;
             case Work.ToGrain:
-                Food.Grain -= v.FoodReserved; v.Carried = v.FoodReserved; v.Cargo = Resource.Grain; v.FoodReserved = 0;
+                ChangeGrainAt(v.GrainSourceId,-v.FoodReserved);v.GrainSourceId=null; v.Carried = v.FoodReserved; v.Cargo = Resource.Grain; v.FoodReserved = 0;
                 Go(v, Station().Entrance, Work.ToOven, "Delivering grain to the oven"); break;
             case Work.ToOven:
                 var oven = Station(); oven.InputGrain += v.Carried; v.Carried = 0;
@@ -168,6 +173,10 @@ public sealed partial class World
                 var shop = Station(); int bread = Math.Min(4, shop.OutputBread); shop.OutputBread -= bread;
                 CarryFood(Resource.Bread, bread); break;
             case Work.ToPantry:
+                if(v.GrainDestinationId is int farmId)
+                {
+                    ChangeGrainAt(farmId,v.Carried);RecordFoodDelivery(Resource.Grain,v.Carried);v.Carried=0;Finish(v);break;
+                }
                 if(!v.FoodTransfer) RecordFoodDelivery(v.Cargo, v.Carried);
                 if(v.FoodDestinationId is int pantry)
                 {
@@ -252,13 +261,14 @@ public sealed partial class World
     }
     private void ValidateFood()
     {
+        ValidateLocalGrain();
         void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
         Check(Food.Fruit>=0 && Food.GrownFruit>=0 && Food.EatenFruit>=0 && StoredFood(Resource.Fruit)+Cargo(Resource.Fruit)+Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest)+Food.EatenFruit==Food.GrownFruit+CreativeNet(Resource.Fruit),"Fruit conservation failed");
         Check(Cottages.All(c=>(!c.OrchardMature || c.Kind==BuildingKind.Orchard && c.Complete) && (c.Kind!=BuildingKind.Orchard || c.Harvest<=8 && (c.Harvest==0 || c.OrchardMature))),"Invalid orchard state");
         Check(Food.Berries >= 0 && Food.Grain >= ReservedGrain && Food.Bread >= 0, "Negative or over-reserved food");
         Check(Food.InitialBerries >= 0 && StoredFood(Resource.Berries) + Cargo(Resource.Berries) + Food.EatenBerries + Food.TradedBerries == Food.InitialBerries + Food.GatheredBerries + CreativeNet(Resource.Berries), "Berry conservation failed");
-        Check(Food.Grain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain + CreativeNet(Resource.Grain), "Grain conservation failed");
+        Check(StoredGrain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain + CreativeNet(Resource.Grain), "Grain conservation failed");
         Check(StoredFood(Resource.Bread) + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread + CreativeNet(Resource.Bread), "Bread conservation failed");
         Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
             StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables + CreativeNet(Resource.Vegetables), "Vegetable conservation failed");

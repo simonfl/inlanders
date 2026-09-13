@@ -19,8 +19,8 @@ public sealed partial class World
         int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)))+
             (r==Resource.Planks?Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c))):0);
         var stocks = Enum.GetValues<Resource>().Select(r => new EconomyStock(r,
-            EdibleKinds.Contains(r)?StoredFood(r):r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => Food.Grain, Resource.Fish => Food.Fish, _ => Food.Bread },
-            EdibleKinds.Contains(r)?MealReserved(r)+People.Where(p=>p.Cargo==r).Sum(p=>p.PantryReserved):r switch { Resource.Stone => ReservedStone, Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => ReservedGrain, _ => 0 },
+            EdibleKinds.Contains(r)?StoredFood(r):r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => StoredGrain, Resource.Fish => Food.Fish, _ => Food.Bread },
+            EdibleKinds.Contains(r)?MealReserved(r)+People.Where(p=>p.Cargo==r).Sum(p=>p.PantryReserved):r switch { Resource.Stone => ReservedStone, Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => People.Sum(p=>p.FoodReserved), _ => 0 },
             People.Where(p=>p.Cargo==r).Sum(p=>p.Carried) + (r==Resource.Fish ? Cottages.Sum(c=>c.Boat?.Fish??0) : 0),
             r switch { Resource.Logs => Cottages.Sum(c=>c.InputLogs), Resource.Planks => Cottages.Sum(c=>c.OutputPlanks),
                 Resource.Vegetables => Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest),

@@ -27,8 +27,9 @@ public sealed partial class World
         Resource? cargo=amount>0 ? water ? Resource.Fish : p.Cargo : null;
         string store=p.StorageId is int id ? $"Stockpile {id}" : p.Cargo==Resource.Stone ? "Central stone store" : p.Cargo==Resource.Planks ? "Central plank store" : "Timber yard";
         string destination=water ? boat!.Phase==BoatPhase.Returning ? "Fishing dock" : "Fishing ground" : p.Task switch {
-            Work.ToPantry=>p.FoodDestinationId is int pantry?$"Pantry {pantry}":"Central pantry",
-            Work.ToGrain or Work.ReturnMeal=>"Central pantry",
+            Work.ToPantry=>p.GrainDestinationId is int grainStore?$"Farm {grainStore} grain store":p.FoodDestinationId is int pantry?$"Pantry {pantry}":"Central pantry",
+            Work.ToGrain=>p.GrainSourceId is int grainSource?$"Farm {grainSource} grain store":"Central pantry",
+            Work.ReturnMeal=>"Central pantry",
             Work.ToFoodPickup=>p.FoodSourceId is int foodSource?$"Pantry {foodSource}":"Central pantry",
             Work.ToMealSupply=>p.Meal?.SourceId is int source?$"Pantry {source}":"Central pantry",
             Work.ToMealSeat=>"Meal seat",

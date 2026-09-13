@@ -32,6 +32,7 @@ public sealed partial class World
     private void DeliverFood(Villager person)
     {
         person.FoodDestinationId=null;
+        if(DeliverLocalGrain(person))return;
         if(EdibleKinds.Contains(person.Cargo))
         {
             var destination=FoodStores().Where(id=>id==null || PantrySpace(id.Value)>=person.Carried)

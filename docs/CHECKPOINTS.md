@@ -32,6 +32,8 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a local-grain foundation — September 12, 2026:** [design and status](NEIGHBORHOOD_F27A.md). Independent bounded designer review defines the whole scenario. Experimental physical farm storage/bakery pickup, contention, interruption/recovery and saved continuation are implemented; the full neighborhood experience is not yet exposed. Count remains **8**. Complete F27a before assigning its single playable checkpoint.
+
 **T01 tooling chunk — September 12, 2026:** [scenario/evidence tooling](REVIEW_TOOLING_T01.md), four prepared/captured scenes, normal-control scripted probe, bundle reopening and stale-artifact rejection. No gameplay rule change, native playtest or listening claim. Count remains **8**; next delivery is F27a and next regular review remains checkpoint ten.
 
 **Strategic checkpoint 8 — September 12, 2026:** [synthesis](STRATEGIC_REVIEW_8.md) and [disciplinary reports](STRATEGIC_REVIEW_8_ROLES.md), fixed source `aea4dc40e49d2b88ed25723dce33c1318cb8e605`, existing assembly hash in report. Game design, UX and development lead independently challenged the whole game. Fresh additional agent creation failed; the designer also covered visual/audio and UX also attempted native play with inherited context. New native observation reached the menu only; owned process was closed. No listening/performance result. Chosen direction: comparative neighborhood redesign plus bounded scenario/evidence tooling. [New queue](NEXT_CHUNKS.md) replaces the incremental patch sequence. No playable increment; periodic checkpoint-ten obligations remain.

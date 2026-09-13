@@ -44,7 +44,7 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 37; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 38; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
