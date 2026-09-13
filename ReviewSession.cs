@@ -30,6 +30,7 @@ public partial class Game
         Directory.CreateDirectory(_reviewDirectory);
         string saves=Path.Combine(_reviewDirectory,"session");Directory.CreateDirectory(saves);
         _savePath=Path.Combine(saves,"settlement.json");_campaignPath=Path.Combine(saves,"campaign.json");
+        _neighborhoodPath=Path.Combine(saves,"neighborhood.json");
         _continuePath=Path.Combine(saves,"continue.json");_largeSavePath=Path.Combine(saves,"three-clearings.json");
         _creativeSavePath=Path.Combine(saves,"creative.json");_creativeLargeSavePath=Path.Combine(saves,"creative-three-clearings.json");
         _atmospherePath=Path.Combine(saves,"atmosphere.cfg");_audioSettingsPath=Path.Combine(saves,"audio.cfg");
@@ -61,6 +62,10 @@ public partial class Game
             }
             GetWindow().Title=$"Inlanders review — {request.GetProperty("scenario").GetString()} — F8 capture";
             // Capture from the same normal process/UI used for interactive inspection.
+            if(request.GetProperty("scenario").GetString()!.StartsWith("neighborhood",StringComparison.Ordinal)) {
+                ToggleDrawer(2);UpdateCampaignUi();
+                if(!_objective.IsVisibleInTree() || !_neighborhoodGoals.IsVisibleInTree() || string.IsNullOrWhiteSpace(_objective.Text))throw new Exception("Neighborhood goals are missing");
+            }
             await CaptureReviewBundle();
             if(request.TryGetProperty("probeControls",out var probe) && probe.GetBoolean())await ProbeReviewControls();
             if(request.GetProperty("captureOnly").GetBoolean())GetTree().Quit();
@@ -84,6 +89,7 @@ public partial class Game
         while(_reviewCapturing)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         Check(_reviewCapture==previous+1 && File.Exists(Path.Combine(_reviewDirectory,$"capture-{_reviewCapture:0000}","manifest.json")),"F8 did not finish a bundle");
         _world.Validate();
+        if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString()=="neighborhood")await ProbeNeighborhoodFlow();
         if(_world.SharedWork)await ProbeSharedStaffing();
         File.WriteAllText(Path.Combine(_reviewDirectory,"checks.json"),JsonSerializer.Serialize(new{passed=true,scriptedUi=true,initialTime,finalTime=_world.Food.Time,speed=_speed,selectedPerson=_selectedPerson,checks=new[]{"paused startup","normal speed cycle","catalog","normal process ticks","F8 bundle"}},new JsonSerializerOptions{WriteIndented=true}));
         GD.Print("PASS: review normal controls, process advancement, selection and F8 capture (scripted UI probe)");

@@ -27,6 +27,7 @@ public partial class Game
         else
         {
             rows.Add(("overview",_goalsOverview));rows.Add(("phase:"+GoalsVersion,_riverAction));
+            foreach(var button in _neighborhoodGoals.GetChildren().OfType<Button>())rows.Add(("neighborhood:"+button.Text,button));
             foreach(var (key,item) in _goalItems)
             {
                 rows.Add(($"why:{key}",item.Toggle));

@@ -55,7 +55,7 @@ public partial class Game
     private string _largeSavePath = "saves/three-clearings.json";
     private string _creativeSavePath = "saves/creative.json", _creativeLargeSavePath = "saves/creative-three-clearings.json";
     private string SandboxSavePath(bool large, bool creative) => creative ? (large ? _creativeLargeSavePath : _creativeSavePath) : (large ? _largeSavePath : _savePath);
-    private string CurrentSavePath => SandboxSavePath(_world.Map.Name == "Three clearings", _world.Creative);
+    private string CurrentSavePath => _world.Neighborhood!=null?_neighborhoodPath:SandboxSavePath(_world.Map.Name == "Three clearings", _world.Creative);
     private void OpenLargeMap()
     {
         try

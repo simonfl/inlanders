@@ -16,6 +16,7 @@ public partial class Game
     private Button _restoreReplay = null!;
     private Button _riverAction = null!;
     private Button _standaloneLevel = null!;
+    private VBoxContainer _campaignSelection=null!;
 
     private void MakeCampaignUi(VBoxContainer column)
     {
@@ -30,16 +31,17 @@ public partial class Game
         _nextLevel = Button("Next settlement", () => SwitchCampaign(_world.Campaign!.Level + 1, false)); _campaignControls.AddChild(_nextLevel);
         _replayLevel = Button("Replay this settlement", () => SwitchCampaign(_world.Campaign!.Level, true)); _campaignControls.AddChild(_replayLevel);
         _restoreReplay = Button("Restore village before replay", RestoreBeforeReplay); _campaignControls.AddChild(_restoreReplay);
-        column.AddChild(Text($"CAMPAIGN · {World.CampaignLevels.Length} SETTLEMENTS", 12, true));
-        _campaignRecord = Text("", 14, true); column.AddChild(_campaignRecord);
+        _campaignSelection=new();column.AddChild(_campaignSelection);
+        _campaignSelection.AddChild(Text($"CAMPAIGN · {World.CampaignLevels.Length} SETTLEMENTS", 12, true));
+        _campaignRecord = Text("", 14, true); _campaignSelection.AddChild(_campaignRecord);
         foreach (var level in World.CampaignLevels)
         {
             int id = level.Id;
             var button = Button($"{id}. {level.Title}", () => SwitchCampaign(id, false));
-            button.AddThemeFontSizeOverride("font_size", 14); column.AddChild(button); _levelButtons.Add(button);
+            button.AddThemeFontSizeOverride("font_size", 14); _campaignSelection.AddChild(button); _levelButtons.Add(button);
         }
-        _standaloneLevel=Button("Return to standalone supper", () => SwitchCampaign(0, false));column.AddChild(_standaloneLevel);
-        column.AddChild(Text("Choose a settlement to start or resume it. Switching saves the village you leave. All buildings are available.", 14, true));
+        _standaloneLevel=Button("Return to standalone supper", () => SwitchCampaign(0, false));_campaignSelection.AddChild(_standaloneLevel);
+        _campaignSelection.AddChild(Text("Choose a settlement to start or resume it. Switching saves the village you leave. All buildings are available.", 14, true));
     }
     private CampaignBook ReadCampaignBook()
     {
@@ -65,7 +67,7 @@ public partial class Game
         bool mapChanged = !ReferenceEquals(_world.Map, world.Map);
         _autosaveElapsed = 0; _lastAutosaved = null;
         _world = world; CloseManagementUi(); _placing = false; _accumulator = 0; _paused = true;
-        _completionAnnounced = world.Campaign?.Complete == true;
+        _completionAnnounced = world.Campaign?.Complete == true || world.Neighborhood?.Complete==true;
         CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
         if (mapChanged) FrameMap();
         if (_menuEnabled && !_atMainMenu)
@@ -79,9 +81,9 @@ public partial class Game
         {
             var book = ReadCampaignBook();
             // Prepare and validate the destination before writing or replacing the live settlement.
-            var next = !_world.Creative && level == (_world.Campaign?.Level ?? 0) && !replay ? _world :
+            var next = _world.Neighborhood==null && !_world.Creative && level == (_world.Campaign?.Level ?? 0) && !replay ? _world :
                 !replay && book.Settlements.TryGetValue(level, out var json) ? World.LoadJson(json) : level == 0 ? World.NewScenario() : World.NewCampaign(level);
-            if (_world.Creative) _world.SaveFile(CurrentSavePath); else book.Capture(_world);
+            if (_world.Creative || _world.Neighborhood!=null) _world.SaveFile(CurrentSavePath); else book.Capture(_world);
             if (replay && book.Settlements.TryGetValue(level, out var previous)) book.BeforeReplay[level] = previous;
             book.Capture(next); book.SaveFile(_campaignPath);
             _campaignBook = book; AdoptWorld(next); ToggleDrawer(2); _drawerPages[2].ScrollVertical=0;
@@ -108,6 +110,9 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
+        _neighborhoodGoals.Hide();_campaignSelection.Visible=_world.Neighborhood==null;
+        if(_world.Neighborhood!=null){UpdateNeighborhoodGoals();return;}
+        _menuButtons[2].TooltipText="Settlement objectives [G]";
         _riverAction.Visible = campaign?.Complete != true && (_world.IsFinaleCampaign && campaign!.Finale!.Phase is 0 or 2 || _world.IsWoodsCampaign && campaign!.Woods!.Phase<2 || _world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2 || _world.IsQuarryCampaign && campaign!.Quarry!.Phase==0);
         if (_riverAction.Visible) { var problem=_world.IsFinaleCampaign?_world.FinaleActionProblem():_world.IsWoodsCampaign?_world.WoodsActionProblem():_world.IsQuarryCampaign?_world.QuarryActionProblem():_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsFinaleCampaign?_world.FinaleActionLabel:_world.IsWoodsCampaign?_world.WoodsActionLabel:_world.IsQuarryCampaign?"Assess the gathering place":_world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }
         UpdateGoalDashboard();

@@ -14,7 +14,7 @@ Check that opening, river and dense scenes are discoverable and reproducible; de
 
 ## 2. F27a — one complete living-neighborhood alternative
 
-**In progress:** [concrete design and implementation status](NEIGHBORHOOD_F27A.md). Local grain and genuine shared-work foundations are implemented and tested behind development comparison factories. Building staffing controls now work in the development fixture. Committed arrivals now work in a separate neighborhood fixture. Physical welcome food transport, eating and home-based completion now work. Complete scenario integration and meaningful strategy/recovery comparisons remain in this same outcome. Do not count this foundation as checkpoint 9 or call the alternative delivered.
+**In progress:** [concrete design and implementation status](NEIGHBORHOOD_F27A.md). Local grain and genuine shared-work foundations are implemented and tested behind development comparison factories. Building staffing controls now work in the development fixture. Committed arrivals now work in a separate neighborhood fixture. Physical welcome food transport, eating and home-based completion now work. Normal menu/goals/save integration now works. Authored layout decisions, meaningful strategy/recovery comparisons and ordinary play remain in this same outcome. Do not count this foundation as checkpoint 9 or call the alternative delivered.
 
 Create a selectable experimental river scenario beside the current baseline. Start with a west-bank hamlet and two plausible eastern sites. The objective is establishing a welcoming neighborhood. Keep real building, material costs, food consumption, journeys and demolition recovery. All buildings remain available, but the scenario does not mandate the whole catalog.
 

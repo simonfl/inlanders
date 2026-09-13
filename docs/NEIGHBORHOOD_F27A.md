@@ -46,10 +46,10 @@ The initial policy prioritizes food below three portions per resident, limits co
 
 ## Remaining work in the same F27a outcome
 
-- Arrival and physical welcome activity are implemented in the developer scenario; finish normal scenario selection and coherent start/completion presentation.
+- Normal menu entry, dedicated saves and neighborhood Goals are implemented. Review start/completion clarity through ordinary play.
 - Test shortage/recovery and labor agency in the complete scenario; newcomers now join the shared pool.
 - Compare the implemented welcome activity in both economic layouts, including natural shortages and recovery.
-- Expose the alternative beside the baseline and register useful states with T01. Replace assessment-oriented default information with one objective and world/context feedback, including precise placement refusals.
+- Author and compare the landing/meadow decisions; check precise placement refusals and world/context feedback during play. The alternative and original river level are now accessible from the experiment menu.
 - Demonstrate two real strategies and two recoveries, validate changed saves/claims and use ordinary UI play. Record decision opportunities, panel dependence and time spent waiting, separating tool overhead from pacing.
 
 F27b remains the separate whole-scene art experiment, but F27a still needs enough visible activity and contextual feedback to test its own gameplay honestly. Do not ship a simulation-only comparison as the promised playable alternative. The next periodic whole-project review remains checkpoint ten.
@@ -85,3 +85,14 @@ Focused checks (`--welcome-meal`) cover real preparation, persistent stock befor
 ![Physical food display and welcome controls](images/neighborhood-welcome-table.png)
 
 Final verification: full existing simulation suite passed; after final welcome feedback/validation changes, focused welcome, arrival and all six pantry checks passed. Game/test builds passed with zero warnings. Final rendered probes passed at 960 and 1440 pixels, including venue selection, visible supplied stock and twelve actual attendees. Both corrected table/inspector captures were visually inspected. Review-owned capture processes exited successfully. No native playtest or listening claimed.
+
+## Normal game entry and objectives
+
+The main menu now offers **Neighborhood experiment**, with New/Resume and **Play original river level** for comparison. New starts paused on the neighborhood Goals panel. It explains shared work and local grain, offers the one arrival commitment, and links to home placement and the selected (or an available eastern) gathering place. The old central-bread supper controls, campaign selector and percentage bar are hidden in this mode. Squares describe their welcome role. Completion saves once and leaves the village playable.
+
+The experiment uses `saves/neighborhood.json`; Continue, F5/F9, autosaves, restart and menu return follow that mode. Switching to the campaign stores the experiment separately instead of capturing it as the standalone supper. Review runs redirect this path into their own session folder.
+
+Rendered menu-flow checks exercise New, visible objectives, disabled commitment before a crossing, Continue, restart, F9, original-river entry and Resume without changing the saved world. The existing staffing and arrival probes then continue in the resumed experiment. This is scripted control evidence, not an uncoached playtest.
+
+Remaining F27a work is now predominantly design validation: authored landing/meadow choices, two materially different economic strategies, natural mistakes with alternative recoveries, and ordinary UI play. Do not increment checkpoint 9 merely because every component has an entry point. The whole experiment still needs evidence that its choices are understandable and worth making.
+Integration verification: the full scripted menu/save/baseline round trip and resumed staffing/arrival checks passed at 960 pixels. After final wording and keyboard registration changes, game/test builds passed without warnings and a fresh opening Goals capture verified visible objective/actions. A reusable neighborhood-complete fixture physically constructs homes and serves the welcome before rendering the completion view. This avoids replaying the 236-second comprehensive UI flow for each text/layout check. No new simulation rules or save migrations were introduced in this integration chunk.

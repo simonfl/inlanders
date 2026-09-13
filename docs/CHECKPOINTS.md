@@ -32,6 +32,9 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a normal game integration — September 12, 2026:** Experiment menu beside the original river level, dedicated saves, neighborhood Goals and completion handling. Scripted menu/save/control evidence; authored layout decisions and comparative play remain. Count stays **8**. [Details](NEIGHBORHOOD_F27A.md).
+
+
 **F27a physical welcome activity — September 12, 2026:** Real food reservations/transport, venue stock/display, ordinary meal visits and eating, persistent attendance and east-bank newcomer housing completion. Focused mechanics and rendered control checks; complete scenario presentation and economic/recovery comparisons remain. Count stays **8**; [details](NEIGHBORHOOD_F27A.md).
 
 

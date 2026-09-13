@@ -182,6 +182,7 @@ public partial class Game
         MakeGoalDashboard(column);
         _goalArrival = Text("", 15, true); column.AddChild(_goalArrival);
         _objective = Text("", 18, true); column.AddChild(_objective);
+        MakeNeighborhoodGoals(column);
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 8) }; column.AddChild(_progress);
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
         _supperBreadLink=Button("Inspect bread supply",OpenBreadReserve);column.AddChild(_supperBreadLink);
@@ -275,7 +276,7 @@ public partial class Game
             BuildingKind.GatheringHall => $"{_world.People.Count(v=>v.LeisureSiteId==selected.Id)}/8 visitors · no staff\n12-second visits · 4 minutes of recreation benefit · 2 minutes between visits. Longer, less frequent outings than squares. Keep nearby visit spots open.",
             BuildingKind.Pantry => "Neighborhood food storage and meal collection. No serving staff; haulers are optional.",
             BuildingKind.SeatingGarden => $"{_world.People.Count(v=>v.LeisureSiteId==selected.Id)}/2 visitors · no staff\nOne planted tile; seating uses open ground near the entrance. Six-second visits give 2 minutes of recreation, with 1 minute between outings. Squares have more capacity per log.",
-            BuildingKind.Square => $"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
+            BuildingKind.Square => _world.Neighborhood!=null?"Four recreation places. On the east bank, choose this square for the welcome meal below. Any edible food works; residents visit in small groups.":$"{_world.People.Count(v => v.LeisureSiteId == selected.Id)}/4 visitors · no staff\nShort breaks between jobs, once per minute.\nHouse everyone and stock {_world.SupperCost} bread, then host supper in Goals. Leave {_world.Population} nearby walkable tiles.",
             BuildingKind.Sawmill => $"1 sawyer slot · batch {selected.SawProgress:P0}\n{selected.InputLogs} logs in · {selected.OutputPlanks} planks out",
             BuildingKind.ForagerHut => "2 forager slots\nBerries regrow after picking.",
             BuildingKind.VegetableGarden => $"Vegetables · 1 farmer slot\nCrop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe\n8 food per harvest · eaten directly",

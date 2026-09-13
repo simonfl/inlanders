@@ -57,6 +57,7 @@ public partial class Game
         MenuPage("A quiet place to build");
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath) && !File.Exists(_campaignPath) && !File.Exists(_savePath) && !File.Exists(_largeSavePath) && !File.Exists(_creativeSavePath) && !File.Exists(_creativeLargeSavePath);
         MenuButton("Campaign", CampaignMenu); MenuButton("Free play", FreePlayMenu); MenuButton("Creative", () => FreePlayMenu(true)); MenuButton("Settings", MainSettings);
+        MenuButton("Neighborhood experiment",NeighborhoodMenu);
         MenuButton("Quit", RequestQuit);
         _mainColumn.AddChild(Text("Small villages, growing trees, and a little room to breathe.", 15, true));
     }
@@ -77,7 +78,7 @@ public partial class Game
         AdoptWorld(world);
         GetViewport().GuiGetFocusOwner()?.ReleaseFocus();
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
-        if (world.Campaign != null) ToggleDrawer(2);
+        if (world.Campaign != null || world.Neighborhood!=null) ToggleDrawer(2);
         Notice("Settlement ready and paused. Press Space to play.");
     }
     private void MenuAttempt(Action action)

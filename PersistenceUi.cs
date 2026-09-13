@@ -31,7 +31,7 @@ public partial class Game
             _paused = true; _pauseButton.Text = "Resume  [Space]";
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
             Notice("Settlement restored and paused. Press Space to continue.");
-            _completionAnnounced = _world.Campaign?.Complete == true;
+            _completionAnnounced = _world.Campaign?.Complete == true || _world.Neighborhood?.Complete==true;
             try { RememberSettlement(); }
             catch (Exception e) { Notice("Settlement restored, but Continue could not be updated: " + e.Message); }
         }

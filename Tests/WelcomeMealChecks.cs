@@ -21,6 +21,13 @@ static class WelcomeMealChecks
         Until(w,()=>bridge.Complete,"Review crossing");var venue=PlaceEast(w,BuildingKind.SeatingGarden);
         Until(w,()=>venue.Complete,"Review venue");return w;
     }
+    public static World PrepareCompletedReview()
+    {
+        var w=PrepareReview();var venue=w.Cottages.Single(c=>c.Kind==BuildingKind.SeatingGarden);
+        Check(w.ChooseWelcomeVenue(venue.Id) && w.InviteNewcomers(),"Review welcome setup");
+        for(int i=0;i<2;i++){var home=PlaceEast(w,BuildingKind.Cottage);Until(w,()=>home.Complete,"Review home");}
+        Until(w,()=>w.Neighborhood!.Complete,"Review completion");return w;
+    }
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/welcome-meal");
