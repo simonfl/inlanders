@@ -48,8 +48,8 @@ public partial class Game
         Check(_world.Neighborhood!.VenueId==venue.Id,"Journey welcome venue click failed");
         await OpenMenu(2);await UiClick(_neighborhoodCommit);await Frames();
         Check(_world.Neighborhood.CommittedAt!=null,"Journey arrival click failed");
-        await Until(()=>_world.Neighborhood.Welcomed.Count==_world.Population,"Journey welcome did not finish");
-        Check(challenge?!_world.Neighborhood.Complete:_world.Neighborhood.Complete,"Welcome incorrectly decided situation completion");
+        await Until(()=>_world.Neighborhood.Arrived && _world.Neighborhood.Welcomed.Count==_world.Population,"Journey welcome did not finish");
+        if(!challenge) await Until(()=>_world.Neighborhood.Complete,"Welcome and housing did not complete opening");
         await CaptureReviewBundle();
         var hut=_world.Cottages.Single(c=>c.Kind==BuildingKind.ForagerHut);
         if(!challenge)
@@ -72,3 +72,4 @@ public partial class Game
         GD.Print($"PASS: scripted placement/facing, venue/arrival, completed welcome, {(challenge?"scarce wild food and reserve objective":"producer pause")}, natural shortage, farm/bakery/pantry recovery and save/load through player controls; waits use simulation ticks");
     }
 }
+

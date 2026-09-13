@@ -20,6 +20,8 @@ public partial class Game
         if(_world.HasWorkplaceFood)
         {
             var site=_world.Cottages.First(c=>c.Complete && _world.IsWorkplaceFoodStore(c));SelectBuilding(site.Id);await Frames();
+            Check(!_inspectorSecondary.Visible && _productionPause.IsVisibleInTree() && _staffPlus.IsVisibleInTree() && _localFoodSummary.IsVisibleInTree(),"Primary inspector hides workplace action/food/staff");
+            await CaptureReviewBundle("workplace-primary");
             int before=site.LocalFoodReserve;await UiClick(_pantryMore);await Frames();
             Check(site.LocalFoodReserve==Math.Min(24,before+4),"Producer retention control failed");
             await CaptureReviewBundle("local-food-reserve");await Press(Key.F5);string policy=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==policy,"Retention save/load differs");
@@ -28,3 +30,4 @@ public partial class Game
         GD.Print("PASS: optional world food view matches stores, closes and preserves world state");
     }
 }
+

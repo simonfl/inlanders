@@ -15,6 +15,7 @@ public partial class Game
     }
     private async Task UiClick(Button button)
     {
+        if(_inspectorSecondary!=null && _inspectorSecondary.IsAncestorOf(button) && !_inspectorSecondary.Visible) await UiClick(_inspectorDetails);
         if(_mainScroll!=null && _mainScroll.IsAncestorOf(button))
         {
             // Wrapped menu text and scrollbar appearance can trigger a second deferred layout.
@@ -75,3 +76,4 @@ public partial class Game
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 }
+

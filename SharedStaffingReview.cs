@@ -35,7 +35,7 @@ public partial class Game
         await CaptureReviewBundle();
         await UiClick(_staffMinus);await Frames();
         Check(_world.AssignedWorkers(site.Id)==0 && _world.People.All(p=>p.SharedWorker),"Building release did not restore pool");
-        Check(_staffMinus.Disabled && _workplaceStaff.Text.Contains("shared workers"),"Released staffing feedback incorrect");
+        Check(_staffMinus.Disabled && _workplaceStaff.Text.Contains("shared workers",StringComparison.OrdinalIgnoreCase),"Released staffing feedback incorrect");
         _world.Validate();await CaptureReviewBundle();
         GD.Print("PASS: scripted building dedication and release through rendered controls");
         if(_world.Neighborhood is { CommittedAt: null }) {
@@ -72,3 +72,4 @@ public partial class Game
         }
     }
 }
+

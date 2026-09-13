@@ -123,7 +123,7 @@ public partial class Game
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
         MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi();
-        MakeResourceSurvey(inspection);
+        MakeContextualInspector(); MakeResourceSurvey(inspection);
         inspection.AddChild(Button("Move camera here", () =>
         {
             if (_selectedSite >= 0 && _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is Cottage c) _focus = new(c.Cell.X, 0, c.Cell.Z);
@@ -327,7 +327,8 @@ public partial class Game
         if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
         UpdateManagementControls();
-        UpdateProductionControls(selected);
+        UpdateProductionControls(selected); UpdateContextualInspector(selected);
         UpdateCampaignUi(); UpdateEconomyUi();
     }
 }
+
