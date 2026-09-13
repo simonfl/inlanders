@@ -16,6 +16,7 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "commons-untouched" or "commons-recurring" or "commons-event"=>CommonsComparison(name),
             "gathering"=>GatheringChecks.Prepare(),
             "opening"=>World.NewCampaign(1),
             "river"=>World.NewCampaign(6),
@@ -36,5 +37,13 @@ static class ReviewFixtures
         if(World.LoadJson(json).SaveJson()!=json)throw new Exception("Prepared snapshot roundtrip differs");
         File.WriteAllText(path,json);
         Console.WriteLine($"PREPARED {name}: {w.Population} residents, {w.Cottages.Count} buildings, {w.Food.Time:F1} simulation seconds");
+    }
+    private static World CommonsComparison(string name)
+    {
+        var w=GatheringChecks.Prepare();
+        var center=w.Map.Land.Where(c=>w.CommonsProblem(c)==null).OrderBy(c=>(c.Point-new Cell(17,9).Point).LengthSquared()).First();
+        if(name=="commons-recurring" && !w.SetCommons(center))throw new Exception("Comparison commons refused");
+        if(name=="commons-event" && !w.BeginGathering(center))throw new Exception("Comparison event refused");
+        return w;
     }
 }

@@ -1,4 +1,36 @@
-[{"name":"commons","description":"Persistent ordinary meal places: ground controls, save and removal","generator":"gathering","focusX":17,"focusZ":9,"zoom":22},
+[
+  {
+    "name": "commons-untouched",
+    "description": "Matched viable village: ordinary meals, no shared place",
+    "generator": "commons-untouched",
+    "focusX": 17,
+    "focusZ": 9,
+    "zoom": 22
+  },
+  {
+    "name": "commons-recurring",
+    "description": "Matched viable village: six persistent ordinary meal places",
+    "generator": "commons-recurring",
+    "focusX": 17,
+    "focusZ": 9,
+    "zoom": 22
+  },
+  {
+    "name": "commons-event",
+    "description": "Matched viable village: one shared all-resident meal",
+    "generator": "commons-event",
+    "focusX": 17,
+    "focusZ": 9,
+    "zoom": 22
+  },
+  {
+    "name": "commons",
+    "description": "Persistent ordinary meal places: ground controls, save and removal",
+    "generator": "gathering",
+    "focusX": 17,
+    "focusZ": 9,
+    "zoom": 22
+  },
   {
     "name": "resume",
     "description": "Repeated completed-settlement leave/resume with transition diagnostics",
@@ -128,4 +160,3 @@
     "zoom": 32
   }
 ]
-

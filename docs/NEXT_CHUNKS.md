@@ -2,11 +2,11 @@
 
 September 13, 2026. [Checkpoint-fifteen synthesis](REVIEW_CHECKPOINT_15.md) replaces the previous queue. Count **17**; next periodic review **20**. Three independent contexts/five disciplinary passes after thread-limit failures; no native play/listening. [Completed sequence](NEXT_CHUNKS_BEFORE_REVIEW_15.md) is historical evidence, not active work.
 
-Chosen direction: one persistent village the player reshapes, with understandable physical logistics and ordinary use of shared places. No new needs/producers or campaign certificates. All buildings remain available. A finite satisfying scenario is a valid fallback if continued life does not earn interest.
+Chosen direction after [F28c](COMMONS_DECISION_F28C.md): a finite welcoming settlement with optional continued reshaping. No new needs/producers or campaign certificates. All buildings remain available. A finite satisfying scenario is a valid fallback if continued life does not earn interest.
 
 ## 1. T03 — completed; trustworthy leave/resume and review evidence
 
-[Delivered repair and evidence](RESUME_T03.md); no playable increment. Next active: F28c; presentation review first.
+[Delivered repair and evidence](RESUME_T03.md); no playable increment. Next active: F28d, finite welcome and optional stay.
 
 Original scope: reproduce the failed completed-gathering → Settlements → Resume transition on frozen `2f2ebd7`. Record menu/HUD state, caught error, focus and button/pointer geometry before/down/up. Fix the demonstrated cause, not an assumed delay. Assertions must require active HUD, paused state, expected scenario and exact state; identical JSON alone is insufficient. Test mouse/keyboard at 960/1440 and preserve the failure.
 
@@ -24,7 +24,7 @@ From a viable inhabited village, let the player choose/rearrange a persistent ou
 
 Compare current one-shot event, recurring place and untouched village with the same economy/camera. Observe approach, occupation and departure at ordinary speed; use 3x/6x for production waits. Falsify if the difference requires close-up labels, increases administration, blocks routes, or gives no voluntary reason to watch/rearrange. More recorded visits is not the acceptance criterion.
 
-## 4. F28c — decide between village transformation and a finite ending
+## 4. F28c — decided finite-first; decide between village transformation and a finite ending
 
 Use the three playable branches and contextual interaction to judge the central pleasure. Prepare launchable comparison states and a short recording/audition procedure. Seek actual preference/ordinary-input evidence when available; record unknowns rather than inventing approval. Test a visible player-selected transformation, with freely chosen sites and recoverable physical consequences. Do not revive the disproved mandatory commons rectangle.
 
@@ -41,6 +41,7 @@ Do not roll the valley treatment everywhere without checking boundary/route comp
 Reevaluate this queue, ROADMAP and CHECKPOINTS after every chunk. These are five work chunks, not five promised checkpoint increments; foundations/tests/docs count zero, complete playable outcomes once. Run the whole-project review at the fifth actual outcome (checkpoint 20) even if this queue changes. Restore fresh independent role coverage when thread capacity permits; the checkpoint-15 reused passes do not substitute for unperformed native play.
 
 Use existing T01 captures/fixtures. Measure food-view off/on/hidden/camera movement before changing its per-frame work. Track fixture rebuild time over two slices before splitting fingerprints. Defer generic editors, dependency graphs, ECS, save migrations and new resource/need systems. Saves remain disposable; current-format correctness remains required. Seasons remain removed.
+
 
 
 

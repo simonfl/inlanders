@@ -11,7 +11,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
-**F28b ordinary shared place — September 13, 2026:** [Delivery/evidence](COMMONS_F28B.md). Persistent, freely placed six-person meal space, ordinary real food trips, rearrangement/removal and current saves. Count **17**. Presentation review pending on fixed commit before F28c; periodic review 20.
+**F28c decision and presentation review — September 13, 2026:** [Whole-game presentation verdict, fixed source/build provenance and comparison package](COMMONS_DECISION_F28C.md). One fresh independent visual/audio role; stills/source only, no native motion/listening. Finite settlement chosen; optional commons retained for comparison. Tooling/decision count zero: **17**. Does not reset regular review at 20.
+
+**F28b ordinary shared place — September 13, 2026:** [Delivery/evidence](COMMONS_F28B.md). Persistent, freely placed six-person meal space, ordinary real food trips, rearrangement/removal and current saves. Count **17**. Presentation review recorded in F28c; periodic review 20.
 
 **F28a contextual inspector — September 13, 2026:** [Delivery/evidence](CONTEXTUAL_INSPECTOR_F28A.md). Everyday workplace controls first; policies and removal secondary. One interaction outcome, count **16**, next periodic review 20.
 
@@ -110,6 +112,7 @@ Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TER
 Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; this presentation review did not replace the separate whole-project review.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
+
 
 
 
