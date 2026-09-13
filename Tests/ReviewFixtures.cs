@@ -20,6 +20,7 @@ static class ReviewFixtures
             "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),
             "court-life"=>CreativeCourtChecks.Arranged(),
             "court-experience"=>World.NewCourtExperience(true),
+            "spatial-unchanged" or "spatial-first-legal" or "spatial-home-court" or "spatial-garden-side" or "spatial-remote"=>SpatialChoiceChecks.Observed(name[8..]),
             "creative-court-arranged"=>CreativeCourtChecks.Arranged(),
             "willow-court"=>World.NewArrangementCourt(),
             "willow-court-expanded"=>CourtChecks.Expanded(),

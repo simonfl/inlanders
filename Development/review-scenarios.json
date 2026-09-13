@@ -1,5 +1,52 @@
 [
-  {"name":"court-experience","description":"Matched finite/open court experience controls","generator":"court-experience","focusX":3,"focusZ":3,"zoom":29},
+  {
+    "name": "spatial-remote",
+    "description": "F31b same-age spatial comparison: remote",
+    "generator": "spatial-remote",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "spatial-garden-side",
+    "description": "F31b same-age spatial comparison: garden-side",
+    "generator": "spatial-garden-side",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "spatial-home-court",
+    "description": "F31b same-age spatial comparison: home-court",
+    "generator": "spatial-home-court",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "spatial-first-legal",
+    "description": "F31b same-age spatial comparison: first-legal",
+    "generator": "spatial-first-legal",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "spatial-unchanged",
+    "description": "F31b same-age spatial comparison: unchanged",
+    "generator": "spatial-unchanged",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "court-experience",
+    "description": "Matched finite/open court experience controls",
+    "generator": "court-experience",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 29
+  },
   {
     "name": "court-life",
     "description": "Sixteen-resident free court: actual working, meals and home rest; compare -CourtControl",

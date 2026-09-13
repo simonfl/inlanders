@@ -6,17 +6,21 @@ September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md)
 
 [F31a is delivered](GAME_ENTRY_F31A.md): Play opens the introduction; Free arrangement opens the same daily-life village without a project. Earlier settlement experiments are archived. No additional gameplay mode or save format was introduced.
 
-## 1. F31b — a real spatial compromise
+## F31b completed — reject the court as the deeper challenge
 
-Reuse one inherited site to compare two viable transformations with existing terrain/buildings. Candidates include reclaiming a crowded food-side court versus making a riverside place, or crossing-dependent homes versus allocating useful eastern land to local food. Select the geography only after establishing two viable, visibly different layouts and a recoverable weak layout.
+[Five-arm comparison](SPATIAL_CHOICE_F31B.md): the easy placement serves fifteen residents without any building move; the reclaimed home court improves gathering but all arms remain fed. The garden-side layout looks more open yet offers no demonstrated strategic advantage. Keep this as an introduction/free arrangement, not a harder level. Test and evidence tooling do not advance count26.
 
-The player should choose the character and compromise, not follow coordinates. Preserve actual meals, construction and journeys. Do not add mandatory move counts, attendance streaks, stock quotas, countdowns or catalogue locks to create the appearance of difficulty. This must move toward the user's request for skillful levels longer than a few minutes through decisions, not waiting.
+## 1. F31b2 — staged redevelopment, not another commons placement
 
-Before/after ordinary life must communicate the result at normal camera scale. Reject if the first legal patch is as good as deliberate redesign, every answer is another garden, or the only consequence is a report number. If the test fails, change the central activity instead of adding another completion gate or overlay.
+Compare rebuilding a functioning settlement using existing construction/demolition/material recovery and physical food. Test retaining production during rebuilding versus establishing a replacement food district first, a recoverable premature-demolition control, and doing nothing. Prefer existing constrained geography; keep all buildings available.
+
+This changes the activity under test from instantaneous arrangement to choosing an order of redevelopment while ordinary life continues. Free arrangement retains free relocation. Test ordinary construction rules in the finite candidate before changing its normal entry; do not silently change the introductory court or revive the whole legacy campaign.
+
+Accept only if two viable strategies require a response after the first action and communicate consequences through everyday life. Reject if bulk placement plus waiting solves it, if relocation bypasses every conflict, or if all benefits live in the report. Do not add move/demolition quotas, attendance streaks, countdowns, catalogue locks or artificial hunger to rescue the experiment. If it fails, reconsider the core activity before scenario delivery.
 
 ## 2. F31c — realize the supported situation, then stop expanding
 
-Turn the viable arrangement comparison into one playable finite settlement with a readable opening, room for self-chosen action, visible everyday use and a satisfying optional ending. Retain the introduction only if it teaches something distinct. No five-level rollout until this deeper situation earns its place.
+Blocked on F31b2: the court comparison did not support a deeper situation. Turn a supported redevelopment comparison into one playable finite settlement with a readable opening, room for self-chosen action, visible everyday use and a satisfying optional ending. Retain the introduction only if it teaches something distinct. No five-level rollout until this deeper situation earns its place.
 
 Use one short consumed player observation: intention before action, first confusion, recognized consequence, voluntary next action or ending. Alternate finite/free entry order. If nobody has played, state the decision as a falsifiable bet; do not claim preference. Judge motion at1× and use3× for waits.
 
