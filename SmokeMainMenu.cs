@@ -96,10 +96,11 @@ public partial class Game
             ToggleDrawer(2); await Frames();
             Check(!_supperButton.Visible && !_progress.Visible && _goalTitle.Text.Contains("Creative"), "Creative shows supper objectives");
             CloseDrawer(); SelectBuilding(_world.Cottages[0].Id); UpdateHud(); await Frames();
+            await UiClick(_inspectorDetails);
             _inspectionScroll.EnsureControlVisible(_removeBuildingButton); await Frames();
-            Check(_removeBuildingButton.Visible && !_removeBuildingButton.Disabled, "Creative removal control missing");
+            Check(_removeBuildingButton.IsVisibleInTree() && !_removeBuildingButton.Disabled, "Creative removal control missing");
             await Capture("artifacts/f16-creative-960.png");
-            await Click(_removeBuildingButton.GetGlobalRect().GetCenter()); await Frames();
+            await UiClick(_removeBuildingButton); await Frames();
             Check(_world.Cottages.Count == 0 && _cottages.Count == 0, "Removed building remained visible");
             OpenLargeMap(); await Frames(); Check(_world.Creative && CurrentSavePath == _creativeLargeSavePath, "Map switch left Creative mode");
             OpenOriginalMap(); await Frames(); Check(_world.Creative && _world.Cottages.Count == 0, "Original creative map not restored");

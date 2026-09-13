@@ -18,10 +18,11 @@ public partial class Game
             _world.Tick(.1f); string first = _world.SaveJson(); AdvanceAutosave(120);
             Check(World.LoadFile(path).SaveJson() == first && World.LoadFile(CurrentSavePath).SaveJson() == manual, "Autosave changed manual save or wrong mode");
             _world.Tick(.1f); string second = _world.SaveJson(); AdvanceAutosave(120);
-            Check(World.LoadFile(path + ".bak").SaveJson() == first && World.LoadFile(path).SaveJson() == second, "Autosave did not rotate");
-            AdvanceAutosave(120); Check(World.LoadFile(path + ".bak").SaveJson() == first, "Unchanged paused village erased older autosave");
+            Check(World.LoadFile(path).SaveJson() == second, "Latest autosave did not update");
+            var written=File.GetLastWriteTimeUtc(path);
+            AdvanceAutosave(120); Check(File.GetLastWriteTimeUtc(path)==written && World.LoadFile(path).SaveJson()==second, "Unchanged paused village rewrote autosave");
             LoadWorld(); await Frames(); Check(_world.SaveJson() == manual, "F9 loaded autosave instead of manual save");
-            RestoreRecovery(path + ".bak"); await Frames(); Check(_world.SaveJson() == first && _paused, "Older recovery failed");
+            RestoreRecovery(path); await Frames(); Check(_world.SaveJson() == second && _paused, "Latest recovery failed");
             RestoreRecovery(RecoveryPath + ".before-recovery"); await Frames(); Check(_world.SaveJson() == manual, "Undo recovery failed");
             _world.Tick(.3f); string beforeRestart = _world.SaveJson(); Reset(); await Frames();
             Check(_paused && World.LoadFile(CurrentSavePath + ".before-new").SaveJson() == beforeRestart, "Restart discarded live progress");
@@ -60,6 +61,6 @@ public partial class Game
             Check(_world.SaveJson() == levelTwo && _paused, "Autosave button did not restore and pause");
             CloseDrawer();
         }
-        GD.Print("PASS: rolling autosaves across four sandbox modes and campaign levels, unchanged pause, F9 isolation, restart/recovery/undo, corrupt and wrong-level recovery, exit persistence and save failure.");
+        GD.Print("PASS: latest autosaves across four sandbox modes and campaign levels, unchanged pause, F9 isolation, restart/recovery/undo, corrupt and wrong-level recovery, exit persistence and save failure.");
     }
 }

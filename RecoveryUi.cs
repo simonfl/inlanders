@@ -8,7 +8,7 @@ public partial class Game
     private double _autosaveElapsed;
     private string? _lastAutosaved;
     private Label _recoveryStatus = null!;
-    private Button _restoreAutosave = null!, _restoreOlderAutosave = null!, _restoreRestart = null!, _undoRecovery = null!;
+    private Button _restoreAutosave = null!, _restoreRestart = null!, _undoRecovery = null!;
     private string RecoveryPath => _world.Campaign is { } campaign ? _campaignPath + $".level-{campaign.Level}" : CurrentSavePath;
     private string AutosavePath => RecoveryPath + ".autosave";
 
@@ -16,7 +16,6 @@ public partial class Game
     {
         _recoveryStatus = Text("", 14, true); column.AddChild(_recoveryStatus);
         _restoreAutosave = Button("Restore latest autosave", () => RestoreRecovery(AutosavePath)); column.AddChild(_restoreAutosave);
-        _restoreOlderAutosave = Button("Restore previous autosave", () => RestoreRecovery(AutosavePath + ".bak")); column.AddChild(_restoreOlderAutosave);
         _restoreRestart = Button("Restore village before restart", () => {
             if (_world.Campaign != null) RestoreBeforeReplay(); else RestoreRecovery(CurrentSavePath + ".before-new");
         }); column.AddChild(_restoreRestart);
@@ -28,7 +27,6 @@ public partial class Game
         if (!_drawer.Visible || _tabs.CurrentTab != 3) return;
         string path = AutosavePath;
         _restoreAutosave.Disabled = !File.Exists(path);
-        _restoreOlderAutosave.Disabled = !File.Exists(path + ".bak");
         _undoRecovery.Disabled = !File.Exists(RecoveryPath + ".before-recovery");
         _restoreRestart.Disabled = _world.Campaign is { } c ? _campaignBook?.BeforeReplay.ContainsKey(c.Level) != true : !File.Exists(CurrentSavePath + ".before-new");
         _recoveryStatus.Text = "Autosave every 2 real minutes while the village is open, including paused edits. F9 restores the manual/session save, not autosaves.\n" +

@@ -1,35 +1,45 @@
-# Next chunks — make the finite settlement worth playing
+# Next chunks — a village worth changing
 
-September 13, 2026. [F28c decision](COMMONS_DECISION_F28C.md), [F28d delivery](SETTLEMENT_JOURNEY_F28D.md). Count **19**; next regular whole-game review **20**. The [five delivered F28 work briefs](NEXT_CHUNKS_F28_DELIVERED.md) are history, not active assignments.
+September 13, 2026. [Whole-game review at 19](WHOLE_GAME_REVIEW_19.md), five fresh independent roles. Count **19**; regular review **20** remains due. [F29b comparison](MEADOW_DECISION_F29B.md) is complete as a decision experiment, not a new playable level. T04 fixture reuse and F29a readable shared ground are delivered.
 
-Primary direction: a finite welcoming settlement, with optional continued arrangement. The recurring commons is a comparative epilogue, not an accepted endless-game loop. Retain actual food trips, shared work and freely chosen sites. No new quotas, producers, need meters or forced building recipes. All buildings remain available; saves are disposable and seasons remain removed.
+Keep the finite welcome provisionally. Test revising an inherited village instead of building a larger copy of the opening. Existing meadow remains a control: its reserve catches an underprepared route, but does not demonstrate a deeper choice in eight competent plans. No reserve inflation, new producer, need meter, compulsory demolition or attendance certificate. All buildings remain available; seasons stay removed; saves are disposable.
 
-## 1. T04 — delivered; fixture reuse
+## 1. F29c — inherited shoreline village, playable comparison
 
-[Delivered boundary, regression checks and measurement](REVIEW_CACHE_T04.md): 15.88-second generation skipped by a 0.26-second cached Prepare after a UI-only rebuild. Next active: F29b.
+Make one functioning village with a visible awkward relationship between homes, food and usable shared ground. Reuse existing lake/river/woodland material and current shared-work/local-food rules. Give it a finite welcoming ambition, not an efficiency score. The key action is choosing what to change in a place that already works. Do not build a new resource chain or generic scenario framework first.
 
-Original scope: across F28a–d, UI-only changes repeatedly regenerated the same ~18–20-second gathering fixture. Split fixture identity from presentation/build identity using a small explicit input boundary; retain both hashes in evidence. No dependency graph or second runner. Beneficiaries: every UI/presentation iteration and reviewer comparing alternatives. Cost/maintenance: two conservative hash lists and invalidation checks. Validate reuse after a UI-only edit, invalidation after simulation or generator changes, and rejection of altered snapshots. Measure saved preparation time. Count zero.
+Compare with the existing meadow using matched population/resource capability where possible; record necessary differences. Two plausible interventions should emerge through existing actions, such as investing in access or bringing useful work closer. Preserve no-change, compact alternative and add-elsewhere controls. A free square bypassed the old compulsory commons sacrifice; do not reinstate it with a tighter rectangle. Existing buildings and their usefulness are part of the decision, not obstacles placed solely to demand demolition.
 
-## 2. F29a — delivered; readable shared-place ground
+Show enough causal feedback to make the problem visible. Correct shared-work Economy advice encountered by this slice; do not tell automatic workers to adopt legacy roles because of their instantaneous jobs. Separate keeping construction controls available from choosing Watch. These support one outcome, not independent checkpoint claims.
 
-[Delivery](SHARED_PLACE_F29A.md) and [independent presentation review](PRESENTATION_REVIEW_F29A.md): accepted narrowly as readable place identity across four open/shaded directions. Count 19. Continued-play reward, activity occlusion and whole-scene composition remain unresolved.
+Test an informed plan, an imperfect choice and recovery, with common observation windows and actual construction/food accounting. A welcome-only ending must face the underprovisioned counterexample; no false success because the initial village was viable. Reject or substantially revise the slice if players simply repeat the old recipe beside it, see no consequence, or experience unwanted cleanup. One complete playable scenario outcome, then stop for review.
 
-Compare the current loose mats with a coherent low ground treatment that connects a shared place without obstructing paths. Include open and shaded sites, normal zoom, all four viewing directions and actual ordinary meals. Challenge the whole scene's framing, repeated vegetation and competing labels; do not solve this by adding more tiny props. Keep movement and meal rules matched. Prefer the treatment only if its role is visible before reading labels. Substantial presentation change triggers an independent whole-project visual/audio review. One outcome only if a usable presentation change ships; a rejected art probe counts zero.
+**Small tooling alongside it:** register paired starts in the existing launcher and include a short observer form: intended change, predicted consequence, confusion, intervention, idle time and preference. Add step timestamps/awaited conditions when modifying long probes. Estimate hours to half a day; low maintenance. Measure launch time and time to explain the first failure. Native interaction/human observation remains unavailable in the current evidence; scripted routes cannot substitute for it. No second runner or replay framework.
 
-## 3. F29b — give the second settlement a distinct decision
+## Review gate — checkpoint 20
 
-The meadow currently adds arrivals, scarce wild food and a reserve. Compare at least two viable freely chosen supply/settlement arrangements and early versus late invitation from matched starts. Ask whether routes, space and commitments produce a decision worth revising, or simply more building and waiting. Prototype a changed spatial situation if needed; cut the larger-reserve premise if it does not earn its place. No larger numbers to manufacture challenge. Seek uncoached play and record what remains unobserved. One complete changed scenario outcome, not one count per fixture or route.
+After F29c or any other complete playable outcome reaches 20, run the regular five-role whole-project review on a fixed commit/build. This requested review at 19 does not reset cadence. Challenge the inherited-village bet as hard as the previous meadow; assess the entire campaign, catalogue/needs, normal/Creative, controls, presentation/audio and reliability. The work below is conditional, not a five-feature commitment.
 
-## 4. Checkpoint 20 — whole-game direction review
+## 2. F30a — act on a food journey in the world
 
-Run when the next actual playable outcome brings the count to 20, even if the work above changes. Independent read-only designer, UX/onboarding, playtest and game development lead, plus visual/audio, on a fixed commit/build. Review the entire game, including legacy geography, current two-settlement arc, economy/needs, Creative, controls, art/audio and reliability/performance. Challenge finite-first as hard as persistent play. Preserve disagreements and unavailable native/audio evidence. Tools and documents do not advance the count.
+If the inherited situation survives review, let selecting a resident/home/source reveal the relevant food origin, destination and immediate blocker, with a direct useful action. Reuse existing route and inspector data; remove contradictory legacy staffing advice and duplicated explanations. Test prediction and recovery without prescribing a farm/bakery/pantry recipe. Fail if it is just another overlay or requires more panel reading. One coherent diagnosis/action outcome.
 
-## 5. F29c — implement the review's chosen redesign
+## 3. F30b — compose an inhabited lane or court
 
-Reserve this chunk for the synthesis, not a predetermined feature. It may replace the meadow, simplify the building/need set, rebuild composition, or return to village transformation if actual experience supports it. Do not defend existing code as a product argument. Record what was cut, retained for demonstrated value, and still assumed.
+Compare dispersed valley with buildings addressing connected usable public space. Ground, fronts, landscape masses, communal focus and camera framing are the work; more tiny props are not. Use the same supported rules and building capabilities, allow rearrangement, and include a dense extension. Inspect default and candidate at 960/1440, ordinary zoom and opposite sides. Select an actual presentation direction rather than accumulate study toggles. Fail if it only works from the authored camera or dictates one layout. Include ordinary-speed motion and actual listening where available. Substantial presentation change requires the additional visual/audio review.
 
-## Evidence and deferred investments
+## 4. F30c — Creative using the chosen village rules
 
-Three ready comparison launches and an ordinary-speed audition procedure are in [F28c](COMMONS_DECISION_F28C.md). Use 3x/6x for production waits and 1x for judging movement/sound. Native interaction, voluntary continued play and audio preference remain unobserved. Do not infer these from scripted controls or visit counts.
+If those rules survive, provide free construction and forgiving hunger while keeping physical meal collection and ordinary life. Reuse the chosen settlement and expose explicit relaxations. Do not make players learn a second pantry/role model to decorate. Verify placement/removal, save/reset, paused edits and continuing activity. Retire older player-facing rule branches only after useful capabilities are covered; no save migration or general mode framework.
 
-Use existing frame traces to measure food view off/on/hidden/camera movement before optimizing it. Capture actual demolition blockers before changing recovery priority. Do not invest in a generic editor, ECS, replay framework, broad asset pass or save migrations. Update this queue and the roadmap after every chunk.
+## 5. F30d — commit to the small campaign and supported set
+
+Use the comparisons and actual player observation to select a coherent opening plus second situation. Cut redundant recipes, proof windows and unused mode obligations from primary progression. Decide whether the three venue types and comfort chain add distinct value; availability alone does not make them objectives. Reuse geography that creates a visible choice. If F29c fails, this chunk may instead replace the proposed arc. Do not add more levels until we can state why someone would want to play the second one.
+
+## Evidence investments and deferred work
+
+Use current movie/audio tools for a quiet/busy/meal audition; record whether anybody actually watched/listened. A format-valid recording is not that evidence. Native-control or a short human session is the main comprehension/preference gap.
+
+Measure ordinary/dense 1x/6x with food view off/on/hidden, moving camera and save markers before optimizing. Existing frame traces suffice for the first measurement; estimate several hours. No inferred performance verdict from concurrent capture time.
+
+Defer new producers, resources, needs, broad ornament/music, ECS, generic editor/configuration, dependency graph, replay framework and save compatibility. Reevaluate this queue, roadmap and checkpoint ledger after every chunk; count playable outcomes once.

@@ -6,10 +6,13 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Playable checkpoints since adoption: **19**.
 - Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
-- Next four-role review: **checkpoint 20**, whole-project scope. Restore fresh playtest independence when available; native observation remains outstanding.
+- Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
+- Next four-role review: **checkpoint 20**, whole-project scope. Retain fresh playtest independence restored at 19; native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**F29b decision experiment and requested full review — September 13, 2026:** Fixed comparison/review commit `1a47c8c`; [eight matched plans](MEADOW_DECISION_F29B.md), [whole-game review](WHOLE_GAME_REVIEW_19.md). Five fresh independent contexts; current default 960/1440 journeys pass, Storybook study stills inspected, movie integrity checked without playback/listening acceptance. Reject reserve escalation, select an inherited-village comparison. Count remains **19**; next regular review **20**. Post-review consistency cleanup opens Details in the legacy removal probe, removes the obsolete previous-autosave control and verifies latest autosaves. Full menu/recovery rerun passes at 960/1440, including all modes, Creative removal, corrupt/wrong-level recovery and failed saves. No new playable scenario or save preservation work counted.
 
 **F29a coherent shared-place ground — `75eb47c`, September 13, 2026:** [Delivery](SHARED_PLACE_F29A.md) and [independent whole-game presentation review](PRESENTATION_REVIEW_F29A.md). Ten clean fixed-build stills; open/shaded four-direction comparisons, scripted control checks and 1x recording integrity. Accepted narrowly for readability; no native play/listening acceptance. Count **19**; next periodic review **20**. Presentation review does not reset cadence.
 
