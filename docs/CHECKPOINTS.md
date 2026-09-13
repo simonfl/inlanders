@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **27**.
+- Playable checkpoints since adoption: **28**.
 - Last periodic review: **checkpoint25**, [whole-game synthesis](REVIEW_CHECKPOINT_25.md). Three fresh independent roles plus a reused playtest reviewer after the agent limit; source/still/scripted evidence, no uncoached native play or listening acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F31d lakeside hall — September 13, 2026:** [Delivery and evidence](LAKESIDE_HALL_F31D.md). Optional founding continuation with far-shore stone, ordinary quarry/sawmill/hall construction, actual hall-break ending and persistent state. Three sites, normal rebuilding/reuse and960/1440 UI/save checks. One playable outcome, count **28**. Unsupported remote siting is worse on supply and visitor travel; next F31d2 tests local support. No human play/listening acceptance; periodic review remains **30**.
 
 **F31c2 food-expansion decision — September 13, 2026:** [Four-arm comparison](FOUNDING_LAND_USE_F31C2.md). Homes-only succeeds and remains fed for fifteen simulated minutes; preservation increases actual game meals but is optional for success. Cut this difficulty extension, retain gentle founding, select F31d public works. Correct the criterion: thoughtful up-front planning is valid; ignoring the intended decision is the stronger failure. Tests/docs and two consumed stills only, count remains **27**, review **30**. No production change, human play/listening or independent whole-game review claimed.
 

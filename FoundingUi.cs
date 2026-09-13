@@ -33,11 +33,13 @@ public partial class Game
         _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingGoals.AddChild(_foundingFinish);
         _foundingContinue=Button("Keep building",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
+        MakeFoundingHallUi(column);
         _foundingGoals.Hide();
     }
     private void UpdateFoundingUi()
     {
         var f=_world.Founding!;
+        _foundingHallGoals.Hide();
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
         _campaignSelection.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_riverAction.Hide();_progress.Hide();
         _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Show();
@@ -51,5 +53,6 @@ public partial class Game
         _foundingContinue.Visible=f.Finished;_foundingLeave.Visible=f.Finished;
         _menuButtons[2].Text=f.Finished?"Village · Finished":"Village";_menuButtons[2].TooltipText="Your founding village [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your village";
+        UpdateFoundingHallUi();
     }
 }

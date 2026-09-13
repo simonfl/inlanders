@@ -16,6 +16,7 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "creative-court"=>World.NewCreativeCourt(),
             "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),

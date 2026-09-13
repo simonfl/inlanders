@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **27**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
+September 13, 2026. Count **28**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -24,15 +24,17 @@ September 13, 2026. Count **27**. [Whole-game review25](REVIEW_CHECKPOINT_25.md)
 
 Correct the acceptance criterion: good up-front planning may succeed. A script with known coordinates is not novice play. The problem is that ignoring the proposed decision succeeds, not that the player can queue several thoughtful orders while paused.
 
-## 1. F31d — a lakeside public-works project
+## F31d delivered — optional lakeside hall
 
-Offer one optional continuation in the existing founding Village panel: make a gathering hall using existing quarry/stone and sawmill/plank chains. Author a reachable far-shore outcrop; keep the opening and catalogue available. No new mode, producer, need or five-level rollout. Reuse the quarry campaign's systems without its rolling assessment.
+[Delivery and comparisons](LAKESIDE_HALL_F31D.md). After founding, the Village panel offers a quarry/sawmill/hall project using real materials and actual breaks, with an optional ending. Current saves and960/1440 UI journeys pass. Count28. A hall near stone is not automatically cheaper to supply: without local storage, the tested far-shore hall loses on loaded-material travel and visitor journeys, and records some missed meals. No equal-strategy or human-enjoyment claim.
 
-Compare a home-side hall with longer stone journeys against a material-side hall with longer resident journeys, plus recoverable awkward siting. Give the finished project a visible everyday purpose and optional player-declared ending after ordinary use. Preserve normal material recovery, construction and meals. Thoughtful bulk planning is allowed; no forced rearrangement, attendance streak, reserve quota or countdown. If sites are effectively interchangeable, revise the project rather than add a gate.
+## 1. F31d2 — support a remote worksite
 
-Use consumed player observation when available; human enjoyment/pacing remain unknown. Assess the resulting place, decisions and journeys instead of targeting a duration. Keep the earlier introduction and free arrangement working. Whole-project review30 must challenge this direction too.
+Compare the existing local stockpile/food-storage tools at the far-shore worksite against its unsupported control and the home-side hall. Explain the actual material route through existing construction/inspection controls. Test the depot's investment and ongoing resident journeys; do not make another support building compulsory or create a logistics framework.
 
-The remaining checkpoint28–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
+If local support still leaves the remote site without a useful purpose, cut that premise rather than add gates or convenient rate changes. Good up-front planning is allowed. Keep ordinary construction/recovery, the gentle founding option and free arrangement. No extra campaign levels or claims of challenge from elapsed time. Whole-game review30 must reassess this direction; native/uncoached play and listening remain missing evidence.
+
+The remaining checkpoint29–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
 
 ## Keep deferred
 

@@ -24,7 +24,7 @@ public partial class Game
             await CaptureReviewBundle("workplace-primary");
             int before=site.LocalFoodReserve;await UiClick(_pantryMore);await Frames();
             Check(site.LocalFoodReserve==Math.Min(24,before+4),"Producer retention control failed");
-            await CaptureReviewBundle("local-food-reserve");await Press(Key.F5);string policy=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==policy,"Retention save/load differs");
+            await CaptureReviewBundle("local-food-reserve");await Press(Key.F5);string policy=_world.SaveJson();Check(System.IO.File.ReadAllText(CurrentSavePath)==policy,"F5 did not persist retention: "+_notice);await Press(Key.F9);await Frames();Check(_world.SaveJson()==policy,"Retention save/load differs");
             SelectBuilding(site.Id);await Frames();await UiClick(_pantryLess);await Frames();Check(_world.Cottages.First(c=>c.Id==site.Id).LocalFoodReserve==before,"Retention decrease failed");ClearSelection();
         }
         GD.Print("PASS: optional world food view matches stores, closes and preserves world state");

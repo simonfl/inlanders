@@ -25,7 +25,7 @@ For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Rev
 
 ## Current game: make an inhabited place
 
-**Play** offers **A home by the water**: eight founders, one home, normal construction and shared workers. Build homes, choose shore/woodland/garden food, and invite two households when ready. An optional ending follows actual meals and housing. This is a gentle candidate; the tested bulk-order route is still too easy to establish a deeper challenge.
+**Play** offers **A home by the water**: eight founders, one home, normal construction and shared workers. Build homes, choose shore/woodland/garden food, and invite two households when ready. An optional ending follows actual meals and housing. This is a gentle opening. After declaring it ready, choose **Village → Next project · A lakeside hall** to build with stone from the far shore and planks from a sawmill. You can plan ahead, then finish the optional project after a neighbor uses the hall.
 
 **Short introduction · A place to gather** keeps the earlier court. Choose **Your place [G] → Choose a meal place** to preview six real seats. Move homes to open space, or choose another site near food. After a neighbor actually eats there, finish when satisfied—or keep building and watching. This is an introduction, not yet the planned deeper campaign.
 

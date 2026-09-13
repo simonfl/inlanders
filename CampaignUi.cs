@@ -110,7 +110,7 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
-        _foundingGoals.Hide();
+        _foundingGoals.Hide();_foundingHallGoals.Hide();
         if(_world.Founding!=null){UpdateFoundingUi();return;}
         _courtExperienceGoals.Hide();
         _neighborhoodGoals.Hide();_journeyAction.Hide();_campaignSelection.Visible=_world.Neighborhood==null;

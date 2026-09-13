@@ -398,7 +398,7 @@ public sealed partial class World
                 case Work.ToLeisure: v.Task = Work.Leisure; v.Timer = 0; v.Status = $"Taking a break at {Buildings.Get(Cottages.Single(c=>c.Id==v.LeisureSiteId).Kind).Name}"; break;
                 case Work.Leisure:
                     var venueDefinition=Buildings.Get(Cottages.Single(c=>c.Id==v.LeisureSiteId).Kind);
-                    if (v.Timer >= venueDefinition.RecreationSeconds) { v.LeisureVisits++; v.LastLeisureTime = Food.Time; v.LastLeisureWindow=venueDefinition.RecreationMemory; v.LastLeisureSiteId = v.LeisureSiteId; Finish(v); } break;
+                    if (v.Timer >= venueDefinition.RecreationSeconds) { RecordFoundingHallUse(v); v.LeisureVisits++; v.LastLeisureTime = Food.Time; v.LastLeisureWindow=venueDefinition.RecreationMemory; v.LastLeisureSiteId = v.LeisureSiteId; Finish(v); } break;
                 case Work.ToClearStump: v.Task = Work.ClearingStump; v.Timer = 0; v.Status = "Clearing roots and making ground usable"; break;
                 case Work.ClearingStump:
                     if (v.Timer < 4) break;

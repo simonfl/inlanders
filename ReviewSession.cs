@@ -120,6 +120,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="resume")await ProbeSettlementResume();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="commons")await ProbeCommons();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="willow-court")await ProbeCourt();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="court-experience")await ProbeCourtExperience();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="creative-court")await ProbeCreativeCourt();

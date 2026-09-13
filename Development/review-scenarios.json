@@ -1,4 +1,5 @@
 [
+  {"name":"founding-hall","description":"Founded village ready for optional hall project and UI checks","generator":"founding-hall","focusX":0,"focusZ":0,"zoom":29},
   {"name":"founding","description":"Founding settlement opening and actual entry controls","generator":"founding","focusX":0,"focusZ":0,"zoom":29},
   {
     "name": "spatial-remote",
