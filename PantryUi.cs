@@ -14,8 +14,11 @@ public partial class Game
         var row=new HBoxContainer(); _pantryControls.AddChild(row);
         void Change(int amount)
         {
-            var p=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && c.Kind==BuildingKind.Pantry);
-            if(p!=null) _world.SetPantryTarget(p.Id,System.Math.Clamp(p.PantryTarget+amount,0,24));
+            var p=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && (c.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(c)));
+            if(p==null)return;
+            if(_world.IsWorkplaceFoodStore(p))_world.SetLocalFoodReserve(p.Id,System.Math.Clamp(p.LocalFoodReserve+amount,0,24));
+            else _world.SetPantryTarget(p.Id,System.Math.Clamp(p.PantryTarget+amount,0,24));
+            UpdateHud();
         }
         _pantryLess=Button("Target −4",()=>Change(-4)); row.AddChild(_pantryLess);
         _pantryMore=Button("Target +4",()=>Change(4)); row.AddChild(_pantryMore);
@@ -26,10 +29,14 @@ public partial class Game
         var pantry=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && (c.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(c)) && !c.DemolitionRequested);
         _pantryControls.Visible=pantry!=null; if(pantry==null) return;
         bool workplace=_world.IsWorkplaceFoodStore(pantry);
-        _pantryLess.Visible=_pantryMore.Visible=!workplace;
+        _pantryLess.Show();_pantryMore.Show();
+        _pantryLess.Text=workplace?"Keep locally −4":"Target −4";
+        _pantryMore.Text=workplace?"Keep locally +4":"Target +4";
+        _pantryLess.Disabled=(workplace?pantry.LocalFoodReserve:pantry.PantryTarget)==0;
+        _pantryMore.Disabled=(workplace?pantry.LocalFoodReserve:pantry.PantryTarget)==24;
         if(workplace)
         {
-            _pantryInfo.Text="WORKPLACE FOOD\n"+(pantry.Complete?string.Join("\n",World.EdibleKinds.Where(k=>_world.FoodAt(pantry.Id,k)>0).Select(k=>$"{k}: {_world.FoodAt(pantry.Id,k)} stored · {_world.FoodReservedAt(pantry.Id,k)} reserved"))+$"\n{pantry.PantryFood.Sum()}/24 portions · {_world.FoodIncoming(pantry.Id)} incoming":"Storage opens after construction.")+"\nPeople can collect meals here. Haulers leave four portions for local meals and move surplus to neighborhood pantries or central storage. Pausing production leaves stored food available. A full store sends new output to another pantry.";
+            _pantryInfo.Text=$"Keep locally: {pantry.LocalFoodReserve}/24 portions\n"+(pantry.Complete?string.Join("\n",World.EdibleKinds.Where(k=>_world.FoodAt(pantry.Id,k)>0).Select(k=>$"{k}: {_world.FoodAt(pantry.Id,k)} stored · {_world.FoodReservedAt(pantry.Id,k)} reserved"))+$"\n{pantry.PantryFood.Sum()}/24 portions · {_world.FoodIncoming(pantry.Id)} incoming":"Storage opens after construction.")+"\nHaulers leave this many unclaimed portions here, including when supplying the welcome table. Lower it to distribute more; raise it for local meals. People can still eat them. Existing shipments finish. Paused production still serves food; full stores send new output elsewhere.";
             return;
         }
         _pantryInfo.Text=$"Supply target {pantry.PantryTarget}/24 portions\n"+(pantry.Complete?string.Join("\n",World.EdibleKinds.Select(k=>$"{k}: {_world.FoodAt(pantry.Id,k)} stored · {_world.FoodReservedAt(pantry.Id,k)} reserved"))+$"\n{_world.FoodIncoming(pantry.Id)} incoming":"Food service begins after construction.")+"\nProducers can deliver here directly. Optional haulers replenish from central food and return stock above the target. Target 0 drains stock with haulers; meals and direct producer deposits continue.";

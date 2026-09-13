@@ -89,6 +89,7 @@ public sealed class Cottage
     public float ImprovementOrderedAt { get; set; }
     public int[] PantryFood { get; set; } = new int[6];
     public int PantryTarget { get; set; } = 12;
+    [JsonInclude] public int LocalFoodReserve { get; internal set; } = 4;
     [JsonInclude] public bool DemolitionRequested { get; internal set; }
     [JsonInclude] public bool DemolitionWasPaused { get; internal set; }
     [JsonInclude] public float DemolitionProgress { get; internal set; }

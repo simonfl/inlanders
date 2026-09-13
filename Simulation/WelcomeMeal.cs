@@ -41,6 +41,7 @@ public sealed partial class World
         {
             if(!Accessible(FoodAccess(source)))continue;
             int surplus=Math.Max(0,EdibleKinds.Sum(k=>FoodAvailableAt(source,k))-waiting);
+            if(source is int store && IsWorkplaceFoodStore(Pantry(store)))surplus=Math.Min(surplus,Math.Max(0,EdibleKinds.Sum(k=>FoodAvailableAt(source,k))-Pantry(store).LocalFoodReserve));
             if(surplus==0)continue;
             var kind=EdibleKinds.OrderByDescending(k=>FoodAvailableAt(source,k)).First();
             int amount=Math.Min(4,Math.Min(need,Math.Min(surplus,FoodAvailableAt(source,kind))));

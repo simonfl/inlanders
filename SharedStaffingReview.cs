@@ -15,8 +15,8 @@ public partial class Game
         if(_world.IsWorkplaceFoodStore(site))
         {
             _inspectionScroll.EnsureControlVisible(_pantryInfo);await Frames();
-            Check(_pantryControls.Visible && _pantryInfo.Text.Contains("WORKPLACE FOOD") &&
-                _pantryInfo.Text.Contains("four portions") && !_pantryMore.Visible && !_pantryLess.Visible,
+            Check(_pantryControls.Visible && _pantryInfo.Text.Contains($"Keep locally: {site.LocalFoodReserve}/24") &&
+                _pantryInfo.Text.Contains("Existing shipments finish") && _pantryMore.Visible && _pantryLess.Visible,
                 "Workplace food inspector does not explain its distribution rule");
             await CaptureReviewBundle();
             await OpenMenu(4);await Frames();

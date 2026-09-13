@@ -16,6 +16,15 @@ public partial class Game
         await OpenMenu(4);await UiClick(_foodMapToggle);await Frames();
         Check(!_showFoodMap && _foodMapLabels.Values.All(l=>!l.Panel.Visible),"Food view failed to close");
         Check(_world.SaveJson()==saved,"Closing food view changed simulation");
-        CloseDrawer();GD.Print("PASS: optional world food view matches stores, closes and preserves world state");
+        CloseDrawer();
+        if(_world.HasWorkplaceFood)
+        {
+            var site=_world.Cottages.First(c=>c.Complete && _world.IsWorkplaceFoodStore(c));SelectBuilding(site.Id);await Frames();
+            int before=site.LocalFoodReserve;await UiClick(_pantryMore);await Frames();
+            Check(site.LocalFoodReserve==Math.Min(24,before+4),"Producer retention control failed");
+            await CaptureReviewBundle("local-food-reserve");await Press(Key.F5);string policy=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==policy,"Retention save/load differs");
+            SelectBuilding(site.Id);await Frames();await UiClick(_pantryLess);await Frames();Check(_world.Cottages.First(c=>c.Id==site.Id).LocalFoodReserve==before,"Retention decrease failed");ClearSelection();
+        }
+        GD.Print("PASS: optional world food view matches stores, closes and preserves world state");
     }
 }

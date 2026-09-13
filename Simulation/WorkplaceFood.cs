@@ -4,7 +4,12 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    public const int WorkplaceFoodReserve=4;
+    public bool SetLocalFoodReserve(int id,int portions)
+    {
+        var site=Cottages.FirstOrDefault(c=>c.Id==id && IsWorkplaceFoodStore(c) && !c.DemolitionRequested);
+        if(site==null || portions<0 || portions>PantryCapacity)return false;
+        site.LocalFoodReserve=portions;_retry=0;return true;
+    }
     public bool HasWorkplaceFood=>Neighborhood?.WorkplaceFood==true;
     // All existing edible producers share one local-output rule in the selected workflow.
     public bool IsWorkplaceFoodStore(Cottage site)=>HasWorkplaceFood && site.Kind is BuildingKind.ForagerHut or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.Orchard or BuildingKind.FishingDock or BuildingKind.HuntingLodge;
@@ -25,7 +30,7 @@ public sealed partial class World
         foreach(var source in Cottages.Where(c=>IsWorkplaceFoodStore(c) && c.Complete && !c.DemolitionRequested)
             .OrderBy(c=>TravelCost(At(person),c.Entrance)+TravelCost(c.Entrance,destination.Entrance)).ThenBy(c=>c.Id))
         {
-            int surplus=EdibleKinds.Sum(k=>FoodAvailableAt(source.Id,k))-WorkplaceFoodReserve;
+            int surplus=EdibleKinds.Sum(k=>FoodAvailableAt(source.Id,k))-source.LocalFoodReserve;
             if(surplus<=0)continue;
             var kind=EdibleKinds.OrderByDescending(k=>FoodAvailableAt(source.Id,k)).First();
             int amount=System.Math.Min(4,System.Math.Min(need,System.Math.Min(surplus,FoodAvailableAt(source.Id,kind))));

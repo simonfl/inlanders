@@ -61,7 +61,7 @@ public sealed partial class World
         }
         foreach(var pantry in Cottages.Where(c=>IsFoodStore(c) && c.Complete && !c.DemolitionRequested && c.Id!=Neighborhood?.VenueId).OrderBy(c=>TravelCost(At(person),c.Entrance)))
         {
-            int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-(IsWorkplaceFoodStore(pantry)?WorkplaceFoodReserve:pantry.PantryTarget);
+            int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-(IsWorkplaceFoodStore(pantry)?pantry.LocalFoodReserve:pantry.PantryTarget);
             if(spare<=0) continue;
             var kind=EdibleKinds.OrderByDescending(k=>FoodAvailableAt(pantry.Id,k)).First();
             person.Cargo=kind; person.PantryReserved=Math.Min(4,Math.Min(spare,FoodAvailableAt(pantry.Id,kind)));
@@ -83,7 +83,7 @@ public sealed partial class World
     {
         foreach(var c in Cottages)
         {
-            if(c.PantryFood==null || c.PantryFood.Length!=EdibleKinds.Length || c.PantryFood.Any(n=>n<0) || c.PantryTarget<0 || c.PantryTarget>PantryCapacity ||
+            if(c.LocalFoodReserve<0 || c.LocalFoodReserve>PantryCapacity || c.PantryFood==null || c.PantryFood.Length!=EdibleKinds.Length || c.PantryFood.Any(n=>n<0) || c.PantryTarget<0 || c.PantryTarget>PantryCapacity ||
                 !IsFoodStore(c) && c.PantryFood.Any(n=>n!=0) || c.PantryFood.Sum()+FoodIncoming(c.Id)>PantryCapacity)
                 throw new InvalidOperationException("Invalid pantry stock/capacity");
             if(IsFoodStore(c) && c.Complete) foreach(var kind in EdibleKinds)
