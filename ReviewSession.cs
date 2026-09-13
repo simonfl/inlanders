@@ -23,6 +23,7 @@ public partial class Game
         if(index+1>=args.Length)throw new ArgumentException("--review-run needs a request file from Review.ps1");
         _reviewRequest=JsonDocument.Parse(File.ReadAllText(args[index+1]));
         var request=_reviewRequest.RootElement;
+        _commonsMats=request.TryGetProperty("commonsMats",out var mats) && mats.GetBoolean();
         _storybookScene=request.TryGetProperty("storybook",out var storybook) && storybook.GetBoolean();
         // Godot loads the managed assembly from bytes, so Assembly.Location can be empty.
         if(request.GetProperty("assemblyHash").GetString()!=ReviewHash(ProjectSettings.GlobalizePath("res://.godot/mono/temp/bin/Debug/Inlanders.dll")))throw new Exception("Review build hash differs from request");
@@ -151,7 +152,7 @@ public partial class Game
                 window=new{width=GetWindow().Size.X,height=GetWindow().Size.Y},
                 selected=new{personId=_selectedPerson,siteId=_selectedSite,personStatus=person?.Status,role=person?.Role.ToString(),task=person?.Task.ToString(),siteKind=site?.Kind.ToString()},
                 village=new{population=_world.Population,buildings=_world.Cottages.Count,map=_world.Map.Name,objective=_world.CampaignObjective},
-                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene},
+                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene,commonsMats=_commonsMats},
                 audio=new{effects=_effectsVolume,music=_musicVolume,nature=_ambienceVolume,muted=_soundMuted,musicMuted=_musicMuted}
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));

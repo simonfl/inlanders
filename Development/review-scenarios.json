@@ -1,11 +1,19 @@
 [
   {
+    "name": "commons-open",
+    "description": "Same viable village, shared meal place in the open meadow",
+    "generator": "commons-open",
+    "focusX": 17,
+    "focusZ": 9,
+    "zoom": 29
+  },
+  {
     "name": "commons-untouched",
     "description": "Matched viable village: ordinary meals, no shared place",
     "generator": "commons-untouched",
     "focusX": 17,
     "focusZ": 9,
-    "zoom": 22
+    "zoom": 29
   },
   {
     "name": "commons-recurring",
@@ -13,7 +21,7 @@
     "generator": "commons-recurring",
     "focusX": 17,
     "focusZ": 9,
-    "zoom": 22
+    "zoom": 29
   },
   {
     "name": "commons-event",
@@ -21,7 +29,7 @@
     "generator": "commons-event",
     "focusX": 17,
     "focusZ": 9,
-    "zoom": 22
+    "zoom": 29
   },
   {
     "name": "commons",

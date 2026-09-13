@@ -10,7 +10,9 @@ Primary direction: a finite welcoming settlement, with optional continued arrang
 
 Original scope: across F28a–d, UI-only changes repeatedly regenerated the same ~18–20-second gathering fixture. Split fixture identity from presentation/build identity using a small explicit input boundary; retain both hashes in evidence. No dependency graph or second runner. Beneficiaries: every UI/presentation iteration and reviewer comparing alternatives. Cost/maintenance: two conservative hash lists and invalidation checks. Validate reuse after a UI-only edit, invalidation after simulation or generator changes, and rejection of altered snapshots. Measure saved preparation time. Count zero.
 
-## 2. F29a — make a place read at village scale
+## 2. F29a — candidate built; presentation review next
+
+[Candidate and evidence](SHARED_PLACE_F29A.md). The connected ground treatment now clips around occupied land; the bright spoke variant was rejected. Count remains 18 while fixed-build evidence and independent review are completed.
 
 Compare the current loose mats with a coherent low ground treatment that connects a shared place without obstructing paths. Include open and shaded sites, normal zoom, all four viewing directions and actual ordinary meals. Challenge the whole scene's framing, repeated vegetation and competing labels; do not solve this by adding more tiny props. Keep movement and meal rules matched. Prefer the treatment only if its role is visible before reading labels. Substantial presentation change triggers an independent whole-project visual/audio review. One outcome only if a usable presentation change ships; a rejected art probe counts zero.
 
