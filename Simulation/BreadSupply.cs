@@ -19,7 +19,7 @@ public sealed partial class World
             $"At bakeries: {Cottages.Sum(c=>c.OutputBread)} · carried: {People.Where(p=>p.Cargo==Resource.Bread).Sum(p=>p.Carried)}\n";
         if(!Creative && !Food.SupperComplete && !Food.Celebrating)
             text+=$"Supper needs {SupperCost} available centrally; {Math.Max(0,SupperCost-central)} more needed.\n";
-        text+="\nMeals use bread too. Inspect baker staffing, grain, targets and travel; add baking capacity if needed.\n";
+        text+="\nMeals use bread too. Bakers fetch grain from the central pantry, not directly from farms. Check staffing, targets and those trips before adding ovens.\n";
         if(local>0)
             text+="Return local surplus: lower its pantry target and assign a hauler. Haulers return surplus food, not bread specifically; meals can claim it first.";
         else text+="Supper also needs homes and clear gathering space.";

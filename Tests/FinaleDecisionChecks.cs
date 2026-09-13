@@ -99,7 +99,7 @@ static class FinaleDecisionChecks
         Build(w,new(14,8),BuildingKind.Square);
         if(local)Build(w,new(10,8),BuildingKind.Pantry);
     }
-    static void FreeCentralPlot(World w,bool local,Cell cell,Cell replacementCell,int rotation=0)
+    internal static void FreeCentralPlot(World w,bool local,Cell cell,Cell replacementCell,int rotation=0)
     {
         if(local)
         {

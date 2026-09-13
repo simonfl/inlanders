@@ -1,0 +1,1037 @@
+[
+  {
+    "change": "keep",
+    "built": 0.100097656,
+    "ready": null,
+    "newConstructionLogs": 0,
+    "demolishedLogs": 0,
+    "samples": [
+      {
+        "seconds": 0.100097656,
+        "bread": 0,
+        "baked": 0,
+        "eaten": 0,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 58,
+          "NonDominant": 36,
+          "Delivered": 82,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 58 \u00B7 outside dominant food: 36\nFresh deliveries: 82/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 120.217285,
+        "bread": 1,
+        "baked": 8,
+        "eaten": 7,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 30,
+          "Delivered": 71,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 30\nFresh deliveries: 71/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 240.33447,
+        "bread": 0,
+        "baked": 20,
+        "eaten": 18,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 29,
+          "Delivered": 78,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 29\nFresh deliveries: 78/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 360.45166,
+        "bread": 1,
+        "baked": 32,
+        "eaten": 28,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 35,
+          "Delivered": 78,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 35\nFresh deliveries: 78/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 480.56885,
+        "bread": 1,
+        "baked": 40,
+        "eaten": 38,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 37,
+          "Delivered": 83,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 37\nFresh deliveries: 83/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 600.68604,
+        "bread": 1,
+        "baked": 48,
+        "eaten": 46,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 35,
+          "Delivered": 70,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 35\nFresh deliveries: 70/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 720.8032,
+        "bread": 0,
+        "baked": 56,
+        "eaten": 56,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 31,
+          "Delivered": 73,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 31\nFresh deliveries: 73/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 840.9204,
+        "bread": 0,
+        "baked": 68,
+        "eaten": 65,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 32,
+          "Delivered": 82,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 32\nFresh deliveries: 82/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 961.0376,
+        "bread": 0,
+        "baked": 76,
+        "eaten": 75,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 37,
+          "Delivered": 78,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 37\nFresh deliveries: 78/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1081.1548,
+        "bread": 0,
+        "baked": 88,
+        "eaten": 83,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 36,
+          "Delivered": 75,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 36\nFresh deliveries: 75/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1201.272,
+        "bread": 0,
+        "baked": 96,
+        "eaten": 94,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 35,
+          "Delivered": 75,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 35\nFresh deliveries: 75/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1321.3889,
+        "bread": 0,
+        "baked": 108,
+        "eaten": 106,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 62,
+          "NonDominant": 37,
+          "Delivered": 74,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 62 \u00B7 outside dominant food: 37\nFresh deliveries: 74/62",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1441.5061,
+        "bread": 0,
+        "baked": 116,
+        "eaten": 116,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 38,
+          "Delivered": 78,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 38\nFresh deliveries: 78/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1561.6233,
+        "bread": 0,
+        "baked": 128,
+        "eaten": 125,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 36,
+          "Delivered": 82,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 36\nFresh deliveries: 82/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1681.7405,
+        "bread": 0,
+        "baked": 136,
+        "eaten": 135,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 37,
+          "Delivered": 84,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 37\nFresh deliveries: 84/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1800.0559,
+        "bread": 0,
+        "baked": 148,
+        "eaten": 143,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 35,
+          "Delivered": 76,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 35\nFresh deliveries: 76/60",
+          "Problem": null
+        }
+      }
+    ]
+  },
+  {
+    "change": "add",
+    "built": 88.68652,
+    "ready": null,
+    "newConstructionLogs": 8,
+    "demolishedLogs": 0,
+    "samples": [
+      {
+        "seconds": 0.100097656,
+        "bread": 0,
+        "baked": 0,
+        "eaten": 0,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 58,
+          "NonDominant": 36,
+          "Delivered": 82,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 58 \u00B7 outside dominant food: 36\nFresh deliveries: 82/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 120.217285,
+        "bread": 0,
+        "baked": 8,
+        "eaten": 8,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 30,
+          "Delivered": 73,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 30\nFresh deliveries: 73/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 240.33447,
+        "bread": 1,
+        "baked": 24,
+        "eaten": 19,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 31,
+          "Delivered": 86,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 31\nFresh deliveries: 86/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 360.45166,
+        "bread": 3,
+        "baked": 36,
+        "eaten": 31,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 37,
+          "Delivered": 81,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 37\nFresh deliveries: 81/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 480.56885,
+        "bread": 5,
+        "baked": 52,
+        "eaten": 45,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 39,
+          "Delivered": 90,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 39\nFresh deliveries: 90/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 600.68604,
+        "bread": 2,
+        "baked": 68,
+        "eaten": 59,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 39,
+          "Delivered": 76,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 39\nFresh deliveries: 76/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 720.8032,
+        "bread": 7,
+        "baked": 80,
+        "eaten": 71,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 40,
+          "Delivered": 80,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 40\nFresh deliveries: 80/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 840.9204,
+        "bread": 3,
+        "baked": 96,
+        "eaten": 84,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 39,
+          "Delivered": 88,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 39\nFresh deliveries: 88/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 961.0376,
+        "bread": 9,
+        "baked": 112,
+        "eaten": 98,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 39,
+          "Delivered": 86,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 39\nFresh deliveries: 86/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1081.1548,
+        "bread": 10,
+        "baked": 128,
+        "eaten": 110,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 40,
+          "Delivered": 81,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 40\nFresh deliveries: 81/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1201.272,
+        "bread": 11,
+        "baked": 140,
+        "eaten": 124,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 38,
+          "Delivered": 81,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 38\nFresh deliveries: 81/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1321.3889,
+        "bread": 17,
+        "baked": 156,
+        "eaten": 136,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 39,
+          "Delivered": 78,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 39\nFresh deliveries: 78/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1441.5061,
+        "bread": 16,
+        "baked": 168,
+        "eaten": 151,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 62,
+          "NonDominant": 41,
+          "Delivered": 80,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 62 \u00B7 outside dominant food: 41\nFresh deliveries: 80/62",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1561.6233,
+        "bread": 19,
+        "baked": 184,
+        "eaten": 164,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 1,
+          "Skipped": 1,
+          "Eaten": 59,
+          "NonDominant": 39,
+          "Delivered": 74,
+          "Reliable": false,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 1 \u00B7 skipped: 1\nActually eaten: 59 \u00B7 outside dominant food: 39\nFresh deliveries: 74/61",
+          "Problem": "Residents missed meals. Inspect their trips: shorten travel to recreation or homes, or supply a pantry near distant destinations. The last three minutes must have no missed or skipped meals."
+        }
+      },
+      {
+        "seconds": 1681.7405,
+        "bread": 21,
+        "baked": 196,
+        "eaten": 175,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 59,
+          "Missed": 1,
+          "Skipped": 1,
+          "Eaten": 58,
+          "NonDominant": 37,
+          "Delivered": 80,
+          "Reliable": false,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 1 \u00B7 skipped: 1\nActually eaten: 58 \u00B7 outside dominant food: 37\nFresh deliveries: 80/60",
+          "Problem": "Residents missed meals. Inspect their trips: shorten travel to recreation or homes, or supply a pantry near distant destinations. The last three minutes must have no missed or skipped meals."
+        }
+      },
+      {
+        "seconds": 1800.0559,
+        "bread": 24,
+        "baked": 212,
+        "eaten": 189,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 62,
+          "NonDominant": 40,
+          "Delivered": 87,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 62 \u00B7 outside dominant food: 40\nFresh deliveries: 87/62",
+          "Problem": null
+        }
+      }
+    ]
+  },
+  {
+    "change": "move",
+    "built": 177.27295,
+    "ready": 1120.8936,
+    "newConstructionLogs": 8,
+    "demolishedLogs": 8,
+    "samples": [
+      {
+        "seconds": 85.583496,
+        "bread": 0,
+        "baked": 0,
+        "eaten": 1,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 56,
+          "NonDominant": 31,
+          "Delivered": 68,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 56 \u00B7 outside dominant food: 31\nFresh deliveries: 68/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 205.70068,
+        "bread": 0,
+        "baked": 0,
+        "eaten": 1,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 23,
+          "Delivered": 65,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 23\nFresh deliveries: 65/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 325.81787,
+        "bread": 4,
+        "baked": 16,
+        "eaten": 13,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 22,
+          "Delivered": 85,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 22\nFresh deliveries: 85/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 445.93506,
+        "bread": 12,
+        "baked": 32,
+        "eaten": 20,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 58,
+          "NonDominant": 29,
+          "Delivered": 94,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 58 \u00B7 outside dominant food: 29\nFresh deliveries: 94/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 566.05225,
+        "bread": 15,
+        "baked": 44,
+        "eaten": 30,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 33,
+          "Delivered": 91,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 33\nFresh deliveries: 91/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 686.16943,
+        "bread": 17,
+        "baked": 60,
+        "eaten": 43,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 62,
+          "NonDominant": 33,
+          "Delivered": 88,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 62 \u00B7 outside dominant food: 33\nFresh deliveries: 88/62",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 806.2866,
+        "bread": 24,
+        "baked": 76,
+        "eaten": 47,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 56,
+          "NonDominant": 29,
+          "Delivered": 82,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 56 \u00B7 outside dominant food: 29\nFresh deliveries: 82/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 926.4038,
+        "bread": 29,
+        "baked": 88,
+        "eaten": 60,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 58,
+          "NonDominant": 28,
+          "Delivered": 87,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 58 \u00B7 outside dominant food: 28\nFresh deliveries: 87/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1046.521,
+        "bread": 36,
+        "baked": 104,
+        "eaten": 69,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 61,
+          "NonDominant": 29,
+          "Delivered": 88,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 61 \u00B7 outside dominant food: 29\nFresh deliveries: 88/61",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1166.6382,
+        "bread": 46,
+        "baked": 120,
+        "eaten": 74,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 24,
+          "Delivered": 84,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 24\nFresh deliveries: 84/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1286.7551,
+        "bread": 48,
+        "baked": 136,
+        "eaten": 89,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 27,
+          "Delivered": 85,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 27\nFresh deliveries: 85/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1406.8723,
+        "bread": 56,
+        "baked": 148,
+        "eaten": 93,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 24,
+          "Delivered": 80,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 24\nFresh deliveries: 80/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1526.9895,
+        "bread": 63,
+        "baked": 168,
+        "eaten": 102,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 22,
+          "Delivered": 89,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 22\nFresh deliveries: 89/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1647.1067,
+        "bread": 69,
+        "baked": 180,
+        "eaten": 110,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 59,
+          "NonDominant": 24,
+          "Delivered": 93,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 59 \u00B7 outside dominant food: 24\nFresh deliveries: 93/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1767.2239,
+        "bread": 83,
+        "baked": 196,
+        "eaten": 114,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 58,
+          "NonDominant": 20,
+          "Delivered": 89,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 58 \u00B7 outside dominant food: 20\nFresh deliveries: 89/60",
+          "Problem": null
+        }
+      },
+      {
+        "seconds": 1800.0559,
+        "bread": 83,
+        "baked": 200,
+        "eaten": 114,
+        "meal": {
+          "ResidentsWithHistory": 20,
+          "Residents": 20,
+          "Closed": 60,
+          "Missed": 0,
+          "Skipped": 0,
+          "Eaten": 60,
+          "NonDominant": 20,
+          "Delivered": 85,
+          "Reliable": true,
+          "Varied": true,
+          "FreshSupply": true,
+          "Summary": "Residents with two closed meal requests: 20/20\nMissed: 0 \u00B7 skipped: 0\nActually eaten: 60 \u00B7 outside dominant food: 20\nFresh deliveries: 85/60",
+          "Problem": null
+        }
+      }
+    ]
+  }
+]

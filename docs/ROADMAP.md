@@ -6,9 +6,9 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: following the checkpoint-five whole-project review, observe campaign play and test finale alternatives, finish listening reviews and investigate long frames.** Local stone storage, named workplace assignments, bush relocation, Creative terraces and gateways are delivered. Human enjoyment, audio acceptance and wider performance remain open; recent feature completion does not settle those questions.
+**Next: following the checkpoint-five whole-project review, finish listening reviews, investigate long frames and pinpoint ordinary placement blockers.** Local stone storage, named workplace assignments, bush relocation, Creative terraces and gateways are delivered. Human enjoyment, audio acceptance and wider performance remain open; recent feature completion does not settle those questions.
 
-The [checkpoint-five whole-project review](REVIEW_CHECKPOINT_5.md) records overall status, evidence and limitations. The [current next-five queue](NEXT_CHUNKS.md) defines bounded priorities and checks; the native playtest did not occur and remains an explicit follow-up, not a claimed pass. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
+The [checkpoint-five whole-project review](REVIEW_CHECKPOINT_5.md) records overall status, evidence and limitations. The [current next-five queue](NEXT_CHUNKS.md) defines bounded priorities and checks; the checkpoint-five native playtest did not occur. A subsequent [ordinary campaign observation](CAMPAIGN_REVIEW_F11D.md) now covers opening completion and a river assessment; human enjoyment remains unverified. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
 
 Current foundation: **18 building types, ten campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
@@ -18,11 +18,11 @@ Only unfinished deliveries belong here. Scope, acceptance checks and cut criteri
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F11d / F18d | Investigation | Observe the campaign operating loop and isolate finale bread capacity versus placement; correct only demonstrated issues. |
-| 2 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
-| 3 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
+| 1 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
+| 2 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
+| 3 | F21v | Planned | Pinpoint resource-access blockers in ordinary building placement; preserve footprint/entrance/route protections and verify four rotations and compact feedback. |
 
-Recent deliveries include [orchard assignment guidance and continuation checks](ASSIGNMENT_GUIDANCE_F21U.md), [terrain blockers and Undo recovery](TERRAIN_FEEDBACK_F12H4.md), [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
+Recent deliveries include [observed campaign play, finale alternatives and bread guidance](CAMPAIGN_REVIEW_F11D.md), [orchard assignment guidance and continuation checks](ASSIGNMENT_GUIDANCE_F21U.md), [terrain blockers and Undo recovery](TERRAIN_FEEDBACK_F12H4.md), [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
 ## Review questions, not a second work queue
 

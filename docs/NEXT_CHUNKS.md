@@ -10,13 +10,11 @@ Delivered September 12: [implementation and evidence](TERRAIN_FEEDBACK_F12H4.md)
 
 ## Delivered: F21u — assignment guidance and continuation evidence
 
-Delivered September 12: [implementation and evidence](ASSIGNMENT_GUIDANCE_F21U.md). The orchard inspector distinguishes Automatic from assigned farmers in establishment and repeat growth, with a working People recovery path at 960/1440. Original-world versus one-reload continuation now passes for the existing workplace, stone-storage and bush-relocation active-job cases. No save defect was exposed and no runtime save changes were needed. F11d/F18d is next; ordinary campaign observation remains unverified.
+Delivered September 12: [implementation and evidence](ASSIGNMENT_GUIDANCE_F21U.md). The orchard inspector distinguishes Automatic from assigned farmers in establishment and repeat growth, with a working People recovery path at 960/1440. Original-world versus one-reload continuation now passes for the existing workplace, stone-storage and bush-relocation active-job cases. No save defect was exposed and no runtime save changes were needed. The subsequent F11d/F18d observation is recorded below.
 
-## 3. F11d / F18d — campaign operating loop and finale alternatives
+## Delivered: F11d / F18d — campaign operating loop and finale alternatives
 
-Use ordinary-interface campaign observations to identify confusion, unexplained waiting, recovery and payoff across an introductory and an operational settlement. Include useful activity after the opening/completion where possible. Distinguish README-informed agent play, scripted routes and human feedback; none substitutes for the others. Human enjoyment remains unverified until observed.
-
-Then isolate the finale's bread commitment. Existing recovery moves production and adds capacity together; successful route variants share central grain and two bakeries. Compare location and capacity separately at the same population/labor budget, with ordinary meals, normal construction/transport and equivalent starting state. Record reserve trend, useful decisions and recovery cost. Establish a viable alternative arrangement or explain the specific limiting factor. Implement only an evidenced clarity/balance correction. Do not increase quotas, add a mandatory producer, or announce a longer play duration from simulated completion time.
+[Observed play and controlled results](CAMPAIGN_REVIEW_F11D.md): native UI play completed level 1 and earned the first river assessment, using 3× for later waits. Eight matched finale arms and three recovery arms separate location from capacity. One central bakery works with either farm location; moving an eastern bakery recovered readiness without adding capacity. Bread guidance now explains central grain pickup. Human enjoyment and full later-campaign pacing remain unverified. Audio listening is next.
 
 ## 4. F10b2 / F17b — soundscape and music listening
 
@@ -30,8 +28,12 @@ Reproduce the documented normal 32-resident settlement at 1x/4x, with native eng
 
 Identify a cause before optimizing. Compare the same settlement/settings before and after any fix and preserve animation, sounds, controls and saves. If native evidence is unavailable, record the precise missing capability rather than choosing a speculative rewrite. No scale promise, blanket culling or generic architecture cleanup.
 
+## Added after observed play: F21v — pinpoint building-placement blockers
+
+A cottage was rejected on apparently bare land because workers need resource access. Extend the specific terrain-blocker feedback to ordinary building placement: identify and mark the exact resource-access tile and distinguish it from the footprint and entrance. Preserve routing, construction and occupancy protections. Verify all four rotations, stale click rejection, transient worker feedback and readable recovery at 960/1440. Keep this bounded; no new placement modes, relaxed collision, relocation rewrite or save compatibility. Run after the audio/native profiling probes unless their missing evidence makes this the next independent action.
+
 ## Scope and cadence
 
-After every chunk, reassess this queue and the roadmap. Reviews/probes are work chunks, not automatic playable increments. Checkpoint five's independent roles and their limitations are recorded in the review. Its interactive playtest did not occur because native state capture hung; retry that session in F11d/F18d rather than labeling source or scripted evidence as play. The next regular review is checkpoint ten, including the visual/audio role, with whole-game scope again.
+After every chunk, reassess this queue and the roadmap. Reviews/probes are work chunks, not automatic playable increments. Checkpoint five's independent roles and their limitations are recorded in the review. Its interactive playtest did not occur because native state capture hung. F11d/F18d subsequently obtained real native campaign observation; this does not backdate the checkpoint-five review or establish human enjoyment. The next regular review is checkpoint ten, including the visual/audio role, with whole-game scope again.
 
 Keep optional candidates as possibilities: richer planting, broader terrain editing, population preferences, alternative producers, comfort scenarios and productive restoration need a distinct benefit before promotion. Gateways, terraces, stone storage and workplace assignments are no longer candidates. Seasons, compatibility migrations, combat and multiplayer remain excluded; the cut restoration crossing gate stays cut.

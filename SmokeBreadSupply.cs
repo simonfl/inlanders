@@ -21,8 +21,10 @@ public partial class Game
             Check(_drawer.Visible && _tabs.CurrentTab==4 && _breadDetails.Visible,"Goals bread investigation failed");
             await Frames();
             Check(_breadSummary.Text.Contains("40 more needed") && _breadSummary.Text.Contains("eaten in meals"),"Reserve problem not explained");
+            Check(_breadSummary.Text.Contains("central pantry, not directly from farms") && _breadSummary.Text.Contains("before adding ovens"),"Bread advice hides the grain pickup trip");
             Check(_breadSummary.GetGlobalRect().Position.X>=_drawer.GetGlobalRect().Position.X && _breadSummary.GetGlobalRect().End.X<=_drawer.GetGlobalRect().End.X,"Bread summary escapes drawer");
             await Capture($"artifacts/bread-supply-{width}.png");
+            _drawerPages[4].ScrollVertical+=180;await Frames();await Capture($"artifacts/bread-supply-guidance-{width}.png");
             int bakery=_world.Cottages.First(c=>c.Kind==BuildingKind.Bakery).Id;
             await UiClick(_breadPlaceLinks[bakery]);await Frames();
             Check(_selectedSite==bakery && _productionControls.Visible,"Bakery investigation did not reach work controls");
