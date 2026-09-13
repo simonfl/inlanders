@@ -1,8 +1,8 @@
-# Next chunks — finite spatial transformations
+# Next chunks — a playable founding settlement
 
 September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
-**Chosen provisionally:** small authored spatial transformations supported by daily life, with free editing/watching afterward and a clearly available unrestricted start. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
+**Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
 [F31a is delivered](GAME_ENTRY_F31A.md): Play opens the introduction; Free arrangement opens the same daily-life village without a project. Earlier settlement experiments are archived. No additional gameplay mode or save format was introduced.
 
@@ -10,19 +10,17 @@ September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md)
 
 [Five-arm comparison](SPATIAL_CHOICE_F31B.md): the easy placement serves fifteen residents without any building move; the reclaimed home court improves gathering but all arms remain fed. The garden-side layout looks more open yet offers no demonstrated strategic advantage. Keep this as an introduction/free arrangement, not a harder level. Test and evidence tooling do not advance count26.
 
-## 1. F31b2 — staged redevelopment, not another commons placement
+## F31b2 completed — reject staged redevelopment on this site
 
-Compare rebuilding a functioning settlement using existing construction/demolition/material recovery and physical food. Test retaining production during rebuilding versus establishing a replacement food district first, a recoverable premature-demolition control, and doing nothing. Prefer existing constrained geography; keep all buildings available.
+[Comparison and recovery](REDEVELOPMENT_F31B2.md): ordering all work at the start finishes fastest without missed meals. Careful staging adds waiting. Demolition-first can cause a recoverable shortage, but another garden fixes it. No new playable outcome; count26. Suspend the old F31c redevelopment scenario.
 
-This changes the activity under test from instantaneous arrangement to choosing an order of redevelopment while ordinary life continues. Free arrangement retains free relocation. Test ordinary construction rules in the finite candidate before changing its normal entry; do not silently change the introductory court or revive the whole legacy campaign.
+## 1. F31c1 — one playable founding-settlement candidate
 
-Accept only if two viable strategies require a response after the first action and communicate consequences through everyday life. Reject if bulk placement plus waiting solves it, if relocation bypasses every conflict, or if all benefits live in the report. Do not add move/demolition quotas, attendance streaks, countdowns, catalogue locks or artificial hunger to rescue the experiment. If it fails, reconsider the core activity before scenario delivery.
+Shift from rearranging a self-sufficient village to establishing one. Audit the existing lake/woodland openings, then use one authored site, normal construction, existing geographically different food sources and player-triggered growth. The player should choose where homes/food go and respond to resulting journeys/supply. Give the opening a concrete purpose; no artificial disaster is needed to make doing nothing leave the settlement unbuilt.
 
-## 2. F31c — realize the supported situation, then stop expanding
+Deliver an accessible candidate for actual play, not another standalone courtyard comparison. This is a falsifiable bet, not a proven challenge. Check bulk ordering during implementation; reject place-everything-and-wait as the whole experience. Do not simply rename a legacy assessment. Keep all buildings available, Free arrangement separate and a finite optional ending after actual use. No new needs, required move counts, attendance windows or five-level rollout.
 
-Blocked on F31b2: the court comparison did not support a deeper situation. Turn a supported redevelopment comparison into one playable finite settlement with a readable opening, room for self-chosen action, visible everyday use and a satisfying optional ending. Retain the introduction only if it teaches something distinct. No five-level rollout until this deeper situation earns its place.
-
-Use one short consumed player observation: intention before action, first confusion, recognized consequence, voluntary next action or ending. Alternate finite/free entry order. If nobody has played, state the decision as a falsifiable bet; do not claim preference. Judge motion at1× and use3× for waits.
+Use one consumed player observation when available: intention, first confusion, recognized consequence and voluntary next action/ending. Judge motion at1× and use3× for waits. Without a player, explicitly retain the uncertainty about fun and pacing; automated construction and meals cannot establish either.
 
 The remaining checkpoint27–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
 

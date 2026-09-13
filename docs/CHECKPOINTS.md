@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F31b2 staged redevelopment — September 13, 2026:** [Comparison and direction](REDEVELOPMENT_F31B2.md). Five ordinary-rule900-second arms, same-age recovery, conservation/current saves and four consumed stills. Reject staging on this site: bulk ordering is fastest and remains fed. Next F31c1 founding candidate; old redevelopment delivery suspended. Evidence/test chunk only, count remains **26**, next review **30**. No human play/listening or independent whole-game review claimed.
+
 **F31b spatial comparison — September 13, 2026:** [Evidence and decision](SPATIAL_CHOICE_F31B.md). Five matched six-minute arrangements, current saves, actual consumption/travel, same-age weak-layout recovery and five consumed stills. Reject the court as a deeper challenge; next test staged redevelopment (F31b2), with F31c blocked on evidence. Test fixtures and direction decision only: count remains **26**, periodic review **30**. No human play/listening or independent whole-game review claimed.
 
 **F31a clear game entry — September 13, 2026:** [Delivery and checks](GAME_ENTRY_F31A.md). Play opens the current introductory project; Free arrangement opens its unrestricted counterpart. Earlier settlements and the eight-resident free court move under Earlier prototypes. Explicit New/Resume, Continue across modes and cancelled replacement preserve separate current saves. One playable entry-workflow outcome, count **26**; no new simulation mode or format. Next F31b; periodic whole-game review remains **30**.

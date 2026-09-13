@@ -1,4 +1,6 @@
 using Inlanders.Simulation;
+if(args.Contains("--redevelopment-recovery")) {try{RedevelopmentChecks.Recovery();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--redevelopment")) {try{RedevelopmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--spatial-choice")) {try{SpatialChoiceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--court-experience")) {try{CourtExperienceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--creative-court")) {try{CreativeCourtChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
