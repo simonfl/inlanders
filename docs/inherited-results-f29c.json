@@ -1,0 +1,37 @@
+[
+  {
+    "arm": "keep-footway",
+    "completed": 422.61658,
+    "foodWalking": 1973.8999999999505,
+    "hungry": 0,
+    "food": 13
+  },
+  {
+    "arm": "bridge",
+    "completed": 422.11655,
+    "foodWalking": 1801.299999999942,
+    "hungry": 0,
+    "food": 26
+  },
+  {
+    "arm": "local-food",
+    "completed": 422.31656,
+    "foodWalking": 1836.0999999999813,
+    "hungry": 0,
+    "food": 50
+  },
+  {
+    "arm": "east-homes",
+    "completed": 516.221,
+    "foodWalking": 1087.1000000000258,
+    "hungry": 612.4000000000126,
+    "food": 3
+  },
+  {
+    "arm": "pause-recover",
+    "completed": 1042.4926,
+    "foodWalking": 1142.7000000000085,
+    "hungry": 82.29999999999967,
+    "food": 1
+  }
+]

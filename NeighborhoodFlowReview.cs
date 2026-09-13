@@ -10,15 +10,16 @@ public partial class Game
         bool landscape=_world.Map.Name=="Landing and meadow — experiment";
         bool workplaceFood=_world.HasWorkplaceFood;
         bool challenge=_world.Neighborhood?.FoodLandChallenge==true;
+        bool inherited=_world.IsInheritedShoreline;
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await CaptureReviewBundle("start-menu");await UiClick(_mainButtons["Settlements"]);await Frames();await CaptureReviewBundle("settlement-choice");
         if(!workplaceFood){await UiClick(_mainButtons["Back"]);await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();}
-        await UiClick(_mainButtons[challenge?"New meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
+        await UiClick(_mainButtons[inherited?"New Willow inlet":challenge?"New meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
         Check(_world.HasWorkplaceFood==workplaceFood,"Neighborhood entry selected the wrong food workflow");
-        Check(_goalTitle.Text==(challenge?"The meadow · a supply challenge":"A new neighborhood · guided opening") && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
-        Check(_neighborhoodCommit.Disabled && _neighborhoodCommit.TooltipText.Contains("crossing"),"Opening commitment lacks crossing guidance");
+        Check(_goalTitle.Text==(inherited?"Willow inlet · make it your village":challenge?"The meadow · a supply challenge":"A new neighborhood · guided opening") && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
+        Check(inherited?!_neighborhoodCommit.Disabled:_neighborhoodCommit.Disabled && _neighborhoodCommit.TooltipText.Contains("crossing"),"Opening commitment has wrong access rule");
         await CaptureReviewBundle();
         _world.Tick(.1f);SaveWorld();string saved=_world.SaveJson();
         Check(CurrentSavePath==_neighborhoodPath,"Experiment uses sandbox save slot");

@@ -15,10 +15,12 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("Settlements");
-        _mainColumn.AddChild(Text("Two finite settlements: learn by making a neighborhood, then tackle the meadow supply problem. Finish after the welcome and preparations, or stay to reshape the village. All buildings are available.",15,true));
+        _mainColumn.AddChild(Text("Make a neighborhood, then reshape a village at Willow inlet. Finish after the welcome, or stay to keep building. All buildings are available.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         _mainColumn.AddChild(Text("Start here · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));
         MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
+        _mainColumn.AddChild(Text("Next · Willow inlet. An inherited village, working gardens across the water and a long shoreline walk. Keep it, bridge it or bring everyday life closer before welcoming eight people.",15,true));
+        MenuButton("New Willow inlet",()=>StartNeighborhood(World.NewInheritedShoreline()));
         _mainColumn.AddChild(Text("Then try · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
         MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));
         _mainColumn.AddChild(Text("Each new settlement replaces this settlement slot. Continue resumes the last village you played.",14,true));
@@ -35,12 +37,13 @@ public partial class Game
         _neighborhoodCommit=Button("Welcome four neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready yet.");});_neighborhoodGoals.AddChild(_neighborhoodCommit);
         _neighborhoodHome=Button("Plan east-bank homes",()=>{CloseDrawer();BeginPlacement(BuildingKind.Cottage);});_neighborhoodGoals.AddChild(_neighborhoodHome);
         _neighborhoodVenue=Button("Find a gathering place",()=>{
-            var venue=_world.Cottages.FirstOrDefault(c=>c.Id==_world.Neighborhood?.VenueId)??_world.Cottages.FirstOrDefault(c=>c.Cell.X>5 && c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).RecreationSlots>0);
+            var venue=_world.Cottages.FirstOrDefault(c=>c.Id==_world.Neighborhood?.VenueId)??_world.Cottages.FirstOrDefault(c=>_world.NeighborhoodHomeRegion(c.Cell) && c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).RecreationSlots>0);
             if(venue!=null){CloseDrawer();SelectBuilding(venue.Id);_focus=OnGround(venue.Cell.X,venue.Cell.Z);UpdateCamera();}
             else {CloseDrawer();BeginPlacement(BuildingKind.SeatingGarden);}
         });_neighborhoodGoals.AddChild(_neighborhoodVenue);
         _nextSettlement=Button("Choose another settlement",()=>{if(SaveSession()){ShowMainMenu();NeighborhoodMenu();}});_neighborhoodGoals.AddChild(_nextSettlement);
-        _staySettlement=Button("Stay and reshape the village",()=>{CloseDrawer();ToggleWatch();});_neighborhoodGoals.AddChild(_staySettlement);
+        _staySettlement=Button("Keep building",()=>{CloseDrawer();ExitWatch();});_neighborhoodGoals.AddChild(_staySettlement);
+        _watchSettlement=Button("Watch village life",()=>{CloseDrawer();ToggleWatch();});_neighborhoodGoals.AddChild(_watchSettlement);
         MakeSettlementJourney();
         _studyDetailsButton=Button("Show village details",()=>{_studyGoalDetails=!_studyGoalDetails;UpdateHud();LayoutHud();});_neighborhoodGoals.AddChild(_studyDetailsButton);_studyDetailsButton.Hide();
         _neighborhoodGoals.Hide();
@@ -48,6 +51,7 @@ public partial class Game
     private void UpdateNeighborhoodGoals()
     {
         var n=_world.Neighborhood!;
+        _neighborhoodHome.Text="Plan east-bank homes";
         _goalDashboard.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_progress.Hide();
         _trackedGoalPanel.Hide();
         _goalArrival.Show();_objective.Show();_neighborhoodGoals.Show();

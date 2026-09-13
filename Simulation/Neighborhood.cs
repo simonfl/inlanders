@@ -9,6 +9,7 @@ public sealed class NeighborhoodProgress
     public SharedGathering? Gathering { get; set; }
     public bool WorkplaceFood { get; set; }
     public bool FoodLandChallenge { get; set; }
+    public bool InheritedShoreline { get; set; }
     // Saved comparison rule; the control retains the existing village-wide hunger penalty.
     public bool HungerSlowsActivity { get; set; } = true;
     public int? VenueId { get; set; }
@@ -22,7 +23,7 @@ public sealed class NeighborhoodProgress
 public sealed partial class World
 {
     public NeighborhoodProgress? Neighborhood { get; private set; }
-    public int NeighborhoodArrivals=>Neighborhood?.FoodLandChallenge==true?8:4;
+    public int NeighborhoodArrivals=>Neighborhood?.FoodLandChallenge==true || IsInheritedShoreline?8:4;
     public string NeighborhoodArrivalWord=>NeighborhoodArrivals==8?"eight":"four";
     public int NeighborhoodReserveTarget=>2*(8+NeighborhoodArrivals);
     public static World NewNeighborhoodExperiment()
@@ -57,8 +58,8 @@ public sealed partial class World
     private void AdvanceNeighborhood()
     {
         AdvanceGathering();
-        if(Neighborhood is {Arrived:true} progress && progress.Welcomed.Count==Population && NewNeighborsHoused==NeighborhoodArrivals &&
-            (!progress.FoodLandChallenge || EdibleStored>=NeighborhoodReserveTarget))progress.Complete=true;
+        if(Neighborhood is {Arrived:true,Complete:false} progress && progress.Welcomed.Count==Population && NewNeighborsHoused==NeighborhoodArrivals &&
+            (!progress.FoodLandChallenge || EdibleStored>=NeighborhoodReserveTarget) && ShorelineFoodProblem()==null)progress.Complete=true;
         if(Neighborhood is not {Arrived:false,CommittedAt:float started,Destination:Cell destination} n || Food.Time<started+90)return;
         // If construction has closed the landing, keep the promise: enter at the yard and recover access in play.
         var names=new[]{"Lina","Ash","Cora","Remy","Iris","Leo","Nora","Theo"};
@@ -77,6 +78,7 @@ public sealed partial class World
         if(Neighborhood is not {} n)return;
         if(n.Complete && (!n.Arrived || n.Welcomed?.Count!=8+NeighborhoodArrivals))throw new InvalidOperationException("Incomplete neighborhood marked complete");
         if(n.FoodLandChallenge && !n.WorkplaceFood)throw new InvalidOperationException("Food/land situation requires workplace supply");
+        if(n.InheritedShoreline && (!n.WorkplaceFood || n.FoodLandChallenge))throw new InvalidOperationException("Invalid inherited shoreline rules");
         if(n.Welcomed==null || n.Welcomed.Any(id=>id<0 || id>=Population) || n.Welcomed.Count>0 && !n.Arrived || n.VenueId is int venue && !Cottages.Any(c=>c.Id==venue && IsWelcomeStore(c) && c.Complete && !c.DemolitionRequested))throw new InvalidOperationException("Invalid welcome gathering");
         if(!SharedWork || !LocalGrainSupply || Campaign!=null || Creative ||
             n.CommittedAt is float time && (!float.IsFinite(time) || time<0 || time>Food.Time || n.Destination==null) ||

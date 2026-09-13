@@ -1,10 +1,12 @@
 # Next chunks — a village worth changing
 
-September 13, 2026. [Whole-game review at 19](WHOLE_GAME_REVIEW_19.md), five fresh independent roles. Count **19**; regular review **20** remains due. [F29b comparison](MEADOW_DECISION_F29B.md) is complete as a decision experiment, not a new playable level. T04 fixture reuse and F29a readable shared ground are delivered.
+September 13, 2026. [Whole-game review at 19](WHOLE_GAME_REVIEW_19.md), five fresh independent roles. Count **20**; regular five-role review **20** is due now. [F29b comparison](MEADOW_DECISION_F29B.md) is complete as a decision experiment, not a new playable level. T04 fixture reuse and F29a readable shared ground are delivered.
 
 Keep the finite welcome provisionally. Test revising an inherited village instead of building a larger copy of the opening. Existing meadow remains a control: its reserve catches an underprepared route, but does not demonstrate a deeper choice in eight competent plans. No reserve inflation, new producer, need meter, compulsory demolition or attendance certificate. All buildings remain available; seasons stay removed; saves are disposable.
 
-## 1. F29c — inherited shoreline village, playable comparison
+## 1. F29c — delivered; inherited shoreline village
+
+[Delivery and results](INHERITED_SHORELINE_F29C.md): optional bridge and local-food arrangements are viable, the eastern-home layout later misses meals and a new local garden recovers it. No human enjoyment claim. The original work brief follows as context; next is the review gate.
 
 Make one functioning village with a visible awkward relationship between homes, food and usable shared ground. Reuse existing lake/river/woodland material and current shared-work/local-food rules. Give it a finite welcoming ambition, not an efficiency score. The key action is choosing what to change in a place that already works. Do not build a new resource chain or generic scenario framework first.
 

@@ -113,8 +113,8 @@ public partial class Game
         while(_reviewCapturing)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         Check(_reviewCapture==previous+1 && File.Exists(Path.Combine(_reviewDirectory,$"capture-{_reviewCapture:0000}","manifest.json")),"F8 did not finish a bundle");
         _world.Validate();
-        if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape" or "neighborhood-workplace-food" or "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodFlow();
-        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodJourney();
+        if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape" or "neighborhood-workplace-food" or "neighborhood-journey" or "neighborhood-food-land" or "neighborhood-inherited")await ProbeNeighborhoodFlow();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood-journey" or "neighborhood-food-land" or "neighborhood-inherited")await ProbeNeighborhoodJourney();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="gathering")await ProbeGathering();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="resume")await ProbeSettlementResume();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="commons")await ProbeCommons();

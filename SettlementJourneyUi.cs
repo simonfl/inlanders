@@ -4,7 +4,7 @@ using System.Linq;
 
 public partial class Game
 {
-    private Button _journeyAction=null!,_staySettlement=null!;
+    private Button _journeyAction=null!,_staySettlement=null!,_watchSettlement=null!;
     private int _journeyStep;
     private void MakeSettlementJourney()
     {
@@ -12,6 +12,7 @@ public partial class Game
         {
             switch(_journeyStep)
             {
+                case 6: CloseDrawer();if(!_showFoodMap)ToggleFoodMap();_focus=OnGround(5,3);_camera.Size=29;UpdateCamera();break;
                 case 0: CloseDrawer();BeginPlacement(BuildingKind.Bridge);break;
                 case 1: CloseDrawer();SelectBuilding(_world.Cottages.First(c=>c.Kind==BuildingKind.Bridge).Id);break;
                 case 2: CloseDrawer();BeginPlacement(BuildingKind.Cottage);break;
@@ -27,15 +28,16 @@ public partial class Game
     private void UpdateSettlementJourney()
     {
         var n=_world.Neighborhood!;
-        _journeyAction.Hide();_staySettlement.Visible=n.Complete;
-        _staySettlement.Text="Stay and reshape the village";
+        _journeyAction.Hide();_staySettlement.Visible=n.Complete;_watchSettlement.Visible=n.Complete;
+        _staySettlement.Text="Keep building";
         _nextSettlement.Text="Finish & choose another settlement";
         if(n.Complete)
         {
-            _goalTitle.Text=n.FoodLandChallenge?"Meadow settlement complete":"Welcome complete";
+            _goalTitle.Text=_world.IsInheritedShoreline?"Willow inlet · welcome complete":n.FoodLandChallenge?"Meadow settlement complete":"Welcome complete";
             _goalArrival.Text="You made homes and shared a welcome. This settlement is complete. Finish here, or stay to arrange and watch ordinary village life. Nothing else is required.";
             return;
         }
+        if(_world.IsInheritedShoreline){UpdateShorelineGoals();return;}
         if(n.FoodLandChallenge)
         {
             _goalTitle.Text="The meadow · a supply challenge";

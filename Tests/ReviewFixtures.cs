@@ -16,6 +16,7 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "neighborhood-inherited"=>World.NewInheritedShoreline(),
             "commons-open" or "commons-untouched" or "commons-recurring" or "commons-event"=>CommonsComparison(name),
             "gathering"=>GatheringChecks.Prepare(),
             "opening"=>World.NewCampaign(1),

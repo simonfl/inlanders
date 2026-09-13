@@ -13,7 +13,7 @@ public sealed partial class World
         if(Neighborhood==null)return "Welcome meals belong to the neighborhood experiment.";
         if(Neighborhood.Complete)return "The neighborhood has already shared its welcome.";
         var site=Cottages.FirstOrDefault(c=>c.Id==id);
-        if(site==null || !site.Complete || site.DemolitionRequested || !IsWelcomeStore(site) || site.Cell.X<=5)return "Choose a finished square, hall or seating garden on the east bank.";
+        if(site==null || !site.Complete || site.DemolitionRequested || !IsWelcomeStore(site) || !NeighborhoodHomeRegion(site.Cell))return $"Choose a finished square, hall or seating garden in the {NeighborhoodHomeRegionName} area.";
         if(!Accessible(site.Entrance))return "Open a route to this gathering place.";
         return null;
     }
@@ -63,12 +63,15 @@ public sealed partial class World
         if(meal.Welcome && Neighborhood is {Arrived:true} n && meal.SourceId==n.VenueId && n.Welcomed.Add(person.Id))
             History.Add($"{person.Name} shared the welcome meal ({n.Welcomed.Count}/{Population}).");
     }
-    public int NewNeighborsHoused=>People.Skip(8).Count(p=>p.HomeId is int id && Cottages.Any(c=>c.Id==id && c.Cell.X>5 && !c.DemolitionRequested));
+    public int NewNeighborsHoused=>People.Skip(8).Count(p=>p.HomeId is int id && Cottages.Any(c=>c.Id==id && NeighborhoodHomeRegion(c.Cell) && !c.DemolitionRequested));
     public string WelcomeStatus
     {
         get
         {
             if(Neighborhood is not {} n)return "";
+            if(IsInheritedShoreline)return n.Complete?"The inlet has welcomed its new neighbors. Keep building, watch, or finish here.":
+                $"Welcome shared: {n.Welcomed.Count}/{(n.Arrived?Population:8+NeighborhoodArrivals)} · Newcomers housed: {NewNeighborsHoused}/{NeighborhoodArrivals}\n"+
+                (n.VenueId==null?"Choose a square, hall or seating garden on either shore.":"Residents carry food to the table and visit between jobs.");
             if(n.Complete)return $"A neighborhood to call home. Everyone shared the welcome meal, and the {NeighborhoodArrivalWord} newcomers have east-bank homes.";
             string status=$"Welcome meal: {n.Welcomed.Count}/{(n.Arrived?Population:8+NeighborhoodArrivals)} neighbors have eaten here.\nNewcomers with east-bank homes: {NewNeighborsHoused}/{NeighborhoodArrivals}.\n";
             if(n.VenueId is not int id)return status+"Choose an eastern square, hall or seating garden. Helpers carry any edible food there.";

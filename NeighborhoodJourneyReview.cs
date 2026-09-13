@@ -39,6 +39,29 @@ public partial class Game
             await Until(()=>site.Complete,"Journey construction failed: "+kind);return site;
         }
         Check(_world.HasWorkplaceFood && _world.Population==8,"Journey requires chosen fresh neighborhood");
+        if(_world.IsInheritedShoreline)
+        {
+            await OpenMenu(2);await CaptureReviewBundle("inherited-opening");
+            await UiClick(_journeyAction);await Frames();Check(_showFoodMap && !_drawer.Visible,"Food journey action failed");
+            await CaptureReviewBundle("inherited-food-world");ToggleFoodMap();
+            await Build(BuildingKind.Bridge,new(5,2),1);
+            foreach(var location in new[]{new Cell(-5,-2),new(-2,-2),new(1,-2),new(1,6)})await Build(BuildingKind.Cottage,location);
+            var inheritedVenue=_world.Cottages.Single(c=>c.Kind==BuildingKind.SeatingGarden);
+            await OpenMenu(2);await UiClick(_neighborhoodVenue);await Frames();Check(_selectedSite==inheritedVenue.Id,"Inherited west venue was not selected");
+            await UiClick(_welcomeHere);await Frames();
+            var sources=_world.Cottages.Where(c=>_world.IsWorkplaceFoodStore(c)).ToArray();
+            foreach(var source in sources){SelectBuilding(source.Id);await Frames();await UiClick(_productionPause);}
+            await OpenMenu(2);await UiClick(_neighborhoodCommit);
+            await Until(()=>_world.Neighborhood!.Arrived && _world.Food.Hunger>0,"Paused sources did not expose shortage");
+            Check(!_world.Neighborhood!.Complete,"Food shutdown falsely completed welcome");await OpenMenu(2);await CaptureReviewBundle("inherited-shortage");
+            foreach(var source in sources){SelectBuilding(source.Id);await Frames();await UiClick(_productionPause);}
+            await Until(()=>_world.Neighborhood!.Complete,"Resumed inherited food did not recover welcome");
+            await OpenMenu(2);await CaptureReviewBundle("inherited-complete");
+            string end=_world.SaveJson();await UiClick(_staySettlement);await Frames();Check(!_watching && _hud.IsVisibleInTree() && _world.SaveJson()==end,"Keep building hid controls");
+            await OpenMenu(2);await UiClick(_watchSettlement);await Frames();Check(_watching,"Watch did not open");await Press(Key.H);await Frames();
+            await Press(Key.F5);string savedInlet=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.IsInheritedShoreline && _world.SaveJson()==savedInlet,"Inlet reload differs");
+            GD.Print("PASS: inherited inlet entry, food view, bridge, west homes and venue, production shutdown/recovery, finite ending, independent keep-building/watch and exact reload (scripted)");return;
+        }
         if(!_world.Neighborhood!.FoodLandChallenge)
         {
             await OpenMenu(2);await Frames();Check(_journeyAction.IsVisibleInTree() && _journeyStep==0,"Opening lacks crossing suggestion");
@@ -74,7 +97,8 @@ public partial class Game
         await Until(()=>_world.Neighborhood.Complete && _world.Food.Hunger==0 && _world.EdibleStored>=(challenge?_world.NeighborhoodReserveTarget:12),"Player food-chain recovery failed");
         await OpenMenu(2);await Frames();Check(_nextSettlement.IsVisibleInTree() && _staySettlement.IsVisibleInTree() && !_journeyAction.Visible,"Finite ending actions missing");
         await CaptureReviewBundle("finite-settlement-complete");string finished=_world.SaveJson();await UiClick(_staySettlement);await Frames();
-        Check(_watching && _world.SaveJson()==finished,"Optional stay changed settlement");await Press(Key.H);await Frames();Check(!_watching && _hud.IsVisibleInTree(),"Return from completed view failed");
+        Check(!_watching && _hud.IsVisibleInTree() && _world.SaveJson()==finished,"Keep building hid controls or changed settlement");
+        await OpenMenu(2);await UiClick(_watchSettlement);await Frames();Check(_watching,"Watch action failed");await Press(Key.H);await Frames();Check(!_watching && _hud.IsVisibleInTree(),"Return from completed view failed");
         _world.Validate();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         Check(_world.SaveJson()==saved,"Journey save/load changed recovered state");
         _focus=OnGround(12,4);_camera.Size=29;UpdateCamera();ClearSelection();CloseDrawer();await Frames();await CaptureReviewBundle();

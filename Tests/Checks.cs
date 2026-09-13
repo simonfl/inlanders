@@ -1,4 +1,6 @@
 using Inlanders.Simulation;
+if(args.Contains("--inherited-recovery")) {try{InheritedShorelineChecks.RecoverLayout();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--inherited")) {try{InheritedShorelineChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--meadow-decision")) {try{MeadowDecisionComparison.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--commons")) {try{CommonsChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--atomic-save")) {try{AtomicSaveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
