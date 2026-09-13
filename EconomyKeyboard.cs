@@ -19,7 +19,7 @@ public partial class Game
         if(_economyInspecting)rows.Add(("back",_economyBack));
         else
         {
-            rows.Add(("survey",_surveyToggle));rows.Add(("meals",_mealAttention));rows.Add(("bread",_breadToggle));
+            rows.Add(("survey",_surveyToggle));rows.Add(("food-map",_foodMapToggle));rows.Add(("meals",_mealAttention));rows.Add(("bread",_breadToggle));
             rows.AddRange(_breadPlaceLinks.Select(p=>($"bread:{p.Key}",p.Value)));
             for(int i=0;i<_economyIssues.Count && i<(_economyReport?.Issues.Length??0);i++)rows.Add(($"issue:{_economyReport!.Issues[i].Id}",_economyIssues[i]));
             rows.Add(("routes",_supplyToggle));

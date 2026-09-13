@@ -3,13 +3,15 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **13**.
+- Playable checkpoints since adoption: **14**.
 - Last periodic review: **checkpoint 10**, [whole-project synthesis](REVIEW_CHECKPOINT_10.md) and [role findings](REVIEW_CHECKPOINT_10_ROLES.md). Four contexts, five disciplinary passes; native discovery failed, no fresh gameplay/listening claimed.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 15**, whole-project scope. Native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**World food view — September 13, 2026:** [Delivery and evidence](FOOD_WORLD_F27.md). Optional readable store labels and actual food trips, with corrected bakery stock rendering. Count **14**, next review **15**.
 
 **Settlement start — September 13, 2026:** [Delivery and limitations](SETTLEMENT_START_F27.md). Current settlement/Creative entry, explicit invitation, completed Goals and new/resume/next-settlement flow. Count **13**, next review **15**.
 

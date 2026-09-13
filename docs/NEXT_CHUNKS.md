@@ -1,6 +1,6 @@
 # Next chunks — a second decision for a successful village
 
-September 13, 2026. [Checkpoint-ten synthesis](REVIEW_CHECKPOINT_10.md) is complete on frozen source `07aca5f`. Count is now thirteen. The five disciplinary passes challenge the entire game; native play/listening remain unobserved. Local logistics is retained, broader campaign rollout is stopped. The next work tests the direction below, not another quota.
+September 13, 2026. [Checkpoint-ten synthesis](REVIEW_CHECKPOINT_10.md) is complete on frozen source `07aca5f`. Count is now fourteen. The five disciplinary passes challenge the entire game; native play/listening remain unobserved. Local logistics is retained, broader campaign rollout is stopped. The next work tests the direction below, not another quota.
 
 ## 1. F27c2 — land-use probe complete; compulsory commons rejected
 
@@ -12,8 +12,8 @@ September 13, 2026. [Checkpoint-ten synthesis](REVIEW_CHECKPOINT_10.md) is compl
 
 Delivered as checkpoint **12**: [outdoor place planning and layout](OUTDOOR_PLACE_F27C2.md). Direct ground previews and circle/compact seating pass; evaluate their appeal in the whole-project review.
 Delivered as checkpoint **13**: [coherent starting flow](SETTLEMENT_START_F27.md). Both window sizes pass; one intermittent scripted click remains a review limitation.
-1. **Food in the world:** make local availability/reservations and actual supply trips discoverable without reading a long inspector. Help a player distinguish production, distribution and local access before adding more producers. Keep details optional and add only actionable information.
-2. **Distribution agency:** replace the fixed invisible four-portion workplace retention policy with a clear optional local reserve control. Test how keeping food near workers versus supplying other neighborhoods changes actual trips and meals; preserve cancellation/demolition/current saves. No new resource/need.
+Delivered as checkpoint **14**: [world food view](FOOD_WORLD_F27.md). Readable store counts and real routes; dense labels may yield until the player zooms or pans.
+1. **Distribution agency:** replace the fixed invisible four-portion workplace retention policy with a clear optional local reserve control. Test how keeping food near workers versus supplying other neighborhoods changes actual trips and meals; preserve cancellation/demolition/current saves. No new resource/need.
 
 These are hypotheses to reevaluate after each delivered outcome, not permission to inflate the count with foundations or tiny fixes. Campaign rollout remains paused. After the fifth committed outcome since checkpoint ten, freeze a build and run the whole-project review before more implementation. Include visual/audio because the gathering/layout work changes village presentation. Review the core loop and the entire game, not only this queue.
 

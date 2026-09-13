@@ -321,9 +321,9 @@ public partial class Game : Node3D
             if(Buildings.Get(h.Kind).Beds>0) viewKey=stage*100+h.ImprovementPlanks+(h.Improved?20:0)+(h.ImprovementRequested?40:0);
             if(h.Kind==BuildingKind.Cottage)viewKey+=(int)h.Finish*1000;
             if(h.Kind==BuildingKind.GatheringHall)viewKey+=(int)h.Identity*1000;
-            if(h.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(h)) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
             if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;
+            if(h.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(h)) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
             if (h.DemolitionRequested) viewKey += 10000;
             if (view.Stage != viewKey)
             {

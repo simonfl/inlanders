@@ -25,7 +25,7 @@ public partial class Game
     {
         if(_supplyWorld!=_world) { _supplyWorld=_world; _showSupplyRoutes=false; _nextSupplyRefresh=0; _supplyGeometryKey=""; }
         _supplyToggle.Text=_showSupplyRoutes?"Hide supply routes":"Show supply routes";
-        bool visible=_showSupplyRoutes && !_watching && !_atMainMenu;
+        bool visible=(_showSupplyRoutes || _showFoodMap) && !_watching && !_atMainMenu;
         if(_supplyMesh!=null) _supplyMesh.Visible=visible;
         _supplyLinks.Visible=_showSupplyRoutes;
         _supplyHelp.Visible=_showSupplyRoutes;
@@ -35,7 +35,7 @@ public partial class Game
         if(!visible) { _supplySummary.Text="See current trips, then select a worker to inspect their load and task. Routes hide in Watch mode."; return; }
         if(_uiTime<_nextSupplyRefresh) return;
         _nextSupplyRefresh=_uiTime+.25f;
-        var routes=_world.ReadSupplyRoutes();
+        var routes=_world.ReadSupplyRoutes().Where(r=>_showSupplyRoutes || !_showFoodMap || _world.IsFoodRoute(r.WorkerId)).ToArray();
         _supplySummary.Text=$"{routes.Length} active supply trips\nGold: carrying goods · blue: going to work or collect\nArrows point to the destination. Remaining trip distance, not a full-cycle estimate.";
         var buttons=_supplyLinks.GetChildren().OfType<Button>().ToList();
         while(buttons.Count<routes.Length) { var b=Button("",()=>{}); b.AutowrapMode=TextServer.AutowrapMode.WordSmart; b.AddThemeFontSizeOverride("font_size",14); _supplyLinks.AddChild(b); buttons.Add(b); }

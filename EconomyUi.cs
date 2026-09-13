@@ -20,6 +20,8 @@ public partial class Game
     private void MakeEconomyMenu(VBoxContainer column)
     {
         _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey); column.AddChild(_surveyToggle);
+        _foodMapToggle=Button("Show food in the world",ToggleFoodMap);column.AddChild(_foodMapToggle);
+        _foodMapToggle.TooltipText="Available food stays at its store. Claimed portions already belong to meals or shipments; incoming is still travelling. An empty store alone does not establish a production shortage.";
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
         _mealAttention=Button("Inspect meal service",OpenMealCoverage); column.AddChild(_mealAttention);
