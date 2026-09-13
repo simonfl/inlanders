@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F27c2 competing-land-use design probe — September 13, 2026:** [Plans, measured alternatives and decision](COMMONS_LAND_F27C2.md). Four ordinary-construction branches from a common provisioned village plus verified free-square construction/continuation. Reject a compulsory near/far commons objective: a nearby square preserves all three food gardens. Retain arrangement options, test a distinct shared activity before campaign rollout, and do not force an arbitrary footprint. Placement helper reused in both probes. No native play/rendering/listening or playable outcome; count remains **10**, next periodic review **15**.
+
 **F27c2 food-rule foundation — September 13, 2026:** [Evidence](LOCAL_FOOD_CONSISTENCY_F27C2.md). All six edible producers use local storage in the selected workflow; fishing unloading retains its delivery origin. Physical output, paused meals, save continuation, demolition conservation and original pantry routes pass. No independent playable slice or checkpoint increment; count stays **10**. Next: define and test the two-act spatial commitment.
 
 **F27c1 food/land situation — `8e2b2c3`, September 13, 2026:** [design, falsification and delivery](FOOD_LAND_F27C1.md). One visible berry source and eight committed arrivals; the rejected welcome-only ending is replaced by an explicit physical reserve. Wild-only no longer wins; garden, bread and early-arrival routes remain viable. Complete scripted shortage/recovery/menu/save journey passes at 960/1440; original-mode checks pass. Count **10**. No human enjoyment verdict. The independent whole-project five-role review is due now, before any further implementation.

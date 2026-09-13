@@ -2,15 +2,17 @@
 
 September 13, 2026. [Checkpoint-ten synthesis](REVIEW_CHECKPOINT_10.md) is complete on frozen source `07aca5f`. Count remains ten. The five disciplinary passes challenge the entire game; native play/listening remain unobserved. Local logistics is retained, broader campaign rollout is stopped. The next work tests the direction below, not another quota.
 
-## 1. F27c2 — design one two-act competing-land-use settlement
+## 1. F27c2 — land-use probe complete; compulsory commons rejected
 
-An established productive village must choose between reclaiming convenient productive/woodland ground and investing in a farther district. Both retain something valuable and sacrifice something visible. Ordinary construction, resources and journeys produce a lasting shared place. Specify exact sites, consequences and two viable alternatives before implementation; keep all buildings available. Test a competent first-act layout, not only mistake recovery. Reject a choice resolved by doing the same thing longer or raising reserves.
+[Four plans and a free-square check](COMMONS_LAND_F27C2.md) test one competent first-act village. Near/far squares produce different journeys, but a small nearby garden serves all residents without moving production. A full square also builds two tiles from the proposed center with all three food gardens intact. Do not manufacture a sacrifice with a mandatory rectangle, venue type or higher quota. Ordinary layout choices remain valid; the compulsory second-act land dilemma is still unproven.
 
-## 2. F27c2 — consistent rules and playable spatial commitment
+## 2. F27c2 — prototype a distinct shared outdoor activity
 
-[Consistent local output is implemented and checked](LOCAL_FOOD_CONSISTENCY_F27C2.md) for orchard, dock and hunting lodge as well as forager, garden and bakery, including physical transfer, meals, paused stock and demolition recovery. This foundation does not count separately. Next implement the chosen two-act situation using those ordinary systems. Do not add new producers, needs or an assessment timer. Foundations do not count separately from the playable outcome.
+Next compare an actual simultaneous outdoor meal with the existing staggered venue visits, using current residents and edible food. Select real reachable places, not a compulsory five-by-five footprint. Keep all buildings available and let clever existing layouts work. Show food delivery, the gathering, cancellation/recovery and return to work before adopting campaign objectives or a project screen. No new need, producer, increased reserve or attendance assessment. This is a falsifiable candidate, not an accepted feature.
 
-Use a small shared placement planner while constructing this comparison: record requested/actual cells, facing and explicit policy. Preserve historical placement semantics. Share only comparison bookkeeping when touched; keep plans explicit. These bounded investments must remove repeated setup effort, not become an editor/framework project.
+Compare compact existing space and farther open ground. If arranging it need not sacrifice production, judge it honestly as expressive village-making; do not label it a difficult land dilemma. Cut it if it merely adds waiting or service administration. The introduction/provisioning remain controls. Campaign rollout stays paused until the second act has a distinct visible purpose.
+
+[Consistent local output](LOCAL_FOOD_CONSISTENCY_F27C2.md) is already implemented. The placement helper now records requested/actual cells, facing, region and displacement, and is reused in two probes. Keep construction plans explicit; adopt shared bookkeeping only as needed. Foundations and comparisons do not count separately as playable outcomes.
 
 ## 3. F27c2 / F21 — coherent player journey
 
@@ -18,7 +20,7 @@ Present the chosen game at the front door; retain historical campaign/rule contr
 
 ## 4. Compare, recover and choose
 
-Compare two informed layouts through both acts, including the option to remain stable. Verify the original solution cannot satisfy both acts unchanged, neither alternative is simply worse, and consequences appear outside diagnostic numbers. Include an ordinary mistake/recovery and exact current saves. Extend existing evidence bundles with semantic opening/commitment/choice/mistake/recovery/outcome links. Reject or redesign if the second act still becomes build-once-and-coast without a meaningful choice; expressive village-making remains the alternative.
+Compare two informed layouts through both acts, including the option to remain stable. Check whether the shared activity creates a real spatial choice, whether one alternative is simply worse, and whether consequences appear outside diagnostic numbers. Keep clever layouts valid; do not manufacture sacrifice. Include an ordinary mistake/recovery and exact current saves. Extend existing evidence bundles with semantic opening/commitment/choice/mistake/recovery/outcome links. Reject or redesign if the second act still becomes build-once-and-coast without a meaningful choice; expressive village-making remains the alternative.
 
 ## 5. F27b and campaign decision — conditional
 
