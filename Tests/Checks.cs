@@ -1,4 +1,6 @@
 using Inlanders.Simulation;
+if(args.Contains("--neighborhood-local-services")) {try{NeighborhoodComparison.Recovery(true,localServices:true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--neighborhood-district")) {try{NeighborhoodComparison.Recovery(true,localServices:true,district:true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-no-slowdown")) {try{NeighborhoodComparison.Recovery(true,true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-recovery-capacity")) {try{NeighborhoodComparison.Recovery(true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-recovery")) {try{NeighborhoodComparison.Recovery();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

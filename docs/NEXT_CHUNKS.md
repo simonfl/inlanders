@@ -42,7 +42,7 @@ Reject a treatment that succeeds only as a staged screenshot, obscures actions o
 
 ## 4. T02 — compare experiences and choose what survives
 
-**Active now.** Use the retained original/valley scenes and the awkward mixed-facing meadow fixture. Stop static art iteration. Preserve the user's demand for skill and recoverable decisions: post-welcome idleness is not a successful core loop. Actual motion, interaction and sound evidence take priority over more images; document access limits honestly.
+**Active now.** [Experience comparison](EXPERIENCE_COMPARISON_T02.md): use the retained original/valley scenes and awkward mixed-facing meadow fixture. Nearby services and a coordinated housing/workplace district did not stabilize the fixed recovery plans. Next prototype workplace food stores and separate physical distribution, retaining the old workflow as control and using a balanced production plan. Stop further venue/bed/count tweaks. Stop static art iteration. Preserve the user's demand for skill and recoverable decisions: post-welcome idleness is not a successful core loop. Actual motion, interaction and sound evidence take priority over more images; document access limits honestly.
 
 Finish the narrow runner begun with F27a: shared baseline, named variants, observation windows, concise results, failed layouts and recovery branches. Reuse the finale runner's orchestration pattern. Avoid a universal rules editor or generalized replay system. On its second use, measure setup code/time saved and maintenance required.
 

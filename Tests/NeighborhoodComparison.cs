@@ -25,13 +25,13 @@ static class NeighborhoodComparison
         }
         throw new InvalidOperationException($"No legal east-bank space for {kind}; failed layout, not a successful recovery.");
     }
-    public static void Recovery(bool capacity=false,bool noSlowdown=false)
+    public static void Recovery(bool capacity=false,bool noSlowdown=false,bool localServices=false,bool district=false)
     {
-        string folder=(capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery")+(noSlowdown?"-no-slowdown":"");Directory.CreateDirectory(folder);
+        string folder=(capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery")+(noSlowdown?"-no-slowdown":"")+(localServices?"-local-services":"")+(district?"-district":"");Directory.CreateDirectory(folder);
         var timer=Stopwatch.StartNew();
         var sources=Directory.GetFiles("Simulation","*.cs").Append("Tests/NeighborhoodComparison.cs")
             .OrderBy(p=>p,StringComparer.Ordinal).ToDictionary(p=>p,p=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
-        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity,noSlowdown},Json));
+        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity,noSlowdown,localServices,district},Json));
         var w=World.NewNeighborhoodLandscapeExperiment();
         var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;
         for(int i=0;i<12000 && !bridge.Complete;i++)w.Tick(.1f);
@@ -60,23 +60,42 @@ static class NeighborhoodComparison
             branch.Neighborhood!.HungerSlowsActivity=!noSlowdown;
             for(int n=1;n<count;n++)PlaceNear(branch,kind,new(17,6));
             if(pantry){var store=PlaceNear(branch,BuildingKind.Pantry,new(17,6));branch.SetPantryTarget(store.Id,24);}
+            if(localServices)PlaceNear(branch,BuildingKind.SeatingGarden,new(17,6));
+            var homes=district?new[]{PlaceNear(branch,BuildingKind.Cottage,new(17,6)),PlaceNear(branch,BuildingKind.Cottage,new(17,6))}:Array.Empty<Cottage>();
+            bool coordinated=!district;
             if(pauseGrain && !branch.SetWorkplacePaused(branch.Cottages.Single(c=>c.Kind==BuildingKind.Farm).Id,true))
                 throw new Exception("Could not pause unused grain production");
             int ticks=capacity?24000:12000;
             float? firstFed=null;double hungerSeconds=0,last300HungerSeconds=0;
+            var activitySeconds=new Dictionary<string,double>();
             for(int i=0;i<ticks;i++)
             {
+                if(!coordinated && homes.All(c=>c.Complete) && branch.Cottages.Where(c=>c.Kind==kind).All(c=>c.Complete))
+                {
+                    var workplaces=branch.Cottages.Where(c=>!c.WorkPaused && c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery).ToArray();
+                    if(workplaces.Length>4)throw new Exception("District plan has more workers than its four new beds");
+                    for(int worker=0;worker<workplaces.Length;worker++)
+                    {
+                        branch.Assign(worker,Buildings.Get(workplaces[worker].Kind).Worker!.Value);
+                        if(!branch.SetWorkplaceAssignment(worker,workplaces[worker].Id) || !branch.AssignHome(worker,homes[worker/2].Id))throw new Exception("District work/home assignment refused");
+                    }
+                    coordinated=true;
+                }
                 branch.Tick(.1f);if(i%100==0)branch.Validate();
                 if(branch.Food.Hunger>0){hungerSeconds+=.1;if(i>=ticks-3000)last300HungerSeconds+=.1;}
                 else firstFed??=branch.Food.Time-w.Food.Time;
+                foreach(var person in branch.People)
+                {
+                    string task=person.Task.ToString();activitySeconds[task]=activitySeconds.GetValueOrDefault(task)+.1;
+                }
             }
             SaveChecked(branch,$"{folder}/{name}.json");
             results.Add(new{recovery=name,mistakeAt=w.Food.Time,welcomeAlreadyComplete=w.Neighborhood!.Complete,observationSeconds=ticks*.1,firstFed,hungerSeconds,last300HungerSeconds,
-                finalHunger=branch.Food.Hunger,food=branch.EdibleStored,site.Cell,site.Complete});
+                finalHunger=branch.Food.Hunger,food=branch.EdibleStored,site.Cell,site.Complete,coordinated,homes=homes.Select(h=>new{h.Cell,h.Complete}),activitySeconds});
             File.WriteAllText($"{folder}/results.json",JsonSerializer.Serialize(results,Json));
             Console.WriteLine($"Recovery {name}: first fed {firstFed}, welcome already complete {w.Neighborhood!.Complete}, hunger {hungerSeconds:F1}s, final hunger {branch.Food.Hunger}, food {branch.EdibleStored}");
         }
-        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="complete",sources,capacity,noSlowdown,arms=results.Count,wallSeconds=timer.Elapsed.TotalSeconds},Json));
+        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="complete",sources,capacity,noSlowdown,localServices,district,arms=results.Count,wallSeconds=timer.Elapsed.TotalSeconds},Json));
     }
     public static void Run(bool landscape=false)
     {
