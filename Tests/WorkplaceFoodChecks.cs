@@ -37,6 +37,36 @@ static class WorkplaceFoodChecks
         Check(w.Food.BakedBread>0 && w.Cottages.Where(c=>c.Kind==BuildingKind.Bakery).Any(c=>c.PantryFood.Sum()>0),"Working village has no local bread");
         Continuation(w);return w;
     }
+    public static void OtherProducers()
+    {
+        foreach(var pair in new[]{(BuildingKind.Orchard,Resource.Fruit),(BuildingKind.FishingDock,Resource.Fish),(BuildingKind.HuntingLodge,Resource.Game)})
+        {
+            var (kind,food)=pair;var w=World.NewWorkplaceFoodExperiment();
+            w.Food.InitialBerries=w.Food.Berries=1000;
+            w.Map.FishingGrounds.Add(new(){Id=0,Cell=new(5,-3),Capacity=16,Stock=16});
+            var habitat=new WoodlandHabitat{Id=0,Cell=new(-5,-3)};
+            habitat.Stock=w.HabitatCapacity(habitat);w.Map.Wildlife.Add(habitat);
+            if(kind==BuildingKind.HuntingLodge)foreach(var tree in w.Trees.Where(t=>habitat.Contains(t.Cell)))tree.Preserved=true;
+            foreach(var hut in w.Cottages.Where(c=>c.Kind==BuildingKind.ForagerHut))w.SetWorkplacePaused(hut.Id,true);
+            var choice=w.Map.Land.Where(c=>c.X<5).SelectMany(cell=>Enumerable.Range(0,4).Select(rotation=>new{cell,rotation}))
+                .Where(p=>w.PlacementProblem(p.cell,p.rotation,kind)==null)
+                .OrderBy(p=>(p.cell.Point-new Cell(2,0).Point).LengthSquared()).ThenBy(p=>p.cell.Z).ThenBy(p=>p.cell.X).ThenBy(p=>p.rotation).First();
+            var site=w.Place(choice.cell,choice.rotation,kind)!;Until(w,()=>site.Complete,kind+" construction");
+            Check(w.DedicateWorker(site.Id),kind+" dedicated worker");
+            Until(w,()=>w.People.Any(p=>p.Task==Work.ToPantry && p.FoodDestinationId==site.Id && p.Cargo==food && p.Carried>0),kind+" never returned output locally");
+            Continuation(w);
+            Until(w,()=>w.FoodAt(site.Id,food)>0,kind+" never deposited output");
+            string stocked=w.SaveJson();
+            Check(w.SetWorkplacePaused(site.Id,true),kind+" pause");
+            // Remove only fixture starting berries; production and meal accounting remain conserved.
+            int removed=w.FoodAvailableAt(null,Resource.Berries);w.Food.InitialBerries-=removed;w.Food.Berries-=removed;
+            Until(w,()=>w.People.Any(p=>p.Meal is {Carrying:true} meal && meal.SourceId==site.Id && meal.Kind==food),kind+" paused store did not serve a physical meal");
+            Continuation(w);
+            var removal=World.LoadJson(stocked);Check(removal.RequestDemolition(site.Id),kind+" demolition");
+            Continuation(removal);Until(removal,()=>removal.Cottages.All(c=>c.Id!=site.Id),kind+" stored food recovery");
+            Console.WriteLine($"PASS: {kind} physical local output, paused meal pickup, active saves and demolition conservation.");
+        }
+    }
     public static void Run()
     {
         var w=World.NewWorkplaceFoodExperiment();var hut=w.Cottages.Single(c=>c.Kind==BuildingKind.ForagerHut);

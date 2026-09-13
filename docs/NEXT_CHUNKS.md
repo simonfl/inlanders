@@ -8,7 +8,7 @@ An established productive village must choose between reclaiming convenient prod
 
 ## 2. F27c2 — consistent rules and playable spatial commitment
 
-Make local output work for the existing orchard, dock and hunting lodge as well as forager, garden and bakery. Preserve physical transfer, meals, paused stock and demolition recovery. Then implement the chosen two-act situation using those ordinary systems. Do not add new producers, needs or an assessment timer. Foundations do not count separately from the playable outcome.
+[Consistent local output is implemented and checked](LOCAL_FOOD_CONSISTENCY_F27C2.md) for orchard, dock and hunting lodge as well as forager, garden and bakery, including physical transfer, meals, paused stock and demolition recovery. This foundation does not count separately. Next implement the chosen two-act situation using those ordinary systems. Do not add new producers, needs or an assessment timer. Foundations do not count separately from the playable outcome.
 
 Use a small shared placement planner while constructing this comparison: record requested/actual cells, facing and explicit policy. Preserve historical placement semantics. Share only comparison bookkeeping when touched; keep plans explicit. These bounded investments must remove repeated setup effort, not become an editor/framework project.
 

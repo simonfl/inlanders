@@ -102,7 +102,12 @@ public sealed partial class World
                 person.Cargo=Resource.Fish; person.Carried=boat.Fish;
                 boat.Fish=0; boat.FisherId=null; boat.GroundId=null; boat.Phase=BoatPhase.Moored; boat.Timer=0;
                 Finish(person);
-                if(person.Carried>0) DeliverFood(person);
+                if(person.Carried>0)
+                {
+                    // Finish releases the boat/work claim. Retain the origin for this delivery only.
+                    if(IsWorkplaceFoodStore(dock))person.WorkplaceId=dock.Id;
+                    DeliverFood(person);
+                }
                 break;
         }
     }

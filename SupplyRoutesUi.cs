@@ -30,7 +30,7 @@ public partial class Game
         _supplyLinks.Visible=_showSupplyRoutes;
         _supplyHelp.Visible=_showSupplyRoutes;
         _supplyHelp.Text="Loggers deliver to nearby log stores without haulers. Builders and sawyers collect there. Haulers redistribute logs toward targets.\n\nSawyers can deliver to plank piles; builders collect locally. "+(_world.HasWorkplaceFood?
-            "Foragers, vegetable gardens and bakeries store food at their workplace first. Residents collect meals there; haulers carry surplus to pantries. Hut location affects the return journey from berry patches.":
+            "All food producers store their edible output at their workplace first. Residents collect meals there; haulers carry surplus to pantries. Hut location affects the return journey from berry patches.":
             "Edible food goes to nearby pantry storage. Forager huts provide worker slots; berries go from the patch to a pantry, not through the hut.");
         if(!visible) { _supplySummary.Text="See current trips, then select a worker to inspect their load and task. Routes hide in Watch mode."; return; }
         if(_uiTime<_nextSupplyRefresh) return;

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--workplace-food-all")) {try{WorkplaceFoodChecks.OtherProducers();WorkplaceFoodChecks.Run();PantryProducerChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--food-land")) {try{NeighborhoodChecks.Run(foodLand:true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-local-services")) {try{NeighborhoodComparison.Recovery(true,localServices:true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--workplace-food")) {try{WorkplaceFoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

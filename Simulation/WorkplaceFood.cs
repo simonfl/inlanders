@@ -6,8 +6,8 @@ public sealed partial class World
 {
     public const int WorkplaceFoodReserve=4;
     public bool HasWorkplaceFood=>Neighborhood?.WorkplaceFood==true;
-    // Bounded workflow comparison: these are the three edible producers used by the river slice.
-    public bool IsWorkplaceFoodStore(Cottage site)=>HasWorkplaceFood && site.Kind is BuildingKind.ForagerHut or BuildingKind.VegetableGarden or BuildingKind.Bakery;
+    // All existing edible producers share one local-output rule in the selected workflow.
+    public bool IsWorkplaceFoodStore(Cottage site)=>HasWorkplaceFood && site.Kind is BuildingKind.ForagerHut or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.Orchard or BuildingKind.FishingDock or BuildingKind.HuntingLodge;
     public static World NewWorkplaceFoodExperiment()
     {
         var world=NewNeighborhoodLandscapeExperiment();world.Neighborhood!.WorkplaceFood=true;return world;
