@@ -1,4 +1,5 @@
 [
+  {"name":"court-experience","description":"Matched finite/open court experience controls","generator":"court-experience","focusX":3,"focusZ":3,"zoom":29},
   {
     "name": "court-life",
     "description": "Sixteen-resident free court: actual working, meals and home rest; compare -CourtControl",

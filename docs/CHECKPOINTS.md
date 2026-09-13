@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **23**.
+- Playable checkpoints since adoption: **24**.
 - Last periodic review: **checkpoint 20**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_20.md). Whole-project evidence/source/still review; playtest role had no new native interaction, and no listening/human preference acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F30d2 finite/open comparison — September 13, 2026:** [Delivery, checks and limits](COURT_EXPERIENCE_F30D2.md). Same sixteen-resident village with a gathering-place brief/player-declared ending versus open continuation. Separate saves, unchanged physical life, starting-footprint reference, finish/watch/reopen. One playable outcome, count **24**. No human preference, challenge or enjoyment acceptance; no new independent review claimed. F30d3 chooses a provisional main experience; whole-project periodic review is due at the next playable checkpoint **25**.
+
 
 **F30d1 daily-life presentation — `18dfe94`, `fa2dcb3`, September 13, 2026:** [Comparison, review and limits](COURT_DAILY_LIFE_F30D1.md). Closer/higher court framing, distinct actual eating/resting and ground-contact work; matched-state control captures and one-command comparison index. Independent whole-game presentation review retained partial gains and rejected lower roofs/conditional translucency. One playable outcome, count **23**; not perceptual acceptance. F30d2 tests finite transformation versus free continuation before F30d3 consolidation. Periodic review remains **25**.
 

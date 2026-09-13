@@ -69,7 +69,7 @@ public partial class Game : Node3D
         _camera.Size = Math.Min(_camera.Size, MaximumZoom); UpdateCamera();
         ResetWorldAudio();
         Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
-        CreateFoodViews();
+        CreateFoodViews();MakeCourtStartingLayout();
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
         {
@@ -82,7 +82,7 @@ public partial class Game : Node3D
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
         try
         {
-            var next = _world.IsArrangementCourt ? (_world.Creative?World.NewCreativeCourt():World.NewArrangementCourt()) : _world.IsInheritedShoreline ? World.NewInheritedShoreline() : _world.Neighborhood?.FoodLandChallenge==true ? World.NewFoodLandChallenge() : _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
+            var next = _world.CourtStudy is {} study?World.NewCourtExperience(study.Finite):_world.IsArrangementCourt ? (_world.Creative?World.NewCreativeCourt():World.NewArrangementCourt()) : _world.IsInheritedShoreline ? World.NewInheritedShoreline() : _world.Neighborhood?.FoodLandChallenge==true ? World.NewFoodLandChallenge() : _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
             _world.SaveFile(CurrentSavePath + ".before-new");
             _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotation = 0; AdoptWorld(next);
             Notice("New village ready and paused. Options can restore the village before restart.");

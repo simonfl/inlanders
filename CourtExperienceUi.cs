@@ -1,0 +1,75 @@
+using Godot;
+using Inlanders.Simulation;
+using System.IO;
+using System.Linq;
+
+public partial class Game
+{
+    private VBoxContainer _courtExperienceGoals=null!;
+    private Button _courtBeforeButton=null!,_courtFinishButton=null!,_courtWatchButton=null!,_courtReopenButton=null!,_courtLeaveButton=null!;
+    private Node3D? _courtStartingLayout;
+    private bool _courtShowBefore;
+    private World? _courtStartingWorld;
+    private string CourtStudyPath(bool finite)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,finite?"court-finite.json":"court-open.json");
+    private void CourtExperienceMenu()
+    {
+        MenuPage("Two ways to make a place");
+        _mainColumn.AddChild(Text("The same sixteen neighbors, homes and gardens. Free construction and moves, real daily life, no hunger penalties. Each version has its own save.",16,true));
+        _mainColumn.AddChild(Text("A place to gather · The meeting area is squeezed between homes. Open room to sit, or move the gathering place closer to the gardens. Decide when it feels finished.",16,true));
+        Entry(true,"A place to gather");
+        _mainColumn.AddChild(Text("An open court · Make whatever interests you. There is no assigned project or finish line. Follow residents, rearrange the village, or simply watch.",16,true));
+        Entry(false,"An open court");
+        MenuButton("Back",NeighborhoodMenu);
+        void Entry(bool finite,string title)
+        {
+            string path=CourtStudyPath(finite);
+            if(File.Exists(path))MenuButton("Resume · "+title,()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(path))));
+            void Start()=>MenuAttempt(()=>{var world=World.NewCourtExperience(finite);world.SaveFile(path);EnterFromMenu(world);});
+            MenuButton("New · "+title,()=>{if(File.Exists(path))ConfirmMenu("New · "+title,"Replace this version with the starting court?",Start,CourtExperienceMenu);else Start();});
+        }
+    }
+    private void MakeCourtExperienceUi(VBoxContainer column)
+    {
+        _courtExperienceGoals=new();column.AddChild(_courtExperienceGoals);
+        _courtBeforeButton=Button("Show starting footprints",()=>{_courtShowBefore=!_courtShowBefore;UpdateCourtExperienceUi();});_courtExperienceGoals.AddChild(_courtBeforeButton);
+        _courtWatchButton=Button("Watch village life",()=>{_courtShowBefore=false;UpdateCourtExperienceUi();CloseDrawer();ClearSelection();_speed=1;_paused=false;ToggleWatch();});_courtExperienceGoals.AddChild(_courtWatchButton);
+        _courtFinishButton=Button("This place is ready",()=>{if(_world.FinishCourtPlace()){_paused=true;_courtShowBefore=false;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_courtExperienceGoals.AddChild(_courtFinishButton);
+        _courtFinishButton.TooltipText="Mark your project finished when you are satisfied. No score, quota or waiting requirement.";
+        _courtReopenButton=Button("Keep shaping this place",()=>{_world.CourtStudy!.Finished=false;SaveWorld();UpdateHud();CloseDrawer();});_courtExperienceGoals.AddChild(_courtReopenButton);
+        _courtLeaveButton=Button("Finish here · main menu",ReturnToMainMenu);_courtExperienceGoals.AddChild(_courtLeaveButton);
+        _courtExperienceGoals.Hide();
+    }
+    private void UpdateCourtExperienceUi()
+    {
+        if(_world.CourtStudy is not {} study)return;
+        _neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();_courtExperienceGoals.Show();
+        _goalTitle.Text=study.Finite?(study.Finished?"A place you made":"A place to gather"):"An open court";
+        _goalArrival.Text=study.Finite?(study.Finished?"Your gathering place is finished. Stay with the neighbors, leave it here, or reopen it when another idea comes.":"The meeting area is squeezed between homes. Open room to sit, or move the gathering place closer to the gardens. Decide when it feels finished."):"Make whatever interests you. Follow daily life, change an arrangement, or simply watch. There is no assigned project or finish line.";
+        _objective.Visible=!study.Finished;
+        if(_tabs.CurrentTab==2)_drawerTitle.Text="Your place";
+        _objective.Text=_courtShowBefore?"Amber outlines show the starting building footprints, not current buildings. Hide them to watch daily life.":"Select a home → Move home. Use Build to add paths or a gathering place.";
+        _courtBeforeButton.Text=_courtShowBefore?"Hide starting footprints":"Show starting footprints";
+        if(_courtStartingLayout!=null)_courtStartingLayout.Visible=_courtShowBefore && !_watching && !_atMainMenu;
+        _courtFinishButton.Visible=study.Finite && !study.Finished;
+        _courtReopenButton.Visible=study.Finite && study.Finished;
+        _courtLeaveButton.Visible=study.Finite && study.Finished;
+        _menuButtons[2].Text=study.Finished?"Your place · Finished":"Your place";
+        _menuButtons[2].TooltipText="Your place [G] · Drag to pan · Wheel zoom · Q/E orbit · Space play/pause";
+    }
+    private void MakeCourtStartingLayout()
+    {
+        if(_courtStartingWorld!=_world)_courtShowBefore=false;
+        _courtStartingWorld=_world;_courtStartingLayout=null;
+        if(_world.CourtStudy is not {} study)return;
+        _courtStartingLayout=new(){Visible=_courtShowBefore};_dynamic.AddChild(_courtStartingLayout);
+        foreach(var building in study.StartingBuildings)
+        {
+            var footprint=World.Footprint(building.Cell,building.Rotation,building.Kind).ToHashSet();
+            foreach(var c in footprint)foreach(var step in new[]{new Cell(1,0),new(-1,0),new(0,1),new(0,-1)})
+            {
+                if(footprint.Contains(new(c.X+step.X,c.Z+step.Z)))continue;
+                Box(_courtStartingLayout,new(c.X+step.X*.48f,Height(c.X,c.Z)+.12f,c.Z+step.Z*.48f),new(step.X==0?1:.055f,.04f,step.Z==0?1:.055f),new("f4cb79"));
+            }
+        }
+    }
+}

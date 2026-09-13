@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed class ArrangementTrial
 {
+    public CourtExperience? Experience { get; set; }
     public int? BuildingId { get; set; }
     public Cell Original { get; set; }
     public int Rotation { get; set; }

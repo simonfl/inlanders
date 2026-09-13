@@ -183,7 +183,7 @@ public partial class Game
         MakeGoalDashboard(column);
         _goalArrival = Text("", 15, true); column.AddChild(_goalArrival);
         _objective = Text("", 18, true); column.AddChild(_objective);
-        MakeNeighborhoodGoals(column);
+        MakeNeighborhoodGoals(column);MakeCourtExperienceUi(column);
         _progress = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new(0, 8) }; column.AddChild(_progress);
         _supperButton = Button("Host supper", () => { if (_world.BeginSupper()) { _placing = false; RefreshGhost(); CloseDrawer(); Notice("The villagers are gathering for supper."); } }); column.AddChild(_supperButton);
         _supperBreadLink=Button("Inspect bread supply",OpenBreadReserve);column.AddChild(_supperBreadLink);

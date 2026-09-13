@@ -15,6 +15,7 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("Settlements");
+        MenuButton("Court comparison",CourtExperienceMenu);
         _mainColumn.AddChild(Text("Make a neighborhood, then reshape a village at Willow inlet. Finish after the welcome, or stay to keep building. All buildings are available.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         _mainColumn.AddChild(Text("Start here · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));

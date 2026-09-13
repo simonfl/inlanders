@@ -110,8 +110,9 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
+        _courtExperienceGoals.Hide();
         _neighborhoodGoals.Hide();_journeyAction.Hide();_campaignSelection.Visible=_world.Neighborhood==null;
-        if(_world.Neighborhood!=null){UpdateNeighborhoodGoals();return;}
+        if(_world.Neighborhood!=null){UpdateNeighborhoodGoals();if(_world.CourtStudy!=null)UpdateCourtExperienceUi();return;}
         _menuButtons[2].TooltipText="Settlement objectives [G]";
         _riverAction.Visible = campaign?.Complete != true && (_world.IsFinaleCampaign && campaign!.Finale!.Phase is 0 or 2 || _world.IsWoodsCampaign && campaign!.Woods!.Phase<2 || _world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2 || _world.IsQuarryCampaign && campaign!.Quarry!.Phase==0);
         if (_riverAction.Visible) { var problem=_world.IsFinaleCampaign?_world.FinaleActionProblem():_world.IsWoodsCampaign?_world.WoodsActionProblem():_world.IsQuarryCampaign?_world.QuarryActionProblem():_world.IsLakeCampaign?_world.LakeActionProblem():_world.RiverActionProblem(); _riverAction.Text = _world.IsFinaleCampaign?_world.FinaleActionLabel:_world.IsWoodsCampaign?_world.WoodsActionLabel:_world.IsQuarryCampaign?"Assess the gathering place":_world.IsLakeCampaign?_world.LakeActionLabel:_world.RiverActionLabel; _riverAction.Disabled = problem != null; _riverAction.TooltipText = problem ?? "Advance this settlement's next phase when you are ready."; }

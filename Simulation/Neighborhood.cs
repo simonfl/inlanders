@@ -76,7 +76,7 @@ public sealed partial class World
     }
     private void ValidateNeighborhood()
     {
-        ValidateGathering();ValidateCommons();
+        ValidateGathering();ValidateCommons();ValidateCourtExperience();
         if(Neighborhood is not {} n)return;
         if(n.Complete && (!n.Arrived || n.Welcomed?.Count!=8+NeighborhoodArrivals))throw new InvalidOperationException("Incomplete neighborhood marked complete");
         if(n.FoodLandChallenge && !n.WorkplaceFood)throw new InvalidOperationException("Food/land situation requires workplace supply");
