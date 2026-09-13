@@ -4,10 +4,10 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **10**.
-- Last periodic review: **checkpoint 5**, [whole-project assessment](REVIEW_CHECKPOINT_5.md). Four roles reported; interactive playtest not performed (native capture hung).
+- Last periodic review: **checkpoint 10**, [whole-project synthesis](REVIEW_CHECKPOINT_10.md) and [role findings](REVIEW_CHECKPOINT_10_ROLES.md). Four contexts, five disciplinary passes; native discovery failed, no fresh gameplay/listening claimed.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
-- Next four-role review: **checkpoint 10 — due now**, with whole-project scope and the visual/audio role. Interactive campaign observation remains an earlier follow-up.
-- Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
+- Next four-role review: **checkpoint 15**, whole-project scope. Native observation remains outstanding.
+- Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
 
@@ -46,7 +46,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 | 7 | `4307a8f` | F21u: accurate orchard assignment guidance, UI recovery and stronger original-versus-reload evidence. [Evidence](ASSIGNMENT_GUIDANCE_F21U.md). | Focused simulation and rendered People/inspector checks at 960/1440; whole-project review remains due at 10. |
 | 8 | `3d857aa` | F11d/F18d: ordinary opening/river observation, matched finale alternatives and recovery, clearer central-grain guidance. [Evidence](CAMPAIGN_REVIEW_F11D.md). | Real native play and separate simulation/rendered checks; does not backdate checkpoint-five playtest. Whole-project review remains due at 10. |
 | 9 | `d27335c` | F27a: chosen neighborhood workflow, real welcome and recoverable local food economy; [full UI journey and evidence](NEIGHBORHOOD_DELIVERY_F27A.md). | Scripted controls at 960/1440, paired recovery/siting and current saves. Native play/listening and human enjoyment unknown. Whole-project five-role review due at 10. |
-| 10 | `8e2b2c3` | F27c1: playable meadow food/land situation, real provisioning and recoverable shortage; [evidence](FOOD_LAND_F27C1.md). | Full independent whole-project game-design, UX, playtest, lead and visual/audio review **due now**. |
+| 10 | `8e2b2c3` | F27c1: playable meadow food/land situation, real provisioning and recoverable shortage; [evidence](FOOD_LAND_F27C1.md). | [Whole-project review completed](REVIEW_CHECKPOINT_10.md), four contexts/five passes; no native play/listening. |
 
 F12h1 terrain design and test-only geometry evidence: [report](TERRAIN_SHAPING_F12H1.md). This foundation does not advance checkpoint 3; runtime commands are delivered in [F12h2](TERRAIN_SHAPING_F12H2.md). F12h3 now delivers their player controls; the combined feature counts once as checkpoint 4. Its bounded game-design review does not replace the periodic review.
 
@@ -55,6 +55,9 @@ F09e1 [gateway design](FENCE_GATEWAY_F09E1.md) adopts a bounded independent sour
 For each subsequent chunk, append its commit and outcome. Assign the next checkpoint number only when a committed playable outcome is delivered; use a dash for non-playable work. Update the totals and due checkpoints above. Group commits that deliver one playable outcome in one numbered entry.
 
 ## Review records
+
+**Checkpoint 10 — September 13, 2026:** [Synthesis](REVIEW_CHECKPOINT_10.md), [disciplinary findings](REVIEW_CHECKPOINT_10_ROLES.md), fixed source `07aca5fbbce440659fa4e5708f8494e44bf55960`. Fresh design reviewer plus reused UX, lead and playtest contexts after thread-limit failure; playtest also supplied a separately labeled visual/audio pass. Four contexts, not five fresh agents. Initial and rebuilt assembly hashes and exact artifacts are recorded in the synthesis. Native launch succeeded but target-window discovery failed; no actual play/listening. Choose one two-act land-use settlement plus consistent local food and world-led interaction; reject reserve inflation and broad campaign rollout. Review documents do not advance count ten. Next periodic review fifteen; regular visual/audio twenty and presentation triggers.
+
 
 **F27a normal game integration — September 12, 2026:** Experiment menu beside the original river level, dedicated saves, neighborhood Goals and completion handling. Scripted menu/save/control evidence; authored layout decisions and comparative play remain. Count stays **8**. [Details](NEIGHBORHOOD_F27A.md).
 
