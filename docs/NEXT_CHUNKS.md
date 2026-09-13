@@ -1,8 +1,12 @@
-# Next five chunks — checkpoint-five whole-game review
+# Next action — strategic design review
+
+**Routine delivery paused at checkpoint 8.** The user has clarified that reviews must critically reconsider the game itself, with authority to cut or substantially redesign existing work. Run the [critical design review](DESIGN_REVIEW_MANDATE.md) with independent game design, UX, playtest, development lead and visual/audio reviewers now. Synthesize a direction and alternatives before replacing the delivery queue. This review is pending; this document change does not claim it has happened.
+
+## Historical queue — superseded as an implementation instruction
 
 September 12, 2026. This queue follows the [whole-project review](REVIEW_CHECKPOINT_5.md), covering the full campaign, economy, presentation, controls and technical state. The [roadmap](ROADMAP.md) remains the feature index. Earlier delivered acceptance briefs are retained in [the pre-review queue](NEXT_CHUNKS_BEFORE_CHECKPOINT_5.md) and [earlier history](NEXT_CHUNKS_HISTORY_2026_09_12.md).
 
-The game has eighteen building types and ten campaign levels. Local stone storage, optional workplace assignments, bush relocation, Creative terraces and fence gateways are delivered. Three musical candidates and quiet transitions exist; their perceptual acceptance remains open. The next work should improve operating and understanding this game, not automatically expand its systems.
+The game has eighteen building types and ten campaign levels. Local stone storage, optional workplace assignments, bush relocation, Creative terraces and fence gateways are delivered. Three musical candidates and quiet transitions exist; their perceptual acceptance remains open. This was the prior incremental direction; the strategic review must challenge it rather than assume it remains appropriate.
 
 ## Delivered: F12h4 — visible terrain blockers and Undo recovery
 
@@ -14,7 +18,7 @@ Delivered September 12: [implementation and evidence](ASSIGNMENT_GUIDANCE_F21U.m
 
 ## Delivered: F11d / F18d — campaign operating loop and finale alternatives
 
-[Observed play and controlled results](CAMPAIGN_REVIEW_F11D.md): native UI play completed level 1 and earned the first river assessment, using 3× for later waits. Eight matched finale arms and three recovery arms separate location from capacity. One central bakery works with either farm location; moving an eastern bakery recovered readiness without adding capacity. Bread guidance now explains central grain pickup. Human enjoyment and full later-campaign pacing remain unverified. Audio listening is next.
+[Observed play and controlled results](CAMPAIGN_REVIEW_F11D.md): native UI play completed level 1 and earned the first river assessment, using 3× for later waits. Eight matched finale arms and three recovery arms separate location from capacity. One central bakery works with either farm location; moving an eastern bakery recovered readiness without adding capacity. Bread guidance now explains central grain pickup. Human enjoyment and full later-campaign pacing remain unverified. Audio listening was next before the strategic review pause.
 
 ## 4. F10b2 / F17b — soundscape and music listening
 

@@ -5,6 +5,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **8**.
 - Last periodic review: **checkpoint 5**, [whole-project assessment](REVIEW_CHECKPOINT_5.md). Four roles reported; interactive playtest not performed (native capture hung).
+- Immediate strategic review: **pending at checkpoint 8**, requested by the user to reconsider the entire design. Five independent roles; [mandate](DESIGN_REVIEW_MANDATE.md). Routine queue execution is paused. This policy correction does not count as a playable outcome or a completed review.
 - Next four-role review: **checkpoint 10**, with whole-project scope and the visual/audio role. Interactive campaign observation remains an earlier follow-up.
 - Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
