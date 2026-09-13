@@ -64,7 +64,7 @@ public partial class Game
             BuildingKind.Orchard=>site.Harvest>0?$"{site.Harvest} fruit ripe":site.Planted?$"{(site.OrchardMature?"Fruit growing":"Trees establishing")} · {site.Growth:P0}":site.OrchardMature?"Mature trees · batch held":"Ready to plant trees",
             BuildingKind.Farm=>site.Harvest>0?$"{site.Harvest} grain ripe":site.Planted?$"Growing · {site.Growth:P0}":"Ready to sow",
             BuildingKind.Bakery=>$"{site.InputGrain} grain in · {site.OutputBread} bread ready",
-            BuildingKind.Quarry or BuildingKind.HuntingLodge=>_world.ReadWorkplace(site).State,
+            BuildingKind.Quarry or BuildingKind.HuntingLodge or BuildingKind.FishingDock=>_world.ReadWorkplace(site).State,
             BuildingKind.Sawmill=>$"{site.InputLogs} logs in · {site.OutputPlanks} planks ready",
             BuildingKind.ForagerHut=>$"{_world.People.Count(p=>p.WorkplaceId==site.Id)}/2 foragers working",
             BuildingKind.Bridge=>"Open crossing", _=>"Gathering place"

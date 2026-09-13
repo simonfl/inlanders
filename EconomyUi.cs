@@ -8,7 +8,7 @@ public partial class Game
 {
     private Label _economyFood = null!, _economySummary = null!;
     private Label _foodFlow = null!;
-    private Button _mealAttention = null!;
+    private Button _mealAttention = null!, _foodWorkplaceLink=null!, _foodExpansionLink=null!;
     private readonly Dictionary<Resource,Label> _economyStocks = new();
     private readonly List<Button> _economyIssues = new(), _idleLinks = new();
     private EconomyReport? _economyReport;
@@ -25,6 +25,9 @@ public partial class Game
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
         _mealAttention=Button("Inspect meal service",OpenMealCoverage); column.AddChild(_mealAttention);
+        _foodWorkplaceLink=Button("Inspect existing food workplaces",()=>OpenFoodBuildings(2));column.AddChild(_foodWorkplaceLink);
+        _foodExpansionLink=Button("Compare food buildings to add",()=>OpenFoodBuildings(0));column.AddChild(_foodExpansionLink);
+        column.AddChild(Text("Low food? Check workplace activity, inputs and limits before adding capacity. Food in storage but missed meals? Inspect a resident's pickup and journey. A pantry moves food; it does not produce it.",13,true));
         column.AddChild(Text("RECENT FOOD FLOW",12));
         _foodFlow = Text("",14,true); column.AddChild(_foodFlow);
         MakeBreadReserveUi(column);
@@ -46,6 +49,11 @@ public partial class Game
         column.AddChild(Text("IDLE WORKERS · SELECT TO INSPECT",12));
         _idleContainer = new VBoxContainer(); column.AddChild(_idleContainer);
         column.AddChild(Text("Growing crops, regrowing berries, and a stocked sawmill can leave workers idle normally. Inspect their current task before changing jobs.",14,true));
+    }
+    private void OpenFoodBuildings(int section)
+    {
+        ClearSelection();if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);
+        _buildingFilter.Select(2);_constructionFilter.Select(0);SelectBuildSection(section);UpdateVillageDirectory();
     }
     private void ActOnEconomyIssue(int index)
     {
@@ -75,10 +83,8 @@ public partial class Game
             $"Portions eaten: {flow.Eaten} · closed/skipped demand: {flow.Required}\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.SimulatesMeals ? _world.Population : 0)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts first producer deliveries; transfers are not new supply. Eating and deadlines occur at different times. Excludes supper and trades.";
-        _economyFood.Text = !_world.SimulatesMeals ? "Creative · food needs disabled\nProduction and hauling still use real resources.\nStored food is available to watch and arrange; no meals are consumed." : $"{_economyReport.Meals} population-sized meals in storage\n{_world.Population} portions requested per minute, staggered by resident\nFood must be collected and eaten; stored portions do not prove service. Grain is not edible.";
-        if(_world.Creative && _world.SimulatesMeals)_economyFood.Text+="\nMissing meals do not slow work or lower mood in free arrangement.";
-        if(!_world.Creative) _economyFood.Text+="\n\n"+_world.ReadMealAssessment().Summary;
-        if (!_world.Creative) _economyFood.Text += "\n\n" + _world.LastMealSummary;
+        _economyFood.Text = !_world.SimulatesMeals ? "Creative · food needs disabled" : $"{_world.EdibleStored} food portions stored\n{_world.Population} portions requested per minute\n{mealAttention} residents hungry or with recent misses";
+        _economyFood.TooltipText="Stored food must still be collected and eaten. Grain is not edible.\n"+(_world.Creative?"Missing meals do not slow work or lower mood in free arrangement.":_world.ReadMealAssessment().Summary+"\n"+_world.LastMealSummary);
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
         _economySummary.Text=count==0?(mealAttention>0?"Food service needs attention; inspect residents above.":"No immediate shortages detected."):"Select a message to open the relevant controls.";

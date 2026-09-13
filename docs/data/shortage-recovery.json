@@ -1,0 +1,69 @@
+[
+  {
+    "arm": "pantry",
+    "hungry": 6031.00000000009,
+    "lateHungry": 2899.6999999999907,
+    "stored": 1,
+    "orders": [
+      {
+        "Kind": 15,
+        "Requested": {
+          "X": -7,
+          "Z": 2,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": 5,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "recovery",
+        "DisplacementSquared": 13
+      }
+    ]
+  },
+  {
+    "arm": "garden-dock",
+    "hungry": 1024.100000000015,
+    "lateHungry": 0,
+    "stored": 10,
+    "orders": [
+      {
+        "Kind": 9,
+        "Requested": {
+          "X": -7,
+          "Z": 2,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": 5,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "recovery",
+        "DisplacementSquared": 13
+      },
+      {
+        "Kind": 10,
+        "Requested": {
+          "X": 3,
+          "Z": 3,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 2,
+          "Z": 3,
+          "Point": {}
+        },
+        "Rotation": 1,
+        "Policy": 1,
+        "Region": "recovery",
+        "DisplacementSquared": 1
+      }
+    ]
+  }
+]

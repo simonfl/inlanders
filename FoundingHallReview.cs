@@ -42,6 +42,18 @@ public partial class Game
         await Click(_foundingInvite);Check(_world.Population==14 && _world.Founding!.HallProject==2,"Completed project blocks growth");
         await CaptureReviewBundle("hall-continued-growth");
         await Click(_foundingFoodView);Check(_showFoodMap && !_drawer.Visible,"Growth food inspection failed");ToggleFoodMap();
+        OpenEconomy();UpdateHud();await Frames();_drawerPages[4].EnsureControlVisible(_foodExpansionLink);await Frames();
+        await CaptureReviewBundle("food-recovery-links");await UiClick(_foodWorkplaceLink);await Frames();
+        Check(_tabs.CurrentTab==1 && _buildSection==2 && _buildingFilter.Selected==2,"Food workplaces link lost filter");
+        var hut=_world.Cottages.First(c=>c.Kind==BuildingKind.ForagerHut);_drawerPages[1].EnsureControlVisible(_queueButtons[hut.Id]);await Frames();await UiClick(_queueButtons[hut.Id]);await Frames();
+        Check(_selectedSite==hut.Id && _productionControls.Visible,"Food workplace inspector missing");
+        ClearSelection();OpenEconomy();_drawerPages[4].EnsureControlVisible(_foodExpansionLink);await Frames();await UiClick(_foodExpansionLink);await Frames();
+        Check(_tabs.CurrentTab==1 && _buildSection==0 && _buildingFilter.Selected==2,"Food building choices missing");
+        OpenMealCoverage();_serviceFilter.Select(3);UpdateServiceCoverage();await Frames();
+        var diner=_world.People.First(p=>p.Meal is {} m && (m.Reserved || m.Carrying || m.Eaten));int? pickup=diner.Meal!.SourceId;
+        var sourceButton=_mealSourceLinks[diner.Id];_drawerPages[0].EnsureControlVisible(sourceButton);await Frames();await UiClick(sourceButton);await Frames();
+        Check(pickup is int sourceId?_selectedSite==sourceId:_showFoodMap && !_drawer.Visible,"Actual meal pickup link failed");
+        ClearSelection();if(_showFoodMap)ToggleFoodMap();
         SaveWorld();string finished=_world.SaveJson();
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==finished && CurrentSavePath==FoundingPath,"Project Continue differs");
         File.WriteAllText(Path.Combine(_reviewDirectory,"hall-controls.txt"),"PASS: continuation, stone focus, quarry planning, active F9, real use, ending and Continue; accelerated command-driven construction, not human play");

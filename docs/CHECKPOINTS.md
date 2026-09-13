@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **29**.
+- Playable checkpoints since adoption: **30**.
 - Last periodic review: **checkpoint25**, [whole-game synthesis](REVIEW_CHECKPOINT_25.md). Three fresh independent roles plus a reused playtest reviewer after the agent limit; source/still/scripted evidence, no uncoached native play or listening acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F31f shortage recovery — September 13, 2026:** [Delivery and matched recovery](SHORTAGE_RECOVERY_F31F.md). Compact Economy entry connects resident meals, food workplaces and the catalogue; actual resident pickup links and corrected dock directory status. Builds, same-age recovery/state/current-save checks and960/1440 scripted UI journeys. One outcome, count **30**; whole-project review **due now**, including visual/audio. No new implementation until synthesis.
 
 **F31e neighborhood growth — September 13, 2026:** [Delivery, comparison and partial recovery](NEIGHBORHOOD_GROWTH_F31E.md). Continued post-founding/hall invitations with observed food supply at the decision and a link to food routes. Four ordinary1200-second arms, one matched recovery branch, world/current-save validation and960/1440 UI journeys. Count **29**, next periodic full review **30**. Growth creates food/location consequences, but no human enjoyment, listening or deeper-campaign acceptance. Next F31f addresses coherent shortage investigation and action.
 

@@ -6,6 +6,7 @@ using System.Linq;
 public partial class Game
 {
     private Button _serviceToggle=null!;
+    private readonly Dictionary<int,Button> _mealSourceLinks=new();
     private VBoxContainer _servicePanel=null!, _serviceRows=null!;
     private OptionButton _serviceFilter=null!;
     private Label _serviceCount=null!;
@@ -54,7 +55,7 @@ public partial class Game
         {
             _serviceWorld=_world; _campaignServiceKey=null;_serviceFilter.Select(0); _servicePanel.Hide();
             foreach(var row in _serviceResidents.Values) { _serviceRows.RemoveChild(row.Row); row.Row.QueueFree(); }
-            _serviceResidents.Clear();
+            _serviceResidents.Clear();_mealSourceLinks.Clear();
         }
         _serviceToggle.Text=$"{(_servicePanel.Visible?"▾":"▸")} Meals · rest {_world.ResidentsRested}/{_world.Population} · recreation {_world.People.Count(HasRecreation)}/{_world.Population}";
         if(!_servicePanel.Visible) return;
@@ -72,6 +73,12 @@ public partial class Game
                 var reason=Text("",13,true); row.AddChild(reason);
                 var home=Button("Show home",()=>ShowServicePlace(_world.People[id].HomeId)); row.AddChild(home);
                 var venue=Button("Show venue",()=>ShowServicePlace(ServiceVenue(_world.People[id]))); row.AddChild(venue);
+                var source=Button("Inspect meal pickup",()=>
+                {
+                    var meal=_world.People[id].Meal;if(meal==null || !(meal.Reserved || meal.Carrying || meal.Eaten))return;
+                    if(meal.SourceId is int sourceId)ShowServicePlace(sourceId);
+                    else{ClearSelection();CloseDrawer();_focus=OnGround(_world.YardAccess.X,_world.YardAccess.Z);UpdateCamera();if(!_showFoodMap)ToggleFoodMap();}
+                });row.AddChild(source);_mealSourceLinks[id]=source;
                 item=(row,person,reason,home,venue); _serviceResidents[id]=item;
             }
             bool rest=_world.RecentlyRested(p), recreation=HasRecreation(p);
@@ -82,6 +89,11 @@ public partial class Game
             int missed=_world.Food.MealOutcomes.Count(m=>m.Person==p.Id && m.Time>_world.Food.Time-World.FoodFlowWindow && (!m.Timely || m.Skipped));
             string meals=$"MEALS · {_world.MealSummary(p)}";
             if(!_world.Creative) meals+=$"\nMissed/skipped in last 3m: {missed}. Late eating restores nourishment; history remains until it ages out.";
+            var meal=p.Meal;var sourceLink=_mealSourceLinks[p.Id];
+            sourceLink.Visible=_serviceFilter.Selected is 3 or 4;
+            sourceLink.Disabled=meal==null || !(meal.Reserved || meal.Carrying || meal.Eaten);
+            sourceLink.Text=sourceLink.Disabled?"No meal pickup assigned":$"{(meal!.Eaten?"Last meal pickup":"Meal pickup")} · "+(meal.SourceId is int sourceId?$"building {sourceId}":"central food");
+            sourceLink.TooltipText="Actual assigned meal source; not the closest store or a guessed cause of a missed meal. A consumed meal's source remains visible until the next request replaces it.";
             item.Reason.Text=(_serviceFilter.Selected is 3 or 4?meals+"\n":"")+$"REST · {_world.RestSummary(p)}\nRECREATION · {_world.RecreationSummary(p)}";
             if(goalFilter)item.Reason.Text=_world.CampaignResidentReason(p,_campaignServiceKey!);
             var homeSite=_world.Cottages.FirstOrDefault(c=>c.Id==p.HomeId);

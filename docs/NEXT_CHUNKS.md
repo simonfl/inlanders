@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **29**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
+September 13, 2026. Count **30**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -36,11 +36,13 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 
 [Four-arm growth and partial recovery comparison](NEIGHBORHOOD_GROWTH_F31E.md). Homes alone reach twenty but food later collapses; compact garden/dock support stays fed, while the same catalogue dispersed has longer meal journeys and some hunger. Continued invitations remain visible after founding/hall completion, with recent supply versus current demand and access to food routes. No new quota or objective timer. One playable outcome, count29.
 
-## 1. F31f — make shortage recovery understandable and actionable
+## F31f delivered — shortage investigation and action
 
-Use the actual overloaded village to compare extra production against improved food access. Start from the existing economy, food-map and workplace controls: identify where the player's investigation loses the cause or the action, then deliver one coherent recovery flow. One garden only partly fixes the measured shortage. Avoid universal producer prescriptions, a new dashboard, a population quota or stock certificates. Good up-front planning remains valid.
+[Recovery comparison and delivery](SHORTAGE_RECOVERY_F31F.md). The overloaded village recovers with garden/dock production, not a pantry alone. Economy connects directly to current food workplaces, building choices and actual resident pickup sources. One playable outcome, count30.
 
-After the next committed playable outcome, run the whole-project checkpoint30 review with visual/audio before further implementation. Challenge the growth/management direction, crowding, repeated buildings and the still-unproven longer-term loop. Native/uncoached play and listening remain missing. Do not count evidence-only work to force the cadence.
+## Due now — whole-project checkpoint30 review
+
+Freeze a commit/build and run independent game-design, UX, playtest, development-lead and visual/audio reviews. Challenge the whole game and the growth/management direction, crowding, repeated buildings and still-unproven longer-term loop. Choose a direction before selecting further implementation. Native/uncoached play and listening remain missing.
 
 ## Keep deferred
 

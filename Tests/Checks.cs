@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--shortage-recovery")){try{ShortageRecoveryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--growth-recovery")) {try{NeighborhoodGrowthChecks.Recovery();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-growth")) {try{NeighborhoodGrowthChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--remote-support")) {try{FoundingHallChecks.Run(true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
