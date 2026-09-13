@@ -2,6 +2,27 @@
 
 Requested by the user during the checkpoint-eight strategic reset. Assess this alongside the game direction, before choosing the next implementation sequence. These are candidate investments, not an approved infrastructure backlog.
 
+## Assessment outcome at checkpoint 8
+
+The [disciplinary review](STRATEGIC_REVIEW_8_ROLES.md) found that capture and comparison primitives already exist. The main investment should make them discoverable, reproducible and cheap to reuse. The [active queue](NEXT_CHUNKS.md) specifies the selected increments; the candidate table below remains a menu, not an instruction to build everything.
+
+**T01: scenario launcher and minimal evidence bundle, first.** Register fresh opening, river decision state and ordinary/dense presentation states using existing generators; register the alternative when it exists. Separate build, prepare, inspect and check. One named invocation should reach an interactive paused scene with ordinary controls, without replaying an entire comparison suite. Record source/build fingerprints, dirty state, fixture hash/generator, scenario/variant, seed where applicable, dimensions, camera, real speed and execution mode. Explicitly regenerate stale fixtures; initially prefer conservative invalidation over clever dependency caching. Keep development access separate from normal campaign flow.
+
+Reuse `Smoke.cs` PNG capture and save serialization for a matching image/state/metadata bundle. Use existing `SmokeSoundscape.cs` mixer recording and `ReviewSoundscape.ps1` for audition access. A native screenshot used to guide input still needs current native state; an engine evidence export does not authorize clicking stale coordinates or turn scripted input into a playtest.
+
+**T02: narrow experiment runner, alongside the neighborhood comparison.** Extract only shared preparation, named variants, horizons, event samples and report writing from the existing finale experiment. Add local/central supply and current/alternative objectives only as needed. Preserve failed layouts and recovery branches. Do not export every constant or create a generalized rules engine.
+
+| Selected scope | Estimated effort, not a promise | Repeated benefit and measurement |
+| --- | --- | --- |
+| T01 launcher/catalog | 1–2 focused developer days; low ongoing registration cost | All reviewers/developers several times per chunk. Record commands and wall time to an inspectable state before/after; target one invocation and under two minutes with a valid existing build. Cold generation is reported separately. |
+| T01 PNG/state/provenance | About one additional day; reuse current engine primitives | Each review/debug report. Time to usable bundle, capture failures, and whether another reviewer can identify/reopen the exact state. |
+| T02 comparison extraction | 1–2 days when the prototype needs it; low/moderate upkeep | Each substantial design experiment. The second comparison should add scenario/variant observations without duplicating setup/export loops. |
+| Motion/audio and focused reuse extensions | Only after the first use demonstrates the gap; estimate separately | Compare actual normal-process activity and audible mixes. Keep scripted 4× historical captures distinct from ordinary 1×/3×/6× play. No claim that recording access proves pleasant audio. |
+
+Measure T01 on its first real review and T02 on its second comparison. Track implementation and upkeep effort as well as saved setup time. Expected payback is several review cycles, not an established result. Simplify tools that do not save effort. Do not let tooling delay the first playable alternative while accumulating optional capabilities.
+
+A small Godot scene/mesh presentation seam may accompany the visual experiment if it reduces actual massing/material edit effort. Try one home, workplace and communal structure before adopting an asset migration. Defer universal editors, ECS, replay platforms, broad configuration conversion and new CI infrastructure. Native profiling remains a targeted investigation when stalls affect the slice; no speculative optimization. Save compatibility remains out of scope.
+
 ## Observed friction
 
 - Ordinary campaign observation required many separate native control/capture calls. Some snapshots took tens of seconds, and activating the actual game window was necessary to obtain the right surface. The earlier review produced no play evidence after a capture failure.

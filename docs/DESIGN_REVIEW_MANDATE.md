@@ -43,6 +43,6 @@ The user has empowered substantial redesign. The lead may replace the roadmap, p
 
 Prototypes should compare experiences, not only throughput or completion time. Seek human feedback on competing playable slices when it would settle enjoyment or taste; keep independent work moving meanwhile. Unknown taste is a reason to make alternatives concrete, not to claim acceptance or indefinitely avoid design decisions.
 
-## Immediate action
+## Immediate review outcome
 
-Routine feature execution is paused at checkpoint 8. Run the strategic review against the current full game, including recent ordinary opening/river observation and finale experiments as evidence rather than proof that the game is good. Include the user's continuing dissatisfaction with flat/uncompelling visuals and tutorial-like campaign pacing. Produce the synthesis and replace the delivery queue before continuing implementation. This mandate update is not the review itself and does not advance the playable checkpoint count.
+The [checkpoint-eight synthesis](STRATEGIC_REVIEW_8.md) chooses a substantial neighborhood experiment and [replaces the queue](NEXT_CHUNKS.md). It records three independent reviewers and two reused disciplinary passes after thread-limit failures, plus a fresh native attempt that reached only the menu. These limitations remain explicit; no enjoyment, new gameplay or audio acceptance is claimed. The comparative prototype may proceed, and checkpoint ten still requires a whole-project review. This documentation does not advance the playable count. Apply the same critical mandate to the proposed redesign rather than protecting it as the new plan.

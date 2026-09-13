@@ -6,21 +6,25 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Next: immediate critical design review at checkpoint 8. Routine feature delivery is paused.** The user has empowered reconsidering the entire game and substantial redesign. Follow the [design review mandate](DESIGN_REVIEW_MANDATE.md): judge the core experience, challenge existing systems and visual direction, compare alternatives, then replace this queue with a coherent direction. The existing roadmap records prior decisions; it is not a commitment to preserve them.
+**Next: T01 iteration tooling, then a complete neighborhood redesign experiment.** The [checkpoint-eight strategic review](STRATEGIC_REVIEW_8.md) finds a promising physical simulation but an overly administrative campaign and weak whole-scene presentation. Refocus on making a neighborhood work and watching people enjoy it. Test local supply, workplace-first interactions, visible communal progression and a coherent landscape/art direction together. Current features and ten levels are hypotheses, not commitments to preserve.
 
-The [checkpoint-five whole-project review](REVIEW_CHECKPOINT_5.md) records overall status, evidence and limitations. The [current next-five queue](NEXT_CHUNKS.md) defines bounded priorities and checks; the checkpoint-five native playtest did not occur. A subsequent [ordinary campaign observation](CAMPAIGN_REVIEW_F11D.md) now covers opening completion and a river assessment; human enjoyment remains unverified. The [earlier September 12 review](ROADMAP_REVIEW_2026_09_12.md) retains the building-cost audit and the delivered sequence. Current queue ordering supersedes older recommendations; historical measurements are evidence, not current specifications.
+The [current next-five queue](NEXT_CHUNKS.md) defines the experiment and enabling work. The [role reports](STRATEGIC_REVIEW_8_ROLES.md) record three independent reviewers plus two reused disciplinary passes after the agent thread limit; new native observation reached only the menu. Earlier [ordinary play](CAMPAIGN_REVIEW_F11D.md) covers opening completion and a river assessment. No review establishes human enjoyment. The [earlier audit](ROADMAP_REVIEW_2026_09_12.md) and [checkpoint-five review](REVIEW_CHECKPOINT_5.md) retain historical evidence, not binding recommendations.
 
 Current foundation: **18 building types, ten campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
-## Suspended delivery queue — pending strategic review
+## Ordered delivery — test the new direction before scaling it
 
-These were the next deliveries before the user corrected the review mandate. Do not execute them by default. The strategic synthesis may retain, reorder, replace or remove them; scope and historical acceptance checks remain in [the prior queue](NEXT_CHUNKS.md).
+The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md). The [previous queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is archived. None of these new items is implemented yet; the next review may reject this direction too.
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
-| 1 | F10b2 / F17b | Listening | Listen to matched soundscapes and complete theme/transition auditions; record each acceptance separately. |
-| 2 | F23c4 | Investigation | Obtain native long-frame attribution, including normal autosave timing, before choosing an optimization. |
-| 3 | F21v | Planned | Pinpoint resource-access blockers in ordinary building placement; preserve footprint/entrance/route protections and verify four rotations and compact feedback. |
+| 1 | T01 | Next | Named scenario launcher; separate build/prepare/inspect/check; matching image, state and provenance; measure setup savings and reject stale fixtures. |
+| 2 | F27a | Planned experiment | Complete river-neighborhood alternative: local supply, building staffing, competing layouts, meaningful growth/recovery and a visible communal payoff instead of assessments. |
+| 3 | F27b | Planned experiment | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
+| 4 | T02 | Alongside experiment, then decision | Reusable matched comparisons and ordinary play; explicitly retain, cut or redesign based on experience, not completion alone. |
+| 5 | F27c | Conditional | Consolidate introductions and replace repetitive campaign objectives with distinct situations, only after choosing the direction from comparison. |
+
+Tooling is a first-class investment with bounded cost, beneficiaries and payoff measurements in the [tooling assessment](ITERATION_TOOLING_REVIEW.md). Reuse existing capture/fixtures before building infrastructure. UI is central to F27a/b, not a later polish item. F21v feeds placement clarity where needed; audio listening accompanies F27b; native stall attribution remains open and moves forward if it compromises the slice. Defer new needs/producers and broad Creative expansion.
 
 Recent deliveries include [observed campaign play, finale alternatives and bread guidance](CAMPAIGN_REVIEW_F11D.md), [orchard assignment guidance and continuation checks](ASSIGNMENT_GUIDANCE_F21U.md), [terrain blockers and Undo recovery](TERRAIN_FEEDBACK_F12H4.md), [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -28,8 +32,8 @@ Recent deliveries include [observed campaign play, finale alternatives and bread
 
 | Area | What remains uncertain | How it affects decisions |
 | --- | --- | --- |
-| Art — F23a/b | Does the village feel inviting at ordinary zoom, including all four sides? | Use matched scenes and feedback. Iterate the offending type; avoid an automatic wholesale art rewrite. |
-| Campaign/UI — F21l, F11b/F18b | Can a player explain a falling goal count and recover? Is there meaningful work beyond opening placements? | Use the woodland findings and later neighborhood review. Preserve completed milestones; cut waiting rather than increase quotas to promise a duration. |
+| Art — F23a/b, F27b | Does the village feel inviting at ordinary zoom, including all four sides? | Compare a whole-scene direction; replace massing, terrain and framing when needed. More props or isolated close-ups are insufficient. |
+| Campaign/UI — F11/F18/F21, F27a/c | Are there meaningful spatial decisions and visible payoffs beyond initial placements? | Remove assessments from the alternative, test local supply and workplace interaction, then replace repetitive campaign structures if the bet works. |
 | Campaign challenge — F11/F18 | Quarry competent routes remain six to eight simulated minutes; reserve-only changes failed to create sustained decisions. | Use changing commitments/environmental consequences in later scenario design, building on Living woods in the later finale prototype. Human timing remains unverified. [Rejected experiment](QUARRY_CHALLENGE_F11B4.md). |
 | Food service — F07c3 | Can players understand missed meals and use layout or pantries to improve service? | Use the neighborhood review; do not require local pantries in every solution. |
 | Comfort — F25b3 | Are visible improvements and fewer rest journeys rewarding? | Keep optional. Existing comparisons show no food-output gain; no comfort scenario yet. |

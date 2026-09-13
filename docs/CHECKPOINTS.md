@@ -5,7 +5,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **8**.
 - Last periodic review: **checkpoint 5**, [whole-project assessment](REVIEW_CHECKPOINT_5.md). Four roles reported; interactive playtest not performed (native capture hung).
-- Immediate strategic review: **pending at checkpoint 8**, requested by the user to reconsider the entire design. Five independent roles; [mandate](DESIGN_REVIEW_MANDATE.md). Routine queue execution is paused. This policy correction does not count as a playable outcome or a completed review.
+- Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 10**, with whole-project scope and the visual/audio role. Interactive campaign observation remains an earlier follow-up.
 - Next regular visual/audio review: **checkpoint 10**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
@@ -31,6 +31,8 @@ F09e1 [gateway design](FENCE_GATEWAY_F09E1.md) adopts a bounded independent sour
 For each subsequent chunk, append its commit and outcome. Assign the next checkpoint number only when a committed playable outcome is delivered; use a dash for non-playable work. Update the totals and due checkpoints above. Group commits that deliver one playable outcome in one numbered entry.
 
 ## Review records
+
+**Strategic checkpoint 8 — September 12, 2026:** [synthesis](STRATEGIC_REVIEW_8.md) and [disciplinary reports](STRATEGIC_REVIEW_8_ROLES.md), fixed source `aea4dc40e49d2b88ed25723dce33c1318cb8e605`, existing assembly hash in report. Game design, UX and development lead independently challenged the whole game. Fresh additional agent creation failed; the designer also covered visual/audio and UX also attempted native play with inherited context. New native observation reached the menu only; owned process was closed. No listening/performance result. Chosen direction: comparative neighborhood redesign plus bounded scenario/evidence tooling. [New queue](NEXT_CHUNKS.md) replaces the incremental patch sequence. No playable increment; periodic checkpoint-ten obligations remain.
 
 **Checkpoint 5 — September 12, 2026:** [whole-project review](REVIEW_CHECKPOINT_5.md), fixed commit `7e271fe7f22771d579096f3e3ff2f39ace4b0ade`, assembly hash recorded in that report. Independent game-design, UX/onboarding and development-lead reviews assessed the full game; the playtest role reported a native capture failure and zero gameplay findings. The review is recorded with that limitation, not as a successful playtest. Findings were consolidated and the next five chunks selected. This documentation work does not advance checkpoint 5.
 
