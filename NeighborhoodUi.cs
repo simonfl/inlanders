@@ -15,11 +15,11 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("A new neighborhood");
-        _mainColumn.AddChild(Text("Make a home across the river. Compare the original map, a landing/meadow layout, or workplace food storage on that layout. All buildings remain available. Starting a new experiment replaces its save.",15,true));
+        _mainColumn.AddChild(Text("Make a home across the river. Choose where to build, prepare for four new neighbors, and share a welcome meal. Food is stored where it is made; arrange workplaces and pantries around the journeys people take. All buildings remain available. Starting again replaces the neighborhood save.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume neighborhood",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
-        MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
+        MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewWorkplaceFoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
+        MenuButton("Original neighborhood control",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Try landing and meadow",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodLandscapeExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
-        MenuButton("Try workplace food",()=>MenuAttempt(()=>{var world=World.NewWorkplaceFoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
         MenuButton("Back",ShowMainMenu);
     }

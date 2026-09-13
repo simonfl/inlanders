@@ -24,6 +24,7 @@ static class ReviewFixtures
             "neighborhood-complete"=>WelcomeMealChecks.PrepareCompletedReview(),
             "neighborhood-awkward"=>WelcomeMealChecks.PrepareAwkwardReview(),
             "neighborhood-workplace-food"=>World.NewWorkplaceFoodExperiment(),
+            "neighborhood-working-village"=>WorkplaceFoodChecks.PrepareVillage(),
             "welcome-meal"=>WelcomeMealChecks.PrepareReview(),
             "ordinary"=>FinaleCampaignChecks.RunRoute(true,false,false),
             "dense"=>Inlanders.Development.ReviewWorlds.Dense(FinaleCampaignChecks.RunRoute(true,false,true)),

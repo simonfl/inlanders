@@ -12,8 +12,9 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
-        await UiClick(_mainButtons[workplaceFood?"Try workplace food":landscape?"Try landing and meadow":"New neighborhood"]);await Frames();
+        await UiClick(_mainButtons[workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
+        Check(_world.HasWorkplaceFood==workplaceFood,"Neighborhood entry selected the wrong food workflow");
         Check(_goalTitle.Text=="A new neighborhood" && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
         Check(_neighborhoodCommit.Disabled && _neighborhoodCommit.TooltipText.Contains("crossing"),"Opening commitment lacks crossing guidance");
         await CaptureReviewBundle();
@@ -29,6 +30,12 @@ public partial class Game
         Check(_world.IsRiverCampaign && _world.Neighborhood==null && !_neighborhoodGoals.Visible,"Original comparison entry changed mode");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
         await UiClick(_mainButtons["Resume neighborhood"]);await Frames();
+        if(_world.SaveJson()!=saved || !_neighborhoodGoals.Visible)
+        {
+            System.IO.File.WriteAllText(System.IO.Path.Combine(_reviewDirectory,"resume-expected.json"),saved);
+            await CaptureReviewBundle();
+            Check(false,"Neighborhood resume failed: "+_menuMessage.Text);
+        }
         Check(_world.SaveJson()==saved && _neighborhoodGoals.Visible,"Baseline switch overwrote experiment");
         _noticeUntil=0;await CaptureReviewBundle();
         GD.Print("PASS: neighborhood menu, objective isolation, dedicated save, Continue, restart, manual load and baseline roundtrip");

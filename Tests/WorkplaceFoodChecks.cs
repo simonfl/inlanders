@@ -14,6 +14,29 @@ static class WorkplaceFoodChecks
         for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);Check(w.SaveJson()==copy.SaveJson(),"Workplace food continuation differs");}
         w.Validate();copy.Validate();
     }
+    public static World PrepareVillage()
+    {
+        var w=World.NewWorkplaceFoodExperiment();
+        var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;Until(w,()=>bridge.Complete,"Village crossing");
+        Cottage Build(BuildingKind kind,Cell center)
+        {
+            var choice=w.Map.Land.Where(c=>c.X>5).SelectMany(cell=>Enumerable.Range(0,4).Select(rotation=>new{cell,rotation}))
+                .Where(p=>w.PlacementProblem(p.cell,p.rotation,kind)==null)
+                .OrderBy(p=>(p.cell.Point-center.Point).LengthSquared()).ThenBy(p=>p.cell.Z).ThenBy(p=>p.cell.X).ThenBy(p=>p.rotation).First();
+            var site=w.Place(choice.cell,choice.rotation,kind)!;Until(w,()=>site.Complete,"Village "+kind);return site;
+        }
+        Build(BuildingKind.Cottage,new(8,2));Build(BuildingKind.Cottage,new(10,4));
+        var venue=Build(BuildingKind.SeatingGarden,new(8,3));
+        Build(BuildingKind.Farm,new(17,3));Build(BuildingKind.Farm,new(21,3));
+        Build(BuildingKind.Bakery,new(17,7));Build(BuildingKind.Bakery,new(21,7));
+        var pantry=Build(BuildingKind.Pantry,new(14,5));w.SetPantryTarget(pantry.Id,16);
+        Check(w.ChooseWelcomeVenue(venue.Id) && w.InviteNewcomers(),"Village welcome refused");
+        Until(w,()=>w.Neighborhood!.Complete,"Workplace village welcome");
+        Check(w.SetWorkplacePaused(w.Cottages.Single(c=>c.Kind==BuildingKind.ForagerHut).Id,true),"Village foraging pause refused");
+        for(int i=0;i<6000;i++){w.Tick(.1f);if(i%100==0)w.Validate();}
+        Check(w.Food.BakedBread>0 && w.Cottages.Where(c=>c.Kind==BuildingKind.Bakery).Any(c=>c.PantryFood.Sum()>0),"Working village has no local bread");
+        Continuation(w);return w;
+    }
     public static void Run()
     {
         var w=World.NewWorkplaceFoodExperiment();var hut=w.Cottages.Single(c=>c.Kind==BuildingKind.ForagerHut);
@@ -27,6 +50,11 @@ static class WorkplaceFoodChecks
         string carrying=w.SaveJson();Continuation(w);
         Until(w,()=>w.People.Any(p=>p.Meal is {Carrying:true} meal && meal.SourceId==hut.Id),"Residents never collected workplace meals");
         Continuation(w);
+        Until(w,()=>w.People.Any(p=>p.Meal is {Reserved:true} meal && meal.SourceId==hut.Id),"No active workplace meal reservation to pause");
+        Check(w.SetWorkplacePaused(hut.Id,true),"Forager pause refused");w.Validate();
+        Continuation(w);
+        Until(w,()=>w.People.Any(p=>p.Meal is {Carrying:true} meal && meal.SourceId==hut.Id),"Paused workplace stopped meal collection");
+        Check(w.SetWorkplacePaused(hut.Id,false),"Forager resume refused");
         var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;Until(w,()=>bridge.Complete,"Food review crossing");
         Cottage Build(BuildingKind kind)
         {

@@ -112,10 +112,12 @@ if($bundleRecord) {
     $request.focusX=$bundleRecord.camera.focusX;$request.focusZ=$bundleRecord.camera.focusZ;$request.zoom=$bundleRecord.camera.zoom
     $request.angle=$bundleRecord.camera.angle;$request.view=$bundleRecord.rendering;$request.audio=$bundleRecord.audio;$request.selected=$bundleRecord.selected
 }
-$requestPath=Join-Path $runDir 'request.json';WriteJson $request $requestPath
-$request.observeSeconds=$ObserveSeconds;$request.movieFps=if($Movie){24}else{0};WriteJson $request $requestPath
-if($Storybook -and -not $Bundle){$request.storybook=$true;WriteJson $request $requestPath}
-if($ProbeControls) { $request.probeControls=$true;WriteJson $request $requestPath }
+$requestPath=Join-Path $runDir 'request.json'
+$request.observeSeconds=$ObserveSeconds;$request.movieFps=if($Movie){24}else{0}
+if($Storybook -and -not $Bundle){$request.storybook=$true}
+if($ProbeControls) { $request.probeControls=$true }
+# Publish the complete request once; repeated immediate rewrites can collide with a sync/indexer mapping it.
+WriteJson $request $requestPath
 $engine=Join-Path $PSScriptRoot '.tools/godot/Godot_v4.6-stable_mono_win64/Godot_v4.6-stable_mono_win64_console.exe'
 $launchArgs=@('--path',('"'+$PSScriptRoot+'"'),'--','--review-run',('"'+$requestPath+'"'))
 if($Movie){$launchArgs=@('--path',('"'+$PSScriptRoot+'"'),'--write-movie',('"'+(Join-Path $runDir 'observation.avi')+'"'),'--fixed-fps','24','--','--review-run',('"'+$requestPath+'"'))}

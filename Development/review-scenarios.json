@@ -1,4 +1,6 @@
 [
+  {"name":"neighborhood-journey","description":"Fresh chosen workflow; ProbeControls plays construction, welcome and a food-chain recovery","generator":"neighborhood-workplace-food","focusX":5,"focusZ":3,"zoom":32},
+  {"name":"neighborhood-working-village","description":"Chosen neighborhood workflow: built homes, welcome and local farms/bakeries; foraging paused","generator":"neighborhood-working-village","focusX":12,"focusZ":4,"zoom":29},
   {"name":"neighborhood-workplace-food","description":"Food stored at huts, gardens and bakeries; physical surplus distribution","generator":"neighborhood-workplace-food","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-awkward","description":"Legal mixed-facing homes in the farther meadow; normal construction and welcome","generator":"neighborhood-awkward","focusX":14,"focusZ":4,"zoom":29},
   {"name":"neighborhood-landscape","description":"Spatial comparison: compact landing, narrow passage and larger meadow; unchanged food rules","generator":"neighborhood-landscape","focusX":5,"focusZ":3,"zoom":32},

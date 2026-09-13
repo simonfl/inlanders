@@ -190,7 +190,7 @@ public sealed partial class World
             if(!float.IsFinite(p.NextMealTime) || p.NextMealTime<0) throw new InvalidOperationException("Invalid meal schedule");
             var r=p.Meal;
             if(r==null) {if(MealWork(p.Task)) throw new InvalidOperationException("Orphan meal work"); continue;}
-            if(r.Reserved && r.SourceId is int source && !Cottages.Any(c=>c.Id==source && IsFoodStore(c) && c.Complete && !c.DemolitionRequested && !c.WorkPaused))
+            if(r.Reserved && r.SourceId is int source && !Cottages.Any(c=>c.Id==source && IsFoodStore(c) && c.Complete && !c.DemolitionRequested && (!c.WorkPaused || IsWorkplaceFoodStore(c))))
                 throw new InvalidOperationException("Missing meal supply source");
             if(r.Id<1 || r.Id>=Food.NextMealId || !float.IsFinite(r.Due) || r.Due<0 || r.Due>Food.Time ||
                 r.Reserved!=(p.Task==Work.ToMealSupply) || r.Carrying!=(p.Task is Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal) ||
