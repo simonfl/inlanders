@@ -114,6 +114,7 @@ public partial class Game
         _world.Validate();
         if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape" or "neighborhood-workplace-food" or "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodFlow();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodJourney();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="gathering")await ProbeGathering();
         if(_world.SharedWork)await ProbeSharedStaffing();
         File.WriteAllText(Path.Combine(_reviewDirectory,"checks.json"),JsonSerializer.Serialize(new{passed=true,scriptedUi=true,initialTime,finalTime=_world.Food.Time,speed=_speed,selectedPerson=_selectedPerson,checks=new[]{"paused startup","normal speed cycle","catalog","normal process ticks","F8 bundle"}},new JsonSerializerOptions{WriteIndented=true}));
         GD.Print("PASS: review normal controls, process advancement, selection and F8 capture (scripted UI probe)");

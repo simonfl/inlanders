@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed class NeighborhoodProgress
 {
+    public SharedGathering? Gathering { get; set; }
     public bool WorkplaceFood { get; set; }
     public bool FoodLandChallenge { get; set; }
     // Saved comparison rule; the control retains the existing village-wide hunger penalty.
@@ -54,6 +55,7 @@ public sealed partial class World
         $"{NeighborhoodArrivals} neighbors have arrived · {Housed}/{Population} housed\n"+WelcomeStatus;
     private void AdvanceNeighborhood()
     {
+        AdvanceGathering();
         if(Neighborhood is {Arrived:true} progress && progress.Welcomed.Count==Population && NewNeighborsHoused==NeighborhoodArrivals &&
             (!progress.FoodLandChallenge || EdibleStored>=NeighborhoodReserveTarget))progress.Complete=true;
         if(Neighborhood is not {Arrived:false,CommittedAt:float started,Destination:Cell destination} n || Food.Time<started+90)return;
@@ -70,6 +72,7 @@ public sealed partial class World
     }
     private void ValidateNeighborhood()
     {
+        ValidateGathering();
         if(Neighborhood is not {} n)return;
         if(n.Complete && (!n.Arrived || n.Welcomed?.Count!=8+NeighborhoodArrivals))throw new InvalidOperationException("Incomplete neighborhood marked complete");
         if(n.FoodLandChallenge && !n.WorkplaceFood)throw new InvalidOperationException("Food/land situation requires workplace supply");

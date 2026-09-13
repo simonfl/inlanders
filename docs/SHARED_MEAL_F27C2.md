@@ -1,0 +1,12 @@
+# Shared outdoor meal — F27c2
+
+September 13, 2026. A playable optional activity after the neighborhood settles; checkpoint **11**. Select a finished building and choose **Share an outdoor meal here**. Every resident brings their next actual meal to a distinct reachable outdoor place, waits with it, eats together, then resumes ordinary life. No required venue, new producer/need, increased food target or compulsory land clearing. Both compact and distant locations work; this is expressive village activity, not a proven difficult second campaign act.
+
+Food reservations, pickup, carrying, consumption and returning uneaten portions use ordinary meal ownership/conservation. During assembly, participating meal requests stay open; when everyone is seated their next-meal cycle synchronizes with the shared meal. Food is actually consumed once per resident. Cancellation returns held portions through ordinary storage routes. If assembly cannot finish within 180 simulated seconds, the group disperses and normal requests resume. Assignment/supply interruption cancels an active gathering rather than stranding its members. Active outdoor places protect placement, rest and leisure access. Current saved waiting/eating/cancelled states continue exactly; no migration is added.
+
+Verification: game and simulation builds pass. `--gathering` and `--gathering-meadow` exercise 12 and 16 residents at compact (17,4) and distant (22,10) locations, actual reserved/carried food, everyone seated before eating, cancellation, exact active saves and return to work. Original welcome/arrival and all six pantry-food regressions pass. Scripted rendered button/cancel/restart/F5/F9/completion checks pass at 960 and 1440:
+
+- `artifacts/review/runs/20260913-122158-535-gathering-6d3062` (46.64s including preparation/build).
+- `artifacts/review/runs/20260913-122233-917-gathering-88d688` (17.96s warm).
+
+The primary inspected the 960 seated capture (`capture-0004`) and inspector view. No native play or listening claimed. People visibly gather and carry food, but the nearest-place layout crowds them beside a busy workplace. Holding plates is distinguished from eating; the overall composition still needs work. The current inspector-led location selection is also too indirect. Keep this as an optional playable activity and test deliberate ground selection, visible places and a less cramped layout next. Do not claim that it supplies the missing campaign challenge.

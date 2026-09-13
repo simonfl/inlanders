@@ -1,4 +1,6 @@
 using Inlanders.Simulation;
+if(args.Contains("--gathering-meadow")) {try{GatheringChecks.Run(true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--gathering")) {try{GatheringChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--commons-bypass")) {try{CommonsBypassCheck.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--commons-land")) {try{CommonsLandComparison.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--workplace-food-all")) {try{WorkplaceFoodChecks.OtherProducers();WorkplaceFoodChecks.Run();PantryProducerChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

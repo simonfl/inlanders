@@ -16,6 +16,7 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "gathering"=>GatheringChecks.Prepare(),
             "opening"=>World.NewCampaign(1),
             "river"=>World.NewCampaign(6),
             "shared-work"=>World.NewSharedWorkExperiment(),

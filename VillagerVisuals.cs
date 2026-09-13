@@ -215,7 +215,7 @@ public partial class Game
             case Work.EatingMeal:
                 view.RestStool.Visible=true; view.Rig.Position=new(0,-.20f,0);
                 view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
-                view.Arm.Rotation=new(1.5f+MathF.Sin(v.Timer*2)*.25f,0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
+                view.Arm.Rotation=new(1.5f+(v.Meal?.Gathering==true && _world.Gathering?.Eating!=true?0:MathF.Sin(v.Timer*2)*.25f),0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
                 view.Head.Rotation=new(.12f,0,0); break;
             case Work.Resting:
                 AnimateHomeRest(view,v); break;

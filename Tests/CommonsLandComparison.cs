@@ -22,7 +22,7 @@ static class CommonsLandComparison
         placements.Add(plan!);var site=w.Place(plan!.Actual,plan.Rotation,kind)!;
         Until(w,()=>site.Complete,"Construction "+kind);Console.WriteLine($"Built {kind} at {plan.Actual} facing {plan.Rotation}, time {w.Food.Time:F1}");return site;
     }
-    static World Prepare(List<ReviewPlacement> placements)
+    public static World Prepare(List<ReviewPlacement> placements)
     {
         var w=World.NewFoodLandChallenge();
         var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;Until(w,()=>bridge.Complete,"Crossing");
