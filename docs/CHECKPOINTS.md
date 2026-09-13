@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **18**.
+- Playable checkpoints since adoption: **19**.
 - Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 20**, whole-project scope. Restore fresh playtest independence when available; native observation remains outstanding.
@@ -11,7 +11,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
-**F29a presentation candidate — September 13, 2026:** [Candidate scope](SHARED_PLACE_F29A.md). Independent fixed-build presentation review pending; count remains **18** until acceptance, regular review still 20.
+**F29a coherent shared-place ground — `75eb47c`, September 13, 2026:** [Delivery](SHARED_PLACE_F29A.md) and [independent whole-game presentation review](PRESENTATION_REVIEW_F29A.md). Ten clean fixed-build stills; open/shaded four-direction comparisons, scripted control checks and 1x recording integrity. Accepted narrowly for readability; no native play/listening acceptance. Count **19**; next periodic review **20**. Presentation review does not reset cadence.
 
 **T04 fixture reuse — September 13, 2026:** [Boundary, provenance, real launcher regression and timing](REVIEW_CACHE_T04.md). UI-only rebuild reuses a 15.88-second prepared world in a 0.26-second Prepare step. Simulation/generator/config and altered-snapshot invalidation retained. Tooling counts zero: **18**, next periodic review **20**. Next F29a.
 

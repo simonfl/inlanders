@@ -1,18 +1,18 @@
 # Next chunks — make the finite settlement worth playing
 
-September 13, 2026. [F28c decision](COMMONS_DECISION_F28C.md), [F28d delivery](SETTLEMENT_JOURNEY_F28D.md). Count **18**; next regular whole-game review **20**. The [five delivered F28 work briefs](NEXT_CHUNKS_F28_DELIVERED.md) are history, not active assignments.
+September 13, 2026. [F28c decision](COMMONS_DECISION_F28C.md), [F28d delivery](SETTLEMENT_JOURNEY_F28D.md). Count **19**; next regular whole-game review **20**. The [five delivered F28 work briefs](NEXT_CHUNKS_F28_DELIVERED.md) are history, not active assignments.
 
 Primary direction: a finite welcoming settlement, with optional continued arrangement. The recurring commons is a comparative epilogue, not an accepted endless-game loop. Retain actual food trips, shared work and freely chosen sites. No new quotas, producers, need meters or forced building recipes. All buildings remain available; saves are disposable and seasons remain removed.
 
 ## 1. T04 — delivered; fixture reuse
 
-[Delivered boundary, regression checks and measurement](REVIEW_CACHE_T04.md): 15.88-second generation skipped by a 0.26-second cached Prepare after a UI-only rebuild. Next active: F29a.
+[Delivered boundary, regression checks and measurement](REVIEW_CACHE_T04.md): 15.88-second generation skipped by a 0.26-second cached Prepare after a UI-only rebuild. Next active: F29b.
 
 Original scope: across F28a–d, UI-only changes repeatedly regenerated the same ~18–20-second gathering fixture. Split fixture identity from presentation/build identity using a small explicit input boundary; retain both hashes in evidence. No dependency graph or second runner. Beneficiaries: every UI/presentation iteration and reviewer comparing alternatives. Cost/maintenance: two conservative hash lists and invalidation checks. Validate reuse after a UI-only edit, invalidation after simulation or generator changes, and rejection of altered snapshots. Measure saved preparation time. Count zero.
 
-## 2. F29a — candidate built; presentation review next
+## 2. F29a — delivered; readable shared-place ground
 
-[Candidate and evidence](SHARED_PLACE_F29A.md). The connected ground treatment now clips around occupied land; the bright spoke variant was rejected. Count remains 18 while fixed-build evidence and independent review are completed.
+[Delivery](SHARED_PLACE_F29A.md) and [independent presentation review](PRESENTATION_REVIEW_F29A.md): accepted narrowly as readable place identity across four open/shaded directions. Count 19. Continued-play reward, activity occlusion and whole-scene composition remain unresolved.
 
 Compare the current loose mats with a coherent low ground treatment that connects a shared place without obstructing paths. Include open and shaded sites, normal zoom, all four viewing directions and actual ordinary meals. Challenge the whole scene's framing, repeated vegetation and competing labels; do not solve this by adding more tiny props. Keep movement and meal rules matched. Prefer the treatment only if its role is visible before reading labels. Substantial presentation change triggers an independent whole-project visual/audio review. One outcome only if a usable presentation change ships; a rejected art probe counts zero.
 
@@ -22,7 +22,7 @@ The meadow currently adds arrivals, scarce wild food and a reserve. Compare at l
 
 ## 4. Checkpoint 20 — whole-game direction review
 
-Run when two further actual playable outcomes bring the count to 20, even if the work above changes. Independent read-only designer, UX/onboarding, playtest and game development lead, plus visual/audio, on a fixed commit/build. Review the entire game, including legacy geography, current two-settlement arc, economy/needs, Creative, controls, art/audio and reliability/performance. Challenge finite-first as hard as persistent play. Preserve disagreements and unavailable native/audio evidence. Tools and documents do not advance the count.
+Run when the next actual playable outcome brings the count to 20, even if the work above changes. Independent read-only designer, UX/onboarding, playtest and game development lead, plus visual/audio, on a fixed commit/build. Review the entire game, including legacy geography, current two-settlement arc, economy/needs, Creative, controls, art/audio and reliability/performance. Challenge finite-first as hard as persistent play. Preserve disagreements and unavailable native/audio evidence. Tools and documents do not advance the count.
 
 ## 5. F29c — implement the review's chosen redesign
 
