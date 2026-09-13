@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 public partial class Game
 {
+    // Target the reviewed viewport synchronously; global ParseInputEvent queues delivery.
+    private void ReviewInput(InputEvent input)=>GetViewport().PushInput(input,true);
     private async Task OpenMenu(int index)
     {
         if (!_drawer.Visible || _tabs.CurrentTab != index) await UiClick(_menuButtons[index]);
@@ -36,12 +38,22 @@ public partial class Game
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); break;
             }
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-        if (!button.IsVisibleInTree()) throw new Exception("Cannot click hidden control: " + button.Text);
+        if (!button.IsVisibleInTree()){TraceMenuClick("hidden",button);await CaptureReviewBundle("hidden-control");throw new Exception("Cannot click hidden control: " + button.Text);}
         var hit=button.GetGlobalRect();
         for(Node? ancestor=button.GetParent();ancestor!=null;ancestor=ancestor.GetParent())
             if(ancestor is ScrollContainer scroll)hit=hit.Intersection(scroll.GetGlobalRect());
         if(!hit.HasArea())throw new Exception("Control remains clipped after scrolling: "+button.Text);
-        await Click(hit.GetCenter());
+        if(_reviewRequest!=null)
+        {
+            var point=hit.GetCenter();
+            void Activated()=>TraceMenuClick("pressed-signal",button,point);button.Pressed+=Activated;
+            TraceMenuClick("before",button,point);
+            ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=true});TraceMenuClick("down",button,point);
+            ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=false});TraceMenuClick("up",GodotObject.IsInstanceValid(button)?button:null,point);
+            await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);TraceMenuClick("next-frame",GodotObject.IsInstanceValid(button)?button:null,point);
+            if(GodotObject.IsInstanceValid(button))button.Pressed-=Activated;
+        }
+        else await Click(hit.GetCenter());
     }
     private async Task Capture(string path)
     {
@@ -52,14 +64,14 @@ public partial class Game
     }
     private async Task Press(Key key)
     {
-        Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = true });
-        Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = false });
+        ReviewInput(new InputEventKey { Keycode = key, Pressed = true });
+        ReviewInput(new InputEventKey { Keycode = key, Pressed = false });
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
     private async Task Click(Vector2 position)
     {
-        Input.ParseInputEvent(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true });
-        Input.ParseInputEvent(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false });
+        ReviewInput(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true });
+        ReviewInput(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false });
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 }

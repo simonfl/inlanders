@@ -47,7 +47,7 @@ public partial class Game
     }
     private Button MenuButton(string label, Action action,string? focusKey=null)
     {
-        var button = Button(label, action); button.CustomMinimumSize = new(0, 44); _mainColumn.AddChild(button); _mainButtons[label] = button;
+        var button = Button(label, () => { TraceMenuClick("activated:"+label); action(); }); button.CustomMinimumSize = new(0, 44); _mainColumn.AddChild(button); _mainButtons[label] = button;
         RegisterMenuControl(button,focusKey??label);if(label is "Back" or "Cancel")_menuBack=action;return button;
     }
     private void ShowMainMenu()
@@ -85,7 +85,7 @@ public partial class Game
     }
     private void MenuAttempt(Action action)
     {
-        try { action(); } catch (Exception e) { _menuMessage.Text = "Could not open settlement: " + e.Message; }
+        try { action(); } catch (Exception e) { _menuMessage.Text = "Could not open settlement: " + e.Message; TraceMenuClick("open-error",error:e.ToString()); }
     }
     private void ContinueFromMenu() => MenuAttempt(() =>
     {

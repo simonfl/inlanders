@@ -115,6 +115,7 @@ public partial class Game
         if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape" or "neighborhood-workplace-food" or "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodFlow();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood-journey" or "neighborhood-food-land")await ProbeNeighborhoodJourney();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="gathering")await ProbeGathering();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="resume")await ProbeSettlementResume();
         await ProbeFoodMap();
         if(_world.SharedWork)await ProbeSharedStaffing();
         File.WriteAllText(Path.Combine(_reviewDirectory,"checks.json"),JsonSerializer.Serialize(new{passed=true,scriptedUi=true,initialTime,finalTime=_world.Food.Time,speed=_speed,selectedPerson=_selectedPerson,checks=new[]{"paused startup","normal speed cycle","catalog","normal process ticks","F8 bundle"}},new JsonSerializerOptions{WriteIndented=true}));
@@ -140,6 +141,7 @@ public partial class Game
             var record=new
             {
                 semantic,request=_reviewRequest.RootElement,
+                ui=new{atMainMenu=_atMainMenu,hud=_hud.IsVisibleInTree(),page=_menuPageTitle,error=_menuMessage?.Text,notice=_notice},
                 capturedUtc=DateTime.UtcNow.ToString("o"),processWallSeconds=_reviewTimer.Elapsed.TotalSeconds,
                 simulationSeconds=_world.Food.Time,pausedBeforeCapture=wasPaused,pausedDuringCapture=true,speed=_speed,
                 executionMode="normal Godot process; snapshot temporarily pauses simulation",
@@ -152,6 +154,8 @@ public partial class Game
                 audio=new{effects=_effectsVolume,music=_musicVolume,nature=_ambienceVolume,muted=_soundMuted,musicMuted=_musicMuted}
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));
+            string title=semantic??(_atMainMenu?"menu-"+_menuPageTitle:site!=null?"selected-"+site.Kind:person!=null?"selected-person":"village");
+            File.AppendAllText(Path.Combine(_reviewDirectory,"index.md"),$"- [{title}](capture-{_reviewCapture:0000}/view.png) · [state and provenance](capture-{_reviewCapture:0000}/manifest.json)\n");
             GD.Print($"REVIEW CAPTURE: {directory}");
         }
         catch(Exception e) { GD.PushError("Review capture failed: "+e);if(_reviewRequest.RootElement.GetProperty("captureOnly").GetBoolean())throw; }

@@ -4,9 +4,11 @@ September 13, 2026. [Checkpoint-fifteen synthesis](REVIEW_CHECKPOINT_15.md) repl
 
 Chosen direction: one persistent village the player reshapes, with understandable physical logistics and ordinary use of shared places. No new needs/producers or campaign certificates. All buildings remain available. A finite satisfying scenario is a valid fallback if continued life does not earn interest.
 
-## 1. T03 — trustworthy leave/resume and review evidence
+## 1. T03 — completed; trustworthy leave/resume and review evidence
 
-Reproduce the failed completed-gathering → Settlements → Resume transition on frozen `2f2ebd7`. Record menu/HUD state, caught error, focus and button/pointer geometry before/down/up. Fix the demonstrated cause, not an assumed delay. Assertions must require active HUD, paused state, expected scenario and exact state; identical JSON alone is insufficient. Test mouse/keyboard at 960/1440 and preserve the failure.
+[Delivered repair and evidence](RESUME_T03.md); no playable increment. Next active: F28a.
+
+Original scope: reproduce the failed completed-gathering → Settlements → Resume transition on frozen `2f2ebd7`. Record menu/HUD state, caught error, focus and button/pointer geometry before/down/up. Fix the demonstrated cause, not an assumed delay. Assertions must require active HUD, paused state, expected scenario and exact state; identical JSON alone is insufficient. Test mouse/keyboard at 960/1440 and preserve the failure.
 
 Add a small semantic evidence index for opening Goals, selected workplace top, relevant action, failed transition and Creative. Reuse current launcher/captures. No general replay platform. Count no new playable outcome for test/index foundations; a repair belongs to the existing flow outcome unless it supplies a distinct player capability.
 
@@ -39,3 +41,4 @@ Do not roll the valley treatment everywhere without checking boundary/route comp
 Reevaluate this queue, ROADMAP and CHECKPOINTS after every chunk. These are five work chunks, not five promised checkpoint increments; foundations/tests/docs count zero, complete playable outcomes once. Run the whole-project review at the fifth actual outcome (checkpoint 20) even if this queue changes. Restore fresh independent role coverage when thread capacity permits; the checkpoint-15 reused passes do not substitute for unperformed native play.
 
 Use existing T01 captures/fixtures. Measure food-view off/on/hidden/camera movement before changing its per-frame work. Track fixture rebuild time over two slices before splitting fingerprints. Defer generic editors, dependency graphs, ECS, save migrations and new resource/need systems. Saves remain disposable; current-format correctness remains required. Seasons remain removed.
+

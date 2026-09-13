@@ -96,11 +96,7 @@ public sealed partial class World
     }
     public void SaveFile(string path)
     {
-        string json = SaveJson(); var full = Path.GetFullPath(path);
-        Directory.CreateDirectory(Path.GetDirectoryName(full)!);
-        File.WriteAllText(full + ".tmp", json);
-        if (File.Exists(full)) File.Replace(full + ".tmp", full, full + ".bak");
-        else File.Move(full + ".tmp", full);
+        AtomicSave.Write(path,SaveJson());
     }
     public static World LoadFile(string path) => LoadJson(File.ReadAllText(path));
 }

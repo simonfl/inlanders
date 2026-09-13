@@ -188,10 +188,7 @@ public sealed class CampaignBook
     }
     public void SaveFile(string path)
     {
-        string full = Path.GetFullPath(path); Directory.CreateDirectory(Path.GetDirectoryName(full)!);
-        File.WriteAllText(full + ".tmp", JsonSerializer.Serialize(this));
-        if (File.Exists(full)) File.Replace(full + ".tmp", full, full + ".bak");
-        else File.Move(full + ".tmp", full);
+        AtomicSave.Write(path,JsonSerializer.Serialize(this));
     }
     public static CampaignBook LoadFile(string path)
     {

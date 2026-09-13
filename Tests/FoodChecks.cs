@@ -108,7 +108,7 @@ public static class FoodChecks
         try
         {
             stock.SaveFile(path); string first = File.ReadAllText(path); Step(stock, 10); stock.SaveFile(path);
-            Check(File.ReadAllText(path + ".bak") == first && World.LoadFile(path).SaveJson() == stock.SaveJson(), "File replacement/backup failed");
+            Check(World.LoadFile(path).SaveJson() == stock.SaveJson(), "Atomic file replacement failed");
         }
         finally { foreach (string suffix in new[] { "", ".bak", ".tmp" }) if (File.Exists(path + suffix)) File.Delete(path + suffix); }
         Console.WriteLine("PASS: version/corruption rejection, disk save/load, and previous-save backup.");

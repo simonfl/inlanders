@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**T03 resume repair — September 13, 2026:** [Cause, fix and evidence](RESUME_T03.md). Atomic save contention recovery, strict navigation assertions and semantic capture index. Repairs the existing flow; count remains **15**. Next F28a, periodic review 20.
+
 **Local food retention — `2f2ebd7`, September 13, 2026:** [Delivery and matched comparison](LOCAL_RESERVE_F27.md). Optional local reserve controls, actual distribution effects, active claims and current-save recovery. Count **15**. [Whole-project review synthesized](REVIEW_CHECKPOINT_15.md), with independence/observation limitations; next periodic **20**.
 
 **World food view — `08d25e6`, September 13, 2026:** [Delivery and evidence](FOOD_WORLD_F27.md). Optional readable store labels and actual food trips, with corrected bakery stock rendering. Count **14**, next review **15**.
@@ -104,4 +106,5 @@ Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TER
 Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; this presentation review did not replace the separate whole-project review.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
+
 

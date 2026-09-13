@@ -39,13 +39,15 @@ public partial class Game
         await UiClick(_gatherPlanStart);await Frames();Check(_world.Gathering!.Active && _world.Gathering.Center==new Cell(22,10),"Ground plan not committed");
         await Until(()=>_world.Gathering!.Eating,"No simultaneous gathering");
         _focus=OnGround(_world.Gathering!.Center.X,_world.Gathering.Center.Z);UpdateCamera();CloseManagementUi();await Frames();await CaptureReviewBundle("gathering-seated");
-        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);Check(_world.SaveJson()==saved,"Gathering load differs");
+        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);if(_world.SaveJson()!=saved){System.IO.File.WriteAllText(System.IO.Path.Combine(_reviewDirectory,"load-expected.json"),saved);await CaptureReviewBundle("load-differs");}Check(_world.SaveJson()==saved,"Gathering load differs: "+_notice);
         await Until(()=>_world.Gathering!.Complete,"Shared meal did not finish");await CaptureReviewBundle("gathering-complete");
         await OpenMenu(2);await Frames();
         Check(!_neighborhoodHome.Visible && !_neighborhoodVenue.Visible && _nextSettlement.Visible,"Completed task actions remain visible");
         string finished=_world.SaveJson();await UiClick(_nextSettlement);await Frames();
         Check(_atMainMenu && _mainButtons.ContainsKey("New meadow settlement"),"Next settlement navigation failed");
-        await UiClick(_mainButtons["Resume settlement"]);await Frames();Check(_world.SaveJson()==finished,"Next settlement navigation failed to save village");
+        await UiClick(_mainButtons["Resume settlement"]);await Frames();
+        if(_atMainMenu || !_hud.IsVisibleInTree())await CaptureReviewBundle("resume-failed");
+        Check(!_atMainMenu && _hud.IsVisibleInTree() && _paused && _world.Neighborhood!=null && _world.SaveJson()==finished,"Next settlement did not resume: "+_menuMessage.Text);
         GD.Print("PASS: outdoor meal controls, physical gathering, cancel/restart, simultaneous seats, save/load and completion.");
     }
 }
