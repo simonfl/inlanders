@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed class NeighborhoodProgress
 {
+    public ArrangementTrial? Arrangement { get; set; }
     public SharedCommons? Commons { get; set; }
     public SharedGathering? Gathering { get; set; }
     public bool WorkplaceFood { get; set; }
@@ -81,6 +82,7 @@ public sealed partial class World
         if(n.FoodLandChallenge && !n.WorkplaceFood)throw new InvalidOperationException("Food/land situation requires workplace supply");
         if(n.InheritedShoreline && (!n.WorkplaceFood || n.FoodLandChallenge))throw new InvalidOperationException("Invalid inherited shoreline rules");
         if(n.Welcomed==null || n.Welcomed.Any(id=>id<0 || id>=Population) || n.Welcomed.Count>0 && !n.Arrived || n.VenueId is int venue && !Cottages.Any(c=>c.Id==venue && IsWelcomeStore(c) && c.Complete && !c.DemolitionRequested))throw new InvalidOperationException("Invalid welcome gathering");
+        if(n.Arrangement is {} trial && (!IsInheritedShoreline || trial.Rotation is <0 or >3 || trial.BuildingId is int moved && (!Cottages.Any(c=>c.Id==moved) || !Map.Contains(trial.Original))))throw new InvalidOperationException("Invalid arrangement trial");
         if(!SharedWork || !LocalGrainSupply || Campaign!=null || Creative ||
             n.CommittedAt is float time && (!float.IsFinite(time) || time<0 || time>Food.Time || n.Destination==null) ||
             n.Destination is Cell cell && (!Map.Contains(cell) || cell.X<=5) ||

@@ -27,6 +27,7 @@ public sealed partial class World
                 Resource.Fruit => Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest),
                 Resource.Grain => Cottages.Where(c=>c.Kind==BuildingKind.Farm).Sum(c=>c.Harvest)+Cottages.Sum(c=>c.InputGrain), Resource.Bread => Cottages.Sum(c=>c.OutputBread), _ => 0 },
             Need(r))).ToArray();
+        if(SharedWork)return SharedEconomy(stocks);
         var issues = new List<EconomyIssue>();
         bool Staffed(Role role) => People.Any(p=>p.Role==role);
         bool Planned(BuildingKind kind) => Cottages.Any(c=>c.Kind==kind);
@@ -71,20 +72,6 @@ public sealed partial class World
             Workplace(BuildingKind.Quarry,Role.Quarrier,Staffed(Role.Quarrier) || Need(Resource.Stone)>AvailableStone);
             Workplace(BuildingKind.Sawmill,Role.Sawyer,Staffed(Role.Sawyer) || Need(Resource.Planks)>AvailablePlanks);
             Workplace(BuildingKind.Carpenter,Role.Carpenter,Staffed(Role.Carpenter) || Cottages.Any(c=>c.ImprovementRequested));
-        }
-        if(SharedWork)
-        {
-            // Instantaneous roles describe today's jobs, not a shortage of assigned workers.
-            issues.RemoveAll(i=>i.Id.StartsWith("staff-") || i.Id is "builders" or "loggers");
-            for(int i=0;i<issues.Count;i++)if(issues[i].Staff!=null)
-                issues[i]=issues[i] with {Staff=null};
-            if(EdibleStored<Population*2 && !issues.Any(i=>i.Id=="food-paused"))
-            {
-                var source=Cottages.FirstOrDefault(c=>c.Complete && IsWorkplaceFoodStore(c) && !c.DemolitionRequested);
-                int at=issues.FindIndex(i=>i.Id=="food-low");
-                if(at>=0)issues[at]=new("food-low","Food is running low. Shared workers take food jobs automatically; inspect the source and its access.",Workplace:source?.Id,
-                    Build:source==null?BuildingKind.VegetableGarden:null);
-            }
         }
         return new(stocks,(EdibleStored)/Population,Math.Max(0,60-Food.MealClock),issues.ToArray());
     }

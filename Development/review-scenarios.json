@@ -1,5 +1,29 @@
 [
   {
+    "name": "willow-court",
+    "description": "Inhabited court with direct resident meal journeys and reversible arrangement",
+    "generator": "willow-court",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 29
+  },
+  {
+    "name": "willow-court-expanded",
+    "description": "Court after real housing construction and eight arrivals",
+    "generator": "willow-court-expanded",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "willow-dispersed",
+    "description": "Dispersed inlet without Goals for composition comparison",
+    "generator": "neighborhood-inherited",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 29
+  },
+  {
     "name": "neighborhood-inherited",
     "description": "Willow inlet: inherited homes and working gardens, optional shortcut and freely sited welcome",
     "generator": "neighborhood-inherited",

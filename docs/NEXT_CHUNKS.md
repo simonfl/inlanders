@@ -1,10 +1,14 @@
 # Next chunks — arrange a village and see it live
 
-September 13, 2026. [Checkpoint-20 whole-game review](REVIEW_CHECKPOINT_20.md) completed with five fresh independent roles. Count **20**; next periodic review **25**, regular visual/audio **30**, plus presentation triggers. [F29c Willow inlet](INHERITED_SHORELINE_F29C.md) is delivered as a playable comparison, not proven campaign depth.
+September 13, 2026. [Checkpoint-20 whole-game review](REVIEW_CHECKPOINT_20.md) completed with five fresh independent roles. Count **21**; next periodic review **25**, regular visual/audio **30**, plus presentation triggers. [F29c Willow inlet](INHERITED_SHORELINE_F29C.md) is delivered as a playable comparison, not proven campaign depth.
 
 The next work tests one central pleasure: understand an everyday place, make a deliberate spatial change, and recognize the life it enables. Keep finite welcomes provisionally; no new reserve threshold, needs or forced demolition. All buildings remain available, seasons remain removed, saves are disposable. The queue below is conditional, not five pre-approved feature increments.
 
-## 1. F30a + F30b — one inhabited lane/court you can understand and change
+## Review gate — F30a/F30b delivered as a playable comparison
+
+[Delivery and limits](COURT_F30AB.md). The court and direct journey/trial controls are playable. Initial eight-resident layouts are forgiving; central overflow limits the value of relocating another producer. Same-age weak-layout recovery improves actual meals. Run the independent presentation review on the committed build before choosing the next chunk. No human appeal verdict.
+
+## F30a + F30b — original brief, retained for evaluation
 
 **Merge the former separate food-interaction and composition chunks into one playable outcome.** Compare current inlet with a lane/court candidate using the same population, food capability and initial resources. In the candidate, welcome is an optional milestone. Let the player choose a household/place, see its actual food destination and immediate blocker, make a reversible arrangement change, then watch its next meal and ordinary life. Use existing routes/buildings; no new resource chain, score, compulsory crisis or catalogue restriction.
 

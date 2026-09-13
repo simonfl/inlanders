@@ -19,7 +19,8 @@ public partial class Game
         if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         _mainColumn.AddChild(Text("Start here · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));
         MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
-        _mainColumn.AddChild(Text("Next · Willow inlet. An inherited village, working gardens across the water and a long shoreline walk. Keep it, bridge it or bring everyday life closer before welcoming eight people.",15,true));
+        _mainColumn.AddChild(Text("Try Willow court: arrange an inhabited place and follow its residents. The dispersed inlet is the comparison. Both start with the same people, buildings and food. Welcoming eight newcomers is optional in the court.",15,true));
+        MenuButton("New Willow court",()=>StartNeighborhood(World.NewArrangementCourt()));
         MenuButton("New Willow inlet",()=>StartNeighborhood(World.NewInheritedShoreline()));
         _mainColumn.AddChild(Text("Comparison prototype · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
         MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));

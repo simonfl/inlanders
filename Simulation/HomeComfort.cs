@@ -48,7 +48,7 @@ public sealed partial class World
         var worker=People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);
         string reason=worker!=null?$"{worker.Name}: {worker.Status}": !People.Any(p=>p.HomeId==home.Id)?"Waiting for a resident.":
             !Cottages.Any(c=>c.Kind==BuildingKind.Carpenter && c.Complete && !c.DemolitionRequested && !c.WorkPaused)?"Needs an open carpenter workshop.":
-            !People.Any(p=>p.Role==Role.Carpenter)?"Assign a carpenter in People.":home.ImprovementPlanks+ComfortIncoming(home)<ComfortCost(home) && AvailablePlanks==0?"Waiting for unreserved planks.":"Waiting for a carpenter and reachable free work spot.";
+            !SharedWork && !People.Any(p=>p.Role==Role.Carpenter)?"Assign a carpenter in People.":home.ImprovementPlanks+ComfortIncoming(home)<ComfortCost(home) && AvailablePlanks==0?"Waiting for unreserved planks.":SharedWork?"Shared workers take installation jobs when the workshop and a home work spot are reachable.":"Waiting for a carpenter and reachable free work spot.";
         return $"Home improvement · {home.ImprovementPlanks}/{ComfortCost(home)} planks delivered · {ComfortIncoming(home)} committed · installed {home.ImprovementProgress:P0}\n{reason}";
     }
     private Cell? ComfortSpot(Villager worker,Cottage home)

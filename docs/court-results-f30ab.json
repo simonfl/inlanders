@@ -1,0 +1,54 @@
+{
+  "opening": [
+    {
+      "arm": "dispersed",
+      "start": 0,
+      "end": 600.00055,
+      "hungry": 0,
+      "walking": 142.4999999999962,
+      "food": 88
+    },
+    {
+      "arm": "court",
+      "start": 0,
+      "end": 600.00055,
+      "hungry": 0,
+      "walking": 47.400000000000404,
+      "food": 88
+    },
+    {
+      "arm": "court-local-garden",
+      "start": 0,
+      "end": 600.00055,
+      "hungry": 0,
+      "walking": 60.100000000000584,
+      "food": 88
+    },
+    {
+      "arm": "court-paused",
+      "start": 0,
+      "end": 600.00055,
+      "hungry": 1229.9999999999768,
+      "walking": 174.0999999999944,
+      "food": 0
+    }
+  ],
+  "sameAgeRecovery": [
+    {
+      "arm": "weak-unchanged",
+      "start": 1472.9874,
+      "end": 2072.8713,
+      "hungry": 511.9000000000479,
+      "walking": 1173.700000000028,
+      "food": 1
+    },
+    {
+      "arm": "weak-garden",
+      "start": 1472.9874,
+      "end": 2072.8713,
+      "hungry": 0,
+      "walking": 661.0000000000817,
+      "food": 9
+    }
+  ]
+}

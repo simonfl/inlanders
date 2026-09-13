@@ -6,6 +6,8 @@ $env:PATH = "$env:DOTNET_ROOT;$env:PATH"
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot '.tools\dotnet-home'
 $env:APPDATA = Join-Path $PSScriptRoot '.tools\appdata'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+. (Join-Path $PSScriptRoot 'Development/BuildPreflight.ps1')
+Assert-InlandersBuildIdle $PSScriptRoot
 & "$env:DOTNET_ROOT\dotnet.exe" build Inlanders.csproj --nologo
 if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
 $engine = Join-Path $PSScriptRoot '.tools\godot\Godot_v4.6-stable_mono_win64\Godot_v4.6-stable_mono_win64.exe'

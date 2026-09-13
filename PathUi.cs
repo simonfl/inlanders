@@ -44,6 +44,8 @@ public partial class Game
         Clear(_pathView); _pathWorld = _world; _pathRevision = _world.PathsRevision;
         foreach (var cell in _world.Paths)
         {
+            if(_world.IsArrangementCourt && _world.Paths.Contains(new(cell.X+1,cell.Z)) && _world.Paths.Contains(new(cell.X,cell.Z+1)) && _world.Paths.Contains(new(cell.X+1,cell.Z+1)))
+                GroundPatch(_pathView,cell.X+.5f,cell.Z+.5f,.36f,.36f,new("afa17f"));
             GroundPatch(_pathView,cell.X,cell.Z,.66f,.66f,new("afa17f"));
             foreach (var offset in new[] { new Cell(1, 0), new(-1, 0), new(0, 1), new(0, -1) })
                 if (_world.Paths.Contains(new(cell.X + offset.X, cell.Z + offset.Z)))

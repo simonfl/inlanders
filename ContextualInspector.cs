@@ -11,7 +11,7 @@ public partial class Game
     private void MakeContextualInspector()
     {
         _inspectorSecondary=new(){Visible=false};
-        var primary=new Node[]{_siteInfo,_productionControls,_workplaceControls,_welcomeControls,_moveButton,_cancelButton,_priorityButtons[0].GetParent()};
+        var primary=new Node[]{_siteInfo,_productionControls,_workplaceControls,_welcomeControls,_moveButton,_restoreTrialSite,_cancelButton,_priorityButtons[0].GetParent()};
         var secondary=_buildingDetails.GetChildren().Where(n=>!primary.Contains(n)).ToArray();
         _localFoodSummary=Text("",14,true);_buildingDetails.AddChild(_localFoodSummary);
         _buildingDetails.MoveChild(_productionControls,1);_buildingDetails.MoveChild(_localFoodSummary,2);_buildingDetails.MoveChild(_workplaceControls,3);

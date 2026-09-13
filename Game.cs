@@ -82,7 +82,7 @@ public partial class Game : Node3D
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
         try
         {
-            var next = _world.IsInheritedShoreline ? World.NewInheritedShoreline() : _world.Neighborhood?.FoodLandChallenge==true ? World.NewFoodLandChallenge() : _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
+            var next = _world.IsArrangementCourt ? World.NewArrangementCourt() : _world.IsInheritedShoreline ? World.NewInheritedShoreline() : _world.Neighborhood?.FoodLandChallenge==true ? World.NewFoodLandChallenge() : _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
             _world.SaveFile(CurrentSavePath + ".before-new");
             _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotation = 0; AdoptWorld(next);
             Notice("New village ready and paused. Options can restore the village before restart.");
@@ -189,11 +189,11 @@ public partial class Game : Node3D
     {
         if(PickResourceSource(position)) return;
         var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(position))).OrderBy(v => v.Distance).First();
-        if (closest.Distance < 25) SelectPerson(closest.Index);
+        if (closest.Distance < 25) { if(_world.IsArrangementCourt)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
         else if (Ground(position) is Vector3 p)
         {
             var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-            if (site != null) SelectBuilding(site.Id); else ClearSelection();
+            if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
         }
     }
     public override void _Process(double delta)

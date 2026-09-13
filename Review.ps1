@@ -50,6 +50,8 @@ $validBuild=$null -ne $build -and $build.sourceFingerprint -eq $fingerprint -and
 if($validBuild) { $validBuild=$build.assemblyHash -eq (HashFile $assembly) -and $build.testAssemblyHash -eq (HashFile $testAssembly) }
 if ($Action -eq 'Build' -or -not $validBuild) {
     if($ReuseOnly) { throw 'Build is missing/stale. Run ./Review.ps1 Build, or omit -ReuseOnly.' }
+    . (Join-Path $PSScriptRoot 'Development/BuildPreflight.ps1')
+    Assert-InlandersBuildIdle $PSScriptRoot
     & $dotnet build Inlanders.csproj --nologo
     if($LASTEXITCODE -ne 0) { throw 'Game build failed' }
     & $dotnet build Tests/SimulationTests.csproj --nologo

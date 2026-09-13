@@ -3,7 +3,7 @@ using Godot;
 public partial class Game
 {
     private bool _showWorldLabels = true;
-    private bool WorldLabelsVisible => _showWorldLabels && !_cleanWatch;
+    private bool WorldLabelsVisible => _showWorldLabels && !_cleanWatch && (!_world.IsArrangementCourt || _selectedSite>=0);
     private Button _worldLabelsButton = null!, _watchLabelsButton = null!;
     private bool EditingText => GetViewport().GuiGetFocusOwner() is LineEdit or TextEdit;
 
@@ -22,7 +22,7 @@ public partial class Game
         foreach (Node3D label in GetTree().GetNodesInGroup("world_labels"))
             if (GodotObject.IsInstanceValid(label) && !label.IsQueuedForDeletion())
                 label.Visible = WorldLabelsVisible && (_ghostModel == null || !_ghostModel.IsAncestorOf(label)) &&
-                    (!_storybookScene || _selectedSite>=0 && _cottages.TryGetValue(_selectedSite,out var site) && site.Body.IsAncestorOf(label));
+                    (!(_storybookScene || _world.IsArrangementCourt) || _selectedSite>=0 && _cottages.TryGetValue(_selectedSite,out var site) && site.Body.IsAncestorOf(label));
     }
     private void UpdateLabelButtons()
     {

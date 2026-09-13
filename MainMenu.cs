@@ -80,7 +80,8 @@ public partial class Game
         AdoptWorld(world);
         GetViewport().GuiGetFocusOwner()?.ReleaseFocus();
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
-        if (world.Campaign != null || world.Neighborhood!=null) ToggleDrawer(2);
+        if (world.Campaign != null || world.Neighborhood!=null && !world.IsArrangementCourt) ToggleDrawer(2);
+        if(world.IsArrangementCourt){_focus=OnGround(3,3);_camera.Size=29;UpdateCamera();Notice("Choose a resident or home to follow daily life. Try one building elsewhere; restore it from the resident card. Welcoming is optional in Goals.");}
         Notice("Settlement ready and paused. Press Space to play.");
     }
     private void MenuAttempt(Action action)

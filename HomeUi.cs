@@ -16,6 +16,7 @@ public partial class Game
         _mealNeeds=Text("",14,true); _personDetails.AddChild(_mealNeeds);
         _mealLink=Button("Show meal supply",()=>
         {
+            if(_world.IsArrangementCourt && _selectedPerson>=0){ShowDailyLife(_selectedPerson);return;}
             if(_selectedPerson<0 || _world.People[_selectedPerson].Meal is not {} meal) return;
             if(_world.People[_selectedPerson].Task!=Work.ReturnMeal && meal.SourceId is int id)
             {
@@ -56,9 +57,9 @@ public partial class Game
     {
         _mealNeeds.Visible=!_world.Creative;
         _mealNeeds.Text="MEALS\n"+_world.MealSummary(person);
-        _mealLink.Visible=!_world.Creative && person.Meal is { } meal && (meal.Reserved || meal.Carrying) &&
+        _mealLink.Visible=_world.IsArrangementCourt || ! _world.Creative && person.Meal is { } meal && (meal.Reserved || meal.Carrying) &&
             (person.Task==Work.ReturnMeal || meal.SourceId==null || _world.Cottages.Any(c=>c.Id==meal.SourceId));
-        _mealLink.Text=person.Task==Work.ReturnMeal?"Show return destination":"Show meal supply";
+        _mealLink.Text=_world.IsArrangementCourt?"Follow daily life":person.Task==Work.ReturnMeal?"Show return destination":"Show meal supply";
         if(_homeUiWorld!=_world) { _homeUiWorld=_world; _homeChoiceKey=""; }
         var homes=_world.Cottages.Where(h=>h.Complete && !h.DemolitionRequested && Buildings.Get(h.Kind).Beds>0).ToArray();
         string key=person.Id+":"+string.Join(";",homes.Select(h=>$"{h.Id}:{h.Improved}:{_world.People.Count(p=>p.HomeId==h.Id)}"))+":"+person.HomeId;

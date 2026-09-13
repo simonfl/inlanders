@@ -351,9 +351,9 @@ public sealed partial class World
         }
         v.Status = Cottages.Any(c => c.DemolitionRequested) ? "Waiting — another builder is recovering goods or dismantling" : sites.Length == 0 ? "No construction plans — choose a building in Build" :
             sites.All(c => c.Remaining(c.Material)==0 && c.Remaining(Resource.Stone)==0) ? "Waiting — deliveries or another builder already cover each site" :
-            sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? "Waiting for planks — build a sawmill and assign a sawyer" :
-            sites.Any(c=>c.Remaining(Resource.Stone)>0) && AvailableStone==0 ? "Waiting for stone — build a quarry near an outcrop and assign a quarrier" :
-            Stored == 0 ? "Waiting for timber — assign loggers" : "Waiting — stored timber is reserved by other builders";
+            sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? (SharedWork?"Waiting for planks — inspect or build a sawmill":"Waiting for planks — build a sawmill and assign a sawyer") :
+            sites.Any(c=>c.Remaining(Resource.Stone)>0) && AvailableStone==0 ? (SharedWork?"Waiting for stone — inspect a quarry and its outcrop":"Waiting for stone — build a quarry near an outcrop and assign a quarrier") :
+            Stored == 0 ? (SharedWork?"Waiting for timber — shared workers need reachable trees":"Waiting for timber — assign loggers") : "Waiting — stored timber is reserved by other builders";
     }
     public void Tick(float dt)
     {

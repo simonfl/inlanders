@@ -8,7 +8,8 @@ public sealed partial class World
     public string? RelocationProblem(int id)
     {
         var site=Cottages.FirstOrDefault(c=>c.Id==id);
-        if(!Creative)return "Moving buildings is available in Creative.";
+        if(!Creative && !IsArrangementCourt)return "Moving buildings is available in Creative or Willow court.";
+        if(!Creative && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
         if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished building that is not being demolished.";
         if(Food.Celebrating)return "Wait until supper finishes.";
         if(site.Boat?.FisherId!=null)return "Pause the dock and wait for its fisher to return before moving it.";
@@ -51,6 +52,8 @@ public sealed partial class World
     {
         if(RelocationProblem(id,at,rotation)!=null)return false;
         var site=Cottages.Single(c=>c.Id==id);if(site.Cell==at && site.Rotation==rotation)return true;
+        if(!Creative && Neighborhood!.Arrangement is {BuildingId:null} trial)
+        {trial.BuildingId=id;trial.Original=site.Cell;trial.Rotation=site.Rotation;}
         foreach(var person in People.Where(p=>MoveAffects(p,site)).ToArray())Interrupt(person);
         int index=Cottages.IndexOf(site);Cottages.RemoveAt(index);
         site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));

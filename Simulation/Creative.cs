@@ -17,6 +17,7 @@ public sealed partial class World
     public string? RemovalProblem(int id)
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id);
+        if(Neighborhood?.Arrangement?.BuildingId==id)return "Restore this arrangement trial before demolishing the building.";
         if (site == null || !site.Complete) return "Choose a completed building.";
         if (Food.Celebrating) return "Wait until supper finishes.";
         if(site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId!=null) return "Pause the dock and wait for its fisher to return before removing it.";

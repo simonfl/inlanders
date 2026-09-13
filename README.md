@@ -4,7 +4,7 @@ A personal Windows town-building game inspired by Outlanders, built with **Godot
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Play **Settlements → New Willow inlet** for the inherited-village comparison: existing homes and gardens, an optional crossing, and a freely sited welcome. [Design and evidence](docs/INHERITED_SHORELINE_F29C.md).
+Play **Settlements → New Willow court** to arrange an inhabited village and follow residents’ meal journeys. Select a resident or home; try one building elsewhere and restore its position without rewinding daily life. Welcoming is optional. **New Willow inlet** retains the dispersed comparison. [Observer guide](docs/COURT_OBSERVATION.md).
 
 ## Run from a fresh clone
 
@@ -40,7 +40,7 @@ Launching opens a composed village illustration behind the title screen, indepen
 The title screen offers:
 
 - **Continue** restores the last current-format settlement saved or opened, paused. It is disabled until a Continue snapshot exists.
-- **Settlements** offers a four-neighbor introduction or eight-neighbor meadow provisioning scenario. Food stays at its producer, people collect local meals and haulers distribute surplus. Both use one resumable `saves/neighborhood.json` slot; starting either replaces it. Invitations commit arrivals after 90 simulation seconds even if homes/food are missing. Completed villages offer optional outdoor meals from Goals.
+- **Settlements** offers the guided opening, Willow court arrangement experiment, dispersed inlet control and meadow comparison. Shared workers handle jobs and food is physically collected. All share `saves/neighborhood.json`; starting a new settlement replaces it. Court welcoming is optional; invitations still commit eight arrivals after 90 simulation seconds.
 - **Earlier prototypes** contains Campaign, Free play and historical neighborhood rules; these use different logistics from the selected Settlements workflow.
 - Under Earlier prototypes, **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
 - Under Earlier prototypes, **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
@@ -321,7 +321,7 @@ Audio preferences persist in `saves/audio.cfg`, independently of settlement save
 | F9 / Load | Restore the saved settlement, paused |
 | Start again | Restart paused and retain the live village; restore it from Options (campaign replay also remains in Goals) |
 
-The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 44; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
+The original standalone manual save is `saves/settlement.json`; Three clearings uses `saves/three-clearings.json`. Saves preserve terrain layout, simulation time, hunger, food inventories, crop growth, bakery batches, workers' positions/routes/tasks, reservations, construction, and supper progress. Workplace controls and recent food history also persist. This version requires save format 45; older development saves are rejected and can be discarded. Start a new settlement or use Start fresh campaign. Loading validates the save before replacing the live game. Camera position and playback speed remain local view settings. Autosaves run every two real minutes while a village is open, including paused edits, and skip unchanged snapshots. Map switches and campaign transitions/completion still save the session as described above. Save backward compatibility is not guaranteed during prototyping; incompatible or invalid development saves may be discarded instead of migrated.
 
 **Recovery in Options:** Restore latest autosave, Restore village before restart, and Undo last recovery. Recovery pauses the village and validates the file and its map/mode/level before replacing anything. F5 commits a recovered autosave to the manual checkpoint; F9 continues to load the manual/session checkpoint, not the periodic autosave. Returning to the menu, switching maps, campaign completion, and closing the window also update session checkpoints.
 
