@@ -17,7 +17,7 @@ public sealed partial class World
     }
     private bool MoveAffects(Villager p,Cottage site)=>p.SiteId==site.Id || p.WorkplaceId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id ||
         p.LeisureSiteId==site.Id || p.ComfortHomeId==site.Id || p.FoodSourceId==site.Id || p.FoodDestinationId==site.Id || p.GrainSourceId==site.Id || p.GrainDestinationId==site.Id ||
-        p.Meal is {} meal && meal.SourceId==site.Id || p.HomeId==site.Id && p.Task is Work.ToRest or Work.Resting;
+        p.Meal is {} meal && meal.SourceId==site.Id || p.HomeId==site.Id && (p.Task is Work.ToRest or Work.Resting || IdleHomeJourney(p));
     public string? RelocationProblem(int id,Cell at,int rotation)
     {
         string? problem=RelocationProblem(id);if(problem!=null)return problem;

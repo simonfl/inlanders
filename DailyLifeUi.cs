@@ -6,6 +6,7 @@ public partial class Game
 {
     private PanelContainer _dailyCard=null!;
     private Label _dailyText=null!;
+    private bool _dailyExpanded;
     private Button _dailySource=null!,_dailyMove=null!,_dailyRestore=null!;
     private Line2D _dailyRoute=null!;
     private int _dailyPerson=-1;
@@ -25,6 +26,7 @@ public partial class Game
         _dailyCard=HudPanel(_hud);var column=new VBoxContainer();_dailyCard.AddChild(column);
         var row=new HBoxContainer();column.AddChild(row);
         row.AddChild(Button("Next resident",()=>ShowDailyLife((_dailyPerson+1)%_world.Population)));
+        row.AddChild(Button("Journey",()=>{_dailyExpanded=!_dailyExpanded;}));
         row.AddChild(Button("Details",()=>{int id=_dailyPerson;_dailyPerson=-1;SelectPerson(id);ShowInspector();}));
         row.AddChild(Button("×",()=>{_dailyPerson=-1;ClearSelection();}));
         _dailyText=Text("",14,true);_dailyText.CustomMinimumSize=new(330,0);column.AddChild(_dailyText);
@@ -45,10 +47,12 @@ public partial class Game
         var p=_world.People[_dailyPerson];
         if(_uiTime>=_nextDaily){_nextDaily=_uiTime+.5f;_dailyJourney=_world.ReadDailyJourney(p.Id);_dailyRestoreProblem=_world.RestoreArrangementProblem();}
         var j=_dailyJourney;if(j==null)return;
-        _dailyText.Text=$"{p.Name} · {j.Heading}\n{j.Detail}";
+        _dailyText.Text=$"{p.Name} · {j.Heading}\n"+(_dailyExpanded?j.Detail:p.Status);
+        _dailyText.TooltipText=_dailyExpanded?"":"Journey expands food details; Details opens the full resident inspector.";
+        _dailyMove.Text=_world.Creative?"Move home":"Try home elsewhere";
         _dailySource.Disabled=!j.CanInspect || j.Source==null && j.Route.Length==0;
         _dailyMove.Disabled=p.HomeId is not int home || _world.RelocationProblem(home)!=null;
-        _dailyMove.TooltipText=p.HomeId is int homeId?(_world.RelocationProblem(homeId)??"Try this home in another place. Restore its position from this card; daily life keeps progressing."):"This resident has no home.";
+        _dailyMove.TooltipText=p.HomeId is int homeId?(_world.RelocationProblem(homeId)??(_world.Creative?"Move this home freely. Residents keep their home assignment.":"Try this home in another place. Restore its position from this card; daily life keeps progressing.")):"This resident has no home.";
         _dailyRestore.Visible=_world.Neighborhood!.Arrangement!.BuildingId!=null;
         _dailyRestore.TooltipText=_dailyRestoreProblem??"Restore the original location. Food, time and work are not rewound.";
         _dailyCard.Size=new(354,0);

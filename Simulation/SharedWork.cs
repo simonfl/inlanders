@@ -67,5 +67,6 @@ public sealed partial class World
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
         if(Try(Role.Carpenter) || Try(Role.Sawyer) || Try(Role.Quarrier) || Try(Role.Hauler) || FoodWork())return;
         person.Status="Shared worker — waiting for available work";
+        WaitNearHome(person);
     }
 }

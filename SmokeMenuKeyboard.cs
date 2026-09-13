@@ -74,7 +74,7 @@ public partial class Game
             await Press(Key.Enter);await Frames();Check(File.ReadAllText(_savePath)==saved && FocusKey()=="New Original clearing","Cancel altered slot or lost focus");
             await Activate("New Original clearing");await Activate("New Original clearing");
             Check(!_atMainMenu && !_world.Creative && File.ReadAllText(_savePath+".before-new")==saved,"Confirmed replacement lost preceding village");
-            ReturnToMainMenu();await Frames();await Activate("Creative");
+            ReturnToMainMenu();await Frames();await Activate("Earlier prototypes"); await Activate("Legacy Creative");
             await Activate("New Original clearing");if(_atMainMenu)await Activate("New Original clearing");
             Check(!_atMainMenu && _world.Creative,"Keyboard Creative start failed");
             ReturnToMainMenu();await Frames();File.WriteAllText(_continuePath,"broken");await Activate("Continue");

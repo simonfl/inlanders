@@ -10,11 +10,11 @@ public sealed partial class World
 
     public string MealSummary(Villager person)
     {
-        if(Creative) return "Food needs are disabled in Creative.";
+        if(!SimulatesMeals) return "Food needs are disabled in Creative.";
         var last=Food.MealConsumptions.LastOrDefault(m=>m.Person==person.Id);
         string history=last==null ? "No eating recorded in the last three minutes." :
             $"Ate {last.Kind.ToString().ToLowerInvariant()} {(int)(Food.Time-last.Time)}s ago"+(last.Late?" (late).":".");
-        string state=person.Fed?"Nourished. ":"Hungry. ";
+        string state=Creative?"Meals without hunger penalties. ":person.Fed?"Nourished. ":"Hungry. ";
         var r=person.Meal;
         if(r is {Eaten:true}) return state+history+" Next request follows the current meal window.";
         if(r==null) return state+history+$" Next request in {Math.Max(0,(int)Math.Ceiling(person.NextMealTime-Food.Time))}s.";

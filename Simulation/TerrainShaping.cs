@@ -64,7 +64,7 @@ public sealed partial class World
         Add(MeetingSpots,"Meeting spot",avoid);
         Add(People.Select(At),"Villager","Wait for the villager to move, then retry.");
         Add(People.SelectMany(p=>p.Route),"Walking route","Wait for traffic to pass, then retry.");
-        Add(People.Where(p=>p.Task!=Work.Waiting).Select(p=>p.Destination),"Work destination","Wait for the task to finish, then retry.");
+        Add(People.Where(p=>p.Task!=Work.Waiting || IdleHomeJourney(p)).Select(p=>p.Destination),"Work destination","Wait for the task to finish, then retry.");
         Add(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat),"Reserved meal seat","Wait for the meal to finish, then retry.");
         foreach(var cell in changed)
         {

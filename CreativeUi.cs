@@ -35,7 +35,7 @@ public partial class Game
         bool visible = selected?.Complete == true;
         _restoreTrialSite.Visible=visible && _world.Neighborhood?.Arrangement?.BuildingId==selected!.Id;
         _moveButton.Visible=visible && (_world.Creative || _world.IsArrangementCourt);
-        _moveButton.Text=_world.IsArrangementCourt?"Try another position":"Move building";
+        _moveButton.Text=_world.IsArrangementCourt && !_world.Creative?"Try another position":"Move building";
         string? moveProblem=visible?_world.RelocationProblem(selected!.Id):null;
         _moveButton.Disabled=moveProblem!=null;_moveButton.TooltipText=moveProblem??"Choose a new location and orientation. Retains this building and its stored goods.";
         _cancelDemolition.Visible = visible && selected!.DemolitionRequested && selected.DemolitionProgress == 0;

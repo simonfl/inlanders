@@ -366,7 +366,7 @@ public sealed partial class World
         ReconcileHomes();
         dt *= Neighborhood?.HungerSlowsActivity==false ? 1 : Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
-        if(retry && !Creative && !Food.Celebrating)
+        if(retry && SimulatesMeals && !Food.Celebrating)
             foreach(var person in People.Where(p=>p.Task==Work.Waiting && p.Meal is {Eaten:false,Closed:false})
                 .OrderBy(p=>p.Meal!.Due).ThenBy(p=>(p.Id-(int)(p.Meal!.Due/60)%Population+Population)%Population))
                 ClaimMeal(person);

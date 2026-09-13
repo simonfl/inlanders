@@ -55,7 +55,7 @@ public partial class Game
     }
     private void UpdateHomeUi(Villager person)
     {
-        _mealNeeds.Visible=!_world.Creative;
+        _mealNeeds.Visible=_world.SimulatesMeals;
         _mealNeeds.Text="MEALS\n"+_world.MealSummary(person);
         _mealLink.Visible=_world.IsArrangementCourt || ! _world.Creative && person.Meal is { } meal && (meal.Reserved || meal.Carrying) &&
             (person.Task==Work.ReturnMeal || meal.SourceId==null || _world.Cottages.Any(c=>c.Id==meal.SourceId));

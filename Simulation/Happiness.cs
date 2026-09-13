@@ -7,7 +7,7 @@ public sealed record HappinessReport(int Meals, int Choice, int Housing, int Lei
 {
     public int Score => 10 + Meals + Choice + Housing + Rest + Leisure;
     public string Mood => Score >= 85 ? "Cheerful" : Score >= 70 ? "Content" : Score >= 40 ? "Settling in" : "Unsettled";
-    public string Reasons => (Creative ? "Food needs disabled in Creative: +50/50" : $"Meals: +{Meals}/30\nVillage meal variety: +{Choice}/20 ({FoodChoices} types eaten)") + $"\nAssigned home: +{Housing}/10\nRecent home rest: +{Rest}/10\nRecent recreation: +{Leisure}/20\nStarting optimism: +10";
+    public string Reasons => (Creative ? "Food mood penalties disabled in Creative: +50/50" : $"Meals: +{Meals}/30\nVillage meal variety: +{Choice}/20 ({FoodChoices} types eaten)") + $"\nAssigned home: +{Housing}/10\nRecent home rest: +{Rest}/10\nRecent recreation: +{Leisure}/20\nStarting optimism: +10";
 }
 public sealed partial class World
 {

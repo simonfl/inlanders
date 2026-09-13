@@ -86,7 +86,7 @@ public partial class Game
             string previousLarge = _largeSavePath; _largeSavePath = Path.Combine(_savePath, "invalid.json");
             ReturnToMainMenu(); Check(!_atMainMenu && _world.SaveJson() == large, "Failed save discarded live village");
             _largeSavePath = previousLarge; _savePath = validPath;
-            ReturnToMainMenu(); await Frames(); await MenuClick("Creative"); await MenuClick("New Original clearing");
+            ReturnToMainMenu(); await Frames(); await MenuClick("Earlier prototypes"); await MenuClick("Legacy Creative"); await MenuClick("New Original clearing");
             Check(_world.Creative && _paused && CurrentSavePath == _creativeSavePath, "Creative entry or save isolation failed");
             BeginPlacement(BuildingKind.Bakery); PlaceCottage(new(3,0)); await Frames();
             Check(_world.Cottages.Count == 1 && _world.Cottages[0].Complete && _world.Stored == 0, "Creative UI did not build instantly");
@@ -104,8 +104,8 @@ public partial class Game
             Check(_world.Cottages.Count == 0 && _cottages.Count == 0, "Removed building remained visible");
             OpenLargeMap(); await Frames(); Check(_world.Creative && CurrentSavePath == _creativeLargeSavePath, "Map switch left Creative mode");
             OpenOriginalMap(); await Frames(); Check(_world.Creative && _world.Cottages.Count == 0, "Original creative map not restored");
-            ReturnToMainMenu(); await Frames(); await MenuClick("Creative"); await MenuClick("New Original clearing");
-            ReturnToMainMenu(); await Frames(); await MenuClick("Creative"); await MenuClick("Restore previous Original clearing");
+            ReturnToMainMenu(); await Frames(); await MenuClick("Earlier prototypes"); await MenuClick("Legacy Creative"); await MenuClick("New Original clearing");
+            ReturnToMainMenu(); await Frames(); await MenuClick("Earlier prototypes"); await MenuClick("Legacy Creative"); await MenuClick("Restore previous Original clearing");
             Check(_world.Creative && _world.Cottages.Count == 0, "Creative previous save lost");
             string beforeCampaign = _world.SaveJson();
             SwitchCampaign(1, false); await Frames();

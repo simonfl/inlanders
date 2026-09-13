@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--creative-court")) {try{CreativeCourtChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--court-reader")) {try{CourtChecks.Reader();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--court") || args.Contains("--court-layout")) {try{CourtChecks.Run(!args.Contains("--court-layout"));}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--inherited-recovery")) {try{InheritedShorelineChecks.RecoverLayout();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

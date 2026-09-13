@@ -46,7 +46,7 @@ public partial class Game
         }
         Check(_world.SaveJson()==saved && _neighborhoodGoals.Visible,"Baseline switch overwrote experiment");
         _noticeUntil=0;await CaptureReviewBundle();
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Legacy Creative"]);await Frames();
         await UiClick(_mainButtons["New Original clearing"]);await Frames();
         Check(_world.Neighborhood==null,"Creative retained neighborhood goals");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();

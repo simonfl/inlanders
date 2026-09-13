@@ -1,5 +1,29 @@
 [
   {
+    "name": "creative-court-arranged",
+    "description": "Matched sixteen-resident court: two homes and meeting place moved to open a lane",
+    "generator": "creative-court-arranged",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "creative-court-expanded",
+    "description": "Same sixteen-resident court, free arrangement before edits",
+    "generator": "creative-court-expanded",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
+    "name": "creative-court",
+    "description": "Fresh free arrangement: shared work and real meals without hunger penalties",
+    "generator": "creative-court",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 29
+  },
+  {
     "name": "willow-court",
     "description": "Inhabited court with direct resident meal journeys and reversible arrangement",
     "generator": "willow-court",

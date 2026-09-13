@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **21**.
+- Playable checkpoints since adoption: **22**.
 - Last periodic review: **checkpoint 20**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_20.md). Whole-project evidence/source/still review; playtest role had no new native interaction, and no listening/human preference acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including F30c if it changes activity/occlusion, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F30c free arrangement — September 13, 2026:** [Delivery and comparison](FREE_ARRANGEMENT_F30C.md). Unified Creative court with physical meals/shared work, free multi-building editing, home waiting and a compact dismissible resident card. One playable outcome, count **22**. Presentation-triggered review is pending on the fixed implementation commit; do not implement the next feature until synthesis. Periodic review remains **25**.
 
 **F30a/F30b Willow court — September 13, 2026:** [Combined arrangement-and-life comparison](COURT_F30AB.md). Composed inherited court, direct actual/available meal routes, one-building reversible trial, shared-work advice and bounded diagnostic/preflight tools. One playable outcome, count **21**. [Independent presentation review completed](PRESENTATION_REVIEW_F30AB.md) on `b85455c`: retain court composition, advance to forgiving multi-building place-making with activity/occlusion criteria. No native play/listening acceptance. Periodic whole-project review stays **25**.
 

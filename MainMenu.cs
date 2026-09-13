@@ -57,7 +57,7 @@ public partial class Game
         MenuPage("A quiet place to build");
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
         MenuButton("Settlements", NeighborhoodMenu);
-        MenuButton("Creative", () => FreePlayMenu(true));
+        MenuButton("Creative", CreativeCourtMenu);
         MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
@@ -81,7 +81,7 @@ public partial class Game
         GetViewport().GuiGetFocusOwner()?.ReleaseFocus();
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
         if (world.Campaign != null || world.Neighborhood!=null && !world.IsArrangementCourt) ToggleDrawer(2);
-        if(world.IsArrangementCourt){_focus=OnGround(3,3);_camera.Size=29;UpdateCamera();Notice("Choose a resident or home to follow daily life. Try one building elsewhere; restore it from the resident card. Welcoming is optional in Goals.");}
+        if(world.IsArrangementCourt){_focus=OnGround(3,3);_camera.Size=29;UpdateCamera();Notice(world.Creative?"Make a place of your own: free building, moves and removal. Real meals without hunger penalties. Welcoming is optional in Goals.":"Choose a resident or home to follow daily life. Try one building elsewhere; restore it from the resident card. Welcoming is optional in Goals.");}
         Notice("Settlement ready and paused. Press Space to play.");
     }
     private void MenuAttempt(Action action)
@@ -99,6 +99,7 @@ public partial class Game
         _mainColumn.AddChild(Text("Earlier campaigns and food rules remain available for comparison. Settlements is the current local-food workflow; these prototypes use different rules.",15,true));
         MenuButton("Campaign", CampaignMenu);
         MenuButton("Free play", FreePlayMenu);
+        MenuButton("Legacy Creative",()=>FreePlayMenu(true));
         MenuButton("Original neighborhood control",()=>StartNeighborhood(World.NewNeighborhoodExperiment()));
         MenuButton("Try landing and meadow",()=>StartNeighborhood(World.NewNeighborhoodLandscapeExperiment()));
         MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));

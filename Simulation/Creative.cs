@@ -27,7 +27,7 @@ public sealed partial class World
         var access = Cottages.Where(c => c != site).Select(c => c.Entrance)
             .Concat(Trees.Select(t => t.Access)).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell))
             .Concat(People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination));
-        access=access.Concat(People.Where(ComfortWork).Select(p=>p.Destination));
+        access=access.Concat(People.Where(p=>ComfortWork(p) || IdleHomeJourney(p)).Select(p=>p.Destination));
         if (access.Where(before.Contains).Concat(People.Select(At))
             .Concat(People.Where(p => p.Route.Count > 0).Select(p => p.Route.Peek())).Any(c => !after.Contains(c)))
             return "This bridge keeps villagers or resources connected. Build another crossing first.";
@@ -40,7 +40,8 @@ public sealed partial class World
         var site = Cottages.Single(c => c.Id == id);
         ClearWorkplaceAssignments(id);
         StopImprovement(site);
-        if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
+        if(IsFoodStore(site)) ClosePantry(id);
+        if(Neighborhood?.VenueId==id)Neighborhood.VenueId=null;
         if(site.Kind==BuildingKind.Farm) CloseGrainStore(id);
         var affected = People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id ||
             p.HaulTargetId == id || p.LeisureSiteId == id).ToArray();

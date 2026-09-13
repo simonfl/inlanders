@@ -226,8 +226,8 @@ public partial class Game
         UpdateCameraViewsUi(); UpdateVisitorUi();
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
-        _foodStatus.Text = _world.Creative ? "Creative" : _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
-        _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? "Creative: food needs disabled; full work speed. Production and hauling still use real resources." : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
+        _foodStatus.Text = _world.Creative ? (_world.IsArrangementCourt?"Free arrangement":"Creative") : _world.Food.Hunger > 0 ? "Hungry" : "Well fed";
+        _foodStatus.GetParent<Control>().TooltipText = _world.Creative ? (_world.IsArrangementCourt?"Real meals without hunger penalties. Work stays at full speed; missing food does not lower mood. Construction is instant and free.":"Creative: food needs disabled; full work speed. Production and hauling still use real resources.") : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");
         foreach (var (resource, label) in _resourceValues)
             label.Text = (World.EdibleKinds.Contains(resource)?_world.StoredFood(resource):resource switch { Resource.Game => _world.Food.Game, Resource.Stone => _world.Stone, Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, Resource.Fish => _world.Food.Fish, _ => _world.Food.Bread }).ToString();

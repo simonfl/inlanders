@@ -103,7 +103,7 @@ public sealed partial class World
     private bool ClaimMeal(Villager person)
     {
         var r=person.Meal;
-        if(Creative || r==null || r.Eaten || r.Closed || person.Carried>0) return false;
+        if(!SimulatesMeals || r==null || r.Eaten || r.Closed || person.Carried>0) return false;
         bool gathering=Gathering is {Active:true} g && !g.Ate.Contains(person.Id);
         var occupied=People.Where(p=>p.LeisureSiteId!=null || p.Task is Work.ToRest or Work.Resting).Select(p=>p.Destination).ToHashSet();
         var sources=FoodStores().OrderBy(id=>TravelCost(At(person),FoodAccess(id))).ThenBy(id=>id??0).AsEnumerable();

@@ -1,20 +1,14 @@
 # Next chunks — a place worth arranging and watching
 
-September 13, 2026. Count **21**. [F30a/F30b delivery](COURT_F30AB.md) and [independent presentation review](PRESENTATION_REVIEW_F30AB.md) are complete. Next periodic whole-game review **25**, regular visual/audio **30**, plus substantial-presentation triggers.
+September 13, 2026. Count **22**. [F30c delivery](FREE_ARRANGEMENT_F30C.md) completes the forgiving arrangement comparison. Run its fixed-source independent presentation review before the next feature. Next periodic whole-game review **25**, regular visual/audio **30**, plus substantial-presentation triggers.
 
-Retain the court direction: connected ground and facing homes are a real improvement. Sixteen residents still form a hard-to-read central crowd; the journey card can obscure homes. Shorter meal routes and successful recovery do not establish enjoyment. Freeze new levels, resources and needs. All buildings remain available, seasons removed, saves disposable.
+Free construction now keeps actual meals/shared work and optional welcoming. Home waiting spreads available residents toward their homes; compact cards expose less of the village. Functional correctness and early stills support trying this direction, not accepting its enjoyment or declaring occlusion solved. Freeze new levels, resources and needs. All buildings remain available, seasons removed, saves disposable.
 
-## 1. F30c — forgiving place-making with recognizable daily life
+## 1. F30c — delivered; presentation verdict pending
 
-Make this a coherent experience comparison, not a Creative flag conversion. Use court/shared work/physical food collection with free multi-building placement, relocation and removal. Explain the concrete hunger/construction relaxations while preserving actual meals, home returns and communal activity. Keep welcoming optional. Compare with the existing single-building trial using an inhabited sixteen-resident scene and the same building capabilities.
+Free multi-building editing, instant construction/removal, hunger forgiveness, home waiting, compact/dismissible cards and separate current saves are implemented. Matched sixteen-resident edits preserve ongoing meals, home rest and recreation. Full menu/recovery and targeted simulation checks pass. See delivery for evidence and limits.
 
-Let the player choose a spatial intention: open a gathering place, make a lane or establish a garden neighborhood. They must be able to recognize where people work, collect meals and spend time with the diagnostic card closed. Address crowd distribution and roof/card occlusion where they prevent that observation. Avoid another permanent overlay, miniature props, forced longer trips or a new service quota. Do not assume free arrangement is better; constraints may supply purpose.
-
-Validate actual construction/edit controls, paused edits, current saves/reset, ongoing physical collection and selected-rule consistency. Reuse existing movement/removal primitives. Avoid adding another independently maintained employment/food model. Retire superseded ordinary Creative entry rules after useful capabilities are covered; no migration or general mode framework.
-
-**Falsify the direction** if rearrangement feels arbitrary, the result is just different roofs around an unreadable crowd, a prescribed objective or permanently open card remains necessary, or freedom removes the desire to observe/continue. In that case redesign ordinary activity and its spatial distribution before more content. Use 960/1440, opposite cameras and expanded play; pause for choices, 3x for waits, 1x for motion/listening. Record actual human preference when available, never infer it from metrics.
-
-One playable outcome when the whole slice works. Run a fresh presentation review if activity, composition or occlusion changes substantially; the periodic count does not reset.
+Review clean fixed-source expanded/no-edit versus freely arranged scenes at 960/1440 and opposite cameras, with the diagnostic card closed. Keep ordinary campaign, dense settlement and title evidence in whole-game context. Assess whether activity is recognizable and the arrangement worthwhile; record unobserved motion/audio and human preference honestly. The independent synthesis may retain, narrow or replace F30d. No routine queue execution before that verdict.
 
 ## 2. F30d — choose the supported experience and small campaign
 

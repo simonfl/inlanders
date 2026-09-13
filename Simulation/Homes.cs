@@ -17,7 +17,7 @@ public sealed partial class World
         {
             if(person.HomeId!=null && !homes.Any(h=>h.Id==person.HomeId))
             {
-                if(person.Task is Work.ToRest or Work.Resting) Interrupt(person);
+                if(person.Task is Work.ToRest or Work.Resting || IdleHomeJourney(person)) Interrupt(person);
                 person.HomeId=null;
             }
             if(person.HomeId!=null) continue;
@@ -40,7 +40,7 @@ public sealed partial class World
     {
         if(HomeAssignmentProblem(personId,homeId)!=null) return false;
         var person=People[personId]; if(person.HomeId==homeId) return true;
-        if(person.Task is Work.ToRest or Work.Resting) Interrupt(person);
+        if(person.Task is Work.ToRest or Work.Resting || IdleHomeJourney(person)) Interrupt(person);
         person.HomeId=homeId; person.NextRestTime=Math.Min(person.NextRestTime,Food.Time+15); _retry=0;
         return true;
     }

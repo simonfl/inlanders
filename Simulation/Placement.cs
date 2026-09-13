@@ -50,7 +50,7 @@ public sealed partial class World
         if(Gathering is {Active:true} gathering)access=access.Concat(gathering.Seats.Values);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
-        access=access.Concat(People.Where(ComfortWork).Select(p=>p.Destination));
+        access=access.Concat(People.Where(p=>ComfortWork(p) || IdleHomeJourney(p)).Select(p=>p.Destination));
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))
             return "This would cut off a route between villagers, resources, or buildings and the timber yard.";
         return null;

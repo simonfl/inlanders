@@ -21,3 +21,11 @@ Record after the intervention and after the resident's next meal:
 The blue line is an available route **now**, not a reserved/predicted next meal. Gold follows a claimed meal's actual remaining route. The card names current activity or the immediate shortage/access problem. A trial relocates one building; restoring returns its position/orientation, not elapsed time, consumed food, jobs or removed paths. Keep its old footprint clear if you want to restore immediately. Building elsewhere and no-change are valid alternatives.
 
 Falsify the candidate if people need source/coaching to diagnose it, every answer is another garden, changes are visible only in statistics, the composition works from only one camera, or they still see required construction followed by waiting. Record unavailable human observation/audio honestly. Scripted checks do not fill in these answers.
+
+## F30c free-arrangement comparison
+
+Use `willow-court-expanded` and `creative-court-expanded` for the same sixteen-resident starting village with different construction/hunger rules. `creative-court-arranged` is one scripted example of opening a western lane: two homes and the seating garden move; no producer, person or food is added. It is an example, not the correct answer. Both court variants now send available workers toward home when work is quiet.
+
+For a matched after-edit comparison, prepare both expanded and arranged scenes and observe each for the same duration. Capture with the card closed before inspecting anyone; judge whether work, meals and quiet home time are recognizable from normal zoom and opposite cameras. The compact card can expand its explanation through Journey. Test Escape as well as ×.
+
+Ask whether freedom gives the player a reason to keep watching, or removes the useful purpose of a constrained settlement. Do not substitute the scripted western lane or food counts for a human preference. Record actual intervention and whether it was self-chosen. No human preference or listening result has yet been recorded for F30c.

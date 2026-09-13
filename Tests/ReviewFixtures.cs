@@ -16,6 +16,9 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "creative-court"=>World.NewCreativeCourt(),
+            "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),
+            "creative-court-arranged"=>CreativeCourtChecks.Arranged(),
             "willow-court"=>World.NewArrangementCourt(),
             "willow-court-expanded"=>CourtChecks.Expanded(),
             "neighborhood-inherited"=>World.NewInheritedShoreline(),

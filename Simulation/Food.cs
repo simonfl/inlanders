@@ -219,7 +219,7 @@ public sealed partial class World
                 else { farm.Harvest = 6; Food.GrownGrain += 6; }
             }
         }
-        if (Creative) { Food.Hunger = 0; return; }
+        if (!SimulatesMeals) { Food.Hunger = 0; return; }
         if (Food.Celebrating)
         {
             foreach(var person in People) { person.NextMealTime+=dt; if(person.Meal!=null) person.Meal.Due+=dt; }
@@ -234,6 +234,7 @@ public sealed partial class World
             return;
         }
         AdvanceMealRequests();
+        if(Creative)Food.Hunger=0;
         Food.MealClock += dt;
         while (Food.MealClock >= 60)
         {
