@@ -31,7 +31,9 @@ public partial class Game
         float stance=Mathf.SmoothStep(0,1,progress/.2f)*(1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f));
         float sweep=MathF.Sin((progress-.5f)*Mathf.Tau);
         view.Sickle.Visible=!sowing && grain;
-        view.SeedPouch.Visible=sowing;
+        bool digging=ReadableCourt && sowing && progress<.55f;
+        view.Spade.Visible=digging;
+        view.SeedPouch.Visible=sowing && !digging;
         view.Torso.Rotation=new((grain && !sowing?-.35f:-.65f)*stance,0,0);
         view.Head.Rotation=new(.2f*stance,0,0);
         view.Arm.Rotation=grain && !sowing ? new(0,sweep*.35f*stance,0) : new(.8f*stance,0,-sweep*.25f*stance);
@@ -42,7 +44,7 @@ public partial class Game
         // dragging the whole body sideways to follow the animated tool.
         var torsoBasis=Basis.FromEuler(new(grain && !sowing?-.35f:-.65f,0,0));
         var armBasis=Basis.FromEuler(new(grain && !sowing?0:.8f,0,0));
-        var tip=grain && !sowing ? new Vector3(.16f,-.32f,-.48f) : new Vector3(0,-.36f,0);
+        var tip=digging?new Vector3(0,-.22f,-.55f):grain && !sowing ? new Vector3(.16f,-.32f,-.48f) : new Vector3(0,-.36f,0);
         var contact=new Vector3(0,.43f,0)+torsoBasis*(new Vector3(.28f,.36f,0)+armBasis*tip);
         if(field.Kind==BuildingKind.Orchard && !sowing)
         {

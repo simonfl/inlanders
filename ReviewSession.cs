@@ -23,6 +23,7 @@ public partial class Game
         if(index+1>=args.Length)throw new ArgumentException("--review-run needs a request file from Review.ps1");
         _reviewRequest=JsonDocument.Parse(File.ReadAllText(args[index+1]));
         var request=_reviewRequest.RootElement;
+        _courtControl=request.TryGetProperty("courtControl",out var courtControl) && courtControl.GetBoolean();
         _commonsMats=request.TryGetProperty("commonsMats",out var mats) && mats.GetBoolean();
         _storybookScene=request.TryGetProperty("storybook",out var storybook) && storybook.GetBoolean();
         // Godot loads the managed assembly from bytes, so Assembly.Location can be empty.
@@ -50,7 +51,7 @@ public partial class Game
             _focus=new(request.GetProperty("focusX").GetSingle(),0,request.GetProperty("focusZ").GetSingle());
             _angle=.72f+request.GetProperty("turn").GetInt32()*Mathf.Pi/2;
             if(request.TryGetProperty("angle",out var angle))_angle=angle.GetSingle();
-            _camera.Size=request.GetProperty("zoom").GetSingle();UpdateCamera();
+            _camera.Size=request.TryGetProperty("view",out _)?request.GetProperty("zoom").GetSingle():CourtZoom(request.GetProperty("zoom").GetSingle());UpdateCamera();
             if(request.TryGetProperty("view",out var view))
             {
                 _goldenHour=view.GetProperty("goldenHour").GetBoolean();_foliageMotion=view.GetProperty("foliage").GetBoolean();
@@ -120,6 +121,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="commons")await ProbeCommons();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="willow-court")await ProbeCourt();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="creative-court")await ProbeCreativeCourt();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="court-life")await ProbeCourtLife();
         await ProbeFoodMap();
         if(_world.SharedWork)await ProbeSharedStaffing();
         File.WriteAllText(Path.Combine(_reviewDirectory,"checks.json"),JsonSerializer.Serialize(new{passed=true,scriptedUi=true,initialTime,finalTime=_world.Food.Time,speed=_speed,selectedPerson=_selectedPerson,checks=new[]{"paused startup","normal speed cycle","catalog","normal process ticks","F8 bundle"}},new JsonSerializerOptions{WriteIndented=true}));
@@ -154,7 +156,7 @@ public partial class Game
                 window=new{width=GetWindow().Size.X,height=GetWindow().Size.Y},
                 selected=new{personId=_selectedPerson,siteId=_selectedSite,personStatus=person?.Status,role=person?.Role.ToString(),task=person?.Task.ToString(),siteKind=site?.Kind.ToString()},
                 village=new{population=_world.Population,buildings=_world.Cottages.Count,map=_world.Map.Name,objective=_world.CampaignObjective},
-                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene,commonsMats=_commonsMats},
+                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene,commonsMats=_commonsMats,courtControl=_courtControl,readableCourt=ReadableCourt,veiledHomes=_courtOccluders.Values.Count(h=>h.Veiled)},
                 audio=new{effects=_effectsVolume,music=_musicVolume,nature=_ambienceVolume,muted=_soundMuted,musicMuted=_musicMuted}
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));

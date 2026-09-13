@@ -10,6 +10,7 @@ param(
     [switch]$ProbeControls,
     [switch]$Storybook,
     [switch]$CommonsMats,
+    [switch]$CourtControl,
     [ValidateRange(0,60)][int]$ObserveSeconds=0,
     [switch]$Movie
 )
@@ -110,6 +111,7 @@ if($bundleRecord) {
     $request.focusX=$bundleRecord.camera.focusX;$request.focusZ=$bundleRecord.camera.focusZ;$request.zoom=$bundleRecord.camera.zoom
     $request.angle=$bundleRecord.camera.angle;$request.view=$bundleRecord.rendering;$request.audio=$bundleRecord.audio;$request.selected=$bundleRecord.selected
 }
+$request.courtControl=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Name -contains "courtControl" -and $bundleRecord.rendering.courtControl}else{$CourtControl.IsPresent}
 $requestPath=Join-Path $runDir 'request.json'
 $request.observeSeconds=$ObserveSeconds;$request.movieFps=if($Movie){24}else{0}
 if($Storybook -and -not $Bundle){$request.storybook=$true}

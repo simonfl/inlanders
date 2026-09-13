@@ -1,5 +1,13 @@
 [
   {
+    "name": "court-life",
+    "description": "Sixteen-resident free court: actual working, meals and home rest; compare -CourtControl",
+    "generator": "court-life",
+    "focusX": 3,
+    "focusZ": 3,
+    "zoom": 32
+  },
+  {
     "name": "creative-court-arranged",
     "description": "Matched sixteen-resident court: two homes and meeting place moved to open a lane",
     "generator": "creative-court-arranged",

@@ -68,7 +68,7 @@ public partial class Game : Node3D
         RebuildLandscape();
         _camera.Size = Math.Min(_camera.Size, MaximumZoom); UpdateCamera();
         ResetWorldAudio();
-        Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
+        _courtOccluders.Clear(); Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
         CreateFoodViews();
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
@@ -97,7 +97,7 @@ public partial class Game : Node3D
         _focus.Y = Height(_focus.X, _focus.Z);
         float distance = Math.Max(25, Math.Max(map.Width, map.Depth) * 1.5f);
         _camera.Far = distance * 4;
-        _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * 0.96f, MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
+        _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * (ReadableCourt?1.22f:.96f), MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
         UpdateAudioListener();
     }
     private void RefreshSelection()
@@ -312,7 +312,7 @@ public partial class Game : Node3D
             _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks;
         }
         TraceActorPart(3);
-        foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
+        foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id);_courtOccluders.Remove(id); }
         foreach (var h in _world.Cottages)
         {
             int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered+h.DeliveredStone > 0 ? 1 : 0;
@@ -341,6 +341,7 @@ public partial class Game : Node3D
             if (stage == 3 && h.Kind == BuildingKind.Bakery)
                 view.Body.GetNode<Node3D>("OvenGlow").Visible = _world.People.Any(p => p.WorkplaceId == h.Id && p.Task == Work.Baking);
         }
+        RenderCourtOcclusion();
         TraceActorPart(4);
     }
 }

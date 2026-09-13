@@ -102,5 +102,6 @@ public partial class Game
         view.Head.Rotation=new((person.Id%3==0 ? .24f : .12f)*settle,0,0);
         view.Arm.Rotation=new(.85f,0,-.12f); view.LeftArm.Rotation=new(.85f,0,.12f);
         view.Torso.Rotation=new(.06f,0,MathF.Sin(_world.Food.Time*.8f+person.Id)*.012f);
+        if(ReadableCourt){view.RestBack.Visible=true;view.Torso.Rotation=new(-.22f,0,0);view.Head.Rotation=new(.35f*settle,0,0);view.Arm.Rotation=new(.25f,0,-.20f);view.LeftArm.Rotation=new(.25f,0,.20f);view.LeftLeg.Rotation=new(.95f,0,-.08f);view.RightLeg.Rotation=new(.95f,0,.08f);}
     }
 }

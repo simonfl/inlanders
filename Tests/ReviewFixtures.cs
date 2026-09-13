@@ -18,6 +18,7 @@ static class ReviewFixtures
         {
             "creative-court"=>World.NewCreativeCourt(),
             "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),
+            "court-life"=>CreativeCourtChecks.Arranged(),
             "creative-court-arranged"=>CreativeCourtChecks.Arranged(),
             "willow-court"=>World.NewArrangementCourt(),
             "willow-court-expanded"=>CourtChecks.Expanded(),

@@ -14,7 +14,7 @@ public partial class Game
         public int Count = -1;
         public float? PickupStarted;
         public float CargoObservedAt=-1;
-        public Node3D ComfortCushion=new();
+        public Node3D ComfortCushion=new(), MealBoard=new(), RestBack=new(), Hat=new();
     }
 
     private PersonView MakeVillager(int id)
@@ -25,9 +25,10 @@ public partial class Game
         Cylinder(v.Torso, new(0, 0.21f, 0), 0.26f, 0.48f, new(shirts[id % shirts.Length]), 0.21f);
         v.Torso.AddChild(v.Head); v.Head.Position = new(0, 0.58f, 0);
         Mesh(v.Head, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, Vector3.Zero, new("e7bd8e"));
-        Cylinder(v.Head, new(0, 0.19f, 0), 0.30f, 0.07f, new("dbc28c"));
-        Cylinder(v.Head, new(0, 0.26f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
-        Cylinder(v.Head,new(0,.22f,0),.188f,.055f,new(shirts[id%shirts.Length]),.18f);
+        v.Head.AddChild(v.Hat);
+        Cylinder(v.Hat, new(0, 0.19f, 0), 0.30f, 0.07f, new("dbc28c"));
+        Cylinder(v.Hat, new(0, 0.26f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
+        Cylinder(v.Hat,new(0,.22f,0),.188f,.055f,new(shirts[id%shirts.Length]),.18f);
         v.Body.AddChild(v.RestStool); v.RestStool.Visible=false;
         v.RestStool.AddChild(v.ComfortCushion);
         Box(v.ComfortCushion,new(0,.29f,0),new(.40f,.10f,.35f),new("ad704e"));
@@ -76,6 +77,7 @@ public partial class Game
         v.Torso.AddChild(v.SeedPouch);
         Box(v.SeedPouch,new(-.27f,.02f,-.19f),new(.23f,.25f,.18f),new("c5a16d"));
         v.Torso.AddChild(v.Carry); v.Carry.Position = new(0, 0.12f, -0.43f);
+        MakeDailyFurniture(v);
         v.Marker = Cylinder(v.Body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
         return v;
     }
@@ -138,7 +140,9 @@ public partial class Game
     private void AnimateVillager(PersonView view, Villager v)
     {
         RefreshCargo(view, v); view.Marker.Visible = v.Id == _selectedPerson;
-        view.Carry.Position=new(0,.12f,-.43f);
+        view.Carry.Position=new(0,.12f,-.43f);view.Carry.Rotation=Vector3.Zero;
+        view.MealBoard.Visible=false;view.RestBack.Visible=false;
+        view.Hat.Visible=!(ReadableCourt && v.Task is Work.EatingMeal or Work.Resting);
         view.Bow.Visible=false; view.WorkBoard.Visible=false;
         view.RestStool.Visible=false;
         view.ComfortCushion.Visible=v.Task==Work.Resting && v.ImprovedRest;
@@ -213,6 +217,7 @@ public partial class Game
             case Work.Leisure:
                 AnimateSquareVisit(view,v); break;
             case Work.EatingMeal:
+                if(ReadableCourt){AnimateCourtMeal(view,v);break;}
                 view.RestStool.Visible=true; view.Rig.Position=new(0,-.20f,0);
                 view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
                 view.Arm.Rotation=new(1.5f+(v.Meal?.Gathering==true && _world.Gathering?.Eating!=true?0:MathF.Sin(v.Timer*2)*.25f),0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
