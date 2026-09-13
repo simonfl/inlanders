@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active next: F30d3, choose the game’s main experience.** [F30d2](COURT_EXPERIENCE_F30D2.md) delivers two playable versions of the same sixteen-resident court: a gathering-place project with a player-declared ending, and open arrangement without an assigned endpoint. Starting-footprint outlines expose spatial edits; food/work rules stay identical. This tests purpose and stopping, not campaign difficulty. Preference and enjoyment remain unobserved. Retain F30d1’s modest framing/activity gains and original roof massing. Count **24**; periodic whole-game review **25**, before implementation beyond that checkpoint. New levels/resources/needs stay frozen until the experience choice.
+**Active next: F31a, consolidate the game entry; then F31b, a real spatial compromise.** [Checkpoint25 whole-game review](REVIEW_CHECKPOINT_25.md) chooses finite authored transformations supported by daily life, with unrestricted building/watching as continuation and a secondary start. [F30d3](COURT_PROJECT_F30D3.md) connects the introductory court to an actual shared meal place, but its first diner is an acknowledgment of use, not spatial challenge or preference evidence. Consolidate ordinary experiment entries; next test two visibly different viable arrangements using inherited geography. Count **25**; next periodic whole-game review **30**, including visual/audio. New levels/resources/needs stay frozen beyond the one deeper situation under test.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
@@ -18,7 +18,7 @@ Current foundation: **opening and Willow inlet, a meadow comparison, 18 building
 
 ## Delivered F28 sequence
 
-The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is delivered. The checkpoint-20 review merges food interaction and scene composition into one experiment; Creative rule alignment is delivered in F30c; progression cleanup follows the delivered F30d2 playable comparison and the F30d3 experience choice. The active queue supersedes separate F30a/F30b delivery.
+The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is delivered. The checkpoint-20 review merges food interaction and scene composition into one experiment; Creative rule alignment is delivered in F30c; the checkpoint25 decision chooses finite spatial transformation, and F31 consolidates entry points before one deeper situation. The active queue supersedes separate F30a/F30b delivery.
 
 | Order | ID | Status | Player outcome / decision |
 | --- | --- | --- | --- |

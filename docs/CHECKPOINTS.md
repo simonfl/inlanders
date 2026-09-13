@@ -3,15 +3,18 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **24**.
-- Last periodic review: **checkpoint 20**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_20.md). Whole-project evidence/source/still review; playtest role had no new native interaction, and no listening/human preference acceptance.
+- Playable checkpoints since adoption: **25**.
+- Last periodic review: **checkpoint25**, [whole-game synthesis](REVIEW_CHECKPOINT_25.md). Three fresh independent roles plus a reused playtest reviewer after the agent limit; source/still/scripted evidence, no uncoached native play or listening acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 25**, whole-project scope. Native observation remains outstanding.
+- Next four-role review: **checkpoint30**, whole-project scope, including the regular visual/audio role. Native observation remains outstanding.
 - Latest presentation-triggered review: **checkpoint 23**, [fresh independent visual/audio whole-game review](COURT_DAILY_LIFE_F30D1.md), fixed `18dfe94`; review-directed removals in `fa2dcb3`. Still/source evidence only; no native play/listening acceptance.
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F30d3 actual shared-place project — `bb71c56`, September 13, 2026:** [Delivery](COURT_PROJECT_F30D3.md). Both court versions can place ordinary meal commons before the old welcome; finite ending acknowledges actual consumption, with nearby-food guidance and current-save persistence. One playable outcome, count **25**. [Required whole-game review completed](REVIEW_CHECKPOINT_25.md), three fresh roles plus reused playtest after agent limit. Retain finite spatial transformation provisionally; reject extending the first-diner gate into campaign difficulty. Focused post-review choice/priming/clipping corrections belong to this outcome. Next periodic review **30**, including visual/audio.
+
 
 **F30d2 finite/open comparison — September 13, 2026:** [Delivery, checks and limits](COURT_EXPERIENCE_F30D2.md). Same sixteen-resident village with a gathering-place brief/player-declared ending versus open continuation. Separate saves, unchanged physical life, starting-footprint reference, finish/watch/reopen. One playable outcome, count **24**. No human preference, challenge or enjoyment acceptance; no new independent review claimed. F30d3 chooses a provisional main experience; whole-project periodic review is due at the next playable checkpoint **25**.
 

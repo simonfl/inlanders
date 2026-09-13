@@ -13,6 +13,7 @@ public partial class Game
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         async Task ClickGoal(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b);await Frames();}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();await UiClick(_mainButtons["Court comparison"]);await Frames();
+        Check(_mainButtons["New · An open court"].GetGlobalRect().End.Y<=_mainScroll.GetGlobalRect().End.Y,"Open choice is below the initial fold");
         await CaptureReviewBundle("court-choice");await UiClick(_mainButtons["New · A place to gather"]);await Frames();
         Check(_world.CourtStudy is {Finite:true,Finished:false} && _world.Population==16 && _paused && CurrentSavePath==CourtStudyPath(true),"Finite entry/rules/slot failed");
         ToggleDrawer(2);await Frames();Check(_menuButtons[2].Text=="Your place" && !_neighborhoodGoals.IsVisibleInTree() && _courtFinishButton.Visible,"Welcome goals leaked into court brief");
@@ -33,6 +34,13 @@ public partial class Game
         await Click(mealPoint);await Frames();await UiClick(_gatherPlanStart);await Frames();Check(_world.Commons!=null,"Meal place not installed");
         for(int i=0;i<1800 && _world.Commons!.FirstDiner==null;i++){_world.Tick(.1f);if(i%100==0){RenderActors(0);UpdateHud();await Frames();}}
         Check(_world.Commons!.FirstDiner!=null,"Place did not serve a real meal");RenderActors(0);_focus=OnGround(3,3);UpdateCamera();await Frames();await CaptureReviewBundle("court-inhabited-meal-place");
+        // A same-count move after placing the commons must refresh surface clipping.
+        var beside=_world.Cottages.Where(c=>c.Kind==BuildingKind.Cottage).OrderBy(c=>(c.Cell.Point-_world.Commons!.Center.Point).LengthSquared()).First();
+        var away=_world.Map.Land.OrderBy(c=>(c.Point-new Cell(14,9).Point).LengthSquared()).First(c=>c!=beside.Cell && _world.RelocationProblem(beside.Id,c,0)==null);
+        Check(_world.MoveBuilding(beside.Id,away,0),"Move-after-commons fixture failed");
+        CreateActors();RenderActors(0);UpdateCommonsView();await Frames();
+        var excluded=_world.Cottages.SelectMany(c=>World.Footprint(c.Cell,c.Rotation,c.Kind)).Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell)).Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
+        Check(_commonsGroundExcluded.SetEquals(excluded),"Commons surface retained pre-move building footprint");
         ToggleDrawer(2);await Frames();await ClickGoal(_courtFinishButton);
         Check(_world.CourtStudy!.Finished && _paused && _courtLeaveButton.IsVisibleInTree() && !_courtStartingLayout.Visible,"Finish did not expose ending");
         _noticeUntil=0;await Frames();Check(_drawerPages[2].ScrollVertical==0,"Ending title scrolled out of view");await CaptureReviewBundle("court-finished");
@@ -42,7 +50,7 @@ public partial class Game
         ToggleDrawer(2);await Frames();await ClickGoal(_courtReopenButton);Check(!_world.CourtStudy!.Finished,"Reopen failed");SaveWorld();string finite=File.ReadAllText(CourtStudyPath(true));
         ReturnToMainMenu();await Frames();CourtExperienceMenu();await Frames();await UiClick(_mainButtons["New · An open court"]);await Frames();
         Check(_world.CourtStudy is {Finite:false,Finished:false} && CurrentSavePath==CourtStudyPath(false),"Open arm/rules/slot failed");ToggleDrawer(2);await Frames();
-        Check(!_courtFinishButton.Visible && !_courtLeaveButton.Visible && !_neighborhoodGoals.IsVisibleInTree(),"Open arm contains assigned ending");await CaptureReviewBundle("court-open-brief");
+        Check(!_courtFinishButton.Visible && !_courtLeaveButton.Visible && !_neighborhoodGoals.IsVisibleInTree() && !_objective.Text.Contains("Choose a meal place"),"Open arm contains assigned ending or task");await CaptureReviewBundle("court-open-brief");
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved && File.ReadAllText(CourtStudyPath(true))==finite,"Open load overwrote finite save");
         Reset();await Frames();Check(_world.CourtStudy is {Finite:false} && _world.Population==16,"Reset changed comparison arm");
         CloseDrawer();ClearSelection();_world.Validate();

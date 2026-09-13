@@ -15,11 +15,10 @@ public partial class Game
     private void CourtExperienceMenu()
     {
         MenuPage("Two ways to make a place");
-        _mainColumn.AddChild(Text("The same sixteen neighbors, homes and gardens. Free construction and moves, real daily life, no hunger penalties. Each version has its own save.",16,true));
-        _mainColumn.AddChild(Text("A place to gather · Make an everyday meal place between homes and food. Open room for six seats, or choose a new spot. See a neighbor eat there, then finish when satisfied.",16,true));
+        _mainColumn.AddChild(Text("Same village and daily life; free building and moves. Each version has its own save.",16,true));
         Entry(true,"A place to gather");
-        _mainColumn.AddChild(Text("An open court · Make whatever interests you. There is no assigned project or finish line. Follow residents, rearrange the village, or simply watch.",16,true));
         Entry(false,"An open court");
+        _mainColumn.AddChild(Text("A place to gather: make an everyday meal place, see it used, then finish when satisfied.\n\nAn open court: arrange or watch freely, with no assigned project or finish line.",15,true));
         MenuButton("Back",NeighborhoodMenu);
         void Entry(bool finite,string title)
         {
@@ -50,13 +49,13 @@ public partial class Game
         _goalArrival.Text=study.Finite?(study.Finished?"Your gathering place is finished. Stay with the neighbors, leave it here, or reopen it when another idea comes.":"Make an everyday meal place between homes and food. Open room for six seats, or choose a new spot. See a neighbor eat there, then finish when satisfied."):"Make whatever interests you. Follow daily life, change an arrangement, or simply watch. There is no assigned project or finish line.";
         _objective.Visible=!study.Finished;
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your place";
-        _objective.Text=_courtShowBefore?"Amber outlines show the starting building footprints, not current buildings. Hide them to watch daily life.":(_world.Commons?.FirstDiner is int diner?$"{_world.People[diner].Name} ate at your meal place. Ordinary life continues.":_world.Commons!=null?"Place ready. Play to let neighbors bring their next meal. Food must be nearby.":"Choose a meal place to preview real seats. Select a home → Move home to open space.");
+        _objective.Text=_courtShowBefore?"Amber outlines show the starting building footprints, not current buildings. Hide them to watch daily life.":(_world.Commons?.FirstDiner is int diner?$"{_world.People[diner].Name} ate at your meal place. Ordinary life continues.":_world.Commons!=null?"Place ready. Play to let neighbors bring their next meal. Food must be nearby.":study.Finite?"Choose a meal place to preview real seats. Select a home → Move home to open space.":"Build, move or remove whatever you choose. Select residents to follow daily life.");
         _courtBeforeButton.Text=_courtShowBefore?"Hide starting footprints":"Show starting footprints";
         if(_courtStartingLayout!=null)_courtStartingLayout.Visible=_courtShowBefore && !_watching && !_atMainMenu;
         _courtFinishButton.Visible=study.Finite && !study.Finished;
         _courtFinishButton.Disabled=_world.FinishCourtPlaceProblem()!=null;
         _courtFinishButton.TooltipText=_world.FinishCourtPlaceProblem()??"The place has served a neighbor. Finish when satisfied.";
-        _courtMealPlace.Text=_world.Commons==null?"Choose a meal place":"Move meal place";
+        _courtMealPlace.Text=_world.Commons==null?(study.Finite?"Choose a meal place":"Meal place tool"):"Move meal place";
         _courtRemovePlace.Visible=_world.Commons!=null && !study.Finished;
         _courtMealPlace.Visible=!study.Finished;
         _courtReopenButton.Visible=study.Finite && study.Finished;

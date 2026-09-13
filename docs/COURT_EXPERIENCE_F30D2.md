@@ -1,5 +1,7 @@
 # F30d2 — two ways to make a place
 
+Historical F30d2 delivery: the unconditional finite ending described below is superseded by [F30d3](COURT_PROJECT_F30D3.md), which requires actual use of the new meal place.
+
 September 13, 2026. Checkpoint **24**. Next periodic whole-game review **25**. This is a playable experience comparison, not selection or validation of a campaign direction.
 
 ## Play it

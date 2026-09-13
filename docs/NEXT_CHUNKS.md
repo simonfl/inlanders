@@ -1,26 +1,34 @@
-# Next chunks — choose the experience before more campaign
+# Next chunks — finite spatial transformations
 
-September 13, 2026. Count **24**. [F30d2 playable comparison](COURT_EXPERIENCE_F30D2.md) is delivered; preference, recognition and enjoyment remain unproven. Next periodic whole-game review **25**, regular visual/audio **30**, plus substantial-presentation triggers.
+September 13, 2026. Count **25**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
-Free arrangement opens meaningful village space and preserves daily life. Home waiting disperses available residents; compact cards cover less ground. The unresolved question is whether players can recognize activity and find a reason to keep watching. Keep current art language and free editing; freeze new levels/resources/needs. All buildings remain available, seasons removed, saves disposable.
+**Chosen provisionally:** small authored spatial transformations supported by daily life, with free editing/watching afterward and a clearly available unrestricted start. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
-## 1. F30d3 — choose the game’s main experience
+## 1. F31a — one clear game entry
 
-Play the two entries under Settlements → Court comparison: **A place to gather** and **An open court**. They start from identical sixteen-resident worlds. The first has a spatial brief and a player-declared ending; the second has no assigned endpoint. Both retain free editing, actual daily life, and optional starting-footprint outlines. Finishing is not a score or proof that the village improved.
+Consolidate the ordinary menu around the current introductory project and a free start using the same daily-life rules. Put superseded neighborhood/court/inlet/meadow rule experiments under Earlier prototypes, preserving useful fixtures and geography. Continue and explicit resume must remain predictable. Do not build a generic mode framework to support branches we are retiring.
 
-Compare what the player predicts, changes, notices and wants to do next. Does the supplied project make the change feel purposeful, or merely add a dismissible brief and finish button? Does free arrangement produce a desired second change? Does the result itself offer a reason to watch? Use 1× to judge motion and 3× for waits; keep actual listening and uncoached observation explicit. The current scripted journeys cannot choose preference.
+This is deliberate consolidation, not another experimental mode. Keep free continuation after finishing. A main entry is a provisional product decision, not a claim the introduction is a finished campaign. Verify new/resume/Continue and mode-switching through the normal UI; no compatibility work.
 
-Choose finite authored transformation, a free village toy or a justified combination. If finite play needs an interesting constraint, prototype a spatial decision using existing terrain/buildings before promising a campaign. Do not confuse self-declared completion with challenge or return to reserve/service-window certificates. If nobody has played, state the choice as a provisional design bet and a falsifiable reason; do not manufacture acceptance or run an endless evidence-polish loop.
+## 2. F31b — a real spatial compromise
 
-Central crowding remains. New arrivals share a meal phase; test staggered timing against the same-age control only if crowding prevents observing a chosen transformation. No artificial journeys or new needs to manufacture activity. F30d1’s framing and poses remain partial gains; restored roof massing stays.
+Reuse one inherited site to compare two viable transformations with existing terrain/buildings. Candidates include reclaiming a crowded food-side court versus making a riverside place, or crossing-dependent homes versus allocating useful eastern land to local food. Select the geography only after establishing two viable, visibly different layouts and a recoverable weak layout.
 
-The next committed playable outcome is **25**: run the required independent whole-game review before implementing beyond it. Review must challenge both arms and the main game, not ratify this queue.
+The player should choose the character and compromise, not follow coordinates. Preserve actual meals, construction and journeys. Do not add mandatory move counts, attendance streaks, stock quotas, countdowns or catalogue locks to create the appearance of difficulty. This must move toward the user's request for skillful levels longer than a few minutes through decisions, not waiting.
 
-## 2. Consolidate after the experience choice
+Before/after ordinary life must communicate the result at normal camera scale. Reject if the first legal patch is as good as deliberate redesign, every answer is another garden, or the only consequence is a report number. If the test fails, change the central activity instead of adding another completion gate or overlay.
 
-Keep opening/inlet only if they offer distinct experiences. Meadow is a comparison, not a promised third act. Retire unsuccessful ordinary experiment entries while preserving fixtures and useful river/lake/quarry/woodland geography. Archive redundant recipes and assessment progression. Keep separate comparison saves until a direction has been selected; save compatibility is not required.
+## 3. F31c — realize the supported situation, then stop expanding
 
-Decide whether orchard, comfort and three civic scales supply distinct pleasure or should be consolidated/de-emphasized. No additional level until its intended decisions and satisfaction are clear. Do not add building restrictions, quotas or needs merely to make the catalogue serve as progression.
+Turn the viable arrangement comparison into one playable finite settlement with a readable opening, room for self-chosen action, visible everyday use and a satisfying optional ending. Retain the introduction only if it teaches something distinct. No five-level rollout until this deeper situation earns its place.
+
+Use one short consumed player observation: intention before action, first confusion, recognized consequence, voluntary next action or ending. Alternate finite/free entry order. If nobody has played, state the decision as a falsifiable bet; do not claim preference. Judge motion at1× and use3× for waits.
+
+The remaining checkpoint26–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
+
+## Keep deferred
+
+Catalogue expansion, new needs/music themes, mandatory orchard/comfort/civic-tier progression, legacy assessment campaign and broad mesh-detail passes. Warm materials, recognizable buildings and useful geography have a positive case; public-space readability and central crowding remain unresolved. Newcomer meal-phase synchronization is a named hypothesis; test it only if it obstructs a chosen transformation, not as another isolated polishing branch.
 
 ## Tooling: use what is now available
 
