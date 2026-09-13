@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--neighborhood-comparison")) {try{NeighborhoodComparison.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--welcome-meal")) {try{WelcomeMealChecks.Run();NeighborhoodChecks.Run();PantryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood")) {try{NeighborhoodChecks.Run();SharedWorkChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--shared-work")) {try{SharedWorkChecks.Run();LocalGrainChecks.Run();WorkplaceAssignmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

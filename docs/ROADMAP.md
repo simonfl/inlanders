@@ -6,6 +6,8 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
+**F27a evidence update:** the [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) completes without hunger even without new food production. This scenario has not earned its economic complexity. Prioritize an authored landing/meadow alternative and labor/travel comparison; retain berry-only as a control and explicitly reconsider logistics if it remains irrelevant. No campaign rollout or playable checkpoint yet.
+
 **Next: F27a, a complete neighborhood redesign experiment.** [T01 review tooling](REVIEW_TOOLING_T01.md) is delivered: named scenes, quick inspection and matching evidence bundles. The [checkpoint-eight strategic review](STRATEGIC_REVIEW_8.md) finds a promising physical simulation but an overly administrative campaign and weak whole-scene presentation. Refocus on making a neighborhood work and watching people enjoy it. Test local supply, workplace-first interactions, visible communal progression and a coherent landscape/art direction together. Current features and ten levels are hypotheses, not commitments to preserve.
 
 The [current next-five queue](NEXT_CHUNKS.md) defines the experiment and enabling work. The [role reports](STRATEGIC_REVIEW_8_ROLES.md) record three independent reviewers plus two reused disciplinary passes after the agent thread limit; new native observation reached only the menu. Earlier [ordinary play](CAMPAIGN_REVIEW_F11D.md) covers opening completion and a river assessment. No review establishes human enjoyment. The [earlier audit](ROADMAP_REVIEW_2026_09_12.md) and [checkpoint-five review](REVIEW_CHECKPOINT_5.md) retain historical evidence, not binding recommendations.
@@ -14,7 +16,7 @@ Current foundation: **18 building types, ten campaign levels**, actual meals, as
 
 ## Ordered delivery — test the new direction before scaling it
 
-The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md). The [previous queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is archived. T01 is delivered; the gameplay/art alternatives are not implemented yet. The next review may reject this direction too.
+The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md). The [previous queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is archived. T01 is delivered; the gameplay alternative is implemented but under design validation, and the art alternative remains planned. The next review may reject this direction too.
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |

@@ -88,6 +88,8 @@ Final verification: full existing simulation suite passed; after final welcome f
 
 ## Normal game entry and objectives
 
+Latest design evidence: [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md). Existing berries support both layouts without hunger; extra food infrastructure is not needed for completion. The next task is the authored spatial alternative and labor/travel evidence, with explicit reconsideration of the logistics premise if it remains irrelevant. Normal integration below establishes access, not acceptance of the design.
+
 The main menu now offers **Neighborhood experiment**, with New/Resume and **Play original river level** for comparison. New starts paused on the neighborhood Goals panel. It explains shared work and local grain, offers the one arrival commitment, and links to home placement and the selected (or an available eastern) gathering place. The old central-bread supper controls, campaign selector and percentage bar are hidden in this mode. Squares describe their welcome role. Completion saves once and leaves the village playable.
 
 The experiment uses `saves/neighborhood.json`; Continue, F5/F9, autosaves, restart and menu return follow that mode. Switching to the campaign stores the experiment separately instead of capturing it as the standalone supper. Review runs redirect this path into their own session folder.

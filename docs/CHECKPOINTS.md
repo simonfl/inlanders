@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F27a comparison tooling/evidence — September 12, 2026:** [six matched scenario arms](NEIGHBORHOOD_COMPARISON_F27A.md) expose unnecessary food expansion and a weak location tradeoff. Next is the authored spatial alternative, with a possible change to the logistics premise. Opt-in runner records source hashes, samples and validated snapshots; six-arm repeat and save roundtrips passed in 48 seconds. No game rules changed. Count remains **8**. No cadence review or native play claimed.
+
 | Checkpoint | Commit | Outcome | Review status |
 | --- | --- | --- | --- |
 | Baseline / 0 | `b3a2323` | Start counting after this commit. Earlier features and the stone route analysis are not counted retrospectively. | No review claimed. |
