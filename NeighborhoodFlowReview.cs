@@ -13,7 +13,7 @@ public partial class Game
         bool inherited=_world.IsInheritedShoreline;
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await CaptureReviewBundle("start-menu");await UiClick(_mainButtons["Settlements"]);await Frames();await CaptureReviewBundle("settlement-choice");
+        ShowMainMenu();await Frames();await CaptureReviewBundle("start-menu");await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier settlements"]);await Frames();await CaptureReviewBundle("settlement-choice");
         if(!workplaceFood){await UiClick(_mainButtons["Back"]);await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();}
         await UiClick(_mainButtons[inherited?"New Willow inlet":challenge?"New meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
@@ -36,7 +36,7 @@ public partial class Game
             Check(false,"Original comparison did not open: "+_menuMessage.Text);
         }
         Check(_world.IsRiverCampaign && _world.Neighborhood==null && !_neighborhoodGoals.Visible,"Original comparison entry changed mode");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier settlements"]);await Frames();
         await UiClick(_mainButtons["Resume settlement"]);await Frames();
         if(_world.SaveJson()!=saved || !_neighborhoodGoals.Visible)
         {
@@ -49,7 +49,7 @@ public partial class Game
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Legacy Creative"]);await Frames();
         await UiClick(_mainButtons["New Original clearing"]);await Frames();
         Check(_world.Neighborhood==null,"Creative retained neighborhood goals");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier settlements"]);await Frames();
         await UiClick(_mainButtons["Resume settlement"]);await Frames();if(_world.SaveJson()!=saved)await CaptureReviewBundle("resume-failure");Check(_world.SaveJson()==saved,"Creative resume failed: "+_menuMessage.Text);
         GD.Print("PASS: neighborhood menu, objective isolation, dedicated save, Continue, restart, manual load and baseline roundtrip");
     }

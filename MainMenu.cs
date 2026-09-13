@@ -56,8 +56,8 @@ public partial class Game
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage("A quiet place to build");
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
-        MenuButton("Settlements", NeighborhoodMenu);
-        MenuButton("Creative", CreativeCourtMenu);
+        MenuButton("Play", ()=>CourtStartMenu(true));
+        MenuButton("Free arrangement", ()=>CourtStartMenu(false));
         MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
@@ -97,7 +97,9 @@ public partial class Game
     private void ComparisonMenu()
     {
         MenuPage("Earlier prototypes");
-        _mainColumn.AddChild(Text("Earlier campaigns and food rules remain available for comparison. Settlements is the current local-food workflow; these prototypes use different rules.",15,true));
+        _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play and Free arrangement are the current village experience.",15,true));
+        MenuButton("Earlier settlements", NeighborhoodMenu);
+        MenuButton("Earlier free court", CreativeCourtMenu);
         MenuButton("Campaign", CampaignMenu);
         MenuButton("Free play", FreePlayMenu);
         MenuButton("Legacy Creative",()=>FreePlayMenu(true));

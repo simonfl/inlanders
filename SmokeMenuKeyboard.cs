@@ -24,9 +24,9 @@ public partial class Game
             Input.ParseInputEvent(new InputEventKey {Keycode=Key.Tab,ShiftPressed=true,Pressed=true});
             Input.ParseInputEvent(new InputEventKey {Keycode=Key.Tab,ShiftPressed=true,Pressed=false});await Frames();
         }
-        Check(_mainButtons["Continue"].Disabled && FocusKey()=="Settlements","Initial focus did not skip disabled Continue");
+        Check(_mainButtons["Continue"].Disabled && FocusKey()=="Play","Initial focus did not skip disabled Continue");
         string initial=_world.SaveJson();await Press(Key.Up);await Frames();Check(FocusKey()=="Quit" && _atMainMenu,"Up activated Quit or missed wrap");
-        await Press(Key.Down);await Frames();Check(FocusKey()=="Settlements","Down did not skip disabled Continue");
+        await Press(Key.Down);await Frames();Check(FocusKey()=="Play","Down did not skip disabled Continue");
         await ShiftTab();Check(FocusKey()=="Quit","Shift-Tab order differs");
         await Press(Key.Escape);await Frames();Check(_atMainMenu && _world.SaveJson()==initial,"Root Escape quit or changed village");
         var book=new CampaignBook();foreach(var level in World.CampaignLevels)book.Capture(World.NewCampaign(level.Id));book.SaveFile(_campaignPath);_campaignBook=book;

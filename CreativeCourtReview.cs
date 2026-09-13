@@ -12,7 +12,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         var normal=World.NewArrangementCourt();normal.SaveFile(_neighborhoodPath);string ordinary=normal.SaveJson();
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier free court"]);await Frames();
         await UiClick(_mainButtons["New free arrangement"]);await Frames();
         Check(_world.Creative && _world.IsArrangementCourt && _paused && !_drawer.Visible && CurrentSavePath==CreativeCourtPath,"Free arrangement entry/slot failed");
         Check(_notice.Contains("Real meals") && _notice.Contains("Space"),"Entry guidance was overwritten");
@@ -57,7 +57,7 @@ public partial class Game
         _drawerPages[4].EnsureControlVisible(_economyFood);await Frames();await CaptureReviewBundle("free-economy-rules");CloseDrawer();
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved,"Free save/load changed village");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==saved,"Continue changed free mode");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();await UiClick(_mainButtons["Resume free arrangement"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier free court"]);await Frames();await UiClick(_mainButtons["Resume free arrangement"]);await Frames();
         Check(_world.SaveJson()==saved && File.ReadAllText(_neighborhoodPath)==ordinary,"Resume overwrote the normal court");
         Reset();await Frames();Check(_world.Creative && _world.IsArrangementCourt && _world.SimulatesMeals && _world.Food.Time==0,"Reset lost free court rules");
         GD.Print("PASS: free court menu, two paused moves, actual placement/removal, compact card, physical meals, F5/F9, Continue/resume, separate normal save and reset (scripted UI)");

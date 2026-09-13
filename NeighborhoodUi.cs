@@ -14,11 +14,10 @@ public partial class Game
     private bool CompactNeighborhoodGoals=>_world.Neighborhood?.Complete==true && !_studyGoalDetails;
     private void NeighborhoodMenu()
     {
-        MenuPage("Settlements");
-        MenuButton("Court comparison",CourtExperienceMenu);
-        _mainColumn.AddChild(Text("Make a neighborhood, then reshape a village at Willow inlet. Finish after the welcome, or stay to keep building. All buildings are available.",15,true));
+        MenuPage("Earlier settlements");
+        _mainColumn.AddChild(Text("Archived openings and settlement experiments. They share this earlier-settlement save slot; the current Play and Free arrangement saves are separate.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
-        _mainColumn.AddChild(Text("Start here · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));
+        _mainColumn.AddChild(Text("Earlier opening · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));
         MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
         _mainColumn.AddChild(Text("Try Willow court: arrange an inhabited place and follow its residents. The dispersed inlet is the comparison. Both start with the same people, buildings and food. Welcoming eight newcomers is optional in the court.",15,true));
         MenuButton("New Willow court",()=>StartNeighborhood(World.NewArrangementCourt()));
@@ -26,7 +25,7 @@ public partial class Game
         _mainColumn.AddChild(Text("Comparison prototype · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
         MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));
         _mainColumn.AddChild(Text("Each new settlement replaces this settlement slot. Continue resumes the last village you played.",14,true));
-        MenuButton("Back",ShowMainMenu);
+        MenuButton("Back",ComparisonMenu);
     }
     private void StartNeighborhood(World world)=>MenuAttempt(()=>{world.SaveFile(_neighborhoodPath);EnterFromMenu(world);});
     private void MakeNeighborhoodGoals(VBoxContainer column)

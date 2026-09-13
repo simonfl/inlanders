@@ -12,21 +12,20 @@ public partial class Game
     private bool _courtShowBefore;
     private World? _courtStartingWorld;
     private string CourtStudyPath(bool finite)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,finite?"court-finite.json":"court-open.json");
-    private void CourtExperienceMenu()
+    private void CourtStartMenu(bool finite)
     {
-        MenuPage("Two ways to make a place");
-        _mainColumn.AddChild(Text("Same village and daily life; free building and moves. Each version has its own save.",16,true));
-        Entry(true,"A place to gather");
-        Entry(false,"An open court");
-        _mainColumn.AddChild(Text("A place to gather: make an everyday meal place, see it used, then finish when satisfied.\n\nAn open court: arrange or watch freely, with no assigned project or finish line.",15,true));
-        MenuButton("Back",NeighborhoodMenu);
-        void Entry(bool finite,string title)
-        {
-            string path=CourtStudyPath(finite);
-            if(File.Exists(path))MenuButton("Resume · "+title,()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(path))));
-            void Start()=>MenuAttempt(()=>{var world=World.NewCourtExperience(finite);world.SaveFile(path);EnterFromMenu(world);});
-            MenuButton("New · "+title,()=>{if(File.Exists(path))ConfirmMenu("New · "+title,"Replace this version with the starting court?",Start,CourtExperienceMenu);else Start();});
-        }
+        string title=finite?"A place to gather":"An open court";
+        string path=CourtStudyPath(finite);
+        MenuPage(finite?title:"Free arrangement");
+        _mainColumn.AddChild(Text(finite?
+            "A short introduction: make an everyday meal place, see a neighbor use it, then finish when satisfied. You can keep building and watching afterward.":
+            "Sixteen neighbors and a village of your own. Arrange or watch freely, with no assigned project or finish line.",16,true));
+        if(File.Exists(path))MenuButton("Resume · "+title,()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(path))));
+        void Start()=>MenuAttempt(()=>{var world=World.NewCourtExperience(finite);world.SaveFile(path);EnterFromMenu(world);});
+        MenuButton("New · "+title,()=>{if(File.Exists(path))ConfirmMenu("New · "+title,"Replace this village with a fresh starting court?",Start,()=>CourtStartMenu(finite));else Start();});
+        _mainColumn.AddChild(Text("Buildings and moves are free and instant. Residents collect real food, work and rest; missing meals carry no hunger penalty.",15,true));
+        _mainColumn.AddChild(Text("New replaces only this village. Continue on the main menu returns to the last village you played.",14,true));
+        MenuButton("Back",ShowMainMenu);
     }
     private void MakeCourtExperienceUi(VBoxContainer column)
     {

@@ -4,7 +4,7 @@ A personal Windows town-building game inspired by Outlanders, built with **Godot
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Play **Settlements → New Willow court** to arrange an inhabited village and follow residents’ meal journeys. Select a resident or home; try one building elsewhere and restore its position without rewinding daily life. Welcoming is optional. **New Willow inlet** retains the dispersed comparison. [Observer guide](docs/COURT_OBSERVATION.md).
+Choose **Play → New · A place to gather** for the current introduction, or **Free arrangement → New · An open court** to make your own village. Both start with sixteen residents and the same daily-life rules. [Current direction](docs/REVIEW_CHECKPOINT_25.md).
 
 ## Run from a fresh clone
 
@@ -23,36 +23,28 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
 
-## Current game: two finite settlements
+## Current game: make an inhabited place
 
-Start with **Settlements → New neighborhood**. Goals suggests a next action as you choose a crossing, east-bank homes and a welcome place. Shared workers handle available jobs; food is physically collected from producers and pantries. All buildings remain available, and you can prepare in your own order. Invite four neighbors when you choose; they arrive after 90 simulated seconds even if you are still building.
+**Play** opens **A place to gather**, a short introduction. Choose **Your place [G] → Choose a meal place** to preview six real seats. Move homes to open space, or choose another site near food. After a neighbor actually eats there, finish when satisfied—or keep building and watching. This is an introduction, not yet the planned deeper campaign.
 
-Then try **New meadow settlement**: eight arrivals, one berry patch and a narrow passage make supply and invitation timing matter. Finish with homes, a shared welcome and two meals per resident in reserve. No additional attendance or happiness assessment follows.
-
-Completion is a valid ending. Choose **Finish & choose another settlement**, or **Stay and reshape the village** for an unobstructed view (H returns to managing). After completion, Goals also offers an optional six-place commons used during ordinary meals. It is experimental continued play, not another objective. Exact workplace policies and demolition are in **Details & policies**.
-
-Creative now offers free arrangement in Willow court: the same shared work, actual meals, home visits and recreation, with instant free construction and no hunger penalties. Make multiple moves, remove buildings and shape your own place; welcoming eight more residents is optional. Historical Creative maps remain under Earlier prototypes → Legacy Creative. Earlier campaigns remain secondary comparisons; they are not prerequisites for the current settlements. See the [design decision and three comparison launches](docs/COMMONS_DECISION_F28C.md).
+**Free arrangement** opens the same sixteen-resident village without an assigned project or ending. Buildings and moves are free and instant in both starts. Residents share work, collect real food, rest and meet; missing meals cause no hunger penalty. All buildings and landscaping tools remain available. Choose **Show starting footprints** to compare the original building layout with your edits.
 
 ## Main menu
 
-Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Legacy replay and Free-play/Creative replacement ask for confirmation, initially focused on Cancel. New Settlements replaces its dedicated slot as described on the choice page.
+The title illustration is independent of your save. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider. Returning to a page restores focus and scrolls it into view.
 
-The title screen offers:
-
-- **Continue** restores the last current-format settlement saved or opened, paused. It is disabled until a Continue snapshot exists.
-- **Settlements** offers the guided opening, Willow court arrangement experiment, dispersed inlet control and meadow comparison. Shared workers handle jobs and food is physically collected. All share `saves/neighborhood.json`; starting a new settlement replaces it. Court welcoming is optional; invitations still commit eight arrivals after 90 simulation seconds.
-- **Earlier prototypes** contains Campaign, Free play and historical neighborhood rules; these use different logistics from the selected Settlements workflow.
-- Under Earlier prototypes, **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
-- Under Earlier prototypes, **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
-- **Creative** starts or resumes a free-arrangement court with eight residents. Construction and moves are free; missing meals never slows work or lowers mood, but residents still collect and eat actual food. All decorations and existing landscaping tools are available. Move a home from its resident card or a building from its inspector. Removal returns stored goods and releases food claims. Access protection still applies. Invite eight more residents if you want a busier village; invitations do not require spare beds or food. The older two-map, foodless sandbox is under **Earlier prototypes → Legacy Creative**.
-- **Settings** controls Effects, Nature, Music, music-only mute, and master mute; these are shared with in-game sound settings.
+- **Continue** restores the last village opened or saved, paused—even if it is an archived prototype.
+- **Play** starts or resumes the introductory gathering-place project. Its save is `saves/court-finite.json`.
+- **Free arrangement** starts or resumes the unrestricted sixteen-resident court. Its save is `saves/court-open.json`.
+- **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
+- **Settings** controls Effects, Nature, Music and mute settings.
 - **Quit** exits the game.
 
-In game, use **Options → Return to main menu**. This saves the current settlement and updates `saves/continue.json` before returning; a failed save keeps the village open. F5 also updates Continue. Closing the window also saves the current session and Continue; a failed save keeps the window open. Free-play previous-village copies use `.before-new`; restoring one also keeps the replaced save as `.before-restore`.
+Each current start has explicit **New** and, when saved, **Resume**. New asks before replacing only that mode's village; Cancel leaves it intact. The project and free saves remain separate. **Options → Return to main menu**, F5 and closing the window update Continue. A failed save keeps the village open. F9 restores the selected mode's save; Reset preserves its mode and returns to the starting court.
 
-Free arrangement uses `saves/creative-court.json`, separate from normal court saves. F5/F9, Continue, Resume and Reset preserve its rules. Goals explains the optional welcome; there is no supper objective or visitor trade. Homes, rest and recreation still affect mood; food contributes its full allowance. Legacy Creative maps retain `saves/creative.json` and `saves/creative-three-clearings.json`.
+Earlier settlements retain `saves/neighborhood.json`; the eight-resident free court retains `saves/creative-court.json`. Legacy Creative maps retain `saves/creative.json` and `saves/creative-three-clearings.json`. No save migration is required for this prototype.
 
-In both court variants, shared workers without a job wait near home where space permits, remaining available for meals and work. The resident card starts compact; **Journey** expands its food explanation, **Details** opens the inspector, and **Esc** or × closes it. Blue routes show a currently available source, not a promised next meal; gold follows an actual claim.
+In current court play, shared workers without a job wait near home where possible, remaining available for meals and work. Select a resident or home for the compact daily-life card. **Journey** expands its food explanation, **Details** opens the inspector, and **Esc** or × closes it. Blue routes show an available source, not a promised next meal; gold follows an actual claim.
 
 ## Earlier campaign prototypes: five introductions and five working settlements
 

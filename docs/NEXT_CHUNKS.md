@@ -1,16 +1,12 @@
 # Next chunks — finite spatial transformations
 
-September 13, 2026. Count **25**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
+September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
 **Chosen provisionally:** small authored spatial transformations supported by daily life, with free editing/watching afterward and a clearly available unrestricted start. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
-## 1. F31a — one clear game entry
+[F31a is delivered](GAME_ENTRY_F31A.md): Play opens the introduction; Free arrangement opens the same daily-life village without a project. Earlier settlement experiments are archived. No additional gameplay mode or save format was introduced.
 
-Consolidate the ordinary menu around the current introductory project and a free start using the same daily-life rules. Put superseded neighborhood/court/inlet/meadow rule experiments under Earlier prototypes, preserving useful fixtures and geography. Continue and explicit resume must remain predictable. Do not build a generic mode framework to support branches we are retiring.
-
-This is deliberate consolidation, not another experimental mode. Keep free continuation after finishing. A main entry is a provisional product decision, not a claim the introduction is a finished campaign. Verify new/resume/Continue and mode-switching through the normal UI; no compatibility work.
-
-## 2. F31b — a real spatial compromise
+## 1. F31b — a real spatial compromise
 
 Reuse one inherited site to compare two viable transformations with existing terrain/buildings. Candidates include reclaiming a crowded food-side court versus making a riverside place, or crossing-dependent homes versus allocating useful eastern land to local food. Select the geography only after establishing two viable, visibly different layouts and a recoverable weak layout.
 
@@ -18,13 +14,13 @@ The player should choose the character and compromise, not follow coordinates. P
 
 Before/after ordinary life must communicate the result at normal camera scale. Reject if the first legal patch is as good as deliberate redesign, every answer is another garden, or the only consequence is a report number. If the test fails, change the central activity instead of adding another completion gate or overlay.
 
-## 3. F31c — realize the supported situation, then stop expanding
+## 2. F31c — realize the supported situation, then stop expanding
 
 Turn the viable arrangement comparison into one playable finite settlement with a readable opening, room for self-chosen action, visible everyday use and a satisfying optional ending. Retain the introduction only if it teaches something distinct. No five-level rollout until this deeper situation earns its place.
 
 Use one short consumed player observation: intention before action, first confusion, recognized consequence, voluntary next action or ending. Alternate finite/free entry order. If nobody has played, state the decision as a falsifiable bet; do not claim preference. Judge motion at1× and use3× for waits.
 
-The remaining checkpoint26–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
+The remaining checkpoint27–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
 
 ## Keep deferred
 

@@ -9,7 +9,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier settlements"]);await Frames();
         await UiClick(_mainButtons["New Willow court"]);await Frames();
         Check(_world.IsArrangementCourt && !_drawer.Visible && _paused,"Court entry should expose village, not Goals");
         _noticeUntil=0;await CaptureReviewBundle("court-opening");

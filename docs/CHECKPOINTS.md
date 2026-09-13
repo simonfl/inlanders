@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **25**.
+- Playable checkpoints since adoption: **26**.
 - Last periodic review: **checkpoint25**, [whole-game synthesis](REVIEW_CHECKPOINT_25.md). Three fresh independent roles plus a reused playtest reviewer after the agent limit; source/still/scripted evidence, no uncoached native play or listening acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F31a clear game entry — September 13, 2026:** [Delivery and checks](GAME_ENTRY_F31A.md). Play opens the current introductory project; Free arrangement opens its unrestricted counterpart. Earlier settlements and the eight-resident free court move under Earlier prototypes. Explicit New/Resume, Continue across modes and cancelled replacement preserve separate current saves. One playable entry-workflow outcome, count **26**; no new simulation mode or format. Next F31b; periodic whole-game review remains **30**.
+
 
 **F30d3 actual shared-place project — `bb71c56`, September 13, 2026:** [Delivery](COURT_PROJECT_F30D3.md). Both court versions can place ordinary meal commons before the old welcome; finite ending acknowledges actual consumption, with nearby-food guidance and current-save persistence. One playable outcome, count **25**. [Required whole-game review completed](REVIEW_CHECKPOINT_25.md), three fresh roles plus reused playtest after agent limit. Retain finite spatial transformation provisionally; reject extending the first-diner gate into campaign difficulty. Focused post-review choice/priming/clipping corrections belong to this outcome. Next periodic review **30**, including visual/audio.
 
