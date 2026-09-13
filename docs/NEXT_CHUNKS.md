@@ -28,13 +28,15 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 
 [Delivery and comparisons](LAKESIDE_HALL_F31D.md). After founding, the Village panel offers a quarry/sawmill/hall project using real materials and actual breaks, with an optional ending. Current saves and960/1440 UI journeys pass. Count28. A hall near stone is not automatically cheaper to supply: without local storage, the tested far-shore hall loses on loaded-material travel and visitor journeys, and records some missed meals. No equal-strategy or human-enjoyment claim.
 
-## 1. F31d2 — support a remote worksite
+## F31d2 completed — reject support as justification for the remote hall
 
-Compare the existing local stockpile/food-storage tools at the far-shore worksite against its unsupported control and the home-side hall. Explain the actual material route through existing construction/inspection controls. Test the depot's investment and ongoing resident journeys; do not make another support building compulsory or create a logistics framework.
+[Four-arm comparison and inspection clarification](REMOTE_SUPPORT_F31D2.md). A stone depot marginally speeds remote construction but increases total loaded travel; the fuller depot/pantry package costs more and fares worse. Retain free siting and useful storage tools, cut this remote-hall strategy premise. Actual pickup sources now appear in construction inspection. No new playable scenario; count28, next periodic review30.
 
-If local support still leaves the remote site without a useful purpose, cut that premise rather than add gates or convenient rate changes. Good up-front planning is allowed. Keep ordinary construction/recovery, the gentle founding option and free arrangement. No extra campaign levels or claims of challenge from elapsed time. Whole-game review30 must reassess this direction; native/uncoached play and listening remain missing evidence.
+## 1. F31e — reconsider progression at village scale
 
-The remaining checkpoint29–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
+Design a larger mixed neighborhood within the existing founding village before ordering another single-building project. Compare twelve residents against optional growth with existing homes, food and jobs. Name the spatial/labor decision, test whether ignoring it succeeds, and accept thoughtful up-front planning. No new mode, catalogue, timers or compulsory need system. Scope remains TBD until the comparison identifies a worthwhile transformation; cut it if it only adds waiting.
+
+The checkpoint29–30 horizon remains provisional. Do not fill slots just to reach a review. Uncoached watching/listening is still missing and cannot be replaced with more scripted speed measurements.
 
 ## Keep deferred
 

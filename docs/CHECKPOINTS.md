@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F31d2 remote support — September 13, 2026:** [Comparison and decision](REMOTE_SUPPORT_F31D2.md). Four same-baseline900-second arms, actual use and current-save validation. Local support does not justify the remote hall; cut that strategy premise, retain free placement. Added live construction pickup-source explanation, checked in960/1440 scripted UI journeys. Evidence/clarification chunk, count stays **28**, next full review **30**. No native/uncoached play, listening or performance acceptance.
+
 **F31d lakeside hall — September 13, 2026:** [Delivery and evidence](LAKESIDE_HALL_F31D.md). Optional founding continuation with far-shore stone, ordinary quarry/sawmill/hall construction, actual hall-break ending and persistent state. Three sites, normal rebuilding/reuse and960/1440 UI/save checks. One playable outcome, count **28**. Unsupported remote siting is worse on supply and visitor travel; next F31d2 tests local support. No human play/listening acceptance; periodic review remains **30**.
 
 **F31c2 food-expansion decision — September 13, 2026:** [Four-arm comparison](FOUNDING_LAND_USE_F31C2.md). Homes-only succeeds and remains fed for fifteen simulated minutes; preservation increases actual game meals but is optional for success. Cut this difficulty extension, retain gentle founding, select F31d public works. Correct the criterion: thoughtful up-front planning is valid; ignoring the intended decision is the stronger failure. Tests/docs and two consumed stills only, count remains **27**, review **30**. No production change, human play/listening or independent whole-game review claimed.

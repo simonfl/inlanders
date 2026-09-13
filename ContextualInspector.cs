@@ -39,6 +39,17 @@ public partial class Game
             _siteInfo.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
             if(site.DemolitionRequested)_siteInfo.Text+="\nDismantling ordered · See Details to cancel";
         }
+        if(!site.Complete && !site.DemolitionRequested)
+        {
+            var pickups=_world.People.Where(p=>p.SiteId==site.Id && p.Task==Work.ToMaterials)
+                .GroupBy(p=>new{p.StorageId,p.Cargo})
+                .Select(g=>$"{g.Sum(p=>p.Reserved)} {g.Key.Cargo.ToString().ToLowerInvariant()} from "+(g.Key.StorageId is int id?$"stockpile {id}":"central storage")).ToArray();
+            int carrying=_world.People.Where(p=>p.SiteId==site.Id && p.Task==Work.ToCottage).Sum(p=>p.Carried);
+            _siteInfo.Text+="\n\n"+(pickups.Length>0?"Collecting: "+string.Join("; ",pickups):"No material pickups assigned.");
+            if(carrying>0)_siteInfo.Text+=$"\n{carrying} materials being carried to this site.";
+            _siteInfo.TooltipText="Live assigned trips, not a suggested route. Builders collect from storage, not directly from the quarry or sawmill. A nearby stockpile can hold supplies; set its material and a Keep target in Details & policies. Target zero returns surplus to central storage.";
+        }
+        else _siteInfo.TooltipText="";
         bool food=site.Complete && (site.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Square && _world.Neighborhood?.VenueId==site.Id);
         _localFoodSummary.Visible=food;
         if(food)_localFoodSummary.Text="FOOD HERE\n"+string.Join(" · ",World.EdibleKinds.Where(k=>_world.FoodAt(site.Id,k)>0).Select(k=>$"{_world.FoodAt(site.Id,k)} {k.ToString().ToLowerInvariant()}"))+"\n"+$"{World.EdibleKinds.Sum(k=>_world.FoodAvailableAt(site.Id,k))} available · {World.EdibleKinds.Sum(k=>_world.FoodReservedAt(site.Id,k))} claimed";

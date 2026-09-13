@@ -24,6 +24,11 @@ public partial class Game
             return _world.Place(plan.c,plan.r,kind)!;
         }
         Place(BuildingKind.Quarry,new(15,1));Place(BuildingKind.Sawmill,new(-6,5));var hall=Place(BuildingKind.GatheringHall,new(-2,3));
+        for(int i=0;i<9000 && !_world.People.Any(p=>p.SiteId==hall.Id && p.Task==Work.ToMaterials);i++)_world.Tick(.1f);
+        Check(_world.People.Any(p=>p.SiteId==hall.Id && p.Task==Work.ToMaterials),"No hall pickup observed");
+        CloseDrawer();SelectBuilding(hall.Id);UpdateHud();await Frames();
+        Check(_siteInfo.Text.Contains("Collecting:") && _siteInfo.Text.Contains("central storage"),"Live material source missing");
+        await CaptureReviewBundle("hall-material-pickups");ClearSelection();
         SaveWorld();string active=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==active && _world.Founding!.HallProject==1,"Active project restore differs");
         for(int i=0;i<18000 && _world.FinishFoundingHallProblem()!=null;i++)_world.Tick(.1f);
         Check(_world.FinishFoundingHallProblem()==null,"Hall never used");_world.Validate();UpdateHud();CloseDrawer();ToggleDrawer(2);await Frames();
