@@ -20,6 +20,7 @@ static class ReviewFixtures
             "river"=>World.NewCampaign(6),
             "shared-work"=>World.NewSharedWorkExperiment(),
             "neighborhood"=>World.NewNeighborhoodExperiment(),
+            "neighborhood-landscape"=>World.NewNeighborhoodLandscapeExperiment(),
             "neighborhood-complete"=>WelcomeMealChecks.PrepareCompletedReview(),
             "welcome-meal"=>WelcomeMealChecks.PrepareReview(),
             "ordinary"=>FinaleCampaignChecks.RunRoute(true,false,false),

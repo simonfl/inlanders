@@ -12,9 +12,10 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("A new neighborhood");
-        _mainColumn.AddChild(Text("An experimental alternative to the campaign. Choose a crossing, commit to welcoming four neighbors, and make an eastern neighborhood where they can live and share a meal. All buildings remain available.",15,true));
+        _mainColumn.AddChild(Text("Choose a crossing and make an eastern home for four neighbors. New neighborhood uses the original river map; Try landing and meadow offers a compact landing and a larger clearing farther away. Both use the same food rules. Starting either replaces this experiment's save. All buildings remain available.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume neighborhood",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
+        MenuButton("Try landing and meadow",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodLandscapeExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
         MenuButton("Back",ShowMainMenu);
     }

@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F27a spatial/recovery experiment — September 12, 2026:** [alternative and findings](NEIGHBORHOOD_LANDSCAPE_F27A.md). Selectable constrained landing/larger meadow, original control retained, natural workplace-replacement mistake and multiple failed recovery plans. Source/save validation distinguishes successful mechanics from an unproven design. F27a remains incomplete and count remains **8**; next is an isolated hunger/labor experiment. Native target-window discovery failed; no native play or periodic review claimed.
+
 **F27a comparison tooling/evidence — September 12, 2026:** [six matched scenario arms](NEIGHBORHOOD_COMPARISON_F27A.md) expose unnecessary food expansion and a weak location tradeoff. Next is the authored spatial alternative, with a possible change to the logistics premise. Opt-in runner records source hashes, samples and validated snapshots; six-arm repeat and save roundtrips passed in 48 seconds. No game rules changed. Count remains **8**. No cadence review or native play claimed.
 
 | Checkpoint | Commit | Outcome | Review status |

@@ -1,4 +1,7 @@
 using Inlanders.Simulation;
+if(args.Contains("--neighborhood-recovery-capacity")) {try{NeighborhoodComparison.Recovery(true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--neighborhood-recovery")) {try{NeighborhoodComparison.Recovery();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--neighborhood-landscape")) {try{NeighborhoodComparison.Run(true);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood-comparison")) {try{NeighborhoodComparison.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--welcome-meal")) {try{WelcomeMealChecks.Run();NeighborhoodChecks.Run();PantryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--neighborhood")) {try{NeighborhoodChecks.Run();SharedWorkChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

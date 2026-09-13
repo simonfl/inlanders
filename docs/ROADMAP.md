@@ -6,6 +6,8 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
+**Latest F27a finding:** [spatial and recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) expose a welcome that finishes before food failure and weak recovery through new production. The selectable landing/meadow map preserves starting resource quantities. Next test the global hunger slowdown and shared labor restrictions as separate possible causes; campaign rollout remains deferred. The welcome is an introductory event, not proof of sustainability.
+
 **F27a evidence update:** the [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) completes without hunger even without new food production. This scenario has not earned its economic complexity. Prioritize an authored landing/meadow alternative and labor/travel comparison; retain berry-only as a control and explicitly reconsider logistics if it remains irrelevant. No campaign rollout or playable checkpoint yet.
 
 **Next: F27a, a complete neighborhood redesign experiment.** [T01 review tooling](REVIEW_TOOLING_T01.md) is delivered: named scenes, quick inspection and matching evidence bundles. The [checkpoint-eight strategic review](STRATEGIC_REVIEW_8.md) finds a promising physical simulation but an overly administrative campaign and weak whole-scene presentation. Refocus on making a neighborhood work and watching people enjoy it. Test local supply, workplace-first interactions, visible communal progression and a coherent landscape/art direction together. Current features and ten levels are hypotheses, not commitments to preserve.

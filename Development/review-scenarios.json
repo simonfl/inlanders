@@ -1,7 +1,8 @@
 [
+  {"name":"neighborhood-landscape","description":"Spatial comparison: compact landing, narrow passage and larger meadow; unchanged food rules","generator":"neighborhood-landscape","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-complete","description":"Physically completed neighborhood: arrivals, eastern homes and welcome meals","generator":"neighborhood-complete","focusX":7,"focusZ":2,"zoom":24},
   {"name":"welcome-meal","description":"Neighborhood with a physically built crossing and eastern venue; choose where to prepare the welcome","generator":"welcome-meal","focusX":7,"focusZ":2,"zoom":20},
-  {"name":"neighborhood","description":"In-progress neighborhood experiment: shared work and committed arrivals; welcome activity unfinished","generator":"neighborhood","focusX":5,"focusZ":2,"zoom":30},
+  {"name":"neighborhood","description":"Neighborhood control: shared work, arrivals, physical welcome and homes","generator":"neighborhood","focusX":5,"focusZ":2,"zoom":30},
   {"name":"shared-work","description":"Development staffing foundation, not the finished neighborhood scenario","generator":"shared-work","focusX":0,"focusZ":0,"zoom":24},
   {"name":"opening","description":"Fresh level 1; normal campaign controls and empty build space","generator":"opening","focusX":0,"focusZ":0,"zoom":24},
   {"name":"river","description":"Fresh level 6; choose a crossing and neighborhood layout","generator":"river","focusX":5,"focusZ":2,"zoom":30},

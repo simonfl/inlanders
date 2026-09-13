@@ -4,6 +4,8 @@ In progress. This is the complete gameplay experiment from the [strategic reset]
 
 ## Design decision
 
+Latest evidence changes the next step: [authored spatial alternative and recovery findings](NEIGHBORHOOD_LANDSCAPE_F27A.md). The welcome can finish before food failure. Treat the implemented event as introductory, and test the global hunger slowdown/shared labor restrictions before claiming two viable replacement food strategies. Earlier intentions below are hypotheses still being tested, not acceptance criteria satisfied by mechanical completion.
+
 A bounded independent game-designer review recommended making expansion a commitment and the welcome an actual activity. Existing `BeginSupper` is unsuitable unchanged: it deducts central bread immediately and globally redirects the village. Existing Automatic workplace behavior is also insufficient: it chooses a workplace within an assigned profession, while Unassigned residents do no work. Renaming either system would preserve the rejected design.
 
 Start from the eight-person west hamlet and author two credible eastern sites: a compact landing with short access to existing supplies and a larger meadow farther away. All buildings remain available. Do not mark compulsory building plots or require a pantry, bakery or particular recreation identity.

@@ -7,10 +7,11 @@ public partial class Game
 {
     private async Task ProbeNeighborhoodFlow()
     {
+        bool landscape=_world.Map.Name=="Landing and meadow — experiment";
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
-        await UiClick(_mainButtons["New neighborhood"]);await Frames();
+        await UiClick(_mainButtons[landscape?"Try landing and meadow":"New neighborhood"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
         Check(_goalTitle.Text=="A new neighborhood" && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
         Check(_neighborhoodCommit.Disabled && _neighborhoodCommit.TooltipText.Contains("crossing"),"Opening commitment lacks crossing guidance");
@@ -19,7 +20,8 @@ public partial class Game
         Check(CurrentSavePath==_neighborhoodPath,"Experiment uses sandbox save slot");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
         Check(_world.SaveJson()==saved,"Continue changed neighborhood state");
-        Reset();await Frames();Check(_world.Neighborhood!=null && _world.Food.Time==0,"Restart changed game mode");
+        string mapName=_world.Map.Name;
+        Reset();await Frames();Check(_world.Neighborhood!=null && _world.Food.Time==0 && _world.Map.Name==mapName,"Restart changed game mode or landscape");
         LoadWorld();await Frames();Check(_world.SaveJson()==saved,"Manual restore changed neighborhood state");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
         await UiClick(_mainButtons["Play original river level"]);await Frames();
