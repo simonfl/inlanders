@@ -4,7 +4,7 @@ A personal Windows town-building game inspired by Outlanders, built with **Godot
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Choose **Play → New · A place to gather** for the current introduction, or **Free arrangement → New · An open court** to make your own village. Both start with sixteen residents and the same daily-life rules. [Current direction](docs/REVIEW_CHECKPOINT_25.md).
+Choose **Play → Found a village · A home by the water → New** for the founding candidate. **Play → Short introduction · A place to gather** keeps the earlier introduction available; **Free arrangement** opens the unrestricted court. [Current queue](docs/NEXT_CHUNKS.md).
 
 ## Run from a fresh clone
 
@@ -25,7 +25,9 @@ For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Rev
 
 ## Current game: make an inhabited place
 
-**Play** opens **A place to gather**, a short introduction. Choose **Your place [G] → Choose a meal place** to preview six real seats. Move homes to open space, or choose another site near food. After a neighbor actually eats there, finish when satisfied—or keep building and watching. This is an introduction, not yet the planned deeper campaign.
+**Play** offers **A home by the water**: eight founders, one home, normal construction and shared workers. Build homes, choose shore/woodland/garden food, and invite two households when ready. An optional ending follows actual meals and housing. This is a gentle candidate; the tested bulk-order route is still too easy to establish a deeper challenge.
+
+**Short introduction · A place to gather** keeps the earlier court. Choose **Your place [G] → Choose a meal place** to preview six real seats. Move homes to open space, or choose another site near food. After a neighbor actually eats there, finish when satisfied—or keep building and watching. This is an introduction, not yet the planned deeper campaign.
 
 **Free arrangement** opens the same sixteen-resident village without an assigned project or ending. Buildings and moves are free and instant in both starts. Residents share work, collect real food, rest and meet; missing meals cause no hunger penalty. All buildings and landscaping tools remain available. Choose **Show starting footprints** to compare the original building layout with your edits.
 
@@ -34,13 +36,13 @@ For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Rev
 The title illustration is independent of your save. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider. Returning to a page restores focus and scrolls it into view.
 
 - **Continue** restores the last village opened or saved, paused—even if it is an archived prototype.
-- **Play** starts or resumes the introductory gathering-place project. Its save is `saves/court-finite.json`.
+- **Play** offers the founding village (`saves/founding.json`) and the short gathering-place introduction (`saves/court-finite.json`).
 - **Free arrangement** starts or resumes the unrestricted sixteen-resident court. Its save is `saves/court-open.json`.
 - **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
 - **Settings** controls Effects, Nature, Music and mute settings.
 - **Quit** exits the game.
 
-Each current start has explicit **New** and, when saved, **Resume**. New asks before replacing only that mode's village; Cancel leaves it intact. The project and free saves remain separate. **Options → Return to main menu**, F5 and closing the window update Continue. A failed save keeps the village open. F9 restores the selected mode's save; Reset preserves its mode and returns to the starting court.
+Each current start has explicit **New** and, when saved, **Resume**. New asks before replacing only that mode's village; Cancel leaves it intact. The project and free saves remain separate. **Options → Return to main menu**, F5 and closing the window update Continue. A failed save keeps the village open. F9 restores the selected mode's save; Reset preserves the chosen settlement type.
 
 Earlier settlements retain `saves/neighborhood.json`; the eight-resident free court retains `saves/creative-court.json`. Legacy Creative maps retain `saves/creative.json` and `saves/creative-three-clearings.json`. No save migration is required for this prototype.
 

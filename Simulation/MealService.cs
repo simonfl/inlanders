@@ -161,6 +161,7 @@ public sealed partial class World
                 if(r.Commons && Commons is {} commons)commons.FirstDiner??=p.Id;
                 p.Carried=0; r.Carrying=false; r.Eaten=true; p.Fed=true;
                 Food.MealConsumptions.Add(new(r.Id,p.Id,Food.Time,r.Kind,r.Closed));
+                if(Founding!=null && p.Id>=InitialPopulation)Founding.Settled.Add(p.Id);
                 RecentFood.Add(new(Food.Time,Eaten:1));
                 if(r.Closed) RetireMeal(p,true);
                 Finish(p); break;

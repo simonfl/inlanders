@@ -1,4 +1,5 @@
 [
+  {"name":"founding","description":"Founding settlement opening and actual entry controls","generator":"founding","focusX":0,"focusZ":0,"zoom":29},
   {
     "name": "spatial-remote",
     "description": "F31b same-age spatial comparison: remote",

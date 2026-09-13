@@ -57,6 +57,7 @@ public partial class Game
             _arrivalInfo.Text=_world.NeighborhoodStatus+(_world.Neighborhood.CommittedAt==null?"\n"+(problem??"Ready to commit. No spare beds or food reserve required."):"");
             _inviteButton.TooltipText=$"One commitment: {_world.NeighborhoodArrivalWord} shared workers arrive after 90 seconds. Insufficient housing or food does not cancel their arrival.";
         }
+        if(_world.Founding!=null){_arrivalInfo.Text=$"{_world.Population} neighbors · {_world.Beds} beds\n"+(problem??"Ready for two neighbors. Watch food service as the village grows.");_inviteButton.TooltipText="Two shared workers join now. Spare beds and current meal service are required; no stock quota.";}
         _housing.GetParent<Control>().TooltipText = $"{_world.Housed} housed of {_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare";
     }
 }

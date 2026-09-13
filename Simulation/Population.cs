@@ -9,6 +9,7 @@ public sealed partial class World
 
     public string? InvitationProblem()
     {
+        if(Founding!=null)return FoundingInvitationProblem();
         if(Neighborhood!=null)return NeighborhoodInvitationProblem(Neighborhood.CommittedAt!=null?null:NeighborhoodLanding());
         if (Food.Celebrating) return "Welcome newcomers after supper finishes.";
         if (SpareBeds < 2) return "Finish two spare beds to welcome newcomers.";
@@ -46,7 +47,7 @@ public sealed partial class World
         {
             int id = Population, index = id - InitialPopulation;
             People.Add(new Villager { Id = id, Name = index < names.Length ? names[index] : $"Neighbor {id + 1}",
-                NextMealTime=Food.Time+15+index%2*7.5f, Position = spot.Point, Role = Role.Unassigned, Status = "New arrival · choose a job in People" });
+                NextMealTime=Food.Time+15+index%2*7.5f, Position = spot.Point, Role = Role.Unassigned, SharedWorker=SharedWork, Status = "New arrival · choose a job in People" });
         }
         ReconcileHomes(); History.Add($"{People[^2].Name} and {People[^1].Name} joined the village");
         if(Campaign?.River is {Phase:1 or 3} river)

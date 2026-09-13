@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
+September 13, 2026. Count **27**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -14,15 +14,19 @@ September 13, 2026. Count **26**. [Whole-game review25](REVIEW_CHECKPOINT_25.md)
 
 [Comparison and recovery](REDEVELOPMENT_F31B2.md): ordering all work at the start finishes fastest without missed meals. Careful staging adds waiting. Demolition-first can cause a recoverable shortage, but another garden fixes it. No new playable outcome; count26. Suspend the old F31c redevelopment scenario.
 
-## 1. F31c1 — one playable founding-settlement candidate
+## F31c1 delivered — playable founding, still a gentle opening
 
-Shift from rearranging a self-sufficient village to establishing one. Audit the existing lake/woodland openings, then use one authored site, normal construction, existing geographically different food sources and player-triggered growth. The player should choose where homes/food go and respond to resulting journeys/supply. Give the opening a concrete purpose; no artificial disaster is needed to make doing nothing leave the settlement unbuilt.
+[Delivery and evidence](FOUNDING_F31C1.md). Play offers A home by the water and the short introduction; Free arrangement stays separate. Founding uses normal construction, local producer food, shared labor and player-triggered households, with an optional ending after actual settlement. Count27. The bulk-order route reaches the ending in180 simulated seconds with no missed meals: reject this as the deeper skillful scenario, even though it is playable.
 
-Deliver an accessible candidate for actual play, not another standalone courtyard comparison. This is a falsifiable bet, not a proven challenge. Check bulk ordering during implementation; reject place-everything-and-wait as the whole experience. Do not simply rename a legacy assessment. Keep all buildings available, Free arrangement separate and a finite optional ending after actual use. No new needs, required move counts, attendance windows or five-level rollout.
+## 1. F31c2 — make expansion change a decision
 
-Use one consumed player observation when available: intention, first confusion, recognized consequence and voluntary next action/ending. Judge motion at1× and use3× for waits. Without a player, explicitly retain the uncertainty about fun and pacing; automated construction and meals cannot establish either.
+Work in the playable founding candidate. Audit actual food output, useful land and the timber/habitat conflict; choose one concrete expansion conflict that makes the player reconsider a siting or production choice. Keep a bulk-order control. Woodland food contributed little in the tested route while berries dominated; adding a hunting lodge alone is not proof of a viable alternative economy.
 
-The remaining checkpoint27–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
+Do not raise the population target, slow construction, append meal certificates or add arbitrary resource shortages to stretch the opening. If the extension remains bulk placement and waiting, cut it rather than declare challenge achieved. No new needs/catalogue or multi-level rollout. Keep the founding candidate explicitly gentle until evidence supports more.
+
+Use a consumed player observation when available: intention, first confusion, recognized consequence and voluntary next action. Judge motion at1×, use3× for waits. Human enjoyment/pacing remain unknown. The earlier court/free controls must continue to work.
+
+The remaining checkpoint28–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
 
 ## Keep deferred
 

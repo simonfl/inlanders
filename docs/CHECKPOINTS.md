@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **26**.
+- Playable checkpoints since adoption: **27**.
 - Last periodic review: **checkpoint25**, [whole-game synthesis](REVIEW_CHECKPOINT_25.md). Three fresh independent roles plus a reused playtest reviewer after the agent limit; source/still/scripted evidence, no uncoached native play or listening acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F31c1 founding village — September 13, 2026:** [Delivery and limits](FOUNDING_F31C1.md). Play offers A home by the water: normal construction, shared arrivals, local food, explicit growth and an optional ending after actual newcomer meals. Dedicated current save and menu/restore/finish controls. One playable outcome, count **27**. Bulk route succeeds in180 simulated seconds: challenge not accepted; next F31c2 must address consequential expansion. Next periodic review **30**; no human play/listening or independent whole-game review claimed.
 
 **F31b2 staged redevelopment — September 13, 2026:** [Comparison and direction](REDEVELOPMENT_F31B2.md). Five ordinary-rule900-second arms, same-age recovery, conservation/current saves and four consumed stills. Reject staging on this site: bulk ordering is fastest and remains fed. Next F31c1 founding candidate; old redevelopment delivery suspended. Evidence/test chunk only, count remains **26**, next review **30**. No human play/listening or independent whole-game review claimed.
 

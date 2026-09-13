@@ -263,7 +263,7 @@ public sealed partial class World
     private void ValidateFood()
     {
         ValidateLocalGrain();
-        ValidateNeighborhood();
+        ValidateNeighborhood();ValidateFounding();
         void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
         Check(Food.Fruit>=0 && Food.GrownFruit>=0 && Food.EatenFruit>=0 && StoredFood(Resource.Fruit)+Cargo(Resource.Fruit)+Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest)+Food.EatenFruit==Food.GrownFruit+CreativeNet(Resource.Fruit),"Fruit conservation failed");
