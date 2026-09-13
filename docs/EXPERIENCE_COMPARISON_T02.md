@@ -33,3 +33,7 @@ The district adds two normally constructed cottages, then assigns up to four pro
 Commands: `--neighborhood-local-services` and `--neighborhood-district`. Results, final states, source manifests and person-task seconds are in `artifacts/neighborhood-recovery-capacity-local-services` and its `-district` counterpart. Earlier control states remain separate. These are fixed scripted plans, not optimal or uncoached play.
 
 **Decision:** the simple service-layout rescue did not establish a robust alternative to foraging. Stop adding producer/venue/bed counts to this sequence. Proceed to the already proposed consequential production/service comparison: let workplaces store their edible output, allow physical collection there, and separate distribution labor from producers' routine return journeys. Keep the existing rules as control, preserve physical conservation and current-format saves, and compare a balanced production plan as well as a recoverable mistake. This is a prototype decision under uncertainty, not proof the replacement is fun or that all old strategies fail.
+
+## Workplace workflow outcome
+
+The [implemented paired comparison](WORKPLACE_FOOD_T02.md) now supports the production/distribution candidate: the balanced bakery plan sustains meals and gardens nearly do. The fixed foraging recovery regresses. Next settle the location/distribution tradeoff, then choose a concrete continuing decision rather than promoting a fed but idle village. Earlier next-step paragraphs above record the sequence of experiments.

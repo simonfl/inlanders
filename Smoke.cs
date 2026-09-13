@@ -13,6 +13,11 @@ public partial class Game
     }
     private async Task UiClick(Button button)
     {
+        if(_mainScroll!=null && _mainScroll.IsAncestorOf(button))
+        {
+            _mainScroll.EnsureControlVisible(button);
+            await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+        }
         if (_inspectionScroll.IsAncestorOf(button))
         {
             _inspectionScroll.EnsureControlVisible(button);

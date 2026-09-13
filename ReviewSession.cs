@@ -112,7 +112,7 @@ public partial class Game
         while(_reviewCapturing)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         Check(_reviewCapture==previous+1 && File.Exists(Path.Combine(_reviewDirectory,$"capture-{_reviewCapture:0000}","manifest.json")),"F8 did not finish a bundle");
         _world.Validate();
-        if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape")await ProbeNeighborhoodFlow();
+        if(_world.Neighborhood!=null && _reviewRequest!.RootElement.GetProperty("scenario").GetString() is "neighborhood" or "neighborhood-landscape" or "neighborhood-workplace-food")await ProbeNeighborhoodFlow();
         if(_world.SharedWork)await ProbeSharedStaffing();
         File.WriteAllText(Path.Combine(_reviewDirectory,"checks.json"),JsonSerializer.Serialize(new{passed=true,scriptedUi=true,initialTime,finalTime=_world.Food.Time,speed=_speed,selectedPerson=_selectedPerson,checks=new[]{"paused startup","normal speed cycle","catalog","normal process ticks","F8 bundle"}},new JsonSerializerOptions{WriteIndented=true}));
         GD.Print("PASS: review normal controls, process advancement, selection and F8 capture (scripted UI probe)");

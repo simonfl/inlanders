@@ -14,7 +14,7 @@ Check that opening, river and dense scenes are discoverable and reproducible; de
 
 ## 2. F27a — one complete living-neighborhood alternative
 
-**Current decision — stop balance iteration:** [isolated hunger comparison](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) improves first-fed time but does not produce stable recovery. Do not proceed through a series of cap/yield/deadline tweaks. Retain the welcome as introductory; F27a remains unaccepted. **Work on F27b next**, then choose village-making versus a substantial production/service redesign through T02. The spatial and recovery updates below record the evidence leading here.
+**Current decision — stop balance iteration:** [isolated hunger comparison](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) improves first-fed time but does not produce stable recovery. Do not proceed through a series of cap/yield/deadline tweaks. Retain the welcome as introductory; F27a remains unaccepted. F27b now has a retained candidate; T02 is testing the production/service redesign. The spatial and recovery updates below record the evidence leading here.
 
 **Evidence:** [six strategies](NEIGHBORHOOD_COMPARISON_F27A.md) found existing berries sufficient. The [landing/meadow alternative and recovery branches](NEIGHBORHOOD_LANDSCAPE_F27A.md) exposed more travel and persistent shortages after replacing foraging. The completed welcome precedes these failures. Those experiments are finished; their earlier proposed next steps are historical, not a second queue.
 
@@ -42,7 +42,7 @@ Reject a treatment that succeeds only as a staged screenshot, obscures actions o
 
 ## 4. T02 — compare experiences and choose what survives
 
-**Active now.** [Experience comparison](EXPERIENCE_COMPARISON_T02.md): use the retained original/valley scenes and awkward mixed-facing meadow fixture. Nearby services and a coordinated housing/workplace district did not stabilize the fixed recovery plans. Next prototype workplace food stores and separate physical distribution, retaining the old workflow as control and using a balanced production plan. Stop further venue/bed/count tweaks. Stop static art iteration. Preserve the user's demand for skill and recoverable decisions: post-welcome idleness is not a successful core loop. Actual motion, interaction and sound evidence take priority over more images; document access limits honestly.
+**Active now.** [Experience comparison](EXPERIENCE_COMPARISON_T02.md): use the retained original/valley scenes and awkward mixed-facing meadow fixture. Nearby services and a coordinated housing/workplace district did not stabilize the fixed recovery plans. The [workplace food prototype](WORKPLACE_FOOD_T02.md) sustains the balanced bakery recovery and nearly sustains gardens, but regresses the fixed foraging plan. Settle its location/distribution tradeoff, then choose the logistics direction and a post-welcome decision; retain original controls. Stop further venue/bed/count tweaks. Stop static art iteration. Preserve the user's demand for skill and recoverable decisions: post-welcome idleness is not a successful core loop. Actual motion, interaction and sound evidence take priority over more images; document access limits honestly.
 
 Finish the narrow runner begun with F27a: shared baseline, named variants, observation windows, concise results, failed layouts and recovery branches. Reuse the finale runner's orchestration pattern. Avoid a universal rules editor or generalized replay system. On its second use, measure setup code/time saved and maintenance required.
 

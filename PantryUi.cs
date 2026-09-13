@@ -23,10 +23,18 @@ public partial class Game
     }
     private void UpdatePantryControls()
     {
-        var pantry=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && c.Kind==BuildingKind.Pantry && !c.DemolitionRequested);
+        var pantry=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && (c.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(c)) && !c.DemolitionRequested);
         _pantryControls.Visible=pantry!=null; if(pantry==null) return;
+        bool workplace=_world.IsWorkplaceFoodStore(pantry);
+        _pantryLess.Visible=_pantryMore.Visible=!workplace;
+        if(workplace)
+        {
+            _pantryInfo.Text="WORKPLACE FOOD\n"+(pantry.Complete?string.Join("\n",World.EdibleKinds.Where(k=>_world.FoodAt(pantry.Id,k)>0).Select(k=>$"{k}: {_world.FoodAt(pantry.Id,k)} stored · {_world.FoodReservedAt(pantry.Id,k)} reserved"))+$"\n{pantry.PantryFood.Sum()}/24 portions · {_world.FoodIncoming(pantry.Id)} incoming":"Storage opens after construction.")+"\nPeople can collect meals here. Haulers leave four portions for local meals and move surplus to neighborhood pantries or central storage. Pausing production leaves stored food available. A full store sends new output to another pantry.";
+            return;
+        }
         _pantryInfo.Text=$"Supply target {pantry.PantryTarget}/24 portions\n"+(pantry.Complete?string.Join("\n",World.EdibleKinds.Select(k=>$"{k}: {_world.FoodAt(pantry.Id,k)} stored · {_world.FoodReservedAt(pantry.Id,k)} reserved"))+$"\n{_world.FoodIncoming(pantry.Id)} incoming":"Food service begins after construction.")+"\nProducers can deliver here directly. Optional haulers replenish from central food and return stock above the target. Target 0 drains stock with haulers; meals and direct producer deposits continue.";
         _pantryLess.Disabled=pantry.PantryTarget==0; _pantryMore.Disabled=pantry.PantryTarget==24;
+        if(_world.HasWorkplaceFood)_pantryInfo.Text+="\nIn this experiment, haulers also collect surplus directly from workplace stores.";
     }
     private void MakePantry(Node3D parent,Cottage site,int stage)
     {

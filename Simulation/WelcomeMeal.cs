@@ -6,8 +6,8 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     private bool IsWelcomeStore(Cottage c)=>Neighborhood!=null && Buildings.Get(c.Kind).RecreationSlots>0;
-    private bool IsFoodStore(Cottage c)=>c.Kind==BuildingKind.Pantry || IsWelcomeStore(c);
-    public string FoodStoreName(int? id)=>id is int n?IsWelcomeStore(Cottages.Single(c=>c.Id==n))?$"Welcome table {n}":$"Pantry {n}":"Central pantry";
+    private bool IsFoodStore(Cottage c)=>c.Kind==BuildingKind.Pantry || IsWelcomeStore(c) || IsWorkplaceFoodStore(c);
+    public string FoodStoreName(int? id)=>id is int n?IsWelcomeStore(Cottages.Single(c=>c.Id==n))?$"Welcome table {n}":IsWorkplaceFoodStore(Cottages.Single(c=>c.Id==n))?$"{Buildings.Get(Cottages.Single(c=>c.Id==n).Kind).Name} {n} store":$"Pantry {n}":"Central pantry";
     public string? WelcomeVenueProblem(int id)
     {
         if(Neighborhood==null)return "Welcome meals belong to the neighborhood experiment.";

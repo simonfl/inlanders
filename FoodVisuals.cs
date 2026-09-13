@@ -27,6 +27,7 @@ public partial class Game
     {
         MakeBuildingPieces(parent,site,stage);
         MakeHomeComfort(parent,site,stage);
+        if(stage==3 && _world.IsWorkplaceFoodStore(site))MakeWorkplaceFoodStock(parent,site);
         BatchStaticGeometry(parent);
     }
     private void MakeBuildingPieces(Node3D parent, Cottage site, int stage)

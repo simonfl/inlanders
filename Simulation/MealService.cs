@@ -115,7 +115,7 @@ public sealed partial class World
                 .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null);
             if(seat==null) continue;
             r.Welcome=welcome!=null && source==welcome; r.SourceId=source; r.Kind=kinds[0]; r.Reserved=true; r.Seat=seat.Value;
-            Go(person,access,Work.ToMealSupply,r.Welcome?"Joining the welcome meal":source is int id?$"Collecting a meal at pantry {id}":"Collecting a meal at the central pantry"); return true;
+            Go(person,access,Work.ToMealSupply,r.Welcome?"Joining the welcome meal":$"Collecting a meal at {FoodStoreName(source)}"); return true;
         }
         return false;
     }

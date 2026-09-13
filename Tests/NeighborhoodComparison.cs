@@ -8,13 +8,13 @@ static class NeighborhoodComparison
 {
     sealed record Sample(float Seconds,int Food,float Hunger,int Housed,int Welcomed,int Bread,int Vegetables);
     static readonly JsonSerializerOptions Json=new(){WriteIndented=true};
-    static void SaveChecked(World w,string path)
+    public static void SaveChecked(World w,string path)
     {
         string json=w.SaveJson();
         if(World.LoadJson(json).SaveJson()!=json)throw new Exception($"Comparison save failed roundtrip: {path}");
         File.WriteAllText(path,json);
     }
-    static Cottage PlaceNear(World w,BuildingKind kind,Cell center)
+    public static Cottage PlaceNear(World w,BuildingKind kind,Cell center)
     {
         // Preserve the fixed-plan orientation when possible, then try the other legal facings.
         foreach(int rotation in new[]{0,1,2,3})
@@ -25,13 +25,8 @@ static class NeighborhoodComparison
         }
         throw new InvalidOperationException($"No legal east-bank space for {kind}; failed layout, not a successful recovery.");
     }
-    public static void Recovery(bool capacity=false,bool noSlowdown=false,bool localServices=false,bool district=false)
+    public static World PrepareRecovery()
     {
-        string folder=(capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery")+(noSlowdown?"-no-slowdown":"")+(localServices?"-local-services":"")+(district?"-district":"");Directory.CreateDirectory(folder);
-        var timer=Stopwatch.StartNew();
-        var sources=Directory.GetFiles("Simulation","*.cs").Append("Tests/NeighborhoodComparison.cs")
-            .OrderBy(p=>p,StringComparer.Ordinal).ToDictionary(p=>p,p=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
-        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity,noSlowdown,localServices,district},Json));
         var w=World.NewNeighborhoodLandscapeExperiment();
         var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;
         for(int i=0;i<12000 && !bridge.Complete;i++)w.Tick(.1f);
@@ -46,6 +41,17 @@ static class NeighborhoodComparison
             if(venue.Complete && w.Neighborhood!.VenueId==null)w.ChooseWelcomeVenue(venue.Id);
             w.Tick(.1f);if(i%100==0)w.Validate();
         }
+        if(w.Food.Hunger==0)throw new Exception("Natural mistake did not create a shortage");
+        w.Validate();return w;
+    }
+    public static void Recovery(bool capacity=false,bool noSlowdown=false,bool localServices=false,bool district=false)
+    {
+        string folder=(capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery")+(noSlowdown?"-no-slowdown":"")+(localServices?"-local-services":"")+(district?"-district":"");Directory.CreateDirectory(folder);
+        var timer=Stopwatch.StartNew();
+        var sources=Directory.GetFiles("Simulation","*.cs").Append("Tests/NeighborhoodComparison.cs")
+            .OrderBy(p=>p,StringComparer.Ordinal).ToDictionary(p=>p,p=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
+        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity,noSlowdown,localServices,district},Json));
+        var w=PrepareRecovery();
         SaveChecked(w,$"{folder}/mistake.json");
         if(w.Food.Hunger==0)throw new Exception("Natural mistake did not create a shortage; revise experiment, do not inject food loss.");
         var results=new List<object>();string baseline=w.SaveJson();

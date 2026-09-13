@@ -8,7 +8,7 @@ public sealed partial class World
 {
     public const int PantryCapacity=24;
     private Cottage Pantry(int id) => Cottages.Single(c=>c.Id==id && IsFoodStore(c) && c.Complete);
-    private IEnumerable<int?> FoodStores() => new int?[]{null}.Concat(Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused).Select(c=>(int?)c.Id));
+    private IEnumerable<int?> FoodStores() => new int?[]{null}.Concat(Cottages.Where(c=>(c.Kind==BuildingKind.Pantry && !c.WorkPaused || IsWorkplaceFoodStore(c)) && c.Complete && !c.DemolitionRequested).Select(c=>(int?)c.Id));
     public Cell FoodAccess(int? id) => id is int n?Pantry(n).Entrance:YardAccess;
     public int FoodAt(int? id,Resource kind) => id is int n ? Pantry(n).PantryFood[Array.IndexOf(EdibleKinds,kind)] : CentralFood(kind);
     public int StoredFood(Resource kind) => CentralFood(kind)+Cottages.Sum(c=>c.PantryFood[Array.IndexOf(EdibleKinds,kind)]);
@@ -33,9 +33,10 @@ public sealed partial class World
     {
         person.FoodDestinationId=null;
         if(DeliverLocalGrain(person))return;
+        if(DeliverWorkplaceFood(person))return;
         if(EdibleKinds.Contains(person.Cargo))
         {
-            var destination=FoodStores().Where(id=>id==null || PantrySpace(id.Value)>=person.Carried)
+            var destination=FoodStores().Where(id=>id==null || !IsWorkplaceFoodStore(Pantry(id.Value)) && PantrySpace(id.Value)>=person.Carried)
                 .OrderBy(id=>TravelCost(At(person),FoodAccess(id))).ThenBy(id=>id??0).First();
             person.FoodDestinationId=destination;
         }
@@ -49,7 +50,9 @@ public sealed partial class World
         foreach(var pantry in Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused).OrderByDescending(c=>c.Priority).ThenBy(c=>c.Id))
         {
             int need=Math.Min(PantrySpace(pantry.Id),pantry.PantryTarget-pantry.PantryFood.Sum()-FoodIncoming(pantry.Id));
-            if(need<=0 || surplus==0) continue;
+            if(need<=0)continue;
+            if(HasWorkplaceFood && ClaimWorkplaceDistribution(person,pantry,need))return true;
+            if(surplus==0) continue;
             var foods=EdibleKinds.Where(k=>FoodAvailableAt(null,k)>0).OrderBy(k=>FoodAt(pantry.Id,k)).ToArray();
             if(foods.Length==0) continue;
             person.Cargo=foods[0]; person.PantryReserved=Math.Min(4,Math.Min(surplus,Math.Min(need,FoodAvailableAt(null,person.Cargo))));
@@ -58,7 +61,7 @@ public sealed partial class World
         }
         foreach(var pantry in Cottages.Where(c=>IsFoodStore(c) && c.Complete && !c.DemolitionRequested && c.Id!=Neighborhood?.VenueId).OrderBy(c=>TravelCost(At(person),c.Entrance)))
         {
-            int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-pantry.PantryTarget;
+            int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-(IsWorkplaceFoodStore(pantry)?WorkplaceFoodReserve:pantry.PantryTarget);
             if(spare<=0) continue;
             var kind=EdibleKinds.OrderByDescending(k=>FoodAvailableAt(pantry.Id,k)).First();
             person.Cargo=kind; person.PantryReserved=Math.Min(4,Math.Min(spare,FoodAvailableAt(pantry.Id,kind)));

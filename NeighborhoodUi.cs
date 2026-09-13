@@ -15,10 +15,11 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("A new neighborhood");
-        _mainColumn.AddChild(Text("Choose a crossing and make an eastern home for four neighbors. New neighborhood uses the original river map; Try landing and meadow offers a compact landing and a larger clearing farther away. Both use the same food rules. Starting either replaces this experiment's save. All buildings remain available.",15,true));
+        _mainColumn.AddChild(Text("Make a home across the river. Compare the original map, a landing/meadow layout, or workplace food storage on that layout. All buildings remain available. Starting a new experiment replaces its save.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume neighborhood",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Try landing and meadow",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodLandscapeExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
+        MenuButton("Try workplace food",()=>MenuAttempt(()=>{var world=World.NewWorkplaceFoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
         MenuButton("Back",ShowMainMenu);
     }
@@ -45,6 +46,7 @@ public partial class Game
         _goalTitle.Text=n.Complete?"A neighborhood to call home":"A new neighborhood";
         _goalArrival.Text=n.Complete?"The newcomers have settled in. Keep shaping the village, or compare another approach from the main menu.":"Make an eastern home for four neighbors, then share a welcome meal at a square, hall or seating garden. All buildings are available. Shared workers take available jobs; dedicate residents at workplaces when needed.";
         _objective.Text=_world.NeighborhoodStatus;
+        if(!n.Complete && _world.HasWorkplaceFood)_goalArrival.Text+=" Food stays at forager huts, vegetable gardens and bakeries first. People can eat there; haulers distribute surplus to pantries.";
         _neighborhoodHome.Visible=!CompactNeighborhoodGoals;
         _studyDetailsButton.Visible=_storybookScene && n.Complete;
         _studyDetailsButton.Text=_studyGoalDetails?"Hide village details":"Show village details";

@@ -12,6 +12,14 @@ public partial class Game
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         var site=_world.Cottages.First(c=>c.Complete && Buildings.Get(c.Kind).Worker is Role role && World.SupportsWorkplaceAssignment(role));
         SelectBuilding(site.Id);await Frames();
+        if(_world.IsWorkplaceFoodStore(site))
+        {
+            _inspectionScroll.EnsureControlVisible(_pantryInfo);await Frames();
+            Check(_pantryControls.Visible && _pantryInfo.Text.Contains("WORKPLACE FOOD") &&
+                _pantryInfo.Text.Contains("four portions") && !_pantryMore.Visible && !_pantryLess.Visible,
+                "Workplace food inspector does not explain its distribution rule");
+            await CaptureReviewBundle();
+        }
         _inspectionScroll.EnsureControlVisible(_staffPlus);await Frames();
         Check(_staffPlus.Text=="Dedicate worker" && !_staffPlus.Disabled,"Missing building dedication control");
         await UiClick(_staffPlus);await Frames();

@@ -82,7 +82,7 @@ public partial class Game : Node3D
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
         try
         {
-            var next = _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
+            var next = _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
             _world.SaveFile(CurrentSavePath + ".before-new");
             _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotation = 0; AdoptWorld(next);
             Notice("New village ready and paused. Options can restore the village before restart.");
@@ -316,7 +316,7 @@ public partial class Game : Node3D
             if(Buildings.Get(h.Kind).Beds>0) viewKey=stage*100+h.ImprovementPlanks+(h.Improved?20:0)+(h.ImprovementRequested?40:0);
             if(h.Kind==BuildingKind.Cottage)viewKey+=(int)h.Finish*1000;
             if(h.Kind==BuildingKind.GatheringHall)viewKey+=(int)h.Identity*1000;
-            if(h.Kind==BuildingKind.Pantry) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
+            if(h.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(h)) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
             if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;
             if (h.DemolitionRequested) viewKey += 10000;

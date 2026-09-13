@@ -1,4 +1,5 @@
 [
+  {"name":"neighborhood-workplace-food","description":"Food stored at huts, gardens and bakeries; physical surplus distribution","generator":"neighborhood-workplace-food","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-awkward","description":"Legal mixed-facing homes in the farther meadow; normal construction and welcome","generator":"neighborhood-awkward","focusX":14,"focusZ":4,"zoom":29},
   {"name":"neighborhood-landscape","description":"Spatial comparison: compact landing, narrow passage and larger meadow; unchanged food rules","generator":"neighborhood-landscape","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-complete","description":"Physically completed neighborhood: arrivals, eastern homes and welcome meals","generator":"neighborhood-complete","focusX":7,"focusZ":2,"zoom":24},
