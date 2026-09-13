@@ -1,0 +1,384 @@
+[
+  {
+    "arm": "twelve-control",
+    "settled": 0.099998474,
+    "Population": 12,
+    "Housed": 12,
+    "hungry": 0,
+    "lateHungry": 0,
+    "mealTravel": 351.6800072789192,
+    "restTravel": 858.4600005149841,
+    "lateIdleFraction": 0.6238333333333694,
+    "stored": 34,
+    "orders": [],
+    "invitations": []
+  },
+  {
+    "arm": "twenty-homes",
+    "settled": 112.206795,
+    "Population": 20,
+    "Housed": 20,
+    "hungry": 7630.400000000176,
+    "lateHungry": 2662.100000000008,
+    "mealTravel": 1444.2717981692404,
+    "restTravel": 1848.1011019574362,
+    "lateIdleFraction": 0.7173500000000055,
+    "stored": 2,
+    "orders": [
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 0,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": -1,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 4,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": 3,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 8,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -6,
+          "Z": 9,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 2
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -3,
+          "Z": 9,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -1,
+          "Z": 10,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      }
+    ],
+    "invitations": [
+      {
+        "elapsed": 37.802254,
+        "Population": 14
+      },
+      {
+        "elapsed": 47.90287,
+        "Population": 16
+      },
+      {
+        "elapsed": 63.60383,
+        "Population": 18
+      },
+      {
+        "elapsed": 83.60505,
+        "Population": 20
+      }
+    ]
+  },
+  {
+    "arm": "twenty-mixed",
+    "settled": 112.3068,
+    "Population": 20,
+    "Housed": 20,
+    "hungry": 0,
+    "lateHungry": 0,
+    "mealTravel": 912.6200007498264,
+    "restTravel": 1697.3599996566772,
+    "lateIdleFraction": 0.6124166666666703,
+    "stored": 86,
+    "orders": [
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 0,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": -1,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 4,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": 3,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -7,
+          "Z": 8,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -6,
+          "Z": 9,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 2
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": -3,
+          "Z": 9,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -1,
+          "Z": 10,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 5
+      },
+      {
+        "Kind": 9,
+        "Requested": {
+          "X": -7,
+          "Z": 2,
+          "Point": {}
+        },
+        "Actual": {
+          "X": -9,
+          "Z": 5,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 13
+      },
+      {
+        "Kind": 10,
+        "Requested": {
+          "X": 3,
+          "Z": 3,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 2,
+          "Z": 3,
+          "Point": {}
+        },
+        "Rotation": 1,
+        "Policy": 1,
+        "Region": "home bank",
+        "DisplacementSquared": 1
+      }
+    ],
+    "invitations": [
+      {
+        "elapsed": 37.802254,
+        "Population": 14
+      },
+      {
+        "elapsed": 47.90287,
+        "Population": 16
+      },
+      {
+        "elapsed": 63.60383,
+        "Population": 18
+      },
+      {
+        "elapsed": 84.30509,
+        "Population": 20
+      }
+    ]
+  },
+  {
+    "arm": "twenty-dispersed",
+    "settled": 183.41113,
+    "Population": 20,
+    "Housed": 20,
+    "hungry": 352.70000000001284,
+    "lateHungry": 216.99999999999446,
+    "mealTravel": 6264.548019215465,
+    "restTravel": 3048.1620001792908,
+    "lateIdleFraction": 0.4177333333333345,
+    "stored": 6,
+    "orders": [
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": 13,
+          "Z": 5,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 13,
+          "Z": 7,
+          "Point": {}
+        },
+        "Rotation": 1,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 4
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": 16,
+          "Z": 5,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 16,
+          "Z": 3,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 4
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": 13,
+          "Z": 9,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 10,
+          "Z": 9,
+          "Point": {}
+        },
+        "Rotation": 3,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 9
+      },
+      {
+        "Kind": 0,
+        "Requested": {
+          "X": 16,
+          "Z": 9,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 16,
+          "Z": 0,
+          "Point": {}
+        },
+        "Rotation": 2,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 81
+      },
+      {
+        "Kind": 9,
+        "Requested": {
+          "X": 12,
+          "Z": 2,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 14,
+          "Z": -5,
+          "Point": {}
+        },
+        "Rotation": 1,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 53
+      },
+      {
+        "Kind": 10,
+        "Requested": {
+          "X": 11,
+          "Z": 4,
+          "Point": {}
+        },
+        "Actual": {
+          "X": 13,
+          "Z": 4,
+          "Point": {}
+        },
+        "Rotation": 0,
+        "Policy": 1,
+        "Region": "east bank",
+        "DisplacementSquared": 4
+      }
+    ],
+    "invitations": [
+      {
+        "elapsed": 78.90476,
+        "Population": 14
+      },
+      {
+        "elapsed": 97.40589,
+        "Population": 16
+      },
+      {
+        "elapsed": 134.70816,
+        "Population": 18
+      },
+      {
+        "elapsed": 154.9094,
+        "Population": 20
+      }
+    ]
+  }
+]

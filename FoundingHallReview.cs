@@ -33,7 +33,16 @@ public partial class Game
         for(int i=0;i<18000 && _world.FinishFoundingHallProblem()!=null;i++)_world.Tick(.1f);
         Check(_world.FinishFoundingHallProblem()==null,"Hall never used");_world.Validate();UpdateHud();CloseDrawer();ToggleDrawer(2);await Frames();
         await Click(_hallFinish);Check(_world.Founding!.HallProject==2 && _paused,"Ending failed");
-        _focus=OnGround(hall.Cell.X,hall.Cell.Z);UpdateCamera();await CaptureReviewBundle("hall-project-finished");SaveWorld();string finished=_world.SaveJson();
+        _focus=OnGround(hall.Cell.X,hall.Cell.Z);UpdateCamera();await CaptureReviewBundle("hall-project-finished");SaveWorld();
+        // Completion keeps ordinary growth available, with supply evidence at the decision.
+        var home=Place(BuildingKind.Cottage,new(-7,8));
+        for(int i=0;i<9000 && (!home.Complete || _world.InvitationProblem()!=null);i++)_world.Tick(.1f);
+        UpdateHud();CloseDrawer();ToggleDrawer(2);await Frames();
+        Check(_foundingInvite.IsVisibleInTree() && !_foundingInvite.Disabled && _foundingFood.Text.Contains("Recent deliveries:"),"Post-project growth controls missing");
+        await Click(_foundingInvite);Check(_world.Population==14 && _world.Founding!.HallProject==2,"Completed project blocks growth");
+        await CaptureReviewBundle("hall-continued-growth");
+        await Click(_foundingFoodView);Check(_showFoodMap && !_drawer.Visible,"Growth food inspection failed");ToggleFoodMap();
+        SaveWorld();string finished=_world.SaveJson();
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==finished && CurrentSavePath==FoundingPath,"Project Continue differs");
         File.WriteAllText(Path.Combine(_reviewDirectory,"hall-controls.txt"),"PASS: continuation, stone focus, quarry planning, active F9, real use, ending and Continue; accelerated command-driven construction, not human play");
     }

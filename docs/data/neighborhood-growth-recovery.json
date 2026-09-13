@@ -1,0 +1,24 @@
+{
+  "built": 58.18579,
+  "hungry": 3990.999999999986,
+  "lateHungry": 1623.0999999999788,
+  "Population": 20,
+  "stored": 4,
+  "plan": {
+    "Kind": 9,
+    "Requested": {
+      "X": -7,
+      "Z": 2,
+      "Point": {}
+    },
+    "Actual": {
+      "X": -9,
+      "Z": 5,
+      "Point": {}
+    },
+    "Rotation": 2,
+    "Policy": 1,
+    "Region": "home bank recovery",
+    "DisplacementSquared": 13
+  }
+}
