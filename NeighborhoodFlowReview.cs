@@ -17,7 +17,7 @@ public partial class Game
         await UiClick(_mainButtons[challenge?"New meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
         Check(_world.HasWorkplaceFood==workplaceFood,"Neighborhood entry selected the wrong food workflow");
-        Check(_goalTitle.Text==(challenge?"The meadow settlement":"A new neighborhood") && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
+        Check(_goalTitle.Text==(challenge?"The meadow · a supply challenge":"A new neighborhood · guided opening") && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
         Check(_neighborhoodCommit.Disabled && _neighborhoodCommit.TooltipText.Contains("crossing"),"Opening commitment lacks crossing guidance");
         await CaptureReviewBundle();
         _world.Tick(.1f);SaveWorld();string saved=_world.SaveJson();

@@ -3,13 +3,15 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **17**.
+- Playable checkpoints since adoption: **18**.
 - Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 20**, whole-project scope. Restore fresh playtest independence when available; native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**F28d finite settlement journey — September 13, 2026:** [Guided opening, ending, entry contracts and validation](SETTLEMENT_JOURNEY_F28D.md). One complete interaction outcome, count **18**. All five requested work chunks delivered, three playable outcomes counted. [Reevaluated queue](NEXT_CHUNKS.md); periodic whole-game review at 20.
 
 **F28c decision and presentation review — September 13, 2026:** [Whole-game presentation verdict, fixed source/build provenance and comparison package](COMMONS_DECISION_F28C.md). One fresh independent visual/audio role; stills/source only, no native motion/listening. Finite settlement chosen; optional commons retained for comparison. Tooling/decision count zero: **17**. Does not reset regular review at 20.
 
@@ -112,8 +114,3 @@ Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TER
 Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; this presentation review did not replace the separate whole-project review.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
-
-
-
-
-

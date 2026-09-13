@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active next: consolidate a finite welcoming settlement, with optional continued village life.** The [F28c decision and independent presentation review](COMMONS_DECISION_F28C.md) supersede the persistent-game commitment from checkpoint fifteen. The commons works but its visible payoff does not yet justify a longer campaign around it. Keep physical village making and contextual controls; cut mandatory transformation projects and attendance quotas. Human preference, motion and audio remain unobserved.
+**Active next: reduce fixture rebuild overhead, then test scene-scale clarity and a distinct second-settlement decision.** The [F28c decision and independent presentation review](COMMONS_DECISION_F28C.md) supersede the persistent-game commitment from checkpoint fifteen. The commons works but its visible payoff does not yet justify a longer campaign around it. Keep physical village making and contextual controls; cut mandatory transformation projects and attendance quotas. Human preference, motion and audio remain unobserved.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
@@ -14,11 +14,11 @@ The [strategic review](STRATEGIC_REVIEW_8.md) replaces incremental polishing wit
 
 The [current work queue](NEXT_CHUNKS.md) defines the experiment and enabling work. The [role reports](STRATEGIC_REVIEW_8_ROLES.md) record three independent reviewers plus two reused disciplinary passes after the agent thread limit; new native observation reached only the menu. Earlier [ordinary play](CAMPAIGN_REVIEW_F11D.md) covers opening completion and a river assessment. No review establishes human enjoyment. The [earlier audit](ROADMAP_REVIEW_2026_09_12.md) and [checkpoint-five review](REVIEW_CHECKPOINT_5.md) retain historical evidence, not binding recommendations.
 
-Current foundation: **18 building types, ten campaign levels**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
+Current foundation: **two primary settlements, 18 building types, ten secondary campaign prototypes**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
-## Ordered delivery — test the new direction before scaling it
+## Delivered F28 sequence
 
-The [active briefs](NEXT_CHUNKS.md) replace the [completed checkpoint-eleven-to-fifteen queue](NEXT_CHUNKS_BEFORE_REVIEW_15.md). Five work chunks do not imply five playable counts: foundations, tests and review documents count zero. Next periodic review is checkpoint **20**, with whole-project scope and fresh independent playtest coverage when available.
+The [next active queue](NEXT_CHUNKS.md) replaces the delivered F28 sequence below. It prioritizes T04 fixture reuse, F29a coherent shared-place composition, F29b distinct meadow choices, then checkpoint-20 review and its selected redesign. The original F28 briefs replaced the [completed checkpoint-eleven-to-fifteen queue](NEXT_CHUNKS_BEFORE_REVIEW_15.md). Five work chunks do not imply five playable counts: foundations, tests and review documents count zero. Next periodic review is checkpoint **20**, with whole-project scope and fresh independent playtest coverage when available.
 
 | Order | ID | Status | Player outcome / decision |
 | --- | --- | --- | --- |
@@ -26,11 +26,11 @@ The [active briefs](NEXT_CHUNKS.md) replace the [completed checkpoint-eleven-to-
 | 2 | F28a | Delivered; [evidence](CONTEXTUAL_INSPECTOR_F28A.md) | Current activity, local food, workers and relevant actions first. Policies/removal secondary; all buildings accessible. Test shortage diagnosis and deliberate recovery. |
 | 3 | F28b | Playable comparison; [evidence](COMMONS_F28B.md) | Persistent outdoor place used by small groups in normal life, compared with one-shot gathering and unchanged village. No attendance/food quota. |
 | 4 | F28c | Decided; [finite first](COMMONS_DECISION_F28C.md) | Choose village transformation or a finite satisfying ending from playable comparison; remove the losing administration. No enjoyment claim from throughput. |
-| 5 | F28d | Next; finite opening + meadow | One guided opening plus the selected deeper/finite situation; old campaign as benchmark. Resolve Creative rules and simplify actual scenario branching. |
+| 5 | F28d | Delivered; [journey](SETTLEMENT_JOURNEY_F28D.md) | One guided opening plus the selected deeper/finite situation; old campaign as benchmark. Resolve Creative rules and simplify actual scenario branching. |
 
-Delivered evidence: T01 launch/capture tooling, F27a neighborhood (9), F27c meadow preparation (10), shared meal (11), outdoor place planning (12), settlement start (13), food world view (14), local retention (15). The compulsory commons land dilemma was rejected. F27b landscape remains a preferred comparison candidate, not accepted final art. The [review decisions](REVIEW_CHECKPOINT_15.md) supersede older recommendations to expand certificates or controls.
+Delivered evidence: T01 launch/capture tooling, F27a neighborhood (9), F27c meadow preparation (10), shared meal (11), outdoor place planning (12), settlement start (13), food world view (14), local retention (15), contextual inspector (16), optional recurring commons (17), finite guided journey (18). T03 save repair and F28c review/comparison package count zero. The compulsory commons land dilemma was rejected. F27b landscape remains a preferred comparison candidate, not accepted final art. The [review decisions](REVIEW_CHECKPOINT_15.md) supersede older recommendations to expand certificates or controls.
 
-Tooling remains bounded: transition diagnostics and semantic evidence index now; ordinary-input/audio comparison package alongside the prototype; measured food-overlay timing before optimization. Track fixture rebuild cost before splitting fingerprints. No generic runner, ECS, editor or migration project. Defer new needs/producers, broad Creative expansion and general ornament/audio passes.
+Tooling remains bounded: transition diagnostics, semantic evidence index and three comparison launches are delivered. Repeated 18–20-second regeneration across UI chunks now supports T04 separating fixture and presentation fingerprints. Measure food-overlay timing before optimization. No generic runner, ECS, editor or migration project. Defer new needs/producers, broad Creative expansion and general ornament/audio passes.
 
 Recent deliveries include [observed campaign play, finale alternatives and bread guidance](CAMPAIGN_REVIEW_F11D.md), [orchard assignment guidance and continuation checks](ASSIGNMENT_GUIDANCE_F21U.md), [terrain blockers and Undo recovery](TERRAIN_FEEDBACK_F12H4.md), [fence gateways](FENCE_GATEWAY_F09E2.md), [Creative terrace shaping](TERRAIN_SHAPING_F12H3.md), square/storage/hall art, the Goals width audit, quarry campaign and challenge experiments, and the [Living woods campaign](WOODS_CAMPAIGN_REVIEW.md). Their linked reviews retain measurements. Human pacing and visual feedback remain open; automated completion does not demonstrate enjoyment.
 
@@ -307,9 +307,3 @@ Keep supporting UI inside the feature that needs it. Avoid turning this roadmap 
 Orchards shipped in F05c; hidden discoveries remain candidates. Neighborhood pantries have shipped in F07c2; a market needs a distinct purpose before expansion. Carpenter/home improvements and limited rest visits are described in F25. Fishing, stone and woodland wildlife have moved into the F26 campaign plan. Trade, broader household routines and procedural maps remain possibilities without a commitment. Infinite terrain or purchased land is not required for map expansion.
 
 Combat, multiplayer, a large technology tree, and a full life simulation are outside the current direction.
-
-
-
-
-
-

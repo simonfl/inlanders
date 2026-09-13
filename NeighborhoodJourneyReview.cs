@@ -39,6 +39,12 @@ public partial class Game
             await Until(()=>site.Complete,"Journey construction failed: "+kind);return site;
         }
         Check(_world.HasWorkplaceFood && _world.Population==8,"Journey requires chosen fresh neighborhood");
+        if(!_world.Neighborhood!.FoodLandChallenge)
+        {
+            await OpenMenu(2);await Frames();Check(_journeyAction.IsVisibleInTree() && _journeyStep==0,"Opening lacks crossing suggestion");
+            await CaptureReviewBundle("guided-opening");await UiClick(_journeyAction);await Frames();
+            Check(_placing && _buildKind==BuildingKind.Bridge,"Suggested crossing action failed");await Press(Key.Escape);
+        }
         await Build(BuildingKind.Bridge,new(5,2),1);
         bool challenge=_world.Neighborhood!.FoodLandChallenge;
         foreach(var location in new[]{new Cell(8,2),new(10,4),new(17,1),new(21,1)}.Take(_world.NeighborhoodArrivals/2))
@@ -66,6 +72,9 @@ public partial class Game
         SelectBuilding(pantry.Id);await Frames();
         while(pantry.PantryTarget<16){await UiClick(_pantryMore);await Frames();}
         await Until(()=>_world.Neighborhood.Complete && _world.Food.Hunger==0 && _world.EdibleStored>=(challenge?_world.NeighborhoodReserveTarget:12),"Player food-chain recovery failed");
+        await OpenMenu(2);await Frames();Check(_nextSettlement.IsVisibleInTree() && _staySettlement.IsVisibleInTree() && !_journeyAction.Visible,"Finite ending actions missing");
+        await CaptureReviewBundle("finite-settlement-complete");string finished=_world.SaveJson();await UiClick(_staySettlement);await Frames();
+        Check(_watching && _world.SaveJson()==finished,"Optional stay changed settlement");await Press(Key.H);await Frames();Check(!_watching && _hud.IsVisibleInTree(),"Return from completed view failed");
         _world.Validate();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         Check(_world.SaveJson()==saved,"Journey save/load changed recovered state");
         _focus=OnGround(12,4);_camera.Size=29;UpdateCamera();ClearSelection();CloseDrawer();await Frames();await CaptureReviewBundle();

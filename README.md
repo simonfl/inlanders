@@ -21,6 +21,16 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
 
+## Current game: two finite settlements
+
+Start with **Settlements → New neighborhood**. Goals suggests a next action as you choose a crossing, east-bank homes and a welcome place. Shared workers handle available jobs; food is physically collected from producers and pantries. All buildings remain available, and you can prepare in your own order. Invite four neighbors when you choose; they arrive after 90 simulated seconds even if you are still building.
+
+Then try **New meadow settlement**: eight arrivals, one berry patch and a narrow passage make supply and invitation timing matter. Finish with homes, a shared welcome and two meals per resident in reserve. No additional attendance or happiness assessment follows.
+
+Completion is a valid ending. Choose **Finish & choose another settlement**, or **Stay and reshape the village** for an unobstructed view (H returns to managing). After completion, Goals also offers an optional six-place commons used during ordinary meals. It is experimental continued play, not another objective. Exact workplace policies and demolition are in **Details & policies**.
+
+Creative is a separate instant-building sandbox with no hunger and earlier food rules. Earlier campaigns remain secondary comparisons; they are not prerequisites for the current settlements. See the [design decision and three comparison launches](docs/COMMONS_DECISION_F28C.md).
+
 ## Main menu
 
 Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Legacy replay and Free-play/Creative replacement ask for confirmation, initially focused on Cancel. New Settlements replaces its dedicated slot as described on the choice page.
@@ -42,13 +52,13 @@ Creative saves are separate in `saves/creative.json` and `saves/creative-three-c
 
 ## Earlier campaign prototypes: five introductions and five working settlements
 
-These remain available for comparison. The [checkpoint-15 direction](docs/REVIEW_CHECKPOINT_15.md) pauses expansion of their assessment structure in favor of a persistent village experiment.
+These remain available for comparison. The [current finite-first direction](docs/COMMONS_DECISION_F28C.md) pauses expansion of their assessment structure. They remain benchmarks and possible reusable geography, not the primary progression.
 
 **Construction catalog:** press **B** to open keyboard browsing or return to it from a preview. Tab/Shift-Tab or Up/Down selects the category control and cards; Left/Right changes the focused category. Focused cards show their real costs and descriptions. Enter/Space selects a building and returns control to pointer placement, R rotation and camera movement. Esc or B closes keyboard browsing. Mouse clicks take over normally; Landscape and Existing retain their mouse controls.
 
 Choose **Earlier prototypes → Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 42; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 43; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.

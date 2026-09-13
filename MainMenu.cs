@@ -140,6 +140,7 @@ public partial class Game
     private void FreePlayMenu(bool creative)
     {
         MenuPage(creative ? "Creative · arrange and watch" : "Free play");
+        if(creative)_mainColumn.AddChild(Text("Separate free-building sandbox: instant construction and no hunger. This uses earlier village rules, not the local-food settlement journey. Arrange freely; there is no welcome objective or recurring commons.",15,true));
         foreach (bool large in new[] { false, true })
         {
             string name = large ? "Three clearings" : "Original clearing", path = SandboxSavePath(large, creative);

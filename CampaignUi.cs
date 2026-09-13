@@ -110,7 +110,7 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         var campaign = _world.Campaign;
-        _neighborhoodGoals.Hide();_campaignSelection.Visible=_world.Neighborhood==null;
+        _neighborhoodGoals.Hide();_journeyAction.Hide();_campaignSelection.Visible=_world.Neighborhood==null;
         if(_world.Neighborhood!=null){UpdateNeighborhoodGoals();return;}
         _menuButtons[2].TooltipText="Settlement objectives [G]";
         _riverAction.Visible = campaign?.Complete != true && (_world.IsFinaleCampaign && campaign!.Finale!.Phase is 0 or 2 || _world.IsWoodsCampaign && campaign!.Woods!.Phase<2 || _world.IsRiverCampaign && campaign!.River!.Phase < 3 || _world.IsLakeCampaign && campaign!.Lake!.Phase<2 || _world.IsQuarryCampaign && campaign!.Quarry!.Phase==0);

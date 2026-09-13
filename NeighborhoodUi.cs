@@ -15,11 +15,11 @@ public partial class Game
     private void NeighborhoodMenu()
     {
         MenuPage("Settlements");
-        _mainColumn.AddChild(Text("Build across the river, invite new neighbors, and share a welcome. Food stays at its producer; people eat locally and haulers supply pantries. All buildings are available.",15,true));
+        _mainColumn.AddChild(Text("Two finite settlements: learn by making a neighborhood, then tackle the meadow supply problem. Finish after the welcome and preparations, or stay to reshape the village. All buildings are available.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
-        _mainColumn.AddChild(Text("A new neighborhood · Four arrivals. A gentler introduction to homes, local food and the welcome table.",15,true));
+        _mainColumn.AddChild(Text("Start here · A new neighborhood. One guided opening with four arrivals: choose a crossing, homes and a welcome place. Shared workers take jobs automatically; food is collected where it is stored.",15,true));
         MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
-        _mainColumn.AddChild(Text("The meadow · Eight arrivals, one wild berry patch. Arrange a food supply and build a reserve for sixteen people.",15,true));
+        _mainColumn.AddChild(Text("Then try · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
         MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));
         _mainColumn.AddChild(Text("Each new settlement replaces this settlement slot. Continue resumes the last village you played.",14,true));
         MenuButton("Back",ShowMainMenu);
@@ -40,7 +40,8 @@ public partial class Game
             else {CloseDrawer();BeginPlacement(BuildingKind.SeatingGarden);}
         });_neighborhoodGoals.AddChild(_neighborhoodVenue);
         _nextSettlement=Button("Choose another settlement",()=>{if(SaveSession()){ShowMainMenu();NeighborhoodMenu();}});_neighborhoodGoals.AddChild(_nextSettlement);
-        _neighborhoodGoals.AddChild(Button("Keep watching the village",CloseDrawer));
+        _staySettlement=Button("Stay and reshape the village",()=>{CloseDrawer();ToggleWatch();});_neighborhoodGoals.AddChild(_staySettlement);
+        MakeSettlementJourney();
         _studyDetailsButton=Button("Show village details",()=>{_studyGoalDetails=!_studyGoalDetails;UpdateHud();LayoutHud();});_neighborhoodGoals.AddChild(_studyDetailsButton);_studyDetailsButton.Hide();
         _neighborhoodGoals.Hide();
     }
@@ -80,10 +81,11 @@ public partial class Game
         _neighborhoodCommit.Disabled=_world.InvitationProblem()!=null;
         _neighborhoodCommit.TooltipText=_world.InvitationProblem()??$"{_world.NeighborhoodArrivals} neighbors arrive after 90 seconds, even without homes or food. This commitment happens once.";
         _neighborhoodCommit.Visible=n.CommittedAt==null;
-        if(_lastCompactGoals!=CompactNeighborhoodGoals){_lastCompactGoals=CompactNeighborhoodGoals;LayoutHud();}
+        if(_lastCompactGoals!=CompactNeighborhoodGoals){_lastCompactGoals=CompactNeighborhoodGoals;_drawerPages[2].ScrollVertical=0;LayoutHud();}
         _neighborhoodVenue.Text=n.VenueId!=null?"Inspect welcome table":"Choose a gathering place";
         _menuButtons[2].Text=n.Complete?"Goals · Complete":"Goals · Neighborhood";
         _menuButtons[2].TooltipText=n.FoodLandChallenge?"Newcomer homes, welcome and stored food reserve [G]":"Newcomer homes and the shared welcome meal [G]";
-        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice(n.FoodLandChallenge?"The meadow settlement is ready: homes, a shared welcome and two meals each in reserve.":"The neighborhood is complete. Everyone shared the welcome, and the newcomers have homes. Keep enjoying your village.");}
+        UpdateSettlementJourney();
+        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice(n.FoodLandChallenge?"The meadow settlement is ready: homes, a shared welcome and two meals each in reserve.":"The neighborhood is complete. Everyone shared the welcome, and the newcomers have homes. Finish here, or stay and reshape it.");}
     }
 }
