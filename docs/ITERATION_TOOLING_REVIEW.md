@@ -4,6 +4,8 @@ Requested by the user during the checkpoint-eight strategic reset. Assess this a
 
 ## Assessment outcome at checkpoint 8
 
+**T01 first version delivered:** [implementation, commands and measured checks](REVIEW_TOOLING_T01.md). Four named scenarios and reproducible image/state bundles now work; warm captures measured 9–13 seconds. Reevaluate payoff during F27a rather than immediately expanding infrastructure. T02 remains alongside the design experiment.
+
 The [disciplinary review](STRATEGIC_REVIEW_8_ROLES.md) found that capture and comparison primitives already exist. The main investment should make them discoverable, reproducible and cheap to reuse. The [active queue](NEXT_CHUNKS.md) specifies the selected increments; the candidate table below remains a menu, not an instruction to build everything.
 
 **T01: scenario launcher and minimal evidence bundle, first.** Register fresh opening, river decision state and ordinary/dense presentation states using existing generators; register the alternative when it exists. Separate build, prepare, inspect and check. One named invocation should reach an interactive paused scene with ordinary controls, without replaying an entire comparison suite. Record source/build fingerprints, dirty state, fixture hash/generator, scenario/variant, seed where applicable, dimensions, camera, real speed and execution mode. Explicitly regenerate stale fixtures; initially prefer conservative invalidation over clever dependency caching. Keep development access separate from normal campaign flow.

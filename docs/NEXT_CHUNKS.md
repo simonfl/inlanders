@@ -1,8 +1,10 @@
 # Next chunks — neighborhood redesign
 
-September 12, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. None of the following is implemented yet.
+September 12, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. T01 is delivered; **F27a is next**. Later entries remain planned experiments.
 
 ## 1. T01 — reach and inspect useful game states cheaply
+
+**Delivered:** [commands, implementation and measurements](REVIEW_TOOLING_T01.md). Four named scenes, automatic/explicit preparation, stale-artifact rejection, paused inspection, F8 image/state/provenance bundles and bundle reopening. Warm captures measured 9–13 seconds; native play/listening and long-term savings are not claimed. Keep additional infrastructure bounded by F27a's needs.
 
 Extend existing scripts with a small named scenario catalog: fresh opening, river decision state, ordinary/dense presentation states. Register the new alternative when available. Provide explicit build, prepare, inspect and check operations. Interactive inspection starts paused with ordinary controls and supports actual 1×/3×/6× speeds. Do not run an entire comparison suite merely to inspect one saved state.
 

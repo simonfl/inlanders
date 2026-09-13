@@ -1,0 +1,6 @@
+[
+  {"name":"opening","description":"Fresh level 1; normal campaign controls and empty build space","generator":"opening","focusX":0,"focusZ":0,"zoom":24},
+  {"name":"river","description":"Fresh level 6; choose a crossing and neighborhood layout","generator":"river","focusX":5,"focusZ":2,"zoom":30},
+  {"name":"ordinary","description":"Completed normal 20-resident finale route; physical production continues","generator":"ordinary","focusX":3,"focusZ":3,"zoom":32},
+  {"name":"dense","description":"Normal 32-resident decorated village from the existing profile","generator":"dense","focusX":3,"focusZ":3,"zoom":32}
+]

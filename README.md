@@ -19,6 +19,8 @@ Setup downloads portable Godot 4.6 and .NET SDK 8.0.424 from their official dist
 
 The launcher runs the Godot project directly; this repository does not contain an exported standalone executable. Downloaded tools, generated build files, test artifacts, and player saves are excluded from Git.
 
+For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
+
 ## Main menu
 
 Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Replay and replacing an existing village ask for confirmation, initially focused on Cancel.

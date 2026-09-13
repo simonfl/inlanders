@@ -27,6 +27,8 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
+        try { ConfigureReviewSession(); }
+        catch(Exception e) { SetProcess(false);SetProcessUnhandledInput(false);GD.PushError(e.ToString());GetTree().Quit(1);return; }
         GetTree().NodeAdded += RegisterWorldLabel;
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _campaignPath = "artifacts/campaign-smoke.json";
         GetWindow().MinSize = new(960, 640);
@@ -35,6 +37,7 @@ public partial class Game : Node3D
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
         if (!OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) MakeMainMenu();
+        if (_reviewRequest != null) CallDeferred(nameof(StartReviewSession));
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
@@ -144,6 +147,7 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (EditingText) return;
+            if (key.Keycode == Key.F8 && _reviewRequest != null) { _ = CaptureReviewBundle(); return; }
             if(_watching && key.Keycode==Key.J) { ToggleWatchOrbit(); return; }
             if(key.Keycode is Key.Q or Key.E or Key.W or Key.A or Key.S or Key.D) _watchOrbit=false;
             if(key.Keycode==Key.U) { ToggleResourceSurvey(); return; }

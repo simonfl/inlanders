@@ -23,7 +23,7 @@ static class FinaleCampaignChecks
         RunRoute(false,false,false);RunRoute(true,false,false);RunRoute(true,true,false);RunRoute(true,false,true);
         Console.WriteLine("PASS: finale campaign routes, earned phases, early gate, extra residents, recovery and phase saves.");
     }
-    static void RunRoute(bool local,bool poor,bool extra)
+    internal static World RunRoute(bool local,bool poor,bool extra)
     {
         string stem=$"{(local?"local":"central")}-{(poor?"recovery":extra?"extra":"normal")}";
         var w=World.NewCampaign(10);
@@ -68,5 +68,6 @@ static class FinaleCampaignChecks
         var book=new CampaignBook();book.Capture(w);string bookPath=Path.Combine(Path.GetTempPath(),"inlanders-finale-"+Guid.NewGuid()+".json");book.SaveFile(bookPath);
         Check(CampaignBook.LoadFile(bookPath).Completed.Contains(10),"Completion not recorded");
         Console.WriteLine($"Finale campaign {stem}: first {first:F0}s, expanded {supported:F0}s, supper {w.Food.Time:F0}s; {w.Population} residents.");
+        return w;
     }
 }

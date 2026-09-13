@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--review-fixture")) {try{ReviewFixtures.Run(args);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--finale-alternatives")) {try{FinaleAlternativesReview.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--gateways")) {try{GatewayChecks.Run();DecorationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--terrain-shaping")) {try{TerrainShapingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

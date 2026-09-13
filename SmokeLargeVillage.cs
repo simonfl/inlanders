@@ -17,32 +17,7 @@ public partial class Game
         var ordinary=World.LoadJson(File.ReadAllText("artifacts/finale-campaign-local-normal.json"));
         var dense=World.LoadJson(File.ReadAllText("artifacts/finale-campaign-local-extra.json"));
         Check(!ordinary.Creative && !dense.Creative,"Profile requires normal simulation");
-        foreach(var p in dense.People.Where(p=>p.Role==Role.Unassigned).Take(3))dense.Assign(p.Id,Role.Builder);
-        while(dense.Cottages.Sum(c=>Buildings.Get(c.Kind).Beds)<32)
-        {
-            var cell=dense.Map.Land.Where(c=>dense.PlacementProblem(c,0,BuildingKind.Cottage)==null)
-                .OrderBy(c=>(c.Point-new Cell(8,4).Point).LengthSquared()).First();
-            Check(dense.Place(cell,0,BuildingKind.Cottage)!=null,"Profile housing refused");
-        }
-        for(int i=0;i<10000 && dense.Beds<32;i++)dense.Tick(.1f);
-        Check(dense.Beds>=32,"Profile housing stalled");
-        while(dense.Population<32)Check(dense.InviteNewcomers(),"Profile invitations refused: "+dense.InvitationProblem());
-        for(int n=0;n<2;n++)
-        {
-            var cell=dense.Map.Land.Where(c=>dense.PlacementProblem(c,0,BuildingKind.VegetableGarden)==null)
-                .OrderBy(c=>(c.Point-new Cell(8,4).Point).LengthSquared()).First();
-            Check(dense.Place(cell,0,BuildingKind.VegetableGarden)!=null,"Profile garden refused");
-        }
-        dense.Assign(24,Role.Farmer);dense.Assign(25,Role.Farmer);dense.Assign(26,Role.Hauler);dense.Assign(27,Role.Hauler);
-        for(int i=0;i<1200;i++)dense.Tick(.1f);
-        foreach(var c in dense.People.SelectMany(p=>p.Route).Distinct().ToArray())dense.SetPath(c,true);
-        foreach(var c in dense.Map.Land.OrderBy(c=>dense.Cottages.Min(b=>(b.Cell.Point-c.Point).LengthSquared())).ThenBy(c=>c.Z).ThenBy(c=>c.X))
-        {
-            if(dense.Decorations.Count>=120)break;
-            if(dense.Paths.Contains(c))continue;
-            dense.PlaceDecoration(c,(DecorationKind)(dense.Decorations.Count%4));
-        }
-        Check(dense.Decorations.Count>=80,"Dense fixture lacks decorations");dense.Validate();
+        dense=Inlanders.Development.ReviewWorlds.Dense(dense);
         File.WriteAllText(folder+"/ordinary.json",ordinary.SaveJson());File.WriteAllText(folder+"/dense.json",dense.SaveJson());
         var reports=new List<object>();bool previousSync=_frameSync;int oldCap=Engine.MaxFps;
         SetProcess(false);Engine.MaxFps=0;_frameSync=false;_goldenHour=false;ApplyAtmosphere();
