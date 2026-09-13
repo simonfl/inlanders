@@ -1,6 +1,6 @@
 # Next action — strategic design review
 
-**Routine delivery paused at checkpoint 8.** The user has clarified that reviews must critically reconsider the game itself, with authority to cut or substantially redesign existing work. Run the [critical design review](DESIGN_REVIEW_MANDATE.md) with independent game design, UX, playtest, development lead and visual/audio reviewers now. Synthesize a direction and alternatives before replacing the delivery queue. This review is pending; this document change does not claim it has happened.
+**Routine delivery paused at checkpoint 8.** The user has clarified that reviews must critically reconsider the game itself, with authority to cut or substantially redesign existing work. Run the [critical design review](DESIGN_REVIEW_MANDATE.md) with independent game design, UX, playtest, development lead and visual/audio reviewers now. Include the [tooling investment assessment](ITERATION_TOOLING_REVIEW.md): repeated iteration costs, evidence gaps and tools that enable faster design experiments. Synthesize a direction, alternatives and worthwhile enabling investments before replacing the delivery queue. This review is pending; this document change does not claim it has happened.
 
 ## Historical queue — superseded as an implementation instruction
 

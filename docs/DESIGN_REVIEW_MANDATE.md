@@ -35,6 +35,8 @@ Each report contains:
 
 ## Lead decision and implementation authority
 
+The development lead must also assess [iteration tooling and infrastructure](ITERATION_TOOLING_REVIEW.md): what repeatedly wastes time, what evidence is too difficult to obtain, and which small investments would enable faster, more credible design comparisons. Other reviewers should identify tooling they need for their discipline. The synthesis must decide which investments precede or accompany the next design slice, with expected payoff and a measurement plan. Tooling is a legitimate roadmap outcome, but it does not substitute for deciding what game to build.
+
 Synthesize before scheduling more features. State the chosen direction, rejected alternatives, what existing work will be removed or replaced, what remains uncertain, and how the next playable iteration will test the direction. Major findings must remain major in the plan: do not translate “the campaign is bureaucratic” into another tooltip, or “the village lacks appeal” into a few props without explaining why that addresses the actual problem.
 
 The user has empowered substantial redesign. The lead may replace the roadmap, prototype alternative mechanics and rebuild systems within the project's intent without another generic approval round. Retain Git history for reference; saves are disposable. Escalate only a real unresolved user preference or action requiring authorization, not the mere size of a redesign.

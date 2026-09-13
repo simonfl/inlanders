@@ -17,6 +17,8 @@ The four roles are:
 | Playtest agent | What goes wrong when playing without developer shortcuts? | UI actions, confusion, idle stretches, mistakes, recovery and timestamps. Distinguish agent behavior from human enjoyment. |
 | Game development lead | Is the implementation reliable, performant enough and maintainable? | Current code, relevant tests/traces, known limitations and next-chunk dependencies. |
 
+The development lead also owns the [tooling/infrastructure investment assessment](ITERATION_TOOLING_REVIEW.md). Review the cost of the development and review process itself: startup, scenario setup, build/test selection, debugging, automation, capture and comparisons. Recommend investments by expected repeated benefit and maintenance cost, not by generic engineering best practice. Every strategic synthesis must explicitly accept, defer or reject the strongest tooling proposals.
+
 Add a visual/audio reviewer every **ten playable checkpoints**, or following a substantial presentation change. Evaluate composition, identity, animation contact, sound repetition and mix from actual images/recordings. Geometry/cue counts alone cannot establish appeal.
 
 Each reviewer first returns a whole-game verdict, the strongest case against the present direction, what is worth retaining and why, and the structural changes their discipline recommends. Include concrete evidence and distinguish observation, inference and untested hypotheses. Prioritize findings, but do not cap the assessment at three small defects. Evaluate alternatives, including a substantially redesigned game; use the mandate's required output. Run independent read-only reviews before synthesis so reviewers do not merely endorse the existing queue.
