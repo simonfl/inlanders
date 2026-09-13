@@ -37,3 +37,5 @@ Commands: `--neighborhood-local-services` and `--neighborhood-district`. Results
 ## Workplace workflow outcome
 
 The [implemented paired comparison](WORKPLACE_FOOD_T02.md) now supports the production/distribution candidate: the balanced bakery plan sustains meals and gardens nearly do. The fixed foraging recovery regresses. Next settle the location/distribution tradeoff, then choose a concrete continuing decision rather than promoting a fed but idle village. Earlier next-step paragraphs above record the sequence of experiments.
+
+The [siting follow-up](WORKPLACE_FOOD_T02.md) resolves the foraging concern without changing yields. Choose workplace production/distribution and stop balance iteration. Deliver the chosen entry and working-economy scene, then assess the combined outcome before a stronger campaign food/land commitment.

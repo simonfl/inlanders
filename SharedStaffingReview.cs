@@ -19,6 +19,14 @@ public partial class Game
                 _pantryInfo.Text.Contains("four portions") && !_pantryMore.Visible && !_pantryLess.Visible,
                 "Workplace food inspector does not explain its distribution rule");
             await CaptureReviewBundle();
+            await OpenMenu(4);await Frames();
+            _drawerPages[4].EnsureControlVisible(_supplyToggle);await Frames();
+            if(!_showSupplyRoutes)await UiClick(_supplyToggle);
+            await Frames();
+            Check(_supplyHelp.Text.Contains("Hut location affects") && !_supplyHelp.Text.Contains("not through the hut"),
+                "Supply guidance still describes the old workplace bypass");
+            _drawerPages[4].EnsureControlVisible(_supplyHelp);await Frames();await CaptureReviewBundle();
+            CloseDrawer();SelectBuilding(site.Id);await Frames();
         }
         _inspectionScroll.EnsureControlVisible(_staffPlus);await Frames();
         Check(_staffPlus.Text=="Dedicate worker" && !_staffPlus.Disabled,"Missing building dedication control");

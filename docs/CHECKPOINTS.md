@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**T02 siting decision — September 13, 2026:** [six-arm follow-up](WORKPLACE_FOOD_T02.md) establishes viable western foraging without a pantry and meadow foraging with one. Corrected interpretation of the prior orientation-first placement helper; no runtime balance change. Choose workplace production/distribution and stop balance iteration. Supply help now reflects actual routes; rendered probe passes. Evidence and a guidance fix within the same experiment, count **8**.
+
 **T02 workplace food candidate — September 13, 2026:** [implementation, paired results and limits](WORKPLACE_FOOD_T02.md). Selectable producer stores and physical distribution; matched balanced bakery recovery sustains meals, gardens nearly do, fixed foraging regresses. Focused conservation/save and original-mode checks plus rendered controls pass; no native play/listening or fun acceptance. Resolve the spatial tradeoff and choose the continuing decision before campaign rollout. This completes another part of the same unaccepted F27a outcome, not an additional checkpoint; count **8**.
 
 **T02 media and service-layout comparison — September 13, 2026:** [evidence and decision](EXPERIENCE_COMPARISON_T02.md). A 30-second 1x AVI with PCM audio finalized in 29 recording seconds; extracted samples/track verify content, not listening or human enjoyment. Nearby recreation and coordinated home/work districts failed to stabilize the three fixed recovery plans. Saves validate/roundtrip; exclusivity and the single-farm bakery ratio limit causal claims. Next is workplace food storage/separate distribution, not further count tweaks. No runtime rule change or playable increment; count **8**.

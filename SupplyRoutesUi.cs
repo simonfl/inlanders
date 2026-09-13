@@ -19,7 +19,7 @@ public partial class Game
         _supplyToggle=Button("Show supply routes",()=> { _showSupplyRoutes=!_showSupplyRoutes; _nextSupplyRefresh=0; _drawerPages[4].ScrollVertical=(int)_supplyToggle.Position.Y; }); column.AddChild(_supplyToggle);
         _supplySummary=Text("",14,true); column.AddChild(_supplySummary);
         _supplyLinks=new(); column.AddChild(_supplyLinks);
-        _supplyHelp=Text("Loggers deliver to nearby log stores without haulers. Builders and sawyers collect there. Haulers redistribute logs toward targets.\n\nSawyers can deliver to plank piles; builders collect locally. Food returns to the central pantry. Forager huts provide worker slots; berries go from the patch to the pantry, not through the hut.",14,true); column.AddChild(_supplyHelp);
+        _supplyHelp=Text("",14,true); column.AddChild(_supplyHelp);
     }
     private void RenderSupplyRoutes()
     {
@@ -29,6 +29,9 @@ public partial class Game
         if(_supplyMesh!=null) _supplyMesh.Visible=visible;
         _supplyLinks.Visible=_showSupplyRoutes;
         _supplyHelp.Visible=_showSupplyRoutes;
+        _supplyHelp.Text="Loggers deliver to nearby log stores without haulers. Builders and sawyers collect there. Haulers redistribute logs toward targets.\n\nSawyers can deliver to plank piles; builders collect locally. "+(_world.HasWorkplaceFood?
+            "Foragers, vegetable gardens and bakeries store food at their workplace first. Residents collect meals there; haulers carry surplus to pantries. Hut location affects the return journey from berry patches.":
+            "Edible food goes to nearby pantry storage. Forager huts provide worker slots; berries go from the patch to a pantry, not through the hut.");
         if(!visible) { _supplySummary.Text="See current trips, then select a worker to inspect their load and task. Routes hide in Watch mode."; return; }
         if(_uiTime<_nextSupplyRefresh) return;
         _nextSupplyRefresh=_uiTime+.25f;

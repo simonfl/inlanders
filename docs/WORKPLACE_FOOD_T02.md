@@ -30,3 +30,19 @@ Artifacts: `artifacts/workplace-food-comparison`, six start/end saves, 60-second
 `--workplace-food` passes physical workplace deposits, meals, surplus collection, pantry delivery, active-save continuation and demolition recovery. `--welcome-meal` passes the original welcome/neighborhood and all six edible pantry cases. Both projects build without warnings. Rendered menu/Continue/restart/load, original-mode isolation, staffing and arrival probes pass. The selected workplace stock explanation was explicitly captured and inspected at 960px in `artifacts/review/runs/20260913-052350-064-neighborhood-workplace-food-27e8b5/capture-0006/view.png`; full capture took 19.6 seconds including builds. This is scripted rendered control evidence, not native play or listening.
 
 Next: settle the foraging location/distribution tradeoff, then choose the production/distribution direction and a concrete post-welcome decision. Stop indefinite balance or static-art iteration. The welcome remains introductory; a fed settlement by itself does not supply the skill and continuing agency the user requested. Campaign rollout waits for this direction decision. F27a/F27b remain under experience validation; playable count stays eight.
+
+## Siting follow-up and direction decision
+
+`--workplace-food-siting` reuses the same shortage and runs six new 2,400-second branches. It considers all four legal facings before moving away from a requested center, and records actual building cells/facings. The previous helper preferred rotation zero anywhere on the east bank: its nominal landing hut was actually at (15, -3). Earlier results remain valid for that actual arrangement, but do not describe a close landing hut.
+
+| Hut arrangement | Original workflow: fed resident-time / food | Workplace workflow: fed resident-time / food |
+| --- | ---: | ---: |
+| West patches, (-7, -2), facing 0 | 100% / 169 | 100% / 123 |
+| Meadow patches, (17, 8), facing 2 | 100% / 164 | 99.89% / 20 |
+| Same meadow hut + pantry at (19, 5) | 100% / 156 | 100% / 37 |
+
+The meadow hut alone has four seconds with someone hungry; the other workplace plans have none in the final 300 seconds. This establishes a western recovery without a compulsory pantry and an eastern recovery with distribution. No runtime rules changed in this follow-up. The source manifest includes the baseline digest; all buildings completed, saves validate/roundtrip. Six arms took 78.77 seconds in `artifacts/workplace-food-comparison-siting`.
+
+**Choose workplace production and physical distribution for the neighborhood direction.** Hut location now affects actual return trips; local bakeries and directly edible food both support recovery. Keep the original workflow as an explicit comparison, not the preferred design by inertia. Do not require every poor placement to recover automatically. Stop this balance-comparison sequence. The supply-route help now describes the actual workflow instead of incorrectly claiming huts are bypassed; rendered controls at 960px pass and the corrected help is captured in `20260913-052902-991-neighborhood-workplace-food-e312e5`, total 20 seconds including builds.
+
+Next deliver the chosen complete neighborhood entry with clear comparison access and a realistic scene of its working economy, then assess the combined gameplay/presentation outcome. Campaign progression should create a consequential food/land commitment after the short introduction, rather than treating a completed welcome as sustained challenge. Keep human preference, native play and listening limits explicit; this direction choice is not proof of enjoyment.
