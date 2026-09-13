@@ -10,7 +10,7 @@ public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X
 public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter, Carpenter }
 public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game, Fruit }
 public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter, Orchard }
-public enum Work { Waiting, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
+public enum Work { Waiting, ToArrival, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
     ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting, ToMealSupply, ToMealSeat, EatingMeal, ReturnMeal, ToFoodPickup, ToComfortPlanks, ToComfortHome, ToComfortInstall, InstallingComfort, ToComfortRecovery }
 
@@ -358,6 +358,7 @@ public sealed partial class World
     {
         if (dt <= 0 || !float.IsFinite(dt)) return;
         AdvanceFoodTime(dt);
+        AdvanceNeighborhood();
         AdvanceVisitor();
         AdvanceWoodland(dt);
         foreach(var habitat in Map.FishingGrounds) habitat.Advance(dt);
@@ -381,6 +382,7 @@ public sealed partial class World
             v.Timer += dt;
             switch (v.Task)
             {
+                case Work.ToArrival: Finish(v); break;
                 case Work.Waiting: if (retry) ClaimWork(v); break;
                 case Work.ToFoodPickup: PickupPantryShipment(v); break;
                 case Work.ToMealSupply: case Work.ToMealSeat: case Work.EatingMeal: case Work.ReturnMeal: TickMeal(v); break;

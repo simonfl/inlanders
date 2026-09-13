@@ -254,7 +254,7 @@ public partial class Game
             var candidate = _world.WorkerAdjustmentCandidate(role, 1);
             _allocationButtons[(role, 1)].TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {role}. Carried goods return first.";
         }
-        _staffing.Text = $"{_world.People.Count(v => v.Role == Role.Unassigned)} unassigned · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100\nHomes: {_world.ResidentsWithHomes}/{_world.Population} · recently rested: {_world.ResidentsRested}/{_world.Population}";
+        _staffing.Text = $"{(_world.SharedWork?_world.People.Count(v=>v.SharedWorker):_world.People.Count(v => v.Role == Role.Unassigned))} {(_world.SharedWork?"shared workers":"unassigned")} · {_world.People.Count(v => v.Task == Work.Waiting)} idle\nVillage happiness: {_world.VillageHappiness}/100\nHomes: {_world.ResidentsWithHomes}/{_world.Population} · recently rested: {_world.ResidentsRested}/{_world.Population}";
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.TooltipText = _world.Creative ? "Click a tree or stump to remove it immediately. Existing timber returns to the yard." : "Click to mark logger work; click again to cancel. Timber is recovered, then roots are removed.";

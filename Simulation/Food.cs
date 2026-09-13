@@ -72,7 +72,7 @@ public sealed partial class World
     public List<BerryBush> Bushes { get; } = new();
     public List<Cell> MeetingSpots { get; } = new();
     public int ReservedGrain => GrainReservedAt(null);
-    public bool CanCelebrate => !Creative && FinaleSupperProblem()==null && Housed == Population && CentralFoodAvailable(Resource.Bread) >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
+    public bool CanCelebrate => Neighborhood==null && !Creative && FinaleSupperProblem()==null && Housed == Population && CentralFoodAvailable(Resource.Bread) >= SupperCost && !Food.Celebrating && !Food.SupperComplete && (Campaign?.Level != 4 || Cottages.Any(c => c.Kind == BuildingKind.Square && c.Complete && !c.DemolitionRequested)) && SupperSpots().Count == Population;
 
     private void InitializeFood()
     {
@@ -262,6 +262,7 @@ public sealed partial class World
     private void ValidateFood()
     {
         ValidateLocalGrain();
+        ValidateNeighborhood();
         void Check(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
         int Cargo(Resource resource) => People.Where(v => v.Cargo == resource).Sum(v => v.Carried);
         Check(Food.Fruit>=0 && Food.GrownFruit>=0 && Food.EatenFruit>=0 && StoredFood(Resource.Fruit)+Cargo(Resource.Fruit)+Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest)+Food.EatenFruit==Food.GrownFruit+CreativeNet(Resource.Fruit),"Fruit conservation failed");

@@ -1,4 +1,5 @@
 [
+  {"name":"neighborhood","description":"In-progress neighborhood experiment: shared work and committed arrivals; welcome activity unfinished","generator":"neighborhood","focusX":5,"focusZ":2,"zoom":30},
   {"name":"shared-work","description":"Development staffing foundation, not the finished neighborhood scenario","generator":"shared-work","focusX":0,"focusZ":0,"zoom":24},
   {"name":"opening","description":"Fresh level 1; normal campaign controls and empty build space","generator":"opening","focusX":0,"focusZ":0,"zoom":24},
   {"name":"river","description":"Fresh level 6; choose a crossing and neighborhood layout","generator":"river","focusX":5,"focusZ":2,"zoom":30},

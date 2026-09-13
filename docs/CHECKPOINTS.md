@@ -32,6 +32,9 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a committed arrivals — September 12, 2026:** Separate neighborhood progress, one 90-second commitment without housing/food gates, four shared newcomers and actual crossing journeys. Focused simulation/save checks and scripted rendered commitment/roster checks; no native playtest. Welcome activity and full integration remain; count stays **8**. [Status and limits](NEIGHBORHOOD_F27A.md).
+
+
 **F27a building staffing controls — September 12, 2026:** Dedicated/released slots in the experiment's building inspector, bounded simulation checks and rendered UI probes; developer fixture registered with T01. No native playtest claimed. Arrival/welcome integration remains; count stays **8**. [Details](NEIGHBORHOOD_F27A.md).
 
 

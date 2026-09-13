@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--neighborhood")) {try{NeighborhoodChecks.Run();SharedWorkChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--shared-work")) {try{SharedWorkChecks.Run();LocalGrainChecks.Run();WorkplaceAssignmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--local-grain")) {try{LocalGrainChecks.Run();EconomyChecks.Run();SupplyRouteChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--review-fixture")) {try{ReviewFixtures.Run(args);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

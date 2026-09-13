@@ -22,5 +22,20 @@ public partial class Game
         Check(_staffMinus.Disabled && _workplaceStaff.Text.Contains("shared workers"),"Released staffing feedback incorrect");
         _world.Validate();await CaptureReviewBundle();
         GD.Print("PASS: scripted building dedication and release through rendered controls");
+        if(_world.Neighborhood!=null) {
+            var bridge=_world.Place(new(5,2),1,BuildingKind.Bridge)!;
+            for(int i=0;i<18000 && !bridge.Complete;i++)_world.Tick(.1f);
+            Check(bridge.Complete,"Arrival probe crossing failed");RenderActors(0);UpdateHud();
+            await OpenMenu(0);_drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();
+            Check(!_inviteButton.Disabled && _inviteButton.Text=="Welcome four neighbors","Commitment control missing");
+            await UiClick(_inviteButton);await Frames();
+            Check(_world.Neighborhood.CommittedAt!=null && _world.Population==8 && _inviteButton.Disabled,"Commitment UI failed");
+            await CaptureReviewBundle();
+            for(int i=0;i<920;i++)_world.Tick(.1f);
+            _noticeUntil=0;RenderActors(0);UpdateHud();await Frames();
+            Check(_world.Population==12 && _people.Count==12 && _roster.Count==12 && _arrivalInfo.Text.Contains("have arrived"),"Arrived population UI stale");
+            _drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();await CaptureReviewBundle();
+            GD.Print("PASS: scripted commitment and arrival actors/roster/status");
+        }
     }
 }
