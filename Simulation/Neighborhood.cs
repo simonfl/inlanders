@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed class NeighborhoodProgress
 {
+    public SharedCommons? Commons { get; set; }
     public SharedGathering? Gathering { get; set; }
     public bool WorkplaceFood { get; set; }
     public bool FoodLandChallenge { get; set; }
@@ -72,7 +73,7 @@ public sealed partial class World
     }
     private void ValidateNeighborhood()
     {
-        ValidateGathering();
+        ValidateGathering();ValidateCommons();
         if(Neighborhood is not {} n)return;
         if(n.Complete && (!n.Arrived || n.Welcomed?.Count!=8+NeighborhoodArrivals))throw new InvalidOperationException("Incomplete neighborhood marked complete");
         if(n.FoodLandChallenge && !n.WorkplaceFood)throw new InvalidOperationException("Food/land situation requires workplace supply");
@@ -83,3 +84,4 @@ public sealed partial class World
             (n.CommittedAt==null)!=(n.Destination==null) || n.Arrived && n.CommittedAt==null || Population!=(n.Arrived?8+NeighborhoodArrivals:8))throw new InvalidOperationException("Invalid neighborhood progress");
     }
 }
+

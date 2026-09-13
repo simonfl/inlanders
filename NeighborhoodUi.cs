@@ -28,6 +28,8 @@ public partial class Game
     private void MakeNeighborhoodGoals(VBoxContainer column)
     {
         _neighborhoodGoals=new();column.AddChild(_neighborhoodGoals);
+        _commonsEntry=Button("Make a shared place",()=>BeginGatheringPlan(_world.Commons?.Center,true));_neighborhoodGoals.AddChild(_commonsEntry);
+        _commonsRemove=Button("Remove shared place",()=>{_world.RemoveCommons();SaveWorld();UpdateHud();});_neighborhoodGoals.AddChild(_commonsRemove);
         _gatherPlanEntry=Button("Plan an outdoor meal",()=>{if(_world.Gathering is {Active:true} g){CloseDrawer();_focus=OnGround(g.Center.X,g.Center.Z);UpdateCamera();}else BeginGatheringPlan();});_neighborhoodGoals.AddChild(_gatherPlanEntry);
         _gatherGoalsCancel=Button("Cancel outdoor meal",()=>{_world.CancelGathering();SaveWorld();UpdateHud();});_neighborhoodGoals.AddChild(_gatherGoalsCancel);
         _neighborhoodCommit=Button("Welcome four neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready yet.");});_neighborhoodGoals.AddChild(_neighborhoodCommit);

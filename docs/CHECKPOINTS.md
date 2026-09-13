@@ -3,13 +3,15 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **16**.
+- Playable checkpoints since adoption: **17**.
 - Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 20**, whole-project scope. Restore fresh playtest independence when available; native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**F28b ordinary shared place — September 13, 2026:** [Delivery/evidence](COMMONS_F28B.md). Persistent, freely placed six-person meal space, ordinary real food trips, rearrangement/removal and current saves. Count **17**. Presentation review pending on fixed commit before F28c; periodic review 20.
 
 **F28a contextual inspector — September 13, 2026:** [Delivery/evidence](CONTEXTUAL_INSPECTOR_F28A.md). Everyday workplace controls first; policies and removal secondary. One interaction outcome, count **16**, next periodic review 20.
 
@@ -108,6 +110,7 @@ Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TER
 Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; this presentation review did not replace the separate whole-project review.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
+
 
 
 

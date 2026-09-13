@@ -1,4 +1,4 @@
-[
+[{"name":"commons","description":"Persistent ordinary meal places: ground controls, save and removal","generator":"gathering","focusX":17,"focusZ":9,"zoom":22},
   {
     "name": "resume",
     "description": "Repeated completed-settlement leave/resume with transition diagnostics",
@@ -128,3 +128,4 @@
     "zoom": 32
   }
 ]
+

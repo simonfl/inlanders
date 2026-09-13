@@ -27,8 +27,7 @@ public partial class Game
         }
         if (_inspectionScroll.IsAncestorOf(button))
         {
-            _inspectionScroll.EnsureControlVisible(button);
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            for(int frame=0;frame<4;frame++){_inspectionScroll.EnsureControlVisible(button);await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);}
         }
         for (int section = 0; section < _buildSections.Length; section++)
             if (_buildSections[section].IsAncestorOf(button)) SelectBuildSection(section);
@@ -76,4 +75,5 @@ public partial class Game
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 }
+
 

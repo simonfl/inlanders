@@ -7,6 +7,7 @@ namespace Inlanders.Simulation;
 public sealed class MealRequest
 {
     public bool Welcome { get; set; }
+    public bool Commons { get; set; }
     public bool Gathering { get; set; }
     public int? SourceId { get; set; }
     public int Id { get; set; }
@@ -60,7 +61,7 @@ public sealed partial class World
         });
     }
     private static bool MealWork(Work task) => task is Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal;
-    private bool MealSpotReserved(Cell cell) => Gathering is {Active:true} g && g.Seats.Values.Contains(cell) || People.Any(p=>p.Meal is {} r && (r.Reserved || r.Carrying) && r.Seat==cell);
+    private bool MealSpotReserved(Cell cell) => Commons is {} commons && (commons.Center==cell || commons.Places.Contains(cell)) || Gathering is {Active:true} g && g.Seats.Values.Contains(cell) || People.Any(p=>p.Meal is {} r && (r.Reserved || r.Carrying) && r.Seat==cell);
 
     private void RetireMeal(Villager person,bool skipCurrentWindow=false)
     {
@@ -113,11 +114,12 @@ public sealed partial class World
             var kinds=EdibleKinds.Where(k=>FoodAvailableAt(source,k)>0).OrderBy(k=>Food.MealConsumptions.Count(m=>m.Kind==k)+
                 People.Count(p=>p.Meal is {} meal && (meal.Reserved || meal.Carrying) && meal.Kind==k)).ToArray();
             if(kinds.Length==0 || FindPath(At(person),access,Blocked)==null) continue;
-            var seat=gathering?(Cell?)Gathering!.Seats[person.Id]:Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
+            var commons=!gathering && welcome==null?AvailableCommonsPlace(access):null;
+            var seat=commons ?? (gathering?(Cell?)Gathering!.Seats[person.Id]:Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
                 .OrderBy(c=>(c.Point-access.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
-                .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null);
+                .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null));
             if(seat==null) continue;
-            r.Gathering=gathering; r.Welcome=!gathering && welcome!=null && source==welcome; r.SourceId=source; r.Kind=kinds[0]; r.Reserved=true; r.Seat=seat.Value;
+            r.Commons=commons!=null; r.Gathering=gathering; r.Welcome=!gathering && welcome!=null && source==welcome; r.SourceId=source; r.Kind=kinds[0]; r.Reserved=true; r.Seat=seat.Value;
             Go(person,access,Work.ToMealSupply,r.Welcome?"Joining the welcome meal":$"Collecting a meal at {FoodStoreName(source)}"); return true;
         }
         return false;
@@ -127,7 +129,7 @@ public sealed partial class World
         if(!MealWork(p.Task)) return false;
         var r=p.Meal ?? throw new InvalidOperationException("Meal work without request");
         if(r.Gathering && Gathering?.Active==true)CancelGathering();
-        r.Gathering=false;r.Reserved=false;
+        r.Commons=false;r.Gathering=false;r.Reserved=false;
         if(r.Carrying) Go(p,YardAccess,Work.ReturnMeal,"Returning an uneaten meal before changing jobs");
         else {p.Route.Clear(); p.Task=Work.Waiting; p.Timer=0;}
         return true;
@@ -142,7 +144,7 @@ public sealed partial class World
                 p.Cargo=r.Kind; p.Carried=1;
                 Go(p,r.Seat,Work.ToMealSeat,"Carrying a meal to a nearby seat"); break;
             case Work.ToMealSeat:
-                p.Task=Work.EatingMeal; p.Timer=0; p.Status=r.Welcome?"Sharing the welcome meal":"Eating a meal"; break;
+                p.Task=Work.EatingMeal; p.Timer=0; p.Status=r.Commons?"Eating at the shared place":r.Welcome?"Sharing the welcome meal":"Eating a meal"; break;
             case Work.EatingMeal:
                 if(r.Gathering && Gathering is {Active:true,Eating:false}){p.Status="Waiting with a meal for the village";return;}
                 if(p.Timer<4) return;
@@ -206,3 +208,5 @@ public sealed partial class World
         }
     }
 }
+
+

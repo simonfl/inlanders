@@ -46,6 +46,7 @@ public sealed partial class World
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
         bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
         var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat)).Append(YardAccess).Append(entrance);
+        if(Commons is {} commons)access=access.Concat(commons.Places).Append(commons.Center);
         if(Gathering is {Active:true} gathering)access=access.Concat(gathering.Seats.Values);
         var reached = Reachable(YardAccess, Obstacle);
         var before = Reachable(YardAccess, Blocked);
@@ -55,3 +56,5 @@ public sealed partial class World
         return null;
     }
 }
+
+
