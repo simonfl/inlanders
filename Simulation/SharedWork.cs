@@ -6,6 +6,34 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     public bool SharedWork { get; private set; }
+    public Villager? SharedStaffCandidate(int siteId)=>People.Where(p=>p.SharedWorker)
+        .OrderByDescending(p=>p.WorkplaceId==siteId).ThenByDescending(p=>p.Task==Work.Waiting).ThenBy(p=>p.Id).FirstOrDefault();
+    public string? DedicateWorkerProblem(int siteId)
+    {
+        if(!SharedWork)return "Shared staffing is only available in the neighborhood experiment.";
+        if(Food.Celebrating)return "Wait until supper finishes.";
+        var site=Cottages.FirstOrDefault(c=>c.Id==siteId);
+        if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished workplace.";
+        var definition=Buildings.Get(site.Kind);
+        if(definition.Worker is not Role role || !SupportsWorkplaceAssignment(role) || definition.Slots==0)return "This building uses visiting workers.";
+        if(AssignedWorkers(siteId)>=definition.Slots)return "All slots are dedicated. Release a worker to make room.";
+        if(SharedStaffCandidate(siteId)==null)return "No shared workers remain. Release a dedicated worker first.";
+        return null;
+    }
+    public bool DedicateWorker(int siteId)
+    {
+        if(DedicateWorkerProblem(siteId)!=null)return false;
+        var person=SharedStaffCandidate(siteId)!;
+        var role=Buildings.Get(Cottages.Single(c=>c.Id==siteId).Kind).Worker!.Value;
+        Assign(person.Id,role);return SetWorkplaceAssignment(person.Id,siteId);
+    }
+    public bool ReleaseDedicatedWorker(int siteId)
+    {
+        if(!SharedWork || Food.Celebrating)return false;
+        var person=People.LastOrDefault(p=>p.AssignedWorkplaceId==siteId);
+        if(person==null)return false;
+        Assign(person.Id,Role.Unassigned);return true;
+    }
     public static World NewSharedWorkExperiment()
     {
         var world=NewLocalSupplyExperiment();world.SharedWork=true;

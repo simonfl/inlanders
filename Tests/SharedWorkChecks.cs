@@ -31,6 +31,12 @@ static class SharedWorkChecks
         Check(w.SetWorkplaceAssignment(resident.Id,bakery.Id),"Dedicated oven rejected");
         for(int i=0;i<1000;i++){w.Tick(.1f);w.Validate();Check(resident.Role==Role.Baker && !resident.SharedWorker,"Dedicated role reset");}
         w.Assign(resident.Id,Role.Unassigned);Check(resident.SharedWorker && resident.AssignedWorkplaceId==null,"Release failed");w.Validate();
+        Check(w.DedicateWorker(bakery.Id),"Building dedication failed");
+        while(w.DedicateWorkerProblem(bakery.Id)==null)Check(w.DedicateWorker(bakery.Id),"Additional slot failed");
+        string full=w.SaveJson();Check(!w.DedicateWorker(bakery.Id) && full==w.SaveJson(),"Full workplace mutated world");
+        var pinned=w.People.Where(p=>p.AssignedWorkplaceId==bakery.Id).Select(p=>p.Id).ToArray();
+        Check(w.ReleaseDedicatedWorker(bakery.Id),"Building release failed");
+        Check(pinned.Any(id=>w.People[id].SharedWorker),"Building release did not restore shared work");w.Validate();
         var baseline=World.NewCampaign(6);baseline.Assign(0,Role.Unassigned);
         for(int i=0;i<100;i++)baseline.Tick(.1f);
         Check(!baseline.People[0].SharedWorker && baseline.People[0].Role==Role.Unassigned,"Baseline staffing changed");

@@ -32,6 +32,9 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a building staffing controls — September 12, 2026:** Dedicated/released slots in the experiment's building inspector, bounded simulation checks and rendered UI probes; developer fixture registered with T01. No native playtest claimed. Arrival/welcome integration remains; count stays **8**. [Details](NEIGHBORHOOD_F27A.md).
+
+
 **F27a shared staffing foundation — September 12, 2026:** Actual work across professions, dedicated roles/slots, release to shared work and saved continuation verified by focused simulation checks. Building controls, arrivals and physical welcome remain outstanding. Count stays **8**; see [implementation status](NEIGHBORHOOD_F27A.md).
 
 

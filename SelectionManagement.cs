@@ -46,7 +46,10 @@ public partial class Game
         var row = new HBoxContainer(); _workplaceControls.AddChild(row);
         void Staff(int change) {
             var site = _world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
-            if(site!=null && WorkplaceRole(site.Kind) is Role role) _world.AdjustWorkers(role,change);
+            if(site!=null && WorkplaceRole(site.Kind) is Role role) {
+                if(_world.SharedWork) {if(change>0)_world.DedicateWorker(site.Id);else _world.ReleaseDedicatedWorker(site.Id);}
+                else _world.AdjustWorkers(role,change);
+            }
         }
         _staffMinus = Button("− Role",()=>Staff(-1)); _staffPlus = Button("+ Role",()=>Staff(1));
         _staffMinus.SizeFlagsHorizontal = _staffPlus.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
@@ -57,10 +60,11 @@ public partial class Game
         UpdateWorkplaceAssignmentControls();
         if (_selectedPerson >= 0) {
             var person=_world.People[_selectedPerson];
+            _jobChoice.SetItemText(0,_world.SharedWork?"Shared work":RoleName(Role.Unassigned));
             if(_jobChoicePerson!=person.Id) { _jobChoice.Select((int)person.Role); _jobChoicePerson=person.Id; }
             _jobChoice.Disabled = _world.Food.Celebrating;
             _assignButton.Text = (_peopleKeyboard && _peopleKeyboardPerson==person.Id ? $"Assign {person.Name}: " : "Assign: ") + RoleName((Role)_jobChoice.GetSelectedId());
-            _assignButton.Disabled = _world.Food.Celebrating || _jobChoice.GetSelectedId()==(int)person.Role;
+            _assignButton.Disabled = _world.Food.Celebrating || (_jobChoice.GetSelectedId()==(int)person.Role && !person.SharedWorker);
             _assignButton.TooltipText="Changing role returns workplace assignment to Automatic.";
         } else _jobChoicePerson=-1;
         _followButton.Text = _followPerson ? "Stop following" : "Follow villager";
@@ -78,6 +82,19 @@ public partial class Game
             var candidate = _world.WorkerAdjustmentCandidate(job, 1);
             _staffPlus.TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {job}. Changes the village-wide role; does not pin them here.";
             _staffMinus.TooltipText = "Unassign one worker from this role across the village; they may be working elsewhere.";
+            _staffPlus.Text=_world.SharedWork?"Dedicate worker":"+ Role";
+            _staffMinus.Text=_world.SharedWork?"Release to shared":"− Role";
+            _staffPlus.Visible=_staffMinus.Visible=!_world.SharedWork || World.SupportsWorkplaceAssignment(job);
+            if(_world.SharedWork && World.SupportsWorkplaceAssignment(job)) {
+                int shared=_world.People.Count(p=>p.SharedWorker);
+                _workplaceStaff.Text=$"{_world.AssignedWorkers(site.Id)}/{capacity} dedicated · {active} working now\n{shared} shared workers village-wide fill available slots. Dedicated workers wait here when production cannot run.";
+                string? problem=_world.DedicateWorkerProblem(site.Id);
+                var sharedCandidate=_world.SharedStaffCandidate(site.Id);
+                _staffPlus.Disabled=problem!=null;
+                _staffPlus.TooltipText=problem??$"Dedicate {sharedCandidate!.Name} to this workplace. Carried goods return safely before the next job.";
+                _staffMinus.Disabled=_world.Food.Celebrating || _world.AssignedWorkers(site.Id)==0;
+                _staffMinus.TooltipText="Release a worker dedicated here into the shared pool. Carried goods return safely.";
+            } else if(_world.SharedWork) _workplaceStaff.Text=$"{active} visiting · shared hauling\nShared workers deliver between stores. Use storage targets to request supplies.";
         }
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];

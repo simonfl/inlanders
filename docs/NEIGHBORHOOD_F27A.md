@@ -42,14 +42,22 @@ Verification: the existing full `Test.ps1` simulation suite passed. After the fi
 
 The initial policy prioritizes food below three portions per resident, limits concurrent food roles to roughly half the population and each profession to roughly a third, then tries construction and supporting production. Shared logging keeps a modest reserve rather than harvesting indefinitely. These are provisional scheduling choices, not validated balance. The complete scenario must still demonstrate meaningful staffing choices and recoverable shortages; automatic completion of this test does not establish that.
 
-`--shared-work` runs the new staffing checks plus existing local-grain and workplace-assignment checks. Verified actual bridge/workplace construction, logging, local bread production, residents changing professions, dedication/release and exact original-versus-reload continuation. The game builds without warnings, and the full existing `Test.ps1` simulation suite passed. Player-facing staffing controls, arrivals and welcome activity are still outstanding; this foundation does not advance the playable checkpoint.
+`--shared-work` runs the new staffing checks plus existing local-grain and workplace-assignment checks. Verified actual bridge/workplace construction, logging, local bread production, residents changing professions, dedication/release and exact original-versus-reload continuation. The game builds without warnings, and the full existing `Test.ps1` simulation suite passed. Arrivals and welcome activity are still outstanding; this foundation does not advance the playable checkpoint.
 
 ## Remaining work in the same F27a outcome
 
 - Integrate separate neighborhood progress, visible arrival commitment and actual newcomer arrival/home assignment.
-- Integrate the shared-work foundation into building-local staffing controls and newcomer creation; test shortage/recovery and labor agency in the complete scenario.
+- Integrate shared staffing into newcomer creation; test shortage/recovery and labor agency in the complete scenario.
 - Implement physical welcome-food delivery, reservations, display, visits/eating and recoverable venue removal, with ordinary needs continuing.
 - Expose the alternative beside the baseline and register useful states with T01. Replace assessment-oriented default information with one objective and world/context feedback, including precise placement refusals.
 - Demonstrate two real strategies and two recoveries, validate changed saves/claims and use ordinary UI play. Record decision opportunities, panel dependence and time spent waiting, separating tool overhead from pacing.
 
 F27b remains the separate whole-scene art experiment, but F27a still needs enough visible activity and contextual feedback to test its own gameplay honestly. Do not ship a simulation-only comparison as the promised playable alternative. The next periodic whole-project review remains checkpoint ten.
+
+## Building staffing controls
+
+The experiment's workplace inspector now shows dedicated slots, current workers and the village-wide shared pool. **Dedicate worker** takes a shared resident (preferring someone already working here), preserves physical cargo recovery, and reserves a slot at this building. **Release to shared** releases a resident dedicated here. Full slots and an exhausted shared pool disable dedication with a reason; this never takes another building's dedicated resident. Storage buildings retain visiting shared haulers and their supply-target controls.
+
+The developer fixture is available with `./Review.ps1 Inspect shared-work`. It is explicitly the staffing foundation, still using the old river objectives; it is not the completed neighborhood scenario. `./Review.ps1 Capture shared-work -Width 960 -ProbeControls` exercises the normal rendered buttons and captures dedicated/released states. The equivalent 1440-wide command checks the larger window. This reuses T01 with one catalog entry and a small targeted probe; no new testing framework was needed.
+
+Focused staffing/local-grain/assignment tests passed, including capacity refusal without mutation and release through the building API. Rendered scripted checks cover dedication, changing slot/pool counts, release and disabled release at zero assignments. The 960-wide capture was visually inspected: both buttons and staffing explanation fit. These are scripted UI checks, not a native playtest or evidence of fun. The next implementation is committed arrivals and the physical welcome activity; F27a remains one unfinished playable outcome.
