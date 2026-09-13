@@ -22,7 +22,7 @@ The local-grain comparison factory now allows a farm to retain up to twelve phys
 
 This is deliberately enabled only by `World.NewLocalSupplyExperiment()` for development comparisons. The ordinary river campaign retains its central route. It is **not the complete neighborhood scenario**, and no new campaign/menu entry presents it as such yet.
 
-Interrupting a farmer returns carried grain physically; interrupting a baker releases the claim. Farm demolition cancels incoming/pickup claims and builders recover stored grain through real trips. Cancellation and original-world versus one-reload continuation are checked. Existing production diagnostics identify the actual farm source. Current save version is 38; no migration is provided.
+Interrupting a farmer returns carried grain physically; interrupting a baker releases the claim. Farm demolition cancels incoming/pickup claims and builders recover stored grain through real trips. Cancellation and original-world versus one-reload continuation are checked. Existing production diagnostics identify the actual farm source. Current save version is 39; no migration is provided.
 
 Focused command:
 
@@ -36,10 +36,18 @@ $env:DOTNET_CLI_HOME = Join-Path $PWD '.tools/dotnet-home'
 
 Verification: the existing full `Test.ps1` simulation suite passed. After the final local inventory/route-label adjustments, the focused command passed local-grain, existing economy and existing supply-route checks. The final game build passed with zero warnings/errors. No rendered or native playtest is claimed for this foundation; full player-facing integration remains below.
 
+## Shared staffing foundation
+
+`World.NewSharedWorkExperiment()` enables a real shared pool alongside local grain. Residents claim existing profession jobs, retain that profession during work and delivery, then return to the pool. Meals and breaks continue normally. Assigning a profession dedicates the resident; assigning Unassigned releases them back to shared work in this experiment. Named workplace assignments retain their exclusive slots. Ordinary campaign staffing remains unchanged.
+
+The initial policy prioritizes food below three portions per resident, limits concurrent food roles to roughly half the population and each profession to roughly a third, then tries construction and supporting production. Shared logging keeps a modest reserve rather than harvesting indefinitely. These are provisional scheduling choices, not validated balance. The complete scenario must still demonstrate meaningful staffing choices and recoverable shortages; automatic completion of this test does not establish that.
+
+`--shared-work` runs the new staffing checks plus existing local-grain and workplace-assignment checks. Verified actual bridge/workplace construction, logging, local bread production, residents changing professions, dedication/release and exact original-versus-reload continuation. The game builds without warnings, and the full existing `Test.ps1` simulation suite passed. Player-facing staffing controls, arrivals and welcome activity are still outstanding; this foundation does not advance the playable checkpoint.
+
 ## Remaining work in the same F27a outcome
 
 - Integrate separate neighborhood progress, visible arrival commitment and actual newcomer arrival/home assignment.
-- Implement shared work and building-local staffing controls; do not relabel current profession-bound Automatic.
+- Integrate the shared-work foundation into building-local staffing controls and newcomer creation; test shortage/recovery and labor agency in the complete scenario.
 - Implement physical welcome-food delivery, reservations, display, visits/eating and recoverable venue removal, with ordinary needs continuing.
 - Expose the alternative beside the baseline and register useful states with T01. Replace assessment-oriented default information with one objective and world/context feedback, including precise placement refusals.
 - Demonstrate two real strategies and two recoveries, validate changed saves/claims and use ordinary UI play. Record decision opportunities, panel dependence and time spent waiting, separating tool overhead from pacing.

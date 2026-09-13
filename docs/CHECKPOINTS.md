@@ -32,6 +32,9 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a shared staffing foundation — September 12, 2026:** Actual work across professions, dedicated roles/slots, release to shared work and saved continuation verified by focused simulation checks. Building controls, arrivals and physical welcome remain outstanding. Count stays **8**; see [implementation status](NEIGHBORHOOD_F27A.md).
+
+
 **F27a local-grain foundation — September 12, 2026:** [design and status](NEIGHBORHOOD_F27A.md). Independent bounded designer review defines the whole scenario. Experimental physical farm storage/bakery pickup, contention, interruption/recovery and saved continuation are implemented; the full neighborhood experience is not yet exposed. Count remains **8**. Complete F27a before assigning its single playable checkpoint.
 
 **T01 tooling chunk — September 12, 2026:** [scenario/evidence tooling](REVIEW_TOOLING_T01.md), four prepared/captured scenes, normal-control scripted probe, bundle reopening and stale-artifact rejection. No gameplay rule change, native playtest or listening claim. Count remains **8**; next delivery is F27a and next regular review remains checkpoint ten.

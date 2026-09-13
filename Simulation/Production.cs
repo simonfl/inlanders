@@ -100,7 +100,7 @@ public sealed partial class World
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;
-        if (role != null && !People.Any(p => p.Role == role && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
+        if (role != null && !People.Any(p => (p.SharedWorker || p.Role == role) && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
         if (site.Kind == BuildingKind.Bakery && !remaining && !TryGrainSource(site.Entrance,site.Entrance,out _))
             return new("Missing grain", LocalGrainSupply?"Needs 2 grain at a reachable farm store or central pantry. Harvest and deliver grain first.":"Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess);
         if (site.Kind == BuildingKind.Sawmill && !remaining && !TryLogSource(site.Entrance, 2, out _))

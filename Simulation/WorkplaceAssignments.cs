@@ -27,6 +27,7 @@ public sealed partial class World
         var person=People.Single(p=>p.Id==personId);
         if(person.AssignedWorkplaceId==siteId)return true;
         person.AssignedWorkplaceId=siteId;
+        if(siteId!=null)person.SharedWorker=false;
         History.Add($"{person.Name}: "+(siteId is int id?$"assigned to {Buildings.Get(Cottages.Single(c=>c.Id==id).Kind).Name} {id}":"workplace set to Automatic")+" after the current job.");
         _retry=0;return true;
     }
@@ -43,6 +44,7 @@ public sealed partial class World
     }
     public string ReadWorkplaceAssignment(Villager person)
     {
+        if(person.SharedWorker)return "Shared worker — takes available work across professions.";
         if(person.AssignedWorkplaceId is not int id)return SupportsWorkplaceAssignment(person.Role)?"Automatic — chooses available workplaces.":"Automatic — works across the village.";
         var site=Cottages.Single(c=>c.Id==id);
         string name=$"{Buildings.Get(site.Kind).Name} {id} ({site.Cell.X}, {site.Cell.Z})";
@@ -53,6 +55,7 @@ public sealed partial class World
     }
     private void ValidateWorkplaceAssignments()
     {
+        if(People.Any(p=>p.SharedWorker && (!SharedWork || p.AssignedWorkplaceId!=null)))throw new InvalidOperationException("Invalid shared worker");
         foreach(var person in People.Where(p=>p.AssignedWorkplaceId!=null))
         {
             var site=Cottages.FirstOrDefault(c=>c.Id==person.AssignedWorkplaceId);

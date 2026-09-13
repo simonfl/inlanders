@@ -19,7 +19,7 @@ The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md).
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
 | 1 | T01 | Delivered | [Four named scenes and evidence bundles](REVIEW_TOOLING_T01.md); explicit preparation/checks, F8 capture, reopening and stale rejection; warm captures 9–13s. Measure upkeep during actual redesign. |
-| 2 | F27a | In progress | [Neighborhood experiment](NEIGHBORHOOD_F27A.md): local grain foundation implemented; shared staffing, committed arrivals, physical welcome activity, UI and strategy/recovery checks still required. No playable checkpoint yet. |
+| 2 | F27a | In progress | [Neighborhood experiment](NEIGHBORHOOD_F27A.md): local grain and shared-work foundations implemented; staffing UI, committed arrivals, physical welcome activity, UI and strategy/recovery checks still required. No playable checkpoint yet. |
 | 3 | F27b | Planned experiment | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
 | 4 | T02 | Alongside experiment, then decision | Reusable matched comparisons and ordinary play; explicitly retain, cut or redesign based on experience, not completion alone. |
 | 5 | F27c | Conditional | Consolidate introductions and replace repetitive campaign objectives with distinct situations, only after choosing the direction from comparison. |

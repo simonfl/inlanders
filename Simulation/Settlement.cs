@@ -31,6 +31,7 @@ public sealed class Villager
     public int Id { get; init; }
     public string Name { get; init; } = "";
     [JsonInclude]    public Role Role { get; internal set; }
+    [JsonInclude]    public bool SharedWorker { get; internal set; }
     [JsonInclude]    public Vector2 Position { get; internal set; }
     [JsonInclude]    public Work Task { get; internal set; }
     [JsonInclude]    public string Status { get; internal set; } = "Looking for work";
@@ -234,8 +235,9 @@ public sealed partial class World
         if (Food.Celebrating) return;
         if (!Enum.IsDefined(role)) throw new ArgumentOutOfRangeException(nameof(role));
         var v = People.Single(v => v.Id == id);
-        if (v.Role == role) return;
-        Interrupt(v); v.AssignedWorkplaceId=null; v.Role = role; _retry = 0;
+        bool shared=SharedWork && role==Role.Unassigned;
+        if (v.Role == role && v.SharedWorker==shared) return;
+        Interrupt(v); v.AssignedWorkplaceId=null; v.SharedWorker=shared; v.Role = role; _retry = 0;
     }
     public bool AdjustWorkers(Role role, int delta)
     {
@@ -288,12 +290,18 @@ public sealed partial class World
         if (v.LeisureSiteId is int venue) v.NextLeisureTime = Food.Time + Buildings.Get(Cottages.Single(c=>c.Id==venue).Kind).RecreationInterval;
         v.LeisureSiteId = null;
         v.HabitatId=null; v.DepositId=null; v.TreeId = null; v.SiteId = null; v.StorageId = null; v.HaulTargetId = null; v.Reserved = 0; v.Task = Work.Waiting;
+        if(v.SharedWorker)v.Role=Role.Unassigned;
         v.Timer = 0; v.Status = "Looking for work"; _retry = 0;
     }
     private void ClaimWork(Villager v)
     {
         if (Food.Celebrating) { Go(v, MeetingSpots[v.Id], Work.ToSupper, "Joining the village supper"); return; }
         if (ClaimRest(v) || ClaimLeisure(v)) return;
+        if(v.SharedWorker){ClaimSharedWork(v);return;}
+        ClaimProfessionWork(v);
+    }
+    private void ClaimProfessionWork(Villager v)
+    {
         if(v.Role==Role.Carpenter) { ClaimComfort(v); return; }
         if (v.Role == Role.Hunter) { ClaimHunting(v); return; }
         if (v.Role == Role.Quarrier) { ClaimQuarry(v); return; }
