@@ -3,15 +3,18 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **22**.
+- Playable checkpoints since adoption: **23**.
 - Last periodic review: **checkpoint 20**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_20.md). Whole-project evidence/source/still review; playtest role had no new native interaction, and no listening/human preference acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
 - Next four-role review: **checkpoint 25**, whole-project scope. Native observation remains outstanding.
-- Latest presentation-triggered review: **checkpoint 22**, [fresh independent visual/audio role](PRESENTATION_REVIEW_F30C.md), fixed `83f99c4`. Whole-game still/source review; no native play/listening acceptance.
-- Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including the next F30d1 activity/occlusion comparison, trigger earlier reviews.
+- Latest presentation-triggered review: **checkpoint 23**, [fresh independent visual/audio whole-game review](COURT_DAILY_LIFE_F30D1.md), fixed `18dfe94`; review-directed removals in `fa2dcb3`. Still/source evidence only; no native play/listening acceptance.
+- Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F30d1 daily-life presentation — `18dfe94`, `fa2dcb3`, September 13, 2026:** [Comparison, review and limits](COURT_DAILY_LIFE_F30D1.md). Closer/higher court framing, distinct actual eating/resting and ground-contact work; matched-state control captures and one-command comparison index. Independent whole-game presentation review retained partial gains and rejected lower roofs/conditional translucency. One playable outcome, count **23**; not perceptual acceptance. F30d2 tests finite transformation versus free continuation before F30d3 consolidation. Periodic review remains **25**.
+
 
 **F30c free arrangement — September 13, 2026:** [Delivery and comparison](FREE_ARRANGEMENT_F30C.md). Unified Creative court with physical meals/shared work, free multi-building editing, home waiting and a compact dismissible resident card. One playable outcome, count **22**. [Independent presentation review completed](PRESENTATION_REVIEW_F30C.md) on `83f99c4`: retain free editing and art direction, prioritize recognizable daily life before campaign choice. Entry notice and historical-map shortcut corrections follow the fixed review; no additional outcome. Periodic review remains **25**.
 
