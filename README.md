@@ -23,13 +23,15 @@ For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Rev
 
 ## Main menu
 
-Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Replay and replacing an existing village ask for confirmation, initially focused on Cancel.
+Launching opens a composed village illustration behind the title screen, independent of your saved settlement. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider and saves the change. Returning to a page restores focus and scrolls it into view. Legacy replay and Free-play/Creative replacement ask for confirmation, initially focused on Cancel. New Settlements replaces its dedicated slot as described on the choice page.
 
 The title screen offers:
 
-- **Continue** restores the last settlement saved or opened, including Campaign, Free play, or Creative on either map. It opens paused. On older installations without a Continue snapshot, the newest existing settlement/campaign save is used.
-- **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
-- **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
+- **Continue** restores the last current-format settlement saved or opened, paused. It is disabled until a Continue snapshot exists.
+- **Settlements** offers a four-neighbor introduction or eight-neighbor meadow provisioning scenario. Food stays at its producer, people collect local meals and haulers distribute surplus. Both use one resumable `saves/neighborhood.json` slot; starting either replaces it. Invitations commit arrivals after 90 simulation seconds even if homes/food are missing. Completed villages offer optional outdoor meals from Goals.
+- **Earlier prototypes** contains Campaign, Free play and historical neighborhood rules; these use different logistics from the selected Settlements workflow.
+- Under Earlier prototypes, **Campaign** starts, resumes, or replays any available level and shows completed levels. Replay retains the preceding village, recoverable from Goals.
+- Under Earlier prototypes, **Free play** starts or resumes either map. Starting anew retains a separate previous-village copy, accessible through **Restore previous**; ordinary saving does not overwrite that copy.
 - **Creative** starts or resumes either map with instant free buildings, no hunger, and all decorations unlocked. Production and hauling still use real resources. Select a finished building to remove it; stored goods return to the yard and villagers keep their cargo. Bridges cannot be removed if that would disconnect people or resources. Clearing trees is immediate and recovers existing timber. Newcomers need beds but no food reserve.
 - **Settings** controls Effects, Nature, Music, music-only mute, and master mute; these are shared with in-game sound settings.
 - **Quit** exits the game.
@@ -38,13 +40,15 @@ In game, use **Options → Return to main menu**. This saves the current settlem
 
 Creative saves are separate in `saves/creative.json` and `saves/creative-three-clearings.json`, with the same previous-village recovery as Free play. F5/F9 and Options map switching preserve the mode. There is no supper objective or visitor trade in Creative; the Goals panel explains its rules. Housing and square breaks still affect happiness, while food needs receive a neutral full allowance.
 
-## Campaign: five introductions and five working settlements
+## Earlier campaign prototypes: five introductions and five working settlements
+
+These remain available for comparison. The [checkpoint-15 direction](docs/REVIEW_CHECKPOINT_15.md) pauses expansion of their assessment structure in favor of a persistent village experiment.
 
 **Construction catalog:** press **B** to open keyboard browsing or return to it from a preview. Tab/Shift-Tab or Up/Down selects the category control and cards; Left/Right changes the focused category. Focused cards show their real costs and descriptions. Enter/Space selects a building and returns control to pointer placement, R rotation and camera movement. Esc or B closes keyboard browsing. Mouse clicks take over normally; Landscape and Existing retain their mouse controls.
 
-Choose **Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
+Choose **Earlier prototypes → Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 41; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 42; start fresh when an older save is rejected.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.

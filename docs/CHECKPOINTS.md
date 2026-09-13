@@ -4,22 +4,22 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **15**.
-- Last periodic review: **checkpoint 10**, [whole-project synthesis](REVIEW_CHECKPOINT_10.md) and [role findings](REVIEW_CHECKPOINT_10_ROLES.md). Four contexts, five disciplinary passes; native discovery failed, no fresh gameplay/listening claimed.
+- Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
-- Next four-role review: **checkpoint 15**, whole-project scope. Native observation remains outstanding.
+- Next four-role review: **checkpoint 20**, whole-project scope. Restore fresh playtest independence when available; native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
 
-**Local food retention — September 13, 2026:** [Delivery and matched comparison](LOCAL_RESERVE_F27.md). Optional local reserve controls, actual distribution effects, active claims and current-save recovery. Count **15**. Whole-project review is due now, including visual/audio, before implementation continues.
+**Local food retention — `2f2ebd7`, September 13, 2026:** [Delivery and matched comparison](LOCAL_RESERVE_F27.md). Optional local reserve controls, actual distribution effects, active claims and current-save recovery. Count **15**. [Whole-project review synthesized](REVIEW_CHECKPOINT_15.md), with independence/observation limitations; next periodic **20**.
 
-**World food view — September 13, 2026:** [Delivery and evidence](FOOD_WORLD_F27.md). Optional readable store labels and actual food trips, with corrected bakery stock rendering. Count **14**, next review **15**.
+**World food view — `08d25e6`, September 13, 2026:** [Delivery and evidence](FOOD_WORLD_F27.md). Optional readable store labels and actual food trips, with corrected bakery stock rendering. Count **14**, next review **15**.
 
-**Settlement start — September 13, 2026:** [Delivery and limitations](SETTLEMENT_START_F27.md). Current settlement/Creative entry, explicit invitation, completed Goals and new/resume/next-settlement flow. Count **13**, next review **15**.
+**Settlement start — `67a1e7e`, September 13, 2026:** [Delivery and limitations](SETTLEMENT_START_F27.md). Current settlement/Creative entry, explicit invitation, completed Goals and new/resume/next-settlement flow. Count **13**, next review **15**.
 
-**Outdoor place planning — September 13, 2026:** [Delivery and evidence](OUTDOOR_PLACE_F27C2.md). Direct ground selection, real-place previews, compact/circle layouts, inward-facing diners and protected access. Count **12**; whole-project review remains **15**, including visual/audio.
+**Outdoor place planning — `29acdae`, September 13, 2026:** [Delivery and evidence](OUTDOOR_PLACE_F27C2.md). Direct ground selection, real-place previews, compact/circle layouts, inward-facing diners and protected access. Count **12**; whole-project review remains **15**, including visual/audio.
 
-**F27c2 shared outdoor meal — September 13, 2026:** [Delivery and evidence](SHARED_MEAL_F27C2.md). Player-selected gathering outside a finished building, actual food/places, simultaneous eating, cancellation/recovery and saved continuation. 12/16-resident compact/distant checks plus 960/1440 rendered controls pass. Count **11**. Keep as expressive activity; images show crowded seating and indirect selection, so address those next. No native enjoyment or campaign-challenge verdict. Periodic review remains **15**.
+**F27c2 shared outdoor meal — `e2f133f`, September 13, 2026:** [Delivery and evidence](SHARED_MEAL_F27C2.md). Player-selected gathering outside a finished building, actual food/places, simultaneous eating, cancellation/recovery and saved continuation. 12/16-resident compact/distant checks plus 960/1440 rendered controls pass. Count **11**. Keep as expressive activity; images show crowded seating and indirect selection, so address those next. No native enjoyment or campaign-challenge verdict. Periodic review remains **15**.
 
 **F27c2 competing-land-use design probe — September 13, 2026:** [Plans, measured alternatives and decision](COMMONS_LAND_F27C2.md). Four ordinary-construction branches from a common provisioned village plus verified free-square construction/continuation. Reject a compulsory near/far commons objective: a nearby square preserves all three food gardens. Retain arrangement options, test a distinct shared activity before campaign rollout, and do not force an arbitrary footprint. Placement helper reused in both probes. No native play/rendering/listening or playable outcome; count remains **10**, next periodic review **15**.
 
@@ -69,6 +69,9 @@ F09e1 [gateway design](FENCE_GATEWAY_F09E1.md) adopts a bounded independent sour
 For each subsequent chunk, append its commit and outcome. Assign the next checkpoint number only when a committed playable outcome is delivered; use a dash for non-playable work. Update the totals and due checkpoints above. Group commits that deliver one playable outcome in one numbered entry.
 
 ## Review records
+
+**Checkpoint 15 — September 13, 2026:** [Synthesis](REVIEW_CHECKPOINT_15.md), [role findings](REVIEW_CHECKPOINT_15_ROLES.md), fixed source `2f2ebd792ae271e5fc0f7f2e4daac2a1bba4cfd5`, exact build hashes and fresh whole-game evidence recorded. Three fresh independent reviewers; fourth/historical playtest creation failed, so UX supplied a reused playtest-evidence audit and designer supplied visual/audio. This is not four independent core contexts and no native play/listening occurred. Critical direction: persistent village transformation with contextual actions, or a finite ending if recurring life fails. Stop threshold/certificate expansion. An intermittent resume UI failure and insufficient test oracle lead the new queue. Count remains **15**, next periodic **20**; no backdated play claim.
+
 
 **Checkpoint 10 — September 13, 2026:** [Synthesis](REVIEW_CHECKPOINT_10.md), [disciplinary findings](REVIEW_CHECKPOINT_10_ROLES.md), fixed source `07aca5fbbce440659fa4e5708f8494e44bf55960`. Fresh design reviewer plus reused UX, lead and playtest contexts after thread-limit failure; playtest also supplied a separately labeled visual/audio pass. Four contexts, not five fresh agents. Initial and rebuilt assembly hashes and exact artifacts are recorded in the synthesis. Native launch succeeded but target-window discovery failed; no actual play/listening. Choose one two-act land-use settlement plus consistent local food and world-led interaction; reject reserve inflation and broad campaign rollout. Review documents do not advance count ten. Next periodic review fifteen; regular visual/audio twenty and presentation triggers.
 
