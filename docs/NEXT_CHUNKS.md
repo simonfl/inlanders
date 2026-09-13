@@ -18,13 +18,19 @@ September 13, 2026. Count **27**. [Whole-game review25](REVIEW_CHECKPOINT_25.md)
 
 [Delivery and evidence](FOUNDING_F31C1.md). Play offers A home by the water and the short introduction; Free arrangement stays separate. Founding uses normal construction, local producer food, shared labor and player-triggered households, with an optional ending after actual settlement. Count27. The bulk-order route reaches the ending in180 simulated seconds with no missed meals: reject this as the deeper skillful scenario, even though it is playable.
 
-## 1. F31c2 — make expansion change a decision
+## F31c2 completed — cut the food-expansion extension
 
-Work in the playable founding candidate. Audit actual food output, useful land and the timber/habitat conflict; choose one concrete expansion conflict that makes the player reconsider a siting or production choice. Keep a bulk-order control. Woodland food contributed little in the tested route while berries dominated; adding a hunting lodge alone is not proof of a viable alternative economy.
+[Homes-only control and woodland comparison](FOUNDING_LAND_USE_F31C2.md): five cottages, no additional producer, twelve settled in127 seconds, no missed meals over fifteen simulated minutes. Preserving habitat increases game eaten from1 to20 but is not needed for the objective. No gameplay change; count27. Do not nerf berries or add diet/stock gates to rescue this extension.
 
-Do not raise the population target, slow construction, append meal certificates or add arbitrary resource shortages to stretch the opening. If the extension remains bulk placement and waiting, cut it rather than declare challenge achieved. No new needs/catalogue or multi-level rollout. Keep the founding candidate explicitly gentle until evidence supports more.
+Correct the acceptance criterion: good up-front planning may succeed. A script with known coordinates is not novice play. The problem is that ignoring the proposed decision succeeds, not that the player can queue several thoughtful orders while paused.
 
-Use a consumed player observation when available: intention, first confusion, recognized consequence and voluntary next action. Judge motion at1×, use3× for waits. Human enjoyment/pacing remain unknown. The earlier court/free controls must continue to work.
+## 1. F31d — a lakeside public-works project
+
+Offer one optional continuation in the existing founding Village panel: make a gathering hall using existing quarry/stone and sawmill/plank chains. Author a reachable far-shore outcrop; keep the opening and catalogue available. No new mode, producer, need or five-level rollout. Reuse the quarry campaign's systems without its rolling assessment.
+
+Compare a home-side hall with longer stone journeys against a material-side hall with longer resident journeys, plus recoverable awkward siting. Give the finished project a visible everyday purpose and optional player-declared ending after ordinary use. Preserve normal material recovery, construction and meals. Thoughtful bulk planning is allowed; no forced rearrangement, attendance streak, reserve quota or countdown. If sites are effectively interchangeable, revise the project rather than add a gate.
+
+Use consumed player observation when available; human enjoyment/pacing remain unknown. Assess the resulting place, decisions and journeys instead of targeting a duration. Keep the earlier introduction and free arrangement working. Whole-project review30 must challenge this direction too.
 
 The remaining checkpoint28–30 horizon stays TBD. Reevaluate after every outcome; do not fill five slots with speculative features. Whole-game review30 must challenge the new direction as critically as the old one.
 

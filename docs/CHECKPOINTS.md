@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F31c2 food-expansion decision — September 13, 2026:** [Four-arm comparison](FOUNDING_LAND_USE_F31C2.md). Homes-only succeeds and remains fed for fifteen simulated minutes; preservation increases actual game meals but is optional for success. Cut this difficulty extension, retain gentle founding, select F31d public works. Correct the criterion: thoughtful up-front planning is valid; ignoring the intended decision is the stronger failure. Tests/docs and two consumed stills only, count remains **27**, review **30**. No production change, human play/listening or independent whole-game review claimed.
+
 **F31c1 founding village — September 13, 2026:** [Delivery and limits](FOUNDING_F31C1.md). Play offers A home by the water: normal construction, shared arrivals, local food, explicit growth and an optional ending after actual newcomer meals. Dedicated current save and menu/restore/finish controls. One playable outcome, count **27**. Bulk route succeeds in180 simulated seconds: challenge not accepted; next F31c2 must address consequential expansion. Next periodic review **30**; no human play/listening or independent whole-game review claimed.
 
 **F31b2 staged redevelopment — September 13, 2026:** [Comparison and direction](REDEVELOPMENT_F31B2.md). Five ordinary-rule900-second arms, same-age recovery, conservation/current saves and four consumed stills. Reject staging on this site: bulk ordering is fastest and remains fed. Next F31c1 founding candidate; old redevelopment delivery suspended. Evidence/test chunk only, count remains **26**, next review **30**. No human play/listening or independent whole-game review claimed.
