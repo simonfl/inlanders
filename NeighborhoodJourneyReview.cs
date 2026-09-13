@@ -40,19 +40,24 @@ public partial class Game
         }
         Check(_world.HasWorkplaceFood && _world.Population==8,"Journey requires chosen fresh neighborhood");
         await Build(BuildingKind.Bridge,new(5,2),1);
-        await Build(BuildingKind.Cottage,new(8,2));await Build(BuildingKind.Cottage,new(10,4));
+        bool challenge=_world.Neighborhood!.FoodLandChallenge;
+        foreach(var location in new[]{new Cell(8,2),new(10,4),new(17,1),new(21,1)}.Take(_world.NeighborhoodArrivals/2))
+            await Build(BuildingKind.Cottage,location);
         var venue=await Build(BuildingKind.SeatingGarden,new(8,3));
         SelectBuilding(venue.Id);await Frames();await UiClick(_welcomeHere);await Frames();
         Check(_world.Neighborhood!.VenueId==venue.Id,"Journey welcome venue click failed");
         await OpenMenu(2);await UiClick(_neighborhoodCommit);await Frames();
         Check(_world.Neighborhood.CommittedAt!=null,"Journey arrival click failed");
-        await Until(()=>_world.Neighborhood.Complete,"Journey welcome did not finish");
+        await Until(()=>_world.Neighborhood.Welcomed.Count==_world.Population,"Journey welcome did not finish");
+        Check(challenge?!_world.Neighborhood.Complete:_world.Neighborhood.Complete,"Welcome incorrectly decided situation completion");
         await CaptureReviewBundle();
         var hut=_world.Cottages.Single(c=>c.Kind==BuildingKind.ForagerHut);
-        SelectBuilding(hut.Id);await Frames();
-        // Use the same inspector control as ordinary production management.
-        await UiClick(_productionPause);await Frames();
-        Check(hut.WorkPaused,"Journey producer pause click failed");
+        if(!challenge)
+        {
+            SelectBuilding(hut.Id);await Frames();
+            await UiClick(_productionPause);await Frames();
+            Check(hut.WorkPaused,"Journey producer pause click failed");
+        }
         await Until(()=>_world.Food.Hunger>0,"Stopping the food source never caused a shortage");
         await CaptureReviewBundle();
         await Build(BuildingKind.Farm,new(17,3));await Build(BuildingKind.Farm,new(21,3));
@@ -60,10 +65,10 @@ public partial class Game
         var pantry=await Build(BuildingKind.Pantry,new(14,5));
         SelectBuilding(pantry.Id);await Frames();
         while(pantry.PantryTarget<16){await UiClick(_pantryMore);await Frames();}
-        await Until(()=>_world.Food.Hunger==0 && _world.EdibleStored>=12,"Player food-chain recovery failed");
+        await Until(()=>_world.Neighborhood.Complete && _world.Food.Hunger==0 && _world.EdibleStored>=(challenge?_world.NeighborhoodReserveTarget:12),"Player food-chain recovery failed");
         _world.Validate();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         Check(_world.SaveJson()==saved,"Journey save/load changed recovered state");
         _focus=OnGround(12,4);_camera.Size=29;UpdateCamera();ClearSelection();CloseDrawer();await Frames();await CaptureReviewBundle();
-        GD.Print("PASS: scripted placement/facing, venue/arrival, completed welcome, producer pause, natural shortage, farm/bakery/pantry recovery and save/load through player controls; waits use simulation ticks");
+        GD.Print($"PASS: scripted placement/facing, venue/arrival, completed welcome, {(challenge?"scarce wild food and reserve objective":"producer pause")}, natural shortage, farm/bakery/pantry recovery and save/load through player controls; waits use simulation ticks");
     }
 }

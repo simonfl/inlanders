@@ -27,7 +27,7 @@ public sealed partial class World
     private int WelcomeNeed(Cottage venue)
     {
         if(Neighborhood is not {} n || n.VenueId!=venue.Id || n.Complete)return 0;
-        int participants=n.Arrived?Population:12;
+        int participants=n.Arrived?Population:8+NeighborhoodArrivals;
         int carrying=People.Count(p=>p.Meal is {Welcome:true,Carrying:true} r && r.SourceId==venue.Id);
         return Math.Max(0,participants-n.Welcomed.Count-carrying-venue.PantryFood.Sum()-FoodIncoming(venue.Id));
     }
@@ -68,13 +68,15 @@ public sealed partial class World
         get
         {
             if(Neighborhood is not {} n)return "";
-            if(n.Complete)return "A neighborhood to call home. Everyone shared the welcome meal, and the four newcomers have east-bank homes.";
-            string status=$"Welcome meal: {n.Welcomed.Count}/{(n.Arrived?Population:12)} neighbors have eaten here.\nNewcomers with east-bank homes: {NewNeighborsHoused}/4.\n";
+            if(n.Complete)return $"A neighborhood to call home. Everyone shared the welcome meal, and the {NeighborhoodArrivalWord} newcomers have east-bank homes.";
+            string status=$"Welcome meal: {n.Welcomed.Count}/{(n.Arrived?Population:8+NeighborhoodArrivals)} neighbors have eaten here.\nNewcomers with east-bank homes: {NewNeighborsHoused}/{NeighborhoodArrivals}.\n";
             if(n.VenueId is not int id)return status+"Choose an eastern square, hall or seating garden. Helpers carry any edible food there.";
             var venue=Cottages.Single(c=>c.Id==id);
             status+=$"{venue.PantryFood.Sum()} portions ready · {FoodIncoming(id)} on the way. ";
             if(!n.Arrived)return status+"Visits begin when the newcomers arrive.";
-            if(n.Welcomed.Count==Population)return status+"The meal is shared. Finish eastern homes for the newcomers.";
+            if(n.Welcomed.Count==Population)return status+(n.FoodLandChallenge && NewNeighborsHoused==NeighborhoodArrivals?
+                $"The welcome is shared. Prepare the food reserve: {EdibleStored}/{NeighborhoodReserveTarget} stored portions.":
+                "The meal is shared. Finish eastern homes for the newcomers.");
             var blocked=People.FirstOrDefault(p=>!n.Welcomed.Contains(p.Id) && FindPath(At(p),venue.Entrance,Blocked)==null);
             if(blocked!=null)return status+$"{blocked.Name} cannot reach this table. Reopen the approach or crossing.";
             if(venue.PantryFood.Sum()==0 && FoodIncoming(id)==0)return status+"Waiting for food. Keep production working and shared workers available to carry portions.";

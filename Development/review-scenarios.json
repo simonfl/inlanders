@@ -1,4 +1,5 @@
 [
+  {"name":"neighborhood-food-land","description":"Scarce wild food, eight arrivals and a physical food reserve; ProbeControls exercises failure and recovery","generator":"neighborhood-food-land","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-journey","description":"Fresh chosen workflow; ProbeControls plays construction, welcome and a food-chain recovery","generator":"neighborhood-workplace-food","focusX":5,"focusZ":3,"zoom":32},
   {"name":"neighborhood-working-village","description":"Chosen neighborhood workflow: built homes, welcome and local farms/bakeries; foraging paused","generator":"neighborhood-working-village","focusX":12,"focusZ":4,"zoom":29},
   {"name":"neighborhood-workplace-food","description":"Food stored at huts, gardens and bakeries; physical surplus distribution","generator":"neighborhood-workplace-food","focusX":5,"focusZ":3,"zoom":32},

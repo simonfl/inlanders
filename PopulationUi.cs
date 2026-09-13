@@ -17,7 +17,7 @@ public partial class Game
         {
             if (!_world.InviteNewcomers()) { Notice(_world.InvitationProblem() ?? "Invitation unavailable."); return; }
             RenderActors(0); UpdateHud();
-            if(_world.Neighborhood!=null){Notice("Four neighbors are on their way. Prepare homes and food; they will arrive even if you are not ready.");return;}
+            if(_world.Neighborhood!=null){Notice($"{_world.NeighborhoodArrivals} neighbors are on their way. Prepare homes and food; they will arrive even if you are not ready.");return;}
             Notice($"{_world.People[^2].Name} and {_world.People[^1].Name} have arrived at the timber yard. Choose their jobs in People.");
         });
         _inviteButton.TooltipText = "Optional: newcomers start unassigned. Keep two meals for the enlarged village in storage; inviting does not spend that food.";
@@ -52,7 +52,7 @@ public partial class Game
         _arrivalInfo.Text = $"{_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare\n" +
             (problem ?? (_world.Creative ? "Ready for two newcomers. Food needs are disabled." : $"Reserve ready for two newcomers: {_world.ArrivalFoodRequired} stored portions. Check that homes and food collection are convenient; reserves alone do not prove service."));
         _inviteButton.TooltipText = _world.Creative ? "Newcomers need two spare beds and clear arrival spots. No food reserve needed." : "Newcomers start unassigned. Keep two meals for the enlarged village; inviting does not spend food.";
-        _inviteButton.Text=_world.Neighborhood!=null?"Welcome four neighbors":"Invite 2 newcomers";
+        _inviteButton.Text=_world.Neighborhood!=null?$"Welcome {_world.NeighborhoodArrivalWord} neighbors":"Invite 2 newcomers";
         if(_world.Neighborhood!=null) {
             _arrivalInfo.Text=_world.NeighborhoodStatus+(_world.Neighborhood.CommittedAt==null?"\n"+(problem??"Ready to commit. No spare beds or food reserve required."):"");
             _inviteButton.TooltipText="One commitment: four shared workers arrive after 90 seconds. Insufficient housing or food does not cancel their arrival.";

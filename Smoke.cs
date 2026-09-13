@@ -15,8 +15,12 @@ public partial class Game
     {
         if(_mainScroll!=null && _mainScroll.IsAncestorOf(button))
         {
-            _mainScroll.EnsureControlVisible(button);
-            await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            // Wrapped menu text and scrollbar appearance can trigger a second deferred layout.
+            for(int frame=0;frame<4;frame++)
+            {
+                _mainScroll.EnsureControlVisible(button);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            }
         }
         if (_inspectionScroll.IsAncestorOf(button))
         {
@@ -33,7 +37,11 @@ public partial class Game
             }
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
         if (!button.IsVisibleInTree()) throw new Exception("Cannot click hidden control: " + button.Text);
-        await Click(button.GetGlobalRect().GetCenter());
+        var hit=button.GetGlobalRect();
+        for(Node? ancestor=button.GetParent();ancestor!=null;ancestor=ancestor.GetParent())
+            if(ancestor is ScrollContainer scroll)hit=hit.Intersection(scroll.GetGlobalRect());
+        if(!hit.HasArea())throw new Exception("Control remains clipped after scrolling: "+button.Text);
+        await Click(hit.GetCenter());
     }
     private async Task Capture(string path)
     {

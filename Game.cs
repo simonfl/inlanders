@@ -82,7 +82,7 @@ public partial class Game : Node3D
         if (_world.Campaign != null) { SwitchCampaign(_world.Campaign.Level, true); return; }
         try
         {
-            var next = _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
+            var next = _world.Neighborhood?.FoodLandChallenge==true ? World.NewFoodLandChallenge() : _world.HasWorkplaceFood ? World.NewWorkplaceFoodExperiment() : _world.Neighborhood!=null ? (_world.Map.Name=="Landing and meadow — experiment" ? World.NewNeighborhoodLandscapeExperiment() : World.NewNeighborhoodExperiment()) : _world.Creative ? World.NewCreative(_world.Map.Name == "Three clearings") : _world.Map.Name == "Three clearings" ? World.NewLargeMap() : World.NewScenario();
             _world.SaveFile(CurrentSavePath + ".before-new");
             _buildKind = BuildingKind.Cottage; _plantingTrees = false; _rotation = 0; AdoptWorld(next);
             Notice("New village ready and paused. Options can restore the village before restart.");

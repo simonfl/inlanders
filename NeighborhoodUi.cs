@@ -18,6 +18,7 @@ public partial class Game
         _mainColumn.AddChild(Text("Make a home across the river. Choose where to build, prepare for four new neighbors, and share a welcome meal. Food is stored where it is made; arrange workplaces and pantries around the journeys people take. All buildings remain available. Starting again replaces the neighborhood save.",15,true));
         if(File.Exists(_neighborhoodPath))MenuButton("Resume neighborhood",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
         MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewWorkplaceFoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
+        MenuButton("Try meadow settlement",()=>MenuAttempt(()=>{var world=World.NewFoodLandChallenge();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Original neighborhood control",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Try landing and meadow",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodLandscapeExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
         MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
@@ -43,27 +44,37 @@ public partial class Game
         _goalDashboard.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_progress.Hide();
         _trackedGoalPanel.Hide();
         _goalArrival.Show();_objective.Show();_neighborhoodGoals.Show();
-        _goalTitle.Text=n.Complete?"A neighborhood to call home":"A new neighborhood";
-        _goalArrival.Text=n.Complete?"The newcomers have settled in. Keep shaping the village, or compare another approach from the main menu.":"Make an eastern home for four neighbors, then share a welcome meal at a square, hall or seating garden. All buildings are available. Shared workers take available jobs; dedicate residents at workplaces when needed.";
-        _objective.Text=_world.NeighborhoodStatus;
-        if(!n.Complete && _world.HasWorkplaceFood)_goalArrival.Text+=" Food stays at forager huts, vegetable gardens and bakeries first. People can eat there; haulers distribute surplus to pantries.";
+        _goalTitle.Text=n.FoodLandChallenge?"The meadow settlement":n.Complete?"A neighborhood to call home":"A new neighborhood";
+        _goalArrival.Text=n.Complete?"The newcomers have settled in. Keep shaping the village, or compare another approach from the main menu.":$"Make an eastern home for {_world.NeighborhoodArrivalWord} neighbors, then share a welcome meal at a square, hall or seating garden. All buildings are available. Shared workers take available jobs; dedicate residents at workplaces when needed.";
+        _objective.Text=n.FoodLandChallenge?"":_world.NeighborhoodStatus;
+        if(n.FoodLandChallenge)
+        {
+            _goalArrival.Text=n.Complete?"The village has homes, a shared welcome and provisions. Keep shaping it, or try another arrangement.":
+                n.Welcomed.Count==_world.Population && n.Arrived?"The welcome is shared. Prepare two meals per resident in village stores. Any edible food counts.":
+                "One western berry patch cannot feed sixteen. Prepare food before inviting eight neighbors, or bring them sooner to help build. All buildings remain available.";
+            string arrivals=n.Arrived?"8/8 arrived":n.CommittedAt is float started?$"Arrive in {Math.Max(0,90-(_world.Food.Time-started)):F0}s":"Not yet invited";
+            _objective.Text=$"New neighbors: {arrivals}\nEast-bank homes: {_world.NewNeighborsHoused}/8\nWelcome shared: {n.Welcomed.Count}/16\n"+
+                (n.Complete?$"Food now: {_world.EdibleStored} portions":$"Food reserve: {_world.EdibleStored}/{_world.NeighborhoodReserveTarget} stored portions");
+        }
+        _neighborhoodCommit.Text=$"Welcome {_world.NeighborhoodArrivalWord} neighbors";
+        if(!n.Complete && _world.HasWorkplaceFood && !n.FoodLandChallenge)_goalArrival.Text+=" Food stays at forager huts, vegetable gardens and bakeries first. People can eat there; haulers distribute surplus to pantries.";
         _neighborhoodHome.Visible=!CompactNeighborhoodGoals;
         _studyDetailsButton.Visible=_storybookScene && n.Complete;
         _studyDetailsButton.Text=_studyGoalDetails?"Hide village details":"Show village details";
         if(CompactNeighborhoodGoals)
         {
-            _goalTitle.Text="Welcome shared";
+            _goalTitle.Text=n.FoodLandChallenge?"Settlement prepared":"Welcome shared";
             _goalArrival.Text="The newcomers have settled in. Village life continues.";
             _objective.Text=$"{_world.Housed}/{_world.Population} housed · {_world.People.Count(p=>p.Fed)}/{_world.Population} fed";
             _visitorPanel.Hide();
         }
         _neighborhoodCommit.Disabled=_world.InvitationProblem()!=null;
-        _neighborhoodCommit.TooltipText=_world.InvitationProblem()??"Four neighbors arrive after 90 seconds, even without homes or food. This commitment happens once.";
+        _neighborhoodCommit.TooltipText=_world.InvitationProblem()??$"{_world.NeighborhoodArrivals} neighbors arrive after 90 seconds, even without homes or food. This commitment happens once.";
         _neighborhoodCommit.Visible=n.CommittedAt==null;
         if(_lastCompactGoals!=CompactNeighborhoodGoals){_lastCompactGoals=CompactNeighborhoodGoals;LayoutHud();}
         _neighborhoodVenue.Text=n.VenueId!=null?"Inspect welcome table":"Choose a gathering place";
         _menuButtons[2].Text=n.Complete?"Goals · Complete":"Goals · Neighborhood";
-        _menuButtons[2].TooltipText="Newcomer homes and the shared welcome meal [G]";
-        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice("The neighborhood is complete. Everyone shared the welcome, and the newcomers have homes. Keep enjoying your village.");}
+        _menuButtons[2].TooltipText=n.FoodLandChallenge?"Newcomer homes, welcome and stored food reserve [G]":"Newcomer homes and the shared welcome meal [G]";
+        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice(n.FoodLandChallenge?"The meadow settlement is ready: homes, a shared welcome and two meals each in reserve.":"The neighborhood is complete. Everyone shared the welcome, and the newcomers have homes. Keep enjoying your village.");}
     }
 }

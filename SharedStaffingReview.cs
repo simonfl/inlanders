@@ -43,13 +43,13 @@ public partial class Game
             for(int i=0;i<18000 && !bridge.Complete;i++)_world.Tick(.1f);
             Check(bridge.Complete,"Arrival probe crossing failed");RenderActors(0);UpdateHud();
             await OpenMenu(0);_drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();
-            Check(!_inviteButton.Disabled && _inviteButton.Text=="Welcome four neighbors","Commitment control missing");
+            Check(!_inviteButton.Disabled && _inviteButton.Text==$"Welcome {_world.NeighborhoodArrivalWord} neighbors","Commitment control missing");
             await UiClick(_inviteButton);await Frames();
             Check(_world.Neighborhood.CommittedAt!=null && _world.Population==8 && _inviteButton.Disabled,"Commitment UI failed");
             await CaptureReviewBundle();
             for(int i=0;i<920;i++)_world.Tick(.1f);
             _noticeUntil=0;RenderActors(0);UpdateHud();await Frames();
-            Check(_world.Population==12 && _people.Count==12 && _roster.Count==12 && _arrivalInfo.Text.Contains("have arrived"),"Arrived population UI stale");
+            Check(_world.Population==8+_world.NeighborhoodArrivals && _people.Count==_world.Population && _roster.Count==_world.Population && _arrivalInfo.Text.Contains("have arrived"),"Arrived population UI stale");
             _drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();await CaptureReviewBundle();
             GD.Print("PASS: scripted commitment and arrival actors/roster/status");
             var venue=_world.Cottages.FirstOrDefault(c=>c.Complete && c.Cell.X>5 && Buildings.Get(c.Kind).RecreationSlots>0);
@@ -64,8 +64,8 @@ public partial class Game
                 Check(_welcomeDisplay!=null && _welcomeInfo.Text.Contains("portions ready"),"Welcome display or stock feedback missing");
                 _focus=OnGround(venue.Cell.X,venue.Cell.Z);_camera.Size=12;UpdateCamera();
                 await CaptureReviewBundle();
-                for(int i=0;i<12000 && _world.Neighborhood.Welcomed.Count<12;i++)_world.Tick(.1f);
-                Check(_world.Neighborhood.Welcomed.Count==12,"Rendered scenario welcome failed");
+                for(int i=0;i<12000 && _world.Neighborhood.Welcomed.Count<_world.Population;i++)_world.Tick(.1f);
+                Check(_world.Neighborhood.Welcomed.Count==_world.Population,"Rendered scenario welcome failed");
                 RenderActors(0);RenderFoodViews();UpdateHud();await Frames();await CaptureReviewBundle();
                 GD.Print("PASS: scripted venue selection, physical display and accumulated welcome attendance");
             }
