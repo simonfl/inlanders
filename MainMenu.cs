@@ -55,9 +55,11 @@ public partial class Game
         _atMainMenu = true; _paused = true; _placing = false; _pathStroke = false;
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage("A quiet place to build");
-        MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath) && !File.Exists(_campaignPath) && !File.Exists(_savePath) && !File.Exists(_largeSavePath) && !File.Exists(_creativeSavePath) && !File.Exists(_creativeLargeSavePath);
-        MenuButton("Campaign", CampaignMenu); MenuButton("Free play", FreePlayMenu); MenuButton("Creative", () => FreePlayMenu(true)); MenuButton("Settings", MainSettings);
-        MenuButton("Neighborhood experiment",NeighborhoodMenu);
+        MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
+        MenuButton("Settlements", NeighborhoodMenu);
+        MenuButton("Creative", () => FreePlayMenu(true));
+        MenuButton("Earlier prototypes", ComparisonMenu);
+        MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
         _mainColumn.AddChild(Text("Small villages, growing trees, and a little room to breathe.", 15, true));
     }
@@ -87,20 +89,20 @@ public partial class Game
     }
     private void ContinueFromMenu() => MenuAttempt(() =>
     {
-        World world;
-        if (File.Exists(_continuePath)) world = World.LoadFile(_continuePath);
-        else
-        {
-            // Migration for installations with saves predating the title screen.
-            string? latest = null;
-            foreach (var path in new[] { _campaignPath, _savePath, _largeSavePath, _creativeSavePath, _creativeLargeSavePath })
-                if (File.Exists(path) && (latest == null || File.GetLastWriteTimeUtc(path) > File.GetLastWriteTimeUtc(latest))) latest = path;
-            if (latest == null) throw new IOException("No saved settlement yet. Choose Campaign or Free play.");
-            if (latest == _campaignPath) { var book = CampaignBook.LoadFile(latest); _campaignBook = book; world = World.LoadJson(book.Settlements[book.ActiveLevel]); }
-            else world = World.LoadFile(latest);
-        }
+        var world = World.LoadFile(_continuePath);
         EnterFromMenu(world);
     });
+    private void ComparisonMenu()
+    {
+        MenuPage("Earlier prototypes");
+        _mainColumn.AddChild(Text("Earlier campaigns and food rules remain available for comparison. Settlements is the current local-food workflow; these prototypes use different rules.",15,true));
+        MenuButton("Campaign", CampaignMenu);
+        MenuButton("Free play", FreePlayMenu);
+        MenuButton("Original neighborhood control",()=>StartNeighborhood(World.NewNeighborhoodExperiment()));
+        MenuButton("Try landing and meadow",()=>StartNeighborhood(World.NewNeighborhoodLandscapeExperiment()));
+        MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
+        MenuButton("Back",ShowMainMenu);
+    }
     private void CampaignMenu()
     {
         MenuPage("Campaign");

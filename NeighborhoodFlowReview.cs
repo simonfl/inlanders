@@ -12,8 +12,9 @@ public partial class Game
         bool challenge=_world.Neighborhood?.FoodLandChallenge==true;
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
-        await UiClick(_mainButtons[challenge?"Try meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
+        ShowMainMenu();await Frames();await CaptureReviewBundle("start-menu");await UiClick(_mainButtons["Settlements"]);await Frames();await CaptureReviewBundle("settlement-choice");
+        if(!workplaceFood){await UiClick(_mainButtons["Back"]);await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();}
+        await UiClick(_mainButtons[challenge?"New meadow settlement":workplaceFood?"New neighborhood":landscape?"Try landing and meadow":"Original neighborhood control"]);await Frames();
         Check(_world.Neighborhood!=null && _paused && _drawer.Visible && _tabs.CurrentTab==2,"Menu did not open paused neighborhood goals");
         Check(_world.HasWorkplaceFood==workplaceFood,"Neighborhood entry selected the wrong food workflow");
         Check(_goalTitle.Text==(challenge?"The meadow settlement":"A new neighborhood") && !_supperButton.Visible && !_campaignSelection.Visible && _neighborhoodGoals.Visible,"Old goals leaked into experiment");
@@ -26,7 +27,7 @@ public partial class Game
         string mapName=_world.Map.Name;
         Reset();await Frames();Check(_world.Neighborhood!=null && _world.Food.Time==0 && _world.Map.Name==mapName && _world.HasWorkplaceFood==workplaceFood,"Restart changed game mode, food workflow or landscape");
         LoadWorld();await Frames();Check(_world.SaveJson()==saved,"Manual restore changed neighborhood state");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
         await UiClick(_mainButtons["Play original river level"]);await Frames();
         if(!_world.IsRiverCampaign || _world.Neighborhood!=null || _neighborhoodGoals.Visible)
         {
@@ -34,8 +35,8 @@ public partial class Game
             Check(false,"Original comparison did not open: "+_menuMessage.Text);
         }
         Check(_world.IsRiverCampaign && _world.Neighborhood==null && !_neighborhoodGoals.Visible,"Original comparison entry changed mode");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Neighborhood experiment"]);await Frames();
-        await UiClick(_mainButtons["Resume neighborhood"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();
+        await UiClick(_mainButtons["Resume settlement"]);await Frames();
         if(_world.SaveJson()!=saved || !_neighborhoodGoals.Visible)
         {
             System.IO.File.WriteAllText(System.IO.Path.Combine(_reviewDirectory,"resume-expected.json"),saved);
@@ -44,6 +45,11 @@ public partial class Game
         }
         Check(_world.SaveJson()==saved && _neighborhoodGoals.Visible,"Baseline switch overwrote experiment");
         _noticeUntil=0;await CaptureReviewBundle();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Creative"]);await Frames();
+        await UiClick(_mainButtons["New Original clearing"]);await Frames();
+        Check(_world.Neighborhood==null,"Creative retained neighborhood goals");
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Settlements"]);await Frames();
+        await UiClick(_mainButtons["Resume settlement"]);await Frames();if(_world.SaveJson()!=saved)await CaptureReviewBundle("resume-failure");Check(_world.SaveJson()==saved,"Creative resume failed: "+_menuMessage.Text);
         GD.Print("PASS: neighborhood menu, objective isolation, dedicated save, Continue, restart, manual load and baseline roundtrip");
     }
 }

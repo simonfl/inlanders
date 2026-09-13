@@ -9,21 +9,22 @@ public partial class Game
     private string _neighborhoodPath="saves/neighborhood.json";
     private VBoxContainer _neighborhoodGoals=null!;
     private Button _neighborhoodCommit=null!,_neighborhoodVenue=null!;
-    private Button _neighborhoodHome=null!,_studyDetailsButton=null!;
+    private Button _neighborhoodHome=null!,_studyDetailsButton=null!,_nextSettlement=null!;
     private bool _studyGoalDetails,_lastCompactGoals;
-    private bool CompactNeighborhoodGoals=>_storybookScene && _world.Neighborhood?.Complete==true && !_studyGoalDetails;
+    private bool CompactNeighborhoodGoals=>_world.Neighborhood?.Complete==true && !_studyGoalDetails;
     private void NeighborhoodMenu()
     {
-        MenuPage("A new neighborhood");
-        _mainColumn.AddChild(Text("Make a home across the river. Choose where to build, prepare for four new neighbors, and share a welcome meal. Food is stored where it is made; arrange workplaces and pantries around the journeys people take. All buildings remain available. Starting again replaces the neighborhood save.",15,true));
-        if(File.Exists(_neighborhoodPath))MenuButton("Resume neighborhood",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
-        MenuButton("New neighborhood",()=>MenuAttempt(()=>{var world=World.NewWorkplaceFoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
-        MenuButton("Try meadow settlement",()=>MenuAttempt(()=>{var world=World.NewFoodLandChallenge();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
-        MenuButton("Original neighborhood control",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
-        MenuButton("Try landing and meadow",()=>MenuAttempt(()=>{var world=World.NewNeighborhoodLandscapeExperiment();world.SaveFile(_neighborhoodPath);EnterFromMenu(world);}));
-        MenuButton("Play original river level",()=>OpenMenuCampaign(6,false));
+        MenuPage("Settlements");
+        _mainColumn.AddChild(Text("Build across the river, invite new neighbors, and share a welcome. Food stays at its producer; people eat locally and haulers supply pantries. All buildings are available.",15,true));
+        if(File.Exists(_neighborhoodPath))MenuButton("Resume settlement",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(_neighborhoodPath))));
+        _mainColumn.AddChild(Text("A new neighborhood · Four arrivals. A gentler introduction to homes, local food and the welcome table.",15,true));
+        MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
+        _mainColumn.AddChild(Text("The meadow · Eight arrivals, one wild berry patch. Arrange a food supply and build a reserve for sixteen people.",15,true));
+        MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));
+        _mainColumn.AddChild(Text("Each new settlement replaces this settlement slot. Continue resumes the last village you played.",14,true));
         MenuButton("Back",ShowMainMenu);
     }
+    private void StartNeighborhood(World world)=>MenuAttempt(()=>{world.SaveFile(_neighborhoodPath);EnterFromMenu(world);});
     private void MakeNeighborhoodGoals(VBoxContainer column)
     {
         _neighborhoodGoals=new();column.AddChild(_neighborhoodGoals);
@@ -36,6 +37,7 @@ public partial class Game
             if(venue!=null){CloseDrawer();SelectBuilding(venue.Id);_focus=OnGround(venue.Cell.X,venue.Cell.Z);UpdateCamera();}
             else {CloseDrawer();BeginPlacement(BuildingKind.SeatingGarden);}
         });_neighborhoodGoals.AddChild(_neighborhoodVenue);
+        _nextSettlement=Button("Choose another settlement",()=>{if(SaveSession()){ShowMainMenu();NeighborhoodMenu();}});_neighborhoodGoals.AddChild(_nextSettlement);
         _neighborhoodGoals.AddChild(Button("Keep watching the village",CloseDrawer));
         _studyDetailsButton=Button("Show village details",()=>{_studyGoalDetails=!_studyGoalDetails;UpdateHud();LayoutHud();});_neighborhoodGoals.AddChild(_studyDetailsButton);_studyDetailsButton.Hide();
         _neighborhoodGoals.Hide();
@@ -58,10 +60,13 @@ public partial class Game
             _objective.Text=$"New neighbors: {arrivals}\nEast-bank homes: {_world.NewNeighborsHoused}/8\nWelcome shared: {n.Welcomed.Count}/16\n"+
                 (n.Complete?$"Food now: {_world.EdibleStored} portions":$"Food reserve: {_world.EdibleStored}/{_world.NeighborhoodReserveTarget} stored portions");
         }
-        _neighborhoodCommit.Text=$"Welcome {_world.NeighborhoodArrivalWord} neighbors";
-        if(!n.Complete && _world.HasWorkplaceFood && !n.FoodLandChallenge)_goalArrival.Text+=" Food stays at forager huts, vegetable gardens and bakeries first. People can eat there; haulers distribute surplus to pantries.";
-        _neighborhoodHome.Visible=!CompactNeighborhoodGoals;
-        _studyDetailsButton.Visible=_storybookScene && n.Complete;
+        _neighborhoodCommit.Text=$"Invite {_world.NeighborhoodArrivalWord} neighbors · arrive in 90s";
+        if(n.CommittedAt==null)_goalArrival.Text+=$" Inviting commits {_world.NeighborhoodArrivals} people to arrive in 90 simulation seconds, even if homes or food are missing. At 3x that is about 30 seconds of play. You can recover from shortages.";
+        if(!n.Complete && _world.HasWorkplaceFood && !n.FoodLandChallenge)_goalArrival.Text+=" Food stays at each producer first. People can eat there; haulers distribute surplus to pantries.";
+        _neighborhoodHome.Visible=!n.Complete && _world.NewNeighborsHoused<_world.NeighborhoodArrivals;
+        _neighborhoodVenue.Visible=!n.Complete && n.Welcomed.Count<_world.Population;
+        _nextSettlement.Visible=n.Complete;
+        _studyDetailsButton.Visible=n.Complete;
         _studyDetailsButton.Text=_studyGoalDetails?"Hide village details":"Show village details";
         if(CompactNeighborhoodGoals)
         {

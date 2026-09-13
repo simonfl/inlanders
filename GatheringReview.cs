@@ -41,6 +41,11 @@ public partial class Game
         _focus=OnGround(_world.Gathering!.Center.X,_world.Gathering.Center.Z);UpdateCamera();CloseManagementUi();await Frames();await CaptureReviewBundle("gathering-seated");
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);Check(_world.SaveJson()==saved,"Gathering load differs");
         await Until(()=>_world.Gathering!.Complete,"Shared meal did not finish");await CaptureReviewBundle("gathering-complete");
+        await OpenMenu(2);await Frames();
+        Check(!_neighborhoodHome.Visible && !_neighborhoodVenue.Visible && _nextSettlement.Visible,"Completed task actions remain visible");
+        string finished=_world.SaveJson();await UiClick(_nextSettlement);await Frames();
+        Check(_atMainMenu && _mainButtons.ContainsKey("New meadow settlement"),"Next settlement navigation failed");
+        await UiClick(_mainButtons["Resume settlement"]);await Frames();Check(_world.SaveJson()==finished,"Next settlement navigation failed to save village");
         GD.Print("PASS: outdoor meal controls, physical gathering, cancel/restart, simultaneous seats, save/load and completion.");
     }
 }

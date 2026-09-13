@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active next: coherent starting flow and onboarding.** [Outdoor place planning](OUTDOOR_PLACE_F27C2.md) is delivered as checkpoint 12 with ground previews, circle/compact seating and protected access. Next complete new/resume/next-settlement navigation, then world food guidance and distribution controls in the [queue](NEXT_CHUNKS.md). Shared meals are expressive activity; the compulsory commons dilemma remains rejected and campaign rollout is paused. Whole-project review at fifteen includes visual/audio.
+**Active next: food in the world.** [Settlement start](SETTLEMENT_START_F27.md) is checkpoint 13. Food availability, reservations and real trips should be discoverable before adding producers; then test optional local distribution reserves. [Queue](NEXT_CHUNKS.md). Shared meals remain expressive activity; campaign rollout is paused. Whole-project review at fifteen includes visual/audio.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
