@@ -52,7 +52,8 @@ public sealed partial class World
         History.Add($"{NeighborhoodArrivals} neighbors will reach the village in 90 seconds, even if homes and food are not ready.");return true;
     }
     public string NeighborhoodStatus=>Neighborhood is not { } n?"":n.CommittedAt is not float started?
-        $"Choose a crossing, then welcome {NeighborhoodArrivalWord} neighbors. They arrive after 90 seconds even if preparations are incomplete.":!n.Arrived?
+        (IsInheritedShoreline?"Use the existing footway or reshape the village, then invite eight neighbors. They arrive after 90 seconds even if preparations are incomplete.":
+        $"Choose a crossing, then welcome {NeighborhoodArrivalWord} neighbors. They arrive after 90 seconds even if preparations are incomplete."):!n.Arrived?
         $"{NeighborhoodArrivals} neighbors are on their way · {Math.Max(0,90-(Food.Time-started)):F0}s\nPrepare homes and food. The commitment will not reset.":
         $"{NeighborhoodArrivals} neighbors have arrived · {Housed}/{Population} housed\n"+WelcomeStatus;
     private void AdvanceNeighborhood()

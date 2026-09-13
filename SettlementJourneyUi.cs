@@ -34,7 +34,7 @@ public partial class Game
         if(n.Complete)
         {
             _goalTitle.Text=_world.IsInheritedShoreline?"Willow inlet · welcome complete":n.FoodLandChallenge?"Meadow settlement complete":"Welcome complete";
-            _goalArrival.Text="You made homes and shared a welcome. This settlement is complete. Finish here, or stay to arrange and watch ordinary village life. Nothing else is required.";
+            _goalArrival.Text="You made homes and shared a welcome. Your welcoming goal is complete. Finish here, or keep building and watching village life. If you stay, residents will keep needing meals and rest.";
             return;
         }
         if(_world.IsInheritedShoreline){UpdateShorelineGoals();return;}

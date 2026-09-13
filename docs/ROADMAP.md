@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active now: checkpoint-20 whole-game review.** [F29c Willow inlet](INHERITED_SHORELINE_F29C.md) is playable: an inherited village with optional access/food changes and homes on either shore. The finite welcome is not a sustainability certificate; one layout misses meals afterward and can recover. Five independent roles must challenge the entire game before selecting further work. Count 20; no human preference, native play or audio acceptance is claimed.
+**Active next: F30a + F30b, one inhabited place you can understand and change.** The [checkpoint-20 whole-game review](REVIEW_CHECKPOINT_20.md), with five fresh independent roles, finds a credible arrangement prototype but unproven campaign depth. Combine world journeys and lane/court composition in a paired playable experiment; do not ship another overlay before its visual reward. Freeze new levels/resources/needs. [F29c Willow inlet](INHERITED_SHORELINE_F29C.md) is delivered; its welcome is an event, not a sustainability certificate. Count 20; next periodic review 25 and presentation-triggered review after this slice. No human enjoyment or audio acceptance claimed.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
@@ -14,11 +14,11 @@ The [strategic review](STRATEGIC_REVIEW_8.md) replaces incremental polishing wit
 
 The [current work queue](NEXT_CHUNKS.md) defines the experiment and enabling work. The [role reports](STRATEGIC_REVIEW_8_ROLES.md) record three independent reviewers plus two reused disciplinary passes after the agent thread limit; new native observation reached only the menu. Earlier [ordinary play](CAMPAIGN_REVIEW_F11D.md) covers opening completion and a river assessment. No review establishes human enjoyment. The [earlier audit](ROADMAP_REVIEW_2026_09_12.md) and [checkpoint-five review](REVIEW_CHECKPOINT_5.md) retain historical evidence, not binding recommendations.
 
-Current foundation: **two primary settlements, 18 building types, ten secondary campaign prototypes**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
+Current foundation: **opening and Willow inlet, a meadow comparison, 18 building types and ten secondary campaign prototypes**, actual meals, assigned homes/rest, recreation, optional comfort, fishing, finite stone, wildlife, local storage and managed woodland. The first five campaign levels are introductory; river, lake, quarry and woodland are operational settlement scenarios. Cottage/bakery/sawmill, lodge, forager, field, square and storage art passes have shipped. Goals, service explanations and resource survey already have substantial UI.
 
 ## Delivered F28 sequence
 
-The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is a coherent inherited-village slice; subsequent food interaction, scene composition, Creative rules and progression cleanup are conditional on its evidence and the checkpoint-20 review.
+The [active queue](NEXT_CHUNKS.md) supersedes the delivered F28/F29a work below. F29b completed a comparison and direction decision, not a new playable scenario. F29c is delivered. The checkpoint-20 review merges food interaction and scene composition into one experiment; Creative rule alignment and progression cleanup follow conditionally. The active queue supersedes separate F30a/F30b delivery.
 
 | Order | ID | Status | Player outcome / decision |
 | --- | --- | --- | --- |

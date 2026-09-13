@@ -21,7 +21,7 @@ public partial class Game
         MenuButton("New neighborhood",()=>StartNeighborhood(World.NewWorkplaceFoodExperiment()));
         _mainColumn.AddChild(Text("Next · Willow inlet. An inherited village, working gardens across the water and a long shoreline walk. Keep it, bridge it or bring everyday life closer before welcoming eight people.",15,true));
         MenuButton("New Willow inlet",()=>StartNeighborhood(World.NewInheritedShoreline()));
-        _mainColumn.AddChild(Text("Then try · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
+        _mainColumn.AddChild(Text("Comparison prototype · The meadow. Eight arrivals, one wild berry patch and a narrow route to the meadow. Choose when to invite more workers and where to produce food. Finish with homes, a welcome and two meals per resident in reserve.",15,true));
         MenuButton("New meadow settlement",()=>StartNeighborhood(World.NewFoodLandChallenge()));
         _mainColumn.AddChild(Text("Each new settlement replaces this settlement slot. Continue resumes the last village you played.",14,true));
         MenuButton("Back",ShowMainMenu);
@@ -90,6 +90,6 @@ public partial class Game
         _menuButtons[2].Text=n.Complete?"Goals · Complete":"Goals · Neighborhood";
         _menuButtons[2].TooltipText=n.FoodLandChallenge?"Newcomer homes, welcome and stored food reserve [G]":"Newcomer homes and the shared welcome meal [G]";
         UpdateSettlementJourney();
-        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice(n.FoodLandChallenge?"The meadow settlement is ready: homes, a shared welcome and two meals each in reserve.":"The neighborhood is complete. Everyone shared the welcome, and the newcomers have homes. Finish here, or stay and reshape it.");}
+        if(n.Complete && !_completionAnnounced){_completionAnnounced=true;SaveWorld();Notice(n.FoodLandChallenge?"The meadow welcome is complete: homes, a shared meal and two meals each in reserve.":"The welcome is complete. Everyone shared the meal, and the newcomers have homes. Finish here, or stay and reshape the village.");}
     }
 }

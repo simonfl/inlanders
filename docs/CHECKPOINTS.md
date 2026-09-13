@@ -4,15 +4,17 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **20**.
-- Last periodic review: **checkpoint 15**, [synthesis](REVIEW_CHECKPOINT_15.md) and [role findings](REVIEW_CHECKPOINT_15_ROLES.md). Three fresh independent contexts/five passes after thread-limit failures; independent core playtest shortfall, no native play/listening.
+- Last periodic review: **checkpoint 20**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_20.md). Whole-project evidence/source/still review; playtest role had no new native interaction, and no listening/human preference acceptance.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 20**, whole-project scope. Retain fresh playtest independence restored at 19; native observation remains outstanding.
-- Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
+- Next four-role review: **checkpoint 25**, whole-project scope. Native observation remains outstanding.
+- Next regular visual/audio review: **checkpoint 30**. The F30a/F30b presentation change triggers an earlier additional review.
 
 ## Chunk ledger
 
-**F29c Willow inlet — September 13, 2026:** [Playable inherited settlement and evidence](INHERITED_SHORELINE_F29C.md). Freely sited homes/welcome, optional shortcut, current-food ending check, shared-work advice and separate build/watch. Five route arms, a weak-layout recovery, original welcome/pantry suite and rendered 960/1440 journeys pass. Count **20**. Full regular five-role whole-project review is due now; no next implementation before its synthesis.
+**Checkpoint-20 review — September 13, 2026:** [Synthesis, independent verdicts and provenance](REVIEW_CHECKPOINT_20.md), fixed source `0a69400`. Five fresh roles; no new native play/listening. Merges F30a/F30b into an arrangement-and-life comparison, freezes content expansion and accepts bounded meal diagnostics/runner preflight. Completion/chooser/observer wording corrected after review; no new outcome. Count remains **20**.
+
+**F29c Willow inlet — September 13, 2026:** [Playable inherited settlement and evidence](INHERITED_SHORELINE_F29C.md). Freely sited homes/welcome, optional shortcut, current-food ending check, shared-work advice and separate build/watch. Five route arms, a weak-layout recovery, original welcome/pantry suite and rendered 960/1440 journeys pass. Count **20**. Full regular five-role whole-project review completed in the synthesis above.
 
 **F29b decision experiment and requested full review — September 13, 2026:** Fixed comparison/review commit `1a47c8c`; [eight matched plans](MEADOW_DECISION_F29B.md), [whole-game review](WHOLE_GAME_REVIEW_19.md). Five fresh independent contexts; current default 960/1440 journeys pass, Storybook study stills inspected, movie integrity checked without playback/listening acceptance. Reject reserve escalation, select an inherited-village comparison. Count remains **19**; next regular review **20**. Post-review consistency cleanup opens Details in the legacy removal probe, removes the obsolete previous-autosave control and verifies latest autosaves. Full menu/recovery rerun passes at 960/1440, including all modes, Creative removal, corrupt/wrong-level recovery and failed saves. No new playable scenario or save preservation work counted.
 
