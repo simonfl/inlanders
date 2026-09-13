@@ -5,6 +5,8 @@ namespace Inlanders.Simulation;
 
 public sealed class NeighborhoodProgress
 {
+    // Saved comparison rule; the control retains the existing village-wide hunger penalty.
+    public bool HungerSlowsActivity { get; set; } = true;
     public int? VenueId { get; set; }
     public System.Collections.Generic.HashSet<int> Welcomed { get; set; } = new();
     public bool Complete { get; set; }

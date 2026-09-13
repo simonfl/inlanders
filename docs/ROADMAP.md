@@ -6,6 +6,8 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
+**Active next: F27b, whole-scene presentation and village-arrangement comparison.** [Removing the hunger slowdown](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) did not stabilize the replacement food strategies. Stop incremental recovery adjustments; keep the welcome introductory and F27a unaccepted. Test the whole visual/interaction experience before choosing optional-production village-making versus a substantial logistics redesign. No campaign rollout yet.
+
 **Latest F27a finding:** [spatial and recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) expose a welcome that finishes before food failure and weak recovery through new production. The selectable landing/meadow map preserves starting resource quantities. Next test the global hunger slowdown and shared labor restrictions as separate possible causes; campaign rollout remains deferred. The welcome is an introductory event, not proof of sustainability.
 
 **F27a evidence update:** the [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) completes without hunger even without new food production. This scenario has not earned its economic complexity. Prioritize an authored landing/meadow alternative and labor/travel comparison; retain berry-only as a control and explicitly reconsider logistics if it remains irrelevant. No campaign rollout or playable checkpoint yet.

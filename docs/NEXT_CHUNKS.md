@@ -14,6 +14,8 @@ Check that opening, river and dense scenes are discoverable and reproducible; de
 
 ## 2. F27a — one complete living-neighborhood alternative
 
+**Current decision — stop balance iteration:** [isolated hunger comparison](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) improves first-fed time but does not produce stable recovery. Do not proceed through a series of cap/yield/deadline tweaks. Retain the welcome as introductory; F27a remains unaccepted. **Work on F27b next**, then choose village-making versus a substantial production/service redesign through T02. The spatial and recovery updates below record the evidence leading here.
+
 **Spatial/recovery update:** [the authored alternative](NEIGHBORHOOD_LANDSCAPE_F27A.md) is selectable. Natural forager replacement exposes persistent shortages despite additional gardens/ovens; the welcome finishes before the shortage. Next compare the global hunger slowdown on the same saved mistake, then shared labor restrictions independently if needed. Keep the welcome as an introductory event, not evidence of sustainable logistics. Do not expand campaign content while this direction is unresolved.
 
 **Latest decision:** [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) found every strategy hunger-free, with existing berries sufficient at either site. Do not accept this as a meaningful economic choice. Next author the compact-landing/spacious-meadow alternative, retain this control, and measure labor/travel before inventing a shortage. Then decide whether production remains optional village-making or the logistics design needs replacement. Recovery and ordinary play follow that decision; no forced bread quota.
@@ -29,6 +31,8 @@ Make a local grain/bakery chain physically work. Compare it with a directly edib
 Deliver a playable start → commitment → shortage/recovery → inhabited payoff, not just a routing foundation. Demonstrate at least two materially different viable arrangements and one recoverable mistake through real mechanics. Validate changed transport/staffing/current saves and ordinary UI; ask whether the player can predict consequences and still makes decisions after initial placement. This combined outcome counts once when playable, provisionally checkpoint 9. Begin T02's minimal comparison plumbing only as needed here.
 
 ## 3. F27b — make the whole neighborhood inviting
+
+**Active next chunk.** Gameplay experiments exposed unresolved economics; whole-scene appeal can be tested independently. Preserve the blockout as a comparison and do not claim F27a complete to advance here. See the [direction decision](NEIGHBORHOOD_HUNGER_EXPERIMENT.md).
 
 Apply a coherent alternative to the running slice: shore/land contours, vegetation groups, building masses and silhouettes, outdoor work/social spaces, lighting, camera framing and normal management UI. Favor an authored storybook landscape; compare a deliberately crafted tabletop treatment if cheap. No isolated hero building or automatic prop-density pass.
 

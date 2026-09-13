@@ -363,7 +363,7 @@ public sealed partial class World
         AdvanceWoodland(dt);
         foreach(var habitat in Map.FishingGrounds) habitat.Advance(dt);
         ReconcileHomes();
-        dt *= Food.WorkEfficiency;
+        dt *= Neighborhood?.HungerSlowsActivity==false ? 1 : Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
         if(retry && !Creative && !Food.Celebrating)
             foreach(var person in People.Where(p=>p.Task==Work.Waiting && p.Meal is {Eaten:false,Closed:false})

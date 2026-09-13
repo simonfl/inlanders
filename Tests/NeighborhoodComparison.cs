@@ -25,13 +25,13 @@ static class NeighborhoodComparison
         }
         throw new InvalidOperationException($"No legal east-bank space for {kind}; failed layout, not a successful recovery.");
     }
-    public static void Recovery(bool capacity=false)
+    public static void Recovery(bool capacity=false,bool noSlowdown=false)
     {
-        string folder=capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery";Directory.CreateDirectory(folder);
+        string folder=(capacity?"artifacts/neighborhood-recovery-capacity":"artifacts/neighborhood-recovery")+(noSlowdown?"-no-slowdown":"");Directory.CreateDirectory(folder);
         var timer=Stopwatch.StartNew();
         var sources=Directory.GetFiles("Simulation","*.cs").Append("Tests/NeighborhoodComparison.cs")
             .OrderBy(p=>p,StringComparer.Ordinal).ToDictionary(p=>p,p=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
-        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity},Json));
+        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="running",sources,capacity,noSlowdown},Json));
         var w=World.NewNeighborhoodLandscapeExperiment();
         var bridge=w.Place(new(5,2),1,BuildingKind.Bridge)!;
         for(int i=0;i<12000 && !bridge.Complete;i++)w.Tick(.1f);
@@ -57,6 +57,7 @@ static class NeighborhoodComparison
         {
             string name=$"{kind}-{count}"+(pantry?"-pantry":"")+(pauseGrain?"-pause-grain":"");
             var branch=World.LoadJson(baseline);var site=PlaceNear(branch,kind,kind==BuildingKind.Bakery?new(17,6):new(8,2));
+            branch.Neighborhood!.HungerSlowsActivity=!noSlowdown;
             for(int n=1;n<count;n++)PlaceNear(branch,kind,new(17,6));
             if(pantry){var store=PlaceNear(branch,BuildingKind.Pantry,new(17,6));branch.SetPantryTarget(store.Id,24);}
             if(pauseGrain && !branch.SetWorkplacePaused(branch.Cottages.Single(c=>c.Kind==BuildingKind.Farm).Id,true))
@@ -75,7 +76,7 @@ static class NeighborhoodComparison
             File.WriteAllText($"{folder}/results.json",JsonSerializer.Serialize(results,Json));
             Console.WriteLine($"Recovery {name}: first fed {firstFed}, welcome already complete {w.Neighborhood!.Complete}, hunger {hungerSeconds:F1}s, final hunger {branch.Food.Hunger}, food {branch.EdibleStored}");
         }
-        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="complete",sources,capacity,arms=results.Count,wallSeconds=timer.Elapsed.TotalSeconds},Json));
+        File.WriteAllText($"{folder}/manifest.json",JsonSerializer.Serialize(new{status="complete",sources,capacity,noSlowdown,arms=results.Count,wallSeconds=timer.Elapsed.TotalSeconds},Json));
     }
     public static void Run(bool landscape=false)
     {

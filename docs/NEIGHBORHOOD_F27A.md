@@ -4,6 +4,8 @@ In progress. This is the complete gameplay experiment from the [strategic reset]
 
 ## Design decision
 
+Current work-order decision: [hunger experiment and synthesis](NEIGHBORHOOD_HUNGER_EXPERIMENT.md). Removing the global slowdown did not stabilize alternative food production. Keep the welcome introductory, stop incremental balance iteration, and test F27b's whole-scene village-making experience next. This does not accept F27a or waive its unobserved ordinary play/recovery requirements.
+
 Latest evidence changes the next step: [authored spatial alternative and recovery findings](NEIGHBORHOOD_LANDSCAPE_F27A.md). The welcome can finish before food failure. Treat the implemented event as introductory, and test the global hunger slowdown/shared labor restrictions before claiming two viable replacement food strategies. Earlier intentions below are hypotheses still being tested, not acceptance criteria satisfied by mechanical completion.
 
 A bounded independent game-designer review recommended making expansion a commitment and the welcome an actual activity. Existing `BeginSupper` is unsuitable unchanged: it deducts central bread immediately and globally redirects the village. Existing Automatic workplace behavior is also insufficient: it chooses a workplace within an assigned profession, while Unassigned residents do no work. Renaming either system would preserve the rejected design.
