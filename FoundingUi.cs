@@ -30,7 +30,7 @@ public partial class Game
     private void MakeFoundingUi(VBoxContainer column)
     {
         _foundingGoals=new();column.AddChild(_foundingGoals);
-        _foundingGoals.AddChild(Button("Build homes and workplaces",()=>ToggleDrawer(0)));
+        _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();}));
         _foundingFood=Text("",14,true);_foundingGoals.AddChild(_foundingFood);
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
@@ -55,7 +55,7 @@ public partial class Game
         var flow=_world.ReadFoodFlow();
         float delivered=flow.Seconds>0?flow.Delivered*60f/flow.Seconds:0;
         _foundingFood.Text=$"FOOD FOR GROWTH\n{_world.EdibleStored} stored · {_world.Population} portions needed per minute\n"+
-            (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(delivered<_world.Population?" · below current demand":""):"Gathering a minute of delivery history.");
+            (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
         _foundingFood.TooltipText=$"Observed over the last {flow.Seconds:0} simulated seconds. New producer deliveries only; transfers between stores are excluded. This is history, not a forecast or a guarantee that meals arrive on time. Two newcomers add two portions per minute. Inspect food to check locations and routes.";
         _foundingFinish.Visible=!f.Finished && _world.Population>=12;_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
         _foundingFinish.TooltipText=_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";

@@ -19,6 +19,8 @@ public partial class Game
         Check(_foundingGoals.IsVisibleInTree() && !_goalDashboard.IsVisibleInTree() && !_supperButton.IsVisibleInTree(),"Legacy goals leaked");
         Check(_foundingInvite.Disabled && _foundingFinish.Disabled,"Opening enabled growth/finish");
         await CaptureReviewBundle("founding-brief");
+        await Click(_foundingGoals.GetChildren().OfType<Button>().First(b=>b.Text=="Build homes and workplaces"));
+        Check(_tabs.CurrentTab==1 && _buildSection==0 && _buildingFilter.Selected==0,"Founding build shortcut opens wrong page");CloseDrawer();
         // Real construction commands; bounded simulation advancement, not a human playthrough.
         foreach(var at in new[]{new Cell(-3,0),new(0,0),new(0,6),new(-3,5),new(-6,6)})
         {

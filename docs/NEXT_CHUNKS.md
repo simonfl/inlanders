@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **30**. [Whole-game review25](REVIEW_CHECKPOINT_25.md) completed with three fresh reviewers and a reused independent playtest context after the thread limit. Next periodic review **30**, including visual/audio. No uncoached play, listening or preference acceptance.
+September 13, 2026. Count **30**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -40,9 +40,17 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 
 [Recovery comparison and delivery](SHORTAGE_RECOVERY_F31F.md). The overloaded village recovers with garden/dock production, not a pantry alone. Economy connects directly to current food workplaces, building choices and actual resident pickup sources. One playable outcome, count30.
 
-## Due now — whole-project checkpoint30 review
+## 1. F32a — a spacious working lakeside hamlet
 
-Freeze a commit/build and run independent game-design, UX, playtest, development-lead and visual/audio reviews. Challenge the whole game and the growth/management direction, crowding, repeated buildings and still-unproven longer-term loop. Choose a direction before selecting further implementation. Native/uncoached play and listening remain missing.
+[Review30 direction](REVIEW_CHECKPOINT_30.md): preserve actual food/growth consequences but replace further controls or population milestones with a whole-neighborhood comparison. Test existing lodge/housing investment, local food, usable shared ground, shore composition and circulation together against current compact cottage growth. The efficient solution should be a place worth watching.
+
+Use the same initial people/resources and normal rules; keep all buildings available. A compact control, one plausible spacious candidate and an imperfect/recovery arrangement suffice initially. Do not optimize away failure or add automatic beauty bonuses. If the existing rules cannot support a readable spacious village, explicitly reconsider footprints/access/housing economics. No new primary mode or compulsory needs.
+
+Judge matched ordinary camera views, opposite sides and actual normal-speed activity, alongside costs, meals and journeys. Seek an uncoached choice/prediction/intervention/observed consequence and compare voluntary non-growing arrangement. Simulation success does not settle enjoyment. A substantial presentation revision requires visual/audio review before acceptance.
+
+## Following scope remains provisional
+
+Iterate the selected neighborhood only if it earns a positive case; otherwise change the rules/direction the comparison falsified. Do not fill the31–35 horizon with speculative buildings, diagnostics or quotas. Keep the recorded shutdown failure visible: review-only finalizer cleanup has two clean reruns; normal-play quit reliability is not established by that mitigation. Investigate any recurrence before broadening capture automation.
 
 ## Keep deferred
 

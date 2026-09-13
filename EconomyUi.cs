@@ -79,7 +79,7 @@ public partial class Game
         var flow = _world.ReadFoodFlow();
         _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
-            $"Pantry deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game · {flow.Fruit} fruit\n" +
+            $"Producer deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game · {flow.Fruit} fruit\n" +
             $"Portions eaten: {flow.Eaten} · closed/skipped demand: {flow.Required}\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.SimulatesMeals ? _world.Population : 0)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts first producer deliveries; transfers are not new supply. Eating and deadlines occur at different times. Excludes supper and trades.";

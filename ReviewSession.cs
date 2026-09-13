@@ -92,7 +92,14 @@ public partial class Game
                 await CaptureReviewBundle();
             }
             if(request.TryGetProperty("probeControls",out var probe) && probe.GetBoolean())await ProbeReviewControls();
-            if(request.GetProperty("captureOnly").GetBoolean())GetTree().Quit();
+            if(request.GetProperty("captureOnly").GetBoolean())
+            {
+                // Long command-driven probes create many temporary native wrappers.
+                // Drain their finalizers while Godot's binding table is still alive.
+                SetProcess(false);SetProcessUnhandledInput(false);
+                GC.Collect();GC.WaitForPendingFinalizers();GC.Collect();
+                GetTree().Quit();
+            }
         }
         catch(Exception e) { GD.PushError(e.ToString());GetTree().Quit(1); }
     }
@@ -120,6 +127,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="resume")await ProbeSettlementResume();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="commons")await ProbeCommons();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="willow-court")await ProbeCourt();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="shortage-recovery")await ProbeShortageRecovery();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="court-experience")await ProbeCourtExperience();

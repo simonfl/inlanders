@@ -9,7 +9,7 @@ public partial class Game
     private readonly Dictionary<int,Button> _mealSourceLinks=new();
     private VBoxContainer _servicePanel=null!, _serviceRows=null!;
     private OptionButton _serviceFilter=null!;
-    private Label _serviceCount=null!;
+    private Label _serviceCount=null!, _serviceGuide=null!;
     private World? _serviceWorld;
     private string? _campaignServiceKey;
     private Label _campaignServiceInfo=null!;
@@ -41,7 +41,7 @@ public partial class Game
         _servicePanel=new() { Visible=false }; column.AddChild(_servicePanel);
         var guide=Text("Completed visits · rest lasts 4m (5m after improved-home use); recreation lasts 2m from a square/garden or 4m from a hall.",13,true);
         guide.TooltipText="Square/garden: 6-second visit, at least 1 minute between outings. Hall: 12-second visit, at least 2 minutes between outings. Residents go between jobs. Travel or attendance alone does not count as a completed visit.";
-        _servicePanel.AddChild(guide);
+        _serviceGuide=guide;_servicePanel.AddChild(guide);
         _serviceFilter=DirectoryFilter(_servicePanel,"Find missing visits or residents who are hungry or missed/skipped a meal in the last three minutes. New arrivals are not counted as meal failures before a deadline.");
         foreach(string name in new[]{"Missing either visit","Missing recent rest","Missing recreation","All residents","Hungry / recent missed meals"}) _serviceFilter.AddItem(name);
         _serviceFilter.AddItem("Goal: not counted");_serviceFilter.AddItem("Goal: counted");
@@ -59,6 +59,7 @@ public partial class Game
         }
         _serviceToggle.Text=$"{(_servicePanel.Visible?"▾":"▸")} Meals · rest {_world.ResidentsRested}/{_world.Population} · recreation {_world.People.Count(HasRecreation)}/{_world.Population}";
         if(!_servicePanel.Visible) return;
+        _serviceGuide.Visible=_serviceFilter.Selected!=4;
         bool goalFilter=_serviceFilter.Selected>=5 && _campaignServiceKey!=null;
         _campaignServiceInfo.Visible=_serviceFilter.Selected>=5;
         _campaignServiceInfo.Text=goalFilter?$"Campaign goal: {_world.ReadCampaignConditions().FirstOrDefault(c=>c.Key==_campaignServiceKey)?.Label ?? _campaignServiceKey}. Counts update as visits expire.":"Open a condition from Goals to choose a campaign filter.";
@@ -94,7 +95,7 @@ public partial class Game
             sourceLink.Disabled=meal==null || !(meal.Reserved || meal.Carrying || meal.Eaten);
             sourceLink.Text=sourceLink.Disabled?"No meal pickup assigned":$"{(meal!.Eaten?"Last meal pickup":"Meal pickup")} · "+(meal.SourceId is int sourceId?$"building {sourceId}":"central food");
             sourceLink.TooltipText="Actual assigned meal source; not the closest store or a guessed cause of a missed meal. A consumed meal's source remains visible until the next request replaces it.";
-            item.Reason.Text=(_serviceFilter.Selected is 3 or 4?meals+"\n":"")+$"REST · {_world.RestSummary(p)}\nRECREATION · {_world.RecreationSummary(p)}";
+            item.Reason.Text=_serviceFilter.Selected==4?meals:(_serviceFilter.Selected==3?meals+"\n":"")+$"REST · {_world.RestSummary(p)}\nRECREATION · {_world.RecreationSummary(p)}";
             if(goalFilter)item.Reason.Text=_world.CampaignResidentReason(p,_campaignServiceKey!);
             var homeSite=_world.Cottages.FirstOrDefault(c=>c.Id==p.HomeId);
             item.Home.Visible=homeSite!=null;
