@@ -19,6 +19,7 @@ public partial class Game
     }
     private void MakeTerrainSurface()
     {
+        _storybookEdges.Clear();
         var top = new SurfaceTool(); top.Begin(Godot.Mesh.PrimitiveType.Triangles);
         var sides = new SurfaceTool(); sides.Begin(Godot.Mesh.PrimitiveType.Triangles);
         foreach (var cell in _world.Map.Land)
@@ -34,6 +35,11 @@ public partial class Game
             void Edge(Vector3 first, Vector3 second, Cell neighbor)
             {
                 if (_world.Map.Contains(neighbor) && !_world.Map.Water.Contains(neighbor)) return;
+                if(_storybookScene && _world.Neighborhood!=null)
+                {
+                    _storybookEdges.Add((first,second,new Vector3(neighbor.X-cell.X,0,neighbor.Z-cell.Z),_world.Map.Water.Contains(neighbor)?.10f:.62f));
+                    return;
+                }
                 if(flatBoxes)
                 {
                     var lowerFirst=first with{Y=-.07f};var lowerSecond=second with{Y=-.07f};
@@ -46,7 +52,8 @@ public partial class Game
             Edge(a,b,new(cell.X,cell.Z-1)); Edge(b,c,new(cell.X+1,cell.Z));
             Edge(c,d,new(cell.X,cell.Z+1)); Edge(d,a,new(cell.X-1,cell.Z));
         }
-        SurfaceMesh(_landscape,top).Name = "TerrainSurface"; SurfaceMesh(_landscape,sides).Name = "TerrainSides";
+        SurfaceMesh(_landscape,top).Name = "TerrainSurface";
+        if(_storybookScene && _world.Neighborhood!=null)StorybookLandscapeContext();else SurfaceMesh(_landscape,sides).Name = "TerrainSides";
     }
     // Subdivide overlays so their centers and links follow both triangles of a sloping tile.
     private void GroundPatch(Node3D parent, float x, float z, float width, float depth, Color color, float lift = .035f)

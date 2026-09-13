@@ -9,6 +9,9 @@ public partial class Game
     private string _neighborhoodPath="saves/neighborhood.json";
     private VBoxContainer _neighborhoodGoals=null!;
     private Button _neighborhoodCommit=null!,_neighborhoodVenue=null!;
+    private Button _neighborhoodHome=null!,_studyDetailsButton=null!;
+    private bool _studyGoalDetails,_lastCompactGoals;
+    private bool CompactNeighborhoodGoals=>_storybookScene && _world.Neighborhood?.Complete==true && !_studyGoalDetails;
     private void NeighborhoodMenu()
     {
         MenuPage("A new neighborhood");
@@ -23,13 +26,14 @@ public partial class Game
     {
         _neighborhoodGoals=new();column.AddChild(_neighborhoodGoals);
         _neighborhoodCommit=Button("Welcome four neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready yet.");});_neighborhoodGoals.AddChild(_neighborhoodCommit);
-        _neighborhoodGoals.AddChild(Button("Plan east-bank homes",()=>{CloseDrawer();BeginPlacement(BuildingKind.Cottage);}));
+        _neighborhoodHome=Button("Plan east-bank homes",()=>{CloseDrawer();BeginPlacement(BuildingKind.Cottage);});_neighborhoodGoals.AddChild(_neighborhoodHome);
         _neighborhoodVenue=Button("Find a gathering place",()=>{
             var venue=_world.Cottages.FirstOrDefault(c=>c.Id==_world.Neighborhood?.VenueId)??_world.Cottages.FirstOrDefault(c=>c.Cell.X>5 && c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).RecreationSlots>0);
             if(venue!=null){CloseDrawer();SelectBuilding(venue.Id);_focus=OnGround(venue.Cell.X,venue.Cell.Z);UpdateCamera();}
             else {CloseDrawer();BeginPlacement(BuildingKind.SeatingGarden);}
         });_neighborhoodGoals.AddChild(_neighborhoodVenue);
         _neighborhoodGoals.AddChild(Button("Keep watching the village",CloseDrawer));
+        _studyDetailsButton=Button("Show village details",()=>{_studyGoalDetails=!_studyGoalDetails;UpdateHud();LayoutHud();});_neighborhoodGoals.AddChild(_studyDetailsButton);_studyDetailsButton.Hide();
         _neighborhoodGoals.Hide();
     }
     private void UpdateNeighborhoodGoals()
@@ -41,9 +45,20 @@ public partial class Game
         _goalTitle.Text=n.Complete?"A neighborhood to call home":"A new neighborhood";
         _goalArrival.Text=n.Complete?"The newcomers have settled in. Keep shaping the village, or compare another approach from the main menu.":"Make an eastern home for four neighbors, then share a welcome meal at a square, hall or seating garden. All buildings are available. Shared workers take available jobs; dedicate residents at workplaces when needed.";
         _objective.Text=_world.NeighborhoodStatus;
+        _neighborhoodHome.Visible=!CompactNeighborhoodGoals;
+        _studyDetailsButton.Visible=_storybookScene && n.Complete;
+        _studyDetailsButton.Text=_studyGoalDetails?"Hide village details":"Show village details";
+        if(CompactNeighborhoodGoals)
+        {
+            _goalTitle.Text="Welcome shared";
+            _goalArrival.Text="The newcomers have settled in. Village life continues.";
+            _objective.Text=$"{_world.Housed}/{_world.Population} housed · {_world.People.Count(p=>p.Fed)}/{_world.Population} fed";
+            _visitorPanel.Hide();
+        }
         _neighborhoodCommit.Disabled=_world.InvitationProblem()!=null;
         _neighborhoodCommit.TooltipText=_world.InvitationProblem()??"Four neighbors arrive after 90 seconds, even without homes or food. This commitment happens once.";
         _neighborhoodCommit.Visible=n.CommittedAt==null;
+        if(_lastCompactGoals!=CompactNeighborhoodGoals){_lastCompactGoals=CompactNeighborhoodGoals;LayoutHud();}
         _neighborhoodVenue.Text=n.VenueId!=null?"Inspect welcome table":"Choose a gathering place";
         _menuButtons[2].Text=n.Complete?"Goals · Complete":"Goals · Neighborhood";
         _menuButtons[2].TooltipText="Newcomer homes and the shared welcome meal [G]";

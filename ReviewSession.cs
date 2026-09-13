@@ -23,6 +23,7 @@ public partial class Game
         if(index+1>=args.Length)throw new ArgumentException("--review-run needs a request file from Review.ps1");
         _reviewRequest=JsonDocument.Parse(File.ReadAllText(args[index+1]));
         var request=_reviewRequest.RootElement;
+        _storybookScene=request.TryGetProperty("storybook",out var storybook) && storybook.GetBoolean();
         // Godot loads the managed assembly from bytes, so Assembly.Location can be empty.
         if(request.GetProperty("assemblyHash").GetString()!=ReviewHash(ProjectSettings.GlobalizePath("res://.godot/mono/temp/bin/Debug/Inlanders.dll")))throw new Exception("Review build hash differs from request");
         if(request.GetProperty("fixture").GetProperty("fixtureHash").GetString()!=ReviewHash(request.GetProperty("fixturePath").GetString()!))throw new Exception("Review fixture hash differs from request");
@@ -67,6 +68,25 @@ public partial class Game
                 if(!_objective.IsVisibleInTree() || !_neighborhoodGoals.IsVisibleInTree() || string.IsNullOrWhiteSpace(_objective.Text))throw new Exception("Neighborhood goals are missing");
             }
             await CaptureReviewBundle();
+            if(request.TryGetProperty("observeSeconds",out var observe) && observe.GetSingle()>0)
+            {
+                float start=_world.Food.Time;double wallStart=_reviewTimer.Elapsed.TotalSeconds;
+                _frameTraces.Clear();_traceFrames=true;
+                CloseManagementUi();_paused=false;
+                while(_world.Food.Time-start<observe.GetSingle())
+                {
+                    if(_reviewTimer.Elapsed.TotalSeconds-wallStart>180)throw new TimeoutException("Observation exceeded 180 wall seconds; inspect performance before retrying.");
+                    await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                }
+                _paused=true;_traceFrames=false;_world.Validate();
+                File.WriteAllText(Path.Combine(_reviewDirectory,"frames.json"),JsonSerializer.Serialize(_frameTraces,new JsonSerializerOptions{IncludeFields=true}));
+                File.WriteAllText(Path.Combine(_reviewDirectory,"observation.json"),JsonSerializer.Serialize(new{
+                    startSimulationSeconds=start,endSimulationSeconds=_world.Food.Time,speed=_speed,
+                    wallSeconds=_reviewTimer.Elapsed.TotalSeconds-wallStart,
+                    mode="Normal process advancement with before/after snapshots; not a recording or human observation",
+                    tasks=_world.People.GroupBy(p=>p.Task.ToString()).ToDictionary(g=>g.Key,g=>g.Count())},new JsonSerializerOptions{WriteIndented=true}));
+                await CaptureReviewBundle();
+            }
             if(request.TryGetProperty("probeControls",out var probe) && probe.GetBoolean())await ProbeReviewControls();
             if(request.GetProperty("captureOnly").GetBoolean())GetTree().Quit();
         }
@@ -77,6 +97,7 @@ public partial class Game
     {
         void Check(bool value,string why){if(!value)throw new Exception(why);}
         Check(_paused && !_atMainMenu,"Review did not enter paused ordinary play");
+        await ProbeSceneStudy();
         float initialSpeed=_speed,initialTime=_world.Food.Time;
         for(int i=0;i<3;i++){await UiClick(_speedButton);Check(_speed is 1 or 3 or 6,"Non-player speed selected");}
         Check(_speed==initialSpeed,"Speed cycle differs from normal controls");
@@ -122,7 +143,7 @@ public partial class Game
                 window=new{width=GetWindow().Size.X,height=GetWindow().Size.Y},
                 selected=new{personId=_selectedPerson,siteId=_selectedSite,personStatus=person?.Status,role=person?.Role.ToString(),task=person?.Task.ToString(),siteKind=site?.Kind.ToString()},
                 village=new{population=_world.Population,buildings=_world.Cottages.Count,map=_world.Map.Name,objective=_world.CampaignObjective},
-                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels},
+                rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene},
                 audio=new{effects=_effectsVolume,music=_musicVolume,nature=_ambienceVolume,muted=_soundMuted,musicMuted=_musicMuted}
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));

@@ -34,6 +34,22 @@ To reopen a captured world with its camera, size, speed, selected resident/build
 
 The path is the capture directory printed by a run, not a literal `<run>` directory. Bundle settings take precedence over scene presets. Reopening starts paused. Bundle source/hash checks prevent silently opening stale evidence; this is not save migration or deterministic animation/audio replay. General panel navigation, transient placement state and audio transport position are not replayed.
 
+## Scene comparison and bounded advancement
+
+The F27b study can be selected from Options on the same village, or launched directly:
+
+```powershell
+./Review.ps1 Capture neighborhood-complete -Storybook -Width 960
+./Review.ps1 Capture neighborhood-complete -Storybook -ObserveSeconds 6 -Speed 3
+./Review.ps1 Capture neighborhood-complete -Storybook -ProbeControls
+```
+
+Omit `-Storybook` for the control. The manifest records the style, and bundle reopening restores it. `-ObserveSeconds` (1–60 simulation seconds) records a paused initial snapshot, advances through the normal process at the requested speed, then records a final unobstructed snapshot and `observation.json`. It also exports existing frame-trace fields to `frames.json`; this is elapsed callback/thread CPU evidence, not a native profiler stack trace. Run timing comparisons sequentially, without another game process. The interval fails after 180 wall seconds if the loop can still receive frames; it cannot interrupt a blocked engine callback.
+
+These are before/after images, not an animation recording or human playtest. Actual motion and audio still need observation. A movie experiment was cut after excessive capture cost; there is no supported Movie switch.
+
+The scripted control probe checks the same-world style toggle, camera/state preservation, buildable boundary visibility during placement, and completed Goals details expansion/collapse when applicable. Existing staffing checks now skip the one-time arrival commitment on an already committed fixture. Assertions still test that path on a fresh neighborhood.
+
 ## Scenarios and implementation
 
 `Development/review-scenarios.json` registers opening, river, ordinary and dense scenes with descriptions and camera presets. Opening/river use the actual fresh campaign worlds. Ordinary uses one existing successful local finale route; dense extends the existing extra-resident route to 32 residents with normal building/arrival commands. These are authored deterministic preparations, not random seeds or uncoached play. The manifest explicitly records that distinction.

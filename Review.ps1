@@ -7,7 +7,9 @@ param(
     [switch]$Fresh,
     [switch]$ReuseOnly,
     [string]$Bundle,
-    [switch]$ProbeControls
+    [switch]$ProbeControls,
+    [switch]$Storybook,
+    [ValidateRange(0,60)][int]$ObserveSeconds=0
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
@@ -19,6 +21,7 @@ if ($scenarioEntry.Count -ne 1) { throw "Unknown scenario '$Scenario'. Run ./Rev
 $scenarioEntry=$scenarioEntry[0]
 if($Bundle -and $Action -notin @('Inspect','Capture','Check')) { throw '-Bundle applies to Inspect, Capture or Check.' }
 if($ProbeControls -and $Action -ne 'Capture') { throw '-ProbeControls requires Capture.' }
+if($ObserveSeconds -gt 0 -and $Action -ne 'Capture'){throw 'Observation output requires Capture.'}
 $env:DOTNET_ROOT=Join-Path $PSScriptRoot '.tools/dotnet'
 $env:DOTNET_CLI_HOME=Join-Path $PSScriptRoot '.tools/dotnet-home'
 $env:APPDATA=Join-Path $PSScriptRoot '.tools/appdata'
@@ -102,11 +105,14 @@ $gitStatus=@(& git -c "safe.directory=$gitSafeRoot" status --porcelain)
 if($LASTEXITCODE -ne 0) { throw 'Could not record worktree state' }
 $request=@{scenario=$Scenario;variant='current';sourceFingerprint=$fingerprint;assemblyHash=$build.assemblyHash;commit=$gitRevision;dirty=($gitStatus.Count -gt 0);gitStatus=$gitStatus;fixture=$fixture;runDirectory=$runDir;fixturePath=(Join-Path $runDir 'initial.json');width=$Width;height=$(if($Width -eq 960){640}else{900});speed=$Speed;turn=$Turn;focusX=$scenarioEntry.focusX;focusZ=$scenarioEntry.focusZ;zoom=$scenarioEntry.zoom;executionMode='normal Godot process; starts paused';requestedUtc=[DateTime]::UtcNow.ToString('o');setupSeconds=$timer.Elapsed.TotalSeconds;captureOnly=($Action -eq 'Capture')}
 if($bundleRecord) {
+    if($bundleRecord.rendering.PSObject.Properties.Name -contains 'storybook'){$request.storybook=$bundleRecord.rendering.storybook}
     $request.width=$bundleRecord.window.width;$request.height=$bundleRecord.window.height
     $request.focusX=$bundleRecord.camera.focusX;$request.focusZ=$bundleRecord.camera.focusZ;$request.zoom=$bundleRecord.camera.zoom
     $request.angle=$bundleRecord.camera.angle;$request.view=$bundleRecord.rendering;$request.audio=$bundleRecord.audio;$request.selected=$bundleRecord.selected
 }
 $requestPath=Join-Path $runDir 'request.json';WriteJson $request $requestPath
+$request.observeSeconds=$ObserveSeconds;WriteJson $request $requestPath
+if($Storybook -and -not $Bundle){$request.storybook=$true;WriteJson $request $requestPath}
 if($ProbeControls) { $request.probeControls=$true;WriteJson $request $requestPath }
 $engine=Join-Path $PSScriptRoot '.tools/godot/Godot_v4.6-stable_mono_win64/Godot_v4.6-stable_mono_win64_console.exe'
 $launchArgs=@('--path',('"'+$PSScriptRoot+'"'),'--','--review-run',('"'+$requestPath+'"'))

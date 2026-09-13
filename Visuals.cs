@@ -86,6 +86,7 @@ public partial class Game : Node3D
         Cylinder(tree, new(0, 0.8f, 0), 0.18f, 1.6f, _wood, 0.11f);
         var crown = new Node3D { Position = new(0, 1.1f, 0) }; tree.AddChild(crown);
         crown.AddToGroup("foliage"); crown.SetMeta("breeze_phase", at.X * 0.61f + at.Z * 0.37f);
+        if(_storybookScene){StorybookCrown(crown,at);return tree;}
         Mesh(crown, new SphereMesh { Radius = 0.9f, Height = 1.9f, RadialSegments = 7, Rings = 4 }, new(0, 0.85f, 0), leaves);
         Mesh(crown, new SphereMesh { Radius = 0.65f, Height = 1.3f, RadialSegments = 6, Rings = 3 }, new(0.5f, 0.6f, 0.1f), leaves.Lightened(0.05f));
         return tree;

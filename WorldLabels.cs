@@ -21,11 +21,12 @@ public partial class Game
     {
         foreach (Node3D label in GetTree().GetNodesInGroup("world_labels"))
             if (GodotObject.IsInstanceValid(label) && !label.IsQueuedForDeletion())
-                label.Visible = WorldLabelsVisible && (_ghostModel == null || !_ghostModel.IsAncestorOf(label));
+                label.Visible = WorldLabelsVisible && (_ghostModel == null || !_ghostModel.IsAncestorOf(label)) &&
+                    (!_storybookScene || _selectedSite>=0 && _cottages.TryGetValue(_selectedSite,out var site) && site.Body.IsAncestorOf(label));
     }
     private void UpdateLabelButtons()
     {
-        if (_worldLabelsButton != null) _worldLabelsButton.Text = _showWorldLabels ? "World labels: shown" : "World labels: hidden";
+        if (_worldLabelsButton != null) _worldLabelsButton.Text = _showWorldLabels ? (_storybookScene?"World labels: selected building":"World labels: shown") : "World labels: hidden";
         if (_watchLabelsButton != null) _watchLabelsButton.Text = _showWorldLabels ? "Labels: on" : "Labels: off";
     }
 }

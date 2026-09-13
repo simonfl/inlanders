@@ -52,6 +52,10 @@ public partial class Game
         _villageEnvironment.AmbientLightColor = _goldenHour ? new("cbd8df") : new("dbe5df");
         _villageEnvironment.AmbientLightEnergy = _goldenHour ? 0.55f : 0.52f;
         _villageEnvironment.BackgroundColor = _goldenHour ? new("c8bda7") : new("b1c4b9");
+        if(_storybookScene)
+        {
+            _villageEnvironment.AmbientLightColor=new("c4d6df");_villageEnvironment.AmbientLightEnergy=.64f;
+        }
         if (_lightMoodButton != null)
         {
             _lightMoodButton.Text = _goldenHour ? "Light: golden hour" : "Light: soft daylight";
@@ -62,6 +66,9 @@ public partial class Game
     private void MakeAtmosphereUi(VBoxContainer column)
     {
         column.AddChild(Text("ATMOSPHERE", 12));
+        _sceneStudyButton=Button(_storybookScene?"Scene study: storybook":"Scene study: original",ToggleSceneStudy);
+        _sceneStudyButton.TooltipText="Compare the scene on this same village. Worn ground is cosmetic; build paths for faster travel. Building mode outlines the usable land.";
+        column.AddChild(_sceneStudyButton);
         _lightMoodButton = Button("", () => { _goldenHour = !_goldenHour; ApplyAtmosphere(); SaveAtmosphere(); });
         _foliageButton = Button("", () => { _foliageMotion = !_foliageMotion; ApplyAtmosphere(); SaveAtmosphere(); });
         column.AddChild(_lightMoodButton); column.AddChild(_foliageButton);

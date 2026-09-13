@@ -9,7 +9,7 @@ public sealed partial class World
 
     public string? InvitationProblem()
     {
-        if(Neighborhood!=null)return NeighborhoodInvitationProblem(NeighborhoodLanding());
+        if(Neighborhood!=null)return NeighborhoodInvitationProblem(Neighborhood.CommittedAt!=null?null:NeighborhoodLanding());
         if (Food.Celebrating) return "Welcome newcomers after supper finishes.";
         if (SpareBeds < 2) return "Finish two spare beds to welcome newcomers.";
         if (!Creative && EdibleStored < ArrivalFoodRequired)
@@ -38,7 +38,7 @@ public sealed partial class World
     }
     public bool InviteNewcomers()
     {
-        if(Neighborhood!=null)return NeighborhoodLanding() is Cell landing && CommitNeighbors(landing);
+        if(Neighborhood!=null)return Neighborhood.CommittedAt==null && NeighborhoodLanding() is Cell landing && CommitNeighbors(landing);
         if (InvitationProblem() != null) return false;
         var spots = ArrivalSpots();
         var names = new[] { "Lina", "Ash", "Cora", "Remy", "Wren", "Hugo", "Fern", "Kit", "Alma", "Rowan", "June", "Pip" };

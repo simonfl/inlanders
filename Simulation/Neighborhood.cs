@@ -23,8 +23,13 @@ public sealed partial class World
         var w=NewSharedWorkExperiment();w.Campaign=null;w.Neighborhood=new();
         w.Map.Name="A new neighborhood — experiment";return w;
     }
-    public Cell? NeighborhoodLanding()=>Map.Land.Where(c=>c.X>5 && !Blocked(c) && Accessible(c))
-        .OrderBy(c=>(c.Point-new Cell(7,2).Point).LengthSquared()).Select(c=>(Cell?)c).FirstOrDefault();
+    public Cell? NeighborhoodLanding()
+    {
+        // One flood fill also handles the no-crossing case; a path search per eastern tile stalls the HUD.
+        var reached=Map.Water.Count==0?null:Reachable(YardAccess,Blocked);
+        return Map.Land.Where(c=>c.X>5 && !Blocked(c) && (reached==null || reached.Contains(c)))
+            .OrderBy(c=>(c.Point-new Cell(7,2).Point).LengthSquared()).Select(c=>(Cell?)c).FirstOrDefault();
+    }
     public string? NeighborhoodInvitationProblem(Cell? destination)
     {
         if(Neighborhood==null)return "This is not the neighborhood experiment.";

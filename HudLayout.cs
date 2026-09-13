@@ -35,7 +35,7 @@ public partial class Game
         foreach(var value in _resourceValues.Values)value.GetParent<Control>().CustomMinimumSize=new(width<1100?50:62,0);
         _topBar.Position = new(16, 12); _topBar.Size = new(width - 32, 68);
         _bottomBar.Position = new(16, height - 76); _bottomBar.Size = new(width - 32, 64);
-        _drawer.Position = new(16, 92); _drawer.Size = new(316, Math.Max(260, height - 184));
+        _drawer.Position = new(16, 92); _drawer.Size = new(316, CompactNeighborhoodGoals && _tabs.CurrentTab==2?Math.Min(350,height-184):Math.Max(260,height - 184));
         _inspector.Position = new(width - 324, 92); _inspector.Size = new(308, Math.Min(620, height - 184));
         _hintPanel.Position = new(Math.Max(16, (width - 650) / 2), height - 140); _hintPanel.Size = new(Math.Min(650, width - 32), 0);
         if (width < 1100 && _drawer.Visible && _inspector.Visible) _inspector.Hide();
@@ -46,6 +46,7 @@ public partial class Game
         CancelAreaRemoval();CancelBushMove();CancelTerrain();
         if (_drawer.Visible && _tabs.CurrentTab == index) { CloseDrawer(); return; }
         _tabs.CurrentTab = index; _drawerTitle.Text = MenuNames[index]; _drawer.Show();
+        LayoutHud();
         if (_hud.Size.X < 1100) _inspector.Hide();
     }
     private void CloseDrawer() { StopCatalogKeyboard();_drawer.Hide(); }

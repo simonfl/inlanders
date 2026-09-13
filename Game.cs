@@ -219,6 +219,7 @@ public partial class Game : Node3D
     }
     private void RenderActors(float dt)
     {
+        UpdateStorybookSpaces();
         RenderPaths(); RenderDecorations(); RenderVisitor();
         while (_people.Count < _world.Population)
         {

@@ -4,12 +4,13 @@ using System;
 public partial class Game
 {
     private bool _smoothGround=true; // Before/after comparison only; no saved preference.
-    private static Color ContinuousGroundTint(Vector3 at)
+    private Color ContinuousGroundTint(Vector3 at)
     {
         float patch=MathF.Sin(at.X*.31f)*MathF.Cos(at.Z*.27f)*.025f;
+        if(_storybookScene)return new Color(.34f+patch,.46f+patch,.28f+patch).Lightened(Math.Max(0,at.Y)*.025f);
         return new Color(.43f+patch,.50f+patch,.33f+patch).Lightened(Math.Max(0,at.Y)*.025f);
     }
-    private static void GroundColorTriangle(SurfaceTool surface,Vector3 a,Vector3 b,Vector3 c)
+    private void GroundColorTriangle(SurfaceTool surface,Vector3 a,Vector3 b,Vector3 c)
     {
         surface.SetNormal((b-a).Cross(c-a).Normalized());
         foreach(var vertex in new[]{a,c,b}){surface.SetColor(ContinuousGroundTint(vertex));surface.AddVertex(vertex);}

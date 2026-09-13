@@ -8,11 +8,9 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 **Active next: F27b, whole-scene presentation and village-arrangement comparison.** [Removing the hunger slowdown](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) did not stabilize the replacement food strategies. Stop incremental recovery adjustments; keep the welcome introductory and F27a unaccepted. Test the whole visual/interaction experience before choosing optional-production village-making versus a substantial logistics redesign. No campaign rollout yet.
 
-**Latest F27a finding:** [spatial and recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) expose a welcome that finishes before food failure and weak recovery through new production. The selectable landing/meadow map preserves starting resource quantities. Next test the global hunger slowdown and shared labor restrictions as separate possible causes; campaign rollout remains deferred. The welcome is an introductory event, not proof of sustainability.
+The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. Next resolve decorative-land/resource ambiguity and connected outdoor space. No visual acceptance or playable checkpoint is claimed.
 
-**F27a evidence update:** the [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) completes without hunger even without new food production. This scenario has not earned its economic complexity. Prioritize an authored landing/meadow alternative and labor/travel comparison; retain berry-only as a control and explicitly reconsider logistics if it remains irrelevant. No campaign rollout or playable checkpoint yet.
-
-**Next: F27a, a complete neighborhood redesign experiment.** [T01 review tooling](REVIEW_TOOLING_T01.md) is delivered: named scenes, quick inspection and matching evidence bundles. The [checkpoint-eight strategic review](STRATEGIC_REVIEW_8.md) finds a promising physical simulation but an overly administrative campaign and weak whole-scene presentation. Refocus on making a neighborhood work and watching people enjoy it. Test local supply, workplace-first interactions, visible communal progression and a coherent landscape/art direction together. Current features and ten levels are hypotheses, not commitments to preserve.
+The [strategic review](STRATEGIC_REVIEW_8.md) replaces incremental polishing with comparative redesign. Current features and ten levels are hypotheses, not commitments to preserve.
 
 The [current next-five queue](NEXT_CHUNKS.md) defines the experiment and enabling work. The [role reports](STRATEGIC_REVIEW_8_ROLES.md) record three independent reviewers plus two reused disciplinary passes after the agent thread limit; new native observation reached only the menu. Earlier [ordinary play](CAMPAIGN_REVIEW_F11D.md) covers opening completion and a river assessment. No review establishes human enjoyment. The [earlier audit](ROADMAP_REVIEW_2026_09_12.md) and [checkpoint-five review](REVIEW_CHECKPOINT_5.md) retain historical evidence, not binding recommendations.
 
@@ -20,13 +18,13 @@ Current foundation: **18 building types, ten campaign levels**, actual meals, as
 
 ## Ordered delivery — test the new direction before scaling it
 
-The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md). The [previous queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is archived. T01 is delivered; the gameplay alternative is implemented but under design validation, and the art alternative remains planned. The next review may reject this direction too.
+The full briefs and falsification criteria are in [next chunks](NEXT_CHUNKS.md). The [previous queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is archived. T01 is delivered; the gameplay alternative is implemented but under design validation, and the art alternative is under active comparison. The next review may reject this direction too.
 
 | Order | ID | Status | Player outcome / bounded deliverable |
 | --- | --- | --- | --- |
 | 1 | T01 | Delivered | [Four named scenes and evidence bundles](REVIEW_TOOLING_T01.md); explicit preparation/checks, F8 capture, reopening and stale rejection; warm captures 9–13s. Measure upkeep during actual redesign. |
 | 2 | F27a | In progress | [Neighborhood experiment](NEIGHBORHOOD_F27A.md): local grain, shared work, building staffing, committed arrivals and physical welcome activity implemented; normal menu/goals/save integration implemented; authored layout decisions, strategy/recovery comparisons and ordinary play still required. No playable checkpoint yet. |
-| 3 | F27b | Planned experiment | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
+| 3 | F27b | In progress | Whole playable scene art/UI treatment: landscape, massing, outdoor life, ordinary camera and management composition; actual motion and audio review. |
 | 4 | T02 | Alongside experiment, then decision | Reusable matched comparisons and ordinary play; explicitly retain, cut or redesign based on experience, not completion alone. |
 | 5 | F27c | Conditional | Consolidate introductions and replace repetitive campaign objectives with distinct situations, only after choosing the direction from comparison. |
 

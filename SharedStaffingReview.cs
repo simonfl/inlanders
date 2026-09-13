@@ -22,7 +22,7 @@ public partial class Game
         Check(_staffMinus.Disabled && _workplaceStaff.Text.Contains("shared workers"),"Released staffing feedback incorrect");
         _world.Validate();await CaptureReviewBundle();
         GD.Print("PASS: scripted building dedication and release through rendered controls");
-        if(_world.Neighborhood!=null) {
+        if(_world.Neighborhood is { CommittedAt: null }) {
             var bridge=_world.Cottages.FirstOrDefault(c=>c.Kind==BuildingKind.Bridge)??_world.Place(new(5,2),1,BuildingKind.Bridge)!;
             for(int i=0;i<18000 && !bridge.Complete;i++)_world.Tick(.1f);
             Check(bridge.Complete,"Arrival probe crossing failed");RenderActors(0);UpdateHud();

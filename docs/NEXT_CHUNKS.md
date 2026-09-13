@@ -1,6 +1,6 @@
 # Next chunks — neighborhood redesign
 
-September 12, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. T01 is delivered; **F27a is next**. Later entries remain planned experiments.
+September 13, 2026. The [strategic review](STRATEGIC_REVIEW_8.md) replaces the incremental queue. Build a village that is satisfying to arrange and watch, with understandable spatial decisions. The [old queue](NEXT_CHUNKS_BEFORE_STRATEGIC_8.md) is historical. T01 is delivered; **F27b is active**. F27a remains unaccepted after spatial and recovery comparisons. Campaign changes depend on the experience decision.
 
 ## 1. T01 — reach and inspect useful game states cheaply
 
@@ -16,9 +16,7 @@ Check that opening, river and dense scenes are discoverable and reproducible; de
 
 **Current decision — stop balance iteration:** [isolated hunger comparison](NEIGHBORHOOD_HUNGER_EXPERIMENT.md) improves first-fed time but does not produce stable recovery. Do not proceed through a series of cap/yield/deadline tweaks. Retain the welcome as introductory; F27a remains unaccepted. **Work on F27b next**, then choose village-making versus a substantial production/service redesign through T02. The spatial and recovery updates below record the evidence leading here.
 
-**Spatial/recovery update:** [the authored alternative](NEIGHBORHOOD_LANDSCAPE_F27A.md) is selectable. Natural forager replacement exposes persistent shortages despite additional gardens/ovens; the welcome finishes before the shortage. Next compare the global hunger slowdown on the same saved mistake, then shared labor restrictions independently if needed. Keep the welcome as an introductory event, not evidence of sustainable logistics. Do not expand campaign content while this direction is unresolved.
-
-**Latest decision:** [six-arm comparison](NEIGHBORHOOD_COMPARISON_F27A.md) found every strategy hunger-free, with existing berries sufficient at either site. Do not accept this as a meaningful economic choice. Next author the compact-landing/spacious-meadow alternative, retain this control, and measure labor/travel before inventing a shortage. Then decide whether production remains optional village-making or the logistics design needs replacement. Recovery and ordinary play follow that decision; no forced bread quota.
+**Evidence:** [six strategies](NEIGHBORHOOD_COMPARISON_F27A.md) found existing berries sufficient. The [landing/meadow alternative and recovery branches](NEIGHBORHOOD_LANDSCAPE_F27A.md) exposed more travel and persistent shortages after replacing foraging. The completed welcome precedes these failures. Those experiments are finished; their earlier proposed next steps are historical, not a second queue.
 
 **In progress:** [concrete design and implementation status](NEIGHBORHOOD_F27A.md). Local grain and genuine shared-work foundations are implemented and tested behind development comparison factories. Building staffing controls now work in the development fixture. Committed arrivals now work in a separate neighborhood fixture. Physical welcome food transport, eating and home-based completion now work. Normal menu/goals/save integration now works. Authored layout decisions, meaningful strategy/recovery comparisons and ordinary play remain in this same outcome. Do not count this foundation as checkpoint 9 or call the alternative delivered.
 
@@ -31,6 +29,8 @@ Make a local grain/bakery chain physically work. Compare it with a directly edib
 Deliver a playable start → commitment → shortage/recovery → inhabited payoff, not just a routing foundation. Demonstrate at least two materially different viable arrangements and one recoverable mistake through real mechanics. Validate changed transport/staffing/current saves and ordinary UI; ask whether the player can predict consequences and still makes decisions after initial placement. This combined outcome counts once when playable, provisionally checkpoint 9. Begin T02's minimal comparison plumbing only as needed here.
 
 ## 3. F27b — make the whole neighborhood inviting
+
+**In progress:** the [first presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the board treatment; the [valley follow-up](PRESENTATION_REVIEW_F27B_2.md) retains the experimental direction but withholds acceptance. A major HUD landing-search stall is fixed and measured. Next distinguish inaccessible woodland/ground and connect one outdoor cluster, then inspect awkward layouts and actual motion. Current compact Goals, contextual labels and original camera are retained. No playable increment yet.
 
 **Active next chunk.** Gameplay experiments exposed unresolved economics; whole-scene appeal can be tested independently. Preserve the blockout as a comparison and do not claim F27a complete to advance here. See the [direction decision](NEIGHBORHOOD_HUNGER_EXPERIMENT.md).
 
