@@ -33,21 +33,13 @@ $reviewRoot=Join-Path $PSScriptRoot 'artifacts/review'
 [IO.Directory]::CreateDirectory($reviewRoot) | Out-Null
 $timer=[Diagnostics.Stopwatch]::StartNew()
 function HashFile([string]$Path) { (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash }
-function Fingerprint {
-    # Conservative content invalidation: no timestamps, documentation, artifacts or downloaded tools.
-    $inputs=@(Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object Extension -in '.cs','.csproj','.godot','.tscn','.ps1')
-    foreach ($folder in @('Simulation','Tests','Development')) {
-        $inputs+=Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot $folder) -Recurse -File |
-            Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' -and $_.Extension -in '.cs','.csproj','.json' }
-    }
-    $lines=@($inputs | Sort-Object FullName | ForEach-Object { $_.FullName.Substring($PSScriptRoot.Length)+':'+(HashFile $_.FullName) })
-    $sha=[Security.Cryptography.SHA256]::Create()
-    try { ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes(($lines -join "`n"))))).Replace('-','') }
-    finally { $sha.Dispose() }
-}
+. (Join-Path $PSScriptRoot "Development/ReviewIdentity.ps1")
 function WriteJson($Value,[string]$Path) { [IO.File]::WriteAllText($Path,($Value | ConvertTo-Json -Depth 20)) }
 function ReadJson([string]$Path) { if(Test-Path -LiteralPath $Path) { Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json } }
-$fingerprint=Fingerprint
+$toolchain=(& $dotnet --version) -join ""
+if($LASTEXITCODE -ne 0){throw "Could not identify the .NET SDK"}
+$fingerprint=Get-ReviewFingerprint -Root $PSScriptRoot -Toolchain $toolchain
+$fixtureFingerprint=Get-ReviewFingerprint -Root $PSScriptRoot -Toolchain $toolchain -Fixture -Generator $scenarioEntry.generator
 $buildPath=Join-Path $reviewRoot 'build.json'
 $assembly=Join-Path $PSScriptRoot '.godot/mono/temp/bin/Debug/Inlanders.dll'
 $testAssembly=Join-Path $PSScriptRoot 'Tests/bin/Debug/net8.0/SimulationTests.dll'
@@ -72,7 +64,8 @@ if($Bundle) {
     if($null -eq $bundleRecord -or $bundleRecord.request.sourceFingerprint -ne $fingerprint) { throw 'Bundle source fingerprint is missing/stale; regenerate with the current build.' }
     $fixturePath=Join-Path $bundleDirectory 'world.json'
     if((HashFile $fixturePath) -ne $bundleRecord.worldHash) { throw 'Bundle world hash differs from manifest' }
-    $fixture=@{scenario=$bundleRecord.request.scenario;variant=$bundleRecord.request.variant;generator='captured-state';sourceFingerprint=$fingerprint;fixtureHash=$bundleRecord.worldHash;parentBundle=$bundleDirectory}
+    $fixtureFingerprint=$bundleRecord.request.fixtureFingerprint
+    $fixture=@{scenario=$bundleRecord.request.scenario;variant=$bundleRecord.request.variant;generator='captured-state';sourceFingerprint=$fingerprint;fixtureFingerprint=$fixtureFingerprint;fixtureHash=$bundleRecord.worldHash;parentBundle=$bundleDirectory}
     $Scenario=$bundleRecord.request.scenario;$Speed=[int]$bundleRecord.speed;$Width=[int]$bundleRecord.window.width
 } else {
 $fixtureDir=Join-Path $reviewRoot ('fixtures/'+$Scenario)
@@ -80,18 +73,20 @@ $fixtureDir=Join-Path $reviewRoot ('fixtures/'+$Scenario)
 $fixturePath=Join-Path $fixtureDir 'world.json'
 $fixtureManifest=Join-Path $fixtureDir 'manifest.json'
 $fixture=ReadJson $fixtureManifest
-$validFixture=$null -ne $fixture -and $fixture.sourceFingerprint -eq $fingerprint -and (Test-Path -LiteralPath $fixturePath)
+$validFixture=$null -ne $fixture -and $fixture.PSObject.Properties.Name -contains "fixtureFingerprint" -and $fixture.fixtureFingerprint -eq $fixtureFingerprint -and $fixture.generator -eq $scenarioEntry.generator -and (Test-Path -LiteralPath $fixturePath)
 if($validFixture) { $validFixture=$fixture.fixtureHash -eq (HashFile $fixturePath) }
+$fixtureReused=$validFixture -and -not $Fresh
 if($Fresh -or -not $validFixture) {
     if($ReuseOnly) { throw "Fixture '$Scenario' is missing/stale. Run ./Review.ps1 Prepare $Scenario, or omit -ReuseOnly." }
     $prepareTimer=[Diagnostics.Stopwatch]::StartNew()
     & $dotnet $testAssembly --review-fixture $scenarioEntry.generator $fixturePath
     if($LASTEXITCODE -ne 0) { throw 'Scenario preparation failed' }
-    $fixture=@{scenario=$Scenario;variant='current';generator=$scenarioEntry.generator;sourceFingerprint=$fingerprint;fixtureHash=(HashFile $fixturePath);preparedUtc=[DateTime]::UtcNow.ToString('o');prepareSeconds=$prepareTimer.Elapsed.TotalSeconds;seed=$null;seedNote='Authored deterministic scenario; no configurable random seed'}
+    $fixture=@{scenario=$Scenario;variant='current';generator=$scenarioEntry.generator;sourceFingerprint=$fingerprint;fixtureFingerprint=$fixtureFingerprint;preparedTestAssemblyHash=$build.testAssemblyHash;sdk=$toolchain;fixtureHash=(HashFile $fixturePath);preparedUtc=[DateTime]::UtcNow.ToString('o');prepareSeconds=$prepareTimer.Elapsed.TotalSeconds;seed=$null;seedNote='Authored deterministic scenario; no configurable random seed'}
     WriteJson $fixture $fixtureManifest
 }
 }
-if($Action -eq 'Prepare') { Write-Output "Prepared $Scenario in $([math]::Round($timer.Elapsed.TotalSeconds,2))s (including validation/build if needed)."; return }
+if(-not $Bundle -and $fixtureReused){Write-Output "Reused fixture $Scenario; skipped $([math]::Round($fixture.prepareSeconds,2))s of recorded preparation."}
+if($Action -eq 'Prepare') { Write-Output "Ready $Scenario in $([math]::Round($timer.Elapsed.TotalSeconds,2))s (including validation/build if needed)."; return }
 if($Action -eq 'Check') {
     & $dotnet $testAssembly --review-fixture check $fixturePath
     if($LASTEXITCODE -ne 0) { throw 'Snapshot validation failed' }
@@ -105,7 +100,7 @@ $gitRevision=(& git -c "safe.directory=$gitSafeRoot" rev-parse HEAD) -join ''
 if($LASTEXITCODE -ne 0) { throw 'Could not record Git revision' }
 $gitStatus=@(& git -c "safe.directory=$gitSafeRoot" status --porcelain)
 if($LASTEXITCODE -ne 0) { throw 'Could not record worktree state' }
-$request=@{scenario=$Scenario;variant='current';sourceFingerprint=$fingerprint;assemblyHash=$build.assemblyHash;commit=$gitRevision;dirty=($gitStatus.Count -gt 0);gitStatus=$gitStatus;fixture=$fixture;runDirectory=$runDir;fixturePath=(Join-Path $runDir 'initial.json');width=$Width;height=$(if($Width -eq 960){640}else{900});speed=$Speed;turn=$Turn;focusX=$scenarioEntry.focusX;focusZ=$scenarioEntry.focusZ;zoom=$scenarioEntry.zoom;executionMode='normal Godot process; starts paused';requestedUtc=[DateTime]::UtcNow.ToString('o');setupSeconds=$timer.Elapsed.TotalSeconds;captureOnly=($Action -eq 'Capture')}
+$request=@{scenario=$Scenario;variant='current';sourceFingerprint=$fingerprint;fixtureFingerprint=$fixtureFingerprint;assemblyHash=$build.assemblyHash;testAssemblyHash=$build.testAssemblyHash;sdk=$toolchain;commit=$gitRevision;dirty=($gitStatus.Count -gt 0);gitStatus=$gitStatus;fixture=$fixture;runDirectory=$runDir;fixturePath=(Join-Path $runDir 'initial.json');width=$Width;height=$(if($Width -eq 960){640}else{900});speed=$Speed;turn=$Turn;focusX=$scenarioEntry.focusX;focusZ=$scenarioEntry.focusZ;zoom=$scenarioEntry.zoom;executionMode='normal Godot process; starts paused';requestedUtc=[DateTime]::UtcNow.ToString('o');setupSeconds=$timer.Elapsed.TotalSeconds;captureOnly=($Action -eq 'Capture')}
 if($bundleRecord) {
     if($bundleRecord.rendering.PSObject.Properties.Name -contains 'storybook'){$request.storybook=$bundleRecord.rendering.storybook}
     $request.width=$bundleRecord.window.width;$request.height=$bundleRecord.window.height

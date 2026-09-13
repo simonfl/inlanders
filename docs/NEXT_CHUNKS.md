@@ -4,9 +4,11 @@ September 13, 2026. [F28c decision](COMMONS_DECISION_F28C.md), [F28d delivery](S
 
 Primary direction: a finite welcoming settlement, with optional continued arrangement. The recurring commons is a comparative epilogue, not an accepted endless-game loop. Retain actual food trips, shared work and freely chosen sites. No new quotas, producers, need meters or forced building recipes. All buildings remain available; saves are disposable and seasons remain removed.
 
-## 1. T04 — stop rebuilding unchanged simulation fixtures
+## 1. T04 — delivered; fixture reuse
 
-Across F28a–d, UI-only changes repeatedly regenerated the same ~18–20-second gathering fixture. Split fixture identity from presentation/build identity using a small explicit input boundary; retain both hashes in evidence. No dependency graph or second runner. Beneficiaries: every UI/presentation iteration and reviewer comparing alternatives. Cost/maintenance: two conservative hash lists and invalidation checks. Validate reuse after a UI-only edit, invalidation after simulation or generator changes, and rejection of altered snapshots. Measure saved preparation time. Count zero.
+[Delivered boundary, regression checks and measurement](REVIEW_CACHE_T04.md): 15.88-second generation skipped by a 0.26-second cached Prepare after a UI-only rebuild. Next active: F29a.
+
+Original scope: across F28a–d, UI-only changes repeatedly regenerated the same ~18–20-second gathering fixture. Split fixture identity from presentation/build identity using a small explicit input boundary; retain both hashes in evidence. No dependency graph or second runner. Beneficiaries: every UI/presentation iteration and reviewer comparing alternatives. Cost/maintenance: two conservative hash lists and invalidation checks. Validate reuse after a UI-only edit, invalidation after simulation or generator changes, and rejection of altered snapshots. Measure saved preparation time. Count zero.
 
 ## 2. F29a — make a place read at village scale
 

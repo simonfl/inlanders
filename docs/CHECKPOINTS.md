@@ -11,6 +11,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**T04 fixture reuse — September 13, 2026:** [Boundary, provenance, real launcher regression and timing](REVIEW_CACHE_T04.md). UI-only rebuild reuses a 15.88-second prepared world in a 0.26-second Prepare step. Simulation/generator/config and altered-snapshot invalidation retained. Tooling counts zero: **18**, next periodic review **20**. Next F29a.
+
 **F28d finite settlement journey — September 13, 2026:** [Guided opening, ending, entry contracts and validation](SETTLEMENT_JOURNEY_F28D.md). One complete interaction outcome, count **18**. All five requested work chunks delivered, three playable outcomes counted. [Reevaluated queue](NEXT_CHUNKS.md); periodic whole-game review at 20.
 
 **F28c decision and presentation review — September 13, 2026:** [Whole-game presentation verdict, fixed source/build provenance and comparison package](COMMONS_DECISION_F28C.md). One fresh independent visual/audio role; stills/source only, no native motion/listening. Finite settlement chosen; optional commons retained for comparison. Tooling/decision count zero: **17**. Does not reset regular review at 20.
