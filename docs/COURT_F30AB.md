@@ -1,6 +1,6 @@
 # F30a/F30b — arrange a place and follow its daily life
 
-September 13, 2026. One combined playable outcome, **checkpoint 21**. The independent presentation review is required before selecting subsequent work. [Observation instructions](COURT_OBSERVATION.md).
+September 13, 2026. One combined playable outcome, **checkpoint 21**. [Independent presentation review completed](PRESENTATION_REVIEW_F30AB.md): retain the court direction, test freer arrangement and recognizable resident activity next. [Observation instructions](COURT_OBSERVATION.md).
 
 ## Delivered comparison
 

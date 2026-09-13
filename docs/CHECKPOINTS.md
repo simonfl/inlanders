@@ -8,11 +8,12 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
 - Next four-role review: **checkpoint 25**, whole-project scope. Native observation remains outstanding.
-- Next regular visual/audio review: **checkpoint 30**. The F30a/F30b presentation change triggers an earlier additional review.
+- Latest presentation-triggered review: **checkpoint 21**, [fresh independent visual/audio role](PRESENTATION_REVIEW_F30AB.md), fixed `b85455c`.
+- Next regular visual/audio review: **checkpoint 30**. Substantial presentation changes, including F30c if it changes activity/occlusion, trigger earlier reviews.
 
 ## Chunk ledger
 
-**F30a/F30b Willow court — September 13, 2026:** [Combined arrangement-and-life comparison](COURT_F30AB.md). Composed inherited court, direct actual/available meal routes, one-building reversible trial, shared-work advice and bounded diagnostic/preflight tools. One playable outcome, count **21**. Presentation review due now on the committed build; periodic whole-project review stays **25**.
+**F30a/F30b Willow court — September 13, 2026:** [Combined arrangement-and-life comparison](COURT_F30AB.md). Composed inherited court, direct actual/available meal routes, one-building reversible trial, shared-work advice and bounded diagnostic/preflight tools. One playable outcome, count **21**. [Independent presentation review completed](PRESENTATION_REVIEW_F30AB.md) on `b85455c`: retain court composition, advance to forgiving multi-building place-making with activity/occlusion criteria. No native play/listening acceptance. Periodic whole-project review stays **25**.
 
 **Checkpoint-20 review — September 13, 2026:** [Synthesis, independent verdicts and provenance](REVIEW_CHECKPOINT_20.md), fixed source `0a69400`. Five fresh roles; no new native play/listening. Merges F30a/F30b into an arrangement-and-life comparison, freezes content expansion and accepts bounded meal diagnostics/runner preflight. Completion/chooser/observer wording corrected after review; no new outcome. Count remains **20**.
 
