@@ -3,13 +3,15 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **11**.
+- Playable checkpoints since adoption: **12**.
 - Last periodic review: **checkpoint 10**, [whole-project synthesis](REVIEW_CHECKPOINT_10.md) and [role findings](REVIEW_CHECKPOINT_10_ROLES.md). Four contexts, five disciplinary passes; native discovery failed, no fresh gameplay/listening claimed.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Next four-role review: **checkpoint 15**, whole-project scope. Native observation remains outstanding.
 - Next regular visual/audio review: **checkpoint 20**, alongside the four-role review. Substantial presentation changes also trigger a separate presentation review.
 
 ## Chunk ledger
+
+**Outdoor place planning — September 13, 2026:** [Delivery and evidence](OUTDOOR_PLACE_F27C2.md). Direct ground selection, real-place previews, compact/circle layouts, inward-facing diners and protected access. Count **12**; whole-project review remains **15**, including visual/audio.
 
 **F27c2 shared outdoor meal — September 13, 2026:** [Delivery and evidence](SHARED_MEAL_F27C2.md). Player-selected gathering outside a finished building, actual food/places, simultaneous eating, cancellation/recovery and saved continuation. 12/16-resident compact/distant checks plus 960/1440 rendered controls pass. Count **11**. Keep as expressive activity; images show crowded seating and indirect selection, so address those next. No native enjoyment or campaign-challenge verdict. Periodic review remains **15**.
 
@@ -93,3 +95,4 @@ Presentation-triggered F12h3 review at `9c46539`: [evidence and corrections](TER
 Presentation-triggered F09e2 review at `1c89149`: [evidence](FENCE_GATEWAY_F09E2.md). Independent reviewer accepted the courtyard entrance after four camera-side views, stronger preview contrast and active passability guidance. Still-image review only; this presentation review did not replace the separate whole-project review.
 
 Each review record must link its consolidated report, identify the fixed commit/build, list participating roles and evidence limitations, and point to roadmap decisions and the next five chunks. Record presentation-triggered reviews separately without resetting the regular count.
+

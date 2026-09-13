@@ -7,6 +7,7 @@ namespace Inlanders.Simulation;
 public sealed class SharedGathering
 {
     public Cell Center { get; set; }
+    public bool Spread { get; set; }=true;
     public Dictionary<int,Cell> Seats { get; set; }=new();
     public HashSet<int> Ate { get; set; }=new();
     public float Started { get; set; }
@@ -18,27 +19,37 @@ public sealed class SharedGathering
 public sealed partial class World
 {
     public SharedGathering? Gathering=>Neighborhood?.Gathering;
-    public Cell[] GatheringPlaces(Cell center)
+    public Cell[] GatheringPlaces(Cell center,bool spread=true)
     {
         if(!Map.Contains(center) || Map.Water.Contains(center))return Array.Empty<Cell>();
         var busy=People.Where(p=>p.LeisureSiteId!=null || p.Task is Work.ToRest or Work.Resting).Select(p=>p.Destination).ToHashSet();
         var reached=Reachable(YardAccess,Blocked);
-        return Map.Land.Where(c=>(c.Point-center.Point).LengthSquared()<=16 && reached.Contains(c) && !Blocked(c) &&
-            !MealSpotReserved(c) && !ComfortSpotReserved(c) && !busy.Contains(c))
-            .OrderBy(c=>(c.Point-center.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).Take(Population).ToArray();
+        var available=Map.Land.Where(c=>(c.Point-center.Point).LengthSquared()<=16 && reached.Contains(c) && !Blocked(c) &&
+            !MealSpotReserved(c) && !ComfortSpotReserved(c) && !busy.Contains(c)).ToList();
+        if(!spread)return available.OrderBy(c=>(c.Point-center.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).Take(Population).ToArray();
+        // Match successive places around the circle rather than taking one side of a distance tie.
+        var selected=new List<Cell>();float radius=Math.Clamp(Population/(2*MathF.PI),2,3);
+        for(int i=0;i<Population && available.Count>0;i++)
+        {
+            float angle=2*MathF.PI*i/Population;
+            var ideal=center.Point+new System.Numerics.Vector2(MathF.Cos(angle),MathF.Sin(angle))*radius;
+            var place=available.OrderBy(c=>(c.Point-ideal).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).First();
+            selected.Add(place);available.Remove(place);
+        }
+        return selected.ToArray();
     }
-    public string? GatheringProblem(Cell center)
+    public string? GatheringProblem(Cell center,bool spread=true)
     {
         if(Neighborhood?.Complete!=true)return "Settle the newcomers first, then choose an outdoor meal spot.";
         if(Gathering?.Active==true)return "A shared meal is already gathering.";
-        int places=GatheringPlaces(center).Length;
+        int places=GatheringPlaces(center,spread).Length;
         return places<Population?$"{places}/{Population} clear reachable places nearby. Choose more open ground.":null;
     }
-    public bool BeginGathering(Cell center)
+    public bool BeginGathering(Cell center,bool spread=true)
     {
-        if(GatheringProblem(center)!=null)return false;
-        var seats=GatheringPlaces(center);
-        Neighborhood!.Gathering=new(){Center=center,Started=Food.Time,Seats=People.ToDictionary(p=>p.Id,p=>seats[p.Id])};
+        if(GatheringProblem(center,spread)!=null)return false;
+        var seats=GatheringPlaces(center,spread);
+        Neighborhood!.Gathering=new(){Center=center,Spread=spread,Started=Food.Time,Seats=People.ToDictionary(p=>p.Id,p=>seats[p.Id])};
         History.Add("An outdoor meal is gathering. Everyone brings their next meal; work resumes afterwards.");_retry=0;return true;
     }
     public bool CancelGathering()

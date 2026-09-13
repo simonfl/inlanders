@@ -120,7 +120,7 @@ public partial class Game
         GD.Print("PASS: review normal controls, process advancement, selection and F8 capture (scripted UI probe)");
     }
 
-    private async Task CaptureReviewBundle()
+    private async Task CaptureReviewBundle(string? semantic=null)
     {
         if(_reviewCapturing || _reviewRequest==null)return;
         _reviewCapturing=true;bool wasPaused=_paused;_paused=true;
@@ -138,7 +138,7 @@ public partial class Game
             var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
             var record=new
             {
-                request=_reviewRequest.RootElement,
+                semantic,request=_reviewRequest.RootElement,
                 capturedUtc=DateTime.UtcNow.ToString("o"),processWallSeconds=_reviewTimer.Elapsed.TotalSeconds,
                 simulationSeconds=_world.Food.Time,pausedBeforeCapture=wasPaused,pausedDuringCapture=true,speed=_speed,
                 executionMode="normal Godot process; snapshot temporarily pauses simulation",

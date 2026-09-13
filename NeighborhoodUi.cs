@@ -27,6 +27,8 @@ public partial class Game
     private void MakeNeighborhoodGoals(VBoxContainer column)
     {
         _neighborhoodGoals=new();column.AddChild(_neighborhoodGoals);
+        _gatherPlanEntry=Button("Plan an outdoor meal",()=>{if(_world.Gathering is {Active:true} g){CloseDrawer();_focus=OnGround(g.Center.X,g.Center.Z);UpdateCamera();}else BeginGatheringPlan();});_neighborhoodGoals.AddChild(_gatherPlanEntry);
+        _gatherGoalsCancel=Button("Cancel outdoor meal",()=>{_world.CancelGathering();SaveWorld();UpdateHud();});_neighborhoodGoals.AddChild(_gatherGoalsCancel);
         _neighborhoodCommit=Button("Welcome four neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready yet.");});_neighborhoodGoals.AddChild(_neighborhoodCommit);
         _neighborhoodHome=Button("Plan east-bank homes",()=>{CloseDrawer();BeginPlacement(BuildingKind.Cottage);});_neighborhoodGoals.AddChild(_neighborhoodHome);
         _neighborhoodVenue=Button("Find a gathering place",()=>{

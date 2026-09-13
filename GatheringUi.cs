@@ -14,7 +14,7 @@ public partial class Game
         _gatheringInfo=Text("",14,true);_gatheringControls.AddChild(_gatheringInfo);
         _gatherHere=Button("Share an outdoor meal here",()=>{
             var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
-            if(site!=null && _world.BeginGathering(site.Entrance)){SaveWorld();UpdateHud();}
+            if(site!=null)BeginGatheringPlan(site.Entrance);
         });_gatheringControls.AddChild(_gatherHere);
         _gatherCancel=Button("Cancel outdoor meal",()=>{_world.CancelGathering();SaveWorld();UpdateHud();});_gatheringControls.AddChild(_gatherCancel);
     }

@@ -235,6 +235,11 @@ public partial class Game : Node3D
             if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
             view.Body.Position = _paused ? target : view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
+            if(v.Task==Work.EatingMeal && v.Meal?.Gathering==true && _world.Gathering is {} gathering)
+            {
+                var inward=gathering.Center.Point-v.Position;
+                if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,MathF.Atan2(-inward.X,-inward.Y),0);
+            }
             if(_world.PassengerBoat(v) is FishingBoat boat)
             {
                 view.Body.Position=new(boat.Position.X,.19f,boat.Position.Y);

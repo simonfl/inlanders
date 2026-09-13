@@ -6,7 +6,7 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
-**Active next: outdoor place planning and a clearer gathering layout.** The [shared meal](SHARED_MEAL_F27C2.md) is playable at checkpoint 11: actual carried food, simultaneous seats/eating, cancel/recovery and saved continuation. It works for 12/16 residents, but the current images crowd diners beside workplaces. Next let the player choose and preview open ground deliberately, then deliver the coherent starting flow, world food guidance and distribution controls in the [remaining queue](NEXT_CHUNKS.md). The [compulsory commons land dilemma remains rejected](COMMONS_LAND_F27C2.md); no broader campaign rollout or human enjoyment claim. The whole-project review is at fifteen.
+**Active next: coherent starting flow and onboarding.** [Outdoor place planning](OUTDOOR_PLACE_F27C2.md) is delivered as checkpoint 12 with ground previews, circle/compact seating and protected access. Next complete new/resume/next-settlement navigation, then world food guidance and distribution controls in the [queue](NEXT_CHUNKS.md). Shared meals are expressive activity; the compulsory commons dilemma remains rejected and campaign rollout is paused. Whole-project review at fifteen includes visual/audio.
 
 The [spatial/recovery experiments](NEIGHBORHOOD_LANDSCAPE_F27A.md) and [six-strategy control](NEIGHBORHOOD_COMPARISON_F27A.md) are completed evidence, not pending tasks. The [first independent presentation review](PRESENTATION_REVIEW_F27B_1.md) rejected the bevel/roof/camera prototype. A [connected valley and quieter completed-scene interface](PRESENTATION_REVIEW_F27B_2.md) are now under comparison; a measured HUD stall is fixed. The [third presentation review](PRESENTATION_REVIEW_F27B_3.md) retains the revised candidate and directs us to experience comparison rather than more general art. No visual acceptance or playable checkpoint is claimed.
 
@@ -305,3 +305,4 @@ Keep supporting UI inside the feature that needs it. Avoid turning this roadmap 
 Orchards shipped in F05c; hidden discoveries remain candidates. Neighborhood pantries have shipped in F07c2; a market needs a distinct purpose before expansion. Carpenter/home improvements and limited rest visits are described in F25. Fishing, stone and woodland wildlife have moved into the F26 campaign plan. Trade, broader household routines and procedural maps remain possibilities without a commitment. Infinite terrain or purchased land is not required for map expansion.
 
 Combat, multiplayer, a large technology tree, and a full life simulation are outside the current direction.
+

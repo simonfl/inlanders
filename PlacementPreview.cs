@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandleGatheringPlanInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleTerrainInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleBushMoveInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleAreaRemovalInput(input)){GetViewport().SetInputAsHandled();return;}
@@ -74,6 +75,7 @@ public partial class Game
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||
         (_terrainPanel!=null && _terrainPanel.Visible && _terrainPanel.GetGlobalRect().HasPoint(point)) ||
+        (_gatherPlanPanel!=null && _gatherPlanPanel.Visible && _gatherPlanPanel.GetGlobalRect().HasPoint(point)) ||
         (_bushMovePanel!=null && _bushMovePanel.Visible && _bushMovePanel.GetGlobalRect().HasPoint(point)) ||
         (_trackedGoalPanel!=null && _trackedGoalPanel.Visible && _trackedGoalPanel.GetGlobalRect().HasPoint(point)) ||
         (_drawer.Visible && _drawer.GetGlobalRect().HasPoint(point)) || (_inspector.Visible && _inspector.GetGlobalRect().HasPoint(point));

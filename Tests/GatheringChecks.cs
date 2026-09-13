@@ -12,17 +12,19 @@ static class GatheringChecks
     {
         Directory.CreateDirectory("artifacts/shared-gathering");var original=meadow?CommonsLandComparison.Prepare(new()):Prepare();string baseline=original.SaveJson();
         original.SaveFile("artifacts/shared-gathering/start.json");
+        foreach(bool spread in new[]{false,true})
         foreach(var center in new[]{new Cell(17,4),new(22,10)})
         {
-            var w=World.LoadJson(baseline);Check(w.BeginGathering(center),"Gathering refused: "+w.GatheringProblem(center));
+            var w=World.LoadJson(baseline);Check(w.BeginGathering(center,spread),"Gathering refused: "+w.GatheringProblem(center));
             Check(w.Gathering!.Seats.Values.Distinct().Count()==w.Population,"Duplicate places");
+            Check(w.Gathering.Seats.Values.All(c=>Enumerable.Range(0,4).All(r=>w.PlacementProblem(c,r,BuildingKind.SeatingGarden)!=null)),"Placing a building can overwrite a planned gathering place");
             Until(w,()=>w.People.Any(p=>p.Meal is {Gathering:true,Reserved:true}),"No gathering pickup");Roundtrip(w);
             Until(w,()=>w.People.Any(p=>p.Meal is {Gathering:true,Carrying:true}),"No physical gathering food");Roundtrip(w);
             var cancel=World.LoadJson(w.SaveJson());Check(cancel.CancelGathering(),"Cancellation refused");Roundtrip(cancel);
             Until(cancel,()=>cancel.People.All(p=>p.Meal?.Gathering!=true && p.Task!=Work.ReturnMeal),"Cancelled goods stranded");
             Until(w,()=>w.Gathering.Eating,"Residents never sat together");
             Check(w.People.All(p=>p.Meal is {Gathering:true,Carrying:true} && p.Task==Work.EatingMeal),"Shared meal began before everyone held food");
-            w.SaveFile($"artifacts/shared-gathering/seated-{center.X}-{center.Z}.json");Roundtrip(w);
+            w.SaveFile($"artifacts/shared-gathering/seated-{center.X}-{center.Z}-{spread}.json");Roundtrip(w);
             Until(w,()=>w.Gathering.Complete,"Gathering did not finish");
             Check(w.Gathering.Ate.Count==w.Population && w.People.All(p=>p.Carried==0),"Shared food not actually consumed");
             Roundtrip(w);Until(w,()=>w.People.Any(p=>p.WorkplaceId!=null),"No return to work");

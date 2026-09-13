@@ -1,0 +1,9 @@
+# Outdoor place planning — checkpoint 12
+
+September 13, 2026. The completed neighborhood now offers ground-based outdoor meal planning from Goals. Click a location, compare compact seating with a circle, and see actual reachable places before committing. Escape/right click cancels without changing the village. Water and insufficient space are refused. The building inspector remains a convenient starting point; Goals also shows/cancels an active gathering.
+
+Circle places follow evenly spaced ideal positions and adapt to nearby obstacles, rather than sorting an annulus into a cluster. Diners face the center while seated. All future gathering places and their access remain protected during construction. No mandatory venue, rectangle, food quota or new need was added.
+
+Validation: zero-warning builds; sixteen-resident compact/circle × near/far simulation checks passed, including physical food, cancellation, placement protection, exact current saves and return to work. Scripted rendered controls passed at 960 (`20260913-123159-407-gathering-1e0b25`) and 1440 (`20260913-123638-739-gathering-f73636`). The 960 image precedes only the final access-protection check. Captures exercise invalid water, valid ground, both previews, no-mutation cancellation, gathering, save/load and completion. Semantic capture names now make comparison stages discoverable.
+
+The 960 circle is visibly more coherent than the rejected radial-sort cluster. This is scripted rendering, not native play, listening or a human enjoyment verdict. Count this complete planning interaction once as checkpoint 12. The next slice is a coherent start/resume/next-settlement flow. Shared meals remain optional expression; campaign expansion is paused. Whole-project review at 15 includes visual/audio and must challenge this activity as well as the rest of the game.
