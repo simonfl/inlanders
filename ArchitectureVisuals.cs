@@ -87,10 +87,10 @@ public partial class Game
         CottageWindow(parent, new(-1.13f, 1.10f, -.20f), -90);
         CottageWindow(parent, new(-.20f, 1.10f, -.77f), 180);
         if (stage < 3) return;
-        VillageRoof(parent, new(0, 1.87f, -.02f), 2.78f, ReadableCourt?1.78f:1.95f, ReadableCourt?.60f:.84f, palette.Roof, true,
+        VillageRoof(parent, new(0, 1.87f, -.02f), 2.78f, 1.95f, .84f, palette.Roof, true,
             finish is CottageFinish.Slate or CottageFinish.Rose?plaster.Darkened(.055f):null);
-        Box(parent, new(.75f, ReadableCourt?2.37f:2.49f, -.37f), new(.39f, ReadableCourt?.94f:1.18f, .42f), _stone.Darkened(.10f));
-        Box(parent, new(.75f, ReadableCourt?2.86f:3.10f, -.37f), new(.52f, .16f, .55f), _stone);
-        Box(parent, new(.75f, ReadableCourt?2.945f:3.185f, -.37f), new(.25f, .015f, .28f), _recess);
+        Box(parent, new(.75f, 2.49f, -.37f), new(.39f, 1.18f, .42f), _stone.Darkened(.10f));
+        Box(parent, new(.75f, 3.10f, -.37f), new(.52f, .16f, .55f), _stone);
+        Box(parent, new(.75f, 3.185f, -.37f), new(.25f, .015f, .28f), _recess);
     }
 }

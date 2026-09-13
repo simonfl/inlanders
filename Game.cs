@@ -68,7 +68,7 @@ public partial class Game : Node3D
         RebuildLandscape();
         _camera.Size = Math.Min(_camera.Size, MaximumZoom); UpdateCamera();
         ResetWorldAudio();
-        _courtOccluders.Clear(); Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
+        Clear(_dynamic); _people.Clear(); _trees.Clear(); _cottages.Clear(); _lastStored = -1; _lastPlanks = -1;
         CreateFoodViews();
         _stored = new(); _dynamic.AddChild(_stored);
         foreach (var p in _world.People)
@@ -312,7 +312,7 @@ public partial class Game : Node3D
             _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks;
         }
         TraceActorPart(3);
-        foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id);_courtOccluders.Remove(id); }
+        foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)
         {
             int stage = h.DemolitionRequested && h.DemolitionProgress > 0 ? (h.DemolitionProgress > .7f ? 1 : 2) : h.Complete ? 3 : h.Construction > 0.4f ? 2 : h.Delivered+h.DeliveredStone > 0 ? 1 : 0;
@@ -341,7 +341,6 @@ public partial class Game : Node3D
             if (stage == 3 && h.Kind == BuildingKind.Bakery)
                 view.Body.GetNode<Node3D>("OvenGlow").Visible = _world.People.Any(p => p.WorkplaceId == h.Id && p.Task == Work.Baking);
         }
-        RenderCourtOcclusion();
         TraceActorPart(4);
     }
 }
