@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class MealRequest
 {
+    public bool Welcome { get; set; }
     public int? SourceId { get; set; }
     public int Id { get; set; }
     public float Due { get; set; }
@@ -101,7 +102,9 @@ public sealed partial class World
         var r=person.Meal;
         if(Creative || r==null || r.Eaten || r.Closed || person.Carried>0) return false;
         var occupied=People.Where(p=>p.LeisureSiteId!=null || p.Task is Work.ToRest or Work.Resting).Select(p=>p.Destination).ToHashSet();
-        foreach(var source in FoodStores().OrderBy(id=>TravelCost(At(person),FoodAccess(id))).ThenBy(id=>id??0))
+        var sources=FoodStores().OrderBy(id=>TravelCost(At(person),FoodAccess(id))).ThenBy(id=>id??0).AsEnumerable();
+        int? welcome=WelcomeMealSource(person);if(welcome!=null)sources=new int?[]{welcome}.Concat(sources);
+        foreach(var source in sources)
         {
             var access=FoodAccess(source);
             var kinds=EdibleKinds.Where(k=>FoodAvailableAt(source,k)>0).OrderBy(k=>Food.MealConsumptions.Count(m=>m.Kind==k)+
@@ -111,8 +114,8 @@ public sealed partial class World
                 .OrderBy(c=>(c.Point-access.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
                 .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null);
             if(seat==null) continue;
-            r.SourceId=source; r.Kind=kinds[0]; r.Reserved=true; r.Seat=seat.Value;
-            Go(person,access,Work.ToMealSupply,source is int id?$"Collecting a meal at pantry {id}":"Collecting a meal at the central pantry"); return true;
+            r.Welcome=welcome!=null && source==welcome; r.SourceId=source; r.Kind=kinds[0]; r.Reserved=true; r.Seat=seat.Value;
+            Go(person,access,Work.ToMealSupply,r.Welcome?"Joining the welcome meal":source is int id?$"Collecting a meal at pantry {id}":"Collecting a meal at the central pantry"); return true;
         }
         return false;
     }
@@ -135,7 +138,7 @@ public sealed partial class World
                 p.Cargo=r.Kind; p.Carried=1;
                 Go(p,r.Seat,Work.ToMealSeat,"Carrying a meal to a nearby seat"); break;
             case Work.ToMealSeat:
-                p.Task=Work.EatingMeal; p.Timer=0; p.Status="Eating a meal"; break;
+                p.Task=Work.EatingMeal; p.Timer=0; p.Status=r.Welcome?"Sharing the welcome meal":"Eating a meal"; break;
             case Work.EatingMeal:
                 if(p.Timer<4) return;
                 switch(r.Kind)
@@ -147,6 +150,7 @@ public sealed partial class World
                     case Resource.Game: Food.EatenGame++; break;
                     case Resource.Fruit: Food.EatenFruit++; break;
                 }
+                RecordWelcomeMeal(p,r);
                 p.Carried=0; r.Carrying=false; r.Eaten=true; p.Fed=true;
                 Food.MealConsumptions.Add(new(r.Id,p.Id,Food.Time,r.Kind,r.Closed));
                 RecentFood.Add(new(Food.Time,Eaten:1));
@@ -186,7 +190,7 @@ public sealed partial class World
             if(!float.IsFinite(p.NextMealTime) || p.NextMealTime<0) throw new InvalidOperationException("Invalid meal schedule");
             var r=p.Meal;
             if(r==null) {if(MealWork(p.Task)) throw new InvalidOperationException("Orphan meal work"); continue;}
-            if(r.Reserved && r.SourceId is int source && !Cottages.Any(c=>c.Id==source && c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused))
+            if(r.Reserved && r.SourceId is int source && !Cottages.Any(c=>c.Id==source && IsFoodStore(c) && c.Complete && !c.DemolitionRequested && !c.WorkPaused))
                 throw new InvalidOperationException("Missing meal supply source");
             if(r.Id<1 || r.Id>=Food.NextMealId || !float.IsFinite(r.Due) || r.Due<0 || r.Due>Food.Time ||
                 r.Reserved!=(p.Task==Work.ToMealSupply) || r.Carrying!=(p.Task is Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal) ||

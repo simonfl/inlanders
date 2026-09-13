@@ -12,6 +12,7 @@ public partial class Game
     private string _pantryKey = "";
     private void CreateFoodViews()
     {
+        _welcomeDisplay=null;_welcomeDisplayKey="";
         _cropViews.Clear(); _bushViews.Clear(); _pantryKey = "";
         _wildlifeViews.Clear(); _wildlifeKey="";
         _depositViews.Clear(); _stoneStoreView=null; _shownStone=-1;
@@ -51,6 +52,7 @@ public partial class Game
     }
     private void RenderFoodViews()
     {
+        RenderWelcomeDisplay();
         RenderWildlife(); RenderStone();
         RenderSupplyRoutes();
         RenderManagedWoodland();

@@ -32,6 +32,9 @@ For each subsequent chunk, append its commit and outcome. Assign the next checkp
 
 ## Review records
 
+**F27a physical welcome activity — September 12, 2026:** Real food reservations/transport, venue stock/display, ordinary meal visits and eating, persistent attendance and east-bank newcomer housing completion. Focused mechanics and rendered control checks; complete scenario presentation and economic/recovery comparisons remain. Count stays **8**; [details](NEIGHBORHOOD_F27A.md).
+
+
 **F27a committed arrivals — September 12, 2026:** Separate neighborhood progress, one 90-second commitment without housing/food gates, four shared newcomers and actual crossing journeys. Focused simulation/save checks and scripted rendered commitment/roster checks; no native playtest. Welcome activity and full integration remain; count stays **8**. [Status and limits](NEIGHBORHOOD_F27A.md).
 
 

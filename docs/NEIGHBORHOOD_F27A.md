@@ -22,7 +22,7 @@ The local-grain comparison factory now allows a farm to retain up to twelve phys
 
 This is deliberately enabled only by `World.NewLocalSupplyExperiment()` for development comparisons. The ordinary river campaign retains its central route. It is **not the complete neighborhood scenario**, and no new campaign/menu entry presents it as such yet.
 
-Interrupting a farmer returns carried grain physically; interrupting a baker releases the claim. Farm demolition cancels incoming/pickup claims and builders recover stored grain through real trips. Cancellation and original-world versus one-reload continuation are checked. Existing production diagnostics identify the actual farm source. Current save version is 40; no migration is provided.
+Interrupting a farmer returns carried grain physically; interrupting a baker releases the claim. Farm demolition cancels incoming/pickup claims and builders recover stored grain through real trips. Cancellation and original-world versus one-reload continuation are checked. Existing production diagnostics identify the actual farm source. Current save version is 41; no migration is provided.
 
 Focused command:
 
@@ -46,9 +46,9 @@ The initial policy prioritizes food below three portions per resident, limits co
 
 ## Remaining work in the same F27a outcome
 
-- Arrival commitment and newcomer integration are implemented in the developer scenario; finish the physical welcome activity and normal scenario selection.
+- Arrival and physical welcome activity are implemented in the developer scenario; finish normal scenario selection and coherent start/completion presentation.
 - Test shortage/recovery and labor agency in the complete scenario; newcomers now join the shared pool.
-- Implement physical welcome-food delivery, reservations, display, visits/eating and recoverable venue removal, with ordinary needs continuing.
+- Compare the implemented welcome activity in both economic layouts, including natural shortages and recovery.
 - Expose the alternative beside the baseline and register useful states with T01. Replace assessment-oriented default information with one objective and world/context feedback, including precise placement refusals.
 - Demonstrate two real strategies and two recoveries, validate changed saves/claims and use ordinary UI play. Record decision opportunities, panel dependence and time spent waiting, separating tool overhead from pacing.
 
@@ -67,6 +67,21 @@ Focused staffing/local-grain/assignment tests passed, including capacity refusal
 
 The commitment requires neither spare beds nor a food reserve. Ninety simulated seconds later, four shared workers enter at the yard and walk across to the landing. Existing home allocation, meals and work apply. If the landing has since closed, the newcomers still enter at the yard; access is recoverable. This is a countdown followed by an actual crossing journey, not a rendered off-map caravan. Arrivals cannot be repeated, and completion still awaits the physical welcome activity.
 
-`--neighborhood` passed real shared bridge construction, commitment with no spare beds and an inadequate food reserve, repeat refusal without mutation, exact save continuation through countdown/arrival, four shared newcomers, visible crossing tasks and eventual arrival. It also runs the shared staffing checks. Current save format is 40; no migration. Scripted rendered probes cover the commitment button, paused countdown, newcomer actors/roster and housing/status feedback. The 960-wide capture was inspected; no native play or pacing acceptance is claimed.
+`--neighborhood` passed real shared bridge construction, commitment with no spare beds and an inadequate food reserve, repeat refusal without mutation, exact save continuation through countdown/arrival, four shared newcomers, visible crossing tasks and eventual arrival. It also runs the shared staffing checks. Current save format is 41; no migration. Scripted rendered probes cover the commitment button, paused countdown, newcomer actors/roster and housing/status feedback. The 960-wide capture was inspected; no native play or pacing acceptance is claimed.
 
 Tooling observation: the first rendered arrival probe took about 80 seconds including a build and physical bridge preparation. This is materially slower than T01's warm screenshots; separate a prepared arrival fixture if repeated reviews need it. Do not generalize the runner solely for this one probe. Next is the physical food transport/gathering and full scenario integration, followed by strategy/recovery comparisons. Count remains 8.
+## Physical welcome meal
+
+A selected eastern Square, Seating Garden or Gathering Hall now holds physical welcome portions. Shared workers and dedicated haulers reserve edible food at central/local pantries, carry it to the venue, and leave it on a visible table. Preparations can start before arrivals. The target covers one portion per participant and accounts for stock, incoming baskets, carried meals and completed attendees. Normal meals retain first access to unreserved food; the gathering does not freeze the village or instantly deduct central bread.
+
+After arrivals, residents favor the chosen venue for their next ordinary meal if a portion and venue slot are available. They walk, collect, carry to an available nearby seat and eat. Attendance accumulates once per resident after consumption; everyone need not sit simultaneously. Missed meal windows can return a carried portion through the existing physical recovery, but never erase attendance. The experiment completes when all twelve have shared the welcome and the four newcomers have east-bank homes. Neither condition uses a recent-history assessment.
+
+The selected-building inspector offers **Prepare welcome meal here**, stock/incoming/attendance counts and actionable food, access and housing feedback. The display shows actual stored portions. Venue changes retain earned attendance; old stock is drained by haulers. Demolition releases active claims and builders recover food in physical trips. Source/route labels identify a welcome table rather than misnaming it a pantry.
+
+Focused checks (`--welcome-meal`) cover real preparation, persistent stock before arrival, two venue capacities (garden and square), actual eating, completion only after newcomer homes, original/reload continuation, pickup interruption and demolition/replacement. Existing pantry checks cover each edible kind. Prepared/complete evidence is generated under `artifacts/welcome-meal`. These checks are not the two materially different economic strategies or natural-shortage recovery experiment still required for F27a.
+
+`./Review.ps1 Inspect welcome-meal` reaches a physically prepared crossing/venue without rebuilding them in the game process. Rendered control probes select the venue, observe delivered food and accumulate twelve attendees. The first 960-wide capture exposed clipped selected-button text and poor ordering behind demolition; both were corrected. The final verification record is below. Whole-scene art, ordinary uncoached play and pacing acceptance remain outstanding. The current ordinary meal cadence may make distant venues slow; compare this before scaling the design.
+
+![Physical food display and welcome controls](images/neighborhood-welcome-table.png)
+
+Final verification: full existing simulation suite passed; after final welcome feedback/validation changes, focused welcome, arrival and all six pantry checks passed. Game/test builds passed with zero warnings. Final rendered probes passed at 960 and 1440 pixels, including venue selection, visible supplied stock and twelve actual attendees. Both corrected table/inspector captures were visually inspected. Review-owned capture processes exited successfully. No native playtest or listening claimed.

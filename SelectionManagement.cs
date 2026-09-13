@@ -38,6 +38,7 @@ public partial class Game
     private void MakeManagementControls()
     {
         MakeWorkplaceAssignmentControls();
+        MakeWelcomeControls();
         _workplaceButton = Button("Inspect current job site", () => { if (SelectedWorkplace() is int id) SelectBuilding(id); });
         _personDetails.AddChild(_workplaceButton);
         _followButton = Button("Follow villager", () => _followPerson = !_followPerson); _personDetails.AddChild(_followButton);
@@ -58,6 +59,7 @@ public partial class Game
     private void UpdateManagementControls()
     {
         UpdateWorkplaceAssignmentControls();
+        UpdateWelcomeControls();
         if (_selectedPerson >= 0) {
             var person=_world.People[_selectedPerson];
             _jobChoice.SetItemText(0,_world.SharedWork?"Shared work":RoleName(Role.Unassigned));

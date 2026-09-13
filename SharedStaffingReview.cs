@@ -23,7 +23,7 @@ public partial class Game
         _world.Validate();await CaptureReviewBundle();
         GD.Print("PASS: scripted building dedication and release through rendered controls");
         if(_world.Neighborhood!=null) {
-            var bridge=_world.Place(new(5,2),1,BuildingKind.Bridge)!;
+            var bridge=_world.Cottages.FirstOrDefault(c=>c.Kind==BuildingKind.Bridge)??_world.Place(new(5,2),1,BuildingKind.Bridge)!;
             for(int i=0;i<18000 && !bridge.Complete;i++)_world.Tick(.1f);
             Check(bridge.Complete,"Arrival probe crossing failed");RenderActors(0);UpdateHud();
             await OpenMenu(0);_drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();
@@ -36,6 +36,23 @@ public partial class Game
             Check(_world.Population==12 && _people.Count==12 && _roster.Count==12 && _arrivalInfo.Text.Contains("have arrived"),"Arrived population UI stale");
             _drawerPages[0].EnsureControlVisible(_inviteButton);await Frames();await CaptureReviewBundle();
             GD.Print("PASS: scripted commitment and arrival actors/roster/status");
+            var venue=_world.Cottages.FirstOrDefault(c=>c.Complete && c.Cell.X>5 && Buildings.Get(c.Kind).RecreationSlots>0);
+            if(venue!=null) {
+                CloseDrawer();SelectBuilding(venue.Id);await Frames();
+                _inspectionScroll.EnsureControlVisible(_welcomeHere);await Frames();
+                Check(!_welcomeHere.Disabled,"Welcome venue action disabled");await UiClick(_welcomeHere);await Frames();
+                Check(_world.Neighborhood.VenueId==venue.Id && _welcomeHere.Disabled,"Venue selection did not apply");
+                for(int i=0;i<6000 && venue.PantryFood.Sum()==0;i++)_world.Tick(.1f);
+                Check(venue.PantryFood.Sum()>0,"Welcome food display never supplied");
+                RenderActors(0);RenderFoodViews();UpdateHud();await Frames();
+                Check(_welcomeDisplay!=null && _welcomeInfo.Text.Contains("portions ready"),"Welcome display or stock feedback missing");
+                _focus=OnGround(venue.Cell.X,venue.Cell.Z);_camera.Size=12;UpdateCamera();
+                await CaptureReviewBundle();
+                for(int i=0;i<12000 && _world.Neighborhood.Welcomed.Count<12;i++)_world.Tick(.1f);
+                Check(_world.Neighborhood.Welcomed.Count==12,"Rendered scenario welcome failed");
+                RenderActors(0);RenderFoodViews();UpdateHud();await Frames();await CaptureReviewBundle();
+                GD.Print("PASS: scripted venue selection, physical display and accumulated welcome attendance");
+            }
         }
     }
 }

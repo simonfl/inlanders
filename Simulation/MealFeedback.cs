@@ -22,7 +22,7 @@ public sealed partial class World
         string activity;
         if(person.Task==Work.ReturnMeal) activity="Returning the uneaten portion to central storage.";
         else if(r.Carrying) activity=person.Task==Work.EatingMeal?"Eating the collected portion.":"Carrying food to a nearby seat; it has not been eaten yet.";
-        else if(r.Reserved) activity=r.SourceId is int id?$"Collecting reserved food at pantry {id}.":"Collecting reserved food at central storage.";
+        else if(r.Reserved) activity=r.Welcome?"Collecting a portion at the welcome table.":r.SourceId is int id?$"Collecting reserved food at pantry {id}.":"Collecting reserved food at central storage.";
         else if(person.Task!=Work.Waiting) activity="Meal requested; finishing the current job or visit. Shorter trips leave more time to eat.";
         else if(!FoodStores().Any(id=>EdibleKinds.Any(k=>FoodAvailableAt(id,k)>0))) activity="No unreserved food at an open pantry. Check production and incoming deliveries.";
         else if(!FoodStores().Any(id=>EdibleKinds.Any(k=>FoodAvailableAt(id,k)>0) && FindPath(At(person),FoodAccess(id),Blocked)!=null)) activity="Stored food is unreachable. Check paths and crossings to an open pantry.";

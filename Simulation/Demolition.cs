@@ -13,7 +13,8 @@ public sealed partial class World
         site.DemolitionRequested = true; site.DemolitionWasPaused = site.WorkPaused; site.WorkPaused = true;
         ClearWorkplaceAssignments(id);
         StopImprovement(site);
-        if(site.Kind==BuildingKind.Pantry) ClosePantry(id);
+        if(IsFoodStore(site)) ClosePantry(id);
+        if(Neighborhood?.VenueId==id)Neighborhood.VenueId=null;
         if(site.Kind==BuildingKind.Farm) CloseGrainStore(id);
         ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);

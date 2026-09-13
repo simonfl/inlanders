@@ -20,6 +20,7 @@ static class ReviewFixtures
             "river"=>World.NewCampaign(6),
             "shared-work"=>World.NewSharedWorkExperiment(),
             "neighborhood"=>World.NewNeighborhoodExperiment(),
+            "welcome-meal"=>WelcomeMealChecks.PrepareReview(),
             "ordinary"=>FinaleCampaignChecks.RunRoute(true,false,false),
             "dense"=>Inlanders.Development.ReviewWorlds.Dense(FinaleCampaignChecks.RunRoute(true,false,true)),
             _=>throw new ArgumentException("Unknown review scenario: "+name)

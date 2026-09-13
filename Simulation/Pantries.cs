@@ -7,7 +7,7 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     public const int PantryCapacity=24;
-    private Cottage Pantry(int id) => Cottages.Single(c=>c.Id==id && c.Kind==BuildingKind.Pantry && c.Complete);
+    private Cottage Pantry(int id) => Cottages.Single(c=>c.Id==id && IsFoodStore(c) && c.Complete);
     private IEnumerable<int?> FoodStores() => new int?[]{null}.Concat(Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused).Select(c=>(int?)c.Id));
     public Cell FoodAccess(int? id) => id is int n?Pantry(n).Entrance:YardAccess;
     public int FoodAt(int? id,Resource kind) => id is int n ? Pantry(n).PantryFood[Array.IndexOf(EdibleKinds,kind)] : CentralFood(kind);
@@ -43,6 +43,7 @@ public sealed partial class World
     }
     private bool ClaimPantryHauling(Villager person)
     {
+        if(ClaimWelcomeDelivery(person))return true;
         int waiting=People.Count(p=>p.Meal is {Reserved:false,Carrying:false,Eaten:false,Closed:false});
         int surplus=Math.Max(0,EdibleKinds.Sum(k=>FoodAvailableAt(null,k))-waiting);
         foreach(var pantry in Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused).OrderByDescending(c=>c.Priority).ThenBy(c=>c.Id))
@@ -55,7 +56,7 @@ public sealed partial class World
             person.FoodSourceId=null; person.FoodDestinationId=pantry.Id; person.FoodTransfer=true;
             Go(person,YardAccess,Work.ToFoodPickup,$"Collecting {person.PantryReserved} {person.Cargo} for pantry {pantry.Id}"); return true;
         }
-        foreach(var pantry in Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested).OrderBy(c=>TravelCost(At(person),c.Entrance)))
+        foreach(var pantry in Cottages.Where(c=>IsFoodStore(c) && c.Complete && !c.DemolitionRequested && c.Id!=Neighborhood?.VenueId).OrderBy(c=>TravelCost(At(person),c.Entrance)))
         {
             int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-pantry.PantryTarget;
             if(spare<=0) continue;
@@ -69,7 +70,7 @@ public sealed partial class World
     private void PickupPantryShipment(Villager person)
     {
         ChangeFoodAt(person.FoodSourceId,person.Cargo,-person.PantryReserved); person.Carried=person.PantryReserved; person.PantryReserved=0; person.FoodSourceId=null;
-        Go(person,FoodAccess(person.FoodDestinationId),Work.ToPantry,person.FoodDestinationId is int id?$"Supplying pantry {id}":"Returning surplus food to the central pantry");
+        Go(person,FoodAccess(person.FoodDestinationId),Work.ToPantry,person.FoodDestinationId is int id?$"Supplying {FoodStoreName(id)}":"Returning surplus food to the central pantry");
     }
     private void ClosePantry(int id)
     {
@@ -80,16 +81,16 @@ public sealed partial class World
         foreach(var c in Cottages)
         {
             if(c.PantryFood==null || c.PantryFood.Length!=EdibleKinds.Length || c.PantryFood.Any(n=>n<0) || c.PantryTarget<0 || c.PantryTarget>PantryCapacity ||
-                c.Kind!=BuildingKind.Pantry && c.PantryFood.Any(n=>n!=0) || c.PantryFood.Sum()+FoodIncoming(c.Id)>PantryCapacity)
+                !IsFoodStore(c) && c.PantryFood.Any(n=>n!=0) || c.PantryFood.Sum()+FoodIncoming(c.Id)>PantryCapacity)
                 throw new InvalidOperationException("Invalid pantry stock/capacity");
-            if(c.Kind==BuildingKind.Pantry && c.Complete) foreach(var kind in EdibleKinds)
+            if(IsFoodStore(c) && c.Complete) foreach(var kind in EdibleKinds)
                 if(FoodAvailableAt(c.Id,kind)<0) throw new InvalidOperationException("Pantry food overreserved");
         }
         foreach(var p in People)
         {
             if(p.FoodDestinationId!=null && p.Task is not (Work.ToFoodPickup or Work.ToPantry)) throw new InvalidOperationException("Orphan pantry destination");
-            if(p.FoodSourceId is int source && (p.Task!=Work.ToFoodPickup || !Cottages.Any(c=>c.Id==source && c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested))) throw new InvalidOperationException("Missing pantry source");
-            if(p.FoodDestinationId is int id && !Cottages.Any(c=>c.Id==id && c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested)) throw new InvalidOperationException("Missing pantry destination");
+            if(p.FoodSourceId is int source && (p.Task!=Work.ToFoodPickup || !Cottages.Any(c=>c.Id==source && IsFoodStore(c) && c.Complete && !c.DemolitionRequested))) throw new InvalidOperationException("Missing pantry source");
+            if(p.FoodDestinationId is int id && !Cottages.Any(c=>c.Id==id && IsFoodStore(c) && c.Complete && !c.DemolitionRequested)) throw new InvalidOperationException("Missing pantry destination");
             if(p.PantryReserved<0 || p.PantryReserved>4 || (p.PantryReserved>0)!=(p.Task==Work.ToFoodPickup) || p.Task==Work.ToFoodPickup && (p.Carried!=0 || !EdibleKinds.Contains(p.Cargo) || p.FoodDestinationId==p.FoodSourceId || !p.FoodTransfer)) throw new InvalidOperationException("Invalid food shipment claim");
         }
     }

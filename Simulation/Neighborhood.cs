@@ -5,6 +5,9 @@ namespace Inlanders.Simulation;
 
 public sealed class NeighborhoodProgress
 {
+    public int? VenueId { get; set; }
+    public System.Collections.Generic.HashSet<int> Welcomed { get; set; } = new();
+    public bool Complete { get; set; }
     public Cell? Destination { get; set; }
     public float? CommittedAt { get; set; }
     public bool Arrived { get; set; }
@@ -36,9 +39,10 @@ public sealed partial class World
     public string NeighborhoodStatus=>Neighborhood is not { } n?"":n.CommittedAt is not float started?
         "Choose a crossing, then welcome four neighbors. They arrive after 90 seconds even if preparations are incomplete.":!n.Arrived?
         $"Four neighbors are on their way · {Math.Max(0,90-(Food.Time-started)):F0}s\nPrepare homes and food. The commitment will not reset.":
-        $"Four neighbors have arrived · {Housed}/{Population} housed\nEstablish homes and food for the new neighborhood.";
+        $"Four neighbors have arrived · {Housed}/{Population} housed\n"+WelcomeStatus;
     private void AdvanceNeighborhood()
     {
+        if(Neighborhood is {Arrived:true} progress && progress.Welcomed.Count==Population && NewNeighborsHoused==4)progress.Complete=true;
         if(Neighborhood is not {Arrived:false,CommittedAt:float started,Destination:Cell destination} n || Food.Time<started+90)return;
         // If construction has closed the landing, keep the promise: enter at the yard and recover access in play.
         var names=new[]{"Lina","Ash","Cora","Remy"};
@@ -54,6 +58,8 @@ public sealed partial class World
     private void ValidateNeighborhood()
     {
         if(Neighborhood is not {} n)return;
+        if(n.Complete && (!n.Arrived || n.Welcomed?.Count!=12))throw new InvalidOperationException("Incomplete neighborhood marked complete");
+        if(n.Welcomed==null || n.Welcomed.Any(id=>id<0 || id>=Population) || n.Welcomed.Count>0 && !n.Arrived || n.VenueId is int venue && !Cottages.Any(c=>c.Id==venue && IsWelcomeStore(c) && c.Complete && !c.DemolitionRequested))throw new InvalidOperationException("Invalid welcome gathering");
         if(!SharedWork || !LocalGrainSupply || Campaign!=null || Creative ||
             n.CommittedAt is float time && (!float.IsFinite(time) || time<0 || time>Food.Time || n.Destination==null) ||
             n.Destination is Cell cell && (!Map.Contains(cell) || cell.X<=5) ||

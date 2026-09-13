@@ -64,6 +64,7 @@ public sealed partial class World
         // Keep a modest working reserve; shared labor must not strip the map while idle.
         int logsNeeded=8+Cottages.Where(c=>!c.Complete && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
         if((Stored<Math.Min(24,logsNeeded) || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting)) && Try(Role.Logger))return;
+        if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
         if(Try(Role.Carpenter) || Try(Role.Sawyer) || Try(Role.Quarrier) || Try(Role.Hauler) || FoodWork())return;
         person.Status="Shared worker — waiting for available work";
     }
