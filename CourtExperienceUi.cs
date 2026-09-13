@@ -6,6 +6,7 @@ using System.Linq;
 public partial class Game
 {
     private VBoxContainer _courtExperienceGoals=null!;
+    private Button _courtMealPlace=null!,_courtRemovePlace=null!;
     private Button _courtBeforeButton=null!,_courtFinishButton=null!,_courtWatchButton=null!,_courtReopenButton=null!,_courtLeaveButton=null!;
     private Node3D? _courtStartingLayout;
     private bool _courtShowBefore;
@@ -15,7 +16,7 @@ public partial class Game
     {
         MenuPage("Two ways to make a place");
         _mainColumn.AddChild(Text("The same sixteen neighbors, homes and gardens. Free construction and moves, real daily life, no hunger penalties. Each version has its own save.",16,true));
-        _mainColumn.AddChild(Text("A place to gather · The meeting area is squeezed between homes. Open room to sit, or move the gathering place closer to the gardens. Decide when it feels finished.",16,true));
+        _mainColumn.AddChild(Text("A place to gather · Make an everyday meal place between homes and food. Open room for six seats, or choose a new spot. See a neighbor eat there, then finish when satisfied.",16,true));
         Entry(true,"A place to gather");
         _mainColumn.AddChild(Text("An open court · Make whatever interests you. There is no assigned project or finish line. Follow residents, rearrange the village, or simply watch.",16,true));
         Entry(false,"An open court");
@@ -31,10 +32,12 @@ public partial class Game
     private void MakeCourtExperienceUi(VBoxContainer column)
     {
         _courtExperienceGoals=new();column.AddChild(_courtExperienceGoals);
+        _courtMealPlace=Button("Choose a meal place",()=>BeginGatheringPlan(_world.Commons?.Center,true));_courtExperienceGoals.AddChild(_courtMealPlace);
+        _courtRemovePlace=Button("Remove meal place",()=>{_world.RemoveCommons();SaveWorld();UpdateHud();});_courtExperienceGoals.AddChild(_courtRemovePlace);
         _courtBeforeButton=Button("Show starting footprints",()=>{_courtShowBefore=!_courtShowBefore;UpdateCourtExperienceUi();});_courtExperienceGoals.AddChild(_courtBeforeButton);
         _courtWatchButton=Button("Watch village life",()=>{_courtShowBefore=false;UpdateCourtExperienceUi();CloseDrawer();ClearSelection();_speed=1;_paused=false;ToggleWatch();});_courtExperienceGoals.AddChild(_courtWatchButton);
         _courtFinishButton=Button("This place is ready",()=>{if(_world.FinishCourtPlace()){_paused=true;_courtShowBefore=false;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_courtExperienceGoals.AddChild(_courtFinishButton);
-        _courtFinishButton.TooltipText="Mark your project finished when you are satisfied. No score, quota or waiting requirement.";
+        _courtFinishButton.TooltipText="Finish after the shared place has served an ordinary meal. No stock target or attendance streak.";
         _courtReopenButton=Button("Keep shaping this place",()=>{_world.CourtStudy!.Finished=false;SaveWorld();UpdateHud();CloseDrawer();});_courtExperienceGoals.AddChild(_courtReopenButton);
         _courtLeaveButton=Button("Finish here · main menu",ReturnToMainMenu);_courtExperienceGoals.AddChild(_courtLeaveButton);
         _courtExperienceGoals.Hide();
@@ -44,13 +47,18 @@ public partial class Game
         if(_world.CourtStudy is not {} study)return;
         _neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();_courtExperienceGoals.Show();
         _goalTitle.Text=study.Finite?(study.Finished?"A place you made":"A place to gather"):"An open court";
-        _goalArrival.Text=study.Finite?(study.Finished?"Your gathering place is finished. Stay with the neighbors, leave it here, or reopen it when another idea comes.":"The meeting area is squeezed between homes. Open room to sit, or move the gathering place closer to the gardens. Decide when it feels finished."):"Make whatever interests you. Follow daily life, change an arrangement, or simply watch. There is no assigned project or finish line.";
+        _goalArrival.Text=study.Finite?(study.Finished?"Your gathering place is finished. Stay with the neighbors, leave it here, or reopen it when another idea comes.":"Make an everyday meal place between homes and food. Open room for six seats, or choose a new spot. See a neighbor eat there, then finish when satisfied."):"Make whatever interests you. Follow daily life, change an arrangement, or simply watch. There is no assigned project or finish line.";
         _objective.Visible=!study.Finished;
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your place";
-        _objective.Text=_courtShowBefore?"Amber outlines show the starting building footprints, not current buildings. Hide them to watch daily life.":"Select a home → Move home. Use Build to add paths or a gathering place.";
+        _objective.Text=_courtShowBefore?"Amber outlines show the starting building footprints, not current buildings. Hide them to watch daily life.":(_world.Commons?.FirstDiner is int diner?$"{_world.People[diner].Name} ate at your meal place. Ordinary life continues.":_world.Commons!=null?"Place ready. Play to let neighbors bring their next meal. Food must be nearby.":"Choose a meal place to preview real seats. Select a home → Move home to open space.");
         _courtBeforeButton.Text=_courtShowBefore?"Hide starting footprints":"Show starting footprints";
         if(_courtStartingLayout!=null)_courtStartingLayout.Visible=_courtShowBefore && !_watching && !_atMainMenu;
         _courtFinishButton.Visible=study.Finite && !study.Finished;
+        _courtFinishButton.Disabled=_world.FinishCourtPlaceProblem()!=null;
+        _courtFinishButton.TooltipText=_world.FinishCourtPlaceProblem()??"The place has served a neighbor. Finish when satisfied.";
+        _courtMealPlace.Text=_world.Commons==null?"Choose a meal place":"Move meal place";
+        _courtRemovePlace.Visible=_world.Commons!=null && !study.Finished;
+        _courtMealPlace.Visible=!study.Finished;
         _courtReopenButton.Visible=study.Finite && study.Finished;
         _courtLeaveButton.Visible=study.Finite && study.Finished;
         _menuButtons[2].Text=study.Finished?"Your place · Finished":"Your place";

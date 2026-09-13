@@ -4,6 +4,7 @@ namespace Inlanders.Simulation;
 
 public sealed class SharedCommons
 {
+    public int? FirstDiner { get; set; }
     public Cell Center { get; set; }
     public Cell[] Places { get; set; }=Array.Empty<Cell>();
 }
@@ -19,7 +20,9 @@ public sealed partial class World
             !People.Any(p=>(p.Meal is {Reserved:true} or {Carrying:true}) && p.Meal.Seat==c || (p.Task is Work.ToRest or Work.Resting || p.LeisureSiteId!=null) && p.Destination==c))
             .OrderBy(c=>(c.Point-center.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).Take(6).ToArray();
     }
-    public string? CommonsProblem(Cell center)=>Neighborhood?.Complete!=true?"Welcome the newcomers first.":CommonsPlaces(center).Length<6?"Choose open ground with six reachable places nearby.":null;
+    public bool CanArrangeCommons=>IsArrangementCourt || Neighborhood?.Complete==true;
+    public bool CommonsFoodNearby(Cell center)=>FoodStores().Any(id=>(FoodAccess(id).Point-center.Point).LengthSquared()<=64 && EdibleKinds.Any(k=>FoodAvailableAt(id,k)>0) && FindPath(FoodAccess(id),center,Blocked)!=null);
+    public string? CommonsProblem(Cell center)=>!CanArrangeCommons?"Welcome the newcomers first.":CommonsPlaces(center).Length<6?"Choose open ground with six reachable places nearby.":null;
     public bool SetCommons(Cell center)
     {
         if(CommonsProblem(center)!=null)return false;
@@ -41,7 +44,7 @@ public sealed partial class World
     private void ValidateCommons()
     {
         if(Commons is not {} c){if(People.Any(p=>p.Meal?.Commons==true))throw new InvalidOperationException("Meal references missing commons");return;}
-        if(Neighborhood?.Complete!=true || !Map.Contains(c.Center) || Blocked(c.Center) || c.Places==null || c.Places.Length!=6 || c.Places.Distinct().Count()!=6 ||
+        if(!CanArrangeCommons || c.FirstDiner is int diner && (diner<0 || diner>=Population) || !Map.Contains(c.Center) || Blocked(c.Center) || c.Places==null || c.Places.Length!=6 || c.Places.Distinct().Count()!=6 ||
             c.Places.Any(p=>!Map.Contains(p) || Blocked(p) || (p.Point-c.Center.Point).LengthSquared()>8 || FindPath(YardAccess,p,Blocked)==null))
             throw new InvalidOperationException("Invalid shared commons");
         foreach(var p in People.Where(p=>p.Meal is {Commons:true,Reserved:true} or {Commons:true,Carrying:true}))

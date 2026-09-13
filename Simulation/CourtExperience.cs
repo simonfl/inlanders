@@ -36,9 +36,10 @@ public sealed partial class World
         // Both arms use identical village state and simulation; only the brief/end point differs.
         w.Validate();return w;
     }
+    public string? FinishCourtPlaceProblem()=>CourtStudy is not {Finite:true,Finished:false}?"No unfinished gathering-place project.":Commons==null?"Choose a shared meal place first.":Commons.FirstDiner==null?"Let a neighbor bring and eat an ordinary meal here. Nearby food supplies the place.":null;
     public bool FinishCourtPlace()
     {
-        if(CourtStudy is not {Finite:true,Finished:false} study)return false;
+        if(FinishCourtPlaceProblem()!=null || CourtStudy is not {} study)return false;
         study.Finished=true;return true;
     }
     private void ValidateCourtExperience()

@@ -12,7 +12,7 @@ public partial class Game
     private void UpdateCommonsView()
     {
         if(_commonsEntry==null)return;
-        _commonsEntry.Visible=_world.Neighborhood?.Complete==true;
+        _commonsEntry.Visible=_world.CanArrangeCommons;
         _commonsEntry.Text=_world.Commons==null?"Make a shared place":"Rearrange shared place";
         _commonsRemove.Visible=_world.Commons!=null;
         string key=_world.Commons is {} c?$"{c.Center}:{_world.Cottages.Count}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join(';',c.Places)+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell)):"";

@@ -25,7 +25,7 @@ public partial class Game
     }
     private void BeginGatheringPlan(Cell? center=null,bool commons=false)
     {
-        if(_world.Neighborhood?.Complete!=true || !commons && _world.Gathering?.Active==true)return;
+        if(commons?!_world.CanArrangeCommons:_world.Neighborhood?.Complete!=true || _world.Gathering?.Active==true)return;
         CloseManagementUi();_placing=false;RefreshGhost();CancelCameraDrag();
         _planningCommons=commons;_gatherPlanTitle.Text=commons?"SHARED PLACE":"OUTDOOR MEAL";_gatherPlanStart.Text=commons?"Keep this shared place":"Gather at these places";_gatherLayout.Visible=!commons;
         _gatherPlanning=true;_gatherPlanWorld=_world;_gatherPlanAt=center;_gatherPlanPanel.Show();_gatherPlanRefresh=0;UpdateGatheringPlan();
@@ -48,7 +48,7 @@ public partial class Game
         _gatherLayout.Text=_gatherSpread?"Seating: circle":"Seating: compact";
         _gatherPlanStart.Disabled=problem!=null;
         _gatherPlanInfo.Text=$"{seats.Length}/{_world.Population} reachable places\n"+(problem??"Each marker is a real place. Everyone brings their next meal, waits together, then eats.")+"\n\nChoose another spot by clicking ground. Middle-drag or WASD moves the camera. No food is committed until you confirm.";
-        if(_planningCommons)_gatherPlanInfo.Text=$"{seats.Length}/6 reachable places\n"+(problem??"People with nearby food bring their ordinary meals here. No waiting for the whole village.")+"\n\nClick another spot to rearrange. Routes stay open; move or remove this place from Goals.";
+        if(_planningCommons)_gatherPlanInfo.Text=$"{seats.Length}/6 reachable places\n"+(problem??"People bring ordinary meals here; no waiting for the whole village.")+"\n"+(_gatherPlanAt is Cell foodAt && _world.CommonsFoodNearby(foodAt)?"Food is available nearby now.":"No available food nearby. Place near a food store, or add food access before expecting visits.")+"\n\nClick another spot. Move or remove from Your place / Goals.";
         string key=$"{_gatherPlanAt}:{_gatherSpread}:{problem}:"+string.Join(';',seats);if(key==_gatherPlanKey)return;
         Clear(_gatherPlanMarks);_gatherPlanKey=key;
         foreach(var cell in seats)Cylinder(_gatherPlanMarks,OnGround(cell.X,cell.Z,.04f),.30f,.05f,new(problem==null?"d7bf83":"c48170"));
@@ -57,8 +57,8 @@ public partial class Game
     private void ConfirmGatheringPlan()
     {
         if(_gatherPlanAt is not Cell at)return;
-        if(!(_planningCommons?_world.SetCommons(at):_world.BeginGathering(at,_gatherSpread))){_gatherPlanRefresh=0;UpdateGatheringPlan();Notice(_world.GatheringProblem(at,_gatherSpread)??"Choose another spot.");return;}
-        bool commons=_planningCommons;CancelGatheringPlan();SaveWorld();UpdateHud();if(commons){Notice("A shared place for ordinary meals. Nearby food matters; move or remove it in Goals.");return;}Notice("People will bring their next meal here. Goals shows the gathering and lets you cancel.");
+        if(!(_planningCommons?_world.SetCommons(at):_world.BeginGathering(at,_gatherSpread))){_gatherPlanRefresh=0;UpdateGatheringPlan();Notice((_planningCommons?_world.CommonsProblem(at):_world.GatheringProblem(at,_gatherSpread))??"Choose another spot.");return;}
+        bool commons=_planningCommons;CancelGatheringPlan();SaveWorld();UpdateHud();if(commons){Notice("A shared place for ordinary meals. Nearby food matters; move or remove it in Your place / Goals.");return;}Notice("People will bring their next meal here. Goals shows the gathering and lets you cancel.");
     }
     private bool HandleGatheringPlanInput(InputEvent input)
     {

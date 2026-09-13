@@ -26,7 +26,14 @@ public partial class Game
         Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();await Click(point);await Frames();
         Check(home.Cell==at && _world.CourtStudy!.StartingBuildings.Single(b=>b.Id==home.Id).Cell==original,"Editing destroyed starting reference");
         Check(_courtStartingLayout!.Visible,"Moving hid the starting layout comparison");
-        ClearSelection();ToggleDrawer(2);await Frames();await ClickGoal(_courtFinishButton);
+        ClearSelection();ToggleDrawer(2);await Frames();Check(_courtFinishButton.Disabled,"Untouched meal project can finish");
+        await ClickGoal(_courtMealPlace);Check(_gatherPlanning && _planningCommons,"Meal-place planner is welcome gated");
+        var mealAt=_world.Map.Land.OrderBy(c=>(c.Point-new Cell(10,5).Point).LengthSquared()).First(c=>_world.CommonsProblem(c)==null && _world.CommonsFoodNearby(c));
+        _focus=OnGround(mealAt.X,mealAt.Z);UpdateCamera();await Frames();var mealPoint=_camera.UnprojectPosition(OnGround(mealAt.X,mealAt.Z));
+        await Click(mealPoint);await Frames();await UiClick(_gatherPlanStart);await Frames();Check(_world.Commons!=null,"Meal place not installed");
+        for(int i=0;i<1800 && _world.Commons!.FirstDiner==null;i++){_world.Tick(.1f);if(i%100==0){RenderActors(0);UpdateHud();await Frames();}}
+        Check(_world.Commons!.FirstDiner!=null,"Place did not serve a real meal");RenderActors(0);_focus=OnGround(3,3);UpdateCamera();await Frames();await CaptureReviewBundle("court-inhabited-meal-place");
+        ToggleDrawer(2);await Frames();await ClickGoal(_courtFinishButton);
         Check(_world.CourtStudy!.Finished && _paused && _courtLeaveButton.IsVisibleInTree() && !_courtStartingLayout.Visible,"Finish did not expose ending");
         _noticeUntil=0;await Frames();Check(_drawerPages[2].ScrollVertical==0,"Ending title scrolled out of view");await CaptureReviewBundle("court-finished");
         await ClickGoal(_courtWatchButton);Check(_watching && !_paused && _speed==1 && !_courtStartingLayout.Visible,"Ending watch failed");

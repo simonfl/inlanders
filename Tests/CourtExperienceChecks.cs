@@ -14,6 +14,12 @@ static class CourtExperienceChecks
         Check(finite.Population==16 && finite.Housed==16 && finite.SimulatesMeals,"Starting residents/rules differ");
         Check(Physical(finite)==Physical(open),"Comparison arms start from different worlds");
         Check(!open.FinishCourtPlace(),"Open court acquired a completion gate");
+        Check(!finite.FinishCourtPlace(),"Empty project finished");
+        var center=finite.Map.Land.OrderBy(c=>(c.Point-new Cell(10,5).Point).LengthSquared()).First(c=>finite.CommonsProblem(c)==null && finite.CommonsFoodNearby(c));
+        Check(finite.SetCommons(center) && open.SetCommons(center),"Court commons remain welcome-gated");
+        Check(!finite.FinishCourtPlace(),"Unused place finished");
+        for(int i=0;i<1800 && finite.Commons!.FirstDiner==null;i++){finite.Tick(.1f);open.Tick(.1f);}
+        Check(finite.Commons!.FirstDiner!=null,"No neighbor ate at the chosen place");
         Check(finite.FinishCourtPlace() && !finite.FinishCourtPlace(),"Player finish is not idempotent");
         // Ending is a personal stopping point, never a hidden quota or pause in simulation.
         for(int i=0;i<1200;i++){finite.Tick(.1f);open.Tick(.1f);}
@@ -30,6 +36,6 @@ static class CourtExperienceChecks
         finite.CourtStudy.Finite=false;
         bool rejected=false;try{finite.Validate();}catch(InvalidOperationException){rejected=true;}
         Check(rejected,"Invalid free/finished save accepted");
-        Console.WriteLine("PASS: matched sixteen-resident arms, identical continued life, user finish, no free-mode gate, independent starting layout, editable ending and current saves");
+        Console.WriteLine("PASS: matched sixteen-resident arms, identical continued life, user finish, real commons use before finish, no free-mode gate, independent starting layout, editable ending and current saves");
     }
 }
