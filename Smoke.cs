@@ -13,7 +13,7 @@ public partial class Game
         if (!_drawer.Visible || _tabs.CurrentTab != index) await UiClick(_menuButtons[index]);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
-    private async Task UiClick(Button button)
+    private async Task UiClick(Button button,int heldFrames=0)
     {
         if(_inspectorSecondary!=null && _inspectorSecondary.IsAncestorOf(button) && !_inspectorSecondary.Visible) await UiClick(_inspectorDetails);
         if(_mainScroll!=null && _mainScroll.IsAncestorOf(button))
@@ -49,6 +49,7 @@ public partial class Game
             void Activated()=>TraceMenuClick("pressed-signal",button,point);button.Pressed+=Activated;
             TraceMenuClick("before",button,point);
             ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=true});TraceMenuClick("down",button,point);
+            for(int frame=0;frame<heldFrames;frame++){await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);UpdateHud();}
             ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=false});TraceMenuClick("up",GodotObject.IsInstanceValid(button)?button:null,point);
             await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);TraceMenuClick("next-frame",GodotObject.IsInstanceValid(button)?button:null,point);
             if(GodotObject.IsInstanceValid(button))button.Pressed-=Activated;

@@ -8,6 +8,8 @@ September 13, 2026. Count **30**. [Whole-game review30](REVIEW_CHECKPOINT_30.md)
 
 ## F31b completed — reject the court as the deeper challenge
 
+Maintenance correction: [founding/hall click regression fixed](FOUNDING_CLICK_FIX.md). The active panel was hidden and shown every HUD refresh, cancelling mouse presses. Held-click regression journeys now cover both phases. No objective or economy changes; F32a remains the next design chunk, count30.
+
 [Five-arm comparison](SPATIAL_CHOICE_F31B.md): the easy placement serves fifteen residents without any building move; the reclaimed home court improves gathering but all arms remain fed. The garden-side layout looks more open yet offers no demonstrated strategic advantage. Keep this as an introduction/free arrangement, not a harder level. Test and evidence tooling do not advance count26.
 
 ## F31b2 completed — reject staged redevelopment on this site

@@ -43,11 +43,12 @@ public partial class Game
     private void UpdateFoundingUi()
     {
         var f=_world.Founding!;
-        _foundingHallGoals.Hide();
+        // Keep active controls visible across mouse-down and mouse-up frames.
+        _foundingHallGoals.Visible=f.HallProject==1;
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
         _campaignSelection.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_riverAction.Hide();_progress.Hide();
         _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Show();
-        _foundingGoals.Show();_goalTitle.Text=f.Finished?"A village you founded":"A home by the water";
+        _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":"A home by the water";
         _goalArrival.Text=f.Finished?"Keep growing when you want. More neighbors need more food; their first meal does not prove lasting supply.":"Build homes for eight founders. Choose a food source, then invite two households when ready.";
         _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(_world.FinishFoundingProblem()??"Everyone has settled in. Finish when satisfied, or keep building.");
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";

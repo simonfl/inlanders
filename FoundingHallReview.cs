@@ -10,7 +10,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        async Task Click(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b);await Frames();}
+        async Task Click(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b,6);await Frames();}
         ToggleDrawer(2);await Frames();Check(_hallBegin.IsVisibleInTree(),"Continuation hidden");
         await Click(_hallBegin);Check(_world.Founding!.HallProject==1 && _foundingHallGoals.IsVisibleInTree() && _hallFinish.Disabled,"Begin project failed");
         await CaptureReviewBundle("hall-project-brief");

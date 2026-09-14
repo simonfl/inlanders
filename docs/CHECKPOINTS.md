@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**Founding click correction — September 13, 2026:** [Regression and verification](FOUNDING_CLICK_FIX.md). Keep active founding/hall panels visible across HUD refreshes so mouse release activates their buttons. Reproduced the finish failure with a multi-frame press before the fix; founding960 and hall1440 journeys now pass with held clicks and save/resume. Correction only: count stays **30**, next full review **35**; F32a remains next.
+
 **Checkpoint30 whole-game review — September 13, 2026:** [Synthesis and role findings](REVIEW_CHECKPOINT_30.md), fixed `1a11bf3`, one fresh designer and four reused independent contexts after fresh-agent limit. Whole-game evidence includes normal growth, recovery, free court, river/dense legacy states and UI; no native/uncoached play, listening or performance acceptance. Choose spacious viable lakeside-neighborhood comparison; stop adding controls/quotas. Review corrections fix the founding build link and exercise actual hungry-state recovery. Count stays **30**, next full review **35**. Two correction captures failed on shutdown after gameplay assertions; review-only mitigation and reruns tracked explicitly.
 
 **F31f shortage recovery — September 13, 2026:** [Delivery and matched recovery](SHORTAGE_RECOVERY_F31F.md). Compact Economy entry connects resident meals, food workplaces and the catalogue; actual resident pickup links and corrected dock directory status. Builds, same-age recovery/state/current-save checks and960/1440 scripted UI journeys. One outcome, count **30**; whole-project review **due now**, including visual/audio. No new implementation until synthesis.
