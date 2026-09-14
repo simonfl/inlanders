@@ -25,7 +25,7 @@ public partial class Game
             Input.ParseInputEvent(new InputEventKey{Keycode=Key.W,PhysicalKeycode=Key.W,Pressed=true});await Frames();
             Input.ParseInputEvent(new InputEventKey{Keycode=Key.W,PhysicalKeycode=Key.W,Pressed=false});
             await Press(Key.R);await Press(Key.Q);Check(_focus==camera && _rotation==rotation,"Catalog keys reached camera/rotation");
-            await Focus(_buildingFilter);
+            _buildingFilter.Select(0);UpdateVillageDirectory();await Focus(_buildingFilter);
             for(int category=1;category<=5;category++)
             {
                 await Press(Key.Right);await Frames();Check(_buildingFilter.Selected==category,"Keyboard category failed");

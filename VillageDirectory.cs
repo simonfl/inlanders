@@ -29,8 +29,9 @@ public partial class Game
     private void MakeBuildingFilter(VBoxContainer column)
     {
         _buildingFilter=DirectoryFilter(column,"Filter building cards and the existing-building list by category.");
-        foreach(string category in new[]{"All buildings","Homes","Food","Industry","Storage & crossings","Community"})
+        foreach(string category in BuildingCategoryNames)
             _buildingFilter.AddItem(category);
+        MakeBuildingCategories(column);
     }
     private void MakeConstructionFilter(VBoxContainer column)
     {
@@ -42,14 +43,14 @@ public partial class Game
     private static int BuildingCategory(BuildingKind kind) => kind switch
     {
         BuildingKind.Cottage or BuildingKind.Lodge=>1,
-        BuildingKind.Orchard or BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
+        BuildingKind.Pantry or BuildingKind.Orchard or BuildingKind.ForagerHut or BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.HuntingLodge=>2,
         BuildingKind.Carpenter or BuildingKind.Sawmill or BuildingKind.Quarry=>3,
         BuildingKind.Stockpile or BuildingKind.Bridge=>4,
         _=>5
     };
     private void ResetDirectoryFilters()
     {
-        _rosterFilter?.Select(0); _buildingFilter?.Select(0); _constructionFilter?.Select(0);
+        _rosterFilter?.Select(0); _buildingFilter?.Select(1); _constructionFilter?.Select(0);
     }
     private string BuildingStatus(Cottage site)
     {
@@ -82,6 +83,7 @@ public partial class Game
         _rosterResults.Text=visible==0?"No matching villagers. Choose All villagers to reset.":$"Showing {visible} of {_world.Population} villagers";
         int category=_buildingFilter.Selected, state=_constructionFilter.Selected;
         foreach(var (kind,button) in _kindButtons) button.Visible=category==0 || BuildingCategory(kind)==category;
+        UpdateBuildingGroups(category);
         int sites=0;
         foreach(var site in _world.Cottages)
         {

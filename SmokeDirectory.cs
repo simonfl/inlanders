@@ -60,7 +60,7 @@ public partial class Game
                 Check(_world.SaveJson()==saved,"Directory navigation changed simulation");
             }
             AdoptWorld(World.NewScenario()); _paused=true; await Frames();
-            Check(_rosterFilter.Selected==0 && _buildingFilter.Selected==0 && _constructionFilter.Selected==0,"World switch retained restrictive filters");
+            Check(_rosterFilter.Selected==0 && _buildingFilter.Selected==1 && _constructionFilter.Selected==0,"World switch retained restrictive filters");
             Check(_storageLinks.Count==0 && _roster.All(b=>b.Visible),"World switch retained stale directory entries");
             GD.Print("SMOKE PASS: role/idle filters, empty results, category/construction filters, stable selection IDs, storage/camera jumps, unchanged simulation and 1440/960 navigation.");
         }

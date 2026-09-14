@@ -32,7 +32,7 @@ public partial class Game
         ClearSelection();_placing=false;RefreshGhost();
         if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);
         SelectBuildSection(0);UpdateVillageDirectory();
-        _catalogKeyboard=true;
+        _catalogKeyboard=true;UpdateBuildingCategoryNavigation();
         foreach(var control in new Control[]{_buildingFilter}.Concat(_kindButtons.Values))
         {
             control.FocusMode=Control.FocusModeEnum.All;

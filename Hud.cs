@@ -162,7 +162,7 @@ public partial class Game
         {
             _buildSections[i] = new(); _buildSections[i].AddThemeConstantOverride("separation", 8); column.AddChild(_buildSections[i]);
         }
-        foreach (var kind in Enum.GetValues<BuildingKind>()) MakeBuildingCard(_buildSections[0], kind);
+        MakeGroupedBuildingCards(_buildSections[0]);
         var landscape = _buildSections[1];
         var existing = _buildSections[2];
         column = landscape;

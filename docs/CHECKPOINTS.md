@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **30**.
+- Playable checkpoints since adoption: **31**.
 - Last periodic review: **checkpoint30**, [whole-game synthesis](REVIEW_CHECKPOINT_30.md). One fresh designer plus four separate reused contexts after the thread limit; source/still/scripted evidence, no native/uncoached play or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**Building catalogue grouping — September 13, 2026:** [Delivery and evidence](BUILDING_GROUPS.md). Visible category buttons, Homes-first browsing, food-chain sections and pantry grouped with food. All eighteen buildings remain available. Held-click category/preview and keyboard checks plus founding completion/save journeys at960/1440. One playable UI outcome, count **31**; next whole-game review **35**. User-reported overload justifies this bounded interruption; F32a remains next.
 
 **Founding click correction — September 13, 2026:** [Regression and verification](FOUNDING_CLICK_FIX.md). Keep active founding/hall panels visible across HUD refreshes so mouse release activates their buttons. Reproduced the finish failure with a multi-frame press before the fix; founding960 and hall1440 journeys now pass with held clicks and save/resume. Correction only: count stays **30**, next full review **35**; F32a remains next.
 

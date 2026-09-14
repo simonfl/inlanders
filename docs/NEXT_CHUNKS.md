@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **30**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
+September 13, 2026. Count **31**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -41,6 +41,10 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 ## F31f delivered — shortage investigation and action
 
 [Recovery comparison and delivery](SHORTAGE_RECOVERY_F31F.md). The overloaded village recovers with garden/dock production, not a pantry alone. Economy connects directly to current food workplaces, building choices and actual resident pickup sources. One playable outcome, count30.
+
+## Building catalogue grouping delivered
+
+[Visible categories and food sections](BUILDING_GROUPS.md) address the user's difficulty choosing among eighteen buildings. Homes opens first; all choices stay available, with explicit grain-to-bread and pantry explanations. Count31. Reevaluate this with actual player use; do not turn grouping into another catalogue expansion or feature-lock system. The spatial comparison below remains next.
 
 ## 1. F32a — a spacious working lakeside hamlet
 

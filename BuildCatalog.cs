@@ -57,7 +57,7 @@ public partial class Game
             _buildSections[i].Visible = i == section;
             _buildSectionButtons[i].Modulate = i == section ? _cream : Colors.White;
         }
-        _buildingFilter.Visible = section != 1;
+        UpdateBuildingCategoryNavigation();
         _drawerPages[1].ScrollVertical = 0;
     }
     private void MakeBuildFooter(VBoxContainer parent)
@@ -72,6 +72,7 @@ public partial class Game
     private void UpdateBuildCatalog()
     {
         if(_catalogKeyboard && !CatalogOpen)StopCatalogKeyboard();
+        UpdateBuildingCategoryNavigation();
         bool buildOpen = _drawer.Visible && _tabs.CurrentTab == 1;
         _buildNavigation.Visible = buildOpen;
         _buildFooter.Visible = buildOpen && _placing;
