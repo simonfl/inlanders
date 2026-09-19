@@ -1,6 +1,6 @@
 # F32a — lakeside hamlet comparison and landscape candidate
 
-September 19, 2026. Presentation review pending; checkpoint remains31 until acceptance.
+September 19, 2026. Presentation review completed against9641145; retain the rendering improvement as checkpoint32, not acceptance of the spacious-hamlet hypothesis.
 
 Four ordinary twenty-minute runs start from the same founded twelve-person village. No resources, food rates, housing capacities or placement permissions change. Legal sites use nearest-all-facings placement; requested/actual cells and displacement are recorded. This is authored simulation, not an unfamiliar player choosing a layout.
 
@@ -24,3 +24,10 @@ Simulation evidence: `artifacts/hamlet/*-report.json`, matching start/middle/lat
 Rendered evidence: `20260919-130413-875-hamlet-spacious-35976a` (1440, ordinary1x advancement); `20260919-130601-849-hamlet-compact-55de54` (1440 UI probe); `20260919-130735-988-hamlet-spacious-4b7e52` (960 opposite camera UI probe). The first captures precede only probe additions/nullability cleanup; production rendering matches. Tests check contextual labels, boundary appearance/cancellation, scenery remaining unbuildable, and unchanged save state while inspecting.
 
 The1x spacious trace has119 frames: simulation median0.37ms/p95 255.75ms, wall median61.32ms/p95 416.38ms; eight simulation seconds took13.97 wall seconds. This is a short native-process sample, not a hardware-independent performance guarantee. Its allocation spikes and simulation time justify measuring the route/obstacle hot path before adding further gameplay. Keep this issue separate from picture preference.
+
+
+## Independent presentation review and decision
+
+The fresh reviewer and a stale-context restart hit the thread limit. Existing independent presentation reviewer `commons_presentation_review` returned a whole-game visual/audio pass on fixed9641145: partially convincing; retain continuous terrain, contextual labels and tool boundary, but the inherited roof cluster remains dense from both cameras. Free court remains stronger composition evidence. Retain the warm architecture and real daily life; keep legacy campaigns archival. The stepped lake edge remains unresolved. No fresh native interaction, listening or long-session acceptance.
+
+Lead accepts the limited retention verdict. Count32, next full review35. Performance comes first: the additional6x native sample `20260919-131026-328-hamlet-spacious-7bef8d` advanced30.59 simulation seconds in18.96 wall seconds (intended6x); simulation median244.54ms/p95 510.86ms, per-frame allocation median15.9MB. Profile and remove demonstrated hot-path waste without changing simulation outcomes. Then permit meaningful revision of the inherited center, with visible circulation; do not dress the same packed layout with more props or certify it via another target.

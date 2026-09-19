@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 13, 2026. Count **31**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
+September 19, 2026. Count **32**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -46,15 +46,27 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 
 [Visible categories and food sections](BUILDING_GROUPS.md) address the user's difficulty choosing among eighteen buildings. Homes opens first; all choices stay available, with explicit grain-to-bread and pantry explanations. Count31. Reevaluate this with actual player use; do not turn grouping into another catalogue expansion or feature-lock system. The spatial comparison below remains next.
 
-## 1. F32a — a spacious working lakeside hamlet
+## F32a retained — comparison and landscape, spatial goal unresolved
 
-[Comparison results and rendering candidate](HAMLET_F32A.md) are ready for presentation review. The delayed-dock arm never became hungry, so it is not recovery evidence. Retain current housing economics; next resolve measured simulation stutters, then reassess ordinary rearrangement and circulation as tools for opening the inherited center. No new needs or population quotas.
+[Comparison results and rendering candidate](HAMLET_F32A.md) received a reused independent whole-game presentation review on9641145; retain the scene improvement, not the spacious-design claim. The delayed-dock arm never became hungry, so it is not recovery evidence. Retain current housing economics; next resolve measured simulation stutters, then reassess ordinary rearrangement and circulation as tools for opening the inherited center. No new needs or population quotas.
 
 [Review30 direction](REVIEW_CHECKPOINT_30.md): preserve actual food/growth consequences but replace further controls or population milestones with a whole-neighborhood comparison. Test existing lodge/housing investment, local food, usable shared ground, shore composition and circulation together against current compact cottage growth. The efficient solution should be a place worth watching.
 
 Use the same initial people/resources and normal rules; keep all buildings available. A compact control, one plausible spacious candidate and an imperfect/recovery arrangement suffice initially. Do not optimize away failure or add automatic beauty bonuses. If the existing rules cannot support a readable spacious village, explicitly reconsider footprints/access/housing economics. No new primary mode or compulsory needs.
 
 Judge matched ordinary camera views, opposite sides and actual normal-speed activity, alongside costs, meals and journeys. Seek an uncoached choice/prediction/intervention/observed consequence and compare voluntary non-growing arrangement. Simulation success does not settle enjoyment. A substantial presentation revision requires visual/audio review before acceptance.
+
+## 1. F32b — remove demonstrated simulation stalls
+
+Profile the same twenty-person snapshot at ordinary and accelerated speed. Preserve exact simulation state/paths, current saves and placement behavior. A narrow obstacle-query improvement is preferable to an architecture rewrite if measurements establish it; compare native frame traces and simulation allocations before/after.
+
+## 2. F32c — let the player open the inherited center
+
+The presentation reviewer rejects the crowded center from both cameras. Test actual relocation of finished housing/communal buildings in founding, preserving identities, residents, goods and connectivity. Keep production/material logistics meaningful. Compare the rearranged center with the same built village, including interruption and subsequent use. Do not force a prescribed arrangement or add a new mode.
+
+## 3. F32d — make circulation deliberate, if the rearrangement supports it
+
+Use existing free paths and their existing travel benefit to connect the revised village. Consider an endpoint-to-endpoint path preview only if it makes gaps/approaches easier to understand than the current brush; preserve free painting and cancellation. Reevaluate after F32c rather than treating this as a commitment to another control.
 
 ## Following scope remains provisional
 
