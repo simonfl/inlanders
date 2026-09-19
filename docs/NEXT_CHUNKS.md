@@ -48,6 +48,8 @@ Correct the acceptance criterion: good up-front planning may succeed. A script w
 
 ## 1. F32a — a spacious working lakeside hamlet
 
+[Comparison results and rendering candidate](HAMLET_F32A.md) are ready for presentation review. The delayed-dock arm never became hungry, so it is not recovery evidence. Retain current housing economics; next resolve measured simulation stutters, then reassess ordinary rearrangement and circulation as tools for opening the inherited center. No new needs or population quotas.
+
 [Review30 direction](REVIEW_CHECKPOINT_30.md): preserve actual food/growth consequences but replace further controls or population milestones with a whole-neighborhood comparison. Test existing lodge/housing investment, local food, usable shared ground, shore composition and circulation together against current compact cottage growth. The efficient solution should be a place worth watching.
 
 Use the same initial people/resources and normal rules; keep all buildings available. A compact control, one plausible spacious candidate and an imperfect/recovery arrangement suffice initially. Do not optimize away failure or add automatic beauty bonuses. If the existing rules cannot support a readable spacious village, explicitly reconsider footprints/access/housing economics. No new primary mode or compulsory needs.

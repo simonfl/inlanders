@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**F32a candidate — September 19, 2026:** [Four-arm comparison](HAMLET_F32A.md), current-save validation and founding landscape/contextual-label candidate. Presentation review pending; count remains31. Captured native process timing identifies simulation spikes; this is evidence for focused performance work, not an enjoyment claim.
+
 **Building catalogue grouping — September 13, 2026:** [Delivery and evidence](BUILDING_GROUPS.md). Visible category buttons, Homes-first browsing, food-chain sections and pantry grouped with food. All eighteen buildings remain available. Held-click category/preview and keyboard checks plus founding completion/save journeys at960/1440. One playable UI outcome, count **31**; next whole-game review **35**. User-reported overload justifies this bounded interruption; F32a remains next.
 
 **Founding click correction — September 13, 2026:** [Regression and verification](FOUNDING_CLICK_FIX.md). Keep active founding/hall panels visible across HUD refreshes so mouse release activates their buttons. Reproduced the finish failure with a multi-frame press before the fix; founding960 and hall1440 journeys now pass with held clicks and save/resume. Correction only: count stays **30**, next full review **35**; F32a remains next.

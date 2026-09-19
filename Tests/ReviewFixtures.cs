@@ -16,6 +16,7 @@ static class ReviewFixtures
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);Directory.CreateDirectory("artifacts");
         World w=name switch
         {
+            "hamlet-compact" or "hamlet-spacious" or "hamlet-imperfect" or "hamlet-twelve"=>HamletChecks.Observed(name[7..]),
             "shortage-recovery"=>ShortageRecoveryChecks.Midpoint(),
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),

@@ -6,6 +6,8 @@ Windows, local play, Godot and C# remain the foundation. Save migration is not r
 
 ## Current direction
 
+F32a has a [tested lodge/cottage comparison and a landscape candidate](HAMLET_F32A.md). Both support twenty fed residents; lodges save only five net building tiles once supporting buildings are included. Presentation review is pending. A measured simulation-frame spike now precedes further spatial work; do not prescribe more producers or nerf travel to force the layout.
+
 [Building catalogue grouping delivered](BUILDING_GROUPS.md): visible task categories, Homes-first browsing and clearer food chains, in response to player overload. All eighteen buildings stay available. Count31; next design priority remains the spacious hamlet comparison, not adding more choices.
 
 Latest maintenance: [founding/hall buttons now retain mouse presses across HUD refreshes](FOUNDING_CLICK_FIX.md), verified with multi-frame clicks and save/resume. No new playable checkpoint or design priority change.

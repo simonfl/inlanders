@@ -35,7 +35,7 @@ public partial class Game
             void Edge(Vector3 first, Vector3 second, Cell neighbor)
             {
                 if (_world.Map.Contains(neighbor) && !_world.Map.Water.Contains(neighbor)) return;
-                if((_storybookScene || _world.IsArrangementCourt) && _world.Neighborhood!=null)
+                if(UseLandscapeContext)
                 {
                     _storybookEdges.Add((first,second,new Vector3(neighbor.X-cell.X,0,neighbor.Z-cell.Z),_world.Map.Water.Contains(neighbor)?.10f:.62f));
                     return;
@@ -53,7 +53,7 @@ public partial class Game
             Edge(c,d,new(cell.X,cell.Z+1)); Edge(d,a,new(cell.X-1,cell.Z));
         }
         SurfaceMesh(_landscape,top).Name = "TerrainSurface";
-        if((_storybookScene || _world.IsArrangementCourt) && _world.Neighborhood!=null)StorybookLandscapeContext();else SurfaceMesh(_landscape,sides).Name = "TerrainSides";
+        if(UseLandscapeContext)StorybookLandscapeContext();else SurfaceMesh(_landscape,sides).Name = "TerrainSides";
     }
     // Subdivide overlays so their centers and links follow both triangles of a sloping tile.
     private void GroundPatch(Node3D parent, float x, float z, float width, float depth, Color color, float lift = .035f)

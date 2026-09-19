@@ -8,6 +8,7 @@ public partial class Game
 {
     private Node3D? _studyBoundary,_studyGround;
     private int _studyGroundKey;
+    private bool UseLandscapeContext => _world.Founding!=null || ((_storybookScene || _world.IsArrangementCourt) && _world.Neighborhood!=null);
     private void StorybookLandscapeContext()
     {
         var map=_world.Map;var land=map.Land.ToArray();int margin=(int)MathF.Ceiling(MaximumZoom);
@@ -24,7 +25,7 @@ public partial class Game
             float height=.01f-shoulder*.06f+hills*Math.Clamp((distance-2)/5,0,1);
             // Continue the stream beyond the playable crossings; no extra navigable water is implied.
             float stream=5+MathF.Sin(z*.13f)*Math.Clamp((MathF.Abs(z-1)-8)/5,0,1)*1.4f;
-            if(z<-6 || z>8)
+            if(_world.Founding==null && (z<-6 || z>8))
             {
                 float width=.5f+.30f*Math.Clamp((MathF.Abs(z-1)-8)/4,0,1);
                 height=Math.Min(height,-.11f+(MathF.Abs(x-stream)-width)*.30f);
@@ -53,7 +54,7 @@ public partial class Game
         using var streamSurface=new SurfaceTool();streamSurface.Begin(Godot.Mesh.PrimitiveType.Triangles);
         for(int z=map.MinZ-margin;z<=map.MaxZ+margin;z++)
         {
-            if(z>=-6 && z<=8)continue;
+            if(_world.Founding!=null || (z>=-6 && z<=8))continue;
             float Center(float at)=>5+MathF.Sin(at*.13f)*Math.Clamp((MathF.Abs(at-1)-8)/5,0,1)*1.4f;
             float Width(float at)=>.5f+.30f*Math.Clamp((MathF.Abs(at-1)-8)/4,0,1);
             float p=z-.5f,q=z+.5f;
@@ -61,7 +62,7 @@ public partial class Game
             var c=new Vector3(Center(q)+Width(q),-.11f,q);var d=new Vector3(Center(q)-Width(q),-.11f,q);
             Triangle(streamSurface,a,d,c,new("668e96"));Triangle(streamSurface,a,c,b,new("668e96"));
         }
-        SurfaceMesh(_landscape,streamSurface).Name="DistantStream";
+        if(_world.Founding==null)SurfaceMesh(_landscape,streamSurface).Name="DistantStream";
         // Broad distant woodland masses frame the open settlement; these are outside playable land.
         for(int x=map.MinX-5;x<=map.MaxX+5;x+=3)for(int z=map.MinZ-5;z<=map.MaxZ+5;z+=3)
         {
@@ -89,10 +90,10 @@ public partial class Game
     }
     private void UpdateStorybookSpaces()
     {
-        if(_studyBoundary!=null && GodotObject.IsInstanceValid(_studyBoundary))_studyBoundary.Visible=_storybookScene && (_placing || _plantingTrees || _decorating || _terrainEditing || _movingSite>=0 || _bushMoving);
-        if(!_storybookScene)return;
+        if(_studyBoundary!=null && GodotObject.IsInstanceValid(_studyBoundary))_studyBoundary.Visible=UseLandscapeContext && (_placing || _terrainEditing || _movingSite>=0 || _bushMoving);
+        if(!_storybookScene && _world.Founding==null)return;
         ApplyWorldLabels();
-        var sites=_world.Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Cottage or BuildingKind.ForagerHut or BuildingKind.SeatingGarden or BuildingKind.Square).ToArray();
+        var sites=_world.Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Cottage or BuildingKind.Lodge or BuildingKind.ForagerHut or BuildingKind.SeatingGarden or BuildingKind.Square or BuildingKind.GatheringHall).ToArray();
         int key=17;foreach(var site in sites)key=HashCode.Combine(key,site.Id,site.Cell,site.Rotation);
         foreach(var bridge in _world.Cottages.Where(c=>c.Complete && c.Kind==BuildingKind.Bridge))key=HashCode.Combine(key,bridge.Id,bridge.Cell,bridge.Rotation);
         if(_studyGround!=null && GodotObject.IsInstanceValid(_studyGround) && !_studyGround.IsQueuedForDeletion() && key==_studyGroundKey)return;
@@ -107,7 +108,7 @@ public partial class Game
         }
         var links=new List<(Vector2 A,Vector2 B)>();
         for(int i=0;i<entrances.Count;i++)for(int j=i+1;j<entrances.Count;j++)
-            if((_world.Neighborhood==null || (entrances[i].X>5)==(entrances[j].X>5)) && entrances[i].DistanceTo(entrances[j]) is >.1f and <6.5f)
+            if(_world.Founding==null && (_world.Neighborhood==null || (entrances[i].X>5)==(entrances[j].X>5)) && entrances[i].DistanceTo(entrances[j]) is >.1f and <6.5f)
                 links.Add((entrances[i],entrances[j]));
         (Color Color,float Strength) Tint(Vector3 at)
         {

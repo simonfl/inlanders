@@ -7,6 +7,7 @@ param(
     [switch]$Fresh,
     [switch]$ReuseOnly,
     [string]$Bundle,
+    [string]$Snapshot,
     [switch]$ProbeControls,
     [switch]$Storybook,
     [switch]$CommonsMats,
@@ -23,6 +24,7 @@ $scenarioEntry=@($catalog | Where-Object name -eq $Scenario)
 if ($scenarioEntry.Count -ne 1) { throw "Unknown scenario '$Scenario'. Run ./Review.ps1 List." }
 $scenarioEntry=$scenarioEntry[0]
 if($Bundle -and $Action -notin @('Inspect','Capture','Check')) { throw '-Bundle applies to Inspect, Capture or Check.' }
+if($Snapshot -and ($Bundle -or $Action -notin @('Inspect','Capture','Check'))) { throw '-Snapshot applies to Inspect, Capture or Check, without -Bundle.' }
 if($ProbeControls -and $Action -ne 'Capture') { throw '-ProbeControls requires Capture.' }
 if(($Movie -or $ObserveSeconds -gt 0) -and $Action -ne 'Capture'){throw 'Observation output requires Capture.'}
 if($Movie -and $ObserveSeconds -eq 0){$ObserveSeconds=5}
@@ -62,6 +64,7 @@ if ($Action -eq 'Build' -or -not $validBuild) {
 }
 if($Action -eq 'Build') { Write-Output "Build ready in $([math]::Round($timer.Elapsed.TotalSeconds,2))s"; return }
 $bundleRecord=$null
+$fixtureReused=$false
 if($Bundle) {
     $bundleDirectory=(Resolve-Path -LiteralPath $Bundle).Path
     $bundleRecord=ReadJson (Join-Path $bundleDirectory 'manifest.json')
@@ -71,6 +74,13 @@ if($Bundle) {
     $fixtureFingerprint=$bundleRecord.request.fixtureFingerprint
     $fixture=@{scenario=$bundleRecord.request.scenario;variant=$bundleRecord.request.variant;generator='captured-state';sourceFingerprint=$fingerprint;fixtureFingerprint=$fixtureFingerprint;fixtureHash=$bundleRecord.worldHash;parentBundle=$bundleDirectory}
     $Scenario=$bundleRecord.request.scenario;$Speed=[int]$bundleRecord.speed;$Width=[int]$bundleRecord.window.width
+} elseif($Snapshot) {
+    # Reuse a measured experiment state without silently pretending to regenerate it.
+    $fixturePath=(Resolve-Path -LiteralPath $Snapshot).Path
+    & $dotnet $testAssembly --review-fixture check $fixturePath
+    if($LASTEXITCODE -ne 0){throw 'Imported snapshot is invalid for this build.'}
+    $fixtureFingerprint='imported-snapshot:'+(HashFile $fixturePath)
+    $fixture=@{scenario=$Scenario;variant='imported-snapshot';generator='explicit-snapshot';fixtureHash=(HashFile $fixturePath);sourcePath=$fixturePath;validation='current-format world validation and exact roundtrip; original generator provenance belongs to the experiment report'}
 } else {
 $fixtureDir=Join-Path $reviewRoot ('fixtures/'+$Scenario)
 [IO.Directory]::CreateDirectory($fixtureDir) | Out-Null
