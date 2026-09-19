@@ -8,8 +8,10 @@ public sealed partial class World
     public string? RelocationProblem(int id)
     {
         var site=Cottages.FirstOrDefault(c=>c.Id==id);
-        if(!Creative && !IsArrangementCourt)return "Moving buildings is available in Creative or Willow court.";
-        if(!Creative && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
+        if(!Creative && !IsArrangementCourt && Founding==null)return "Moving buildings is available in founding, Creative or Willow court.";
+        if(Founding!=null && site!=null && Buildings.Get(site.Kind).Beds==0 && Buildings.Get(site.Kind).RecreationSlots==0)
+            return "Rearrange homes and gathering places for free. Workplaces and storage keep their sites; rebuild them to change supply routes.";
+        if(!Creative && IsArrangementCourt && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
         if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished building that is not being demolished.";
         if(Food.Celebrating)return "Wait until supper finishes.";
         if(site.Boat?.FisherId!=null)return "Pause the dock and wait for its fisher to return before moving it.";
@@ -52,7 +54,7 @@ public sealed partial class World
     {
         if(RelocationProblem(id,at,rotation)!=null)return false;
         var site=Cottages.Single(c=>c.Id==id);if(site.Cell==at && site.Rotation==rotation)return true;
-        if(!Creative && Neighborhood!.Arrangement is {BuildingId:null} trial)
+        if(!Creative && IsArrangementCourt && Neighborhood!.Arrangement is {BuildingId:null} trial)
         {trial.BuildingId=id;trial.Original=site.Cell;trial.Rotation=site.Rotation;}
         foreach(var person in People.Where(p=>MoveAffects(p,site)).ToArray())Interrupt(person);
         int index=Cottages.IndexOf(site);Cottages.RemoveAt(index);

@@ -27,5 +27,30 @@ public partial class Game
         ClearSelection();await Frames();
         Check(_world.SaveJson()==before,"Presentation navigation edited village");
         GD.Print("PASS: hamlet context, tool-only boundary, rejected scenic-ground placement, contextual labels and unchanged village.");
+        await ProbeFoundingRearrangement();
+    }
+
+    private async Task ProbeFoundingRearrangement()
+    {
+        void Check(bool ok,string why){if(!ok)throw new Exception(why);}
+        async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        var site=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage && c.Complete);
+        SelectBuilding(site.Id);await Frames();
+        Check(_moveButton.IsVisibleInTree() && !_moveButton.Disabled,"Founding move action missing");
+        string before=_world.SaveJson();await UiClick(_moveButton,6);await Press(Key.R);await Press(Key.Escape);await Frames();
+        Check(_movingSite<0 && _world.SaveJson()==before,"Move cancellation edited founding");
+        SelectBuilding(site.Id);await Frames();await UiClick(_moveButton,6);
+        var target=_world.Map.Land.OrderBy(c=>(c.Point-site.Cell.Point).LengthSquared()).First(c=>c!=site.Cell && _world.RelocationProblem(site.Id,c,_rotation)==null);
+        _focus=OnGround(target.X,target.Z);_camera.Size=18;UpdateCamera();
+        var point=_camera.UnprojectPosition(OnGround(target.X,target.Z));
+        ReviewInput(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();
+        Check(_ghostValid && _hover==target,"Move preview failed");
+        await CaptureReviewBundle("founding-rearrangement-preview");
+        ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=true});await Frames();
+        ReviewInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=false});await Frames();
+        Check(site.Cell==target && _movingSite<0 && _paused,"Pointer move failed");_world.Validate();
+        SaveWorld();string moved=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==moved,"Moved founding save differs");
+        GD.Print("PASS: founding move inspector, held click, rotate/cancel, pointer placement and F9.");
+        ClearSelection();CloseDrawer();
     }
 }

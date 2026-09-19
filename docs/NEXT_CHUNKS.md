@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 19, 2026. Count **33**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
+September 19, 2026. Count **34**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -60,13 +60,13 @@ Judge matched ordinary camera views, opposite sides and actual normal-speed acti
 
 [Measured results](HAMLET_PERFORMANCE_F32B.md):3x faster fixed simulation, exact final state, and shorter native frame tails. Ordinary frame times remain uneven; carry that limitation to review35. Preserve exact simulation state/paths, current saves and placement behavior. A narrow obstacle-query improvement is preferable to an architecture rewrite if measurements establish it; compare native frame traces and simulation allocations before/after.
 
-## 1. F32c — let the player open the inherited center
+## F32c delivered — free home/public-place rearrangement
 
-The presentation reviewer rejects the crowded center from both cameras. Test actual relocation of finished housing/communal buildings in founding, preserving identities, residents, goods and connectivity. Keep production/material logistics meaningful. Compare the rearranged center with the same built village, including interruption and subsequent use. Do not force a prescribed arrangement or add a new mode.
+[Same-village comparison](HAMLET_REARRANGEMENT_F32C.md) keeps twenty housed/fed while exposing a central garden. It is one authored revision, not proof of a compelling whole composition. Production/storage sites still require rebuilding. Count34.
 
-## 2. F32d — make circulation deliberate, if the rearrangement supports it
+## 1. F32d — connect the revised center using existing paths
 
-Use existing free paths and their existing travel benefit to connect the revised village. Consider an endpoint-to-endpoint path preview only if it makes gaps/approaches easier to understand than the current brush; preserve free painting and cancellation. Reevaluate after F32c rather than treating this as a commitment to another control.
+The opened garden now gives a connected approach a concrete purpose. Add a two-endpoint preview using actual walkable ground and existing path speed, with atomic cancellation/confirmation. Preserve free painting. Compare the revised center with/without connections; do not add travel penalties or beauty bonuses. Full review35 follows this outcome before further implementation.
 
 ## Following scope remains provisional
 
