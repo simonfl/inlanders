@@ -19,6 +19,33 @@ public sealed partial class World
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         return true;
     }
+    public string? PathConnection(Cell start, Cell end, out List<Cell> route)
+    {
+        route = new();
+        var problem = PathProblem(start) ?? PathProblem(end);
+        if (problem != null) return problem;
+        var found = FindPath(start, end, Blocked);
+        if (found == null) return "No walking route connects these places. Add a bridge or clear an approach first.";
+        route.Add(start); route.AddRange(found);
+        return null;
+    }
+    public bool ConnectPaths(Cell start, Cell end)
+    {
+        if (PathConnection(start, end, out var route) != null) return false;
+        bool changed = false;
+        foreach (var cell in route)
+        {
+            if (Map.Water.Contains(cell)) continue; // Existing bridges already carry walkers.
+            ManagedWoodland.Remove(cell);
+            changed |= Paths.Add(cell);
+        }
+        if (changed)
+        {
+            PathsRevision++;
+            foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
+        }
+        return true;
+    }
     private void RemovePaths(IEnumerable<Cell> cells)
     {
         foreach (var cell in cells) if (Paths.Remove(cell)) PathsRevision++;

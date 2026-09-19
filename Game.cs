@@ -121,6 +121,7 @@ public partial class Game : Node3D
         if(_movingSite>=0){ConfirmRelocation(at);return;}
         if(_woodlandTool>0) { _woodlandStroke=true; PaintWoodland(at); return; }
         if (_decorating) { EditDecoration(at); return; }
+        if (_pathTool == 3) { ClickPathConnection(at); return; }
         if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }
         if (_clearingTrees) { MarkClearing(at); return; }
         if (_plantingTrees)

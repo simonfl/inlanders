@@ -28,6 +28,7 @@ public partial class Game
         Check(_world.SaveJson()==before,"Presentation navigation edited village");
         GD.Print("PASS: hamlet context, tool-only boundary, rejected scenic-ground placement, contextual labels and unchanged village.");
         await ProbeFoundingRearrangement();
+        await ProbePathConnection();
     }
 
     private async Task ProbeFoundingRearrangement()

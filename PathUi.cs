@@ -13,7 +13,7 @@ public partial class Game
     private void TogglePaths(int tool)
     {
         _woodlandTool=0; _placing = !(_placing && _pathTool == tool); _pathTool = tool; _decorating = false;
-        _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null;
+        _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null; _pathAnchor = null; _connectionWorld = null;
         ClearSelection(); RefreshGhost();
     }
     private void PaintPath(Cell cell)
@@ -55,6 +55,7 @@ public partial class Game
     private void RefreshPathGhost()
     {
         Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = "path"; Clear(_ghostCells);
+        if (_pathTool == 3) { DrawPathConnection(); return; }
         GroundPatch(_ghostCells,_hover.X,_hover.Z,.72f,.72f,_ghostValid ? new("e2c795") : new("e38673"),.09f);
     }
 }

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--path-connection")){try{PathConnectionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--hamlet-rearrange")){try{HamletRearrangementChecks.Run(args);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--route-perf")){try{RoutePerformanceChecks.Run(args);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--hamlet")){try{HamletChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

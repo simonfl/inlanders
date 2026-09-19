@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **34**.
+- Playable checkpoints since adoption: **35**.
 - Last periodic review: **checkpoint30**, [whole-game synthesis](REVIEW_CHECKPOINT_30.md). One fresh designer plus four separate reused contexts after the thread limit; source/still/scripted evidence, no native/uncoached play or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F32d — September 19, 2026:** [Connected paths](HAMLET_PATHS_F32D.md). Two-point route previews, existing movement rules and brushes; atomic/bridge/continuation checks and native960/1440 scripted controls. Count35, full review due now before another implementation. No enjoyment or visual acceptance inferred from successful connections.
+
 
 **F32c — September 19, 2026:** [Founding rearrangement](HAMLET_REARRANGEMENT_F32C.md). Free finished-home/public-place moves, same-village comparison and actual960/1440 scripted controls/current saves. One playable outcome, count34; next full review35. Central composition remains partial; no human preference acceptance.
 

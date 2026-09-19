@@ -1,6 +1,6 @@
 # Next chunks — a playable founding settlement
 
-September 19, 2026. Count **34**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
+September 19, 2026. Count **35**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
 
 **Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
 
@@ -64,9 +64,13 @@ Judge matched ordinary camera views, opposite sides and actual normal-speed acti
 
 [Same-village comparison](HAMLET_REARRANGEMENT_F32C.md) keeps twenty housed/fed while exposing a central garden. It is one authored revision, not proof of a compelling whole composition. Production/storage sites still require rebuilding. Count34.
 
-## 1. F32d — connect the revised center using existing paths
+## F32d delivered — connected approaches
 
-The opened garden now gives a connected approach a concrete purpose. Add a two-endpoint preview using actual walkable ground and existing path speed, with atomic cancellation/confirmation. Preserve free painting. Compare the revised center with/without connections; do not add travel penalties or beauty bonuses. Full review35 follows this outcome before further implementation.
+[Two-click route preview and comparison](HAMLET_PATHS_F32D.md) preserve existing path rules and the brush. Clearer approaches do not settle whole-scene appeal. Count35.
+
+## Due now: independent whole-game review35
+
+Freeze this build and assess the full experience before implementing anything else. Include campaign direction, food/growth consequences, normal/Creative play, catalogue/onboarding, presentation/audio and native performance. Compare keeping the current founding loop with a substantial alternative. Review tooling by observed savings, not potential scope.
 
 ## Following scope remains provisional
 
