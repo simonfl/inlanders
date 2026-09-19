@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--route-perf")){try{RoutePerformanceChecks.Run(args);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--hamlet")){try{HamletChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--shortage-recovery")){try{ShortageRecoveryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--growth-recovery")) {try{NeighborhoodGrowthChecks.Recovery();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

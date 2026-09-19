@@ -185,8 +185,31 @@ public sealed partial class World
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
-    private bool Blocked(Cell c) => Map.StoneDeposits.Any(d=>d.Cell==c) || Decorations.Any(d => d.Cell == c && d.Solid) || !Inside(c) || (Map.Water.Contains(c) && !Cottages.Any(b => b.Kind == BuildingKind.Bridge && b.Cell == c && b.Complete)) || c == Stockpile || Trees.Any(t => t.Cell == c) || Bushes.Any(b => b.Cell == c) ||
-        Cottages.Any(h => h.Kind != BuildingKind.Bridge && Footprint(h.Cell, h.Rotation, h.Kind).Contains(c));
+    internal static bool OccupiesFootprint(Cell origin,int rotation,BuildingKind kind,Cell cell)
+    {
+        if(kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden)return cell==origin;
+        int dx=cell.X-origin.X,dz=cell.Z-origin.Z;
+        var (x,z)=rotation switch {0=>(dx,dz),1=>(-dz,dx),2=>(-dx,-dz),3=>(dz,-dx),_=>throw new ArgumentOutOfRangeException(nameof(rotation))};
+        return x is >=-1 and <=1 && z is >=-1 and <=0;
+    }
+    private bool Blocked(Cell c)
+    {
+        // A* asks this thousands of times. Inspect live geometry without creating
+        // per-building footprint enumerators, closures, or a stale occupancy cache.
+        if(!Inside(c) || c==Stockpile)return true;
+        foreach(var deposit in Map.StoneDeposits)if(deposit.Cell==c)return true;
+        foreach(var decoration in Decorations)if(decoration.Cell==c && decoration.Solid)return true;
+        if(Map.Water.Contains(c))
+        {
+            bool bridge=false;
+            foreach(var site in Cottages)if(site.Kind==BuildingKind.Bridge && site.Cell==c && site.Complete){bridge=true;break;}
+            if(!bridge)return true;
+        }
+        foreach(var tree in Trees)if(tree.Cell==c)return true;
+        foreach(var bush in Bushes)if(bush.Cell==c)return true;
+        foreach(var site in Cottages)if(site.Kind!=BuildingKind.Bridge && OccupiesFootprint(site.Cell,site.Rotation,site.Kind,c))return true;
+        return false;
+    }
 
     public bool CanPlace(Cell cell, int rotated) => PlacementProblem(cell, rotated) == null;
     public Cottage? Place(Cell cell, int rotated = 0, BuildingKind kind = BuildingKind.Cottage)

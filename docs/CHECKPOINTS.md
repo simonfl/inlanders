@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **32**.
+- Playable checkpoints since adoption: **33**.
 - Last periodic review: **checkpoint30**, [whole-game synthesis](REVIEW_CHECKPOINT_30.md). One fresh designer plus four separate reused contexts after the thread limit; source/still/scripted evidence, no native/uncoached play or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F32b — September 19, 2026:** [Measured simulation stall reduction](HAMLET_PERFORMANCE_F32B.md). Live obstacle checks avoid footprint allocations. Exact300-tick before/after state, all-building/facing predicate checks, rotation suite and1x/6x native traces. One playable responsiveness outcome, count33; next full review35. Frame tails remain unresolved, no smooth-performance claim.
 
 **F32a retained — September 19, 2026:** [Four-arm comparison](HAMLET_F32A.md), current-save validation and founding landscape/contextual-label candidate. Presentation review completed against9641145: retain rendering, reject spacious-layout acceptance. One playable outcome; count32. Captured native process timing identifies simulation spikes; this is evidence for focused performance work, not an enjoyment claim.
 
