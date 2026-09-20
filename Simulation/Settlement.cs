@@ -93,6 +93,7 @@ public sealed class Cottage
     [JsonInclude] public bool DemolitionRequested { get; internal set; }
     [JsonInclude] public bool DemolitionWasPaused { get; internal set; }
     [JsonInclude] public float DemolitionProgress { get; internal set; }
+    [JsonInclude] public bool ConstructionPaused { get; internal set; }
     [JsonInclude] public bool WorkPaused { get; internal set; }
     [JsonInclude] public int OutputTarget { get; internal set; } = -1;
     public int Id { get; init; }
@@ -353,7 +354,7 @@ public sealed partial class World
         }
         if (ClaimDemolition(v)) return;
         if(ClaimComfortRecovery(v)) return;
-        var sites = Cottages.Where(c => !c.Complete).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
+        var sites = Cottages.Where(c => !c.Complete && !c.ConstructionPaused).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
         foreach (var site in sites)
         {
             if (site.MaterialsReady && site.Builder == null)
@@ -487,6 +488,7 @@ public sealed partial class World
         {
             Check(Enum.IsDefined(site.Finish) && (site.Kind==BuildingKind.Cottage || site.Finish==CottageFinish.Automatic),"Invalid cottage finish");
             Check(Enum.IsDefined(site.Identity) && (site.Kind==BuildingKind.GatheringHall || site.Identity==CivicIdentity.Hall),"Invalid civic identity");
+            Check(!site.ConstructionPaused || !site.Complete && site.Builder==null && site.Incoming==0 && site.IncomingStone==0,"Paused construction still owns work");
             Check(site.Rotation is >=0 and <=3,"Invalid building orientation");
             Check(site.Incoming == People.Where(v => v.SiteId == site.Id && v.Cargo!=Resource.Stone).Sum(v => v.Reserved), "Orphaned site reservation");
             Check(site.Delivered >= 0 && site.Incoming >= 0 && site.Delivered + site.Incoming <= site.Required, "Over-delivery");

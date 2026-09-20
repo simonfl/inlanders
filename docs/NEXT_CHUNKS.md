@@ -1,6 +1,6 @@
 # Next chunks — sustained village transformation
 
-[Whole-game review 50](REVIEW_CHECKPOINT_50.md) selects the next experiment. Playable count **53**; requested reviews **40, 45 and 50 completed**. User resumed work through the next review at55. Next periodic review55, visual/audio60 or earlier for substantial presentation changes.
+[Whole-game review 50](REVIEW_CHECKPOINT_50.md) selects the next experiment. Playable count **54**; requested reviews **40, 45 and 50 completed**. User resumed work through the next review at55. Next periodic review55, visual/audio60 or earlier for substantial presentation changes.
 
 ## Next: F37 — one place, consequential choices
 

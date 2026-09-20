@@ -15,7 +15,7 @@ public sealed partial class World
             else
             {
                 var source=food.FirstOrDefault(c=>c.Complete && !c.WorkPaused)??food[0];
-                string detail=!source.Complete?"Food is low; a producer is still being built.":source.WorkPaused?"Food is low and producers are paused. Resume production.":"Food is low. Inspect production, ingredients and access; shared workers take available jobs.";
+                string detail=!source.Complete?(source.ConstructionPaused?"Food is low; construction of this producer is paused. Resume its plan when ready.":"Food is low; a producer is still being built."):source.WorkPaused?"Food is low and producers are paused. Resume production.":"Food is low. Inspect production, ingredients and access; shared workers take available jobs.";
                 issues.Add(new(source.WorkPaused?"food-paused":"food-low",detail,Workplace:source.Id));
             }
         }

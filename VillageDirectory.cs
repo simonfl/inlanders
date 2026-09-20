@@ -55,7 +55,7 @@ public partial class Game
     private string BuildingStatus(Cottage site)
     {
         if(!site.Complete)
-            return $"{site.Construction:P0} built · {site.Delivered}/{site.Required} {site.Material.ToString().ToLowerInvariant()}{(site.RequiredStone>0?$" + {site.DeliveredStone}/{site.RequiredStone} stone":"")} · {PriorityNames[site.Priority]}";
+            return (site.ConstructionPaused?"Plan paused · ":"")+$"{site.Construction:P0} built · {site.Delivered}/{site.Required} {site.Material.ToString().ToLowerInvariant()}{(site.RequiredStone>0?$" + {site.DeliveredStone}/{site.RequiredStone} stone":"")} · {PriorityNames[site.Priority]}";
         if (site.WorkPaused) return "Paused · inspect to resume";
         return site.Kind switch
         {

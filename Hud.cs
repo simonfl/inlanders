@@ -8,6 +8,7 @@ using Resource = Inlanders.Simulation.Resource;
 public partial class Game
 {
     private Label _objective = null!, _hint = null!, _staffing = null!, _inspect = null!, _siteInfo = null!, _day = null!, _housing = null!, _foodStatus = null!, _drawerTitle = null!;
+    private Button _constructionPause=null!;
     private Button _buildButton = null!, _pauseButton = null!, _speedButton = null!, _resetButton = null!, _assignButton = null!, _cancelButton = null!;
     private Button _supperButton = null!, _saveButton = null!, _loadButton = null!, _plantTreeButton = null!;
     private readonly Dictionary<Role, Label> _counts = new();
@@ -121,6 +122,8 @@ public partial class Game
             int priority = i; var b = Button(PriorityNames[i], () => _world.SetPriority(_selectedSite, priority)); b.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
             b.TooltipText = "Construction priority affects new jobs; committed deliveries finish."; priorities.AddChild(b); _priorityButtons.Add(b);
         }
+        _constructionPause=Button("Pause construction",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);if(site!=null)_world.SetConstructionPaused(site.Id,!site.ConstructionPaused);});
+        _constructionPause.TooltipText="Stop work and release reservations. Delivered materials and progress remain; carried materials return to storage.";_buildingDetails.AddChild(_constructionPause);
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
         MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi(); MakeDailyLifeUi();MakeWorkplaceCard();
@@ -291,6 +294,9 @@ public partial class Game
         foreach (var b in _priorityButtons) b.Visible = selected != null && !selected.Complete;
         for (int i = 0; i < 3; i++) _priorityButtons[i].Modulate = selected?.Priority == i ? _cream : Colors.White;
         _cancelButton.Visible = selected != null && !selected.Complete;
+        _constructionPause.Visible=selected!=null && !selected.Complete;_constructionPause.Disabled=_world.Food.Celebrating;
+        _constructionPause.Text=selected?.ConstructionPaused==true?"Resume construction":"Pause construction";
+        if(selected?.ConstructionPaused==true)_siteInfo.Text+="\n\nPLAN PAUSED · materials and progress stay here. Resume when ready.";
         UpdateCreativeControls(selected);
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)

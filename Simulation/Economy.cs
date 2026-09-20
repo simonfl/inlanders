@@ -16,7 +16,7 @@ public sealed partial class World
     // A read-only snapshot: buffers and shipments are not counted as available storage.
     public EconomyReport ReadEconomy()
     {
-        int Need(Resource r) => Cottages.Where(c => !c.Complete && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)))+
+        int Need(Resource r) => Cottages.Where(c => !c.Complete && !c.ConstructionPaused && (c.Material==r || r==Resource.Stone)).Sum(c=>Math.Max(0,c.Remaining(r)))+
             (r==Resource.Planks?Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c))):0);
         var stocks = Enum.GetValues<Resource>().Select(r => new EconomyStock(r,
             EdibleKinds.Contains(r)?StoredFood(r):r switch { Resource.Game => Food.Game, Resource.Stone => Stone, Resource.Logs => Stored, Resource.Planks => Planks, Resource.Berries => Food.Berries, Resource.Vegetables => Food.Vegetables, Resource.Grain => StoredGrain, Resource.Fish => Food.Fish, _ => Food.Bread },
