@@ -1,5 +1,8 @@
 # F37 — between wood and water
 
+**Current checkpoint56 layout:** twelve housed residents, two kitchen gardens beside homes and one beyond the inlet. Productive ground competes with domestic/shared ground. `artifacts/second-transformation/report.json` records two ordinary post-delivery transformations and their limits. Historical51–55 layout/results below are retained for comparison and no longer describe the current start.
+
+
 A development comparison reached through Earlier prototypes. Twelve residents already have homes and two vegetable gardens beyond an inlet. A western detour keeps access possible. Twelve initial logs can buy a crossing and one smaller project, three gardens, or a dock/garden or grain/oven investment. The nearby woodlot starts preserved; releasing harvest or clearing ground is an explicit choice. Homes, production, common ground and woodland compete for sites; further arrivals are optional.
 
 F37a establishes the constrained playable situation, not a proven longer campaign. Its optional founding ending remains available once homes and fresh food work; it is not a challenge-completion certificate. A player can remain small or leave. Native menu, brief, village panel, isolated save/load, Continue and restart pass at960 (`20260920-115440-645-transformation-a8766f`). The opening still was inspected: land relationships are visible, but the six-home rows and plain ground need the planned composition pass.

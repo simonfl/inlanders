@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **55**.
+- Playable checkpoints since adoption: **56**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint55**, [whole-game synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`. Five fresh independent read-only disciplinary reviewers including visual/audio. Source, actual stills and scripted evidence; no uncoached play, motion/listening acceptance or representative performance verdict. Corrections and validation after freeze add zero outcomes. Stop this requested run here.
 - Previous review50: [synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures.
@@ -16,6 +16,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 60**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**Working ground versus shared ground — checkpoint56:** F37c changes the inhabited hamlet to two kitchen plots near homes and one northern garden. Normal scripts retain plots/use northern commons or establish replacement production/recover the home plot. Both serve all12 residents, no measured hunger; final food48/37 and meal walking1188/817.8s over ten minutes, with unequal investment/time explicitly recorded. Exact saves pass. Native controls checked before commit. Next: garden relocation with visible crop consequences; review60.
 
 **Hamlet composition — checkpoint55:** Inward-facing homes frame a shared lane; a gentle wooded ridge and fuller crowns distinguish retained woodland, with ground responding to actual homes/workplaces. Native960/1440 final controls/current saves pass; earlier access-denied failures remain documented, with cause unconfirmed and diagnostic logging added. Broad regressions passed before final orientations. Final six-arm comparison passes on frozen code; corrected fourteen-suite profile, atomic lock checks and native960 controls pass after review. Quarry siting and a stale test point corrected; save-operation diagnostics improved, intermittent denial unresolved. Whole-game review55 plus visual/audio completed; see synthesis for final evidence and bounded closeout corrections. No checkpoint56 work.
 

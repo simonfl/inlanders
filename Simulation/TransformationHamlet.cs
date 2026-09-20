@@ -31,7 +31,8 @@ public sealed partial class World
             b.Delivered=b.Required;b.Construction=1;return b;
         }
         foreach(var c in new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)})Ready(c,BuildingKind.Cottage,c.X==-3?1:c.X==1?3:c.Z==11?2:0);
-        foreach(var c in new[]{new Cell(-1,-5),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden);b.Planted=true;b.Growth=.6f;}
+        foreach(var p in w.People)p.Position=w.Cottages[p.Id/2].Entrance.Point;
+        foreach(var c in new[]{new Cell(1,3),new(5,3),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
         foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=c,Logs=8,Preserved=true});
@@ -43,7 +44,7 @@ public sealed partial class World
         w._yardLogs=12;w.InitialLogs=w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
-        w.History.Clear();w.History.Add("Twelve neighbors, crowded homes and two gardens beyond the inlet. Keep the woodland, open it for homes, or work the distant meadow. The first timber is limited; choose what to change first.");
+        w.History.Clear();w.History.Add("Three gardens feed twelve neighbors. The kitchen plots fill the open ground by the houses. Keep food close, or make room for a shared place and grow beyond the inlet. The woodlot and northern meadow offer different ways to reshape this hamlet.");
         w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }

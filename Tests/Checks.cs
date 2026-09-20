@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--second-transformation")){try{SecondTransformationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--hamlet-layout")){try{HamletLayoutChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--construction-staging")){try{ConstructionStagingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--food-access")){try{FoodAccessChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

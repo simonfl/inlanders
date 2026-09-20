@@ -1,6 +1,6 @@
 # Next chunks — prove a second transformation
 
-[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **55**; next periodic and regular visual/audio review **60**. Stop the requested run here after closeout. This replaces the prior implementation queue; it is not five automatic feature approvals.
+[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **56**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
 
 ## Direction
 
@@ -31,3 +31,9 @@ Reevaluate after each outcome. Work may merge or be cut. Testing, corrections, d
 Keep physical goods/meals, shared work, optional arrivals, recoverable movement, construction staging, warm intimate presentation and current catalogue access. Reassess overlapping buildings instead of awarding each a campaign stage. Public Free remains the older court until a comparison justifies consolidation. Archived campaigns supply geography, not a ten-level content promise.
 
 No inheritance, genealogy, aging or succession; descendants remain lore. No seasons/winter deadline, new needs, mill chain, catalogue expansion, save migrations or speculative tooling frameworks. Saves disposable; current-format correctness required. UI and whole-place visual quality remain major priorities tied to the experiment.
+
+## Current run · checkpoints56–60
+
+56 delivered: the hamlet starts with productive kitchen plots occupying domestic ground and a northern garden. Two ordinary choices remain viable: retain kitchen plots/use northern shared ground, or establish replacement production and reclaim ground near homes. Both served all12 residents without missed meals in the scripted observation; different investment/timing prevents a throughput ranking. This is evidence of a spatial tradeoff, not sustained enjoyment.
+
+Next57: make kitchen-garden relocation a legible recovery action with real crop restart, preserving ripe goods. Then58: functional working-place presentation;59: intention-first entry/Village hierarchy;60: compare real access at two candidate places before committing. Public-mode consolidation stays deferred; review60 must challenge whether these changes create purpose rather than only easier arrangement.

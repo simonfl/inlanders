@@ -14,7 +14,7 @@
 
 Compare this with a deliberately finite village-arrangement experience. Do not stretch quotas, timers or compulsory arrivals to manufacture depth. Keep the easy opening as an introduction; archive old campaign certificates while reusing their geographic dilemmas. No new needs, catalogue entries or mill chain before the experiment. Normal and relaxed should share the chosen place and daily rules, but public-mode consolidation waits for the evidence gate.
 
-The [active queue](NEXT_CHUNKS.md) replaces the prior sequence with this experiment, readable working-place presentation and intention-first UI. Playable count **55**; review55 complete. Next periodic and regular visual/audio review **60**, earlier for substantial presentation changes or a direction challenge. Source, actual stills and scripted simulation/native controls support this review; uncoached play, listening and continuous-motion acceptance remain unobserved.
+The [active queue](NEXT_CHUNKS.md) replaces the prior sequence with this experiment, readable working-place presentation and intention-first UI. Playable count **56**; review55 complete. Next periodic and regular visual/audio review **60**, earlier for substantial presentation changes or a direction challenge. Source, actual stills and scripted simulation/native controls support this review; uncoached play, listening and continuous-motion acceptance remain unobserved.
 
 ## What stays, what changes
 
@@ -69,3 +69,5 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
 Checkpoints41–45 delivered real cultivated ground, home waiting, resident journeys, workplace relocation and an inhabited inlet. Checkpoints46–50 delivered [provisioning](PROVISIONED_LIFE_F36A.md), [normal shared meals](NORMAL_COMMONS_F36B.md), [furnished forecourts](HOME_YARDS_F36C.md), [grain capacity](FOOD_LIVELIHOOD_F36D.md) and [world workplace cards](WORKPLACE_READING_F36E.md). Reviews [40](REVIEW_CHECKPOINT_40.md), [45](REVIEW_CHECKPOINT_45.md) and [50](REVIEW_CHECKPOINT_50.md) record retention, rejected assumptions and evidence limits. Corrections/tooling do not advance the count.
+
+Checkpoint56 tests the second transformation in the existing hamlet: two kitchen plots occupy prospective shared ground, with northern cultivation as an alternative. Actual meals and current saves pass for retaining versus reclaiming domestic ground. Next, improve recovery and world readability around this specific tradeoff; no public promotion or claim of enjoyment.

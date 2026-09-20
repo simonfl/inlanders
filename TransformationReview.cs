@@ -15,7 +15,7 @@ public partial class Game
         await Press(Key.G);await Frames();await UiClick(_foodAccessEntry);await Frames();string observation=_world.SaveJson();
         await Click(_camera.UnprojectPosition(OnGround(2,-1)));await Frames();Check(_foodAccessPlanning && _foodAccessRoutes.Length>0 && _foodAccessLine.Points.Length>1,"Ground food-access preview absent");
         await CaptureReviewBundle("hamlet-food-access");Check(observation==_world.SaveJson(),"Food planning mutated world");await Press(Key.Escape);await Frames();Check(!_foodAccessPanel.Visible,"Food preview did not close");
-        var planned=_world.Place(new(4,3),0,BuildingKind.VegetableGarden);Check(planned!=null,"Staged garden rejected");SelectBuilding(planned!.Id);await Frames();
+        var planned=_world.Place(new(4,-9),0,BuildingKind.VegetableGarden);Check(planned!=null,"Staged garden rejected");SelectBuilding(planned!.Id);await Frames();
         await UiClick(_constructionPause,6);await Frames();Check(planned.ConstructionPaused,"Held pause failed");await CaptureReviewBundle("hamlet-staged-project");
         await UiClick(_constructionPause,6);await Frames();Check(!planned.ConstructionPaused,"Held resume failed");CloseDrawer();ClearSelection();
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Hamlet save failed");
