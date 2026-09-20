@@ -13,9 +13,10 @@ public sealed partial class World
     public SharedCommons? Commons=>Founding?.Commons??Neighborhood?.Commons;
     public Cell[] CommonsPlaces(Cell center)
     {
-        if(!Map.Contains(center) || Blocked(center))return Array.Empty<Cell>();
+        var domestic=Cottages.SelectMany(ClaimedHomeYardPlaces).ToHashSet();
+        if(!Map.Contains(center) || Blocked(center) || domestic.Contains(center))return Array.Empty<Cell>();
         var reachable=Reachable(YardAccess,Blocked);
-        return Map.Land.Where(c=>(c.Point-center.Point).LengthSquared() is >=2 and <=8 && !Blocked(c) && reachable.Contains(c) &&
+        return Map.Land.Where(c=>(c.Point-center.Point).LengthSquared() is >=2 and <=8 && !Blocked(c) && reachable.Contains(c) && !domestic.Contains(c) &&
             !(Gathering is {Active:true} g && g.Seats.Values.Contains(c)) && !ComfortSpotReserved(c) &&
             !People.Any(p=>(p.Meal is {Reserved:true} or {Carrying:true}) && p.Meal.Seat==c || (p.Task is Work.ToRest or Work.Resting || p.LeisureSiteId!=null) && p.Destination==c))
             .OrderBy(c=>(c.Point-center.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).Take(6).ToArray();

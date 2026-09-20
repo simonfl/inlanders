@@ -42,3 +42,6 @@ Checkpoint69: choose entrance/left/rear/right outdoor ground for each public hom
 
 
 Checkpoint70: home cards lead with the lived yard outcome and one current blocker; full material accounting stays in Details. Arrange-yard previews all four sides in the world before confirmation, including clear/blocked feedback, cancel/Escape without simulation mutation, and compact960 layout. Native960 actual home click/preview/confirm/field move/save/restart passed (`20260920-231918-388-cultivated-bank-c8404e`). Freeze now for the scheduled whole-game review with all five roles; choose71 from its synthesis, then stop for the promised user playtest. Four outcomes67–70 delivered in this run; fifth remains.
+
+
+Review70 completed on fixed `c2fc6db`: five independent roles; [whole-game synthesis](REVIEW_CHECKPOINT_70.md). All20 current suites and broad regressions passed. Closeout blocks overlapping ordered/furnished yards at order, side change, relocation and commons placement; Normal/relaxed counterexamples and exact query purity pass. No checkpoint credit. Choose71 as inspectable domestic arrangement with candidate-state copy, faithful furniture preview/framing and explicit priced furnishing. Then stop for user playtest; next periodic75.

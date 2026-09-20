@@ -47,6 +47,7 @@ public sealed partial class World
             site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));
             site.DockFromFar=site.Kind==BuildingKind.FishingDock && DockEntrance(at,rotation)==FarBank(at,rotation);
             site.Cell=at;site.Rotation=rotation;Cottages.Insert(index,site);
+            if(PublicPlace!=null && (site.Improved || site.ImprovementRequested) && YardClaimProblem(site,site.YardSide) is {} conflict)return conflict;
             var after=Reachable(YardAccess,Blocked);
             if(!after.Contains(site.Entrance) || access.Any(c=>!after.Contains(c)))return "Moving this building would disconnect a resident, workplace or resource. Keep another route open.";
             return null;

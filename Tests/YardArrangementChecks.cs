@@ -22,6 +22,23 @@ static class YardArrangementChecks
             Until(w,()=>w.People.Any(p=>p.HomeId==h.Id && w.QuietAtFurnishedHome(p)),"Residents did not use rearranged ground");
             before=w.SaveJson();Check(!w.SetHomeYard(h.Id,8) && w.SaveJson()==before,"Rejected yard change mutated state");
         }
+        foreach(bool relaxed in new[]{false,true})
+        {
+            var w=World.NewTransformationHamlet(relaxed,true);
+            var a=w.Cottages.Single(c=>c.Cell==new Cell(-3,6));var b=w.Cottages.Single(c=>c.Cell==new Cell(1,6));
+            Check(w.SetHomeYard(a.Id,3) && w.SetHomeYard(b.Id,1),"Unfurnished ground selections should not reserve land");
+            Check(w.RequestImprovement(a.Id),"First yard order failed");string before=w.SaveJson();
+            Check(!w.RequestImprovement(b.Id) && before==w.SaveJson(),"Overlapping yard order accepted or mutated world");
+            Check(w.HomeYardProblem(b.Id,1)!=null,"Ordered yard not protected from side selection");
+            Check(w.SetHomeYard(b.Id,2) && w.RequestImprovement(b.Id),"Separate yard rejected");
+            var claimed=w.PotentialHomeYardPlaces(a).Concat(w.PotentialHomeYardPlaces(b)).ToArray();
+            foreach(var c in claimed){Check(!w.SetCommons(c),"Commons center stole domestic ground");Check(!w.CommonsPlaces(new Cell(-1,8)).Intersect(claimed).Any(),"Commons places stole domestic ground");}
+            before=w.SaveJson();
+            // A second rear yard moved behind the first house overlaps its right-side yard.
+            var candidate=w.Map.Land.SelectMany(c=>Enumerable.Range(0,4).Select(r=>(c,r))).FirstOrDefault(v=>w.RelocationProblem(b.Id,v.c,v.r)?.Contains("yard uses")==true);
+            Check(candidate!=default,"No overlap relocation counterexample found");
+            Check(!w.MoveBuilding(b.Id,candidate.c,candidate.r) && before==w.SaveJson(),"Conflicting move accepted or query mutated world");w.Validate();
+        }
         Console.WriteLine("PASS: four yard sides in Normal/relaxed, real quiet work and meals, exact saves, occupied-yard rearrangement and rejection purity.");
     }
 }

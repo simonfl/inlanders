@@ -16,6 +16,7 @@ public sealed partial class World
         if(Food.Celebrating) return "Wait until supper finishes.";
         if(home.Improved) return "This home is already improved.";
         if(Founding?.RiverFarmstead==true && PotentialHomeYardPlaces(home).Length==0)return "Choose a clear yard side before furnishing this home.";
+        if(PublicPlace!=null && YardClaimProblem(home,home.YardSide) is {} conflict)return conflict;
         if(home.ImprovementRequested) return "An improvement is already ordered.";
         if(home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==id)) return "Wait for cancelled materials to be recovered.";
         if(!People.Any(p=>p.HomeId==id)) return "Assign a resident before improving this home.";
@@ -114,6 +115,11 @@ public sealed partial class World
     }
     private void ValidateComfort()
     {
+        if(PublicPlace!=null)
+        {
+            var claimed=Cottages.SelectMany(ClaimedHomeYardPlaces).ToArray();
+            if(claimed.Distinct().Count()!=claimed.Length)throw new InvalidOperationException("Overlapping domestic yards");
+        }
         foreach(var home in Cottages)
         {
             if(home.YardSide is <0 or >3 || Buildings.Get(home.Kind).Beds==0 && home.YardSide!=0)throw new InvalidOperationException("Invalid domestic yard side");

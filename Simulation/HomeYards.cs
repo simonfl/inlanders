@@ -16,6 +16,9 @@ public sealed partial class World
             .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
                 !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray()
         :System.Array.Empty<Cell>();
+    private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested)?PotentialHomeYardPlaces(home):System.Array.Empty<Cell>();
+    private string? YardClaimProblem(Cottage home,int side)=>Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(YardPlaces(home,side)).Any()
+        ?"Another home's furnished or ordered yard uses this ground.":null;
     public string? HomeYardProblem(int id,int side)
     {
         var home=Cottages.FirstOrDefault(c=>c.Id==id && IsHome(c));
@@ -25,7 +28,7 @@ public sealed partial class World
         if(home.ImprovementRequested || home.ImprovementPlanks>0 && !home.Improved || People.Any(p=>p.ComfortHomeId==id))return "Finish or cancel furnishing and let supplies return first.";
         var places=YardPlaces(home,side);
         if(places.Length==0 || !places.Any(c=>FindPath(home.Entrance,c,Blocked)!=null))return "This side needs reachable open ground.";
-        if(Cottages.Where(c=>c.Id!=id).SelectMany(HomeYardPlaces).Intersect(places).Any())return "Another home's furnished yard uses this ground.";
+        if(YardClaimProblem(home,side) is {} conflict)return conflict;
         return null;
     }
     public bool SetHomeYard(int id,int side)
