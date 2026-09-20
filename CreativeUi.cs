@@ -34,12 +34,12 @@ public partial class Game
     {
         bool visible = selected?.Complete == true;
         _restoreTrialSite.Visible=visible && _world.Neighborhood?.Arrangement?.BuildingId==selected!.Id;
-        _moveButton.Visible=visible && (_world.Creative || _world.IsArrangementCourt || _world.Founding!=null && (Buildings.Get(selected!.Kind).Beds>0 || Buildings.Get(selected.Kind).RecreationSlots>0));
+        _moveButton.Visible=visible && (_world.Creative || _world.IsArrangementCourt || _world.Founding?.RiverFarmstead==true || _world.Founding!=null && (Buildings.Get(selected!.Kind).Beds>0 || Buildings.Get(selected.Kind).RecreationSlots>0));
         _moveButton.Text=_world.IsArrangementCourt && !_world.Creative?"Try another position":"Move building";
         if(_world.Founding!=null)_moveButton.Text="Move this place · free";
         string? moveProblem=visible?_world.RelocationProblem(selected!.Id):null;
         _moveButton.Disabled=moveProblem!=null;_moveButton.TooltipText=moveProblem??"Choose a new location and orientation. Retains this building and its stored goods.";
-        if(moveProblem==null && _world.Founding!=null)_moveButton.TooltipText="Rearrange a finished home or gathering place for free. Residents keep their homes and use the new entrance; journeys change with the location.";
+        if(moveProblem==null && _world.Founding!=null)_moveButton.TooltipText="Move for free. Homes keep residents; workplaces keep goods and settings. Neighbors use the new entrance. Fields and crossings remain on their land.";
         _cancelDemolition.Visible = visible && selected!.DemolitionRequested && selected.DemolitionProgress == 0;
         _cancelDemolition.Disabled = _world.Food.Celebrating;
         _removeBuildingButton.Visible = _removalInfo.Visible = visible;

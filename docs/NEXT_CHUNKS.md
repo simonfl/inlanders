@@ -1,6 +1,6 @@
 # Next chunks — working land and daily life
 
-Playable count **43**. [Full review 40](REVIEW_CHECKPOINT_40.md) is complete with five fresh independent roles and explicit play/listening limitations. This is one of the user's three requested reviews; continue through **45 and 50**, stopping after the review-50 synthesis. Every chunk reevaluates this queue. Earlier delivered scope is [archived](DELIVERED_THEME_OPENING_QUEUE.md).
+Playable count **44**. [Full review 40](REVIEW_CHECKPOINT_40.md) is complete with five fresh independent roles and explicit play/listening limitations. This is one of the user's three requested reviews; continue through **45 and 50**, stopping after the review-50 synthesis. Every chunk reevaluates this queue. Earlier delivered scope is [archived](DELIVERED_THEME_OPENING_QUEUE.md).
 
 Les Habitants remains the theme; descendants are lore/story only, never inheritance, aging or generation mechanics. Seasons remains removed. Internal Inlanders naming stays. Current saves must work; migrations are unnecessary.
 
@@ -39,3 +39,5 @@ F34c accepted as modest outcome; grain advantage/appeal remains unproven. F34f n
 F34f delivered (42), [evidence](HOME_LIFE_F34F.md). Revised order: F35c daily-life understanding → F35b production recovery → F35a contrasting working village → whole-game review45. These remain hypotheses, not guaranteed increments.
 
 F35c delivered (43), [evidence](DAILY_JOURNEY_F35C.md). F35b production recovery next, then F35a inhabited-village alternative. Review45 still due after two retained outcomes.
+
+F35b retained (44), [comparison](PRODUCTION_RECOVERY_F35B.md): mandatory rebuilding delayed recovery without a demonstrated benefit; paused workplace moves retain goods. Fields/crossings remain fixed. F35a working-village contrast next; full review45 after acceptance.

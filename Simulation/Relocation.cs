@@ -10,7 +10,13 @@ public sealed partial class World
         var site=Cottages.FirstOrDefault(c=>c.Id==id);
         if(!Creative && !IsArrangementCourt && Founding==null)return "Moving buildings is available in founding, Creative or Willow court.";
         if(Founding!=null && site!=null && Buildings.Get(site.Kind).Beds==0 && Buildings.Get(site.Kind).RecreationSlots==0)
-            return "Rearrange homes and gathering places for free. Workplaces and storage keep their sites; rebuild them to change supply routes.";
+        {
+            if(!Founding.RiverFarmstead)return "Rearrange homes and gathering places for free. Rebuild workplaces to change their sites.";
+            if(site.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Orchard or BuildingKind.Bridge)
+                return "Cultivated ground and crossings keep their sites. Rebuild to change the land you use.";
+            if((ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && !site.WorkPaused)
+                return "Pause production first, then move this workplace. Goods and settings stay with it.";
+        }
         if(!Creative && IsArrangementCourt && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
         if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished building that is not being demolished.";
         if(Food.Celebrating)return "Wait until supper finishes.";

@@ -46,6 +46,19 @@ public partial class Game
         Check(_world.SaveJson()==saved,"Recovered manual save differs");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
         Check(_world.SaveJson()==saved && CurrentSavePath==RiverFarmsteadPath,"Recovered Continue differs");
+        var dock=_world.Cottages.Single(c=>c.Kind==BuildingKind.FishingDock);
+        SelectBuilding(dock.Id);await Frames();Check(_moveButton.Visible && _moveButton.Disabled,"Producer pause guard missing");
+        await UiClick(_productionPause);await Frames();
+        for(int i=0;i<2000 && dock.Boat?.FisherId!=null;i++)_world.Tick(.1f);
+        UpdateHud();await Frames();Check(!_moveButton.Disabled,"Paused dock did not become movable");
+        await CaptureReviewBundle("paused-workplace-move");
+        var target=_world.Map.Land.OrderBy(c=>(c.Point-dock.Cell.Point).LengthSquared()).First(c=>c!=dock.Cell && _world.RelocationProblem(dock.Id,c,dock.Rotation)==null);
+        await UiClick(_moveButton);await Frames();Check(_movingSite==dock.Id,"Workplace move control failed");
+        _focus=OnGround(target.X,target.Z);_camera.Size=20;UpdateCamera();await Frames();
+        await Click(_camera.UnprojectPosition(OnGround(target.X,target.Z)));await Frames();
+        Check(_movingSite<0 && dock.Cell==target,"Actual workplace placement failed");
+        await UiClick(_productionPause);await Frames();Check(!dock.WorkPaused,"Moved workplace cannot resume");
+        await Press(Key.F5);await Frames();string relocated=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==relocated,"Moved workplace reload differs");
         File.WriteAllText(Path.Combine(_reviewDirectory,"farmstead-controls.txt"),"PASS: actual menu entry/held finish/restart/restore/F5/F9/Continue, eight residents. Construction commands and accelerated ticks; not human play.");
     }
 }
