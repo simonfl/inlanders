@@ -11,7 +11,7 @@ static class YardArrangementChecks
             var w=World.NewTransformationHamlet(relaxed,true);
             var h=w.Cottages.First(c=>c.Kind==BuildingKind.Cottage && w.HomeYardProblem(c.Id,side)==null);
             string before=w.SaveJson();w.HomeYardProblem(h.Id,side);Check(before==w.SaveJson(),"Yard query mutated world");
-            Check(w.SetHomeYard(h.Id,side) && w.RequestImprovement(h.Id),"Yard order rejected");
+            Check(w.FurnishHomeYard(h.Id,side),"Combined yard order rejected");
             Until(w,()=>h.Improved,"Yard furnishing stalled");
             Until(w,()=>w.People.Any(p=>p.HomeId==h.Id && w.QuietAtFurnishedHome(p)),"No quiet use on side "+side);
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);}Check(copy.SaveJson()==w.SaveJson(),"Yard use reload differs");
@@ -28,7 +28,7 @@ static class YardArrangementChecks
             var a=w.Cottages.Single(c=>c.Cell==new Cell(-3,6));var b=w.Cottages.Single(c=>c.Cell==new Cell(1,6));
             Check(w.SetHomeYard(a.Id,3) && w.SetHomeYard(b.Id,1),"Unfurnished ground selections should not reserve land");
             Check(w.RequestImprovement(a.Id),"First yard order failed");string before=w.SaveJson();
-            Check(!w.RequestImprovement(b.Id) && before==w.SaveJson(),"Overlapping yard order accepted or mutated world");
+            Check(!w.RequestImprovement(b.Id) && !w.FurnishHomeYard(b.Id,1) && before==w.SaveJson(),"Overlapping yard order accepted or mutated world");
             Check(w.HomeYardProblem(b.Id,1)!=null,"Ordered yard not protected from side selection");
             Check(w.SetHomeYard(b.Id,2) && w.RequestImprovement(b.Id),"Separate yard rejected");
             var claimed=w.PotentialHomeYardPlaces(a).Concat(w.PotentialHomeYardPlaces(b)).ToArray();

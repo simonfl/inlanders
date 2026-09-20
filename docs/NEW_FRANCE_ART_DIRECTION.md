@@ -43,3 +43,8 @@ Substantial presentation delivery triggers an independent visual/audio review. D
 ## Checkpoint66 assessment
 
 Direct furnishing and two framing/roof treatments with clear-center yard furniture are playable. [Review66](REVIEW_PRESENTATION_66.md) explicitly does **not** accept this as the substantial house family or farmstead composition: narrow repeated gables, uniform lawn and token cultivation still dominate. Keep the warm style provisionally; the next slice changes real cultivated extent, home grouping, broader/lower massing and useful outdoor ground together. Do not substitute more tiny props for that structural experiment.
+
+
+## Evidence after67–71
+
+Real larger fields, lower/broader bank homes and four usable domestic-yard locations form a first playable ensemble comparison. Yard previews now show faithful proposed furniture and explicit commitment. [Review70](REVIEW_CHECKPOINT_70.md) finds the whole scene stronger but still too regular and lawn-dominated; roofs and daily-life clutter can hide the payoff. F40a–c remain partial, not accepted. Equalize productive inventory in the next composition-only comparison. Pause for human play; do not roll directly into work/shore props or new audio without the evidence gates above.

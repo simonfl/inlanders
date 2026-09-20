@@ -5,19 +5,20 @@ public sealed partial class World
     public Cell[] HomeYardPlaces(Cottage home)=>home.Improved?PotentialHomeYardPlaces(home):System.Array.Empty<Cell>();
     public static string YardSideName(int side)=>new[]{"Entrance","Left side","Behind home","Right side"}[side];
     public Cell[] PotentialHomeYardPlaces(Cottage home)=>YardPlaces(home,home.YardSide);
-    public Cell[] YardPlaces(Cottage home,int side)=>Founding?.RiverFarmstead==true && IsHome(home)
+    private Cell[] YardGround(Cottage home,int side)=>Founding?.RiverFarmstead==true && IsHome(home)
         ? (side switch {
             0=>new[]{new Cell(-1,1),new Cell(1,1)},
             1=>new[]{new Cell(-2,-1),new Cell(-2,0)},
             2=>new[]{new Cell(-1,-2),new Cell(1,-2)},
             3=>new[]{new Cell(2,-1),new Cell(2,0)},
             _=>System.Array.Empty<Cell>()
-        }).Select(c=>RotateOffset(home.Cell,c.X,c.Z,home.Rotation))
-            .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
-                !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray()
+        }).Select(c=>RotateOffset(home.Cell,c.X,c.Z,home.Rotation)).ToArray()
         :System.Array.Empty<Cell>();
-    private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested)?PotentialHomeYardPlaces(home):System.Array.Empty<Cell>();
-    private string? YardClaimProblem(Cottage home,int side)=>Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(YardPlaces(home,side)).Any()
+    public Cell[] YardPlaces(Cottage home,int side)=>YardGround(home,side)
+            .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
+                !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray();
+    private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested)?YardGround(home,home.YardSide):System.Array.Empty<Cell>();
+    private string? YardClaimProblem(Cottage home,int side)=>Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(YardGround(home,side)).Any()
         ?"Another home's furnished or ordered yard uses this ground.":null;
     public string? HomeYardProblem(int id,int side)
     {
@@ -30,6 +31,12 @@ public sealed partial class World
         if(places.Length==0 || !places.Any(c=>FindPath(home.Entrance,c,Blocked)!=null))return "This side needs reachable open ground.";
         if(YardClaimProblem(home,side) is {} conflict)return conflict;
         return null;
+    }
+    public string? FurnishHomeYardProblem(int id,int side)=>HomeYardProblem(id,side)??ImprovementProblem(id,side);
+    public bool FurnishHomeYard(int id,int side)
+    {
+        if(FurnishHomeYardProblem(id,side)!=null)return false;
+        SetHomeYard(id,side);return RequestImprovement(id);
     }
     public bool SetHomeYard(int id,int side)
     {

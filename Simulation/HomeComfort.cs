@@ -9,14 +9,14 @@ public sealed partial class World
     private static bool ComfortWork(Villager p) => p.Task is Work.ToComfortInstall or Work.InstallingComfort;
     private bool ComfortSpotReserved(Cell cell) => People.Any(p=>ComfortWork(p) && p.Destination==cell);
     public int ComfortIncoming(Cottage home) => People.Where(p=>p.ComfortHomeId==home.Id).Sum(p=>p.Reserved);
-    public string? ImprovementProblem(int id)
+    public string? ImprovementProblem(int id,int? yardSide=null)
     {
         var home=Cottages.FirstOrDefault(c=>c.Id==id);
         if(home==null || !IsHome(home)) return "Choose a completed home not marked for demolition.";
         if(Food.Celebrating) return "Wait until supper finishes.";
         if(home.Improved) return "This home is already improved.";
-        if(Founding?.RiverFarmstead==true && PotentialHomeYardPlaces(home).Length==0)return "Choose a clear yard side before furnishing this home.";
-        if(PublicPlace!=null && YardClaimProblem(home,home.YardSide) is {} conflict)return conflict;
+        if(Founding?.RiverFarmstead==true && YardPlaces(home,yardSide??home.YardSide).Length==0)return "Choose a clear yard side before furnishing this home.";
+        if(PublicPlace!=null && YardClaimProblem(home,yardSide??home.YardSide) is {} conflict)return conflict;
         if(home.ImprovementRequested) return "An improvement is already ordered.";
         if(home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==id)) return "Wait for cancelled materials to be recovered.";
         if(!People.Any(p=>p.HomeId==id)) return "Assign a resident before improving this home.";

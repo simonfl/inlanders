@@ -6,7 +6,7 @@ The public identity is **Les Habitants**: 17th-century French settlers in New Fr
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Choose **Play → New · A place of our own** for the river farmstead: eight settlers, a home, starting supplies and a livelihood to establish. Stay small or grow; finishing is optional. **Free arrangement** opens the unrestricted court. The older lake opening and gathering introduction remain under **Earlier prototypes**. [Current queue](docs/NEXT_CHUNKS.md).
+Choose **Play → New hamlet** for an inhabited12-person settlement, or **Play → Compare: cultivated bank → New hamlet** for the larger working-field layout. Both offer a relaxed option. Arrange a place you want to live in, watch daily work and meals, and finish whenever you choose. [Current queue](docs/NEXT_CHUNKS.md).
 
 ## Run from a fresh clone
 
@@ -25,22 +25,21 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
 
-## Current game: make an inhabited place
+## Current game: shape an inhabited place
 
-**Play** offers **A home by the water**: eight founders, one home, normal construction and shared workers. Build homes, choose shore/woodland/garden food, and invite two households when ready. An optional ending follows actual meals and housing. This is a gentle opening. After declaring it ready, choose **Village → Next project · A lakeside hall** to build with stone from the far shore and planks from a sawmill. You can plan ahead, then finish the optional project after a neighbor uses the hall.
+The compact hamlet and cultivated-bank comparison begin with12 residents, homes, food work and four planks for one modest furnishing project. The bank has larger functional fields and more cultivated ground; it is a different whole-place experiment, not an equal-productivity aesthetic comparison.
 
-**Short introduction · A place to gather** keeps the earlier court. Choose **Your place [G] → Choose a meal place** to preview six real seats. Move homes to open space, or choose another site near food. After a neighbor actually eats there, finish when satisfied—or keep building and watching. This is an introduction, not yet the planned deeper campaign.
+Click a home to inspect it, preview any of four yard sides, choose ground only or explicitly furnish there. Normal play uses real planks delivered and installed by shared workers; relaxed construction/furnishing is free while residents still work and eat. Furnished ground supports quiet work and nearby meals. Moves are recoverable, growth is optional, and **Village** lets you finish or keep shaping the place.
 
-**Free arrangement** opens the same sixteen-resident village without an assigned project or ending. Buildings and moves are free and instant in both starts. Residents share work, collect real food, rest and meet; missing meals cause no hunger penalty. All buildings and landscaping tools remain available. Choose **Show starting footprints** to compare the original building layout with your edits.
+Earlier campaigns, founding projects and Free variants are archives available only with `--developer`. Their notes below describe historical experiments, not the current public progression.
 
 ## Main menu
 
 The title illustration is independent of your save. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider. Returning to a page restores focus and scrolls it into view.
 
-- **Continue** restores the last village opened or saved, paused—even if it is an archived prototype.
-- **Play** offers the founding village (`saves/founding.json`) and the short gathering-place introduction (`saves/court-finite.json`).
-- **Free arrangement** starts or resumes the unrestricted sixteen-resident court. Its save is `saves/court-open.json`.
-- **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
+- **Continue** restores the last current hamlet, paused. Archived saves require developer access.
+- **Play** offers the compact hamlet and **Compare: cultivated bank**, each with Normal and relaxed starts.
+- With `--developer`, **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
 - **Settings** controls Effects, Nature, Music and mute settings.
 - **Quit** exits the game.
 

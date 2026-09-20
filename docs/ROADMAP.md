@@ -10,11 +10,13 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: a working-farmstead comparison**, selected by [whole-game presentation review66](REVIEW_PRESENTATION_66.md). The public finite hamlet is more coherent, but freedom to rearrange still needs a personally worthwhile payoff. Direct domestic furnishing is delivered. Now merge the overlapping shared-place and cultivated-land experiments into a coherent home/land/outdoor-life composition, with materially different usable arrangements. Replace gates and redundant concepts instead of adding services or meters.
+**Next: the user’s playtest**, following [whole-game review70](REVIEW_CHECKPOINT_70.md) and five delivered outcomes67–71. Real larger vegetable fields, a broader working-bank composition and four selectable domestic yard sides now support a more concrete home/land/outdoor-life experiment. Proposed furnishings are visible before a priced or free commitment; shared workers and actual resident use remain the consequence.
 
-Keep physical meals, labor, recoverable changes, optional arrivals and voluntary finishing. Preserving kitchen gardens is a legitimate preference. Compact and cultivated-bank layouts remain comparisons; joining three small plots did not complete the substantial working-landscape experiment. Test a neutral invitation and visible resident routines, with an authored repair alternative if needed. Reject arbitrary edits, prescribed commons solutions and payoff visible only in accounting panels.
+Keep physical meals/labor, recoverable changes, optional arrivals and voluntary finishing. The five independent reviewers find the direction **partially convincing**: the opening may already solve the interesting problem, and furnishing can become another checklist. Larger fields improve composition but change productive extent (bank36 tiles/48 crop versus compact18/24), so preference is not an isolated aesthetic result. Repeated rows, continuous lawn and geometric shore still fall short of the intended New France ensemble.
 
-The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **70**. Direct domestic furnishing is playable; the early presentation-triggered whole-game review is complete. Its verdict is partially convincing; the new framing/roof treatments are not acceptance of the promised house family or landscape. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
+The [active queue](NEXT_CHUNKS.md) now stops for human evidence and makes72–76 conditional on that result. Ask for a wanted change or a reason to keep the place; distinguish intention, prediction and actual consequence. If arrangement appeals, test differentiated home/land groups at equal productive inventory. If the user wants livelihood problems, prototype a recoverable geographic dilemma. If neither appeals, replace the loop instead of adding needs, buildings or longer quotas.
+
+Playable count **71**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
 
 ## What stays, what changes
 
@@ -37,8 +39,8 @@ The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Play
 
 | Priority | Item |
 | --- | --- |
-| Partial66; massing comparison still next | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
-| Alongside F39a/F39c | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
+| Partial66–71; whole-scene identity unaccepted | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
+| Playable slice67–71; ensemble still provisional | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
 | Following the first ensemble | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
 | Extend the chosen scene | **F40f — clothing, tools and everyday poses**; **F40g — light, atmosphere, sound and music**. |
 | Across relevant UI work | **F40h — French names, local writing, menu art and restrained typography/material styling**. |
@@ -89,16 +91,4 @@ Checkpoints56–60 delivered contested cultivation/shared ground, paused garden 
 
 Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. Checkpoint66 subsequently delivered direct furnishing and the first limited house/yard treatment; see [review66](REVIEW_PRESENTATION_66.md).
 
-Checkpoint67 adds a real larger vegetable plot, with proportional area/crop/construction cost and additional physical work. This supplies the farmstead comparison; it does not by itself complete the landscape. Active run67–71 includes review70 before the fifth outcome and stops for the user’s playtest.
-
-
-Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden (36 cultivated tiles/48 vegetables per combined crop versus compact18/24). This explicitly changes productive extent; per-tile yield/cost rules remain unchanged and larger harvests require more labor. Same12 residents,12 loose logs,72 food and now4 starting planks in both layouts. One domestic intervention can precede a sawmill. Lower/broader bank house massing and low shoreline shingle accompany the land comparison. Normal/relaxed ten-minute simulations had zero hungry ticks; active saves and native960 actual field move/cancel/comparison pass. Next69: choose which side of a home supports actual outdoor life;70 adds spatial preview/outcome-first control before the whole-game review.
-
-
-Checkpoint69: choose entrance/left/rear/right outdoor ground for each public home. Actual quiet work and nearby meals follow the selected side; existing furniture can move free, while active furnishing/recovery must finish first. All four sides in Normal/relaxed pass real-use, exact saves and occupied-yard interruption/conservation tests. Native960 side action passed; first run reproduced save replacement denial after the interaction, second full run passed (`20260920-231513-309-cultivated-bank-750b68`). Windows FileIO tracing exists but start was denied by OS access permissions both sandboxed and elevated-tool execution; no recording obtained and no retry-policy change. Next70: visible preview and confirmation, compact outcome-first home actions, then fixed whole-game review.
-
-
-Checkpoint70: home cards lead with the lived yard outcome and one current blocker; full material accounting stays in Details. Arrange-yard previews all four sides in the world before confirmation, including clear/blocked feedback, cancel/Escape without simulation mutation, and compact960 layout. Native960 actual home click/preview/confirm/field move/save/restart passed (`20260920-231918-388-cultivated-bank-c8404e`). Freeze now for the scheduled whole-game review with all five roles; choose71 from its synthesis, then stop for the promised user playtest. Four outcomes67–70 delivered in this run; fifth remains.
-
-
-Review70 completed on fixed `c2fc6db`: five independent roles; [whole-game synthesis](REVIEW_CHECKPOINT_70.md). All20 current suites and broad regressions passed. Closeout blocks overlapping ordered/furnished yards at order, side change, relocation and commons placement; Normal/relaxed counterexamples and exact query purity pass. No checkpoint credit. Choose71 as inspectable domestic arrangement with candidate-state copy, faithful furniture preview/framing and explicit priced furnishing. Then stop for user playtest; next periodic75.
+Checkpoints67–71 deliver larger working fields, the broader bank composition, four real yard locations, candidate previews and an explicit furnishing transaction. [Review70](REVIEW_CHECKPOINT_70.md) challenges motivation and scene structure; [the active queue](NEXT_CHUNKS.md) pauses for human play and makes the next five scopes conditional. Ground overlap fixes count zero. Current saves remain required; intermittent replacement denial remains unresolved. See the ledger for validation and chronology.

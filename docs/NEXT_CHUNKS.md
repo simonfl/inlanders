@@ -1,47 +1,37 @@
-# Next chunks — a working farmstead, not an upgrade checklist
+# Next chunks — test whether this is a place worth shaping
 
-Count **70**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
+Count **71** after this run. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. **Stop for the user’s playtest.** Do not automatically start72.
 
-## Direction
+## Delivered67–71
 
-Keep direct furnishing, physical goods/meals, shared workers, recoverable changes, optional growth and voluntary finishing. The present binary forecourt upgrade removes a redundant workshop but does not yet establish a worthwhile spatial choice. **Merge F39b/c and F40a/b/c into one working-farmstead comparison**, rather than doing another isolated social-building or prop pass.
+67: larger functional vegetable fields (15 tiles,20 crop) alongside gardens (6 tiles,8 crop).68: bank composition with two fields, lower/broader homes, river edge and four starting planks in both layouts.69: four actual domestic yard sides, used by residents for quiet work and nearby meals.70: preview/confirmation and outcome-first home cards.71: inspectable proposed furniture, candidate-state copy, view toward the chosen ground and explicit Furnish here with normal shared work/free relaxed behavior; ground-only/cancel retained. Review closeout protects ordered/furnished ground from overlapping yards and commons, including relocation; fixes count zero.
 
-The next result must change the relationship between homes, productive land and outdoor life. The current warm miniature style is provisional; two framing/roof treatments are a beginning, not F40a acceptance. Three joined tiny plots are not a working-landscape solution. Retaining gardens or choosing no change remains valid.
+These remain a working-farmstead experiment, not acceptance of New France aesthetics or sustained enjoyment. Bank has36 cultivated tiles/48 combined crop versus compact18/24; extra productive extent must not masquerade as an isolated composition preference.
 
-## Ordered work
+## Direction after the human session
 
-| Order | Scope | Evidence / rejection gate |
-| --- | --- | --- |
-| Next · working-farmstead comparison, F39b/c + F40a/b/c | Keep a compact baseline and prototype a small number of home groups around genuinely larger functional cultivation, useful domestic ground, woodland margin and river approach. Keep12 residents and matched starting inventories/rules. Explicitly account for any changed productive extent/yield/labor; do not hide a productivity buff. Explore broader/lower dwelling massing, rather than only roof colors or surface details. | At ordinary zoom, land use and residents' work explain the composition. Reject fake fields, empty enlarged footprints, roof dominance, or longer walking as the only difference. Compare960/1440 and opposite orientations, HUD visible/hidden. |
-| Within that slice · a wanted intervention | Include a recoverable spatial inconvenience with at least two sensible responses: keep close cultivation, open domestic ground, or arrange useful shared space. Give both comparison arms enough real material for one modest intervention so first-choice evidence is not solely a sawmill prerequisite. Subsequent work retains ordinary costs. | Neutral invitation: "Make one change you want here, or keep it." Record intention before action, alternatives, expected/actual visible consequence, recovery, and why to continue/finish. Reject compliance with a prescribed commons solution or a dominant furnish-every-home pattern. |
-| Within that slice · place-first controls | Compare current home cards with a small concrete transformation preview and one actionable blocker; put reservation accounting in Details. Show the result in the world and make observing its residents easy. Consolidate commons/seating/square only when the prototype provides a concrete behavioral replacement; keep a hall only for distinct lived use. | Can a player discover the action, predict the material/spatial commitment and recognize the payoff without developer coaching? Include missing-plank and relaxed cases. Do not hide essential economy information merely to simplify the card. |
-| After composition earns retention · work/shore ensemble, F40d/e | Carry the chosen language into the existing oven, storage/work area and working landing/boat. Ground visible goods and activity in actual state. | Whole scene remains coherent; no catalogue-wide polish campaign, new chain or fleet simulation. |
-| Conditional · people/atmosphere/UI, F40f–h | Refine clothes, contact/poses, lighting, quiet/busy audio and actual-scene menu identity. Reconsider the permanent nine-resource strip and experimental layout naming when the interaction comparison warrants it. | Actual motion/listening evidence; title-hidden identity and ordinary-scale clarity. Do not infer acceptance from stills or asset counts. |
+Keep physical work/meals, recoverable changes, optional growth and voluntary finishing because they support visible consequences and player agency. Do not add needs, buildings or quotas to compensate for an unproven core activity. Existing catalogue breadth and overlapping gathering venues remain hypotheses.
 
-These are coherent scopes, not automatic checkpoint credits. A slice may span implementation chunks; count only committed playable outcomes. Checkpoint70 remains the next periodic review unless another presentation change or direction challenge triggers earlier review. Do not restore archived building/quota campaigns to manufacture motivation. Reuse their geographic dilemmas only after the core activity earns it.
+Neutral invitation: **“Make one change you want here, or keep it.”** Record what drew attention, intention before opening controls, expected/actual consequence, alternatives and why to continue/finish.3×/6× is appropriate for waits;1× for observing life. Keeping the opening is valid. Compliance with furnish-every-home prompts, arbitrary edits and payoff detectable only in accounts reject the current loop.
 
-## Tooling and evidence
+The next five candidate scopes are conditional, to be rewritten from that session:
 
-- Add intention → action → consequence references to the existing evidence index alongside an actual session. Beneficiaries: developer/reviewers; about half a day, low maintenance. Validate reconstruction of one choice and its clip within two minutes. No new replay framework or capture format.
-- Extend the small direct-job phase checks for uncancelled continuation and a meaningful relocation/demolition interruption; retain global conservation validation. This is closeout reliability work, not a gameplay outcome.
-- Native observation previously hung despite in-kernel timeouts. Hands-on play remains unperformed; use a human session or implement genuine external supervision before another attempt. Scripted Godot controls are regression evidence, not independent play.
-- Audio audition and continuous-motion acceptance remain open. Existing1x recording/WAV is available. No isolated native performance verdict.
-- Intermittent save target replacement denial remains open. On recurrence obtain bounded OS-operation evidence; do not blindly extend retries, blame another program, or add compatibility/preservation work.
+| Candidate | Outcome / decision gate |
+| --- | --- |
+|72 · resolve the largest human-play finding | Fix a concrete discovery/recovery failure, or choose between arrangement and geographic problem-solving if motivation is the issue. A reliability repair alone earns no outcome. Do not assume more features are wanted. |
+|73 · fair home/land comparison | If arranging appeals, compare two or three differentiated home–yard–field–woodlot ensembles with equal productive inventory, population and starting supplies. If livelihood problems appeal, replace this with one recoverable land/access dilemma offering two viable responses. |
+|74 · make the chosen intervention observable | Follow the actual consequence people wanted to see. Remove obstructive controls or competing concepts; do not add another monitoring panel or fake routines. |
+|75 · complete the chosen whole-place slice | Carry a retained composition into work/shore structures only when it improves the whole scene. Otherwise finish the alternative loop and cut systems that obscure it. Freeze for the periodic full review. |
+|76 · review-directed follow-through | Choose only after75 synthesis; no predetermined feature entitlement. |
 
-Delivered66: direct home-card furnishing/cancellation, shared delivery/installation without public carpenter workshop, clear-center yard furniture and initial framing/roof variations (`f3932b7`). Art direction and personal motivation remain unaccepted.
+This supersedes an automatic catalogue/art rollout. If neither expression nor livelihood choices are rewarding, replace the core loop. A substantial alternative is a smaller home-and-land composition game with fewer spaces and controls, stronger before/after transformation and visible routines. Archived quota campaigns stay outside public entry; reuse their geographic dilemmas only if the chosen direction warrants it.
 
-No inheritance, ownership bureaucracy, genealogy, aging, succession, seasons/winter deadlines, new needs, mandatory growth or longer quotas.
+## Presentation and tooling still open
 
-Progress67: larger functional vegetable-field option delivered. Next68: use that real land extent in the bank opening; then spatial yard choices and outcome-first previews. Choose71 after review70, prioritizing playtest readiness.
+- F40 house/land ensemble is provisional. Repeated rows, continuous lawn and geometric river remain the structural visual problem. No isolated prop pass or catalogue-wide polish as a substitute.
+- F40 work/shore, people, atmosphere/audio and actual-scene menu identity follow a retained direction. Listening, continuous-motion contact and title-hidden identity are unaccepted.
+- Extend the existing evidence index with intention → action → consequence beside the human session: estimated half-day, low maintenance, developer/reviewer benefit; reconstruct one decision and clip within two minutes. Defer replay/editor frameworks.
+- Native automation previously hung. Hands-on agent play remains unperformed; do not repeat the same unsupervised attempt. Scripts/stills are regression evidence.
+- Intermittent save replacement denial remains unresolved. Windows FileIO trace start was denied; actor unknown. Obtain bounded operation evidence on recurrence, without blind retry increases or compatibility work.
 
-
-Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden (36 cultivated tiles/48 vegetables per combined crop versus compact18/24). This explicitly changes productive extent; per-tile yield/cost rules remain unchanged and larger harvests require more labor. Same12 residents,12 loose logs,72 food and now4 starting planks in both layouts. One domestic intervention can precede a sawmill. Lower/broader bank house massing and low shoreline shingle accompany the land comparison. Normal/relaxed ten-minute simulations had zero hungry ticks; active saves and native960 actual field move/cancel/comparison pass. Next69: choose which side of a home supports actual outdoor life;70 adds spatial preview/outcome-first control before the whole-game review.
-
-
-Checkpoint69: choose entrance/left/rear/right outdoor ground for each public home. Actual quiet work and nearby meals follow the selected side; existing furniture can move free, while active furnishing/recovery must finish first. All four sides in Normal/relaxed pass real-use, exact saves and occupied-yard interruption/conservation tests. Native960 side action passed; first run reproduced save replacement denial after the interaction, second full run passed (`20260920-231513-309-cultivated-bank-750b68`). Windows FileIO tracing exists but start was denied by OS access permissions both sandboxed and elevated-tool execution; no recording obtained and no retry-policy change. Next70: visible preview and confirmation, compact outcome-first home actions, then fixed whole-game review.
-
-
-Checkpoint70: home cards lead with the lived yard outcome and one current blocker; full material accounting stays in Details. Arrange-yard previews all four sides in the world before confirmation, including clear/blocked feedback, cancel/Escape without simulation mutation, and compact960 layout. Native960 actual home click/preview/confirm/field move/save/restart passed (`20260920-231918-388-cultivated-bank-c8404e`). Freeze now for the scheduled whole-game review with all five roles; choose71 from its synthesis, then stop for the promised user playtest. Four outcomes67–70 delivered in this run; fifth remains.
-
-
-Review70 completed on fixed `c2fc6db`: five independent roles; [whole-game synthesis](REVIEW_CHECKPOINT_70.md). All20 current suites and broad regressions passed. Closeout blocks overlapping ordered/furnished yards at order, side change, relocation and commons placement; Normal/relaxed counterexamples and exact query purity pass. No checkpoint credit. Choose71 as inspectable domestic arrangement with candidate-state copy, faithful furniture preview/framing and explicit priced furnishing. Then stop for user playtest; next periodic75.
+No inheritance, ownership bureaucracy, genealogy, aging, succession, seasons/winter deadlines, new needs or mandatory growth.
