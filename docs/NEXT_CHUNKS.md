@@ -1,6 +1,6 @@
 # Next chunks — a working farmstead, not an upgrade checklist
 
-Count **69**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
+Count **70**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
 
 ## Direction
 
@@ -39,3 +39,6 @@ Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden 
 
 
 Checkpoint69: choose entrance/left/rear/right outdoor ground for each public home. Actual quiet work and nearby meals follow the selected side; existing furniture can move free, while active furnishing/recovery must finish first. All four sides in Normal/relaxed pass real-use, exact saves and occupied-yard interruption/conservation tests. Native960 side action passed; first run reproduced save replacement denial after the interaction, second full run passed (`20260920-231513-309-cultivated-bank-750b68`). Windows FileIO tracing exists but start was denied by OS access permissions both sandboxed and elevated-tool execution; no recording obtained and no retry-policy change. Next70: visible preview and confirmation, compact outcome-first home actions, then fixed whole-game review.
+
+
+Checkpoint70: home cards lead with the lived yard outcome and one current blocker; full material accounting stays in Details. Arrange-yard previews all four sides in the world before confirmation, including clear/blocked feedback, cancel/Escape without simulation mutation, and compact960 layout. Native960 actual home click/preview/confirm/field move/save/restart passed (`20260920-231918-388-cultivated-bank-c8404e`). Freeze now for the scheduled whole-game review with all five roles; choose71 from its synthesis, then stop for the promised user playtest. Four outcomes67–70 delivered in this run; fifth remains.

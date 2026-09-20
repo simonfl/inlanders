@@ -15,7 +15,11 @@ public partial class Game
         var home=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z-1)));await Frames();
         Check(_workCard.Visible && _workCardSite==home.Id && !_inspector.Visible,"Home click did not expose compact actions");await CaptureReviewBundle("home-world-actions");
-        int oldSide=home.YardSide;await UiClick(_workCardYard);await Frames();Check(home.YardSide!=oldSide,"Yard-side action failed");
+        int oldSide=home.YardSide;string beforeYard=_world.SaveJson();await UiClick(_workCardYard);await Frames();
+        int targetSide=Enumerable.Range(1,3).Select(i=>(oldSide+i)%4).First(i=>_world.HomeYardProblem(home.Id,i)==null);
+        await UiClick(_yardSides[targetSide]);await Frames();Check(home.YardSide==oldSide && _world.SaveJson()==beforeYard && _yardPreviewGround!.Visible,"Preview changed world or is invisible");
+        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
+        await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");
         await CaptureReviewBundle("chosen-yard-side");
         await UiClick(_workCardWorker);await Frames();Check(_dailyCard.Visible,"Watch resident failed");ClearSelection();
         var staged=_world.Place(new(1,-9),0,BuildingKind.Cottage);Check(staged!=null,"Construction card fixture unavailable");CreateActors();RenderActors(0);

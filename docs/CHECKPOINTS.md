@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **69**.
+- Playable checkpoints since adoption: **70**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; review66 below is an early presentation follow-up.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
@@ -305,3 +305,6 @@ Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden 
 
 
 Checkpoint69: choose entrance/left/rear/right outdoor ground for each public home. Actual quiet work and nearby meals follow the selected side; existing furniture can move free, while active furnishing/recovery must finish first. All four sides in Normal/relaxed pass real-use, exact saves and occupied-yard interruption/conservation tests. Native960 side action passed; first run reproduced save replacement denial after the interaction, second full run passed (`20260920-231513-309-cultivated-bank-750b68`). Windows FileIO tracing exists but start was denied by OS access permissions both sandboxed and elevated-tool execution; no recording obtained and no retry-policy change. Next70: visible preview and confirmation, compact outcome-first home actions, then fixed whole-game review.
+
+
+Checkpoint70: home cards lead with the lived yard outcome and one current blocker; full material accounting stays in Details. Arrange-yard previews all four sides in the world before confirmation, including clear/blocked feedback, cancel/Escape without simulation mutation, and compact960 layout. Native960 actual home click/preview/confirm/field move/save/restart passed (`20260920-231918-388-cultivated-bank-c8404e`). Freeze now for the scheduled whole-game review with all five roles; choose71 from its synthesis, then stop for the promised user playtest. Four outcomes67–70 delivered in this run; fifth remains.
