@@ -33,7 +33,11 @@ public static class TerrainChecks
 
         var bakery=w.Place(new(-10,-11),false,BuildingKind.Bakery);
         Check(bakery != null && w.Place(new(-2,10)) != null, "Hilltop buildings rejected");
-        Check(w.Place(new(3,0),false,BuildingKind.Farm) != null && w.Place(new(3,-3),false,BuildingKind.ForagerHut) != null, "Hill economy fixture rejected");
+        foreach(var kind in new[]{BuildingKind.Farm,BuildingKind.ForagerHut})
+        {
+            var at=ReviewPlacement.Find(w,kind,new(3,0),(c,r)=>w.Map.SurfaceHeight(c.X,c.Z)==0,"lowland supply for hilltop bakery")!;
+            Check(w.Place(at.Actual,at.Rotation,kind)!=null,"Lowland supplier rejected");
+        }
         var roles=new[] { Role.Logger,Role.Logger,Role.Builder,Role.Builder,Role.Farmer,Role.Baker,Role.Forager,Role.Forager };
         for(int i=0;i<roles.Length;i++) w.Assign(i,roles[i]);
         bool climbedWithCargo=false, savedOnSlope=false;

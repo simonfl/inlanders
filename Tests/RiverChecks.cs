@@ -9,7 +9,11 @@ public static class RiverChecks
         Check(done(),$"River stalled at {step}: {w.Food.Time:0}s, food {w.Food.EdibleStored}, {w.RiverObjective}");
         w.Validate(); Console.WriteLine($"RIVER {step}: {w.Food.Time:0}s, population {w.Population}, food {w.Food.EdibleStored}");
     }
-    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false) => w.Place(cell,rotated,kind) ?? throw new Exception($"River rejected {kind} {cell}: {w.PlacementProblem(cell,rotated,kind)}");
+    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false)
+    {
+        if(kind==BuildingKind.Farm){var at=ReviewPlacement.Find(w,kind,cell,(c,r)=>cell.X<5?c.X<5:c.X>5,"same river bank")!;Console.WriteLine($"River grain {at.Actual} r{at.Rotation}");return w.Place(at.Actual,at.Rotation,kind)!;}
+        return w.Place(cell,rotated,kind) ?? throw new Exception($"River rejected {kind} {cell}: {w.PlacementProblem(cell,rotated,kind)}");
+    }
     public static void Run()
     {
         var w=World.NewCampaign(6);

@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **44**.
+- Playable checkpoints since adoption: **45**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 remain pending.
 - Last periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 50**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**F35a — checkpoint 45:** [The long way home](WORKING_VILLAGE_F35A.md), an inhabited inlet village with crossing/shore/rearrangement choices, context, optional end, own save and restart. Matched alternatives and poor recovery pass; native960/1440 controls and still inspection. Skill-testing campaign depth remains unproven. Whole-game review45 is due now before more implementation. Legacy fixture/terrain corrections and focused regression dispatch count zero.
 
 **F35b — checkpoint 44:** [Bounded production relocation](PRODUCTION_RECOVERY_F35B.md), retained after rebuilding comparison. Paused workplaces/storage can move in current farmstead; cultivated land/crossings remain fixed. Goods/claims/boats/current saves and native controls verified. F35a alternative next, then whole-game review45.
 

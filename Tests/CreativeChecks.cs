@@ -48,8 +48,10 @@ public static class CreativeChecks
         for (int seconds = 1; seconds <= 80; seconds += 13)
         {
             var w = World.NewCreative();
-            w.Place(new(3,0), false, BuildingKind.Farm);
-            var target = w.Place(new(6,0), true, kind)!;
+            var grainPlace=ReviewPlacement.Find(w,BuildingKind.Farm,new(3,0),(c,r)=>true,"removal grain supply")!;
+            Check(w.Place(grainPlace.Actual,grainPlace.Rotation,BuildingKind.Farm)!=null,"Grain supply rejected");
+            var targetPlace=ReviewPlacement.Find(w,kind,new(6,0),(c,r)=>true,"active removal target")!;
+            var target = w.Place(targetPlace.Actual,targetPlace.Rotation,kind)!;
             Check(target != null, "Removal fixture rejected");
             var roles = new[] { Role.Logger, Role.Logger, Role.Farmer, Role.Farmer, Role.Forager, Role.Baker, Role.Sawyer, Role.Hauler };
             for (int i = 0; i < roles.Length; i++) w.Assign(i, roles[i]);

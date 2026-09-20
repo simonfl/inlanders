@@ -14,9 +14,9 @@ public static class FoodChecks
     {
         var w = World.NewScenario();
         foreach (var (cell, kind, rotated) in new[] {
-            (new Cell(0,0), BuildingKind.ForagerHut, false), (new Cell(3,-3), BuildingKind.Farm, false), (new Cell(6,-3), BuildingKind.Bakery, false),
-            (new Cell(3,0), BuildingKind.Cottage, false), (new Cell(6,0), BuildingKind.Cottage, true),
-            (new Cell(3,6), BuildingKind.Cottage, false), (new Cell(-5,6), BuildingKind.Cottage, false) })
+            (new Cell(0,0), BuildingKind.ForagerHut, 0), (new Cell(3,-3), BuildingKind.Farm, 3), (new Cell(6,-6), BuildingKind.Bakery, 0),
+            (new Cell(3,0), BuildingKind.Cottage, 0), (new Cell(6,0), BuildingKind.Cottage, 1),
+            (new Cell(3,6), BuildingKind.Cottage, 0), (new Cell(-5,6), BuildingKind.Cottage, 0) })
             Check(w.Place(cell, rotated, kind) != null, $"Food fixture rejected {cell}/{kind}");
         return w;
     }

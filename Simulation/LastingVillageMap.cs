@@ -19,7 +19,8 @@ public sealed partial class World
             bool water=x==6 && z>=-3 && z<=12 || inlet ||
                 x>=4 && x<=5 && z>=-3 && z<=-2 || x>=5 && x<=7 && z==12;
             if(water)w.Map.Water.Add(new(x,z));
-            else if(!west && !east)w.Map.Excluded.Add(new(x,z));
+            // Retain a real rearward grain plot at the old central redevelopment site.
+            else if(!west && !east && !(x>=-3 && x<=-1 && z>=-4 && z<=-2))w.Map.Excluded.Add(new(x,z));
         }
         w.Bushes.RemoveAll(b=>b.Id!=0);
         w.Trees.Clear();w._nextTree=0;

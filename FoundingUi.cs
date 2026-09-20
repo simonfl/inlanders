@@ -22,7 +22,7 @@ public partial class Game
     private void MakeFoundingUi(VBoxContainer column)
     {
         _foundingGoals=new();column.AddChild(_foundingGoals);
-        _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(_world.Founding?.RiverFarmstead==true && !_world.FoundingHasNewFood?2:1);UpdateVillageDirectory();}));
+        _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(_world.Founding?.WorkingVillage==true?0:_world.Founding?.RiverFarmstead==true && !_world.FoundingHasNewFood?2:1);UpdateVillageDirectory();}));
         _foundingFood=Text("",14,true);_foundingGoals.AddChild(_foundingFood);
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
@@ -47,10 +47,11 @@ public partial class Game
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
         _campaignSelection.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_riverAction.Hide();_progress.Hide();
         _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Hide();
-        _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":f.RiverFarmstead?"A place of our own":"A home by the water";
+        _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":f.WorkingVillage?"The long way home":f.RiverFarmstead?"A place of our own":"A home by the water";
         _goalArrival.Text=f.Finished?"Keep growing when you want. More neighbors need more food; their first meal does not prove lasting supply.":"Build homes for eight founders. Choose a food source, then invite two households when ready.";
         _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(f.Finished?"Finished. Shape this village, grow, or leave it here.":_world.FinishFoundingProblem()??"Everyone has settled in. Finish whenever you like.");
         if(f.RiverFarmstead)_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents\n"+(_world.FoundingHasNewFood?"First food delivered.\n":"Choose food before provisions run out.\n")+(f.Finished?"Finished. Stay, improve, or leave this village here.":_world.FinishFoundingProblem()??"Homes and the first food supply are working. Finish when satisfied; continued supply still needs your care.");
+        if(f.WorkingVillage && !f.Finished)_objective.Text="An inhabited village across an inlet. Watch a resident and choose what to improve.\nHomes: "+_world.Housed+"/"+_world.Population+"\n"+(_world.FoundingHasNewFood?"Food is flowing. Finish when satisfied, or stay and reshape this place.":"The field and oven are already working. Watch their first delivery, then choose what to change.");
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";
         _foundingInvite.Visible=true;
         var flow=_world.ReadFoodFlow();

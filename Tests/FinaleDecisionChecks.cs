@@ -9,7 +9,16 @@ static class FinaleDecisionChecks
         if(!done()) {File.WriteAllText("artifacts/finale-stalled.json",w.SaveJson());Console.WriteLine($"Bread {w.Food.Bread}, grain {w.Food.Grain}, baked {w.Food.BakedBread}, eaten bread {w.Food.EatenBread}");foreach(var c in w.Cottages.Where(c=>c.Kind is BuildingKind.Farm or BuildingKind.Bakery))Console.WriteLine($"{c.Kind} {c.Cell} target {c.OutputTarget}: {w.ReadWorkplace(c)}");}
         w.Validate();Check(done(),$"{why} stalled at {w.Food.Time:F0}s: residents {w.Population}, beds {w.Beds}, food {w.EdibleStored}, rested {w.People.Count(w.RecentlyRested)}, recreation {Recreation(w)}; {w.ReadMealAssessment().Summary}");
     }
-    internal static Cottage Build(World w,Cell c,BuildingKind kind,int r=0)=>w.Place(c,r,kind)??throw new Exception($"Cannot place {kind} at {c}: {w.PlacementProblem(c,r,kind)}");
+    internal static Cottage Build(World w,Cell c,BuildingKind kind,int r=0)
+    {
+        if(kind==BuildingKind.Farm)
+        {
+            var at=ReviewPlacement.Find(w,kind,c,(p,f)=>(p.Point-c.Point).LengthSquared()<=36 && (c.X<6?p.X<6:p.X>6),"same local/remote grain region")??throw new Exception("No grain plot in intended finale region");
+            Console.WriteLine($"Finale grain {at.Actual} facing {at.Rotation}; displacement {at.DisplacementSquared}");
+            return w.Place(at.Actual,at.Rotation,kind)!;
+        }
+        return w.Place(c,r,kind)??throw new Exception($"Cannot place {kind} at {c}: {w.PlacementProblem(c,r,kind)}");
+    }
     internal static void Grow(World w,int target)
     {
         while(w.Population<target){Until(w,()=>w.InvitationProblem()==null,"newcomer provisions");Check(w.InviteNewcomers(),"Invitation failed");}

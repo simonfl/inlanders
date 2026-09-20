@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: F34f ordinary domestic life, then an inhabited-village alternative.** [Review 40](REVIEW_CHECKPOINT_40.md) retains the opening provisionally and redirects the next cycle toward land occupancy, domestic life, an inhabited-village alternative and understandable recovery. The [first F34b pass](FARMSTEAD_PRESENTATION_F34B.md) improves homes/river; full working-land composition remains open. New building chains stay deferred.
+**Next: full whole-game review45 before further implementation.** [Review 40](REVIEW_CHECKPOINT_40.md) retains the opening provisionally and redirects the next cycle toward land occupancy, domestic life, an inhabited-village alternative and understandable recovery. The [first F34b pass](FARMSTEAD_PRESENTATION_F34B.md) improves homes/river; full working-land composition remains open. New building chains stay deferred.
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **44**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **45**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -38,10 +38,10 @@ These are candidates, not a shopping list. Reevaluate after seeing the themed sl
 | Priority | Candidate | Decision it should add / smallest scope |
 | --- | --- | --- |
 | First | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
-| Next if needed | **F34c — cultivation and food-storage depth** | More deliberate field area/clearing, useful storage near harvesting and transparent crop investment. Explore a barn/granary as an existing storage presentation or variant before inventing new goods and workers. |
+| Delivered, evaluate | **F34c — cultivated ground** | Real 3 × 5 grain fields with walking/work, compact gardens retained. Whether grain deserves its larger footprint remains an open design question. |
 | Conditional | **F34d — milling and bread** | A mill or combined milling/baking treatment may give grain a recognizable, geographically meaningful chain. Test siting/labor payoff; do not add flour plus another mandatory wait solely for historical completeness. The farm/bakery chain already exists; compare its value under current rules. |
 | Later | **F26/F34e — pasture or river exchange** | Livestock could compete for cleared land/feed; a landing could carry actual goods. Prototype one only when it differs from gardens or land hauling. Animal breeding, full trade markets and fleets are not implied. |
-| Later | **F25/F34f — improve daily life** | Home repairs/comfort, a common oven, work gathering or contextual chapel identity only where there is a useful activity and supported reference. No compulsory civic ladder or faith/education meter. |
+| First step delivered | **F25/F34f — improve daily life** | Quiet residents now return home and yield to new work.  Home repairs/comfort, a common oven, work gathering or contextual chapel identity only where there is a useful activity and supported reference. No compulsory civic ladder or faith/education meter. |
 | Across relevant chunks | **F21/F34 — understandable choices** | Preserve compact category browsing, direct inspection and visible phase actions. Show the need, terrain/input and practical result. Avoid another permanent dashboard. |
 
 Costs, outputs, field dimensions, chapter length, specific crops, new resource types and precise architectural variants remain TBD. The theme changes priorities, not every balance constant at once.
@@ -55,12 +55,12 @@ Costs, outputs, field dimensions, chapter length, specific crops, new resource t
 - No inheritance, generational handoff, family simulation or legacy scoring; “for generations” is narrative tone only.
 - **F13 seasons stays removed.** Do not reintroduce an annual cycle, winter deadline or cold-survival system through the theme.
 - No combat, conquest, multiplayer, large technology tree, compulsory religious/education systems, detailed seigneurial taxation or full historical economy.
-- No internal rename or save migration. F34a ships public branding only; historic art and the new scenario remain pending.
+- No internal rename or save migration. F34a ships public branding only; further historical art remains provisional.
 - Avoid expanding the catalogue, polishing every model, or adding needs before the livelihood-and-improvement experience proves useful.
 
 ## Delivered foundation and history
 
-Current game: A place of our own as the primary normal opening, Free arrangement, and earlier lake/gathering/campaign prototypes. Eighteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
+Current game: A place of our own as the primary normal opening, The long way home as an inhabited alternative, Free arrangement, and earlier lake/gathering/campaign prototypes. Eighteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
 
 Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 interaction sampling](INTERACTION_T07.md), [F32 landscape comparison](HAMLET_F32A.md), [simulation performance](HAMLET_PERFORMANCE_F32B.md), [rearrangement](HAMLET_REARRANGEMENT_F32C.md), [connected paths](HAMLET_PATHS_F32D.md). Their tests do not establish enjoyment or historical authenticity.
 
@@ -68,12 +68,4 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
-Review-40 corrections complete: scenario-preserving restart/recovery verified at 960/1440; active-mode food guidance corrected. No outcome increment.
-
-F34c delivered at checkpoint 41: real 3 × 5 grain plot and paced field work. Grain remains optional; compact food competition is an open design question, not a reason to force a farming quota.
-
-F34f delivered (42), [evidence](HOME_LIFE_F34F.md). Revised order: F35c daily-life understanding → F35b production recovery → F35a contrasting working village → whole-game review45. These remain hypotheses, not guaranteed increments.
-
-F35c delivered (43), [evidence](DAILY_JOURNEY_F35C.md). F35b production recovery next, then F35a inhabited-village alternative. Review45 still due after two retained outcomes.
-
-F35b retained (44), [comparison](PRODUCTION_RECOVERY_F35B.md): mandatory rebuilding delayed recovery without a demonstrated benefit; paused workplace moves retain goods. Fields/crossings remain fixed. F35a working-village contrast next; full review45 after acceptance.
+Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 now determines the next cycle; the user requests continuing through review50.

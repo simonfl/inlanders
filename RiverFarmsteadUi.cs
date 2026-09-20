@@ -14,6 +14,7 @@ public partial class Game
         if(File.Exists(RiverFarmsteadPath)) MenuButton("Resume · A place of our own",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(RiverFarmsteadPath))));
         void Start()=>MenuAttempt(()=>{var w=World.NewRiverFarmstead();w.SaveFile(RiverFarmsteadPath);EnterFromMenu(w);});
         MenuButton("New · A place of our own",()=>{if(File.Exists(RiverFarmsteadPath))ConfirmMenu("Start a new farmstead?","Replace this farmstead?",Start,RiverFarmsteadMenu);else Start();});
+        MenuButton("Another village · The long way home",WorkingVillageMenu);
         MenuButton("Back",ShowMainMenu);
     }
 }

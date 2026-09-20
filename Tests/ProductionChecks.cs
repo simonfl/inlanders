@@ -10,7 +10,12 @@ public static class ProductionChecks
     {
         var w = World.NewCreative(); foreach (var p in w.People) w.Assign(p.Id, Role.Unassigned); return w;
     }
-    static Cottage Place(World w, Cell cell, BuildingKind kind) => w.Place(cell, false, kind) ?? throw new Exception("Production fixture blocked");
+    static Cottage Place(World w, Cell cell, BuildingKind kind)
+    {
+        // These checks isolate production policy, not fixed footprint coordinates.
+        var place=ReviewPlacement.Find(w,kind,cell,(c,r)=>true,"production policy fixture") ?? throw new Exception("No legal production fixture");
+        return w.Place(place.Actual,place.Rotation,kind)!;
+    }
     public static void Run()
     {
         var w = Empty(); var field = Place(w, new(3,-3), BuildingKind.Farm); var garden = Place(w, new(6,-3), BuildingKind.VegetableGarden);
