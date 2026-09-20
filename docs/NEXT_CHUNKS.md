@@ -1,6 +1,6 @@
 # Next chunks — one place worth changing
 
-Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **63**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
+Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **64**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
 
 ## Chosen direction
 
@@ -39,3 +39,6 @@ Checkpoint62 · F38a: the hamlet can be finished for now without food, building,
 
 
 Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both sides of the inlet and joins the three actual vegetable plots into a continuous river-side strip. Same twelve people, buildings, starting food/materials and daily rules; no fake fields or household economy. Public comparison has separate Normal/relaxed saves and preserves layout on restart. Both ten-minute simulations delivered food with zero hungry ticks (47 final food); native960 actual plot relocation/replant/save/restart passes.1440 still inspected: clearer cultivated edge, but broad bare ground and tiny crop scale remain unresolved. Keep both layouts for review65 rather than claim visual acceptance. Next64 extends direct world actions;65 compares personal changes.
+
+
+Checkpoint64 · F38c: compact world cards now cover homes, social buildings and unfinished projects in the public hamlet. Watch a resident, move a home, pause/resume or cancel a staged project without opening the full inspector; workplace moves return to their card. Native960 actual world clicks, resident follow, staging/cancel and garden recovery pass; home card inspected. First run reproduced save replacement denial, subsequent run passed. Failure-time file metadata/timing and a truthful menu-transition probe guard were added; atomic lock/replacement tests pass, cause remains unknown. These diagnostics count zero. Next65: persistent opening-footprint comparison, then freeze for full review with presentation role.

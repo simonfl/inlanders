@@ -133,7 +133,7 @@ public partial class Game : Node3D
         }
         var site = _world.Place(at, _rotation, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
-        SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
+        if(_world.PublicPlace!=null)ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
     private void ToggleTreePlanting()
     {

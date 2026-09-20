@@ -6,6 +6,7 @@ using System.Text.Json;
 public partial class Game
 {
     private int _movingSite=-1;
+    private bool _moveFromCard;
     private World? _moveWorld;
     private Button _moveButton=null!;
     private float _nextMoveRefresh;
@@ -13,14 +14,14 @@ public partial class Game
     private void DiscardRelocation(){_movingSite=-1;_moveWorld=null;_moveCheck=null;}
     private void CancelRelocation(bool inspect)
     {
-        int id=_movingSite;if(id<0)return;DiscardRelocation();_placing=false;RefreshGhost();
-        if(inspect && _world.Cottages.Any(c=>c.Id==id))SelectBuilding(id);
+        int id=_movingSite;if(id<0)return;bool card=_moveFromCard;DiscardRelocation();_placing=false;RefreshGhost();
+        if(inspect && _world.Cottages.Any(c=>c.Id==id)){if(card)ShowWorkplaceCard(id);else SelectBuilding(id);}
     }
     private void BeginRelocation()
     {
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);if(site==null)return;
         if(_world.RelocationProblem(site.Id) is string problem){Notice(problem);return;}
-        CloseManagementUi();BeginPlacement(site.Kind);
+        bool card=_workCardSite==site.Id;CloseManagementUi();BeginPlacement(site.Kind);_moveFromCard=card;
         _movingSite=site.Id;_moveWorld=_world;_rotation=site.Rotation;_hover=site.Cell;_nextMoveRefresh=0;_moveCheck=null;
         RefreshGhost();Notice("Choose a destination. R rotates; Escape or right-click cancels.");
     }
@@ -54,7 +55,7 @@ public partial class Game
         DiscardRelocation();_placing=false;RefreshGhost();
         // A deliberate move rebuilds presentation once, without adopting/reloading the
         // simulation, changing pause/speed or resetting the simulation accumulator.
-        CreateActors();RenderActors(0);RenderFoodViews();RebuildQueue();SelectBuilding(id);RefreshSelection();
+        CreateActors();RenderActors(0);RenderFoodViews();RebuildQueue();if(_moveFromCard)ShowWorkplaceCard(id);else SelectBuilding(id);RefreshSelection();
         var moved=_world.Cottages.Single(c=>c.Id==id);
         UiCue(Cue.Place);Notice(moved.Kind==BuildingKind.VegetableGarden?(moved.WorkPaused?"Garden moved and still paused. Resume to work here; growing crops need fresh sowing.":"Garden moved. Growing crops need fresh sowing."):_world.Founding!=null?"Moved for free. Neighbors will use the new location.":"Building moved. Its identity, goods and improvements are retained.");
     }

@@ -1,17 +1,20 @@
 using System;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 namespace Inlanders.Simulation;
 internal static class AtomicSave
 {
     public static void Write(string path,string json)
     {
         string full=Path.GetFullPath(path),temporary=full+"."+Guid.NewGuid().ToString("N")+".tmp";
+        var elapsed=Stopwatch.StartNew();
+        string Metadata(string file){try{var info=new FileInfo(file);return info.Exists?$"attributes={info.Attributes}, bytes={info.Length}, modifiedUtc={info.LastWriteTimeUtc:O}":"absent";}catch(Exception e){return "unavailable: "+e.GetType().Name;}}
         string operation="create directory";int replacements=0;Exception? failure=null;
         void Diagnose(Exception e,string stage)
         {
             e.Data["SavePath"]=full;e.Data["SaveOperation"]=stage;e.Data["ReplacementAttempts"]=replacements;
-            Console.Error.WriteLine($"Atomic save failed: operation={stage}; target={full}; temporary={temporary}; replacementAttempts={replacements}; HResult=0x{e.HResult:X8}; {e}");
+            Console.Error.WriteLine($"Atomic save failed: operation={stage}; target={full}; temporary={temporary}; replacementAttempts={replacements}; elapsedMs={elapsed.ElapsedMilliseconds}; targetMetadata=[{Metadata(full)}]; temporaryMetadata=[{Metadata(temporary)}]; HResult=0x{e.HResult:X8}; {e}");
         }
         try
         {
