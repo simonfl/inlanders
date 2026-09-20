@@ -33,7 +33,7 @@ public partial class Game
         _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingGoals.AddChild(_foundingFinish);
         _foundingContinue=Button("Keep shaping the village",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
-        MakeFoundingHallUi(column);
+        MakeFoundingHallUi(column);MakeFoodAccessUi();
         _foundingGoals.MoveChild(_foundingContinue,0);
         _foundingGoals.MoveChild(_hallBegin,1);
         _foundingGoals.MoveChild(_foundingLeave,2);

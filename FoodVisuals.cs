@@ -55,7 +55,7 @@ public partial class Game
     {
         RenderWelcomeDisplay();
         RenderWildlife(); RenderStone();
-        RenderDailyLife();RenderWorkplaceCard();RenderFoodMap();RenderSupplyRoutes();
+        RenderDailyLife();RenderWorkplaceCard();RenderFoodMap();RenderFoodAccess();RenderSupplyRoutes();
         RenderManagedWoodland();
         RenderFishingGrounds();
         foreach (var bush in _world.Bushes)
