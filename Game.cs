@@ -218,7 +218,7 @@ public partial class Game : Node3D
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
         TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
         RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
-        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
+        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
     {

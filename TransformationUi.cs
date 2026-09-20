@@ -9,7 +9,7 @@ public partial class Game
     {
         MenuPage(cultivatedBank?"The cultivated bank":"Between wood and water");
         _mainColumn.AddChild(Text("Twelve neighbors. A working hamlet to make your own.",20,true));
-        _mainColumn.AddChild(Text(cultivatedBank?"Three groups of homes, a working vegetable strip and a river edge. Keep the bank productive or open a place by the water; northern homes share the crossing. Finish for now whenever you like.":"Kitchen gardens fill the ground beside the homes. Keep food close, or make room for shared meals and work another part of the land. Pause freely; new neighbors are your choice. Finish for now whenever the place feels yours, or keep watching and shaping.",16,true));
+        _mainColumn.AddChild(Text(cultivatedBank?"Homes share a working river bank. Keep what you like; change what you want. Finishing and new arrivals are optional.":"A hamlet between woodland and river. Keep what you like; change what you want. Finishing and new arrivals are optional.",16,true));
         foreach(bool relaxed in new[]{false,true})
         {
             var profile=new HamletProfile(relaxed,cultivatedBank);

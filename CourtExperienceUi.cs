@@ -64,6 +64,8 @@ public partial class Game
     }
     private void MakeCourtStartingLayout()
     {
+        if(_courtStartingLayout!=null && GodotObject.IsInstanceValid(_courtStartingLayout) && !_courtStartingLayout.IsQueuedForDeletion())_courtStartingLayout.QueueFree();
+        _hamletComparisonHash=HamletLayoutHash();
         if(_courtStartingWorld!=_world)_courtShowBefore=false;
         _courtStartingWorld=_world;_courtStartingLayout=null;
         var starting=_world.PublicPlace!=null?_world.Founding!.StartingBuildings:_world.CourtStudy?.StartingBuildings;
@@ -78,7 +80,8 @@ public partial class Game
                 Box(_courtStartingLayout,new(c.X+step.X*.48f,Height(c.X,c.Z)+.12f,c.Z+step.Z*.48f),new(step.X==0?1:.055f,.04f,step.Z==0?1:.055f),color);
             }
         }
-        foreach(var building in starting)Outline(building,new("f4cb79"));
+        foreach(var building in starting)
+            if(_world.PublicPlace==null || !_world.Cottages.Any(c=>c.Id==building.Id && c.Cell==building.Cell && c.Rotation==building.Rotation && c.Kind==building.Kind))Outline(building,new("f4cb79"));
         if(_world.PublicPlace!=null)
             foreach(var site in _world.Cottages.Where(c=>!starting.Any(b=>b.Id==c.Id && b.Cell==c.Cell && b.Rotation==c.Rotation && b.Kind==c.Kind)))
                 Outline(new(){Id=site.Id,Cell=site.Cell,Rotation=site.Rotation,Kind=site.Kind},new("8fdacb"));

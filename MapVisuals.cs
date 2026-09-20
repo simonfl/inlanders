@@ -58,7 +58,7 @@ public partial class Game
     private string CurrentSavePath => _world.PublicPlace is {} place?System.IO.Path.Combine(System.IO.Path.GetDirectoryName(_creativeSavePath)!,place.SaveName):_world.Founding!=null?(_world.Founding.WorkingVillage?WorkingVillagePath:_world.Founding.RiverFarmstead?RiverFarmsteadPath:FoundingPath):_world.CourtStudy is {} study?CourtStudyPath(study.Finite):_world.Creative && _world.IsArrangementCourt?CreativeCourtPath:_world.Neighborhood!=null?_neighborhoodPath:SandboxSavePath(_world.Map.Name == "Three clearings", _world.Creative);
     private void OpenLargeMap()
     {
-        if(_world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
+        if(_world.PublicPlace!=null || _world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
         try
         {
             if (_world.Map.Name == "Three clearings") { FrameMap(); CloseDrawer(); return; }
@@ -72,7 +72,7 @@ public partial class Game
     }
     private void OpenOriginalMap()
     {
-        if(_world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
+        if(_world.PublicPlace!=null || _world.Neighborhood!=null){Notice("Historical maps use different village rules. Open them from Earlier prototypes in the main menu.");return;}
         try
         {
             if (_world.Campaign == null && _world.Map.OriginalOutline) { FrameMap(); CloseDrawer(); return; }

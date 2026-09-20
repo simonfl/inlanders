@@ -5,15 +5,16 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **65**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint60**, [whole-game synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`. Five fresh independent roles including visual/audio. Finite self-directed transformation selected as the next product hypothesis; human enjoyment, listening and representative performance remain unproven. Closeout corrections add zero outcomes. Stop this requested run here.
+- Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; stop here.
+- Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
 - Previous review50: [synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures.
 - Earlier periodic review: **checkpoint 45**, [synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`, one fresh and four independent reused contexts.
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 65**.
-- Latest whole-game visual/audio supplement: **checkpoint60**, [synthesis](REVIEW_CHECKPOINT_60.md). Fresh independent role; source/stills and extracted movie frames, no listening acceptance.
+- Next four-role review: **checkpoint 70**.
+- Latest whole-game visual/audio supplement: **checkpoint65**, [synthesis](REVIEW_CHECKPOINT_65.md). Source/stills/extracted frames; no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint 70**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -279,3 +280,8 @@ Checkpoint64 · F38c: compact world cards now cover homes, social buildings and 
 
 
 Checkpoint65 · F38c: public hamlets retain opening building footprints in current saves. Compare with the opening layout shows gold original and blue moved/added footprints over the living village, with an explicit return/Escape action. It does not rewind resources, crops or people. Native960 comparison after actual relocation is read-only, preserves the original location through save/reload, and closes correctly; inspected still shows vacated river ground and the replanted northern plot together. Five playable outcomes61–65 complete. Freeze now for the full independent whole-game review plus visual/audio because composition changed; no66 implementation.
+
+
+**Review65 — September20,2026:** fixed `05bff294534dfea131867cc3fe83807806c80557`. Five independent fresh roles; full synthesis/evidence in [review65](REVIEW_CHECKPOINT_65.md). All17 current suites and broad regressions pass. Outcomes61–65 commits `3c52558`, `3e57ef5`, `00e2b74`, `e3fc801`, `05bff29`. Concrete public-boundary/ending/clarity corrections and reusable movie extraction count zero. Intermittent save replacement denial unresolved. No66 work.
+
+Closeout65 validation: zero-warning build; compact960 and bank960 native public-flow checks pass, including ending, mode descriptions/navigation, save/restart and comparison after real move/new placement. Final bank run `20260920-182043-616-cultivated-bank-3b2b73`; no save denial there. No gameplay count increment.

@@ -30,11 +30,11 @@ public partial class Game
         _foundingFood=Text("",14,true);_foundingGoals.AddChild(_foundingFood);
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
-        _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingGoals.AddChild(_foundingFinish);
-        _foundingContinue=Button("Keep shaping the village",()=>{if(_world.PublicPlace!=null){_world.Founding!.Finished=false;SaveWorld();UpdateHud();}CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
+        _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;if(_world.PublicPlace!=null){CloseDrawer();ClearSelection();_noticeUntil=0;}}});_foundingGoals.AddChild(_foundingFinish);
+        _foundingContinue=Button("Keep shaping the village",ReopenHamlet);_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
-        _hamletWatch=Button("Watch this village",()=>{CloseDrawer();ClearSelection();_speed=1;_paused=false;ToggleWatch();});_foundingGoals.AddChild(_hamletWatch);
-        MakeFoundingHallUi(column);MakeFoodAccessUi();MakeHamletComparisonUi();
+        _hamletWatch=Button("Watch this village",WatchHamlet);_foundingGoals.AddChild(_hamletWatch);
+        MakeFoundingHallUi(column);MakeFoodAccessUi();MakeHamletComparisonUi();MakeHamletEndingUi();
         // Shape and inspect first; invitations and the optional ending follow daily life.
         _foundingGoals.MoveChild(_foodAccessEntry,2);
         _foundingGoals.MoveChild(_foundingFoodView,3);
@@ -56,7 +56,7 @@ public partial class Game
         _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(f.Finished?"Finished. Shape this village, grow, or leave it here.":_world.FinishFoundingProblem()??"Everyone has settled in. Finish whenever you like.");
         if(f.RiverFarmstead)_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents\n"+(_world.FoundingHasNewFood?"First food delivered.\n":"Choose food before provisions run out.\n")+(f.Finished?"Finished. Stay, improve, or leave this village here.":_world.FinishFoundingProblem()??"Homes and the first food supply are working. Finish when satisfied; continued supply still needs your care.");
         if(f.WorkingVillage && !f.Finished)_objective.Text="An inhabited village across an inlet. Watch a resident and choose what to improve.\nHomes: "+_world.Housed+"/"+_world.Population+"\n"+(_world.FoundingHasNewFood?"Food is flowing. Finish when satisfied, or stay and reshape this place.":"The field and oven are already working. Watch their first delivery, then choose what to change.");
-        if(f.TransformationHamlet){_goalTitle.Text=_world.Creative?"Between wood and water · relaxed":"Between wood and water";_objective.Text="Kitchen plots or shared ground near home? Choose what you want to change.\n"+(f.Finished?"Your village remains open to change.":"More neighbors and finishing are optional.");}
+        if(_world.PublicPlace is {} place){_goalTitle.Text=f.Finished?"A place to keep":place.Title+(place.Relaxed?" · relaxed":"");_objective.Text=f.Finished?"Finished for now. Watch the place, keep shaping, or leave and return later.":"Keep what you like; choose what you want to change.\nMore neighbors and finishing are optional.";}
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";
         _foundingInvite.Visible=true;
         var flow=_world.ReadFoodFlow();
@@ -74,6 +74,8 @@ public partial class Game
         _foundingContinue.Visible=f.Finished;_foundingLeave.Visible=f.Finished;
         _menuButtons[2].Text=f.Finished?"Village · Finished":"Village";_menuButtons[2].TooltipText="Your founding village [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your village";
+        if(f.TransformationHamlet && f.Finished){_foundingGoals.MoveChild(_hamletWatch,0);_foundingGoals.MoveChild(_foundingContinue,1);_foundingGoals.MoveChild(_foundingLeave,2);}
+        else {_foundingGoals.MoveChild(_hamletWatch,_foundingGoals.GetChildCount()-1);_foundingGoals.MoveChild(_foundingContinue,_foundingGoals.GetChildCount()-1);_foundingGoals.MoveChild(_foundingLeave,_foundingGoals.GetChildCount()-1);}
         UpdateFoundingHallUi();
     }
 }

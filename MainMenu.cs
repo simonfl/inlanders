@@ -51,6 +51,8 @@ public partial class Game
         var button = Button(label, () => { TraceMenuClick("activated:"+label); action(); }); button.CustomMinimumSize = new(0, 44); _mainColumn.AddChild(button); _mainButtons[label] = button;
         RegisterMenuControl(button,focusKey??label);if(label is "Back" or "Cancel")_menuBack=action;return button;
     }
+    private bool DeveloperPlaces=>_reviewRequest!=null || OS.GetCmdlineUserArgs().Any(a=>a=="--developer" || a.EndsWith("smoke-test"));
+    private bool CanContinuePlace(World world,bool developer)=>developer || world.PublicPlace!=null;
     private void ShowMainMenu()
     {
         _atMainMenu = true; _paused = true; _placing = false; _pathStroke = false;
@@ -58,7 +60,7 @@ public partial class Game
         MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
         MenuButton("Play", TransformationMenu);
-        if(_reviewRequest!=null || OS.GetCmdlineUserArgs().Any(a=>a=="--developer" || a.EndsWith("smoke-test")))
+        if(DeveloperPlaces)
             MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
@@ -94,6 +96,7 @@ public partial class Game
     private void ContinueFromMenu() => MenuAttempt(() =>
     {
         var world = World.LoadFile(_continuePath);
+        if(!CanContinuePlace(world,DeveloperPlaces))throw new InvalidOperationException("This save belongs to an earlier experiment. Choose Play for the current village, or launch with --developer to revisit archived places.");
         EnterFromMenu(world);
     });
     private void ComparisonMenu()
