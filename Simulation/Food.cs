@@ -91,7 +91,7 @@ public sealed partial class World
         if (v.BushId is int id) Bushes.Single(b => b.Id == id).Owner = null;
         v.BushId = null; v.WorkplaceId = null; v.FoodReserved = 0;v.GrainSourceId=null;v.GrainDestinationId=null;
     }
-    private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Orchard;
+    private static bool IsField(Cottage c) => c.Kind is BuildingKind.Farm or BuildingKind.VegetableField or BuildingKind.VegetableGarden or BuildingKind.Orchard;
     private bool FreeStation(Cottage c) => People.Count(v => v.WorkplaceId == c.Id) < Buildings.Get(c.Kind).Slots;
     private Cottage? FoodSite(Villager person,BuildingKind kind, Func<Cottage, bool> condition) =>
         Cottages.Where(c => c.Complete && !c.WorkPaused && c.Kind == kind && CanClaimWorkplace(person,c) && FreeStation(c) && condition(c))
@@ -212,11 +212,11 @@ public sealed partial class World
         {orchard.Planted=true;orchard.Growth=0;}
         foreach (var farm in Cottages.Where(c => IsField(c) && c.Complete && !c.DemolitionRequested && c.Planted && c.Growth < 1))
         {
-            farm.Growth = Math.Min(1, farm.Growth + dt / (farm.Kind==BuildingKind.Orchard ? farm.OrchardMature?60:180 : farm.Kind == BuildingKind.VegetableGarden ? 60 : 45));
+            farm.Growth = Math.Min(1, farm.Growth + dt / (farm.Kind==BuildingKind.Orchard ? farm.OrchardMature?60:180 : IsVegetablePlot(farm.Kind) ? 60 : 45));
             if (farm.Growth == 1)
             {
                 if(farm.Kind==BuildingKind.Orchard){farm.Harvest=8;farm.OrchardMature=true;Food.GrownFruit+=8;}
-                else if (farm.Kind == BuildingKind.VegetableGarden) { farm.Harvest = 8; Food.GrownVegetables += 8; }
+                else if (IsVegetablePlot(farm.Kind)) { farm.Harvest = VegetableYield(farm.Kind); Food.GrownVegetables += farm.Harvest; }
                 else { farm.Harvest = 6; Food.GrownGrain += 6; }
             }
         }
@@ -274,7 +274,7 @@ public sealed partial class World
         Check(StoredGrain + Cargo(Resource.Grain) + Cottages.Where(c => c.Kind == BuildingKind.Farm).Sum(c => c.Harvest) + Cottages.Sum(c => c.InputGrain) + Food.UsedGrain == Food.GrownGrain + CreativeNet(Resource.Grain), "Grain conservation failed");
         Check(StoredFood(Resource.Bread) + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread + CreativeNet(Resource.Bread), "Bread conservation failed");
         Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
-            StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables + CreativeNet(Resource.Vegetables), "Vegetable conservation failed");
+            StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>IsVegetablePlot(c.Kind)).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables + CreativeNet(Resource.Vegetables), "Vegetable conservation failed");
         Check(Food.BakedBread == Food.UsedGrain * BreadPerGrain, "Recipe conversion failed");
         Check(Food.Fish>=0 && Food.EatenFish>=0 && Food.CaughtFish>=0 && StoredFood(Resource.Fish)+Food.EatenFish+Cargo(Resource.Fish)+Cottages.Sum(c=>c.Boat?.Fish??0)==Food.CaughtFish+CreativeNet(Resource.Fish),"Fish conservation failed");
         foreach (var bush in Bushes)

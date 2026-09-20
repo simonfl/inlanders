@@ -23,7 +23,7 @@ public sealed partial class World
             EdibleKinds.Contains(r)?MealReserved(r)+People.Where(p=>p.Cargo==r).Sum(p=>p.PantryReserved):r switch { Resource.Stone => ReservedStone, Resource.Logs => ReservedStorage, Resource.Planks => ReservedPlanks, Resource.Grain => People.Sum(p=>p.FoodReserved), _ => 0 },
             People.Where(p=>p.Cargo==r).Sum(p=>p.Carried) + (r==Resource.Fish ? Cottages.Sum(c=>c.Boat?.Fish??0) : 0),
             r switch { Resource.Logs => Cottages.Sum(c=>c.InputLogs), Resource.Planks => Cottages.Sum(c=>c.OutputPlanks),
-                Resource.Vegetables => Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest),
+                Resource.Vegetables => Cottages.Where(c=>IsVegetablePlot(c.Kind)).Sum(c=>c.Harvest),
                 Resource.Fruit => Cottages.Where(c=>c.Kind==BuildingKind.Orchard).Sum(c=>c.Harvest),
                 Resource.Grain => Cottages.Where(c=>c.Kind==BuildingKind.Farm).Sum(c=>c.Harvest)+Cottages.Sum(c=>c.InputGrain), Resource.Bread => Cottages.Sum(c=>c.OutputBread), _ => 0 },
             Need(r))).ToArray();

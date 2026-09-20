@@ -19,6 +19,7 @@ public partial class Game
         BuildingKind.ForagerHut => "Gather berries",
         BuildingKind.Farm => "Grow grain for bread",
         BuildingKind.VegetableGarden => "Grow ready-to-eat food",
+        BuildingKind.VegetableField => "A larger crop on more land",
         BuildingKind.Orchard => "Establish trees for repeat fruit harvests",
         BuildingKind.Bakery => "Turn grain into bread",
         BuildingKind.Sawmill => "Turn logs into planks",
@@ -115,7 +116,7 @@ public partial class Game
         if(kind==BuildingKind.Orchard)MakeOrchardTrees(model,new Cottage{Kind=kind,Planted=true,OrchardMature=true,Harvest=8},4);
         HideModelLabels(model);
         bool tallBuilding=kind is BuildingKind.GatheringHall or BuildingKind.HuntingLodge;
-        var camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = tallBuilding?5.4f:4.7f, Position = new(5, 5, 7), Current = true };
+        var camera = new Camera3D { Projection = Camera3D.ProjectionType.Orthogonal, Size = kind==BuildingKind.VegetableField?7:tallBuilding?5.4f:4.7f, Position = new(5, 5, 7), Current = true };
         root.AddChild(camera); camera.LookAt(new(0, tallBuilding?1.5f:1.0f, 0));
         return viewport.GetTexture();
     }

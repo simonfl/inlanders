@@ -9,7 +9,8 @@ public partial class Game
         BuildingKind.ForagerHut => "Berries · nearby bushes",
         BuildingKind.FishingDock => "Fish · shore + boat",
         BuildingKind.HuntingLodge => "Game · retained woodland",
-        BuildingKind.VegetableGarden => "Vegetables · open land",
+        BuildingKind.VegetableGarden => "Kitchen garden · 6 tiles · 8 vegetables",
+        BuildingKind.VegetableField => "Field · 15 tiles · 20 vegetables",
         BuildingKind.Orchard => "Fruit · 3-minute first crop",
         BuildingKind.Farm => "Grain · needs a bakery",
         BuildingKind.Bakery => "Bread · needs farm grain",
@@ -55,7 +56,7 @@ public partial class Game
             _buildingGroups.Add((panel, category));
         }
         Group(1, "Homes", "Give residents a place to live and sleep.", BuildingKind.Cottage, BuildingKind.Lodge);
-        Group(2, "Food choices", "Choose a livelihood that suits this land. A pantry moves food; it does not produce it.", BuildingKind.ForagerHut, BuildingKind.VegetableGarden, BuildingKind.FishingDock, BuildingKind.HuntingLodge, BuildingKind.Orchard, BuildingKind.Farm, BuildingKind.Bakery, BuildingKind.Pantry);
+        Group(2, "Food choices", "Choose a livelihood that suits this land. A pantry moves food; it does not produce it.", BuildingKind.ForagerHut, BuildingKind.VegetableGarden, BuildingKind.FishingDock, BuildingKind.HuntingLodge, BuildingKind.Orchard, BuildingKind.VegetableField, BuildingKind.Farm, BuildingKind.Bakery, BuildingKind.Pantry);
         Group(3, "Materials & home improvements", "Make planks, extract stone, or improve occupied homes.", BuildingKind.Sawmill, BuildingKind.Quarry, BuildingKind.Carpenter);
         Group(4, "Storage & bridges", "Shorten material deliveries and cross water.", BuildingKind.Stockpile, BuildingKind.Bridge);
         Group(5, "Places to gather", "Give neighbors somewhere to take a break together.", BuildingKind.SeatingGarden, BuildingKind.Square, BuildingKind.GatheringHall);

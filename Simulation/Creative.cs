@@ -53,7 +53,7 @@ public sealed partial class World
         _yardPlanks += site.ImprovementPlanks + site.StoredPlanks + site.OutputPlanks + (site.Material == Resource.Planks ? site.Delivered : 0);
         _stone+=site.DeliveredStone+site.StoredStone;
         Food.Grain += site.StoredGrain+site.InputGrain + (site.Kind == BuildingKind.Farm ? site.Harvest : 0);
-        Food.Vegetables += site.Kind == BuildingKind.VegetableGarden ? site.Harvest : 0;
+        Food.Vegetables += IsVegetablePlot(site.Kind) ? site.Harvest : 0;
         Food.Fruit += site.Kind == BuildingKind.Orchard ? site.Harvest : 0;
         Food.Bread += site.OutputBread;
         foreach (var person in affected) Interrupt(person);

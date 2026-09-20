@@ -10,7 +10,7 @@ public sealed partial class World
     public static Resource? ProductionOutput(BuildingKind kind) => kind switch
     {
         BuildingKind.ForagerHut => Resource.Berries, BuildingKind.Farm => Resource.Grain,
-        BuildingKind.VegetableGarden => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
+        BuildingKind.VegetableGarden or BuildingKind.VegetableField => Resource.Vegetables, BuildingKind.Bakery => Resource.Bread,
         BuildingKind.Orchard => Resource.Fruit,
         BuildingKind.HuntingLodge => Resource.Game, BuildingKind.Quarry => Resource.Stone, BuildingKind.Sawmill => Resource.Planks, BuildingKind.FishingDock => Resource.Fish, _ => null
     };
@@ -42,7 +42,7 @@ public sealed partial class World
             Resource.Fish => StoredFood(Resource.Fish) + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
             Resource.Berries => StoredFood(Resource.Berries) + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
             Resource.Grain => StoredGrain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
-            Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8),
+            Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8) + Crops(BuildingKind.VegetableField,20),
             Resource.Fruit => StoredFood(Resource.Fruit) + cargo + Crops(BuildingKind.Orchard, 8),
             Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * BreadPerGrain) +
                 People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * BreadPerGrain) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * BreadPerGrain),

@@ -9,7 +9,7 @@ namespace Inlanders.Simulation;
 public readonly record struct Cell(int X, int Z) { public Vector2 Point => new(X, Z); }
 public enum Role { Unassigned, Logger, Builder, Forager, Farmer, Baker, Sawyer, Hauler, Fisher, Quarrier, Hunter, Carpenter }
 public enum Resource { Logs, Berries, Grain, Bread, Planks, Vegetables, Fish, Stone, Game, Fruit }
-public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter, Orchard }
+public enum BuildingKind { Cottage, ForagerHut, Farm, Bakery, Sawmill, Lodge, Square, Bridge, Stockpile, VegetableGarden, FishingDock, Quarry, GatheringHall, HuntingLodge, SeatingGarden, Pantry, Carpenter, Orchard, VegetableField }
 public enum Work { Waiting, ToArrival, ToTree, Chopping, ToStockpile, ToMaterials, ToCottage, ToBuild, Building,
     ToBush, Foraging, ToFarm, Planting, Harvesting, ToGrain, ToOven, Baking, ToBread, ToPantry, ToSupper, Supper,
     ToSapling, PlantingTree, ToSawLogs, ToSawmill, Sawing, ToPlanks, ToClearStump, ClearingStump, ToHaulPickup, ToHaulDrop, ToLeisure, Leisure, ToDemolish, Demolishing, ToRest, Resting, ToDock, Aboard, ToQuarry, Quarrying, ToHunt, Hunting, ToMealSupply, ToMealSeat, EatingMeal, ReturnMeal, ToFoodPickup, ToComfortPlanks, ToComfortHome, ToComfortInstall, InstallingComfort, ToComfortRecovery }

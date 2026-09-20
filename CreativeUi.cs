@@ -40,7 +40,7 @@ public partial class Game
         string? moveProblem=visible?_world.RelocationProblem(selected!.Id):null;
         _moveButton.Disabled=moveProblem!=null;_moveButton.TooltipText=moveProblem??"Choose a new location and orientation. Retains this building and its stored goods.";
         if(moveProblem==null && _world.Founding!=null)_moveButton.TooltipText="Move for free. Homes keep residents; workplaces keep goods and settings. Neighbors use the new entrance. Grain fields, orchards and crossings remain on their land.";
-        if(visible && selected!.Kind==BuildingKind.VegetableGarden && _world.Founding?.RiverFarmstead==true)
+        if(visible && World.IsVegetablePlot(selected!.Kind) && _world.Founding?.RiverFarmstead==true)
         {
             _moveButton.Text="Move garden · replant";
             _moveButton.TooltipText=moveProblem??"Move for free. Growing crops must be sown again; ripe produce and stored food stay. Pause first; resume after moving.";
@@ -62,8 +62,8 @@ public partial class Game
         _removeBuildingButton.Text = "Remove building";
         _removeBuildingButton.Disabled = problem != null;
         _removalInfo.Text = problem ?? "Creative: remove instantly. Stored goods return to the yard; villagers keep carried goods.";
-        if (selected.Kind == BuildingKind.VegetableGarden)
-            _siteInfo.Text = $"VEGETABLE GARDEN {selected.Id}\n\n1 farmer slot · crop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe · 8 per harvest\n" + (_world.SimulatesMeals ? "Residents collect real meals; hunger penalties are relaxed." : "Food needs are disabled.");
+        if (World.IsVegetablePlot(selected.Kind))
+            _siteInfo.Text = $"VEGETABLE GARDEN {selected.Id}\n\n1 farmer slot · crop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe · {World.VegetableYield(selected.Kind)} per harvest\n" + (_world.SimulatesMeals ? "Residents collect real meals; hunger penalties are relaxed." : "Food needs are disabled.");
         if (selected.Kind == BuildingKind.Square)
             _siteInfo.Text = $"VILLAGE SQUARE {selected.Id}\n\nShort breaks between jobs · no staff.\nLeave open space around the entrance. Supper is disabled in Creative.";
     }

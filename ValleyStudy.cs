@@ -96,7 +96,7 @@ public partial class Game
         if(_studyBoundary!=null && GodotObject.IsInstanceValid(_studyBoundary))_studyBoundary.Visible=UseLandscapeContext && (_placing || _terrainEditing || _movingSite>=0 || _bushMoving);
         if(!_storybookScene && _world.Founding==null)return;
         ApplyWorldLabels();
-        var sites=_world.Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Cottage or BuildingKind.Lodge or BuildingKind.ForagerHut or BuildingKind.SeatingGarden or BuildingKind.Square or BuildingKind.GatheringHall || _world.Founding?.TransformationHamlet==true && c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.Carpenter or BuildingKind.Pantry).ToArray();
+        var sites=_world.Cottages.Where(c=>c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Cottage or BuildingKind.Lodge or BuildingKind.ForagerHut or BuildingKind.SeatingGarden or BuildingKind.Square or BuildingKind.GatheringHall || _world.Founding?.TransformationHamlet==true && c.Complete && !c.DemolitionRequested && c.Kind is BuildingKind.Farm or BuildingKind.VegetableField or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.Carpenter or BuildingKind.Pantry).ToArray();
         var woods=_world.Founding?.TransformationHamlet==true?_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).ToArray():Array.Empty<TimberTree>();
         int key=17;foreach(var tree in woods)key=HashCode.Combine(key,tree.Id,tree.Cell);foreach(var site in sites)key=HashCode.Combine(key,site.Id,site.Cell,site.Rotation);
         foreach(var bridge in _world.Cottages.Where(c=>c.Complete && c.Kind==BuildingKind.Bridge))key=HashCode.Combine(key,bridge.Id,bridge.Cell,bridge.Rotation);
@@ -128,7 +128,7 @@ public partial class Game
                 float radius=site.Kind is BuildingKind.SeatingGarden or BuildingKind.Square?2.5f:_world.Founding?.TransformationHamlet==true?2.2f:1.8f;
                 float distance=new Vector2(at.X-site.Entrance.X,at.Z-site.Entrance.Z).Length();
                 float amount=Math.Clamp((radius-distance)/(radius*.65f),0,1);
-                if(amount<=strongest)continue;strongest=amount;earth=site.Kind is BuildingKind.ForagerHut or BuildingKind.Bakery or BuildingKind.Carpenter or BuildingKind.Farm or BuildingKind.VegetableGarden?new("927e59"):new("a28e68");
+                if(amount<=strongest)continue;strongest=amount;earth=site.Kind is BuildingKind.ForagerHut or BuildingKind.Bakery or BuildingKind.Carpenter or BuildingKind.Farm or BuildingKind.VegetableField or BuildingKind.VegetableGarden?new("927e59"):new("a28e68");
             }
             foreach(var (a,b) in links)
             {

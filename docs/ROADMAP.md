@@ -14,7 +14,7 @@
 
 Keep physical meals, labor, recoverable changes, optional arrivals and voluntary finishing. Preserving kitchen gardens is a legitimate preference. Compact and cultivated-bank layouts remain comparisons; joining three small plots did not complete the substantial working-landscape experiment. Test a neutral invitation and visible resident routines, with an authored repair alternative if needed. Reject arbitrary edits, prescribed commons solutions and payoff visible only in accounting panels.
 
-The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **66**. Direct domestic furnishing is playable; the early presentation-triggered whole-game review stops this run. Its verdict is partially convincing; the new framing/roof treatments are not acceptance of the promised house family or landscape. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
+The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **67**. Direct domestic furnishing is playable; the early presentation-triggered whole-game review is complete. Its verdict is partially convincing; the new framing/roof treatments are not acceptance of the promised house family or landscape. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
 
 ## What stays, what changes
 
@@ -88,3 +88,5 @@ Checkpoints56–60 delivered contested cultivation/shared ground, paused garden 
 
 
 Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. Checkpoint66 subsequently delivered direct furnishing and the first limited house/yard treatment; see [review66](REVIEW_PRESENTATION_66.md).
+
+Checkpoint67 adds a real larger vegetable plot, with proportional area/crop/construction cost and additional physical work. This supplies the farmstead comparison; it does not by itself complete the landscape. Active run67–71 includes review70 before the fifth outcome and stops for the user’s playtest.

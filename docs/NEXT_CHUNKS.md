@@ -1,6 +1,6 @@
 # Next chunks — a working farmstead, not an upgrade checklist
 
-Count **66**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. Stop this requested run after review closeout. No67 implementation.
+Count **67**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
 
 ## Direction
 
@@ -31,3 +31,5 @@ These are coherent scopes, not automatic checkpoint credits. A slice may span im
 Delivered66: direct home-card furnishing/cancellation, shared delivery/installation without public carpenter workshop, clear-center yard furniture and initial framing/roof variations (`f3932b7`). Art direction and personal motivation remain unaccepted.
 
 No inheritance, ownership bureaucracy, genealogy, aging, succession, seasons/winter deadlines, new needs, mandatory growth or longer quotas.
+
+Progress67: larger functional vegetable-field option delivered. Next68: use that real land extent in the bank opening; then spatial yard choices and outcome-first previews. Choose71 after review70, prioritizing playtest readiness.

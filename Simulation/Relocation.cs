@@ -67,7 +67,7 @@ public sealed partial class World
         site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));
         site.DockFromFar=site.Kind==BuildingKind.FishingDock && DockEntrance(at,rotation)==FarBank(at,rotation);
         site.Cell=at;site.Rotation=rotation;Cottages.Insert(index,site);
-        if(site.Kind==BuildingKind.VegetableGarden && site.Harvest==0)
+        if(IsVegetablePlot(site.Kind) && site.Harvest==0)
         {
             site.Planted=false;site.Growth=0;
             History.Add("Kitchen garden moved: sow a fresh crop here. Ripe produce and stored food are retained.");
