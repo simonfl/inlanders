@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: working outdoor places**, selected by [whole-game review65](REVIEW_CHECKPOINT_65.md). The public finite hamlet is more coherent, but freedom to rearrange still needs a personally worthwhile payoff. Bring existing domestic forecourt life forward through direct shared work/material delivery, reconsider overlapping shared-place systems, and test actual cultivated-land extent at meaningful scale. Replace gates and redundant concepts instead of adding services or meters.
+**Next: a working-farmstead comparison**, selected by [whole-game presentation review66](REVIEW_PRESENTATION_66.md). The public finite hamlet is more coherent, but freedom to rearrange still needs a personally worthwhile payoff. Direct domestic furnishing is delivered. Now merge the overlapping shared-place and cultivated-land experiments into a coherent home/land/outdoor-life composition, with materially different usable arrangements. Replace gates and redundant concepts instead of adding services or meters.
 
 Keep physical meals, labor, recoverable changes, optional arrivals and voluntary finishing. Preserving kitchen gardens is a legitimate preference. Compact and cultivated-bank layouts remain comparisons; joining three small plots did not complete the substantial working-landscape experiment. Test a neutral invitation and visible resident routines, with an authored repair alternative if needed. Reject arbitrary edits, prescribed commons solutions and payoff visible only in accounting panels.
 
-The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **66**. Direct domestic furnishing is playable; a presentation-triggered whole-game review follows this first F40 house/yard slice before further implementation. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
+The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **66**. Direct domestic furnishing is playable; the early presentation-triggered whole-game review stops this run. Its verdict is partially convincing; the new framing/roof treatments are not acceptance of the promised house family or landscape. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
 
 ## What stays, what changes
 
@@ -37,7 +37,7 @@ The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Play
 
 | Priority | Item |
 | --- | --- |
-| Next integrated slice | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
+| Partial66; massing comparison still next | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
 | Alongside F39a/F39c | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
 | Following the first ensemble | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
 | Extend the chosen scene | **F40f — clothing, tools and everyday poses**; **F40g — light, atmosphere, sound and music**. |
@@ -87,4 +87,4 @@ Checkpoints41–45 delivered real cultivated ground, home waiting, resident jour
 Checkpoints56–60 delivered contested cultivation/shared ground, paused garden relocation with replanting, actual approach paths and fuller crops, concise entry/action hierarchy, and paired current food-access inspection. [Review60](REVIEW_CHECKPOINT_60.md) records the five-role critique and final evidence. The hands-on reviewer was blocked before any input by a window-state tool hang; scripted controls, simulation and stills remain distinct from play or enjoyment evidence. Save replacement denial remains open. F38 was the following implementation queue; F39/F40 now define the active priorities.
 
 
-Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. No66 implementation.
+Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. Checkpoint66 subsequently delivered direct furnishing and the first limited house/yard treatment; see [review66](REVIEW_PRESENTATION_66.md).

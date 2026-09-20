@@ -5,7 +5,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **66**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; stop here.
+- Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; review66 below is an early presentation follow-up.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
 - Previous review50: [synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures.
@@ -14,7 +14,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
 - Next four-role review: **checkpoint 70**.
-- Latest whole-game visual/audio supplement: **checkpoint65**, [synthesis](REVIEW_CHECKPOINT_65.md). Source/stills/extracted frames; no listening or continuous-motion acceptance.
+- Latest whole-game visual/audio supplement: **checkpoint66**, [early presentation review](REVIEW_PRESENTATION_66.md), fixed `f3932b7`. Five fresh independent roles; hands-on playtest unperformed, evidence audit only. No listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint 70**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -291,3 +291,8 @@ Closeout65 validation: zero-warning build; compact960 and bank960 native public-
 
 
 Checkpoint66 · F39a / first F40a,c slice: occupied homes can be furnished directly from their world card. Shared workers deliver/install real planks without a carpenter workshop in public hamlets; redundant workshop catalogue entry removed there. Normal four-phase cancellation/recovery/reorder and exact continuation pass in both layouts, relaxed instant furnishing retained, legacy carpenter checks pass. Two framing/roof treatments, deeper stone footing and clear-center yard furniture accompany actual domestic use. Native960 order/cancel/catalog/public flow passes. House forms draw on the museum reference already in NEW_FRANCE_ART_DIRECTION.md; these are stylized interpretations, not reconstructed historical buildings. Freeze for an early whole-game presentation review; no67 work. Regular review70 remains due.
+
+
+**Presentation-triggered whole-game review66 — September20,2026:** fixed `f3932b7730f5ffd3af2e34524170fc0bbcedd7a3`; [synthesis and evidence](REVIEW_PRESENTATION_66.md). Five fresh independent reviewers in batches, all partially convincing. Actual play unperformed; scripts/stills/source explicitly distinguished. All18 current suites, broad regressions, focused direct/legacy comfort and two native960 flows passed. Choose a coherent working-farmstead comparison; do not count minor framing/roof variants as F40a acceptance. Concrete copy/recovery/test closeout counts zero. Stop this requested run after the early review; only66 delivered, no67. Regular review70 remains due.
+
+Review66 closeout: stale public workshop instruction corrected, relaxed Details says free, cancellation summary shows physical recovery. Expanded active-phase exact continuation and relocation/demolition tests pass; final native960 `20260920-191616-741-transformation-388ec4` passes. Zero-warning build/diff check. Corrections count zero; count remains66 and next periodic review70.

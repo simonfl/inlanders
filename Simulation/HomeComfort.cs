@@ -44,6 +44,8 @@ public sealed partial class World
     }
     public string ComfortSummary(Cottage home)
     {
+        if(!home.Improved && !home.ImprovementRequested && (home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==home.Id)))
+            return $"Cancelled furnishing · recovering {home.ImprovementPlanks} delivered planks. Carried supplies return physically. Wait for recovery before ordering again.";
         if(Founding?.RiverFarmstead==true && !home.ImprovementRequested)
             return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the sides of the entrance to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. {(PublicPlace!=null?"Shared workers deliver and install the planks":"Requires carpenter and planks")}; keep entrance sides clear.");
         if(home.Improved) return "Improved home · rest benefit lasts 5m; next rest due after 4m. No extra beds.";

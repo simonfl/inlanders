@@ -16,6 +16,7 @@ public partial class Game
         await UiClick(_workCardFurnish);await Frames();Check(domestic.ImprovementRequested && _workCardFurnish.Text=="Cancel furnishing","Direct furnishing order failed");
         await CaptureReviewBundle("direct-domestic-order");
         await UiClick(_workCardFurnish);await Frames();Check(!domestic.ImprovementRequested,"Direct furnishing cancellation failed");ClearSelection();
+        SelectBuilding(domestic.Id);await Frames();Check(!_comfortInfo.Text.Contains("workshop") && _comfortInfo.Text.Contains("Shared workers"),"Home details teach obsolete workshop requirement");CloseDrawer();ClearSelection();
         await Press(Key.B);await Frames();_buildingFilter.Select(3);UpdateVillageDirectory();await Frames();Check(!_kindButtons[BuildingKind.Carpenter].IsVisibleInTree(),"Redundant workshop still offered");CloseDrawer();
         await Press(Key.G);await Frames();Check(!_foundingFinish.Disabled,"Personal ending is gated by production");
         await UiClick(_foundingFinish);await Frames();Check(_world.Founding!.Finished && _paused && _hamletEnding.Visible && !_drawer.Visible,"Personal finish failed");await CaptureReviewBundle("personal-ending-world");
@@ -46,6 +47,7 @@ public partial class Game
         await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();Check(_world.Creative && _world.SimulatesMeals && _world.BreadPerGrain==4 && CurrentSavePath==TransformationSavePath(true),"Relaxed entry/rules/slot failed");
         await Press(Key.F5);string relaxedSave=_world.SaveJson();Reset();await Frames();Check(_world.Creative && _world.Founding?.TransformationHamlet==true,"Relaxed restart lost mode");
         await Press(Key.O);await Frames();await UiClick(_restoreRestart);await Frames();Check(_world.SaveJson()==relaxedSave,"Relaxed restore differs");
+        var relaxedHome=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);SelectBuilding(relaxedHome.Id);await Frames();Check(_comfortOrder.Text.Contains("free"),"Relaxed forecourt wrongly advertises plank cost");CloseDrawer();ClearSelection();
         await ProbePublicPlaceContract();
         GD.Print("PASS: hamlet menu/brief/intent, isolated save, Continue and restart through native controls.");
     }

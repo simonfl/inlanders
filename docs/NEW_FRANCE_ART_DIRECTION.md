@@ -38,3 +38,8 @@ Then carry the chosen language into the oven/work structures and landing, follow
 - Inspect 960/1440 views, motion, occlusion and dense-scene clarity. Audition actual quiet/busy sound; stills and cue counts cannot approve it.
 
 Substantial presentation delivery triggers an independent visual/audio review. Documentation, reference boards and unplayable asset foundations do not advance the playable checkpoint count. No new resource chain, needs, ownership, inheritance or seasons are implied by this art track.
+
+
+## Checkpoint66 assessment
+
+Direct furnishing and two framing/roof treatments with clear-center yard furniture are playable. [Review66](REVIEW_PRESENTATION_66.md) explicitly does **not** accept this as the substantial house family or farmstead composition: narrow repeated gables, uniform lawn and token cultivation still dominate. Keep the warm style provisionally; the next slice changes real cultivated extent, home grouping, broader/lower massing and useful outdoor ground together. Do not substitute more tiny props for that structural experiment.
