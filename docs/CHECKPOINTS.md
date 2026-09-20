@@ -4,16 +4,20 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **50**.
-- Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 have since completed.
-- Last periodic review: **checkpoint 45**, [five-role synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`; one fresh and four reused independent contexts, source/stills and existing scripted evidence, no human play/listening.
+- Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
+- Last periodic review: **checkpoint 50**, [whole-game synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures. Source/stills/scripted coverage; no uncoached play, motion or listening acceptance. Third requested review completed; stop this run.
+- Earlier periodic review: **checkpoint 45**, [synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`, one fresh and four independent reused contexts.
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 50**; the user requests stopping after the third synthesis at 50.
-- Latest whole-game visual/audio supplement: **checkpoint 40**, [synthesis](REVIEW_CHECKPOINT_40.md). Fresh independent role; source/stills only, audio remains unjudged.
-- Next regular visual/audio review: **checkpoint 50**. Substantial presentation changes trigger earlier reviews.
+- Next four-role review: **checkpoint 55**.
+- Latest whole-game visual/audio supplement: **checkpoint 50**, [synthesis](REVIEW_CHECKPOINT_50.md). Independent reused role; source/stills only, audio remains unjudged.
+- Next regular visual/audio review: **checkpoint 60**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**Review50 closeout (no increment):** Whole-game synthesis chooses one sustained normal/relaxed transformation comparison. Four independent contexts and dependent playtest-evidence pass; staffing and observation limits explicit. Correct semantic home reading, provisioning food guidance, stable workplace-card side and comparison report isolation. Validation recorded in review50. Requested three-review run ends at50.
+
 
 **F36e — checkpoint50:** [World workplace reading](WORKPLACE_READING_F36E.md), direct activity/food card and actual resident follow with pause/move/details. Native960/1440 integrated furnishing/current-save flows and broad default regression pass. Third requested whole-game review50 due now; freeze further implementation.
 

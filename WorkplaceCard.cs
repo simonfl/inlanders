@@ -9,13 +9,16 @@ public partial class Game
     private int _workCardSite=-1;
     private World? _workCardWorld;
     private float _nextWorkCard;
+    private bool _workCardRight;
     private bool UsesWorkCard(Cottage site)=>(_world.Founding!=null || _world.IsArrangementCourt) && site.Complete &&
         (World.ProductionOutput(site.Kind)!=null || site.Kind is BuildingKind.Carpenter or BuildingKind.Pantry);
     private Villager? CardWorker()=>_world.People.FirstOrDefault(p=>p.WorkplaceId==_workCardSite);
     private Villager? CardDiner()=>_world.People.FirstOrDefault(p=>p.Meal is { } m && (m.Reserved || m.Carrying) && m.SourceId==_workCardSite);
     private void ShowWorkplaceCard(int id)
     {
-        ClearSelection();CloseDrawer();_workCardSite=_selectedSite=id;_workCardWorld=_world;_nextWorkCard=0;RefreshSelection();
+        ClearSelection();CloseDrawer();_workCardSite=_selectedSite=id;_workCardWorld=_world;_nextWorkCard=0;
+        var site=_world.Cottages.First(c=>c.Id==id);
+        _workCardRight=_camera.UnprojectPosition(BuildingPosition(site.Cell,site.Rotation,site.Kind)).X<_hud.Size.X/2;RefreshSelection();
     }
     private void MakeWorkplaceCard()
     {
@@ -36,12 +39,11 @@ public partial class Game
         if(_workCardWorld!=_world)_workCardSite=-1;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);
         bool show=site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
-        _workCard.Visible=show;if(!show)return;
+        _workCard.Visible=show;if(!show || site==null)return;
         _workCard.Size=new(330,0);
-        var anchor=_camera.UnprojectPosition(BuildingPosition(site!.Cell,site.Rotation,site.Kind));
-        _workCard.Position=new(anchor.X<_hud.Size.X/2?_hud.Size.X-346:16,92);
+        _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
-        var worker=CardWorker();var diner=CardDiner();var report=_world.ReadWorkplace(site);
+        var worker=CardWorker();var diner=CardDiner();var report=_world.ReadWorkplace(site!);
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+report.State+"\n"+
             (worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);
         if(_world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Pantry)

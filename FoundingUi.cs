@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Inlanders.Simulation;
 using System.IO;
@@ -63,7 +64,8 @@ public partial class Game
         var flow=_world.ReadFoodFlow();
         float delivered=flow.Seconds>0?flow.Delivered*60f/flow.Seconds:0;
         _foundingFood.Text=$"FOOD FOR GROWTH\n{_world.EdibleStored} stored · {_world.Population} portions needed per minute\n"+
-            (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
+            (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(f.ProvisionedLife?"":delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
+        if(f.ProvisionedLife)_foundingFood.Text+="\n"+(_world.People.Any(p=>!p.Fed)?"A resident missed a meal — inspect food access.":_world.EdibleStored<_world.Population?"Less than one meal each remains — check supply.":_world.FoodWorkNeeded?"Replenishing reserves.":"Reserves ready — shared food work can rest.");
         _foundingFood.TooltipText=$"Observed over the last {flow.Seconds:0} simulated seconds. New producer deliveries only; transfers between stores are excluded. This is history, not a forecast or a guarantee that meals arrive on time. Two newcomers add two portions per minute. Inspect food to check locations and routes.";
         if(f.ProvisionedLife)_foundingFood.Text+="\nShared workers provision about four meals each, then return home or take building work. Food work resumes as stores fall; dedicated workers keep their own workplace routine.";
         if(f.RiverFarmstead)_foundingFood.Text=_foundingFood.Text.Replace("FOOD FOR GROWTH","DAILY FOOD");

@@ -32,6 +32,9 @@ static class FoodLivelihoodChecks
             var producers=w.Cottages.Where(c=>World.ProductionOutput(c.Kind)!=null).ToArray();
             rows.Add(new {arm,w.Population,quiet,work,hungry,mealWalk,food=w.EdibleStored,land=producers.Sum(c=>World.Footprint(c.Cell,c.Rotation,c.Kind).Count()),logs=producers.Sum(c=>c.Required)});
         }
-        string json=JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true});Console.WriteLine(json);File.WriteAllText("artifacts/food-livelihood/report.json",json);
+        string json=JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true});Console.WriteLine(json);
+        string stem=chosen==null?"report":"report-"+chosen;
+        File.WriteAllText($"artifacts/food-livelihood/{stem}.json",json);
+        File.WriteAllText($"artifacts/food-livelihood/{stem}.manifest.json",JsonSerializer.Serialize(new {assembly=typeof(FoodLivelihoodChecks).Assembly.ManifestModule.ModuleVersionId,utc=DateTime.UtcNow,scope=chosen??"all seven arms",producerExpansion=false},new JsonSerializerOptions{WriteIndented=true}));
     }
 }

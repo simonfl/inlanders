@@ -9,7 +9,10 @@ public sealed partial class World
                 !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray()
         :System.Array.Empty<Cell>();
     public bool AtFurnishedHome(Villager person)=>person.HomeId is int id && Cottages.FirstOrDefault(c=>c.Id==id) is {} home && HomeYardPlaces(home).Contains(At(person));
-    public bool QuietAtFurnishedHome(Villager person)=>person.Task==Work.Waiting && person.Route.Count==0 && AtFurnishedHome(person);
+    public bool AvailableAtHome(Villager person)=>person.SharedWorker && person.Task==Work.Waiting && person.Route.Count==0 &&
+        person.HomeId is int id && Cottages.FirstOrDefault(c=>c.Id==id && c.Complete && IsHome(c)) is {} home &&
+        (At(person).Point-home.Entrance.Point).LengthSquared()<=4 && At(person)!=YardAccess && !Cottages.Any(c=>c.Entrance==At(person));
+    public bool QuietAtFurnishedHome(Villager person)=>AvailableAtHome(person) && AtFurnishedHome(person);
     private Cell? HomeMealPlace(Villager person,Cell supply)
     {
         if(person.HomeId is not int id || Cottages.FirstOrDefault(c=>c.Id==id) is not {} home ||

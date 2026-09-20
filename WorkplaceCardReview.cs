@@ -18,6 +18,9 @@ public partial class Game
         }
         await Open();string before=_world.SaveJson();await CaptureReviewBundle("world-workplace-card");
         Check(_world.SaveJson()==before,"Workplace reading changed state");
+        var cardPosition=_workCard.Position;var originalFocus=_focus;
+        foreach(float offset in new[]{-12f,12f}){_focus=originalFocus+new Vector3(offset,0,0);UpdateCamera();await Frames();Check(_workCard.Position==cardPosition,"Workplace card switched sides during pan");}
+        _focus=originalFocus;UpdateCamera();await Frames();
         await UiClick(_workCardPause,6);await Frames();Check(site.WorkPaused && !_workCardMove.Disabled,"Pause/move recovery absent");
         await UiClick(_workCardPause,6);await Frames();Check(!site.WorkPaused,"Resume failed");
         await UiClick(_workCardDetails);await Frames();Check(_inspector.Visible && !_inspectorSecondary.Visible && !_workCard.Visible,"Details transition failed");

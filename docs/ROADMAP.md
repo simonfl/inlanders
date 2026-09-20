@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: implement the resident-centered cycle selected by [review 45](REVIEW_CHECKPOINT_45.md).** Provisioning should release time for visibly used homes and outdoor places. Reconsider work scheduling, grain's role and default inspection together; more buildings and scenarios remain deferred. The warm visual language stays, but whole-place composition needs redesign around resident use.
+**Next: test sustained, consequential village transformation**, as selected by [whole-game review 50](REVIEW_CHECKPOINT_50.md). Provisioning and domestic/shared life are retained, but stable supply and attractive activity do not yet establish a satisfying longer game. Compare an established hamlet with scarce convenient ground, woodland/expansion choices and remote productive ground against a relaxed version of the same place and rules. Several decisions must affect what is sensible next; one crossing or oven must not solve the entire situation.
 
-Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
+Keep the easy opening as introduction/control. Do not add more needs, catalogue entries, mills or tutorial scenarios before this comparison. Normal and Free should share recipes, domestic behavior and scheduling; test consolidation in the prototype before changing the public modes. Improve whole-place composition alongside the land decisions, rather than adding isolated decoration.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **50**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines gates and alternatives. Playable count **50**. All three requested review syntheses, **40, 45 and 50**, are complete; this run stops here. Review50 has four independent disciplinary contexts plus a dependent playtest-evidence pass after agent-limit failures, not five independent reviewers. Next periodic review55; visual/audio60 or earlier after substantial presentation changes.
 
 ## What stays, what changes
 
@@ -22,7 +22,7 @@ The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count 
 | --- | --- |
 | Core loop | Read the land, establish reliable food and homes, connect work and daily life, recover from mistakes, improve or finish. Keep shared work, physical materials/meals, optional arrivals and forgiving housing/public-space moves. |
 | Land and maps — F01/F02/F12 | River frontage, long cultivated areas, kitchen gardens, woodlots and useful paths give the settlement its structure. Reuse current clearing, preservation, water and route rules. Exact plots remain freely arranged; no land-ownership bureaucracy. |
-| Food — F05/F07/F24/F26 | Put cultivation and food processing in the foreground; use fish, gathered foods and woodland as complementary choices. Validate bread under current shared work. Storage should solve actual access/batch problems, not serve a required building checklist. |
+| Food — F05/F07/F24/F26 | Put cultivation and food processing in the foreground; use fish, gathered foods and woodland as complementary choices. Compare adaptive food plans at equal investment; eight-portion normal bread is retained provisionally. Storage should solve actual access/batch problems, not serve a required building checklist. |
 | Homes and community — F04/F25 | Comfortable occupied homes and modest shared places express improvement. Keep food, home rest and recreation; no automatic education, religion, warmth or additional satisfaction meters. |
 | Buildings — F08/F23/F26 | Reassess names, scale, construction and environment as one small period-informed palette. Keep all current buildings available while comparing their usefulness. A historical setting does not require every historical institution. |
 | Campaign/onboarding — F11/F18/F19/F21 | Give each situation a practical land/labor problem, two plausible approaches and recoverable mistakes. Teach ordinary rules in the place being built. Remove population expansion and first-visitor recipes as the default definition of achievement. |
@@ -37,7 +37,7 @@ These are candidates, not a shopping list. Reevaluate after seeing the themed sl
 
 | Priority | Candidate | Decision it should add / smallest scope |
 | --- | --- | --- |
-| First | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
+| Alongside next comparison | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
 | Delivered, evaluate | **F34c — cultivated ground** | Real 3 × 5 grain fields with walking/work, compact gardens retained. Whether grain deserves its larger footprint remains an open design question. |
 | Conditional | **F34d — milling and bread** | A mill or combined milling/baking treatment may give grain a recognizable, geographically meaningful chain. Test siting/labor payoff; do not add flour plus another mandatory wait solely for historical completeness. The farm/bakery chain already exists; compare its value under current rules. |
 | Later | **F26/F34e — pasture or river exchange** | Livestock could compete for cleared land/feed; a landing could carry actual goods. Prototype one only when it differs from gardens or land hauling. Animal breeding, full trade markets and fleets are not implied. |
@@ -68,16 +68,4 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
-Review45 corrections delivered: shared rendered-person interaction coordinates and explicit six-suite current-experience validation. F36a is next; no extra playable count.
-
-Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 selects the F36 resident-centered cycle; continue through review50.
-
-[F36a provisioned livelihood](PROVISIONED_LIFE_F36A.md) retained as46. Next normal shared outdoor place, then reassess domestic/food choices.
-
-[F36b normal shared outdoor meals](NORMAL_COMMONS_F36B.md) retained as47; F36c domestic use next. Occlusion and compound composition remain unresolved.
-
-[F36c furnished domestic use](HOME_YARDS_F36C.md) retained as48 after independent visual supplement. Grain still loses the current land/labor comparison; F36d addresses that before integration/review50.
-
-[F36d grain capacity](FOOD_LIVELIHOOD_F36D.md) retained as49. F36e adds world-level workplace reading; existing policy folding needs no duplicate implementation. Review50 next after that outcome.
-
-[F36e world workplace reading](WORKPLACE_READING_F36E.md) retained as50. Full whole-game review50 is the next action and third requested synthesis; freeze implementation until its direction decision.
+Checkpoints41–45 delivered real cultivated ground, home waiting, resident journeys, workplace relocation and an inhabited inlet. Checkpoints46–50 delivered [provisioning](PROVISIONED_LIFE_F36A.md), [normal shared meals](NORMAL_COMMONS_F36B.md), [furnished forecourts](HOME_YARDS_F36C.md), [grain capacity](FOOD_LIVELIHOOD_F36D.md) and [world workplace cards](WORKPLACE_READING_F36E.md). Reviews [40](REVIEW_CHECKPOINT_40.md), [45](REVIEW_CHECKPOINT_45.md) and [50](REVIEW_CHECKPOINT_50.md) record retention, rejected assumptions and evidence limits. Corrections/tooling do not advance the count.

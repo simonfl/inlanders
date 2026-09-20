@@ -1,17 +1,22 @@
-# Next chunks — resident-centered village
+# Next chunks — sustained village transformation
 
-[Whole-game review 45](REVIEW_CHECKPOINT_45.md) chooses a provisioned livelihood that releases time for home and shared places. Playable count **50**; reviews **40 and 45 complete**, continue through the third review at **50**.
+[Whole-game review 50](REVIEW_CHECKPOINT_50.md) selects the next experiment. Playable count **50**; requested reviews **40, 45 and 50 completed**. Stop this execution run here. Next periodic review55, visual/audio60 or earlier for substantial presentation changes.
 
-Rendered farmer selection/follow is corrected and the six-suite `--current-experience` profile passes, including prerequisite snapshot generation and result provenance. Corrections/tooling count zero. F36a–e retained as46–50. **Freeze implementation: full review50 is due now.**
+## Next: F37 — one place, consequential choices
 
-| Order | Outcome | Decision and rejection gate |
-| --- | --- | --- |
-| Delivered46 · F36a | Provisioning-led daily rhythm | Shared workers stop unnecessary food production when supplied, remain responsive to projects and shortages. Compare existing surplus work with the same village; reject starvation, frozen work or an unexplained empty village. |
-| Delivered47 · F36b | A shared outdoor place in normal play | Ordinary meals gather at a player-chosen place near food. Actual routes, removal, siting and current saves matter; no new compulsory building or ceremony. |
-| Delivered48 · F36c | A domestic improvement residents use | Rework the existing home improvement into visible outdoor domestic use, with understandable labor consequences. No extra need/meter or merely more shutters. |
-| Delivered49 · F36d | Useful cultivation and spatial choice | Compare shore, compact garden and grain under the new rhythm; retain a meaningful food/land alternative or simplify the chain. Test an extension of the same village, not another tutorial. |
-| Delivered50 · F36e | Integrated village continuation | Existing policy folding is already implemented. Add a compact world workplace card tied to actual workers/collectors and connect the retained choices in an extended playable session. Reconsider the direction if the earlier experiments fail. |
+| Step | Scope and gate |
+| --- | --- |
+| F37a · transformation comparison | Prototype an established hamlet with scarce convenient ground, retained woodland versus expansion, domestic space versus cultivation, and remote useful ground requiring access. Normal and relaxed variants use identical geometry, recipes, domestic behavior and scheduling; relaxation changes deliberate construction/hunger constraints only. Reuse scenario infrastructure; keep this a development comparison until accepted. |
+| Evidence · adaptive livelihoods | Compare grain with expanded gardens and mixed shore/garden plans at comparable investment and population. Permit sensible recovery, relocation and postponed arrivals. Existing fixed-producer results show capacity, not optimality. Testing alone adds no playable count. |
+| F37b · whole-place presentation | Shape terrain, fields, homes and outdoor relationships around the retained decisions. Readable activity at ordinary zoom, not more roofs on a lawn. Pair stills with resident-day motion/audio observation when available; do not claim listening or human preference from source. |
+| Decision gate | Record a player-created plan, an imperfect intervention, recovery and what changes next. Reject a prescribed build sequence, a single bridge solution, forced population ladder or longer waiting disguised as depth. Promote, redesign or cut; a finite expressive toy remains an alternative, not an assumed winner. |
 
-These are hypotheses; replace later scope based on evidence after every chunk. Do not count tests, foundations, balance experiments that are not retained, or corrections toward five. Keep Free as the composition comparison, archive the old campaign certificates, and freeze catalogue/scenario expansion.
+UI remains a major priority: make consequential choices and recovery understandable through direct world actions and contextual guidance. Preserve existing category browsing, folded policies and resident/workplace cards. Add interface only for demonstrated decision or comprehension problems.
 
-No inheritance/aging/generations, seasons, winter deadline or migrations. Descendants remain lore. Saves disposable; current-format correctness required. Human preference, motion and listening remain unobserved rather than approved.
+## Retained and deferred
+
+F36a–e delivered checkpoints46–50: provisioning-led rhythm, normal shared meals, furnished forecourts, grain capacity and workplace reading. Keep shared labor, real goods/meals, optional arrivals and forgiving movement. Easy opening remains the introduction/control. Public Free alignment is planned through the comparison, not already implemented. Archived campaigns supply useful geography, not certificate-based progression.
+
+Freeze new catalogue/needs/milling and a promised campaign series. No inheritance/aging/generations, seasons, winter deadline or migrations. Descendants remain lore. Saves disposable; current-format correctness required.
+
+Accept small evidence investments: isolated comparison reports with provenance, existing ten-suite current profile plus separate broad regressions, representative native captures and intervention traces. No speculative framework. After each retained playable outcome reevaluate this queue and roadmap; count outcomes once, not commits or test runs.

@@ -18,7 +18,7 @@ public sealed partial class World
             return new(p.Id,exists?source:null,p.Task==Work.EatingMeal?"Eating here":p.Task==Work.ReturnMeal?"Returning an uneaten meal":meal.Carrying?"Carrying a meal to a seat":"Collecting a meal",
                 eaten+(exists?FoodStoreName(source):"Food collected before its source was removed")+" · "+p.Status,p.Route.ToArray(),true,exists);
         }
-        if(Founding!=null && (p.Task!=Work.Waiting || p.Route.Count>0 || p.Status=="At home — available for work"))
+        if(Founding!=null && (p.Task!=Work.Waiting || p.Route.Count>0 || AvailableAtHome(p)))
         {
             bool home=p.Task is Work.ToRest or Work.Resting || p.Task==Work.Waiting;
             int? place=home?p.HomeId:p.Route.Count>0?Cottages.FirstOrDefault(c=>c.Entrance==p.Destination)?.Id:p.LeisureSiteId??p.SiteId??p.WorkplaceId??p.StorageId;

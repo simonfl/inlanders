@@ -13,8 +13,12 @@ static class HomeYardChecks
         {
             w.Tick(.1f);if(i%200==0)w.Validate();
             furnished=w.Cottages.Count(c=>c.Improved);
-            if(!quiet && w.People.Any(w.QuietAtFurnishedHome)) {quiet=true;w.SaveFile("artifacts/home-yards/quiet.json");}
-            if(!meal && w.People.Any(p=>p.Task==Work.EatingMeal && w.AtFurnishedHome(p))){meal=true;w.SaveFile("artifacts/home-yards/meal.json");}
+            if(!quiet && w.People.Any(w.QuietAtFurnishedHome)) {
+                var person=w.People.First(w.QuietAtFurnishedHome);string saved=w.SaveJson();var journey=w.ReadDailyJourney(person.Id);
+                Check(journey.Source==person.HomeId && journey.InspectLabel=="Inspect home" && journey.Route.Length==0,"Furnished resident reader lost actual home");
+                Check(saved==w.SaveJson(),"Domestic reader changed state");quiet=true;w.SaveFile("artifacts/home-yards/quiet.json");
+            }
+            if(!meal && w.People.Any(p=>p.Task==Work.EatingMeal && w.AtFurnishedHome(p))){var person=w.People.First(p=>p.Task==Work.EatingMeal && w.AtFurnishedHome(p));Check(w.ReadDailyJourney(person.Id).Heading=="Eating here","Meal did not precede domestic reading");meal=true;w.SaveFile("artifacts/home-yards/meal.json");}
             if(furnished==4 && quiet && meal)break;
         }
         Check(furnished==4 && quiet && meal,"Furnishing did not produce domestic use");
