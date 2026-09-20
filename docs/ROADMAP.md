@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: full whole-game review45 before further implementation.** [Review 40](REVIEW_CHECKPOINT_40.md) retains the opening provisionally and redirects the next cycle toward land occupancy, domestic life, an inhabited-village alternative and understandable recovery. The [first F34b pass](FARMSTEAD_PRESENTATION_F34B.md) improves homes/river; full working-land composition remains open. New building chains stay deferred.
+**Next: implement the resident-centered cycle selected by [review 45](REVIEW_CHECKPOINT_45.md).** Provisioning should release time for visibly used homes and outdoor places. Reconsider work scheduling, grain's role and default inspection together; more buildings and scenarios remain deferred. The warm visual language stays, but whole-place composition needs redesign around resident use.
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **45**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **45**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -68,4 +68,4 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
-Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 now determines the next cycle; the user requests continuing through review50.
+Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 selects the F36 resident-centered cycle; continue through review50.

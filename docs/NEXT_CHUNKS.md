@@ -1,9 +1,17 @@
-# Next chunks — review45 decision gate
+# Next chunks — resident-centered village
 
-Playable count **45**. Whole-game review45 is due now, before implementation. Review40 completed the first of three requested reviews;45 is second and50 will be third. Continue autonomously through the review50 synthesis.
+[Whole-game review 45](REVIEW_CHECKPOINT_45.md) chooses a provisioned livelihood that releases time for home and shared places. Playable count **45**; reviews **40 and 45 complete**, continue through the third review at **50**.
 
-[The delivered five-outcome queue](DELIVERED_WORKING_LAND_QUEUE.md) records cultivated land, domestic life, resident reading, workplace recovery and The long way home. Assess these as hypotheses alongside the entire game, including Free and archived campaigns. Critically test whether the current loop offers sustained agency or only a brief setup with optional decorating. Food abundance and grain's comparative value are unresolved; do not hide those questions with an imposed wait or building checklist.
+First correct rendered farmer selection/follow and add an explicit current-experience validation profile. These are corrections/tooling, no playable increment.
 
-Use independent designer, UX, playtest and development-lead roles plus visual/audio for the changed village composition. Freeze the source/build, record broad evidence and limitations, synthesize direction, then replace this queue with the next five meaningful outcomes. Tooling and fixes do not advance the count.
+| Order | Outcome | Decision and rejection gate |
+| --- | --- | --- |
+| 1 · F36a | Provisioning-led daily rhythm | Shared workers stop unnecessary food production when supplied, remain responsive to projects and shortages. Compare existing surplus work with the same village; reject starvation, frozen work or an unexplained empty village. |
+| 2 · F36b | A shared outdoor place in normal play | Ordinary meals gather at a player-chosen place near food. Actual routes, removal, siting and current saves matter; no new compulsory building or ceremony. |
+| 3 · F36c | A domestic improvement residents use | Rework the existing home improvement into visible outdoor domestic use, with understandable labor consequences. No extra need/meter or merely more shutters. |
+| 4 · F36d | Useful cultivation and spatial choice | Compare shore, compact garden and grain under the new rhythm; retain a meaningful food/land alternative or simplify the chain. Test an extension of the same village, not another tutorial. |
+| 5 · F36e | Integrated village continuation | Reduce initial production-inspector policy burden and connect the retained choices in an extended playable session. Reconsider the direction if the earlier experiments fail. |
 
-Les Habitants remains the public theme, Inlanders internal. Descendants are lore only; no inheritance/aging/generations, seasons, winter deadline or migrations. Saves are disposable but current-format correctness remains required.
+These are hypotheses; replace later scope based on evidence after every chunk. Do not count tests, foundations, balance experiments that are not retained, or corrections toward five. Keep Free as the composition comparison, archive the old campaign certificates, and freeze catalogue/scenario expansion.
+
+No inheritance/aging/generations, seasons, winter deadline or migrations. Descendants remain lore. Saves disposable; current-format correctness required. Human preference, motion and listening remain unobserved rather than approved.
