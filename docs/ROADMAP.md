@@ -4,17 +4,17 @@
 
 **Descendants are a theme, not a system.** No inheritance, genealogy, aging, succession, generational handoffs or legacy scores. The player builds a better village for the people living there; writing and the enduring place carry the longer-term aspiration.
 
-**Inlanders remains the internal codename:** repository, files, project, namespaces, assemblies, scripts, identifiers and save paths stay unchanged. Les Habitants is the planned public title and branding. This roadmap update does not change the executable's UI yet.
+**Inlanders remains the internal codename:** repository, files, project, namespaces, assemblies, scripts, identifiers and save paths stay unchanged. Les Habitants is now the public menu/HUD/window identity.
 
 ## Current direction and next step
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: F34a, public identity and a focused reference palette; then F33b, one themed settlement situation.** Develop agriculture, the village's layout and visible daily activity together. The efficient result should look like a place people live and work, rather than a cluster of roofs around a stockpile. Farming must be useful and legible; it does not need a mandatory farmer quota or a ban on alternative food.
+**Next: F33b, one themed settlement situation.** [F34a public identity/reference palette](REFERENCE_PALETTE_F34A.md) is delivered. Develop agriculture, the village's layout and visible daily activity together. The efficient result should look like a place people live and work, rather than a cluster of roofs around a stockpile. Farming must be useful and legible; it does not need a mandatory farmer quota or a ban on alternative food.
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **36**. Periodic reviews remain **40 and 45** under the user's earlier run request; this planning review advances neither the count nor that stopping horizon. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **37**. The current implementation horizon is three full reviews: **40, 45 and 50**, as newly requested. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -55,7 +55,7 @@ Costs, outputs, field dimensions, chapter length, specific crops, new resource t
 - No inheritance, generational handoff, family simulation or legacy scoring; “for generations” is narrative tone only.
 - **F13 seasons stays removed.** Do not reintroduce an annual cycle, winter deadline or cold-survival system through the theme.
 - No combat, conquest, multiplayer, large technology tree, compulsory religious/education systems, detailed seigneurial taxation or full historical economy.
-- No internal rename or save migration. Do not claim a UI rename, historic art pass or new scenario has shipped from this planning change.
+- No internal rename or save migration. F34a ships public branding only; historic art and the new scenario remain pending.
 - Avoid expanding the catalogue, polishing every model, or adding needs before the livelihood-and-improvement experience proves useful.
 
 ## Delivered foundation and history

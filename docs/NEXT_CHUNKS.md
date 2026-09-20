@@ -1,10 +1,12 @@
 # Next chunks — Les Habitants
 
-Playable count **36**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. Periodic whole-game reviews remain 40 and 45, with the prior request to stop after 45. This turn updates the plan only; implementation continues from the revised order.
+Playable count **37**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
 
 **User constraint:** descendants are motivation only. No inheritance, aging, genealogy, succession, generational handoffs or legacy metrics. F13 seasons remains removed. Internal Inlanders naming stays. [Theme and references](LES_HABITANTS.md).
 
-## 1. F34a — public identity and one coherent reference palette
+## Delivered: F34a — public identity and one coherent reference palette
+
+[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. Next implementation is F33b.
 
 Apply **Les Habitants** and **A home for generations** to player-facing title/menu/HUD/window branding. Keep project, filenames, namespaces, assemblies, internal kinds, save paths and tooling names unchanged. Use the existing display-name boundary or one small shared title value; no generic localization framework or mass replacement.
 
@@ -44,4 +46,4 @@ Priorities after this slice: useful cultivated area/storage, a meaningful mill/b
 
 Accepted tooling: small public-title/display naming seam, compact reference sheet, existing snapshot comparisons and a short consumed observation/audition record. T07 did not reproduce sustained earlier stalls; profile a recurrence rather than speculate. Current-save correctness stays; no migrations or generalized asset/history/localization platform.
 
-Reevaluate after every chunk. Do not force these five rows to become five playable checkpoints: evidence-only work counts zero, substantial outcomes count once, and reviews 40/45 occur at their actual outcome counts. Follow [CHECKPOINTS.md](CHECKPOINTS.md).
+Reevaluate after every chunk. Do not force these five rows to become five playable checkpoints: evidence-only work counts zero, substantial outcomes count once, and reviews 40/45/50 occur at their actual outcome counts. Follow [CHECKPOINTS.md](CHECKPOINTS.md).

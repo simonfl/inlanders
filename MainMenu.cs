@@ -41,7 +41,7 @@ public partial class Game
         _menuControls.Clear();_menuBack=null;_menuPageTitle=title;
         int revision=++_menuPageRevision;Callable.From(()=>FocusMenuPage(revision)).CallDeferred();
         foreach (var child in _mainColumn.GetChildren()) { _mainColumn.RemoveChild(child); child.QueueFree(); }
-        _mainButtons.Clear(); _mainColumn.AddChild(Text("INLANDERS", 32, true)); _mainColumn.AddChild(Text(title, 20, true));
+        _mainButtons.Clear(); _mainColumn.AddChild(Text(PublicIdentity.Title, 32, true)); _mainColumn.AddChild(Text(title, 20, true));
         _mainScroll.ScrollVertical = 0;
         _menuMessage = Text("", 14, true); _mainColumn.AddChild(_menuMessage);
     }
@@ -54,14 +54,14 @@ public partial class Game
     {
         _atMainMenu = true; _paused = true; _placing = false; _pathStroke = false;
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
-        MenuPage("A quiet place to build");
+        MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
         MenuButton("Play", PlaySettlementsMenu);
         MenuButton("Free arrangement", ()=>CourtStartMenu(false));
         MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
-        _mainColumn.AddChild(Text("Small villages, growing trees, and a little room to breathe.", 15, true));
+        _mainColumn.AddChild(Text("New France, 17th century. Make a home by the river, live from the land, and build a life worth staying for.", 15, true));
     }
     private void RememberSettlement()
     {

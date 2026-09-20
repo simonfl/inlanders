@@ -10,7 +10,7 @@ A personal, local Windows settlement game about 17th-century French settlers in 
 
 Use a fictional rural settlement along the St. Lawrence as the first reference direction. The precise location and decade remain TBD within the 17th century; choose them before approving specific architecture, clothes, crops or named historical events. This is a stylized game informed by history, not a claim of documentary reconstruction.
 
-Keep Inlanders for repository/project names, namespaces, assemblies, scripts, internal identifiers and save paths. Change public title, menu/HUD branding and window title in a future UI chunk. Keep functional UI labels understandable; a French title does not require translating every control or renaming every existing file. The current executable still uses Inlanders until that chunk ships.
+Keep Inlanders for repository/project names, namespaces, assemblies, scripts, internal identifiers and save paths. Public title, menu/HUD branding and runtime window title now use Les Habitants. Keep functional UI labels understandable; a French title does not require translating every control or renaming every existing file. [F34a](REFERENCE_PALETTE_F34A.md) records delivery and the provisional 1670–1680 palette.
 
 F13 seasons remains removed. The setting is not authorization for a seasonal simulation, winter countdown, exposure meter or new survival catastrophe. Keep recoverable shortages and ordinary construction consequences. Combat, colonial conquest mechanics and detailed tax/tenure simulation are outside the proposed game. All buildings remain available; teaching order is not an unlock tree.
 

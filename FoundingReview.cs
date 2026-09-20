@@ -11,7 +11,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         async Task Click(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b,6);await Frames();}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
+        ShowMainMenu();await Frames();await CaptureReviewBundle("main-menu");await UiClick(_mainButtons["Play"]);await Frames();
         await UiClick(_mainButtons["Found a village · A home by the water"]);await Frames();
         await CaptureReviewBundle("founding-start-menu");
         await UiClick(_mainButtons["New · A home by the water"]);await Frames();

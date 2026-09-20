@@ -32,6 +32,7 @@ public partial class Game : Node3D
         GetTree().NodeAdded += RegisterWorldLabel;
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _campaignPath = "artifacts/campaign-smoke.json";
         GetWindow().MinSize = new(960, 640);
+        GetWindow().Title = PublicIdentity.Title + " — " + PublicIdentity.Tagline;
         MakeLandscape(); MakeAudio(); MakeUi();
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);

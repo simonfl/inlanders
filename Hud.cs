@@ -61,7 +61,7 @@ public partial class Game
         _hud = new Control { MouseFilter = Control.MouseFilterEnum.Ignore, Theme = HudTheme() };
         layer.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _topBar = HudPanel(_hud); var top = new HBoxContainer(); top.AddThemeConstantOverride("separation", 16); _topBar.AddChild(top);
-        _brand = Text("INLANDERS", 18); _brand.Modulate = _cream; top.AddChild(_brand);
+        _brand = Text(PublicIdentity.Title, 18); _brand.Modulate = _cream; top.AddChild(_brand);
         foreach (var resource in new[] { Resource.Logs, Resource.Planks, Resource.Berries, Resource.Grain, Resource.Bread, Resource.Vegetables, Resource.Fish, Resource.Stone, Resource.Game, Resource.Fruit })
         {
             var col = new VBoxContainer { CustomMinimumSize = new(62, 0), SizeFlagsHorizontal = Control.SizeFlags.ExpandFill };

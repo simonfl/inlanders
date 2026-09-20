@@ -2,7 +2,7 @@
 
 A personal Windows town-building game inspired by Outlanders, built with **Godot 4.6 and C# / .NET 8**. Visuals and sound effects are generated procedurally, with no downloaded art or audio assets.
 
-The planned public identity is **Les Habitants**: 17th-century French settlers in New France, farming and living from the land to build a better life. Descendants are a theme, with no inheritance or generational gameplay. **Inlanders remains the internal codename.** The executable's UI rename is queued; see the [theme brief](docs/LES_HABITANTS.md) and [roadmap](docs/ROADMAP.md).
+The public identity is **Les Habitants**: 17th-century French settlers in New France, farming and living from the land to build a better life. Descendants are a theme, with no inheritance or generational gameplay. **Inlanders remains the internal codename.** The menu, HUD and window use Les Habitants; see the [theme brief](docs/LES_HABITANTS.md) and [roadmap](docs/ROADMAP.md).
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
