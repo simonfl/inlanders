@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class FoundingProgress
 {
+    public bool ProvisionedLife { get; set; }
     public bool RiverFarmstead { get; set; }
     public bool WorkingVillage { get; set; }
     public bool Finished { get; set; }

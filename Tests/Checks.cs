@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--provisioned-life")){try{ProvisionedLifeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--current-experience")){try{CurrentExperienceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--land-regression")){try{TerrainChecks.Run();DemolitionChecks.Run();RiverChecks.Run();FinaleCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--working-village")){try{WorkingVillageChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

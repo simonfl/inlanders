@@ -59,6 +59,7 @@ public partial class Game
         _foundingFood.Text=$"FOOD FOR GROWTH\n{_world.EdibleStored} stored · {_world.Population} portions needed per minute\n"+
             (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
         _foundingFood.TooltipText=$"Observed over the last {flow.Seconds:0} simulated seconds. New producer deliveries only; transfers between stores are excluded. This is history, not a forecast or a guarantee that meals arrive on time. Two newcomers add two portions per minute. Inspect food to check locations and routes.";
+        if(f.ProvisionedLife)_foundingFood.Text+="\nShared workers provision about four meals each, then return home or take building work. Food work resumes as stores fall; dedicated workers keep their own workplace routine.";
         if(f.RiverFarmstead)_foundingFood.Text=_foundingFood.Text.Replace("FOOD FOR GROWTH","DAILY FOOD");
         _foundingFinish.Visible=!f.Finished && (f.RiverFarmstead || _world.Population>=12);_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
         _foundingFinish.TooltipText=_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";

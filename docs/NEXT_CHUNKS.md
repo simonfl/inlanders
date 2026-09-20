@@ -1,12 +1,12 @@
 # Next chunks — resident-centered village
 
-[Whole-game review 45](REVIEW_CHECKPOINT_45.md) chooses a provisioned livelihood that releases time for home and shared places. Playable count **45**; reviews **40 and 45 complete**, continue through the third review at **50**.
+[Whole-game review 45](REVIEW_CHECKPOINT_45.md) chooses a provisioned livelihood that releases time for home and shared places. Playable count **46**; reviews **40 and 45 complete**, continue through the third review at **50**.
 
-Rendered farmer selection/follow is corrected and the six-suite `--current-experience` profile passes, including prerequisite snapshot generation and result provenance. Corrections/tooling count zero. F36a next.
+Rendered farmer selection/follow is corrected and the six-suite `--current-experience` profile passes, including prerequisite snapshot generation and result provenance. Corrections/tooling count zero. F36a retained as46; F36b next.
 
 | Order | Outcome | Decision and rejection gate |
 | --- | --- | --- |
-| 1 · F36a | Provisioning-led daily rhythm | Shared workers stop unnecessary food production when supplied, remain responsive to projects and shortages. Compare existing surplus work with the same village; reject starvation, frozen work or an unexplained empty village. |
+| Delivered46 · F36a | Provisioning-led daily rhythm | Shared workers stop unnecessary food production when supplied, remain responsive to projects and shortages. Compare existing surplus work with the same village; reject starvation, frozen work or an unexplained empty village. |
 | 2 · F36b | A shared outdoor place in normal play | Ordinary meals gather at a player-chosen place near food. Actual routes, removal, siting and current saves matter; no new compulsory building or ceremony. |
 | 3 · F36c | A domestic improvement residents use | Rework the existing home improvement into visible outdoor domestic use, with understandable labor consequences. No extra need/meter or merely more shutters. |
 | 4 · F36d | Useful cultivation and spatial choice | Compare shore, compact garden and grain under the new rhythm; retain a meaningful food/land alternative or simplify the chain. Test an extension of the same village, not another tutorial. |

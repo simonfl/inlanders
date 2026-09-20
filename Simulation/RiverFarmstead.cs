@@ -32,7 +32,7 @@ public sealed partial class World
         home.Delivered=home.Required; home.Construction=1;
         w._yardLogs=16; w.InitialLogs=w.Trees.Sum(t=>t.Logs)+home.Required+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=48;
-        w.SharedWork=true; w.LocalGrainSupply=true; w.Founding=new() { RiverFarmstead=true };
+        w.SharedWork=true; w.LocalGrainSupply=true; w.Founding=new() { RiverFarmstead=true, ProvisionedLife=true };
         foreach(var person in w.People) w.Assign(person.Id,Role.Unassigned);
         w.History.Add("A place of our own. The river brought us here; the work of making a home begins on its banks.");
         w.ReconcileHomes(); w.Validate(); w.ValidateMapOccupancy(); return w;

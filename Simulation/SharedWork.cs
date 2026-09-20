@@ -41,6 +41,8 @@ public sealed partial class World
         return world;
     }
     private static bool FoodRole(Role role)=>role is Role.Forager or Role.Farmer or Role.Baker or Role.Fisher or Role.Hunter;
+    public bool ProvisionedLife => Founding?.ProvisionedLife==true;
+    public bool FoodWorkNeeded => !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
     private void ClaimSharedWork(Villager person)
     {
         person.Role=Role.Unassigned;
@@ -54,6 +56,7 @@ public sealed partial class World
         }
         bool FoodWork()
         {
+            if(!FoodWorkNeeded)return false;
             if(People.Count(p=>FoodRole(p.Role))>=Math.Max(1,(Population+1)/2))return false;
             foreach(var role in new[]{Role.Baker,Role.Forager,Role.Farmer,Role.Fisher,Role.Hunter}
                 .OrderBy(r=>People.Count(p=>p.Role==r)))if(Try(role))return true;
@@ -65,7 +68,11 @@ public sealed partial class World
         int logsNeeded=8+Cottages.Where(c=>!c.Complete && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
         if((Stored<Math.Min(24,logsNeeded) || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting)) && Try(Role.Logger))return;
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
-        if(Try(Role.Carpenter) || Try(Role.Sawyer) || Try(Role.Quarrier) || Try(Role.Hauler) || FoodWork())return;
+        int plankNeed=8+Cottages.Where(c=>!c.Complete && c.Material==Resource.Planks).Sum(c=>c.Remaining(Resource.Planks))
+            +Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c)));
+        int stoneNeed=6+Cottages.Where(c=>!c.Complete).Sum(c=>c.Remaining(Resource.Stone));
+        if(Try(Role.Carpenter) || ((!ProvisionedLife || PendingPlanks<plankNeed) && Try(Role.Sawyer)) ||
+            ((!ProvisionedLife || ProductionCommitted(Resource.Stone)<stoneNeed) && Try(Role.Quarrier)) || Try(Role.Hauler) || FoodWork())return;
         person.Status="Shared worker — waiting for available work";
         WaitNearHome(person);
     }

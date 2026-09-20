@@ -14,7 +14,7 @@
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **45**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **46**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -71,3 +71,5 @@ After every chunk, reevaluate this roadmap and the active queue; record outcomes
 Review45 corrections delivered: shared rendered-person interaction coordinates and explicit six-suite current-experience validation. F36a is next; no extra playable count.
 
 Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 selects the F36 resident-centered cycle; continue through review50.
+
+[F36a provisioned livelihood](PROVISIONED_LIFE_F36A.md) retained as46. Next normal shared outdoor place, then reassess domestic/food choices.

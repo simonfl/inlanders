@@ -25,7 +25,8 @@ public sealed partial class World
     private bool IdleHomeJourney(Villager p)=>SharedWork && p.SharedWorker && p.Task==Work.Waiting && p.Route.Count>0;
     private void WaitNearHome(Villager person)
     {
-        if(!SharedWork || person.HomeId is not int id || IdleHomeJourney(person))return;
+        if(!SharedWork || person.HomeId is not int id)return;
+        if(IdleHomeJourney(person)){person.Status="Heading home while work is quiet";return;}
         var home=Cottages.FirstOrDefault(h=>h.Id==id && IsHome(h));if(home==null)return;
         var occupied=People.Where(p=>p.Id!=person.Id).Select(At)
             .Concat(People.Where(p=>p.Id!=person.Id && (p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure || IdleHomeJourney(p))).Select(p=>p.Destination)).ToHashSet();
