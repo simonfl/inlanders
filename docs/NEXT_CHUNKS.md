@@ -1,6 +1,6 @@
 # Next chunks — prove a second transformation
 
-[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **59**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
+[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **60**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
 
 ## Direction
 
@@ -43,3 +43,5 @@ Checkpoint57: paused kitchen gardens can move without dismantling. Growing crops
 Checkpoint58: the hamlet has real editable paths linking homes, storage and working plots; these affect travel and remain player-editable after rearrangement. Closer initial framing, fuller crop rows and narrower earth tracks improve ordinary-scale reading. Legal approaches/quarry production pass; native captures inspected. One1440 run reproduced target replacement denial (HResult0x80070005 after11 attempts); subsequent1440 controls pass, cause still unknown. Next59: shorten entry and put active village actions before ending/growth. Review60 must judge composition, not equate more visible crops with appeal.
 
 Checkpoint59: the hamlet opens onto the village after a short situation/mode choice; longer guidance is optional. Village now places build/shared-ground/food inspection ahead of optional invitation/ending. Initial reserves explicitly buy time before first delivery; detailed provisioning rules move to the tooltip. Native960 menu, hierarchy, actions, relocation and current saves pass. Next60: pin two real locations and compare current food access; no production forecast or public-mode promotion. Then freeze for the full five-role review.
+
+Checkpoint60: food-access inspection can keep a location as A and compare B, showing both current routes/stock/reach on the ground. Clear/replace/escape and read-only world purity pass through native960 controls. This is comparison of present locations, not a future-production forecast. Five playable outcomes56–60 delivered; freeze for whole-game review60 with all five independent roles. Full current/broad checks and final spatial comparison run against this build. Mixed-material staging/cancellation coverage added without a playable increment. Windows computer-use is now available for a separate agent-led playthrough; report its actual outcome rather than promising human evidence.

@@ -15,7 +15,10 @@ public partial class Game
         await Press(Key.G);await Frames();Check(_foodAccessEntry.GetIndex()<_foundingInvite.GetIndex() && !_foundingFood.Text.Contains("can rest"),"Village hierarchy or starting-provision status regressed");await CaptureReviewBundle("hamlet-intent");CloseDrawer();
         await Press(Key.G);await Frames();await UiClick(_foodAccessEntry);await Frames();string observation=_world.SaveJson();
         await Click(_camera.UnprojectPosition(OnGround(2,-1)));await Frames();Check(_foodAccessPlanning && _foodAccessRoutes.Length>0 && _foodAccessLine.Points.Length>1,"Ground food-access preview absent");
-        await CaptureReviewBundle("hamlet-food-access");Check(observation==_world.SaveJson(),"Food planning mutated world");await Press(Key.Escape);await Frames();Check(!_foodAccessPanel.Visible,"Food preview did not close");
+        await UiClick(_foodAccessPin);await Frames();Check(_foodAccessA==new Cell(2,-1),"Food spot A not kept");
+        await Click(_camera.UnprojectPosition(OnGround(-1,1)));await Frames();
+        Check(_foodAccessA!=_foodAccessAt && _foodAccessALine.Points.Length>1 && _foodAccessLine.Points.Length>1,"Paired routes absent");
+        await CaptureReviewBundle("hamlet-food-comparison");Check(observation==_world.SaveJson(),"Food planning mutated world");await UiClick(_foodAccessClear);await Frames();Check(_foodAccessA==null && !_foodAccessALine.Visible,"Clear A failed");await Press(Key.Escape);await Frames();Check(!_foodAccessPanel.Visible,"Food preview did not close");
         var planned=_world.Place(new(4,-9),0,BuildingKind.VegetableGarden);Check(planned!=null,"Staged garden rejected");SelectBuilding(planned!.Id);await Frames();
         await UiClick(_constructionPause,6);await Frames();Check(planned.ConstructionPaused,"Held pause failed");await CaptureReviewBundle("hamlet-staged-project");
         await UiClick(_constructionPause,6);await Frames();Check(!planned.ConstructionPaused,"Held resume failed");CloseDrawer();ClearSelection();

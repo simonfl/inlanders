@@ -24,7 +24,13 @@ public static class QuarryChecks
         Check(interrupted.Map.StoneDeposits[0].Remaining==16 && interrupted.AvailableDeposit(interrupted.Map.StoneDeposits[0])==16,"Interrupted quarry lost stone");
         Until(w,()=>hall.DeliveredStone>0 && !hall.Complete,"No stone delivery to construction");
         string partial=w.SaveJson();
-        var cancelled=World.LoadJson(partial); Check(cancelled.Cancel(hall.Id),"Mixed-material cancel failed");
+        var cancelled=World.LoadJson(partial);var pausedHall=cancelled.Cottages.Single(c=>c.Id==hall.Id);
+        Check(cancelled.SetConstructionPaused(hall.Id,true),"Mixed-material staging refused");
+        int keptPlanks=pausedHall.Delivered,keptStone=pausedHall.DeliveredStone;float keptProgress=pausedHall.Construction;
+        Check(pausedHall.Incoming==0 && pausedHall.IncomingStone==0 && pausedHall.Builder==null,"Mixed staging retained claims");
+        var pausedCopy=World.LoadJson(cancelled.SaveJson());Step(cancelled,200);Step(pausedCopy,200);
+        Check(cancelled.SaveJson()==pausedCopy.SaveJson() && pausedHall.Delivered==keptPlanks && pausedHall.DeliveredStone==keptStone && pausedHall.Construction==keptProgress,"Paused mixed site changed or diverged");
+        Check(cancelled.Cancel(hall.Id),"Paused mixed-material cancel failed");
         Until(cancelled,()=>cancelled.Trees.All(t=>!t.Salvage) && cancelled.People.All(p=>p.SiteId!=hall.Id),"Mixed salvage not recovered");
         Until(w,()=>hall.Complete,"Hall did not complete");
         Check(hall.Delivered==8 && hall.DeliveredStone==12 && hall.IncomingStone==0,"Wrong hall materials");
