@@ -15,6 +15,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**Review45 corrections (no increment):** Visible farmer picking, selection, follow and card anchors now share rendered position. Native sow/harvest/all-four-facings/960–1440 pointer and follow checks pass alongside contact/save/interruption. `--current-experience` runs six existing suites with prerequisite generation and an assembly/timing/result manifest; all pass in about34s. Broad default coverage is still separate. F36a next.
+
+
 **Full review 45 — September 20, 2026:** [Completed synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`. Partially convincing; choose provisioning-led domestic/shared life, compare food/land roles, reduce policy-first inspection. One fresh designer and four separate reused contexts after thread-limit failures. Broad actual stills/source/reports; no uncoached play, motion or listening acceptance. Count stays45; second requested review complete, continue through50.
 
 

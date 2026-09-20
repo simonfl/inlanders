@@ -2,7 +2,7 @@
 
 [Whole-game review 45](REVIEW_CHECKPOINT_45.md) chooses a provisioned livelihood that releases time for home and shared places. Playable count **45**; reviews **40 and 45 complete**, continue through the third review at **50**.
 
-First correct rendered farmer selection/follow and add an explicit current-experience validation profile. These are corrections/tooling, no playable increment.
+Rendered farmer selection/follow is corrected and the six-suite `--current-experience` profile passes, including prerequisite snapshot generation and result provenance. Corrections/tooling count zero. F36a next.
 
 | Order | Outcome | Decision and rejection gate |
 | --- | --- | --- |

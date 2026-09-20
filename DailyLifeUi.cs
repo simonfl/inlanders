@@ -59,12 +59,12 @@ public partial class Game
         _dailyRestore.TooltipText=_dailyRestoreProblem??"Restore the original location. Food, time and work are not rewound.";
         _dailyCard.Size=new(354,0);
         // Keep the selected resident and destination visible from either bank/camera side.
-        var anchors=new[]{_camera.UnprojectPosition(OnGround(p.Position.X,p.Position.Y,.25f))}
+        var anchors=new[]{_camera.UnprojectPosition(PresentedPerson(p.Id)+Vector3.Up*.25f)}
             .Concat(j.Route.TakeLast(1).Select(c=>_camera.UnprojectPosition(OnGround(c.X,c.Z,.25f)))).ToArray();
         var corners=new[]{new Vector2(_hud.Size.X-370,92),new(16,92),new(_hud.Size.X-370,_hud.Size.Y-86-_dailyCard.Size.Y),new(16,_hud.Size.Y-86-_dailyCard.Size.Y)};
         _dailyCard.Position=corners.OrderBy(c=>anchors.Count(a=>new Rect2(c,_dailyCard.Size).Grow(30).HasPoint(a))*100+
             _world.Cottages.Count(s=>new Rect2(c,_dailyCard.Size).HasPoint(_camera.UnprojectPosition(OnGround(s.Cell.X,s.Cell.Z))))).First();
         _dailyRoute.DefaultColor=new(j.Claimed?"edc57c":"89c7cd");
-        _dailyRoute.Points=new[]{_camera.UnprojectPosition(OnGround(p.Position.X,p.Position.Y,.25f))}.Concat(j.Route.Select(c=>_camera.UnprojectPosition(OnGround(c.X,c.Z,.25f)))).ToArray();
+        _dailyRoute.Points=new[]{_camera.UnprojectPosition(PresentedPerson(p.Id)+Vector3.Up*.25f)}.Concat(j.Route.Select(c=>_camera.UnprojectPosition(OnGround(c.X,c.Z,.25f)))).ToArray();
     }
 }

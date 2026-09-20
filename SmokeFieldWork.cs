@@ -43,6 +43,12 @@ public partial class Game
                     foreach(int width in new[]{960,1440})
                     {
                         GetWindow().Size=new(width,width==960?640:900); UpdateCamera(); await Frames();
+                        ClearSelection(); CloseDrawer(); _inspector.Hide();
+                        await Click(_camera.UnprojectPosition(PresentedPerson(0)+Vector3.Up*.6f)); await Frames();
+                        if(_selectedPerson!=0)throw new Exception("Rendered farmer pointer selected a different object");
+                        _followPerson=true;UpdateFollowing();
+                        if(new Vector2(_focus.X,_focus.Z).DistanceTo(new Vector2(PresentedPerson(0).X,PresentedPerson(0).Z))>.01f)throw new Exception("Follow remains at field entrance");
+                        _followPerson=false;_inspector.Hide();
                         await Capture($"artifacts/f03b3-{kind}-{task}-{rotated}-{width}.png");
                     }
                     GetWindow().Size=new(960,640); _camera.Size=20; UpdateCamera(); await Frames(); await Capture($"artifacts/f03b3-village-{kind}-{task}-{rotated}.png");

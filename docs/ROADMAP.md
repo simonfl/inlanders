@@ -68,4 +68,6 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
+Review45 corrections delivered: shared rendered-person interaction coordinates and explicit six-suite current-experience validation. F36a is next; no extra playable count.
+
 Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [quiet home life](HOME_LIFE_F34F.md), [resident journeys](DAILY_JOURNEY_F35C.md), [bounded workplace recovery](PRODUCTION_RECOVERY_F35B.md) and [inhabited inlet village](WORKING_VILLAGE_F35A.md). Review45 selects the F36 resident-centered cycle; continue through review50.

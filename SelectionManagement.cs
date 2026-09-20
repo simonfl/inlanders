@@ -104,10 +104,12 @@ public partial class Game
             button.Text=$"{p.Name} · {(p.AssignedWorkplaceId==site?.Id?"assigned · ":"")}{TaskName(p.Task)}";
         }
     }
+    private Vector3 PresentedPerson(int id) => _people[id].Rig.GlobalPosition;
     private void UpdateFollowing()
     {
         if(_selectedPerson<0) { _followPerson=false; return; }
-        _selection.Position=_people[_selectedPerson].Body.Position;
+        var anchor=PresentedPerson(_selectedPerson);
+        _selection.Position=OnGround(anchor.X,anchor.Z);
         if(_followPerson) { _focus=_selection.Position; UpdateCamera(); }
     }
 }
