@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **58**.
+- Playable checkpoints since adoption: **59**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint55**, [whole-game synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`. Five fresh independent read-only disciplinary reviewers including visual/audio. Source, actual stills and scripted evidence; no uncoached play, motion/listening acceptance or representative performance verdict. Corrections and validation after freeze add zero outcomes. Stop this requested run here.
 - Previous review50: [synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures.
@@ -256,3 +256,5 @@ Each review record must link its consolidated report, identify the fixed commit/
 Checkpoint57: paused kitchen gardens can move without dismantling. Growing crops restart; ripe produce/stored food remain, and the garden stays paused until resumed. Normal/relaxed tests cover invalid/no-op query purity, active saves, actual resumed cultivation and reuse of vacated ground. This removes demolition bookkeeping from the second-transformation experiment without promising a free harvest. Next58: readable working-place presentation; public promotion still deferred.
 
 Checkpoint58: the hamlet has real editable paths linking homes, storage and working plots; these affect travel and remain player-editable after rearrangement. Closer initial framing, fuller crop rows and narrower earth tracks improve ordinary-scale reading. Legal approaches/quarry production pass; native captures inspected. One1440 run reproduced target replacement denial (HResult0x80070005 after11 attempts); subsequent1440 controls pass, cause still unknown. Next59: shorten entry and put active village actions before ending/growth. Review60 must judge composition, not equate more visible crops with appeal.
+
+Checkpoint59: the hamlet opens onto the village after a short situation/mode choice; longer guidance is optional. Village now places build/shared-ground/food inspection ahead of optional invitation/ending. Initial reserves explicitly buy time before first delivery; detailed provisioning rules move to the tooltip. Native960 menu, hierarchy, actions, relocation and current saves pass. Next60: pin two real locations and compare current food access; no production forecast or public-mode promotion. Then freeze for the full five-role review.

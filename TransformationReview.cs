@@ -12,7 +12,7 @@ public partial class Game
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
         await UiClick(_mainButtons["Between wood and water · prototype"]);await Frames();await CaptureReviewBundle("hamlet-brief");
         await UiClick(_mainButtons["New hamlet"]);await Frames();Check(_world.Founding?.TransformationHamlet==true && _world.Population==12 && CurrentSavePath==TransformationPath,"Hamlet entry failed");
-        await Press(Key.G);await Frames();await CaptureReviewBundle("hamlet-intent");CloseDrawer();
+        await Press(Key.G);await Frames();Check(_foodAccessEntry.GetIndex()<_foundingInvite.GetIndex() && !_foundingFood.Text.Contains("can rest"),"Village hierarchy or starting-provision status regressed");await CaptureReviewBundle("hamlet-intent");CloseDrawer();
         await Press(Key.G);await Frames();await UiClick(_foodAccessEntry);await Frames();string observation=_world.SaveJson();
         await Click(_camera.UnprojectPosition(OnGround(2,-1)));await Frames();Check(_foodAccessPlanning && _foodAccessRoutes.Length>0 && _foodAccessLine.Points.Length>1,"Ground food-access preview absent");
         await CaptureReviewBundle("hamlet-food-access");Check(observation==_world.SaveJson(),"Food planning mutated world");await Press(Key.Escape);await Frames();Check(!_foodAccessPanel.Visible,"Food preview did not close");

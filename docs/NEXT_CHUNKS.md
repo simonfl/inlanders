@@ -1,6 +1,6 @@
 # Next chunks — prove a second transformation
 
-[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **58**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
+[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **59**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
 
 ## Direction
 
@@ -41,3 +41,5 @@ Next57: make kitchen-garden relocation a legible recovery action with real crop 
 Checkpoint57: paused kitchen gardens can move without dismantling. Growing crops restart; ripe produce/stored food remain, and the garden stays paused until resumed. Normal/relaxed tests cover invalid/no-op query purity, active saves, actual resumed cultivation and reuse of vacated ground. This removes demolition bookkeeping from the second-transformation experiment without promising a free harvest. Next58: readable working-place presentation; public promotion still deferred.
 
 Checkpoint58: the hamlet has real editable paths linking homes, storage and working plots; these affect travel and remain player-editable after rearrangement. Closer initial framing, fuller crop rows and narrower earth tracks improve ordinary-scale reading. Legal approaches/quarry production pass; native captures inspected. One1440 run reproduced target replacement denial (HResult0x80070005 after11 attempts); subsequent1440 controls pass, cause still unknown. Next59: shorten entry and put active village actions before ending/growth. Review60 must judge composition, not equate more visible crops with appeal.
+
+Checkpoint59: the hamlet opens onto the village after a short situation/mode choice; longer guidance is optional. Village now places build/shared-ground/food inspection ahead of optional invitation/ending. Initial reserves explicitly buy time before first delivery; detailed provisioning rules move to the tooltip. Native960 menu, hierarchy, actions, relocation and current saves pass. Next60: pin two real locations and compare current food access; no production forecast or public-mode promotion. Then freeze for the full five-role review.

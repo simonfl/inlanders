@@ -34,13 +34,9 @@ public partial class Game
         _foundingContinue=Button("Keep shaping the village",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
         MakeFoundingHallUi(column);MakeFoodAccessUi();
-        _foundingGoals.MoveChild(_foundingContinue,0);
-        _foundingGoals.MoveChild(_hallBegin,1);
-        _foundingGoals.MoveChild(_foundingLeave,2);
-        _foundingGoals.MoveChild(_foundingFinish,3);
-        _foundingGoals.MoveChild(_foundingInvite,4);
-        _foundingGoals.MoveChild(_foundingFood,_foundingGoals.GetChildCount()-2);
-        _foundingGoals.MoveChild(_foundingFoodView,_foundingGoals.GetChildCount()-1);
+        // Shape and inspect first; invitations and the optional ending follow daily life.
+        _foundingGoals.MoveChild(_foodAccessEntry,2);
+        _foundingGoals.MoveChild(_foundingFoodView,3);
         _foundingGoals.Hide();
     }
     private void UpdateFoundingUi()
@@ -59,16 +55,16 @@ public partial class Game
         _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(f.Finished?"Finished. Shape this village, grow, or leave it here.":_world.FinishFoundingProblem()??"Everyone has settled in. Finish whenever you like.");
         if(f.RiverFarmstead)_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents\n"+(_world.FoundingHasNewFood?"First food delivered.\n":"Choose food before provisions run out.\n")+(f.Finished?"Finished. Stay, improve, or leave this village here.":_world.FinishFoundingProblem()??"Homes and the first food supply are working. Finish when satisfied; continued supply still needs your care.");
         if(f.WorkingVillage && !f.Finished)_objective.Text="An inhabited village across an inlet. Watch a resident and choose what to improve.\nHomes: "+_world.Housed+"/"+_world.Population+"\n"+(_world.FoundingHasNewFood?"Food is flowing. Finish when satisfied, or stay and reshape this place.":"The field and oven are already working. Watch their first delivery, then choose what to change.");
-        if(f.TransformationHamlet){_goalTitle.Text=_world.Creative?"Between wood and water · relaxed":"Between wood and water";_objective.Text="Twelve neighbors share tight ground. Choose what this place should become: bring food home, open the woodlot, or cultivate beyond the inlet. A crossing saves walking; it does not grow food.\n"+(f.Finished?"Your village remains open to change.":"Finish when satisfied; no building checklist or required population growth.");}
+        if(f.TransformationHamlet){_goalTitle.Text=_world.Creative?"Between wood and water · relaxed":"Between wood and water";_objective.Text="Kitchen plots or shared ground near home? Choose what you want to change.\n"+(f.Finished?"Your village remains open to change.":"More neighbors and finishing are optional.");}
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";
         _foundingInvite.Visible=true;
         var flow=_world.ReadFoodFlow();
         float delivered=flow.Seconds>0?flow.Delivered*60f/flow.Seconds:0;
         _foundingFood.Text=$"FOOD FOR GROWTH\n{_world.EdibleStored} stored · {_world.Population} portions needed per minute\n"+
             (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(f.ProvisionedLife?"":delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
-        if(f.ProvisionedLife)_foundingFood.Text+="\n"+(_world.People.Any(p=>!p.Fed)?"A resident missed a meal — inspect food access.":_world.EdibleStored<_world.Population?"Less than one meal each remains — check supply.":_world.FoodWorkNeeded?"Replenishing reserves.":"Reserves ready — shared food work can rest.");
+        if(f.ProvisionedLife)_foundingFood.Text+="\n"+(!_world.FoundingHasNewFood?"Starting provisions buy time. First food has not reached storage yet.":_world.People.Any(p=>!p.Fed)?"A resident missed a meal — inspect food access.":_world.EdibleStored<_world.Population?"Less than one meal each remains — check supply.":_world.FoodWorkNeeded?"Replenishing reserves.":"Reserves ready — shared food work can rest.");
         _foundingFood.TooltipText=$"Observed over the last {flow.Seconds:0} simulated seconds. New producer deliveries only; transfers between stores are excluded. This is history, not a forecast or a guarantee that meals arrive on time. Two newcomers add two portions per minute. Inspect food to check locations and routes.";
-        if(f.ProvisionedLife)_foundingFood.Text+="\nShared workers provision about four meals each, then return home or take building work. Food work resumes as stores fall; dedicated workers keep their own workplace routine.";
+        if(f.ProvisionedLife)_foundingFood.TooltipText+=" Shared workers provision about four meals each, then take other work or return home. Dedicated workers keep their workplace routine.";
         if(f.RiverFarmstead)_foundingFood.Text=_foundingFood.Text.Replace("FOOD FOR GROWTH","DAILY FOOD");
         _foundingFinish.Visible=!f.Finished && (f.RiverFarmstead || _world.Population>=12);_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
         _foundingFinish.TooltipText=_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";
