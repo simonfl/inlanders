@@ -14,7 +14,7 @@
 
 First consolidate a coherent public inhabited-place experience with Normal/relaxed constraints and a voluntary finish. Compare the compact scene with a substantial functional working-land composition: recognizable groups of homes, cultivated strips, useful yards, retained woodland and river work edge. This is spatial composition, not household ownership or inheritance. Judge visible lived payoff and player intention before adding needs, catalogue tiers or another situation. Cut obsolete experiments from ordinary navigation and retire unused rule branches after selection.
 
-The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **61**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
+The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **62**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
 
 ## What stays, what changes
 
@@ -74,3 +74,6 @@ Checkpoints56–60 delivered contested cultivation/shared ground, paused garden 
 
 
 Checkpoint61 · F38a: Play now opens the inhabited hamlet with Normal/relaxed entry on one page. Historical experiments require --developer (review/smoke runs retain access). A small retained-place profile supplies creation/restart/save identity; legacy scenarios remain developer comparisons, not public alternatives. Native960 entry, separate mode saves, Continue and restart pass. Next62 makes the ending genuinely voluntary;63 compares functional worked land, then world actions and visible before/after. No new needs or second scenario promised.
+
+
+Checkpoint62 · F38a: the hamlet can be finished for now without food, building, commons or population gates. The saved village remains alive; Watch uses normal speed and Keep shaping reopens the ending. Both modes pass exact continuation/reopening checks; native960 finish/save/reload/watch/reopen passes. This is a personal stopping point, not a certificate of viable supply. Next compare composition at the same population/inventory rather than add progression requirements.

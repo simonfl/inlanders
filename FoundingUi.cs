@@ -9,7 +9,7 @@ public partial class Game
     private Button _foundingInvite=null!,_foundingFinish=null!,_foundingContinue=null!,_foundingLeave=null!;
     private Button _foundingCommons=null!,_foundingCommonsRemove=null!;
     private Label _foundingFood=null!;
-    private Button _foundingFoodView=null!;
+    private Button _foundingFoodView=null!,_hamletWatch=null!;
     private string FoundingPath=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,"founding.json");
     private void FoundingMenu()
     {
@@ -31,8 +31,9 @@ public partial class Game
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
         _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingGoals.AddChild(_foundingFinish);
-        _foundingContinue=Button("Keep shaping the village",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
+        _foundingContinue=Button("Keep shaping the village",()=>{if(_world.PublicPlace!=null){_world.Founding!.Finished=false;SaveWorld();UpdateHud();}CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
+        _hamletWatch=Button("Watch this village",()=>{CloseDrawer();ClearSelection();_speed=1;_paused=false;ToggleWatch();});_foundingGoals.AddChild(_hamletWatch);
         MakeFoundingHallUi(column);MakeFoodAccessUi();
         // Shape and inspect first; invitations and the optional ending follow daily life.
         _foundingGoals.MoveChild(_foodAccessEntry,2);
@@ -67,7 +68,9 @@ public partial class Game
         if(f.ProvisionedLife)_foundingFood.TooltipText+=" Shared workers provision about four meals each, then take other work or return home. Dedicated workers keep their workplace routine.";
         if(f.RiverFarmstead)_foundingFood.Text=_foundingFood.Text.Replace("FOOD FOR GROWTH","DAILY FOOD");
         _foundingFinish.Visible=!f.Finished && (f.RiverFarmstead || _world.Population>=12);_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
-        _foundingFinish.TooltipText=_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";
+        _foundingFinish.Text=f.TransformationHamlet?"Finished for now":"This village is ready";
+        _foundingFinish.TooltipText=f.TransformationHamlet?"Keep this village as it is for now. No required building, food score or population target. You can return and change it.":_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";
+        _hamletWatch.Visible=f.TransformationHamlet;
         _foundingContinue.Visible=f.Finished;_foundingLeave.Visible=f.Finished;
         _menuButtons[2].Text=f.Finished?"Village · Finished":"Village";_menuButtons[2].TooltipText="Your founding village [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your village";

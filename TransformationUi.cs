@@ -8,7 +8,7 @@ public partial class Game
     {
         MenuPage("Between wood and water");
         _mainColumn.AddChild(Text("Twelve neighbors. A working hamlet to make your own.",20,true));
-        _mainColumn.AddChild(Text("Kitchen gardens fill the ground beside the homes. Keep food close, or make room for shared meals and work another part of the land. Pause freely; new neighbors are your choice.",16,true));
+        _mainColumn.AddChild(Text("Kitchen gardens fill the ground beside the homes. Keep food close, or make room for shared meals and work another part of the land. Pause freely; new neighbors are your choice. Finish for now whenever the place feels yours, or keep watching and shaping.",16,true));
         foreach(bool relaxed in new[]{false,true})
         {
             string path=TransformationSavePath(relaxed),label=relaxed?"relaxed hamlet":"hamlet";

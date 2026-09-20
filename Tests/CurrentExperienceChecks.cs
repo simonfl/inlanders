@@ -28,6 +28,7 @@ static class CurrentExperienceChecks
         Run("BatchBread",BatchBreadChecks.Run);
         Run("CourtExperience",CourtExperienceChecks.Run);
         Run("CreativeCourt",CreativeCourtChecks.Run);
+        Run("HamletEnding",HamletEndingChecks.Run);
         Run("RelaxedHamlet",RelaxedHamletChecks.Run);
         Run("GardenRelocation",GardenRelocationChecks.Run);
         Run("HamletLayout",HamletLayoutChecks.Run);

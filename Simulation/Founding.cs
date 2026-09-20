@@ -43,7 +43,7 @@ public sealed partial class World
         return null;
     }
     public string? FinishFoundingProblem()=>Founding==null?"This is not a founding settlement.":
-        Founding.RiverFarmstead?FarmsteadReadyProblem():
+        Founding.TransformationHamlet?null:Founding.RiverFarmstead?FarmsteadReadyProblem():
         Population<12?"Invite two households when ready: a village of twelve.":
         Housed<Population?"Give every resident a finished home.":
         People.Any(p=>p.Id>=InitialPopulation && !Founding.Settled.Contains(p.Id))?"Let each new neighbor collect and eat an ordinary meal.":

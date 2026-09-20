@@ -11,6 +11,12 @@ public partial class Game
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await CaptureReviewBundle("hamlet-brief");
         await UiClick(_mainButtons["New hamlet"]);await Frames();Check(_world.Founding?.TransformationHamlet==true && _world.Population==12 && CurrentSavePath==TransformationPath,"Hamlet entry failed");
+        await Press(Key.G);await Frames();Check(!_foundingFinish.Disabled,"Personal ending is gated by production");
+        await UiClick(_foundingFinish);await Frames();Check(_world.Founding!.Finished && _paused,"Personal finish failed");
+        string ended=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(ended==_world.SaveJson(),"Finished state lost on reload");
+        await Press(Key.G);await Frames();await CaptureReviewBundle("hamlet-personal-ending");
+        await UiClick(_hamletWatch);await Frames();Check(_watching && !_paused && _speed==1,"Finished watch failed");ExitWatch();_paused=true;
+        await Press(Key.G);await Frames();await UiClick(_foundingContinue);await Frames();_paused=true;Check(!_world.Founding!.Finished,"Reopen failed");
         await Press(Key.G);await Frames();Check(_foodAccessEntry.GetIndex()<_foundingInvite.GetIndex() && !_foundingFood.Text.Contains("can rest"),"Village hierarchy or starting-provision status regressed");await CaptureReviewBundle("hamlet-intent");CloseDrawer();
         await Press(Key.G);await Frames();await UiClick(_foodAccessEntry);await Frames();string observation=_world.SaveJson();
         await Click(_camera.UnprojectPosition(OnGround(2,-1)));await Frames();Check(_foodAccessPlanning && _foodAccessRoutes.Length>0 && _foodAccessLine.Points.Length>1,"Ground food-access preview absent");
