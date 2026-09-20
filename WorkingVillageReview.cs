@@ -22,6 +22,7 @@ public partial class Game
         Reset();await Frames();Check(_world.Founding?.WorkingVillage==true && !_world.Founding.Finished,"Restart lost situation");
         await Press(Key.O);await Frames();await UiClick(_restoreRestart);await Frames();Check(_world.SaveJson()==save,"Situation restart restore differs");
         await Press(Key.F5);await Frames();await Press(Key.F9);await Frames();Check(_world.SaveJson()==save,"Situation save/load differs");
+        await ProbeCommons();
         File.WriteAllText(Path.Combine(_reviewDirectory,"working-village-controls.txt"),"PASS: menu/context, inhabited entry, resident click, optional finish, Continue/restart/restore/F5/F9. Scripted construction and accelerated ticks, not human play.");
     }
 }

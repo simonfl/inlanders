@@ -10,7 +10,7 @@ public sealed class SharedCommons
 }
 public sealed partial class World
 {
-    public SharedCommons? Commons=>Neighborhood?.Commons;
+    public SharedCommons? Commons=>Founding?.Commons??Neighborhood?.Commons;
     public Cell[] CommonsPlaces(Cell center)
     {
         if(!Map.Contains(center) || Blocked(center))return Array.Empty<Cell>();
@@ -20,18 +20,21 @@ public sealed partial class World
             !People.Any(p=>(p.Meal is {Reserved:true} or {Carrying:true}) && p.Meal.Seat==c || (p.Task is Work.ToRest or Work.Resting || p.LeisureSiteId!=null) && p.Destination==c))
             .OrderBy(c=>(c.Point-center.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X).Take(6).ToArray();
     }
-    public bool CanArrangeCommons=>IsArrangementCourt || Neighborhood?.Complete==true;
+    public bool CanArrangeCommons=>Founding?.RiverFarmstead==true || IsArrangementCourt || Neighborhood?.Complete==true;
     public bool CommonsFoodNearby(Cell center)=>FoodStores().Any(id=>(FoodAccess(id).Point-center.Point).LengthSquared()<=64 && EdibleKinds.Any(k=>FoodAvailableAt(id,k)>0) && FindPath(FoodAccess(id),center,Blocked)!=null);
     public string? CommonsProblem(Cell center)=>!CanArrangeCommons?"Welcome the newcomers first.":CommonsPlaces(center).Length<6?"Choose open ground with six reachable places nearby.":null;
     public bool SetCommons(Cell center)
     {
         if(CommonsProblem(center)!=null)return false;
-        var places=CommonsPlaces(center);RemoveCommons();Neighborhood!.Commons=new(){Center=center,Places=places};return true;
+        var places=CommonsPlaces(center);RemoveCommons();
+        var commons=new SharedCommons{Center=center,Places=places};
+        if(Founding!=null)Founding.Commons=commons;else Neighborhood!.Commons=commons;
+        return true;
     }
     public bool RemoveCommons()
     {
         if(Commons==null)return false;
-        Neighborhood!.Commons=null;
+        if(Founding!=null)Founding.Commons=null;else Neighborhood!.Commons=null;
         foreach(var p in People.Where(p=>p.Meal?.Commons==true).ToArray()){p.Meal!.Commons=false;InterruptMeal(p);}
         return true;
     }

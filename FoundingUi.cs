@@ -6,6 +6,7 @@ public partial class Game
 {
     private VBoxContainer _foundingGoals=null!;
     private Button _foundingInvite=null!,_foundingFinish=null!,_foundingContinue=null!,_foundingLeave=null!;
+    private Button _foundingCommons=null!,_foundingCommonsRemove=null!;
     private Label _foundingFood=null!;
     private Button _foundingFoodView=null!;
     private string FoundingPath=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,"founding.json");
@@ -23,6 +24,8 @@ public partial class Game
     {
         _foundingGoals=new();column.AddChild(_foundingGoals);
         _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(_world.Founding?.WorkingVillage==true?0:_world.Founding?.RiverFarmstead==true && !_world.FoundingHasNewFood?2:1);UpdateVillageDirectory();}));
+        _foundingCommons=Button("Make a shared place",()=>BeginGatheringPlan(_world.Commons?.Center,true));_foundingGoals.AddChild(_foundingCommons);
+        _foundingCommonsRemove=Button("Remove shared place",()=>{_world.RemoveCommons();SaveWorld();UpdateHud();});_foundingGoals.AddChild(_foundingCommonsRemove);
         _foundingFood=Text("",14,true);_foundingGoals.AddChild(_foundingFood);
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
@@ -42,6 +45,9 @@ public partial class Game
     private void UpdateFoundingUi()
     {
         var f=_world.Founding!;
+        _foundingCommons.Visible=f.RiverFarmstead;_foundingCommonsRemove.Visible=_world.Commons!=null;
+        _foundingCommons.Text=_world.Commons==null?"Make a shared place":"Rearrange shared place";
+        _foundingCommons.TooltipText="Choose outdoor ground near food. Residents bring their ordinary meals here; no ceremony or new building required.";
         // Keep active controls visible across mouse-down and mouse-up frames.
         _foundingHallGoals.Visible=f.HallProject==1;
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
