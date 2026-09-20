@@ -1,4 +1,5 @@
 [
+  {"name":"interaction","description":"Bounded paused/running move/path/camera/save latency sample","generator":"hamlet-spacious","focusX":0,"focusZ":0,"zoom":25},
   {"name":"hamlet-spacious","description":"Same-village lodge and shared-ground comparison","generator":"hamlet-spacious","focusX":-3,"focusZ":3,"zoom":24},
   {"name":"hamlet-compact","description":"Same-village cottage growth control","generator":"hamlet-compact","focusX":-3,"focusZ":3,"zoom":24},
   {"name":"hamlet-imperfect","description":"Lodge neighborhood with delayed food recovery","generator":"hamlet-imperfect","focusX":-3,"focusZ":3,"zoom":24},

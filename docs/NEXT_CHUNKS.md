@@ -18,7 +18,9 @@ Correct catalogue descriptions against active shared-work/local-food/Free arrang
 
 Accept with960/1440 held-click and keyboard journeys through actual unfinished/finished/hall states and current saves. This is a structural action/choice pass, not more explanatory paragraphs. Do not add new panels or building locks. Test with an unfamiliar user when available; scripts cannot establish discoverability.
 
-## 2. T07 — attribute and remove a demonstrated interaction stall
+## T07 delivered — attribution, no speculative fix
+
+[Results](INTERACTION_T07.md): sustained earlier stalls did not reproduce; isolated tails remain. Count stays36. Retain the bounded tools; proceed to F33b. Original acceptance scope follows.
 
 Use existing frame traces on the same hamlet: paused and running home-move preview, path preview/painting, camera movement and save. Separate input/query, simulation, actor/HUD and external/native time. Dense unattended frames do not answer this question. Repeat only a reproduced problem and fix its actual cause, retaining current simulation outcomes and geometry checks.
 

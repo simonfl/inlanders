@@ -13,6 +13,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**T07 — September19/20,2026:** [Interaction attribution](INTERACTION_T07.md), paused/running native traces and completed-frame summary. No sustained bottleneck reproduced, no performance patch or playable increment. Count36, review40.
+
+
 **F33a — September19/20,2026:** [Current choices](CHOICES_F33A.md). Phase-specific actions, compact food comparison and active-rule guidance. Bounds/held-click/current-save checks at960/1440. One playable UX outcome, count36; next review40. User extends work through review45.
 
 

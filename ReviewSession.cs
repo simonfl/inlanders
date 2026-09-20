@@ -106,6 +106,7 @@ public partial class Game
 
     private async Task ProbeReviewControls()
     {
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="interaction"){await ProbeInteraction();return;}
         void Check(bool value,string why){if(!value)throw new Exception(why);}
         Check(_paused && !_atMainMenu,"Review did not enter paused ordinary play");
         await ProbeSceneStudy();
