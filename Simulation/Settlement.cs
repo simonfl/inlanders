@@ -395,6 +395,8 @@ public sealed partial class World
                 ClaimMeal(person);
         foreach (var v in People)
         {
+            // A quiet trip home is not a claimed job; new work may preempt it.
+            if(retry && IdleHomeJourney(v)) ClaimWork(v);
             if (v.Route.TryPeek(out var waypoint))
             {
                 var offset = waypoint.Point - v.Position; float distance = offset.Length();

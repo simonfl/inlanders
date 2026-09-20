@@ -22,10 +22,10 @@ public sealed partial class World
 
     // An available worker remains available while walking home: Waiting already
     // allows meal requests and fresh work to replace this unclaimed journey.
-    private bool IdleHomeJourney(Villager p)=>IsArrangementCourt && p.SharedWorker && p.Task==Work.Waiting && p.Route.Count>0;
+    private bool IdleHomeJourney(Villager p)=>SharedWork && p.SharedWorker && p.Task==Work.Waiting && p.Route.Count>0;
     private void WaitNearHome(Villager person)
     {
-        if(!IsArrangementCourt || person.HomeId is not int id)return;
+        if(!SharedWork || person.HomeId is not int id || IdleHomeJourney(person))return;
         var home=Cottages.FirstOrDefault(h=>h.Id==id && IsHome(h));if(home==null)return;
         var occupied=People.Where(p=>p.Id!=person.Id).Select(At)
             .Concat(People.Where(p=>p.Id!=person.Id && (p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure || IdleHomeJourney(p))).Select(p=>p.Destination)).ToHashSet();
