@@ -31,9 +31,23 @@ The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Play
 | Free arrangement — F16 | Keep a relaxed option with the same recognizable place and daily life. Be clear about free construction and relaxed hunger; do not confuse it with older foodless Creative rules. |
 | Reliability/tooling | Godot/C# and local Windows remain. Current saves must be correct; migrations are unnecessary. Reuse snapshots, held-input checks and frame summaries; investigate performance when reproduced. |
 
+## New France art direction — F40
+
+**Make the setting unmistakable in the village itself.** The user explicitly prioritizes a stronger New France aesthetic. [F40 — New France art direction](NEW_FRANCE_ART_DIRECTION.md) turns the provisional F34 palette into concrete work:
+
+| Priority | Item |
+| --- | --- |
+| Next integrated slice | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
+| Alongside F39a/F39c | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
+| Following the first ensemble | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
+| Extend the chosen scene | **F40f — clothing, tools and everyday poses**; **F40g — light, atmosphere, sound and music**. |
+| Across relevant UI work | **F40h — French names, local writing, menu art and restrained typography/material styling**. |
+
+Start with one inhabited farmstead ensemble and two house variants alongside direct domestic improvement. Judge the whole view at ordinary zoom before spreading the style across the catalogue. Specific historical forms need date/place references; the working anchor remains rural St. Lawrence,1670–1680. Details and later ordering stay TBD. This art track does not add seasons, inheritance, needs or compulsory buildings.
+
 ## Feature priorities after the first situation
 
-These are candidates, not a shopping list. Reevaluate after seeing the themed slice. All existing feature IDs retain their history; F34 is the new theme-integration umbrella.
+These are candidates, not a shopping list. Reevaluate after seeing the themed slice. All existing feature IDs retain their history; F34 retains the initial theme-integration history; F40 is the active art-direction track.
 
 | Priority | Candidate | Decision it should add / smallest scope |
 | --- | --- | --- |
@@ -60,7 +74,7 @@ Costs, outputs, field dimensions, chapter length, specific crops, new resource t
 
 ## Delivered foundation and history
 
-Current game: A place of our own as the primary normal opening, The long way home as an inhabited alternative, Free arrangement, and earlier lake/gathering/campaign prototypes. Eighteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
+Current public game: the inhabited compact hamlet and cultivated-bank comparison, each with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Eighteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
 
 Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 interaction sampling](INTERACTION_T07.md), [F32 landscape comparison](HAMLET_F32A.md), [simulation performance](HAMLET_PERFORMANCE_F32B.md), [rearrangement](HAMLET_REARRANGEMENT_F32C.md), [connected paths](HAMLET_PATHS_F32D.md). Their tests do not establish enjoyment or historical authenticity.
 
@@ -70,7 +84,7 @@ After every chunk, reevaluate this roadmap and the active queue; record outcomes
 
 Checkpoints41–45 delivered real cultivated ground, home waiting, resident journeys, workplace relocation and an inhabited inlet. Checkpoints46–50 delivered [provisioning](PROVISIONED_LIFE_F36A.md), [normal shared meals](NORMAL_COMMONS_F36B.md), [furnished forecourts](HOME_YARDS_F36C.md), [grain capacity](FOOD_LIVELIHOOD_F36D.md) and [world workplace cards](WORKPLACE_READING_F36E.md). Reviews [40](REVIEW_CHECKPOINT_40.md), [45](REVIEW_CHECKPOINT_45.md) and [50](REVIEW_CHECKPOINT_50.md) record retention, rejected assumptions and evidence limits. Corrections/tooling do not advance the count.
 
-Checkpoints56–60 delivered contested cultivation/shared ground, paused garden relocation with replanting, actual approach paths and fuller crops, concise entry/action hierarchy, and paired current food-access inspection. [Review60](REVIEW_CHECKPOINT_60.md) records the five-role critique and final evidence. The hands-on reviewer was blocked before any input by a window-state tool hang; scripted controls, simulation and stills remain distinct from play or enjoyment evidence. Save replacement denial remains open. F38 replaces the previous implementation queue; no checkpoint61 work is included here.
+Checkpoints56–60 delivered contested cultivation/shared ground, paused garden relocation with replanting, actual approach paths and fuller crops, concise entry/action hierarchy, and paired current food-access inspection. [Review60](REVIEW_CHECKPOINT_60.md) records the five-role critique and final evidence. The hands-on reviewer was blocked before any input by a window-state tool hang; scripted controls, simulation and stills remain distinct from play or enjoyment evidence. Save replacement denial remains open. F38 was the following implementation queue; F39/F40 now define the active priorities.
 
 
 Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. No66 implementation.

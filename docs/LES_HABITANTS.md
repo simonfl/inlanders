@@ -26,6 +26,8 @@ Later additions must earn a distinct decision. A mill could create an interestin
 
 ## Presentation direction
 
+**Active implementation track:** [F40 — a recognizable New France village](NEW_FRANCE_ART_DIRECTION.md). The user prioritizes stronger architecture, landscape, domestic yards, river work, clothing, atmosphere and UI identity. Begin with an inhabited farmstead ensemble alongside F39 domestic improvement; specific assets remain subject to dated references and visual comparison.
+
 Compose a farm settlement: river frontage and landings, houses relating to cultivated strips/kitchen gardens, a retained woodlot, work yards and modest shared outdoor ground. Avoid arranging every structure around one oversized timber hub. River access and field shape should help a player read the geography, even while the simulation remains tile-based.
 
 Retain warm materials and readable silhouettes. Research a coherent small palette first: one dwelling, one cultivated plot and food/work structure, one shore landing, people and their tools. Show working land, practical timber/stone construction, garden fences, stored produce, domestic activity and actual journeys. Reevaluate the tall generic lodge and decorative civic center against that scene. A catalogue-wide asset rewrite is not a prerequisite.

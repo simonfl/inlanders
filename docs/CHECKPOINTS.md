@@ -285,3 +285,6 @@ Checkpoint65 · F38c: public hamlets retain opening building footprints in curre
 **Review65 — September20,2026:** fixed `05bff294534dfea131867cc3fe83807806c80557`. Five independent fresh roles; full synthesis/evidence in [review65](REVIEW_CHECKPOINT_65.md). All17 current suites and broad regressions pass. Outcomes61–65 commits `3c52558`, `3e57ef5`, `00e2b74`, `e3fc801`, `05bff29`. Concrete public-boundary/ending/clarity corrections and reusable movie extraction count zero. Intermittent save replacement denial unresolved. No66 work.
 
 Closeout65 validation: zero-warning build; compact960 and bank960 native public-flow checks pass, including ending, mode descriptions/navigation, save/restart and comparison after real move/new placement. Final bank run `20260920-182043-616-cultivated-bank-3b2b73`; no save denial there. No gameplay count increment.
+
+
+**Roadmap theming update — September20,2026:** user requested stronger New France aesthetics. Added [F40a–h](NEW_FRANCE_ART_DIRECTION.md), integrating houses/land/yards with the next F39 domestic-work slice and sequencing work structures, river landing, people, atmosphere/audio and UI identity. Documentation only; count stays65, next periodic review70. No gameplay or assets implemented.
