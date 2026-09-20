@@ -227,6 +227,12 @@ public partial class Game
             case Work.Supper:
                 view.Arm.Rotation = new(2.6f, 0, swing * 0.3f); view.LeftArm.Rotation = new(1.3f, 0, -swing * 0.2f); break;
             case Work.Waiting:
+                if(_world.QuietAtFurnishedHome(v))
+                {
+                    AnimateHomeRest(view,v);view.WorkBoard.Visible=true;view.Hat.Visible=false;
+                    view.Arm.Rotation=new(.9f+MathF.Sin(_world.Food.Time*2+v.Id)*.18f,0,-.15f);
+                    break;
+                }
                 float idle = (_clock + v.Id * 2.3f) % 14;
                 view.Head.Rotation = new(0, MathF.Sin(_clock * 0.6f + v.Id) * 0.25f, 0);
                 view.Torso.Rotation = new(0, 0, MathF.Sin(_clock * 0.8f + v.Id) * 0.025f);

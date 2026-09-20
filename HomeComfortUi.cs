@@ -21,9 +21,10 @@ public partial class Game
         var home=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite && Buildings.Get(c.Kind).Beds>0 && c.Complete);
         _comfortControls.Visible=home!=null;if(home==null)return;
         _comfortInfo.Text=$"HOME COMFORT · {_world.People.Count(p=>p.HomeId==home.Id)}/{Buildings.Get(home.Kind).Beds} residents\n{_world.ComfortSummary(home)}";
-        if(!home.Improved && !home.ImprovementRequested && !_world.Creative) _comfortInfo.Text+="\nNeeds an open carpenter workshop, an assigned carpenter and available planks. Orders can wait for supply.";
+        if(!home.Improved && !home.ImprovementRequested && !_world.Creative) _comfortInfo.Text+="\nNeeds an open carpenter workshop, a shared or assigned carpenter and available planks. Orders can wait for supply.";
         _comfortOrder.Visible=!home.Improved && !home.ImprovementRequested && !home.DemolitionRequested;
         _comfortOrder.Text=_world.Creative?"Improve home · free":$"Improve home · {World.ComfortCost(home)} planks";
+        if(_world.Founding?.RiverFarmstead==true)_comfortOrder.Text=$"Furnish forecourt · {World.ComfortCost(home)} planks";
         _comfortOrder.Disabled=_world.ImprovementProblem(home.Id)!=null;_comfortOrder.TooltipText=_world.ImprovementProblem(home.Id)??"Install furnishings while residents continue using their home.";
         _comfortCancel.Visible=home.ImprovementRequested;_comfortCancel.Disabled=_world.Food.Celebrating || home.DemolitionRequested;
         var worker=_world.People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);_comfortWorker.Visible=worker!=null;

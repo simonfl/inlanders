@@ -22,6 +22,9 @@ static class CurrentExperienceChecks
         Run("HomeWaiting",HomeWaitingChecks.Run);
         Run("ProductionRecovery",ProductionRecoveryChecks.Run);
         Run("WorkingVillage",WorkingVillageChecks.Run);
+        Run("ProvisionedLife",ProvisionedLifeChecks.Run);
+        Run("NormalCommons",NormalCommonsChecks.Run);
+        Run("HomeYards",HomeYardChecks.Run);
         Run("CourtExperience",CourtExperienceChecks.Run);
         Run("CreativeCourt",CreativeCourtChecks.Run);
     }

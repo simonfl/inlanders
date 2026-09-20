@@ -115,7 +115,8 @@ public sealed partial class World
                 People.Count(p=>p.Meal is {} meal && (meal.Reserved || meal.Carrying) && meal.Kind==k)).ToArray();
             if(kinds.Length==0 || FindPath(At(person),access,Blocked)==null) continue;
             var commons=!gathering && welcome==null?AvailableCommonsPlace(access):null;
-            var seat=commons ?? (gathering?(Cell?)Gathering!.Seats[person.Id]:Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
+            var homeSeat=!gathering && welcome==null?HomeMealPlace(person,access):null;
+            var seat=commons ?? homeSeat ?? (gathering?(Cell?)Gathering!.Seats[person.Id]:Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
                 .OrderBy(c=>(c.Point-access.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
                 .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null));
             if(seat==null) continue;
@@ -142,9 +143,9 @@ public sealed partial class World
             case Work.ToMealSupply:
                 ChangeFoodAt(r.SourceId,r.Kind,-1); r.Reserved=false; r.Carrying=true;
                 p.Cargo=r.Kind; p.Carried=1;
-                Go(p,r.Seat,Work.ToMealSeat,"Carrying a meal to a nearby seat"); break;
+                Go(p,r.Seat,Work.ToMealSeat,(p.HomeId is int homeId && Cottages.FirstOrDefault(c=>c.Id==homeId) is {} home && HomeYardPlaces(home).Contains(r.Seat))?"Bringing a meal home":"Carrying a meal to a nearby seat"); break;
             case Work.ToMealSeat:
-                p.Task=Work.EatingMeal; p.Timer=0; p.Status=r.Commons?"Eating at the shared place":r.Welcome?"Sharing the welcome meal":"Eating a meal"; break;
+                p.Task=Work.EatingMeal; p.Timer=0; p.Status=r.Commons?"Eating at the shared place":r.Welcome?"Sharing the welcome meal":AtFurnishedHome(p)?"Eating outside at home":"Eating a meal"; break;
             case Work.EatingMeal:
                 if(r.Gathering && Gathering is {Active:true,Eating:false}){p.Status="Waiting with a meal for the village";return;}
                 if(p.Timer<4) return;

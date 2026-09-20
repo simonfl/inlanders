@@ -43,6 +43,8 @@ public sealed partial class World
     }
     public string ComfortSummary(Cottage home)
     {
+        if(Founding?.RiverFarmstead==true && !home.ImprovementRequested)
+            return home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. Requires carpenter and planks; keep entrance sides clear.";
         if(home.Improved) return "Improved home · rest benefit lasts 5m; next rest due after 4m. No extra beds.";
         if(!home.ImprovementRequested) return home.ImprovementPlanks>0 ? $"Cancelled · builders recover {home.ImprovementPlanks} planks." : $"Improve for {ComfortCost(home)} planks. Rest benefit lasts 5m instead of 4m; visits are due after 4m instead of 3m.";
         var worker=People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);

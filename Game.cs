@@ -313,6 +313,7 @@ public partial class Game : Node3D
             }
             _lastStored = _world.YardLogs; _lastPlanks = _world.YardPlanks;
         }
+        UpdateHomeYards();
         TraceActorPart(3);
         foreach (int id in _cottages.Keys.Where(id => !_world.Cottages.Any(c => c.Id == id)).ToArray()) { _cottages[id].Body.QueueFree(); _cottages.Remove(id); }
         foreach (var h in _world.Cottages)
