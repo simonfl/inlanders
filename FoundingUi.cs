@@ -20,7 +20,7 @@ public partial class Game
     private void FoundingMenu()
     {
         MenuPage("A home by the water");
-        _mainColumn.AddChild(Text("Eight founders, one home and a lake. Build homes and choose how to feed your village: fish along the shore, preserve woodland for hunting, or give land to gardens. Workers share the jobs.",16,true));
+        _mainColumn.AddChild(Text("Eight founders, one home and a lake. Give everyone a home. The existing foragers feed this small start; choose more food as you grow. Workers share jobs automatically.",16,true));
         _mainColumn.AddChild(Text("Invite two households when you are ready to grow. Let the newcomers settle in, then finish here or keep building. Construction uses real timber and labor; arrivals never happen on a timer.",16,true));
         if(File.Exists(FoundingPath))MenuButton("Resume · A home by the water",()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(FoundingPath))));
         void Start()=>MenuAttempt(()=>{var w=World.NewFoundingSettlement();w.SaveFile(FoundingPath);EnterFromMenu(w);});
@@ -35,9 +35,16 @@ public partial class Game
         _foundingFoodView=Button("Inspect food in the village",()=>{if(!_showFoodMap)ToggleFoodMap();else CloseDrawer();});_foundingGoals.AddChild(_foundingFoodView);
         _foundingInvite=Button("Invite two neighbors",()=>{if(_world.InviteNewcomers()){SaveWorld();UpdateHud();}else Notice(_world.InvitationProblem()??"Not ready.");});_foundingGoals.AddChild(_foundingInvite);
         _foundingFinish=Button("This village is ready",()=>{if(_world.FinishFounding()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingGoals.AddChild(_foundingFinish);
-        _foundingContinue=Button("Keep building",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
+        _foundingContinue=Button("Keep shaping the village",()=>{CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
         MakeFoundingHallUi(column);
+        _foundingGoals.MoveChild(_foundingContinue,0);
+        _foundingGoals.MoveChild(_hallBegin,1);
+        _foundingGoals.MoveChild(_foundingLeave,2);
+        _foundingGoals.MoveChild(_foundingFinish,3);
+        _foundingGoals.MoveChild(_foundingInvite,4);
+        _foundingGoals.MoveChild(_foundingFood,_foundingGoals.GetChildCount()-2);
+        _foundingGoals.MoveChild(_foundingFoodView,_foundingGoals.GetChildCount()-1);
         _foundingGoals.Hide();
     }
     private void UpdateFoundingUi()
@@ -47,10 +54,10 @@ public partial class Game
         _foundingHallGoals.Visible=f.HallProject==1;
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
         _campaignSelection.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_riverAction.Hide();_progress.Hide();
-        _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Show();
+        _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Hide();
         _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":"A home by the water";
         _goalArrival.Text=f.Finished?"Keep growing when you want. More neighbors need more food; their first meal does not prove lasting supply.":"Build homes for eight founders. Choose a food source, then invite two households when ready.";
-        _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(_world.FinishFoundingProblem()??"Everyone has settled in. Finish when satisfied, or keep building.");
+        _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(f.Finished?"Finished. Shape this village, grow, or leave it here.":_world.FinishFoundingProblem()??"Everyone has settled in. Finish whenever you like.");
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";
         _foundingInvite.Visible=true;
         var flow=_world.ReadFoodFlow();

@@ -38,7 +38,8 @@ public partial class Game
         if (input is InputEventMouseMotion && _pathStroke && _placing && _pathTool > 0 && !PointerOverHud(_pointerPosition) && Ground(_pointerPosition) is Vector3 p)
             PaintPath(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z)));
     }
-    private string BuildingDescription(BuildingKind kind) => (_world.Creative, kind) switch
+    private string BuildingDescription(BuildingKind kind) => (_world.SharedWork && Buildings.Get(kind).Worker!=null ? "Workers take these jobs automatically; dedicating someone is optional. " : "") + BuildingRuleDescription(kind);
+    private string BuildingRuleDescription(BuildingKind kind) => (_world.Creative && !_world.SimulatesMeals, kind) switch
     {
         (_,BuildingKind.Carpenter) => "One carpenter installs improvements in occupied homes. Order at a home: 4 planks per cottage, 8 per lodge. Actual rest lasts longer; beds stay available during work.",
         (true, BuildingKind.Bridge) => "Instant crossing between two dry banks. R turns the crossing. Keep both banks accessible.",
@@ -49,24 +50,24 @@ public partial class Game
         (true, BuildingKind.Square) => "Up to four villagers take short breaks between jobs. No staff. Visitors stand on reachable ground within 2 tiles of the marked entrance; keep that frontage open.",
         _ => OrdinaryBuildingDescription(kind)
     };
-    private static string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
+    private string OrdinaryBuildingDescription(BuildingKind kind) => kind switch
     {
         BuildingKind.HuntingLodge => "One hunter brings up to 2 game to the pantry after 10 work seconds and travel. Needs wooded habitat within 8 tiles. Retain mature trees; nearby lodges share stock. Pause hunting for recovery or supplement it with gardens.",
         BuildingKind.Quarry => "One quarrier extracts 2 stone in 6 work seconds, then carries it to the nearest stone pile with room or central storage. Needs a reachable outcrop within 4 tiles. Deposits are finite and shared by nearby camps; pause or set a stock target to reserve stone for later.",
         BuildingKind.GatheringHall => "A stone-and-plank recreation venue for up to 8 visitors, in the same footprint as a square. No staff. Visitors gather on reachable ground within 2 tiles of the entrance; keep that frontage open. Twelve-second visits satisfy recreation for 4 minutes, with a 2-minute interval before returning. Squares are cheaper and can be spread near homes.",
         BuildingKind.Pantry => "Store up to 24 edible portions near homes or work. Producers choose nearby space; optional haulers replenish a target from central food. Residents collect and eat actual food. Leave open meal seating near the entrance. Grain stays central.",
         BuildingKind.SeatingGarden => "A one-tile planted meeting spot for 2 visitors. No staff. Leave open walkable space near its entrance for residents to sit. Six-second visits give 2 minutes of recreation, like a square. Fits small plots; squares serve twice as many visitors for 6 logs.",
-        BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Shared fish stocks replenish over time; catches must return to the pantry.",
+        BuildingKind.FishingDock => "One fisher and boat. Needs dry shore, a clear water launch and reachable fishing grounds. Stocks replenish over time. " + (_world.HasWorkplaceFood ? "Catches are stored at the dock for collection." : "Catches return to food storage."),
         BuildingKind.Stockpile => "Stores 12 logs, planks or stone; choose its material when empty. Producers deposit locally and builders collect here without haulers. Optional haulers balance targets. Food stays at the pantry.",
         BuildingKind.Bridge => "Crosses one water tile between dry banks. Builders work at the marked bank; opens only when complete. R turns the crossing.",
         BuildingKind.Square => "Up to four villagers take short breaks on reachable ground within 2 tiles of the marked entrance. Keep that frontage open. Supper needs one reachable tile per villager within four tiles of the entrance. No staff; the table is a serving place, not assigned seating.",
         BuildingKind.Cottage => "A home for 2 neighbors. No staff needed.",
         BuildingKind.Lodge => "A home for 4 neighbors. Needs planks made at a sawmill. No staff needed.",
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",
-        BuildingKind.VegetableGarden => "Supports 1 farmer. Grows 8 vegetables in 60 seconds after planting; harvested in pairs and carried to the pantry. Eaten directly without a bakery. Farmers share gardens and grain farms.",
+        BuildingKind.VegetableGarden => "Grows 8 vegetables in 60 seconds after planting. Eaten directly; no bakery needed. " + (_world.HasWorkplaceFood ? "Harvests are stored at the garden for collection." : "Harvests are carried to food storage."),
         BuildingKind.Farm => "Supports 1 farmer. Grows 6 grain in 45 seconds; harvest loads hold up to 4. Grain needs a bakery before villagers can eat it.",
         BuildingKind.Orchard => "1 farmer plants trees once. First fruit takes 3 minutes; mature trees grow 8 fruit every 60 seconds after picking. Farmers carry pairs to food storage. Keep quick food during establishment. Targets hold new batches; clearing loses mature trees.",
-        BuildingKind.Bakery => "Supports 1 baker. Bakes 2 grain into 4 loaves in 10 work seconds; carries the whole batch. Build near the pantry to shorten trips.",
+        BuildingKind.Bakery => "Turns 2 grain into 4 loaves in 10 work seconds. " + (_world.HasWorkplaceFood ? "Keep grain suppliers and diners close; bread is stored at the bakery." : "Build near food storage to shorten trips."),
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };

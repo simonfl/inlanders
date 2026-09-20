@@ -7,8 +7,8 @@ public partial class Game
     private Button _hallBegin=null!,_hallFinish=null!;
     private void MakeFoundingHallUi(VBoxContainer column)
     {
-        _hallBegin=Button("Next project · A lakeside hall",()=>{if(_world.BeginFoundingHall()){SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});
-        _foundingGoals.AddChild(_hallBegin);_foundingGoals.MoveChild(_hallBegin,0);
+        _hallBegin=Button("Optional project · Lakeside hall",()=>{if(_world.BeginFoundingHall()){SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});
+        _foundingGoals.AddChild(_hallBegin);
         _foundingHallGoals=new();column.AddChild(_foundingHallGoals);
         _foundingHallGoals.AddChild(Button("Find far-shore stone",()=>{var stone=_world.Map.StoneDeposits[0];_focus=OnGround(stone.Cell.X,stone.Cell.Z);UpdateCamera();CloseDrawer();Notice("Build a quarry near this outcrop. Workers can walk around the lake.");}));
         _foundingHallGoals.AddChild(Button("Plan quarry · 6 logs",()=>BeginPlacement(BuildingKind.Quarry)));
@@ -16,6 +16,7 @@ public partial class Game
         _foundingHallGoals.AddChild(Button("Plan hall · 8 planks + 12 stone",()=>BeginPlacement(BuildingKind.GatheringHall)));
         _hallFinish=Button("This hall is ready",()=>{if(_world.FinishFoundingHall()){_paused=true;SaveWorld();UpdateHud();_drawerPages[2].ScrollVertical=0;}});_foundingHallGoals.AddChild(_hallFinish);
         _foundingHallGoals.AddChild(Button("Return to main menu",ReturnToMainMenu));
+        _foundingHallGoals.MoveChild(_hallFinish,0);
         _foundingHallGoals.Hide();
     }
     private void UpdateFoundingHallUi()

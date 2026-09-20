@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **35**.
+- Playable checkpoints since adoption: **36**.
 - Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +12,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F33a — September19/20,2026:** [Current choices](CHOICES_F33A.md). Phase-specific actions, compact food comparison and active-rule guidance. Bounds/held-click/current-save checks at960/1440. One playable UX outcome, count36; next review40. User extends work through review45.
+
 
 **Whole-game review35 — September 19, 2026:** [Five-role synthesis](REVIEW_CHECKPOINT_35.md), fixed a94f953, all reused separate contexts. Partially convincing: retain meaningful arrangement tools, reject automatic quota/catalogue expansion; select clear action/choice UX, measured interaction attribution and one whole-place shore/woodland comparison. Fresh founding controls/freecourt/river/dense views and frame traces; no uncoached play, motion viewing or listening. Review complete with explicit evidence limitations. Count stays35; next40. Stop at this review as requested.
 

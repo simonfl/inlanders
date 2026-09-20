@@ -25,6 +25,11 @@ public partial class Game
             if(category==2)
             {
                 Check(visible.Contains(BuildingKind.Pantry),"Pantry missing from food");
+                var viewport=_drawerPages[1].GetGlobalRect();
+                foreach(var kind in new[]{BuildingKind.ForagerHut,BuildingKind.VegetableGarden,BuildingKind.FishingDock})
+                    Check(viewport.Encloses(_kindButtons[kind].GetGlobalRect()),"First food alternatives cannot be compared at once");
+                Check(BuildingDescription(BuildingKind.FishingDock).Contains("stored at the dock"),"Local fish guidance stale");
+                Check(BuildingStaff(BuildingKind.ForagerHut)=="Shared workers","Shared staffing guidance stale");
                 await CaptureReviewBundle("catalog-food");
                 await UiClick(_kindButtons[BuildingKind.Bakery],6);await Frames();
                 Check(_placing && _buildKind==BuildingKind.Bakery,"Grouped card did not start preview");

@@ -37,6 +37,11 @@ public partial class Game
         }
         _world.Validate();UpdateHud();await Frames();Check(_world.FinishFoundingProblem()==null,"Founding route did not settle");
         await Click(_foundingFinish);Check(_world.Founding!.Finished && _paused,"Ending action failed");
+        _drawerPages[2].ScrollVertical=0;await Frames();
+        var viewport=_drawerPages[2].GetGlobalRect();
+        foreach(var action in new[]{_foundingContinue,_hallBegin,_foundingLeave})
+            Check(viewport.Encloses(action.GetGlobalRect()),"Finished village primary action below fold");
+        Check(!_objective.Text.Contains("Finish when satisfied"),"Finished status still asks to finish");
         await CaptureReviewBundle("founding-finished");SaveWorld();string saved=_world.SaveJson();
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
         Check(_world.SaveJson()==saved && CurrentSavePath==FoundingPath,"Continue changed finished village");

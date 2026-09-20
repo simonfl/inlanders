@@ -245,6 +245,7 @@ public partial class Game
         // Reapply the viewport width so switching villages can shrink it again.
         _topBar.Size=new(_hud.Size.X-32,68);
         _resourceValues[Resource.Stone].GetParent<Control>().TooltipText=$"{_world.Stone-_world.AvailableStone} stone reserved. {_world.YardStone} central · {_world.Stone-_world.YardStone} in local piles.";
+        _objective.AddThemeFontSizeOverride("font_size",_world.Founding!=null?14:18);
         _objective.Text = _world.Food.SupperComplete ? "A supper to remember.\nKeep enjoying your village." : $"Housing  {_world.Housed} / {_world.Population}\nBread for supper  {Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread))} / {_world.SupperCost}";
         _progress.Value = _world.Food.SupperComplete ? 100 : _world.Housed / (float)_world.Population * 50 + Math.Min(_world.SupperCost, _world.CentralFoodAvailable(Resource.Bread)) / (float)_world.SupperCost * 50;
         _supperButton.Disabled = !_world.CanCelebrate;

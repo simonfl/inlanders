@@ -15,8 +15,8 @@ public partial class Game
         await Click(_hallBegin);Check(_world.Founding!.HallProject==1 && _foundingHallGoals.IsVisibleInTree() && _hallFinish.Disabled,"Begin project failed");
         await CaptureReviewBundle("hall-project-brief");
         var buttons=_foundingHallGoals.GetChildren().OfType<Button>().ToArray();
-        await Click(buttons[0]);Check(!_drawer.Visible && Math.Abs(_focus.X-15)<.1,"Stone focus failed");ToggleDrawer(2);await Frames();
-        await Click(buttons[1]);Check(_placing && _buildKind==BuildingKind.Quarry,"Quarry shortcut failed");await Press(Key.Escape);
+        await Click(buttons.First(b=>b.Text=="Find far-shore stone"));Check(!_drawer.Visible && Math.Abs(_focus.X-15)<.1,"Stone focus failed");ToggleDrawer(2);await Frames();
+        await Click(buttons.First(b=>b.Text.StartsWith("Plan quarry")));Check(_placing && _buildKind==BuildingKind.Quarry,"Quarry shortcut failed");await Press(Key.Escape);
         // Ordinary construction commands; accelerated simulation driver, not human play.
         Cottage Place(BuildingKind kind,Cell at)
         {

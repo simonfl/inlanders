@@ -32,9 +32,10 @@ public partial class Game
         BuildingKind.GatheringHall => "A compact community venue",
         _ => "A place to gather"
     };
-    private static string BuildingStaff(BuildingKind kind)
+    private string BuildingStaff(BuildingKind kind)
     {
         var building = Buildings.Get(kind);
+        if (_world.SharedWork && building.Worker != null) return building.Slots == 0 ? "Shared hauling" : "Shared workers";
         return building.Worker == null ? "No staff" : building.Slots == 0 ? "Optional haulers" :
             $"{building.Slots} {building.Worker.ToString()!.ToLowerInvariant()} slot{(building.Slots == 1 ? "" : "s")}";
     }
@@ -78,24 +79,25 @@ public partial class Game
         _buildFooter.Visible = buildOpen && _placing;
         _buildDescription.TooltipText = _buildDescription.Text;
         foreach (var (kind, cost) in _cardCosts)
-            cost.Text = (_world.Creative ? "Free · instant" : Buildings.Get(kind).CostText) + " · " + BuildingStaff(kind);
+            cost.Text = (_world.Creative ? "Free · instant" : Buildings.Get(kind).CostText) + (FoodChoice(kind)==null ? " · " + BuildingStaff(kind) : "");
     }
     private void MakeBuildingCard(VBoxContainer column, BuildingKind kind)
     {
         var button = Button("", () => BeginPlacement(kind));
-        button.CustomMinimumSize = new(0, 112); button.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        bool compact=FoodChoice(kind)!=null;
+        button.CustomMinimumSize = new(0, compact?64:112); button.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         button.TooltipText = BuildingDescription(kind); column.AddChild(button); _kindButtons[kind] = button;
         var content = new HBoxContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
         button.AddChild(content); content.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        content.OffsetLeft = 6; content.OffsetRight = -6; content.OffsetTop = 8; content.OffsetBottom = -8;
-        var thumbnail = new TextureRect { Texture = BuildingThumbnail(kind), CustomMinimumSize = new(76, 76),
+        content.OffsetLeft = 6; content.OffsetRight = -6; content.OffsetTop = compact?3:8; content.OffsetBottom = compact?-3:-8;
+        var thumbnail = new TextureRect { Texture = BuildingThumbnail(kind), CustomMinimumSize = new(compact?40:76, compact?40:76),
             ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
             MouseFilter = Control.MouseFilterEnum.Ignore };
         content.AddChild(thumbnail);
         var words = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill, MouseFilter = Control.MouseFilterEnum.Ignore };
         content.AddChild(words);
-        words.AddChild(Text(BuildingName(kind), 16, true));
-        words.AddChild(Text(BuildingPurpose(kind), 13, true));
+        words.AddChild(Text(BuildingName(kind), compact?14:16, true));
+        words.AddChild(Text(FoodChoice(kind)??BuildingPurpose(kind), compact?11:13, true));
         var cost = Text("", 12, true); cost.Modulate = new("b8c9b6"); words.AddChild(cost); _cardCosts[kind] = cost;
     }
     private Texture2D BuildingThumbnail(BuildingKind kind)

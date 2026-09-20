@@ -1,6 +1,6 @@
 # Next chunks — a village worth shaping
 
-September 19, 2026. Playable count **35**. [Whole-game review35](REVIEW_CHECKPOINT_35.md) completed with five separate reused reviewer contexts; no uncoached play, motion viewing or listening acceptance. Next periodic full/visual review **40**; substantial presentation changes trigger an earlier visual review. Pause here as requested. The list below is the next authorized-work proposal, not work already performed.
+September 19, 2026. Playable count **36**. [Whole-game review35](REVIEW_CHECKPOINT_35.md) completed with five separate reused reviewer contexts; no uncoached play, motion viewing or listening acceptance. Next periodic full/visual review **40**; substantial presentation changes trigger an earlier visual review. User authorized continuing through two full reviews:40 and45. Stop after review45.
 
 ## Direction
 
@@ -8,7 +8,9 @@ Build one coherent shore/woodland settlement situation using the existing econom
 
 Retain physical work/meals, shared labor, voluntary arrivals, optional endings, warm architecture, free home/public-place moves and connected paths. Keep all buildings available. No new needs, producers, civic tiers, compatibility work or seasons. Earlier assessment campaigns remain archived. [F31/F32 queue history](DELIVERED_F31_F32_QUEUE.md) retains completed comparisons; it is not a second active backlog.
 
-## 1. F33a — make the current commitment and choices clear
+## F33a delivered — current commitment and choices
+
+[Delivery and checks](CHOICES_F33A.md), count36. Scope below is retained acceptance context.
 
 Confirmed review findings first. Replace the founding panel's long common stack with phase-specific status and visible actions. At960, invite/finish must be reachable without hunting below explanatory prose; completed villages show keep shaping / optional next project / leave together, without instructions to finish again. Hall remains explicitly optional. Keep controls stable across held presses.
 
@@ -46,6 +48,6 @@ Implement only the selected direction, reconcile its main entry/instructions and
 
 ## Review boundary and deferred scope
 
-No more routine implementation in the current run: checkpoint35 review was the requested stopping point. Immediate confirmed UX defects are queued above, not silently claimed fixed. Long-session stability, normal quit reliability, actual listening, unfamiliar-player comprehension and sustained preference remain open.
+Continue through reviews40 and45, reevaluating this queue after each chunk. F33a resolves the confirmed action/catalogue issues; human comprehension remains unobserved. Long-session stability, normal quit reliability, actual listening, unfamiliar-player comprehension and sustained preference remain open.
 
 Catalogue expansion, new mandatory needs, comfort/civic upgrade ladders, additional music themes, broad asset replacement and service certificates stay deferred. Current-format saves must remain correct; personal saves are disposable. Reevaluate ROADMAP, this queue and CHECKPOINTS after every chunk.

@@ -4,6 +4,19 @@ using System.Collections.Generic;
 
 public partial class Game
 {
+    private static string? FoodChoice(BuildingKind kind) => kind switch
+    {
+        BuildingKind.ForagerHut => "Berries · nearby bushes",
+        BuildingKind.FishingDock => "Fish · shore + boat",
+        BuildingKind.HuntingLodge => "Game · retained woodland",
+        BuildingKind.VegetableGarden => "Vegetables · open land",
+        BuildingKind.Orchard => "Fruit · 3-minute first crop",
+        BuildingKind.Farm => "Grain · needs a bakery",
+        BuildingKind.Bakery => "Bread · needs farm grain",
+        BuildingKind.Pantry => "Moves food · produces none",
+        _ => null
+    };
+    private readonly List<Control> _foodGroupHeadings = new();
     private static readonly string[] BuildingCategoryNames = { "All buildings", "Homes", "Food", "Materials", "Storage & bridges", "Gathering" };
     private GridContainer _buildingCategories = null!;
     private readonly List<Button> _categoryButtons = new();
@@ -36,21 +49,20 @@ public partial class Game
         void Group(int category, string title, string explanation, params BuildingKind[] kinds)
         {
             var panel = new VBoxContainer(); panel.AddThemeConstantOverride("separation", 8); parent.AddChild(panel);
-            panel.AddChild(Text(title, 16, true)); panel.AddChild(Text(explanation, 13, true));
+            var heading=Text(title, 16, true); var description=Text(explanation,13,true);panel.AddChild(heading);panel.AddChild(description);
+            if(category==2){_foodGroupHeadings.Add(heading);_foodGroupHeadings.Add(description);panel.AddThemeConstantOverride("separation",4);}
             foreach (var kind in kinds) MakeBuildingCard(panel, kind);
             _buildingGroups.Add((panel, category));
         }
         Group(1, "Homes", "Give residents a place to live and sleep.", BuildingKind.Cottage, BuildingKind.Lodge);
-        Group(2, "Gather food", "Use what grows or lives nearby.", BuildingKind.ForagerHut, BuildingKind.FishingDock, BuildingKind.HuntingLodge);
-        Group(2, "Grow food", "Harvest food villagers can eat directly.", BuildingKind.VegetableGarden, BuildingKind.Orchard);
-        Group(2, "Make bread", "Farm grain, then turn it into food at a bakery. You need both.", BuildingKind.Farm, BuildingKind.Bakery);
-        Group(2, "Bring meals closer", "A pantry moves existing food near residents; it does not produce food.", BuildingKind.Pantry);
+        Group(2, "Food choices", "Choose a livelihood that suits this land. A pantry moves food; it does not produce it.", BuildingKind.ForagerHut, BuildingKind.VegetableGarden, BuildingKind.FishingDock, BuildingKind.HuntingLodge, BuildingKind.Orchard, BuildingKind.Farm, BuildingKind.Bakery, BuildingKind.Pantry);
         Group(3, "Materials & home improvements", "Make planks, extract stone, or improve occupied homes.", BuildingKind.Sawmill, BuildingKind.Quarry, BuildingKind.Carpenter);
         Group(4, "Storage & bridges", "Shorten material deliveries and cross water.", BuildingKind.Stockpile, BuildingKind.Bridge);
         Group(5, "Places to gather", "Give neighbors somewhere to take a break together.", BuildingKind.SeatingGarden, BuildingKind.Square, BuildingKind.GatheringHall);
     }
     private void UpdateBuildingGroups(int category)
     {
+        foreach(var heading in _foodGroupHeadings) heading.Visible=category!=2;
         foreach (var group in _buildingGroups) group.Panel.Visible = category == 0 || group.Category == category;
         foreach (var button in _categoryButtons)
         {
