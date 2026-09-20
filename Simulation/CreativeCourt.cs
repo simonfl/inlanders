@@ -5,7 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    public bool SimulatesMeals => !Creative || IsArrangementCourt;
+    public bool SimulatesMeals => !Creative || IsArrangementCourt || Founding?.TransformationHamlet==true;
     public static World NewCreativeCourt() => CreativeCourtFrom(NewArrangementCourt());
 
     // Copy the actual village, including residents and food claims. This is also the

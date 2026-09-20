@@ -8,6 +8,14 @@
     "zoom": 34
   },
   {
+    "name": "transformation-relaxed",
+    "description": "Exact hamlet in relaxed mode: shared current food and domestic rules",
+    "generator": "transformation-relaxed",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 34
+  },
+  {
     "name": "working-village",
     "description": "Inhabited grain village divided by an inlet",
     "generator": "working-village",

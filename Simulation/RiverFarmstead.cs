@@ -42,5 +42,5 @@ public sealed partial class World
 
     private string? FarmsteadReadyProblem() => Housed<Population ? "Give everyone a finished home." :
         DeliveredEdible==0 ? "Establish a food source and bring its first food into storage." :
-        People.Any(p=>!p.Fed) ? "Some neighbors missed a meal. Restore food service before finishing." : null;
+        !Creative && People.Any(p=>!p.Fed) ? "Some neighbors missed a meal. Restore food service before finishing." : null;
 }

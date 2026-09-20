@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **51**.
+- Playable checkpoints since adoption: **52**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint 50**, [whole-game synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures. Source/stills/scripted coverage; no uncoached play, motion or listening acceptance. Third requested review completed; stop this run.
 - Earlier periodic review: **checkpoint 45**, [synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`, one fresh and four independent reused contexts.
@@ -15,6 +15,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 60**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**F37 relaxed comparison — checkpoint52:** Normal and relaxed versions of the exact hamlet share recipes, scheduling, physical meals and domestic life. Free construction/editing and hunger penalties differ; separate slots/restart/restore. Matched initial resident activity and active saves pass; native1440 entry/mode/save controls pass. Public Free still uses the older court pending review; food-access planning next.
+
 
 **F37a — checkpoint51:** [Constrained inhabited hamlet](TRANSFORMATION_F37.md), isolated prototype entry/current saves and five ordinary approaches. Native960 controls pass. Equal added food budgets sustain twelve; crossing alone does not. This establishes a comparison, not accepted sustained enjoyment. Relaxed matched mode next; full review55.
 

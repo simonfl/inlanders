@@ -3,7 +3,13 @@ using System.Linq;
 namespace Inlanders.Simulation;
 public sealed partial class World
 {
-    public static World NewTransformationHamlet()
+    public static World RelaxedHamletFrom(World source)
+    {
+        if(source.Founding?.TransformationHamlet!=true)throw new ArgumentException("Choose the transformation hamlet.");
+        var w=LoadJson(source.SaveJson());w.Creative=true;w.Food.Hunger=0;
+        w.History.Add("Relaxed hamlet: the same meals, work and homes; free construction and no hunger penalties.");w.Validate();return w;
+    }
+    public static World NewTransformationHamlet(bool relaxed=false)
     {
         var w=NewRiverFarmstead();w.Cottages.Clear();w.Trees.Clear();w.Bushes.Clear();w._nextSite=1;w._nextTree=0;
         foreach(var p in w.People)p.HomeId=null;
@@ -34,6 +40,6 @@ public sealed partial class World
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
         w.History.Clear();w.History.Add("Twelve neighbors, crowded homes and two gardens beyond the inlet. Keep the woodland, open it for homes, or work the distant meadow. The first timber is limited; choose what to change first.");
-        w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return w;
+        w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }
