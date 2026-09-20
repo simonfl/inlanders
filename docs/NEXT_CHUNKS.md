@@ -1,57 +1,33 @@
-# Next chunks — Les Habitants
+# Next chunks — working land and daily life
 
-Playable count **40**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
+Playable count **40**. [Full review 40](REVIEW_CHECKPOINT_40.md) is complete with five fresh independent roles and explicit play/listening limitations. This is one of the user's three requested reviews; continue through **45 and 50**, stopping after the review-50 synthesis. Every chunk reevaluates this queue. Earlier delivered scope is [archived](DELIVERED_THEME_OPENING_QUEUE.md).
 
-**User constraint:** descendants are motivation only. No inheritance, aging, genealogy, succession, generational handoffs or legacy metrics. F13 seasons remains removed. Internal Inlanders naming stays. [Theme and references](LES_HABITANTS.md).
+Les Habitants remains the theme; descendants are lore/story only, never inheritance, aging or generation mechanics. Seasons remains removed. Internal Inlanders naming stays. Current saves must work; migrations are unnecessary.
 
-## Delivered: F34a — public identity and one coherent reference palette
+## First: review corrections, no playable increment
 
-[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. F33b and F33d are delivered; full review 40 is next.
+Fix scenario-preserving farmstead restart and the resulting backup-path mismatch. Exercise restart/restore/manual save/F9/Continue at 960 and 1440. Correct Free garden inspector meal guidance and local-grain/irrelevant-supper bread text. Keep these corrections attached to review 40, not a new feature count.
 
-Apply **Les Habitants** and **A home for generations** to player-facing title/menu/HUD/window branding. Keep project, filenames, namespaces, assemblies, internal kinds, save paths and tooling names unchanged. Use the existing display-name boundary or one small shared title value; no generic localization framework or mass replacement.
+## 1. F34c — functional cultivated ground
 
-Pair this with a focused dated/place-specific reference sheet for the first farm settlement: dwelling, cultivated ground, practical food/work structure, landing, people/tools and materials. Mark supported references versus artistic abstractions. Exact location/decade can be selected here; remain within 17th-century New France/modern Quebec. No new gameplay system.
+Test one larger rearward grain-farm footprint across normal rules while retaining compact vegetable gardens. Use a shared immutable bounds definition for enumerated and fast point occupancy. Actual reserved land, terrain, clearing, placement, paths and demolition must agree with the rendered field. Keep the entrance stable; reauthor incompatible old scenario placements rather than add mode-specific geometry or save migration.
 
-Verify visible names at 960/1440 and ordinary launch/resume without changing serialized identity. A title change earns only its own modest outcome, not credit for a new thematic experience.
+Render soil/crops inside those bounds and show credible work contact/travel across the plot. Compare unchanged outputs first; revise labor/yield only when measurements justify it. Verify all rotations, rejected overlap, active-work current saves and opposing ordinary-scale images. Reject if the larger plot merely adds inconvenience or becomes irrelevant beside universally better compact food. Presentation review required; foundations alone count zero.
 
-## Delivered: F33b — establish a livelihood
+## 2. F34f — lived-in homes during quiet work
 
-[Matched routes and UI checks](RIVER_FARMSTEAD_F33B.md). Available as a comparison under Earlier prototypes; setup is still short, and presentation is next.
+Carry interruptible homeward idle behavior into the normal shared-work village. Residents should occupy domestic surroundings while remaining available for new work and meals. Keep routes, entrances and neighbors clear. Compare ordinary work/quiet periods and correct interruption, relocation and reload; no new needs, work penalty or family systems. This is an observable daily-life outcome, not another satisfaction counter.
 
-Reframe the pending generic shore/woodland comparison as a small agrarian settlement. Use existing normal construction, shared work, meals, fields/gardens, bread, fishing, woodland and homes. Keep all buildings available and a modest fixed-population route valid.
+## 3. F35a — a contrasting working-village situation
 
-Author river frontage, growing ground, woodland and home/work placement together. Compare a cultivation-led approach and a mixed-land approach on the same map/starting resources/rules. These are possible player strategies, not a route picker. Do not import a self-sufficient starter forager setup that bypasses the intended livelihood decision, then compensate with a forced farmer quota or global berry nerf.
+Build one already-viable, land-constrained village that invites a meaningful revision: work a cultivated frontage and home approach, or preserve woods and improve shore access. Use the same rules and full catalogue. Compare two ordinary approaches and a poor-but-recoverable placement; no producer recipe, mandatory population expansion or timed service certificate. Include entry, context and optional ending in the same playable chunk. If the situation becomes the original opening with different coordinates, reject/rework it rather than counting it as campaign depth.
 
-Use current founding as the control. Preserve an imperfect recovery route, record material/labor/land commitments and actual meals, and inspect ordinary/opposing views. Test current bread economics before claiming a useful advantage. Good planning may succeed; invisible or irrelevant choices are the failure. No family systems, deadlines, new needs or population gate required.
+## 4. F35b — understandable production recovery
 
-## Partly delivered: F34b — make the farmstead convincing
+Use an actually misplaced food workplace/storage choice to compare ordinary rebuilding with a bounded relocation alternative. Current free home/community moves remain. Preserve physical goods, active claims, meal sources, access and current saves. Choose rules based on recovery clarity and consequences, not a blanket assumption that either friction or free movement is good. Evidence-only work counts zero; only a retained playable recovery improvement earns an outcome.
 
-[Independent review and first pass](FARMSTEAD_PRESENTATION_F34B.md). Lower houses and river context retained; functional cultivated scale and composition remain open for review 40.
+## 5. F35c — read daily life in the normal village
 
-Develop the actual F33b scene, not a separate asset showroom. Give cultivated ground meaningful visual space; connect homes, work/storage, water approach and shared ground. Replace selected generic proportions/materials where the reference palette warrants it. Add only the people/tool/crop/structure treatment necessary for that coherent scene; no catalogue-wide detail marathon.
+Extend the existing resident journey interaction where appropriate to normal farmstead work, meals and homes. Remove misleading internal-role emphasis under shared work; keep detailed management available. Let a player identify the consequence of an arrangement through a resident and the world, without opening a new dashboard. Validate ordinary-sized controls, selection/follow, interruption and current saves. Integrate only after the land/daily-life comparison identifies useful questions.
 
-Keep actual work, meals, carrying, growth and construction visible at normal zoom and opposite cameras. Let the river read as geography rather than a geometric pond decoration. Audition the existing work/water/nature/music mix before deciding additions. Substantial presentation changes require independent visual/audio review before acceptance; no screenshot or cue-count substitute for motion/listening.
-
-## Delivered evidence: F33c — livelihood and improvement comparison
-
-[Results and provisional selection](FARMSTEAD_COMPARISON_F33C.md). No playable increment. Integrate F33d next; do not claim enjoyment or full art acceptance.
-
-Compare the themed situation with current founding and Free arrangement through existing snapshots. An unfamiliar player should be able to explain a land choice, establish supply, recover from a placement mistake, choose an improvement and recognize residents using it. Let stopping, remaining small and optional growth have equal standing. Do not prescribe cottages, producer counts or coordinates.
-
-Reject or revise if starting supply bypasses the choice, both approaches collapse to the same producer package, one trivially dominates, or improvements require statistics to be noticed. Keep actual human/motion/listening limitations explicit. This comparison may produce no playable increment; do not invent one to reach a scheduled review.
-
-## Delivered: F33d — select and integrate the themed opening
-
-[Primary opening and checks](OPENING_F33D.md). Play now enters the farmstead; old openings remain under Earlier prototypes. Review 40 is due before the next implementation.
-
-Choose after comparison: a normal-rule opening with contextual teaching and a clear optional ending is the current preference. Reuse the existing game/save workflow rather than add a thematic runtime mode. Keep Free arrangement explicit. Move earlier prototype choices to development access when the chosen replacement is ready; do not hide the only working route beforehand.
-
-Integrate the retained livelihood/improvement situation, retire duplicated recipes and generic mandatory growth from the new opening, and update instructions. The [five campaign sketches](CAMPAIGN_SYSTEMS.md) are a palette, not an instruction to build a whole series. Only schedule the next situation if it offers a distinct decision.
-
-## Conditional next work and tooling
-
-Priorities after this slice: useful cultivated area/storage, a meaningful mill/bread treatment, and then possibly livestock or real river cargo. Each needs a distinct land/labor choice before becoming a new building/resource. Comfort/common places can use existing activity; chapel/school/family systems are not dependencies.
-
-Accepted tooling: small public-title/display naming seam, compact reference sheet, existing snapshot comparisons and a short consumed observation/audition record. T07 did not reproduce sustained earlier stalls; profile a recurrence rather than speculate. Current-save correctness stays; no migrations or generalized asset/history/localization platform.
-
-Reevaluate after every chunk. Do not force these five rows to become five playable checkpoints: evidence-only work counts zero, substantial outcomes count once, and reviews 40/45/50 occur at their actual outcome counts. Follow [CHECKPOINTS.md](CHECKPOINTS.md).
+These are hypotheses, not five guaranteed checkpoints. Reorder or replace from evidence. Full review 45 occurs after five actual additional playable outcomes; review 50 after the next five. No new catalogue chains or needs before this experience earns them. Menu illustration, closer framing and audio audition remain supporting presentation questions, not an automatic polish marathon.

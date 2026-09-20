@@ -5,14 +5,16 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **40**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 remain pending.
-- Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
+- Last periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint40**, whole-project scope; substantial presentation changes trigger their own visual/audio review.
-- Latest whole-game visual/audio supplement: **checkpoint35**, [synthesis](REVIEW_CHECKPOINT_35.md), reused independent presentation reviewer at a94f953. Stills/source/traces; no listening or motion viewing. Previous presentation-triggered review32 remains recorded in [F32a](HAMLET_F32A.md).
-- Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
+- Next four-role review: **checkpoint 45**, then 50; the user requests stopping after the third synthesis at 50.
+- Latest whole-game visual/audio supplement: **checkpoint 40**, [synthesis](REVIEW_CHECKPOINT_40.md). Fresh independent role; source/stills only, audio remains unjudged.
+- Next regular visual/audio review: **checkpoint 50**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**Full review 40 — September 19/20, 2026:** [Five fresh independent roles](REVIEW_CHECKPOINT_40.md) at `772a653`. Partially convincing: retain normal/Free foundation, correct restart and mode-copy defects, test real cultivated extent and domestic life, then a working-village alternative/recovery. Source and fresh broad stills/scripted workflows; no human play or listening. Count stays **40**. First of three requested reviews complete; next **45**, horizon **50**.
 
 **F33d — September 19/20, 2026:** [Primary normal opening](OPENING_F33D.md): Play enters the farmstead, earlier introductions move under Earlier prototypes, food-first guidance and optional no-growth finish. Native 960/1440 entry/finish/resume and legacy founding entry pass. Count **40**; five-role whole-game review due now before implementation.
 
