@@ -14,7 +14,7 @@
 
 First consolidate a coherent public inhabited-place experience with Normal/relaxed constraints and a voluntary finish. Compare the compact scene with a substantial functional working-land composition: recognizable groups of homes, cultivated strips, useful yards, retained woodland and river work edge. This is spatial composition, not household ownership or inheritance. Judge visible lived payoff and player intention before adding needs, catalogue tiers or another situation. Cut obsolete experiments from ordinary navigation and retire unused rule branches after selection.
 
-The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **62**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
+The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **63**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
 
 ## What stays, what changes
 
@@ -77,3 +77,6 @@ Checkpoint61 · F38a: Play now opens the inhabited hamlet with Normal/relaxed en
 
 
 Checkpoint62 · F38a: the hamlet can be finished for now without food, building, commons or population gates. The saved village remains alive; Watch uses normal speed and Keep shaping reopens the ending. Both modes pass exact continuation/reopening checks; native960 finish/save/reload/watch/reopen passes. This is a personal stopping point, not a certificate of viable supply. Next compare composition at the same population/inventory rather than add progression requirements.
+
+
+Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both sides of the inlet and joins the three actual vegetable plots into a continuous river-side strip. Same twelve people, buildings, starting food/materials and daily rules; no fake fields or household economy. Public comparison has separate Normal/relaxed saves and preserves layout on restart. Both ten-minute simulations delivered food with zero hungry ticks (47 final food); native960 actual plot relocation/replant/save/restart passes.1440 still inspected: clearer cultivated edge, but broad bare ground and tiny crop scale remain unresolved. Keep both layouts for review65 rather than claim visual acceptance. Next64 extends direct world actions;65 compares personal changes.

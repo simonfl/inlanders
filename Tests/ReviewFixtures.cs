@@ -21,6 +21,8 @@ static class ReviewFixtures
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "farmstead"=>World.NewRiverFarmstead(),
+            "cultivated-bank"=>World.NewTransformationHamlet(false,true),
+            "cultivated-bank-relaxed"=>World.NewTransformationHamlet(true,true),
             "transformation-relaxed"=>World.NewTransformationHamlet(true),
             "transformation"=>World.NewTransformationHamlet(),
             "working-village"=>World.NewWorkingVillage(),

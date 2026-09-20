@@ -10,6 +10,7 @@ public sealed class FoundingProgress
     public bool ProvisionedLife { get; set; }
     public bool RiverFarmstead { get; set; }
     public bool TransformationHamlet { get; set; }
+    public bool CultivatedBank { get; set; }
     public bool WorkingVillage { get; set; }
     public bool Finished { get; set; }
     public int HallProject { get; set; }
@@ -77,6 +78,7 @@ public sealed partial class World
     {
         if(Founding is not {} f)return;
         if(f.HallProject is <0 or >2 || f.HallVisitors==null || f.HallVisitors.Any(p=>p.Key<1 || p.Key>=_nextSite || p.Value<0 || p.Value>=Population) || f.HallProject>0 && !f.Finished || f.HallProject==2 && f.HallVisitors.Count==0)throw new InvalidOperationException("Invalid hall project");
+        if(f.CultivatedBank && !f.TransformationHamlet)throw new InvalidOperationException("Cultivated bank needs hamlet rules");
         if((f.WorkingVillage || f.TransformationHamlet) && !f.RiverFarmstead || Creative && !f.TransformationHamlet || Neighborhood!=null || Campaign!=null || !SharedWork || !LocalGrainSupply || f.Settled==null ||
             f.Settled.Any(id=>id<InitialPopulation || id>=Population) || f.Finished && !f.RiverFarmstead && (Population<12 || f.Settled.Count<4))
             throw new InvalidOperationException("Invalid founding settlement");

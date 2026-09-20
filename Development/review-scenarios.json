@@ -374,5 +374,21 @@
     "focusX": 3,
     "focusZ": 3,
     "zoom": 32
+  },
+  {
+    "name": "cultivated-bank",
+    "description": "Functional cultivated river-bank comparison, same people and inventory",
+    "generator": "cultivated-bank",
+    "focusX": 0,
+    "focusZ": 3,
+    "zoom": 29
+  },
+  {
+    "name": "cultivated-bank-relaxed",
+    "description": "Functional cultivated river-bank comparison, same people and inventory",
+    "generator": "cultivated-bank-relaxed",
+    "focusX": 0,
+    "focusZ": 3,
+    "zoom": 29
   }
 ]

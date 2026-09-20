@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **62**.
+- Playable checkpoints since adoption: **63**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint60**, [whole-game synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`. Five fresh independent roles including visual/audio. Finite self-directed transformation selected as the next product hypothesis; human enjoyment, listening and representative performance remain unproven. Closeout corrections add zero outcomes. Stop this requested run here.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
@@ -270,3 +270,6 @@ Checkpoint61 · F38a: Play now opens the inhabited hamlet with Normal/relaxed en
 
 
 Checkpoint62 · F38a: the hamlet can be finished for now without food, building, commons or population gates. The saved village remains alive; Watch uses normal speed and Keep shaping reopens the ending. Both modes pass exact continuation/reopening checks; native960 finish/save/reload/watch/reopen passes. This is a personal stopping point, not a certificate of viable supply. Next compare composition at the same population/inventory rather than add progression requirements.
+
+
+Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both sides of the inlet and joins the three actual vegetable plots into a continuous river-side strip. Same twelve people, buildings, starting food/materials and daily rules; no fake fields or household economy. Public comparison has separate Normal/relaxed saves and preserves layout on restart. Both ten-minute simulations delivered food with zero hungry ticks (47 final food); native960 actual plot relocation/replant/save/restart passes.1440 still inspected: clearer cultivated edge, but broad bare ground and tiny crop scale remain unresolved. Keep both layouts for review65 rather than claim visual acceptance. Next64 extends direct world actions;65 compares personal changes.

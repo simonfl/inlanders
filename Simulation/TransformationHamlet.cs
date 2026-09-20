@@ -9,12 +9,13 @@ public sealed partial class World
         var w=LoadJson(source.SaveJson());w.Creative=true;w.Food.Hunger=0;
         w.History.Add("Relaxed hamlet: the same meals, work and homes; free construction and no hunger penalties.");w.Validate();return w;
     }
-    public static World NewTransformationHamlet(bool relaxed=false)
+    public static World NewTransformationHamlet(bool relaxed=false,bool cultivatedBank=false)
     {
         var w=NewRiverFarmstead();w.Cottages.Clear();w.Trees.Clear();w.Bushes.Clear();w._nextSite=1;w._nextTree=0;
         foreach(var p in w.People)p.HomeId=null;
         w.Map=new(){Name="Entre bois et rivière · Between wood and water",MinX=-12,MinZ=-14,Width=28,Depth=29};
-        w.Founding!.TransformationHamlet=true;
+        w.Founding!.TransformationHamlet=true;w.Founding.CultivatedBank=cultivatedBank;
+        if(cultivatedBank)w.Map.Name="La rive cultivée · The cultivated bank";
         for(int z=w.Map.MinZ;z<=w.Map.MaxZ;z++)for(int x=w.Map.MinX;x<=w.Map.MaxX;x++)
         {
             var c=new Cell(x,z);
@@ -30,9 +31,10 @@ public sealed partial class World
             var b=w.Place(c,rotation,kind)??throw new InvalidOperationException($"Hamlet {kind} {c}: {w.PlacementProblem(c,0,kind)}");
             b.Delivered=b.Required;b.Construction=1;return b;
         }
-        foreach(var c in new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)})Ready(c,BuildingKind.Cottage,c.X==-3?1:c.X==1?3:c.Z==11?2:0);
+        var homes=cultivatedBank?new[]{new Cell(-3,6),new(1,6),new(-3,11),new(1,11),new(-3,-4),new(1,-4)}:new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)};
+        foreach(var c in homes)Ready(c,BuildingKind.Cottage,cultivatedBank?0:c.X==-3?1:c.X==1?3:c.Z==11?2:0);
         foreach(var p in w.People)p.Position=w.Cottages[p.Id/2].Entrance.Point;
-        foreach(var c in new[]{new Cell(1,3),new(5,3),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden);b.Planted=true;b.Growth=.6f;}
+        foreach(var c in cultivatedBank?new[]{new Cell(5,4),new(5,7),new(5,10)}:new[]{new Cell(1,3),new(5,3),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden,cultivatedBank?1:0);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
         foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=c,Logs=8,Preserved=true});
@@ -45,9 +47,11 @@ public sealed partial class World
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
         w.History.Clear();w.History.Add("Three gardens feed twelve neighbors. The kitchen plots fill the open ground by the houses. Keep food close, or make room for a shared place and grow beyond the inlet. The woodlot and northern meadow offer different ways to reshape this hamlet.");
+        if(cultivatedBank){w.History.Clear();w.History.Add("Three groups of homes share a cultivated river bank. The long vegetable strip is three actual working plots. Keep the bank productive, or move a plot to open a place by the water. Northern homes cross the inlet for food and company.");}
         // These are actual editable paths: they affect travel, and stop at real entrances.
         foreach(var site in w.Cottages.OrderBy(c=>c.Kind==BuildingKind.VegetableGarden?0:1).ThenBy(c=>c.Id))
             if(!w.ConnectPaths(w.YardAccess,site.Entrance))throw new InvalidOperationException("Hamlet approach unavailable");
         w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }
+
