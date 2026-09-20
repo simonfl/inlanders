@@ -61,6 +61,7 @@ public partial class Game
 
     private void MakeCottage(Node3D parent, int stage, int variant = 0, CottageFinish finish=CottageFinish.Automatic)
     {
+        if(_world.Founding?.RiverFarmstead==true){MakeHabitantHome(parent,stage,variant,finish);return;}
         // Individual wall feet and a doorstep replace the full rectangular display plinth.
         StoneFoot(parent, new(0, .16f, -.23f), new(2.4f, .28f, 1.22f));
         StoneFoot(parent, new(.62f, .15f, .55f), new(1.16f, .26f, .42f));

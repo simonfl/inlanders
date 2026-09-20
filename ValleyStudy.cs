@@ -34,7 +34,7 @@ public partial class Game
         }
         for(int x=map.MinX-margin;x<=map.MaxX+margin;x++)for(int z=map.MinZ-margin;z<=map.MaxZ+margin;z++)
         {
-            if(map.Contains(new(x,z)))continue;
+            if(map.Contains(new(x,z)) || FarmsteadWater(x,z))continue;
             var a=Corner(x-.5f,z-.5f);var b=Corner(x+.5f,z-.5f);var c=Corner(x+.5f,z+.5f);var d=Corner(x-.5f,z+.5f);
             // Rougher, muted ground distinguishes the uncultivated context before entering a tool.
             foreach(var tri in new[]{new[]{a,d,c},new[]{a,c,b}})
@@ -51,6 +51,7 @@ public partial class Game
             }
         }
         SurfaceMesh(_landscape,surface).Name="ValleyContext";
+        MakeFarmsteadRiverContext(margin);
         using var streamSurface=new SurfaceTool();streamSurface.Begin(Godot.Mesh.PrimitiveType.Triangles);
         for(int z=map.MinZ-margin;z<=map.MaxZ+margin;z++)
         {
@@ -69,9 +70,10 @@ public partial class Game
             if(z>map.MinZ+5 && x<map.MaxX-3)continue;
             float distance=land.Min(c=>(c.X-x)*(c.X-x)+(c.Z-z)*(c.Z-z));
             int hash=Math.Abs(x*31+z*17);
-            if(distance<12 || distance>60 || hash%5>2 || Math.Abs(x-5)<3)continue;
+            if(distance<12 || distance>60 || hash%5>2 || Math.Abs(x-5)<3 || map.Contains(new(x,z)) || FarmsteadWater(x,z))continue;
             foreach(var offset in new[]{new Vector2(-.85f,-.55f),new(.55f,-.65f),new(-.3f,.7f),new(.9f,.65f)})
             {
+                if(FarmsteadWater(x+offset.X,z+offset.Y))continue;
                 // Compact conifer silhouettes read as distant woodland, not the individual workable alders.
                 var tree=new Node3D{Position=Corner(x+offset.X,z+offset.Y),Scale=Vector3.One*(.85f+hash%3*.1f)};
                 _landscape.AddChild(tree);
