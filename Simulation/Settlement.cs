@@ -179,18 +179,18 @@ public sealed partial class World
     public static Cell Door(Cell c, int rotated) => RotateOffset(c, 0, 1, rotated);
     public static IEnumerable<Cell> Footprint(Cell c, int rotated, BuildingKind kind = BuildingKind.Cottage)
     {
-        if (kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden) { yield return c; yield break; }
-        for (int x = -1; x <= 1; x++)
-            for (int z = -1; z <= 0; z++) yield return RotateOffset(c, x, z, rotated);
+        var bounds=Buildings.Get(kind);
+        for (int x = -bounds.Width/2; x <= bounds.Width/2; x++)
+            for (int z = 1-bounds.Depth; z <= 0; z++) yield return RotateOffset(c, x, z, rotated);
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
     internal static bool OccupiesFootprint(Cell origin,int rotation,BuildingKind kind,Cell cell)
     {
-        if(kind is BuildingKind.Bridge or BuildingKind.FishingDock or BuildingKind.SeatingGarden)return cell==origin;
+        var bounds=Buildings.Get(kind);
         int dx=cell.X-origin.X,dz=cell.Z-origin.Z;
         var (x,z)=rotation switch {0=>(dx,dz),1=>(-dz,dx),2=>(-dx,-dz),3=>(dz,-dx),_=>throw new ArgumentOutOfRangeException(nameof(rotation))};
-        return x is >=-1 and <=1 && z is >=-1 and <=0;
+        return x>=-bounds.Width/2 && x<=bounds.Width/2 && z>=1-bounds.Depth && z<=0;
     }
     private bool Blocked(Cell c)
     {

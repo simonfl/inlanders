@@ -150,10 +150,10 @@ public sealed partial class World
                 v.Task = Station().Harvest > 0 ? Work.Harvesting : Work.Planting; v.Timer = 0;
                 v.Status = v.Task == Work.Harvesting ? $"Harvesting ripe {ProductionOutput(Station().Kind)!.Value.ToString().ToLowerInvariant()}" : Station().Kind==BuildingKind.Orchard?"Planting fruit trees":"Sowing the next crop"; break;
             case Work.Planting:
-                if (v.Timer < 4) break;
+                if (v.Timer < FieldWorkSeconds(Station(),true)) break;
                 Station().Planted = true; Station().Growth = 0; Finish(v); break;
             case Work.Harvesting:
-                if (v.Timer < 2) break;
+                if (v.Timer < FieldWorkSeconds(Station(),false)) break;
                 var farm = Station(); int grain = Math.Min(farm.Kind == BuildingKind.Farm ? 4 : 2, farm.Harvest); farm.Harvest -= grain;
                 if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; }
                 CarryFood(ProductionOutput(farm.Kind)!.Value, grain); break;

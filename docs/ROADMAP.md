@@ -67,3 +67,5 @@ Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 intera
 The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature tables, IDs and older concepts; [earlier F31/F32 queue](DELIVERED_F31_F32_QUEUE.md) and [pre-theme F33 queue](F33_QUEUE_BEFORE_THEME.md) preserve prior decisions. Historical proposals do not override the active scope or explicit exclusions above.
 
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
+
+Review-40 corrections complete: scenario-preserving restart/recovery verified at 960/1440; active-mode food guidance corrected. No outcome increment.

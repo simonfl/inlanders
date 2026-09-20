@@ -24,8 +24,8 @@ public static class CampaignChecks
         for (int i = 0; i < 20000 && !done(); i++) { w.Tick(.1f); if (i % 50 == 0) w.Validate(); }
         w.Validate(); Check(done(), $"Level {w.Campaign!.Level} stalled: {w.CampaignObjective}");
     }
-    static void Place(World w, Cell cell, BuildingKind kind = BuildingKind.Cottage) =>
-        Check(w.Place(cell, false, kind) != null, $"Rejected {kind} at {cell}");
+    static void Place(World w, Cell cell, BuildingKind kind = BuildingKind.Cottage, int rotation=0) =>
+        Check(w.Place(cell, rotation, kind) != null, $"Rejected {kind} at {cell}");
     public static void Run()
     {
         HungerRecovery();
@@ -43,7 +43,7 @@ public static class CampaignChecks
             }
             if (level == 2)
             {
-                Place(w, new(3,-3), BuildingKind.Farm); Place(w, new(6,-3), BuildingKind.Bakery);
+                Place(w, new(3,-3), BuildingKind.Farm,3); Place(w, new(6,-6), BuildingKind.Bakery);
                 w.Assign(6,Role.Farmer); w.Assign(7,Role.Baker);
             }
             if (level == 3)

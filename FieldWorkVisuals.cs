@@ -13,6 +13,7 @@ public partial class Game
         Vector3 local=sowing ? new(0,.25f,.45f) : vegetables
             ? new(-.96f+plant%4*.64f+.08f,.35f,plant/4==0?-.42f:.48f)
             : new(-1.05f+Math.Min(2,plant)*.42f,.38f,.56f);
+        if(field.Kind==BuildingKind.Farm)local=new(0,sowing?.25f:.38f,sowing?0:World.GrainRow(field.Harvest));
         if(field.Kind==BuildingKind.Orchard && !sowing)local=OrchardFruitPosition(plant);
         return BuildingPosition(field.Cell,field.Rotation,field.Kind)
             +local.Rotated(Vector3.Up,field.Rotation*Mathf.Pi/2);
@@ -26,9 +27,11 @@ public partial class Game
         var target=FieldWorkTarget(field,sowing);
         var direction=target-view.Body.Position;
         view.Body.Rotation=new(0,MathF.Atan2(-direction.X,-direction.Z),0);
-        float duration=sowing?4:2, progress=Math.Clamp(worker.Timer/duration,0,1);
+        float duration=World.FieldWorkSeconds(field,sowing), walk=World.FieldWalkSeconds(field,sowing);
+        float progress=Math.Clamp((worker.Timer-walk)/(sowing?4:2),0,1);
         // Enter the bed, work, then return to the simulated entrance before pickup.
-        float stance=Mathf.SmoothStep(0,1,progress/.2f)*(1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f));
+        float stance=grain ? Math.Clamp(Math.Min(worker.Timer,duration-worker.Timer)/walk,0,1) : Mathf.SmoothStep(0,1,progress/.2f)*(1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f));
+        bool walking=grain && (worker.Timer<walk || worker.Timer>duration-walk);
         float sweep=MathF.Sin((progress-.5f)*Mathf.Tau);
         view.Sickle.Visible=!sowing && grain;
         bool digging=ReadableCourt && sowing && progress<.55f;
@@ -52,6 +55,12 @@ public partial class Game
             contact=new Vector3(0,.43f,0)+Basis.FromEuler(new(-.1f,0,0))*(new Vector3(.28f,.36f,0)+Basis.FromEuler(new(-2.4f,0,0))*new Vector3(0,-.36f,0));
         }
         view.Rig.Position=(view.Body.ToLocal(target)-contact)*stance;
+        if(walking)
+        {
+            float step=MathF.Sin(worker.Timer*10)*.5f;
+            view.Torso.Rotation=Vector3.Zero;view.Head.Rotation=Vector3.Zero;
+            view.LeftLeg.Rotation=new(step,0,0);view.RightLeg.Rotation=new(-step,0,0);
+        }
         if(field.Kind==BuildingKind.Orchard && !sowing)view.Rig.Position=new(view.Rig.Position.X,0,view.Rig.Position.Z);
     }
 }

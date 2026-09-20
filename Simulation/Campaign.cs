@@ -87,9 +87,9 @@ public sealed partial class World
         w.Campaign = new() { Level = level };
         w.Map.Name = CampaignLevels[level - 1].Title;
         w.Food.InitialBerries = w.Food.Berries = level == 5 ? 48 : 96;
-        void Ready(Cell cell, BuildingKind kind)
+        void Ready(Cell cell, BuildingKind kind, int rotation=0)
         {
-            var site = w.Place(cell, false, kind) ?? throw new InvalidOperationException("Invalid campaign starting site");
+            var site = w.Place(cell, rotation, kind) ?? throw new InvalidOperationException("Invalid campaign starting site");
             site.Delivered = site.Required; site.Construction = 1; w.InitialLogs += site.Required;
         }
         if (level > 1)
@@ -98,7 +98,7 @@ public sealed partial class World
             Ready(new(3, 0), BuildingKind.Cottage); Ready(new(6, 0), BuildingKind.Cottage);
             if (level is 2 or 4 or 5) { Ready(new(3, 6), BuildingKind.Cottage); Ready(new(-5, 6), BuildingKind.Cottage); }
         }
-        if (level == 4) { Ready(new(3,-3), BuildingKind.Farm); Ready(new(6,-3), BuildingKind.Bakery); }
+        if (level == 4) { Ready(new(3,-3), BuildingKind.Farm,3); Ready(new(6,-6), BuildingKind.Bakery); }
         var roles = new[] { Role.Logger, Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Unassigned, Role.Unassigned };
         if (level == 4) { roles[6] = Role.Farmer; roles[7] = Role.Baker; }
         if (level == 5) roles = new[] { Role.Logger, Role.Builder, Role.Builder, Role.Forager, Role.Forager, Role.Farmer, Role.Unassigned, Role.Unassigned };

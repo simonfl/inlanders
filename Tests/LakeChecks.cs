@@ -10,7 +10,7 @@ public static class LakeChecks
         Check(done(),$"Lake stalled at {step}, {w.Food.Time:0}s: {w.LakeObjective}");
         Console.WriteLine($"LAKE {step}: {w.Food.Time:0}s, {w.Population} residents, {w.Food.EdibleStored} food, {w.DeliveredFish} fish delivered.");
     }
-    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false) => w.Place(cell,rotated,kind) ?? throw new Exception($"Lake rejected {kind} at {cell}: {w.PlacementProblem(cell,rotated,kind)}");
+    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false) => w.Place(cell,kind==BuildingKind.Farm?3:rotated?1:0,kind) ?? throw new Exception($"Lake rejected {kind} at {cell}");
     public static void Run()
     {
         foreach(bool bread in new[]{false,true})

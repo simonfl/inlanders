@@ -15,6 +15,10 @@ public static class RotationChecks
             Check(footprint.Count==6 && !footprint.Contains(doors[r]) && footprint.Contains(doors[(r+2)%4]),"Rotated footprint does not sit behind entrance");
             foreach(var kind in Enum.GetValues<BuildingKind>().Where(k=>k is not (BuildingKind.FishingDock or BuildingKind.Bridge)))
             {
+                var cells=World.Footprint(origin,r,kind).ToHashSet();
+                for(int x=-6;x<=6;x++)for(int z=-6;z<=6;z++)
+                    Check(World.OccupiesFootprint(origin,r,kind,new(x,z))==cells.Contains(new(x,z)),"Point/enumerated geometry diverged");
+                Check(cells.Count==Buildings.Get(kind).Width*Buildings.Get(kind).Depth,"Reserved area differs from bounds");
                 var creative=World.NewCreative(true);
                 var cell=creative.Map.Land.First(c=>creative.PlacementProblem(c,r,kind)==null);
                 var site=creative.Place(cell,r,kind)!;creative.Validate();

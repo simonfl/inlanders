@@ -11,7 +11,9 @@ public sealed partial class World
     {
         var w=NewLakeMap();
         foreach(var cell in w.Map.Land.ToArray())
-            if(cell.X<3 && (cell.X<-8 || cell.Z<-3 || cell.Z>7)) w.Map.Excluded.Add(cell);
+            if(cell.X<3 && (cell.X<-8 || cell.Z<-3 || cell.Z>10)) w.Map.Excluded.Add(cell);
+        // Leave a real grain frontage between the yard and the southern homes.
+        var southHome=w.Cottages.Single(c=>c.Cell==new Cell(0,6));southHome.Cell=new(0,9);southHome.Rotation=3;
         w.Trees.RemoveAll(t=>!w.Map.Contains(t.Cell) || !w.Map.Contains(t.Access));
         w.Bushes.RemoveAll(b=>b.Id!=0);
         w.Map.FishingGrounds=w.Map.FishingGrounds.Select(g=>new FishHabitat

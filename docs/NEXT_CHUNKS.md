@@ -31,3 +31,5 @@ Use an actually misplaced food workplace/storage choice to compare ordinary rebu
 Extend the existing resident journey interaction where appropriate to normal farmstead work, meals and homes. Remove misleading internal-role emphasis under shared work; keep detailed management available. Let a player identify the consequence of an arrangement through a resident and the world, without opening a new dashboard. Validate ordinary-sized controls, selection/follow, interruption and current saves. Integrate only after the land/daily-life comparison identifies useful questions.
 
 These are hypotheses, not five guaranteed checkpoints. Reorder or replace from evidence. Full review 45 occurs after five actual additional playable outcomes; review 50 after the next five. No new catalogue chains or needs before this experience earns them. Menu illustration, closer framing and audio audition remain supporting presentation questions, not an automatic polish marathon.
+
+Review-40 corrections complete: scenario-preserving restart/recovery verified at 960/1440; active-mode food guidance corrected. No outcome increment.
