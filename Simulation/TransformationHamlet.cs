@@ -51,6 +51,7 @@ public sealed partial class World
         // These are actual editable paths: they affect travel, and stop at real entrances.
         foreach(var site in w.Cottages.OrderBy(c=>c.Kind==BuildingKind.VegetableGarden?0:1).ThenBy(c=>c.Id))
             if(!w.ConnectPaths(w.YardAccess,site.Entrance))throw new InvalidOperationException("Hamlet approach unavailable");
+        w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
         w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }

@@ -1,6 +1,6 @@
 # Next chunks — one place worth changing
 
-Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **64**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
+Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **65**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
 
 ## Chosen direction
 
@@ -42,3 +42,6 @@ Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both s
 
 
 Checkpoint64 · F38c: compact world cards now cover homes, social buildings and unfinished projects in the public hamlet. Watch a resident, move a home, pause/resume or cancel a staged project without opening the full inspector; workplace moves return to their card. Native960 actual world clicks, resident follow, staging/cancel and garden recovery pass; home card inspected. First run reproduced save replacement denial, subsequent run passed. Failure-time file metadata/timing and a truthful menu-transition probe guard were added; atomic lock/replacement tests pass, cause remains unknown. These diagnostics count zero. Next65: persistent opening-footprint comparison, then freeze for full review with presentation role.
+
+
+Checkpoint65 · F38c: public hamlets retain opening building footprints in current saves. Compare with the opening layout shows gold original and blue moved/added footprints over the living village, with an explicit return/Escape action. It does not rewind resources, crops or people. Native960 comparison after actual relocation is read-only, preserves the original location through save/reload, and closes correctly; inspected still shows vacated river ground and the replanted northern plot together. Five playable outcomes61–65 complete. Freeze now for the full independent whole-game review plus visual/audio because composition changed; no66 implementation.

@@ -24,6 +24,10 @@ public partial class Game
         ShowWorkplaceCard(plot.Id);await Frames();await UiClick(_workCardPause);await Frames();await UiClick(_workCardMove);await Frames();
         await Click(_camera.UnprojectPosition(OnGround(4,-8)));await Frames();Check(plot.Cell==new Cell(4,-8) && plot.WorkPaused,"Cultivated strip move failed");
         Check(_workCard.Visible && !_inspector.Visible,"Move lost compact actions");await CaptureReviewBundle("cultivated-bank-opened");await UiClick(_workCardPause);await Frames();CloseDrawer();ClearSelection();
+        string unchanged=_world.SaveJson();await Press(Key.G);await Frames();await UiClick(_hamletCompare);await Frames();
+        Check(_courtStartingLayout!.Visible && _hamletComparePanel.Visible && unchanged==_world.SaveJson(),"Opening comparison mutated the village");
+        Check(_world.Founding!.StartingBuildings.Single(b=>b.Id==plot.Id).Cell==new Cell(5,7),"Move rewrote opening");await CaptureReviewBundle("opening-versus-current");
+        await Press(Key.Escape);await Frames();Check(!_courtStartingLayout.Visible && !_hamletComparePanel.Visible,"Comparison escape failed");
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Bank save differs");
         Reset();await Frames();Check(_world.PublicPlace==new HamletProfile(false,true),"Bank restart changed place");
         ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Play"),"Bank return to menu/save failed: "+_notice);await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();

@@ -34,7 +34,7 @@ public partial class Game
         _foundingContinue=Button("Keep shaping the village",()=>{if(_world.PublicPlace!=null){_world.Founding!.Finished=false;SaveWorld();UpdateHud();}CloseDrawer();_paused=false;});_foundingGoals.AddChild(_foundingContinue);
         _foundingLeave=Button("Finish here · main menu",ReturnToMainMenu);_foundingGoals.AddChild(_foundingLeave);
         _hamletWatch=Button("Watch this village",()=>{CloseDrawer();ClearSelection();_speed=1;_paused=false;ToggleWatch();});_foundingGoals.AddChild(_hamletWatch);
-        MakeFoundingHallUi(column);MakeFoodAccessUi();
+        MakeFoundingHallUi(column);MakeFoodAccessUi();MakeHamletComparisonUi();
         // Shape and inspect first; invitations and the optional ending follow daily life.
         _foundingGoals.MoveChild(_foodAccessEntry,2);
         _foundingGoals.MoveChild(_foundingFoodView,3);

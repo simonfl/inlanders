@@ -75,6 +75,7 @@ public partial class Game
     private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
+        (_hamletComparePanel!=null && _hamletComparePanel.Visible && _hamletComparePanel.GetGlobalRect().HasPoint(point)) ||
         (_workCard!=null && _workCard.Visible && _workCard.GetGlobalRect().HasPoint(point)) ||
         (_dailyCard!=null && _dailyCard.Visible && _dailyCard.GetGlobalRect().HasPoint(point)) ||
         (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Inlanders.Simulation;
 
-public sealed class CourtStartingBuilding
+public sealed class StartingBuilding
 {
     public int Id { get; set; }
     public Cell Cell { get; set; }
@@ -15,7 +15,7 @@ public sealed class CourtExperience
 {
     public bool Finite { get; set; }
     public bool Finished { get; set; }
-    public List<CourtStartingBuilding> StartingBuildings { get; set; } = new();
+    public List<StartingBuilding> StartingBuildings { get; set; } = new();
 }
 public sealed partial class World
 {
@@ -32,7 +32,7 @@ public sealed partial class World
         if(!w.InviteNewcomers())throw new InvalidOperationException("Court invitation failed");
         for(int i=0;i<920;i++)w.Tick(.1f);
         if(w.Population!=16 || w.Housed!=16)throw new InvalidOperationException("Court requires sixteen housed residents");
-        w.Neighborhood!.Arrangement!.Experience=new(){Finite=finite,StartingBuildings=w.Cottages.Select(c=>new CourtStartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList()};
+        w.Neighborhood!.Arrangement!.Experience=new(){Finite=finite,StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList()};
         // Both arms use identical village state and simulation; only the brief/end point differs.
         w.Validate();return w;
     }

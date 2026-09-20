@@ -66,16 +66,21 @@ public partial class Game
     {
         if(_courtStartingWorld!=_world)_courtShowBefore=false;
         _courtStartingWorld=_world;_courtStartingLayout=null;
-        if(_world.CourtStudy is not {} study)return;
+        var starting=_world.PublicPlace!=null?_world.Founding!.StartingBuildings:_world.CourtStudy?.StartingBuildings;
+        if(starting==null)return;
         _courtStartingLayout=new(){Visible=_courtShowBefore};_dynamic.AddChild(_courtStartingLayout);
-        foreach(var building in study.StartingBuildings)
+        void Outline(StartingBuilding building,Color color)
         {
             var footprint=World.Footprint(building.Cell,building.Rotation,building.Kind).ToHashSet();
             foreach(var c in footprint)foreach(var step in new[]{new Cell(1,0),new(-1,0),new(0,1),new(0,-1)})
             {
                 if(footprint.Contains(new(c.X+step.X,c.Z+step.Z)))continue;
-                Box(_courtStartingLayout,new(c.X+step.X*.48f,Height(c.X,c.Z)+.12f,c.Z+step.Z*.48f),new(step.X==0?1:.055f,.04f,step.Z==0?1:.055f),new("f4cb79"));
+                Box(_courtStartingLayout,new(c.X+step.X*.48f,Height(c.X,c.Z)+.12f,c.Z+step.Z*.48f),new(step.X==0?1:.055f,.04f,step.Z==0?1:.055f),color);
             }
         }
+        foreach(var building in starting)Outline(building,new("f4cb79"));
+        if(_world.PublicPlace!=null)
+            foreach(var site in _world.Cottages.Where(c=>!starting.Any(b=>b.Id==c.Id && b.Cell==c.Cell && b.Rotation==c.Rotation && b.Kind==c.Kind)))
+                Outline(new(){Id=site.Id,Cell=site.Cell,Rotation=site.Rotation,Kind=site.Kind},new("8fdacb"));
     }
 }

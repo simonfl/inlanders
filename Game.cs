@@ -149,6 +149,7 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (EditingText) return;
+            if(key.Keycode==Key.Escape && _world.PublicPlace!=null && _courtShowBefore){_courtShowBefore=false;return;}
             if (key.Keycode == Key.F8 && _reviewRequest != null) { _ = CaptureReviewBundle(); return; }
             if(_watching && key.Keycode==Key.J) { ToggleWatchOrbit(); return; }
             if(key.Keycode is Key.Q or Key.E or Key.W or Key.A or Key.S or Key.D) _watchOrbit=false;
@@ -217,7 +218,7 @@ public partial class Game : Node3D
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
         TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
         RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
-        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
+        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
     {

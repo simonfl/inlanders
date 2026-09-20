@@ -14,7 +14,7 @@
 
 First consolidate a coherent public inhabited-place experience with Normal/relaxed constraints and a voluntary finish. Compare the compact scene with a substantial functional working-land composition: recognizable groups of homes, cultivated strips, useful yards, retained woodland and river work edge. This is spatial composition, not household ownership or inheritance. Judge visible lived payoff and player intention before adding needs, catalogue tiers or another situation. Cut obsolete experiments from ordinary navigation and retire unused rule branches after selection.
 
-The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **64**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
+The [active queue](NEXT_CHUNKS.md) defines F38a–c and rejection criteria. Playable count **65**; review60 closes this requested five-chunk run. Next periodic review **65**, regular visual/audio **70**, earlier after substantial presentation changes. Finite play is a selected hypothesis, not a claim of proven enjoyment. No quotas, longer timers or compulsory arrivals to manufacture depth.
 
 ## What stays, what changes
 
@@ -83,3 +83,6 @@ Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both s
 
 
 Checkpoint64 · F38c: compact world cards now cover homes, social buildings and unfinished projects in the public hamlet. Watch a resident, move a home, pause/resume or cancel a staged project without opening the full inspector; workplace moves return to their card. Native960 actual world clicks, resident follow, staging/cancel and garden recovery pass; home card inspected. First run reproduced save replacement denial, subsequent run passed. Failure-time file metadata/timing and a truthful menu-transition probe guard were added; atomic lock/replacement tests pass, cause remains unknown. These diagnostics count zero. Next65: persistent opening-footprint comparison, then freeze for full review with presentation role.
+
+
+Checkpoint65 · F38c: public hamlets retain opening building footprints in current saves. Compare with the opening layout shows gold original and blue moved/added footprints over the living village, with an explicit return/Escape action. It does not rewind resources, crops or people. Native960 comparison after actual relocation is read-only, preserves the original location through save/reload, and closes correctly; inspected still shows vacated river ground and the replanted northern plot together. Five playable outcomes61–65 complete. Freeze now for the full independent whole-game review plus visual/audio because composition changed; no66 implementation.

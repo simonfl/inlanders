@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **64**.
+- Playable checkpoints since adoption: **65**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint60**, [whole-game synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`. Five fresh independent roles including visual/audio. Finite self-directed transformation selected as the next product hypothesis; human enjoyment, listening and representative performance remain unproven. Closeout corrections add zero outcomes. Stop this requested run here.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
@@ -276,3 +276,6 @@ Checkpoint63 · F38b: optional cultivated-bank layout groups six homes on both s
 
 
 Checkpoint64 · F38c: compact world cards now cover homes, social buildings and unfinished projects in the public hamlet. Watch a resident, move a home, pause/resume or cancel a staged project without opening the full inspector; workplace moves return to their card. Native960 actual world clicks, resident follow, staging/cancel and garden recovery pass; home card inspected. First run reproduced save replacement denial, subsequent run passed. Failure-time file metadata/timing and a truthful menu-transition probe guard were added; atomic lock/replacement tests pass, cause remains unknown. These diagnostics count zero. Next65: persistent opening-footprint comparison, then freeze for full review with presentation role.
+
+
+Checkpoint65 · F38c: public hamlets retain opening building footprints in current saves. Compare with the opening layout shows gold original and blue moved/added footprints over the living village, with an explicit return/Escape action. It does not rewind resources, crops or people. Native960 comparison after actual relocation is read-only, preserves the original location through save/reload, and closes correctly; inspected still shows vacated river ground and the replanted northern plot together. Five playable outcomes61–65 complete. Freeze now for the full independent whole-game review plus visual/audio because composition changed; no66 implementation.
