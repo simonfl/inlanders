@@ -1,6 +1,6 @@
 # Next chunks — prove a second transformation
 
-[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **56**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
+[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **57**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
 
 ## Direction
 
@@ -37,3 +37,5 @@ No inheritance, genealogy, aging or succession; descendants remain lore. No seas
 56 delivered: the hamlet starts with productive kitchen plots occupying domestic ground and a northern garden. Two ordinary choices remain viable: retain kitchen plots/use northern shared ground, or establish replacement production and reclaim ground near homes. Both served all12 residents without missed meals in the scripted observation; different investment/timing prevents a throughput ranking. This is evidence of a spatial tradeoff, not sustained enjoyment.
 
 Next57: make kitchen-garden relocation a legible recovery action with real crop restart, preserving ripe goods. Then58: functional working-place presentation;59: intention-first entry/Village hierarchy;60: compare real access at two candidate places before committing. Public-mode consolidation stays deferred; review60 must challenge whether these changes create purpose rather than only easier arrangement.
+
+Checkpoint57: paused kitchen gardens can move without dismantling. Growing crops restart; ripe produce/stored food remain, and the garden stays paused until resumed. Normal/relaxed tests cover invalid/no-op query purity, active saves, actual resumed cultivation and reuse of vacated ground. This removes demolition bookkeeping from the second-transformation experiment without promising a free harvest. Next58: readable working-place presentation; public promotion still deferred.

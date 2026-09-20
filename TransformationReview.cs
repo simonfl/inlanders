@@ -2,6 +2,7 @@ using Godot;
 using Inlanders.Simulation;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 public partial class Game
 {
     private async Task ProbeTransformation()
@@ -18,6 +19,12 @@ public partial class Game
         var planned=_world.Place(new(4,-9),0,BuildingKind.VegetableGarden);Check(planned!=null,"Staged garden rejected");SelectBuilding(planned!.Id);await Frames();
         await UiClick(_constructionPause,6);await Frames();Check(planned.ConstructionPaused,"Held pause failed");await CaptureReviewBundle("hamlet-staged-project");
         await UiClick(_constructionPause,6);await Frames();Check(!planned.ConstructionPaused,"Held resume failed");CloseDrawer();ClearSelection();
+        var garden=_world.Cottages.Single(c=>c.Cell==new Cell(1,3));SelectBuilding(garden.Id);await Frames();
+        await UiClick(_productionPause);await Frames();Check(garden.WorkPaused,"Garden pause did not apply");
+        await UiClick(_moveButton);await Frames();Check(_movingSite==garden.Id,"Garden move did not begin");
+        await Click(_camera.UnprojectPosition(OnGround(0,-9)));await Frames();
+        Check(garden.Cell==new Cell(0,-9) && !garden.Planted && garden.WorkPaused,"Garden move/replant failed");
+        await CaptureReviewBundle("garden-replant");await UiClick(_productionPause);await Frames();Check(!garden.WorkPaused,"Garden resume failed");CloseDrawer();ClearSelection();
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Hamlet save failed");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(saved==_world.SaveJson(),"Hamlet Continue differs");
         Reset();await Frames();Check(_world.Founding?.TransformationHamlet==true,"Hamlet restart lost map");

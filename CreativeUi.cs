@@ -39,7 +39,12 @@ public partial class Game
         if(_world.Founding!=null)_moveButton.Text="Move this place · free";
         string? moveProblem=visible?_world.RelocationProblem(selected!.Id):null;
         _moveButton.Disabled=moveProblem!=null;_moveButton.TooltipText=moveProblem??"Choose a new location and orientation. Retains this building and its stored goods.";
-        if(moveProblem==null && _world.Founding!=null)_moveButton.TooltipText="Move for free. Homes keep residents; workplaces keep goods and settings. Neighbors use the new entrance. Fields and crossings remain on their land.";
+        if(moveProblem==null && _world.Founding!=null)_moveButton.TooltipText="Move for free. Homes keep residents; workplaces keep goods and settings. Neighbors use the new entrance. Grain fields, orchards and crossings remain on their land.";
+        if(visible && selected!.Kind==BuildingKind.VegetableGarden && _world.Founding?.RiverFarmstead==true)
+        {
+            _moveButton.Text="Move garden · replant";
+            _moveButton.TooltipText=moveProblem??"Move for free. Growing crops must be sown again; ripe produce and stored food stay. Pause first; resume after moving.";
+        }
         _cancelDemolition.Visible = visible && selected!.DemolitionRequested && selected.DemolitionProgress == 0;
         _cancelDemolition.Disabled = _world.Food.Celebrating;
         _removeBuildingButton.Visible = _removalInfo.Visible = visible;
