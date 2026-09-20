@@ -4,14 +4,17 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **35**.
-- Last periodic review: **checkpoint30**, [whole-game synthesis](REVIEW_CHECKPOINT_30.md). One fresh designer plus four separate reused contexts after the thread limit; source/still/scripted evidence, no native/uncoached play or listening.
+- Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint35**, whole-project scope; substantial presentation changes trigger their own visual/audio review.
-- Latest presentation-triggered review: **checkpoint32**, [F32a synthesis](HAMLET_F32A.md), fixed9641145, reused independent presentation reviewer after thread-limit failures. Source/stills, no native play/listening. Previous: **checkpoint 23**, [fresh independent visual/audio whole-game review](COURT_DAILY_LIFE_F30D1.md), fixed `18dfe94`; review-directed removals in `fa2dcb3`. Still/source evidence only; no native play/listening acceptance.
+- Next four-role review: **checkpoint40**, whole-project scope; substantial presentation changes trigger their own visual/audio review.
+- Latest whole-game visual/audio supplement: **checkpoint35**, [synthesis](REVIEW_CHECKPOINT_35.md), reused independent presentation reviewer at a94f953. Stills/source/traces; no listening or motion viewing. Previous presentation-triggered review32 remains recorded in [F32a](HAMLET_F32A.md).
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**Whole-game review35 — September 19, 2026:** [Five-role synthesis](REVIEW_CHECKPOINT_35.md), fixed a94f953, all reused separate contexts. Partially convincing: retain meaningful arrangement tools, reject automatic quota/catalogue expansion; select clear action/choice UX, measured interaction attribution and one whole-place shore/woodland comparison. Fresh founding controls/freecourt/river/dense views and frame traces; no uncoached play, motion viewing or listening. Review complete with explicit evidence limitations. Count stays35; next40. Stop at this review as requested.
+
 
 **F32d — September 19, 2026:** [Connected paths](HAMLET_PATHS_F32D.md). Two-point route previews, existing movement rules and brushes; atomic/bridge/continuation checks and native960/1440 scripted controls. Count35, full review due now before another implementation. No enjoyment or visual acceptance inferred from successful connections.
 

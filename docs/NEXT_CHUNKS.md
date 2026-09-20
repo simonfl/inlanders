@@ -1,90 +1,51 @@
-# Next chunks — a playable founding settlement
+# Next chunks — a village worth shaping
 
-September 19, 2026. Count **35**. [Whole-game review30](REVIEW_CHECKPOINT_30.md) completed: one fresh designer and four separate reused reviewer contexts after the thread limit. No native/uncoached play, listening or preference acceptance. Next periodic full review **35**; substantial presentation work triggers an earlier visual/audio review.
+September 19, 2026. Playable count **35**. [Whole-game review35](REVIEW_CHECKPOINT_35.md) completed with five separate reused reviewer contexts; no uncoached play, motion viewing or listening acceptance. Next periodic full/visual review **40**; substantial presentation changes trigger an earlier visual review. Pause here as requested. The list below is the next authorized-work proposal, not work already performed.
 
-**Chosen provisionally after F31b2:** one authored founding settlement supported by daily life, with player-triggered growth and a clearly available unrestricted start. Rearrangement and staged redevelopment on the self-sufficient inlet did not establish a deeper challenge. The court is an introduction. Its first real diner proves use, not meaningful transformation, longer challenge or a better village. Keep all buildings available; seasons remain removed and saves disposable.
+## Direction
 
-[F31a is delivered](GAME_ENTRY_F31A.md): Play opens the introduction; Free arrangement opens the same daily-life village without a project. Earlier settlement experiments are archived. No additional gameplay mode or save format was introduced.
+Build one coherent shore/woodland settlement situation using the existing economy and tools. Compare growth with freely chosen improvements and a satisfying finite ending. The central pleasure should be making an inhabited place worth watching; do not assume another population target supplies that pleasure.
 
-## F31b completed — reject the court as the deeper challenge
+Retain physical work/meals, shared labor, voluntary arrivals, optional endings, warm architecture, free home/public-place moves and connected paths. Keep all buildings available. No new needs, producers, civic tiers, compatibility work or seasons. Earlier assessment campaigns remain archived. [F31/F32 queue history](DELIVERED_F31_F32_QUEUE.md) retains completed comparisons; it is not a second active backlog.
 
-Maintenance correction: [founding/hall click regression fixed](FOUNDING_CLICK_FIX.md). The active panel was hidden and shown every HUD refresh, cancelling mouse presses. Held-click regression journeys now cover both phases. No objective or economy changes; F32a remains the next design chunk, count30.
+## 1. F33a — make the current commitment and choices clear
 
-[Five-arm comparison](SPATIAL_CHOICE_F31B.md): the easy placement serves fifteen residents without any building move; the reclaimed home court improves gathering but all arms remain fed. The garden-side layout looks more open yet offers no demonstrated strategic advantage. Keep this as an introduction/free arrangement, not a harder level. Test and evidence tooling do not advance count26.
+Confirmed review findings first. Replace the founding panel's long common stack with phase-specific status and visible actions. At960, invite/finish must be reachable without hunting below explanatory prose; completed villages show keep shaping / optional next project / leave together, without instructions to finish again. Hall remains explicitly optional. Keep controls stable across held presses.
 
-## F31b2 completed — reject staged redevelopment on this site
+Correct catalogue descriptions against active shared-work/local-food/Free arrangement rules. Remove pantry-only delivery assumptions and false disabled-food text. Explain what a workplace supports without implying manual staffing is mandatory. Preserve category grouping; make food alternatives comparable by output, terrain/input and startup commitment without requiring a long memory-based scroll. Detailed timing belongs after selection, not before choosing.
 
-[Comparison and recovery](REDEVELOPMENT_F31B2.md): ordering all work at the start finishes fastest without missed meals. Careful staging adds waiting. Demolition-first can cause a recoverable shortage, but another garden fixes it. No new playable outcome; count26. Suspend the old F31c redevelopment scenario.
+Accept with960/1440 held-click and keyboard journeys through actual unfinished/finished/hall states and current saves. This is a structural action/choice pass, not more explanatory paragraphs. Do not add new panels or building locks. Test with an unfamiliar user when available; scripts cannot establish discoverability.
 
-## F31c1 delivered — playable founding, still a gentle opening
+## 2. T07 — attribute and remove a demonstrated interaction stall
 
-[Delivery and evidence](FOUNDING_F31C1.md). Play offers A home by the water and the short introduction; Free arrangement stays separate. Founding uses normal construction, local producer food, shared labor and player-triggered households, with an optional ending after actual settlement. Count27. The bulk-order route reaches the ending in180 simulated seconds with no missed meals: reject this as the deeper skillful scenario, even though it is playable.
+Use existing frame traces on the same hamlet: paused and running home-move preview, path preview/painting, camera movement and save. Separate input/query, simulation, actor/HUD and external/native time. Dense unattended frames do not answer this question. Repeat only a reproduced problem and fix its actual cause, retaining current simulation outcomes and geometry checks.
 
-## F31c2 completed — cut the food-expansion extension
+Add a compact completed-frame summary to the existing workflow only to remove repeated manual parsing: exclude the unfinished final interval, state percentile method, sample duration and provenance. Estimate several hours to one day for attribution; measure saved reviewer effort on two comparisons. No ECS, generic profiler platform or speculative occupancy cache. Tooling alone does not advance the playable count; a verified user-visible responsiveness improvement can.
 
-[Homes-only control and woodland comparison](FOUNDING_LAND_USE_F31C2.md): five cottages, no additional producer, twelve settled in127 seconds, no missed meals over fifteen simulated minutes. Preserving habitat increases game eaten from1 to20 but is not needed for the objective. No gameplay change; count27. Do not nerf berries or add diet/stock gates to rescue this extension.
+## 3. F33b — one whole-place shore/woodland alternative
 
-Correct the acceptance criterion: good up-front planning may succeed. A script with known coordinates is not novice play. The problem is that ignoring the proposed decision succeeds, not that the player can queue several thoughtful orders while paused.
+Create one authored settlement situation with existing rules/buildings, not a new runtime mode or a campaign series. Start from a small inhabited village, keeping a non-growing twelve-resident comparison. Establish two viable livelihood/land commitments and room for a public shore approach or inward court. Reorganize production, housing, common ground and shore together; a roof shuffle plus decorations is not the proposed redesign.
 
-## F31d delivered — optional lakeside hall
+Use current founding as control. Compare two plausible ordinary approaches, including an imperfect but recoverable arrangement; preserve failures. Record initial resources, material/startup costs, real food access and recovery, but also ordinary/opposing views and visible daily use. Do not secretly optimize until every arm passes, invent beauty bonuses, require attendance windows or prescribe coordinates. A naturally easy opening is acceptable; an irrelevant intended decision is evidence to redesign the situation.
 
-[Delivery and comparisons](LAKESIDE_HALL_F31D.md). After founding, the Village panel offers a quarry/sawmill/hall project using real materials and actual breaks, with an optional ending. Current saves and960/1440 UI journeys pass. Count28. A hall near stone is not automatically cheaper to supply: without local storage, the tested far-shore hall loses on loaded-material travel and visitor journeys, and records some missed meals. No equal-strategy or human-enjoyment claim.
+Whole-place presentation changes require independent visual/audio review before acceptance. Keep warm architecture unless the comparison justifies replacing it; consider terrain/massing rather than a catalogue-wide detail pass.
 
-## F31d2 completed — reject support as justification for the remote hall
+## 4. F33c — compare self-directed improvement, growth and stopping
 
-[Four-arm comparison and inspection clarification](REMOTE_SUPPORT_F31D2.md). A stone depot marginally speeds remote construction but increases total loaded travel; the fuller depot/pantry package costs more and fares worse. Retain free siting and useful storage tools, cut this remote-hall strategy premise. Actual pickup sources now appear in construction inspection. No new playable scenario; count28, next periodic review30.
+Use the actual alternative and retained founding/free court through existing launch/snapshot tools. Let a player decide what to improve, predict the result, act and explain what inhabitants do differently. Do not tell them which cottages to move. Give remaining small or finishing equal status to growth. Consume ordinary-speed motion/audio, not merely export a recording.
 
-## F31e delivered — continued growth with supply evidence
+Look for voluntary watching, another self-chosen change and an understandable livelihood tradeoff. Reject the arrangement bet if it requires assigned makeovers or statistical reports to perceive the result. Reject growth as the spine if it repeatedly becomes the same producer/housing package. Reject the scenario if one livelihood trivially dominates, inherited supply bypasses the intended decision, or recovery is only duplicate-production spam. Preserve honest unknowns when a human session is unavailable; do not replace preference evidence with another simulation metric.
 
-[Four-arm growth and partial recovery comparison](NEIGHBORHOOD_GROWTH_F31E.md). Homes alone reach twenty but food later collapses; compact garden/dock support stays fed, while the same catalogue dispersed has longer meal journeys and some hunger. Continued invitations remain visible after founding/hall completion, with recent supply versus current demand and access to food routes. No new quota or objective timer. One playable outcome, count29.
+Estimated launch/observation setup under half a day, minimal upkeep. Measure time to both states and whether an observer actually recognizes a consequence. No additional evidence framework. This comparison may count no playable outcome.
 
-## F31f delivered — shortage investigation and action
+## 5. F33d — retain one experience and cut the competing obligations
 
-[Recovery comparison and delivery](SHORTAGE_RECOVERY_F31F.md). The overloaded village recovers with garden/dock production, not a pantry alone. Economy connects directly to current food workplaces, building choices and actual resident pickup sources. One playable outcome, count30.
+Choose after F33b/c, not before. If geographic livelihood choices and revision both work, make this the next distinct campaign situation and remove duplicated recipe instructions. If non-growing composition wins, explicitly make village improvement the primary progression and demote expansion. If neither sustains interest, favor short authored settlements with satisfying endings rather than more maintenance.
 
-## Building catalogue grouping delivered
+Implement only the selected direction, reconcile its main entry/instructions and retire obsolete primary branches. Do not maintain three competing product spines as permanent modes. Update this queue from evidence rather than treating its fifth row as a guaranteed feature. Count playable outcomes once; review40 whenever five more outcomes are actually committed.
 
-[Visible categories and food sections](BUILDING_GROUPS.md) address the user's difficulty choosing among eighteen buildings. Homes opens first; all choices stay available, with explicit grain-to-bread and pantry explanations. Count31. Reevaluate this with actual player use; do not turn grouping into another catalogue expansion or feature-lock system. The spatial comparison below remains next.
+## Review boundary and deferred scope
 
-## F32a retained — comparison and landscape, spatial goal unresolved
+No more routine implementation in the current run: checkpoint35 review was the requested stopping point. Immediate confirmed UX defects are queued above, not silently claimed fixed. Long-session stability, normal quit reliability, actual listening, unfamiliar-player comprehension and sustained preference remain open.
 
-[Comparison results and rendering candidate](HAMLET_F32A.md) received a reused independent whole-game presentation review on9641145; retain the scene improvement, not the spacious-design claim. The delayed-dock arm never became hungry, so it is not recovery evidence. Retain current housing economics; next resolve measured simulation stutters, then reassess ordinary rearrangement and circulation as tools for opening the inherited center. No new needs or population quotas.
-
-[Review30 direction](REVIEW_CHECKPOINT_30.md): preserve actual food/growth consequences but replace further controls or population milestones with a whole-neighborhood comparison. Test existing lodge/housing investment, local food, usable shared ground, shore composition and circulation together against current compact cottage growth. The efficient solution should be a place worth watching.
-
-Use the same initial people/resources and normal rules; keep all buildings available. A compact control, one plausible spacious candidate and an imperfect/recovery arrangement suffice initially. Do not optimize away failure or add automatic beauty bonuses. If the existing rules cannot support a readable spacious village, explicitly reconsider footprints/access/housing economics. No new primary mode or compulsory needs.
-
-Judge matched ordinary camera views, opposite sides and actual normal-speed activity, alongside costs, meals and journeys. Seek an uncoached choice/prediction/intervention/observed consequence and compare voluntary non-growing arrangement. Simulation success does not settle enjoyment. A substantial presentation revision requires visual/audio review before acceptance.
-
-## F32b delivered — measured stall reduction
-
-[Measured results](HAMLET_PERFORMANCE_F32B.md):3x faster fixed simulation, exact final state, and shorter native frame tails. Ordinary frame times remain uneven; carry that limitation to review35. Preserve exact simulation state/paths, current saves and placement behavior. A narrow obstacle-query improvement is preferable to an architecture rewrite if measurements establish it; compare native frame traces and simulation allocations before/after.
-
-## F32c delivered — free home/public-place rearrangement
-
-[Same-village comparison](HAMLET_REARRANGEMENT_F32C.md) keeps twenty housed/fed while exposing a central garden. It is one authored revision, not proof of a compelling whole composition. Production/storage sites still require rebuilding. Count34.
-
-## F32d delivered — connected approaches
-
-[Two-click route preview and comparison](HAMLET_PATHS_F32D.md) preserve existing path rules and the brush. Clearer approaches do not settle whole-scene appeal. Count35.
-
-## Due now: independent whole-game review35
-
-Freeze this build and assess the full experience before implementing anything else. Include campaign direction, food/growth consequences, normal/Creative play, catalogue/onboarding, presentation/audio and native performance. Compare keeping the current founding loop with a substantial alternative. Review tooling by observed savings, not potential scope.
-
-## Following scope remains provisional
-
-Iterate the selected neighborhood only if it earns a positive case; otherwise change the rules/direction the comparison falsified. Do not fill the31–35 horizon with speculative buildings, diagnostics or quotas. Keep the recorded shutdown failure visible: review-only finalizer cleanup has two clean reruns; normal-play quit reliability is not established by that mitigation. Investigate any recurrence before broadening capture automation.
-
-## Keep deferred
-
-Catalogue expansion, new needs/music themes, mandatory orchard/comfort/civic-tier progression, legacy assessment campaign and broad mesh-detail passes. Warm materials, recognizable buildings and useful geography have a positive case; public-space readability and central crowding remain unresolved. Newcomer meal-phase synchronization is a named hypothesis; test it only if it obstructs a chosen transformation, not as another isolated polishing branch.
-
-## Tooling: use what is now available
-
-- **T05 delivered as bounded diagnosis:** 0.5-second resident transition samples and a same-age recovery control. Paused shortage and weak-layout recovery are represented. This is not exact event replay or proof of all causes. Measure investigation time on the next real case before expanding fields; meal-route totals exclude other production/hauling travel.
-- **T06 delivered as a fail-fast check:** Review/Play detect locked binaries before repeated build-copy retries. Verified against a running simulation test. It does not identify process owners or eliminate races; sequence builds/captures. Do not introduce an orchestration framework to hide this limitation.
-- **Observation package exists:** [self-chosen arrangement sheet](COURT_OBSERVATION.md), current/control/expanded launcher entries and eight fresh fixed-source views. `./ReviewCourt.ps1` now captures identical-world activity pairs at 960/1440 and opposite cameras, verifies provenance and writes one index. Initial four-view run took 127.53 seconds; this is workflow cost, not frame performance. Keep this bounded helper, with no new evidence platform.
-- **Highest-value missing evidence:** somebody actually watching/listening and making an uncoached arrangement. Existing movie/audio tools suffice for an audition. An unconsumed export is not listening; more automated metrics cannot establish preference.
-
-Measure native ordinary/dense 1x/6x frames with relevant view/save markers when assessing performance; capture wall time is not frame performance. Defer new producers/needs/music themes, broad asset replacement, ECS, universal editor/configuration and compatibility. Reevaluate this queue, roadmap and ledger after every chunk.
+Catalogue expansion, new mandatory needs, comfort/civic upgrade ladders, additional music themes, broad asset replacement and service certificates stay deferred. Current-format saves must remain correct; personal saves are disposable. Reevaluate ROADMAP, this queue and CHECKPOINTS after every chunk.
