@@ -29,7 +29,7 @@ public partial class Game
         Check(garden.Cell==new Cell(0,-9) && !garden.Planted && garden.WorkPaused,"Garden move/replant failed");
         await CaptureReviewBundle("garden-replant");await UiClick(_productionPause);await Frames();Check(!garden.WorkPaused,"Garden resume failed");CloseDrawer();ClearSelection();
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Hamlet save failed");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(saved==_world.SaveJson(),"Hamlet Continue differs");
+        ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Continue"),"Hamlet return to menu/save failed: "+_notice);await UiClick(_mainButtons["Continue"]);await Frames();Check(saved==_world.SaveJson(),"Hamlet Continue differs");
         Reset();await Frames();Check(_world.Founding?.TransformationHamlet==true,"Hamlet restart lost map");
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Between wood and water · prototype"]);await Frames();
         await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();Check(_world.Creative && _world.SimulatesMeals && _world.BreadPerGrain==4 && CurrentSavePath==TransformationSavePath(true),"Relaxed entry/rules/slot failed");

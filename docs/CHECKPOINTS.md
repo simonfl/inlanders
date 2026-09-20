@@ -5,15 +5,16 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **60**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint55**, [whole-game synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`. Five fresh independent read-only disciplinary reviewers including visual/audio. Source, actual stills and scripted evidence; no uncoached play, motion/listening acceptance or representative performance verdict. Corrections and validation after freeze add zero outcomes. Stop this requested run here.
+- Last periodic review: **checkpoint60**, [whole-game synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`. Five fresh independent roles including visual/audio. Finite self-directed transformation selected as the next product hypothesis; human enjoyment, listening and representative performance remain unproven. Closeout corrections add zero outcomes. Stop this requested run here.
+- Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
 - Previous review50: [synthesis](REVIEW_CHECKPOINT_50.md), fixed `b2309fd`; four independent reused contexts plus a dependent playtest-evidence pass after agent-limit failures.
 - Earlier periodic review: **checkpoint 45**, [synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`, one fresh and four independent reused contexts.
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 60**.
-- Latest whole-game visual/audio supplement: **checkpoint55**, [synthesis](REVIEW_CHECKPOINT_55.md). Fresh independent role; source/stills only, audio remains unjudged.
-- Next regular visual/audio review: **checkpoint 60**. Substantial presentation changes trigger earlier reviews.
+- Next four-role review: **checkpoint 65**.
+- Latest whole-game visual/audio supplement: **checkpoint60**, [synthesis](REVIEW_CHECKPOINT_60.md). Fresh independent role; source/stills and extracted movie frames, no listening acceptance.
+- Next regular visual/audio review: **checkpoint 70**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
 
@@ -260,3 +261,6 @@ Checkpoint58: the hamlet has real editable paths linking homes, storage and work
 Checkpoint59: the hamlet opens onto the village after a short situation/mode choice; longer guidance is optional. Village now places build/shared-ground/food inspection ahead of optional invitation/ending. Initial reserves explicitly buy time before first delivery; detailed provisioning rules move to the tooltip. Native960 menu, hierarchy, actions, relocation and current saves pass. Next60: pin two real locations and compare current food access; no production forecast or public-mode promotion. Then freeze for the full five-role review.
 
 Checkpoint60: food-access inspection can keep a location as A and compare B, showing both current routes/stock/reach on the ground. Clear/replace/escape and read-only world purity pass through native960 controls. This is comparison of present locations, not a future-production forecast. Five playable outcomes56–60 delivered; freeze for whole-game review60 with all five independent roles. Full current/broad checks and final spatial comparison run against this build. Mixed-material staging/cancellation coverage added without a playable increment. Windows computer-use is now available for a separate agent-led playthrough; report its actual outcome rather than promising human evidence.
+
+
+**Checkpoint60 review closeout — September20,2026:** fixed `58cc3cc9cfdb59def4c56dae18587c711de8e137`; [full synthesis and replacement queue](REVIEW_CHECKPOINT_60.md). Five outcomes56–60: `3013138`, `9eae780`, `cd6955d`, `0fab7df`, `58cc3cc`. All15 current suites, broad regressions and final spatial comparison pass. Native public Normal/Free and experimental controls covered. Mixed-material tests, review documentation and small UI/probe corrections add zero. Save replacement denial remains open. No checkpoint61 work.

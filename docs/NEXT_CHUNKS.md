@@ -1,47 +1,32 @@
-# Next chunks — prove a second transformation
+# Next chunks — one place worth changing
 
-[Whole-game review55](REVIEW_CHECKPOINT_55.md) is complete with five fresh independent reviewers. Playable count **60**; next periodic and regular visual/audio review **60**. User resumed for five further playable chunks through review60. This replaces the prior implementation queue; it is not five automatic feature approvals.
+Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **60**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
 
-## Direction
+## Chosen direction
 
-F37 establishes multiple viable openings and recoverability, not a sustained game. Test one inhabited place whose second improvement requires reconsidering a working arrangement. Compare that with a deliberately finite village-arrangement experience. Normal and relaxed use the same place and daily rules. No new needs, resource chain, compulsory arrivals or longer timers to manufacture depth.
+Select **finite, self-directed transformations of inhabited places** as the working product hypothesis. This is a decision about what to test and build, not proof of fun. Food, work, homes and shared ground should make a personally wanted change consequential. Keeping nearby kitchen gardens is as legitimate as making a commons. Optional arrivals remain optional. Do not manufacture a longer game with quotas, timers, compulsory growth or a civic ladder.
 
-## Ordered next chunks
+## Ordered work
 
-| Order | Scope | Gate |
+| Order | Scope | Acceptance / rejection |
 | --- | --- | --- |
-| 1 · F37c, consequential second transformation | Rework one contested area so improving a common place or domestic frontage competes with convenient cultivation/work. Reuse staging, movement and current buildings. At least two solutions; remaining small is valid. Do not add a quest checklist or persistent planning framework first. | After food recovery, a second intervention changes a working arrangement and its visible journeys. Reject an obvious one-building purchase or timber wait. |
-| 2 · F37d, a readable working place | Compose connected homes, cultivated ground, useful storage/work areas, retained woodlot and shore access around that conflict. Compare current and alternative at equal population/economy. Prioritize actual destinations and cargo activity. | Livelihood and the consequence of an improvement are recognizable at ordinary zoom without management panels. Reject decorative density as success. |
-| 3 · F21/F37, intention before administration | Short situation on entry; useful inspect/build/stage actions before optional Finish/Invite. Distinguish bought starting provisions from a continuing livelihood. Use one clear concept of shared ground. Keep detailed rules optional. | Players can identify and revise a plan without a prescriptive briefing. Add comparative-plan UI only if existing staging demonstrably fails. |
-| Evidence gate · finite versus sustained | Same-place Normal/relaxed sessions; trace intention, alternatives, imperfect intervention, recovery, second change and reason to continue/stop. Capture normal-speed motion/audio as well as accelerated supply checks. | Uncoached evidence required for enjoyment/comprehension claims. If one food investment ends meaningful decisions, select finite transformation or redesign; do not declare success from tests. |
-| Conditional · coherent public experience | Only after the gate chooses a direction, present retained places with Normal/relaxed constraints and remove experimental history from the main navigation. Small explicit place/rule profile before adding more mode exceptions. | Shared recipes/daily life and isolated current saves; no premature F37 promotion or generic rules engine. |
+| 1 · F38a, coherent public game | Make one retained inhabited place the clear public experience with Normal and relaxed constraints on the same daily life. Explain personal improvement and a voluntary finish. Put historic experiments behind developer access; consolidate retained reset/rules/save dispatch with a small explicit place profile. Archive obsolete branches once the retained behavior is covered. | New/Continue/restart/finish refer to the same recognizable game. No generic rules engine, compulsory ending checklist or claim that sustained campaign depth is solved. |
+| 2 · F38b / F34b, worked-land alternative | Compare the compact hamlet with two or three recognizable groups of homes, substantial functional cultivated strips, work yards, woodlot and river work edge. Same population and existing inventory/rules; use actual production footprints, entrances and journeys. | At ordinary camera distance, food sources and consequences of a chosen change are recognizable without a panel. Reject decorative fields, mere longer walks, or loss of useful compactness. No household ownership/economy/inheritance. |
+| 3 · F38c / F21, observe and act in the world | Use evidence from ordinary interaction to simplify selected-place actions and keep the scene visible. Audit overlapping commons/square/seating/hall decisions before adding anything. A/B access remains optional detail. | A player can choose, revise and see the effect of an intervention. Do not add another diagnostic panel to compensate for absent purpose. Cut or merge overlap where supported. |
+| Decision gate · personal transformation | Compare current and alternative composition in Normal and relaxed. Record intention before action, considered alternatives, imperfect attempt/recovery, visible payoff, and reason to continue or finish. Include an uncoached human session when available. | Reject the premise if no change feels worth making, the commons is an obvious prescribed solution, or the payoff requires explanatory accounting. Finite completion alone is not acceptance. Reconsider the core loop if both alternatives fail. |
+| Conditional · another place | Only after that gate, reuse an archived geographic dilemma for a second distinct inhabited situation. | It must create different choices, not introduce another mandatory building or repeat the opening with bigger totals. |
 
-Reevaluate after each outcome. Work may merge or be cut. Testing, corrections, documentation and capture tooling count zero; do not pad to checkpoint60. Full review remains due after five actual playable outcomes, with earlier strategic review if direction is challenged.
+These are scopes, not five automatic outcome credits. Split only at independently playable behavior; corrections, tests, docs and infrastructure count zero. Reevaluate after every chunk.
 
-## Supporting reliability and evidence work
+## Reliability and tooling alongside the work
 
-- Quarry placement/production regression and stale food-access fixture corrected in review55 closeout.
-- Intermittent native save access-denied failure remains open. Exact operation/path/HResult/retry diagnostics now available; diagnose recurrence before changing retries. Slot success and Continue failure are reported separately.
-- Extend staging coverage to mixed plank/stone projects and pause→cancel material recovery. Existing log-only phase/save coverage passes; this is a coverage gap, not a reproduced defect.
-- Extend existing run bundles with timestamped commands, before/after state/stills and separately recorded player intentions. Target under one day; reviewers should reconstruct a revision with less manual searching.
-- Reuse existing capture for matched short motion/audio samples. Target half–one day, low maintenance; require attributable audible clips before claiming audio review.
+- Target replacement intermittently returns access denied after temporary-file creation. Cause is unknown; collect operation/attributes/timing and, on recurrence, an OS-level file-operation trace before changing retry policy. Preserve current-format correctness; no migrations or save-preservation project.
+- Mixed plank/stone pause→cancel recovery now has regression coverage. Do not reopen this as an untested blanket gap; other phases retain their stated coverage limits.
+- Reuse existing captures, snapshots and movie output. A small evidence index plus intention/revision trace should let reviewers reconstruct a choice and locate the right clip in under two minutes. Budget half–one day, low maintenance; no replay framework.
+- Bound Windows UI observation with an external watchdog before another hands-on attempt; the review60 window read hung before any input. This is a tooling limitation, not gameplay evidence.
+- Actual 1× movies exist, but audio listening and continuous-motion acceptance remain outstanding. Capture quiet/busy 20–30-second samples and a 3× comparison when presentation work warrants it. Encoding wall time is not native frame performance.
+- Isolate future performance runs from other game instances before interpreting dense-scene frame tails.
 
-## Retained and deferred
+Keep physical goods/meals, shared work, recoverable moves, staging, editable paths, warm small-scale presentation and optional growth. Catalogue expansion, new needs, a mill chain, seasons and forced long sessions remain deferred. Descendants remain lore only.
 
-Keep physical goods/meals, shared work, optional arrivals, recoverable movement, construction staging, warm intimate presentation and current catalogue access. Reassess overlapping buildings instead of awarding each a campaign stage. Public Free remains the older court until a comparison justifies consolidation. Archived campaigns supply geography, not a ten-level content promise.
-
-No inheritance, genealogy, aging or succession; descendants remain lore. No seasons/winter deadline, new needs, mill chain, catalogue expansion, save migrations or speculative tooling frameworks. Saves disposable; current-format correctness required. UI and whole-place visual quality remain major priorities tied to the experiment.
-
-## Current run · checkpoints56–60
-
-56 delivered: the hamlet starts with productive kitchen plots occupying domestic ground and a northern garden. Two ordinary choices remain viable: retain kitchen plots/use northern shared ground, or establish replacement production and reclaim ground near homes. Both served all12 residents without missed meals in the scripted observation; different investment/timing prevents a throughput ranking. This is evidence of a spatial tradeoff, not sustained enjoyment.
-
-Next57: make kitchen-garden relocation a legible recovery action with real crop restart, preserving ripe goods. Then58: functional working-place presentation;59: intention-first entry/Village hierarchy;60: compare real access at two candidate places before committing. Public-mode consolidation stays deferred; review60 must challenge whether these changes create purpose rather than only easier arrangement.
-
-Checkpoint57: paused kitchen gardens can move without dismantling. Growing crops restart; ripe produce/stored food remain, and the garden stays paused until resumed. Normal/relaxed tests cover invalid/no-op query purity, active saves, actual resumed cultivation and reuse of vacated ground. This removes demolition bookkeeping from the second-transformation experiment without promising a free harvest. Next58: readable working-place presentation; public promotion still deferred.
-
-Checkpoint58: the hamlet has real editable paths linking homes, storage and working plots; these affect travel and remain player-editable after rearrangement. Closer initial framing, fuller crop rows and narrower earth tracks improve ordinary-scale reading. Legal approaches/quarry production pass; native captures inspected. One1440 run reproduced target replacement denial (HResult0x80070005 after11 attempts); subsequent1440 controls pass, cause still unknown. Next59: shorten entry and put active village actions before ending/growth. Review60 must judge composition, not equate more visible crops with appeal.
-
-Checkpoint59: the hamlet opens onto the village after a short situation/mode choice; longer guidance is optional. Village now places build/shared-ground/food inspection ahead of optional invitation/ending. Initial reserves explicitly buy time before first delivery; detailed provisioning rules move to the tooltip. Native960 menu, hierarchy, actions, relocation and current saves pass. Next60: pin two real locations and compare current food access; no production forecast or public-mode promotion. Then freeze for the full five-role review.
-
-Checkpoint60: food-access inspection can keep a location as A and compare B, showing both current routes/stock/reach on the ground. Clear/replace/escape and read-only world purity pass through native960 controls. This is comparison of present locations, not a future-production forecast. Five playable outcomes56–60 delivered; freeze for whole-game review60 with all five independent roles. Full current/broad checks and final spatial comparison run against this build. Mixed-material staging/cancellation coverage added without a playable increment. Windows computer-use is now available for a separate agent-led playthrough; report its actual outcome rather than promising human evidence.
+Delivered56–60: contested working ground (`3013138`), garden relocation/replanting (`9eae780`), real paths/crops/framing (`cd6955d`), concise entry/action hierarchy (`0fab7df`), paired current food access (`58cc3cc`). See [review60](REVIEW_CHECKPOINT_60.md) for evidence and limitations.

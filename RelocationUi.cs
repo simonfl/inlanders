@@ -55,7 +55,8 @@ public partial class Game
         // A deliberate move rebuilds presentation once, without adopting/reloading the
         // simulation, changing pause/speed or resetting the simulation accumulator.
         CreateActors();RenderActors(0);RenderFoodViews();RebuildQueue();SelectBuilding(id);RefreshSelection();
-        UiCue(Cue.Place);Notice(_world.Cottages.Single(c=>c.Id==id).Kind==BuildingKind.VegetableGarden?"Garden moved and still paused. Resume to work here; growing crops need fresh sowing.":_world.Founding!=null?"Moved for free. Neighbors will use the new location.":"Building moved. Its identity, goods and improvements are retained.");
+        var moved=_world.Cottages.Single(c=>c.Id==id);
+        UiCue(Cue.Place);Notice(moved.Kind==BuildingKind.VegetableGarden?(moved.WorkPaused?"Garden moved and still paused. Resume to work here; growing crops need fresh sowing.":"Garden moved. Growing crops need fresh sowing."):_world.Founding!=null?"Moved for free. Neighbors will use the new location.":"Building moved. Its identity, goods and improvements are retained.");
     }
     private string RelocationModelKey(Cottage site)=>"move:"+JsonSerializer.Serialize(site);
 }

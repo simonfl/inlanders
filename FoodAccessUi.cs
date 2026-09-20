@@ -17,7 +17,7 @@ public partial class Game
     private void MakeFoodAccessUi()
     {
         _foodAccessEntry=Button("Compare food access on the ground",()=>{
-            CloseManagementUi();_placing=false;RefreshGhost();_showFoodMap=false;
+            CloseManagementUi();_placing=false;RefreshGhost();_showFoodMap=false;_noticeUntil=0;
             _foodAccessPlanning=true;_foodAccessWorld=_world;_foodAccessAt=null;_foodAccessA=null;_foodAccessRefresh=0;
         });_foundingGoals.AddChild(_foodAccessEntry);
         _foodAccessLine=new(){Width=3,DefaultColor=new("efd28a")};_hud.AddChild(_foodAccessLine);
