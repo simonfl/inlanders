@@ -1,14 +1,92 @@
 [
-  {"name":"working-village","description":"Inhabited grain village divided by an inlet","generator":"working-village","focusX":1,"focusZ":2,"zoom":30},
-  {"name":"farmstead","description":"River farmstead opening and control checks","generator":"farmstead","focusX":1,"focusZ":1,"zoom":29},
-  {"name":"interaction","description":"Bounded paused/running move/path/camera/save latency sample","generator":"hamlet-spacious","focusX":0,"focusZ":0,"zoom":25},
-  {"name":"hamlet-spacious","description":"Same-village lodge and shared-ground comparison","generator":"hamlet-spacious","focusX":-3,"focusZ":3,"zoom":24},
-  {"name":"hamlet-compact","description":"Same-village cottage growth control","generator":"hamlet-compact","focusX":-3,"focusZ":3,"zoom":24},
-  {"name":"hamlet-imperfect","description":"Lodge neighborhood with delayed food recovery","generator":"hamlet-imperfect","focusX":-3,"focusZ":3,"zoom":24},
-  {"name":"hamlet-twelve","description":"Non-growing twelve-resident comparator","generator":"hamlet-twelve","focusX":-3,"focusZ":3,"zoom":24},
-  {"name":"shortage-recovery","description":"Overloaded twenty-resident village; real shortage inspection and recovery probe","generator":"shortage-recovery","focusX":0,"focusZ":2,"zoom":29},
-  {"name":"founding-hall","description":"Founded village ready for optional hall project and UI checks","generator":"founding-hall","focusX":0,"focusZ":0,"zoom":29},
-  {"name":"founding","description":"Founding settlement opening and actual entry controls","generator":"founding","focusX":0,"focusZ":0,"zoom":29},
+  {
+    "name": "transformation",
+    "description": "Twelve-person hamlet with competing home ground, preserved woodlot and remote gardens",
+    "generator": "transformation",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 34
+  },
+  {
+    "name": "working-village",
+    "description": "Inhabited grain village divided by an inlet",
+    "generator": "working-village",
+    "focusX": 1,
+    "focusZ": 2,
+    "zoom": 30
+  },
+  {
+    "name": "farmstead",
+    "description": "River farmstead opening and control checks",
+    "generator": "farmstead",
+    "focusX": 1,
+    "focusZ": 1,
+    "zoom": 29
+  },
+  {
+    "name": "interaction",
+    "description": "Bounded paused/running move/path/camera/save latency sample",
+    "generator": "hamlet-spacious",
+    "focusX": 0,
+    "focusZ": 0,
+    "zoom": 25
+  },
+  {
+    "name": "hamlet-spacious",
+    "description": "Same-village lodge and shared-ground comparison",
+    "generator": "hamlet-spacious",
+    "focusX": -3,
+    "focusZ": 3,
+    "zoom": 24
+  },
+  {
+    "name": "hamlet-compact",
+    "description": "Same-village cottage growth control",
+    "generator": "hamlet-compact",
+    "focusX": -3,
+    "focusZ": 3,
+    "zoom": 24
+  },
+  {
+    "name": "hamlet-imperfect",
+    "description": "Lodge neighborhood with delayed food recovery",
+    "generator": "hamlet-imperfect",
+    "focusX": -3,
+    "focusZ": 3,
+    "zoom": 24
+  },
+  {
+    "name": "hamlet-twelve",
+    "description": "Non-growing twelve-resident comparator",
+    "generator": "hamlet-twelve",
+    "focusX": -3,
+    "focusZ": 3,
+    "zoom": 24
+  },
+  {
+    "name": "shortage-recovery",
+    "description": "Overloaded twenty-resident village; real shortage inspection and recovery probe",
+    "generator": "shortage-recovery",
+    "focusX": 0,
+    "focusZ": 2,
+    "zoom": 29
+  },
+  {
+    "name": "founding-hall",
+    "description": "Founded village ready for optional hall project and UI checks",
+    "generator": "founding-hall",
+    "focusX": 0,
+    "focusZ": 0,
+    "zoom": 29
+  },
+  {
+    "name": "founding",
+    "description": "Founding settlement opening and actual entry controls",
+    "generator": "founding",
+    "focusX": 0,
+    "focusZ": 0,
+    "zoom": 29
+  },
   {
     "name": "spatial-remote",
     "description": "F31b same-age spatial comparison: remote",

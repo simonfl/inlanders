@@ -63,7 +63,7 @@ public partial class Game
                 if(site>=0)SelectBuilding(site);
                 else if(person>=0)SelectPerson(person);
             }
-            GetWindow().Title=$"Inlanders review â€” {request.GetProperty("scenario").GetString()} â€” F8 capture";
+            GetWindow().Title=$"Inlanders review — {request.GetProperty("scenario").GetString()} — F8 capture";
             // Capture from the same normal process/UI used for interactive inspection.
             if(request.GetProperty("scenario").GetString()!.StartsWith("neighborhood",StringComparison.Ordinal)) {
                 ToggleDrawer(2);UpdateCampaignUi();
@@ -132,6 +132,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="transformation")await ProbeTransformation();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="working-village")await ProbeWorkingVillage();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()!.StartsWith("hamlet-"))await ProbeHamlet();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="court-experience")await ProbeCourtExperience();
@@ -176,7 +177,7 @@ public partial class Game
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));
             string title=semantic??(_atMainMenu?"menu-"+_menuPageTitle:site!=null?"selected-"+site.Kind:person!=null?"selected-person":"village");
-            File.AppendAllText(Path.Combine(_reviewDirectory,"index.md"),$"- [{title}](capture-{_reviewCapture:0000}/view.png) Â· [state and provenance](capture-{_reviewCapture:0000}/manifest.json)\n");
+            File.AppendAllText(Path.Combine(_reviewDirectory,"index.md"),$"- [{title}](capture-{_reviewCapture:0000}/view.png) · [state and provenance](capture-{_reviewCapture:0000}/manifest.json)\n");
             GD.Print($"REVIEW CAPTURE: {directory}");
         }
         catch(Exception e) { GD.PushError("Review capture failed: "+e);if(_reviewRequest.RootElement.GetProperty("captureOnly").GetBoolean())throw; }
