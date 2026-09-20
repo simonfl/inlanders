@@ -131,6 +131,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="shortage-recovery")await ProbeShortageRecovery();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()!.StartsWith("hamlet-"))await ProbeHamlet();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="court-experience")await ProbeCourtExperience();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="creative-court")await ProbeCreativeCourt();

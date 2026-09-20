@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class FoundingProgress
 {
+    public bool RiverFarmstead { get; set; }
     public bool Finished { get; set; }
     public int HallProject { get; set; }
     public Dictionary<int,int> HallVisitors { get; set; } = new();
@@ -38,6 +39,7 @@ public sealed partial class World
         return null;
     }
     public string? FinishFoundingProblem()=>Founding==null?"This is not a founding settlement.":
+        Founding.RiverFarmstead?FarmsteadReadyProblem():
         Population<12?"Invite two households when ready: a village of twelve.":
         Housed<Population?"Give every resident a finished home.":
         People.Any(p=>p.Id>=InitialPopulation && !Founding.Settled.Contains(p.Id))?"Let each new neighbor collect and eat an ordinary meal.":
@@ -49,7 +51,7 @@ public sealed partial class World
     }
     public bool BeginFoundingHall()
     {
-        if(Founding is not {Finished:true,HallProject:0})return false;
+        if(Founding is not {Finished:true,HallProject:0,RiverFarmstead:false})return false;
         Founding.HallProject=1;return true;
     }
     public Cottage? FoundingHall=>Cottages.Where(c=>c.Kind==BuildingKind.GatheringHall && !c.DemolitionRequested)
@@ -72,7 +74,7 @@ public sealed partial class World
         if(Founding is not {} f)return;
         if(f.HallProject is <0 or >2 || f.HallVisitors==null || f.HallVisitors.Any(p=>p.Key<1 || p.Key>=_nextSite || p.Value<0 || p.Value>=Population) || f.HallProject>0 && !f.Finished || f.HallProject==2 && f.HallVisitors.Count==0)throw new InvalidOperationException("Invalid hall project");
         if(Creative || Neighborhood!=null || Campaign!=null || !SharedWork || !LocalGrainSupply || f.Settled==null ||
-            f.Settled.Any(id=>id<InitialPopulation || id>=Population) || f.Finished && (Population<12 || f.Settled.Count<4))
+            f.Settled.Any(id=>id<InitialPopulation || id>=Population) || f.Finished && !f.RiverFarmstead && (Population<12 || f.Settled.Count<4))
             throw new InvalidOperationException("Invalid founding settlement");
     }
 }

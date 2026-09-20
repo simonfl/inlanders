@@ -20,6 +20,7 @@ static class ReviewFixtures
             "shortage-recovery"=>ShortageRecoveryChecks.Midpoint(),
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
+            "farmstead"=>World.NewRiverFarmstead(),
             "creative-court"=>World.NewCreativeCourt(),
             "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),
             "court-life"=>CreativeCourtChecks.Arranged(),

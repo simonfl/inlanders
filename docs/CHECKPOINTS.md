@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **37**.
+- Playable checkpoints since adoption: **38**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 remain pending.
 - Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F33b — September 19/20, 2026:** [River farmstead](RIVER_FARMSTEAD_F33B.md), ordinary no-growth start with no working producer, optional finish, separate current save and prototype entry. Matched gardens/mixed/bread, delayed recovery and homes-only failure; legacy founding and native controls pass. Count **38**, next review **40**. Competent setup remains short; F34b presentation and F33c experience comparison remain necessary.
 
 **F34a — September 19/20, 2026:** [Les Habitants public identity and reference palette](REFERENCE_PALETTE_F34A.md). Menu/HUD/runtime window branding; internal names unchanged. Native 960/1440 founding controls and current-save checks pass; stills inspected. One modest playable identity outcome, count **37**. User now requests three periodic reviews: **40, 45 and 50**. Theme and generational exclusions remain unchanged.
 

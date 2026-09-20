@@ -55,9 +55,10 @@ public partial class Game
         _courtExperienceGoals.Hide();_neighborhoodGoals.Hide();_journeyAction.Hide();_visitorPanel.Hide();
         _campaignSelection.Hide();_campaignControls.Hide();_standaloneGuide.Hide();_supperButton.Hide();_supperBreadLink.Hide();_riverAction.Hide();_progress.Hide();
         _goalDashboard.Hide();_trackedGoalPanel.Hide();_goalArrival.Hide();
-        _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":"A home by the water";
+        _foundingGoals.Visible=f.HallProject!=1;_goalTitle.Text=f.Finished?"A village you founded":f.RiverFarmstead?"A place of our own":"A home by the water";
         _goalArrival.Text=f.Finished?"Keep growing when you want. More neighbors need more food; their first meal does not prove lasting supply.":"Build homes for eight founders. Choose a food source, then invite two households when ready.";
         _objective.Show();_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents · New neighbors settled: {f.Settled.Count}/{System.Math.Max(4,_world.Population-World.InitialPopulation)}\n"+(f.Finished?"Finished. Shape this village, grow, or leave it here.":_world.FinishFoundingProblem()??"Everyone has settled in. Finish whenever you like.");
+        if(f.RiverFarmstead)_objective.Text=$"Homes: {_world.Housed}/{_world.Population} residents\n"+(f.Finished?"Finished. Stay, improve, or leave this village here.":_world.FinishFoundingProblem()??"Homes and the first food supply are working. Finish when satisfied; continued supply still needs your care.");
         _foundingInvite.Disabled=_world.InvitationProblem()!=null;_foundingInvite.TooltipText=_world.InvitationProblem()??"Two neighbors join now. Their first meals will increase demand.";
         _foundingInvite.Visible=true;
         var flow=_world.ReadFoodFlow();
@@ -65,7 +66,8 @@ public partial class Game
         _foundingFood.Text=$"FOOD FOR GROWTH\n{_world.EdibleStored} stored · {_world.Population} portions needed per minute\n"+
             (flow.Seconds>=60?$"Recent deliveries: {delivered:0.0} / minute"+(delivered<_world.Population?" · compare with demand":""):"Gathering a minute of delivery history.");
         _foundingFood.TooltipText=$"Observed over the last {flow.Seconds:0} simulated seconds. New producer deliveries only; transfers between stores are excluded. This is history, not a forecast or a guarantee that meals arrive on time. Two newcomers add two portions per minute. Inspect food to check locations and routes.";
-        _foundingFinish.Visible=!f.Finished && _world.Population>=12;_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
+        if(f.RiverFarmstead)_foundingFood.Text=_foundingFood.Text.Replace("FOOD FOR GROWTH","DAILY FOOD");
+        _foundingFinish.Visible=!f.Finished && (f.RiverFarmstead || _world.Population>=12);_foundingFinish.Disabled=_world.FinishFoundingProblem()!=null;
         _foundingFinish.TooltipText=_world.FinishFoundingProblem()??"An optional ending, not an economy assessment.";
         _foundingContinue.Visible=f.Finished;_foundingLeave.Visible=f.Finished;
         _menuButtons[2].Text=f.Finished?"Village · Finished":"Village";_menuButtons[2].TooltipText="Your founding village [G]";

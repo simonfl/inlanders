@@ -97,6 +97,7 @@ public partial class Game
     private void ComparisonMenu()
     {
         MenuPage("Earlier prototypes");
+        MenuButton("Try · A place of our own",RiverFarmsteadMenu);
         _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play and Free arrangement are the current village experience.",15,true));
         MenuButton("Earlier settlements", NeighborhoodMenu);
         MenuButton("Earlier free court", CreativeCourtMenu);

@@ -1,6 +1,6 @@
 # Next chunks — Les Habitants
 
-Playable count **37**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
+Playable count **38**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
 
 **User constraint:** descendants are motivation only. No inheritance, aging, genealogy, succession, generational handoffs or legacy metrics. F13 seasons remains removed. Internal Inlanders naming stays. [Theme and references](LES_HABITANTS.md).
 
@@ -14,7 +14,9 @@ Pair this with a focused dated/place-specific reference sheet for the first farm
 
 Verify visible names at 960/1440 and ordinary launch/resume without changing serialized identity. A title change earns only its own modest outcome, not credit for a new thematic experience.
 
-## 2. F33b — establish a livelihood in one river-and-farmland situation
+## Delivered: F33b — establish a livelihood
+
+[Matched routes and UI checks](RIVER_FARMSTEAD_F33B.md). Available as a comparison under Earlier prototypes; setup is still short, and presentation is next.
 
 Reframe the pending generic shore/woodland comparison as a small agrarian settlement. Use existing normal construction, shared work, meals, fields/gardens, bread, fishing, woodland and homes. Keep all buildings available and a modest fixed-population route valid.
 

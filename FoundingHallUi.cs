@@ -21,7 +21,7 @@ public partial class Game
     }
     private void UpdateFoundingHallUi()
     {
-        var f=_world.Founding!;_hallBegin.Visible=f.Finished && f.HallProject==0;
+        var f=_world.Founding!;_hallBegin.Visible=f.Finished && f.HallProject==0 && !f.RiverFarmstead;
         if(f.HallProject==0)return;
         _goalTitle.Text=f.HallProject==2?"A hall for your village":"A lakeside hall";
         _goalArrival.Text=f.HallProject==2?"Neighbors have begun using the hall. Keep shaping its surroundings, or leave the village here.":"Build a place to gather. Quarry the far shore; saw timber into planks.";
