@@ -4,16 +4,16 @@
     "description": "Twelve-person hamlet with competing home ground, preserved woodlot and remote gardens",
     "generator": "transformation",
     "focusX": 0,
-    "focusZ": 1,
-    "zoom": 34
+    "focusZ": 4,
+    "zoom": 29
   },
   {
     "name": "transformation-relaxed",
     "description": "Exact hamlet in relaxed mode: shared current food and domestic rules",
     "generator": "transformation-relaxed",
     "focusX": 0,
-    "focusZ": 1,
-    "zoom": 34
+    "focusZ": 4,
+    "zoom": 29
   },
   {
     "name": "working-village",

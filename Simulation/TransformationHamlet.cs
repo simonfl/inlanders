@@ -45,6 +45,9 @@ public sealed partial class World
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
         w.History.Clear();w.History.Add("Three gardens feed twelve neighbors. The kitchen plots fill the open ground by the houses. Keep food close, or make room for a shared place and grow beyond the inlet. The woodlot and northern meadow offer different ways to reshape this hamlet.");
+        // These are actual editable paths: they affect travel, and stop at real entrances.
+        foreach(var site in w.Cottages.OrderBy(c=>c.Kind==BuildingKind.VegetableGarden?0:1).ThenBy(c=>c.Id))
+            if(!w.ConnectPaths(w.YardAccess,site.Entrance))throw new InvalidOperationException("Hamlet approach unavailable");
         w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }

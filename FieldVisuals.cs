@@ -34,14 +34,14 @@ public partial class Game
             tuft.SetMeta("standing",!cut);
             float height=cut?0.08f:stage switch { 1=>0.18f,2=>0.4f,3=>0.62f,_=>0.78f };
             var color=cut?new Color("c2a16b"):stage switch { 1=>new Color("8baf69"),2=>new Color("71984e"),3=>new Color("b9ad58"),_=>new Color("dfbb64") };
-            foreach(float offset in new[]{-0.075f,0.075f})
+            foreach(float offset in new[]{-.24f,-.12f,0f,.12f,.24f})
             {
                 Cylinder(tuft,new(offset,height/2,0),0.022f,height,color,0.012f);
                 if(cut) continue;
                 var leaf=Box(tuft,new(offset,height*0.5f,0.055f),new(0.055f,0.025f,height*0.55f),color);
                 leaf.RotationDegrees=new(-28,offset<0?-35:35,0);
                 if(stage>=3)
-                    Mesh(tuft,new SphereMesh { Radius=0.048f,Height=0.18f,RadialSegments=6,Rings=3 },new(offset,height,0),color.Lightened(0.08f));
+                    Mesh(tuft,new SphereMesh { Radius=0.055f,Height=0.18f,RadialSegments=6,Rings=3 },new(offset,height,0),color.Lightened(0.08f));
             }
         }
     }

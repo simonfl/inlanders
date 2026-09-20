@@ -42,14 +42,16 @@ public partial class Game
         if (_pathView == null) { _pathView = new(); AddChild(_pathView); }
         if (_pathWorld == _world && _pathRevision == _world.PathsRevision) return;
         Clear(_pathView); _pathWorld = _world; _pathRevision = _world.PathsRevision;
+        float width=_world.Founding?.TransformationHamlet==true?.48f:.66f;
+        var earth=new Color(_world.Founding?.TransformationHamlet==true?"8f7a59":"afa17f");
         foreach (var cell in _world.Paths)
         {
             if(_world.IsArrangementCourt && _world.Paths.Contains(new(cell.X+1,cell.Z)) && _world.Paths.Contains(new(cell.X,cell.Z+1)) && _world.Paths.Contains(new(cell.X+1,cell.Z+1)))
                 GroundPatch(_pathView,cell.X+.5f,cell.Z+.5f,.36f,.36f,new("afa17f"));
-            GroundPatch(_pathView,cell.X,cell.Z,.66f,.66f,new("afa17f"));
+            GroundPatch(_pathView,cell.X,cell.Z,width,width,earth);
             foreach (var offset in new[] { new Cell(1, 0), new(-1, 0), new(0, 1), new(0, -1) })
                 if (_world.Paths.Contains(new(cell.X + offset.X, cell.Z + offset.Z)))
-                    GroundPatch(_pathView,cell.X+offset.X*.4f,cell.Z+offset.Z*.4f,offset.X != 0 ? .34f : .66f,offset.Z != 0 ? .34f : .66f,new("afa17f"));
+                    GroundPatch(_pathView,cell.X+offset.X*.4f,cell.Z+offset.Z*.4f,offset.X != 0 ? .54f : width,offset.Z != 0 ? .54f : width,earth);
         }
     }
     private void RefreshPathGhost()
