@@ -44,8 +44,8 @@ public sealed partial class World
             Resource.Grain => StoredGrain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
             Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8),
             Resource.Fruit => StoredFood(Resource.Fruit) + cargo + Crops(BuildingKind.Orchard, 8),
-            Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * 2) +
-                People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * 2) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * 2),
+            Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * BreadPerGrain) +
+                People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * BreadPerGrain) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * BreadPerGrain),
             _ => Stored + cargo
         };
     }

@@ -48,7 +48,7 @@ public partial class Game
         }
         for (int i = 0; i < site.OutputBread; i++)
         {
-            var loaf = Mesh(parent, new SphereMesh { Radius = .16f, Height = .21f, RadialSegments = 8, Rings = 4 }, new(-.99f + i * .30f, .98f, .39f), new("dfa653"));
+            var loaf = Mesh(parent, new SphereMesh { Radius = .16f, Height = .21f, RadialSegments = 8, Rings = 4 }, new(-.99f + i % 4 * .30f, .98f, .39f-i/4*.26f), new("dfa653"));
             loaf.Scale = new(1, 1, .8f); loaf.Name = "BreadLoaf" + i;
         }
         var glow = Box(parent, new(.80f, .66f, .68f), new(.39f, .12f, .025f), new("eb9f50"));

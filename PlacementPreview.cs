@@ -67,7 +67,7 @@ public partial class Game
         BuildingKind.VegetableGarden => "Grows 8 vegetables in 60 seconds after planting. Eaten directly; no bakery needed. " + (_world.HasWorkplaceFood ? "Harvests are stored at the garden for collection." : "Harvests are carried to food storage."),
         BuildingKind.Farm => "Supports 1 farmer. Grows 6 grain in 45 seconds; harvest loads hold up to 4. Grain needs a bakery before villagers can eat it.",
         BuildingKind.Orchard => "1 farmer plants trees once. First fruit takes 3 minutes; mature trees grow 8 fruit every 60 seconds after picking. Farmers carry pairs to food storage. Keep quick food during establishment. Targets hold new batches; clearing loses mature trees.",
-        BuildingKind.Bakery => "Turns 2 grain into 4 loaves in 10 work seconds. " + (_world.HasWorkplaceFood ? "Keep grain suppliers and diners close; bread is stored at the bakery." : "Build near food storage to shorten trips."),
+        BuildingKind.Bakery => $"Turns 2 grain into {2*_world.BreadPerGrain} loaves in 10 work seconds. " + (_world.HasWorkplaceFood ? "Keep grain suppliers and diners close; bread is stored at the bakery." : "Build near food storage to shorten trips."),
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };

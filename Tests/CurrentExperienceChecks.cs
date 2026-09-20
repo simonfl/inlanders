@@ -25,6 +25,7 @@ static class CurrentExperienceChecks
         Run("ProvisionedLife",ProvisionedLifeChecks.Run);
         Run("NormalCommons",NormalCommonsChecks.Run);
         Run("HomeYards",HomeYardChecks.Run);
+        Run("BatchBread",BatchBreadChecks.Run);
         Run("CourtExperience",CourtExperienceChecks.Run);
         Run("CreativeCourt",CreativeCourtChecks.Run);
     }

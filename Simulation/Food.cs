@@ -67,6 +67,7 @@ public sealed class FoodState
 
 public sealed partial class World
 {
+    public int BreadPerGrain => Founding?.RiverFarmstead==true?4:2;
     public int SupperCost => Population * 2;
     public FoodState Food { get; private set; } = new();
     public List<BerryBush> Bushes { get; } = new();
@@ -162,12 +163,12 @@ public sealed partial class World
                 Go(v, Station().Entrance, Work.ToOven, "Delivering grain to the oven"); break;
             case Work.ToOven:
                 var oven = Station(); oven.InputGrain += v.Carried; v.Carried = 0;
-                v.Task = Work.Baking; v.Status = "Baking 2 grain into 4 loaves"; break;
+                v.Task = Work.Baking; v.Status = $"Baking 2 grain into {2*BreadPerGrain} loaves"; break;
             case Work.Baking:
                 var bakery = Station(); bakery.BakeProgress += dt / 10;
                 if (bakery.BakeProgress < 1) break;
-                Food.UsedGrain += bakery.InputGrain; Food.BakedBread += bakery.InputGrain * 2;
-                bakery.OutputBread += bakery.InputGrain * 2; bakery.InputGrain = 0; bakery.BakeProgress = 0;
+                Food.UsedGrain += bakery.InputGrain; Food.BakedBread += bakery.InputGrain * BreadPerGrain;
+                bakery.OutputBread += bakery.InputGrain * BreadPerGrain; bakery.InputGrain = 0; bakery.BakeProgress = 0;
                 v.Task = Work.ToBread; break;
             case Work.ToBread:
                 var shop = Station(); int bread = Math.Min(4, shop.OutputBread); shop.OutputBread -= bread;
@@ -274,7 +275,7 @@ public sealed partial class World
         Check(StoredFood(Resource.Bread) + Cargo(Resource.Bread) + Cottages.Sum(c => c.OutputBread) + Food.EatenBread + Food.SupperBread == Food.BakedBread + CreativeNet(Resource.Bread), "Bread conservation failed");
         Check(Food.Vegetables >= 0 && Food.GrownVegetables >= 0 && Food.EatenVegetables >= 0 &&
             StoredFood(Resource.Vegetables) + Cargo(Resource.Vegetables) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableGarden).Sum(c=>c.Harvest) + Food.EatenVegetables == Food.GrownVegetables + CreativeNet(Resource.Vegetables), "Vegetable conservation failed");
-        Check(Food.BakedBread == Food.UsedGrain * 2, "Recipe conversion failed");
+        Check(Food.BakedBread == Food.UsedGrain * BreadPerGrain, "Recipe conversion failed");
         Check(Food.Fish>=0 && Food.EatenFish>=0 && Food.CaughtFish>=0 && StoredFood(Resource.Fish)+Food.EatenFish+Cargo(Resource.Fish)+Cottages.Sum(c=>c.Boat?.Fish??0)==Food.CaughtFish+CreativeNet(Resource.Fish),"Fish conservation failed");
         foreach (var bush in Bushes)
         {
@@ -284,7 +285,7 @@ public sealed partial class World
         foreach (var c in Cottages)
         {
             Check(People.Count(v => v.WorkplaceId == c.Id) <= Buildings.Get(c.Kind).Slots, "Production capacity exceeded");
-            Check(c.Harvest >= 0 && c.InputGrain is >= 0 and <= 2 && c.OutputBread is >= 0 and <= 4, "Invalid production buffer");
+            Check(c.Harvest >= 0 && c.InputGrain is >= 0 and <= 2 && c.OutputBread >= 0 && c.OutputBread <= 2*BreadPerGrain, "Invalid production buffer");
         }
         foreach (var v in People)
         {
