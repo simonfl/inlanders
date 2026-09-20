@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **47**.
+- Playable checkpoints since adoption: **48**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 have since completed.
 - Last periodic review: **checkpoint 45**, [five-role synthesis](REVIEW_CHECKPOINT_45.md), fixed `aaabc9f`; one fresh and four reused independent contexts, source/stills and existing scripted evidence, no human play/listening.
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
@@ -14,6 +14,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 50**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
+
+**F36c — checkpoint48:** [Furnished home use](HOME_YARDS_F36C.md), ordinary household work and nearby meals, current saves and rotated homes. Independent visual supplement retains modest change at3e81601 with explicit legibility limits; blocked-space feedback/path bound corrected. F36d food purpose next, review50 remains due.
+
 
 **F36b — checkpoint47:** [Normal shared places](NORMAL_COMMONS_F36B.md), real ordinary meal use with placement/rearrangement/removal, current saves and native960/1440 controls. Inspected still shows siting/occlusion remains consequential. F36c next; review50.
 

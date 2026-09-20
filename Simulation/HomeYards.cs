@@ -2,7 +2,8 @@ using System.Linq;
 namespace Inlanders.Simulation;
 public sealed partial class World
 {
-    public Cell[] HomeYardPlaces(Cottage home)=>Founding?.RiverFarmstead==true && home.Improved && IsHome(home)
+    public Cell[] HomeYardPlaces(Cottage home)=>home.Improved?PotentialHomeYardPlaces(home):System.Array.Empty<Cell>();
+    public Cell[] PotentialHomeYardPlaces(Cottage home)=>Founding?.RiverFarmstead==true && IsHome(home)
         ? new[]{RotateOffset(home.Cell,-1,1,home.Rotation),RotateOffset(home.Cell,1,1,home.Rotation)}
             .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
                 !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray()
@@ -15,6 +16,6 @@ public sealed partial class World
             (home.Entrance.Point-supply.Point).LengthSquared()>64)return null;
         return HomeYardPlaces(home).Where(c=>!MealSpotReserved(c) && !ComfortSpotReserved(c) &&
             !People.Any(p=>p.Id!=person.Id && (At(p)==c || p.Destination==c && p.Route.Count>0)))
-            .Cast<Cell?>().FirstOrDefault(c=>FindPath(supply,c!.Value,Blocked)!=null);
+            .Cast<Cell?>().FirstOrDefault(c=>FindPath(supply,c!.Value,Blocked) is {} path && path.Count<=12);
     }
 }

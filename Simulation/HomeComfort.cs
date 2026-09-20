@@ -15,6 +15,7 @@ public sealed partial class World
         if(home==null || !IsHome(home)) return "Choose a completed home not marked for demolition.";
         if(Food.Celebrating) return "Wait until supper finishes.";
         if(home.Improved) return "This home is already improved.";
+        if(Founding?.RiverFarmstead==true && PotentialHomeYardPlaces(home).Length==0)return "Clear one side of this home’s entrance before furnishing its forecourt.";
         if(home.ImprovementRequested) return "An improvement is already ordered.";
         if(home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==id)) return "Wait for cancelled materials to be recovered.";
         if(!People.Any(p=>p.HomeId==id)) return "Assign a resident before improving this home.";
@@ -44,7 +45,7 @@ public sealed partial class World
     public string ComfortSummary(Cottage home)
     {
         if(Founding?.RiverFarmstead==true && !home.ImprovementRequested)
-            return home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. Requires carpenter and planks; keep entrance sides clear.";
+            return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the sides of the entrance to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. Requires carpenter and planks; keep entrance sides clear.");
         if(home.Improved) return "Improved home · rest benefit lasts 5m; next rest due after 4m. No extra beds.";
         if(!home.ImprovementRequested) return home.ImprovementPlanks>0 ? $"Cancelled · builders recover {home.ImprovementPlanks} planks." : $"Improve for {ComfortCost(home)} planks. Rest benefit lasts 5m instead of 4m; visits are due after 4m instead of 3m.";
         var worker=People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);

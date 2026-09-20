@@ -14,7 +14,7 @@
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **47**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **48**. Two of three requested reviews, **40 and 45**, are complete. Continue through **50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -75,3 +75,5 @@ Checkpoints41–45 delivered: [cultivated ground](CULTIVATED_GROUND_F34C.md), [q
 [F36a provisioned livelihood](PROVISIONED_LIFE_F36A.md) retained as46. Next normal shared outdoor place, then reassess domestic/food choices.
 
 [F36b normal shared outdoor meals](NORMAL_COMMONS_F36B.md) retained as47; F36c domestic use next. Occlusion and compound composition remain unresolved.
+
+[F36c furnished domestic use](HOME_YARDS_F36C.md) retained as48 after independent visual supplement. Grain still loses the current land/labor comparison; F36d addresses that before integration/review50.
