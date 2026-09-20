@@ -1,6 +1,6 @@
 # Next chunks — working land and daily life
 
-Playable count **40**. [Full review 40](REVIEW_CHECKPOINT_40.md) is complete with five fresh independent roles and explicit play/listening limitations. This is one of the user's three requested reviews; continue through **45 and 50**, stopping after the review-50 synthesis. Every chunk reevaluates this queue. Earlier delivered scope is [archived](DELIVERED_THEME_OPENING_QUEUE.md).
+Playable count **41**. [Full review 40](REVIEW_CHECKPOINT_40.md) is complete with five fresh independent roles and explicit play/listening limitations. This is one of the user's three requested reviews; continue through **45 and 50**, stopping after the review-50 synthesis. Every chunk reevaluates this queue. Earlier delivered scope is [archived](DELIVERED_THEME_OPENING_QUEUE.md).
 
 Les Habitants remains the theme; descendants are lore/story only, never inheritance, aging or generation mechanics. Seasons remains removed. Internal Inlanders naming stays. Current saves must work; migrations are unnecessary.
 
@@ -8,7 +8,7 @@ Les Habitants remains the theme; descendants are lore/story only, never inherita
 
 Fix scenario-preserving farmstead restart and the resulting backup-path mismatch. Exercise restart/restore/manual save/F9/Continue at 960 and 1440. Correct Free garden inspector meal guidance and local-grain/irrelevant-supper bread text. Keep these corrections attached to review 40, not a new feature count.
 
-## 1. F34c — functional cultivated ground
+## Delivered: F34c — functional cultivated ground (41)
 
 Test one larger rearward grain-farm footprint across normal rules while retaining compact vegetable gardens. Use a shared immutable bounds definition for enumerated and fast point occupancy. Actual reserved land, terrain, clearing, placement, paths and demolition must agree with the rendered field. Keep the entrance stable; reauthor incompatible old scenario placements rather than add mode-specific geometry or save migration.
 
@@ -33,3 +33,5 @@ Extend the existing resident journey interaction where appropriate to normal far
 These are hypotheses, not five guaranteed checkpoints. Reorder or replace from evidence. Full review 45 occurs after five actual additional playable outcomes; review 50 after the next five. No new catalogue chains or needs before this experience earns them. Menu illustration, closer framing and audio audition remain supporting presentation questions, not an automatic polish marathon.
 
 Review-40 corrections complete: scenario-preserving restart/recovery verified at 960/1440; active-mode food guidance corrected. No outcome increment.
+
+F34c accepted as modest outcome; grain advantage/appeal remains unproven. F34f next, then the inhabited-village alternative; prioritize real choices over field detailing.

@@ -9,3 +9,7 @@ Four-facing simulation geometry/occupancy/save/build/rest/removal tests pass. Na
 Legacy bread lesson placements and the lake's southern home/frontage were reauthored for real field extent; lessons 1–5 and both narrow-lake routes/recoveries pass. This changes legacy geometry rather than introducing compatibility geometry. No migrations.
 
 Ordinary village views: `20260920-034627-015-farmstead-27e58c` 1440 opposite view and `20260920-035107-933-farmstead-57f4c6` 960. Pending independent presentation acceptance before counting this outcome. No human play, continuous-motion evaluation or listening claimed.
+
+## Independent acceptance
+
+Fresh read-only visual/gameplay reviewer at `ef9aa38`: retain a modest outcome, count **41**. No still-image blocker; ordinary rows read as worked land. Grain uses more space/time while compact foods remain strong, so viability is not a demonstrated reason to prefer it. Free communicates inhabited daily life more clearly. Proceed with domestic life and the working-village comparison; no quotas/new chain. Source timing provisionally retained, motion unapproved. Ordinary field captures are dirty candidates based on `0653afd`, not clean fixed-commit captures; legacy authoring/test fixes followed. Reviewer inspected actual 960/1440/close stills and historical Free/menu, not human play/listening/performance. A fresh clean `ef9aa38` Free control probe (`20260920-035430-752-court-experience-b54fd9`) passes and its garden inspector correction is visibly confirmed. Periodic 45/50 still required.

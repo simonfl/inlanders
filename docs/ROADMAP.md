@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: correct review-40 restart/rule guidance, then F34c functional cultivated ground.** [Review 40](REVIEW_CHECKPOINT_40.md) retains the opening provisionally and redirects the next cycle toward land occupancy, domestic life, an inhabited-village alternative and understandable recovery. The [first F34b pass](FARMSTEAD_PRESENTATION_F34B.md) improves homes/river; full working-land composition remains open. New building chains stay deferred.
+**Next: F34f ordinary domestic life, then an inhabited-village alternative.** [Review 40](REVIEW_CHECKPOINT_40.md) retains the opening provisionally and redirects the next cycle toward land occupancy, domestic life, an inhabited-village alternative and understandable recovery. The [first F34b pass](FARMSTEAD_PRESENTATION_F34B.md) improves homes/river; full working-land composition remains open. New building chains stay deferred.
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **40**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **41**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -69,3 +69,5 @@ The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature ta
 After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
 
 Review-40 corrections complete: scenario-preserving restart/recovery verified at 960/1440; active-mode food guidance corrected. No outcome increment.
+
+F34c delivered at checkpoint 41: real 3 × 5 grain plot and paced field work. Grain remains optional; compact food competition is an open design question, not a reason to force a farming quota.
