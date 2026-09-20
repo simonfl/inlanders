@@ -12,7 +12,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         async Task ClickGoal(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b);await Frames();}
-        ShowMainMenu();await Frames();Check(_mainButtons.ContainsKey("Play") && _mainButtons.ContainsKey("Free arrangement") && !_mainButtons.ContainsKey("Settlements"),"Main menu still exposes experiment taxonomy");
+        ShowMainMenu();await Frames();Check(_mainButtons.ContainsKey("Play") && !_mainButtons.ContainsKey("Free arrangement") && !_mainButtons.ContainsKey("Settlements"),"Main menu still exposes experiment taxonomy");
         await CaptureReviewBundle("current-main-menu");await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Short introduction · A place to gather"]);await Frames();
         await CaptureReviewBundle("court-choice");await UiClick(_mainButtons["New · A place to gather"]);await Frames();
         Check(_world.CourtStudy is {Finite:true,Finished:false} && _world.Population==16 && _paused && CurrentSavePath==CourtStudyPath(true),"Finite entry/rules/slot failed");
@@ -48,7 +48,7 @@ public partial class Game
         await Frames();ExitWatch();_paused=true;await Frames();SaveWorld();string finished=_world.SaveJson();
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==finished && CurrentSavePath==CourtStudyPath(true),"Continue lost finished place");
         ToggleDrawer(2);await Frames();await ClickGoal(_courtReopenButton);Check(!_world.CourtStudy!.Finished,"Reopen failed");SaveWorld();string finite=File.ReadAllText(CourtStudyPath(true));
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Free arrangement"]);await Frames();await UiClick(_mainButtons["New · An open court"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Free arrangement"]);await Frames();await UiClick(_mainButtons["New · An open court"]);await Frames();
         Check(_world.CourtStudy is {Finite:false,Finished:false} && CurrentSavePath==CourtStudyPath(false),"Open arm/rules/slot failed");ToggleDrawer(2);await Frames();
         Check(!_courtFinishButton.Visible && !_courtLeaveButton.Visible && !_neighborhoodGoals.IsVisibleInTree() && !_objective.Text.Contains("Choose a meal place"),"Open arm contains assigned ending or task");await CaptureReviewBundle("court-open-brief");
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved && File.ReadAllText(CourtStudyPath(true))==finite,"Open load overwrote finite save");
@@ -57,7 +57,7 @@ public partial class Game
         await UiClick(_mainButtons["New · A place to gather"]);await Frames();await UiClick(_mainButtons["Cancel"]);await Frames();
         Check(File.ReadAllText(CourtStudyPath(true))==finite,"Cancelled New replaced project");
         await UiClick(_mainButtons["Resume · A place to gather"]);await Frames();Check(_world.SaveJson()==finite,"Explicit project resume chose another save");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Free arrangement"]);await Frames();await UiClick(_mainButtons["Resume · An open court"]);await Frames();Check(_world.SaveJson()==saved,"Explicit free resume chose another save");
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Free arrangement"]);await Frames();await UiClick(_mainButtons["Resume · An open court"]);await Frames();Check(_world.SaveJson()==saved,"Explicit free resume chose another save");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();Check(_world.SaveJson()==saved,"Continue did not follow free arrangement");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier settlements"]);await Frames();
         Check(new[]{"New neighborhood","New Willow court","New Willow inlet","New meadow settlement"}.All(_mainButtons.ContainsKey),"Archived settlements are unreachable");

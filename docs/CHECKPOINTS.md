@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **60**.
+- Playable checkpoints since adoption: **61**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint60**, [whole-game synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`. Five fresh independent roles including visual/audio. Finite self-directed transformation selected as the next product hypothesis; human enjoyment, listening and representative performance remain unproven. Closeout corrections add zero outcomes. Stop this requested run here.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
@@ -264,3 +264,6 @@ Checkpoint60: food-access inspection can keep a location as A and compare B, sho
 
 
 **Checkpoint60 review closeout — September20,2026:** fixed `58cc3cc9cfdb59def4c56dae18587c711de8e137`; [full synthesis and replacement queue](REVIEW_CHECKPOINT_60.md). Five outcomes56–60: `3013138`, `9eae780`, `cd6955d`, `0fab7df`, `58cc3cc`. All15 current suites, broad regressions and final spatial comparison pass. Native public Normal/Free and experimental controls covered. Mixed-material tests, review documentation and small UI/probe corrections add zero. Save replacement denial remains open. No checkpoint61 work.
+
+
+Checkpoint61 · F38a: Play now opens the inhabited hamlet with Normal/relaxed entry on one page. Historical experiments require --developer (review/smoke runs retain access). A small retained-place profile supplies creation/restart/save identity; legacy scenarios remain developer comparisons, not public alternatives. Native960 entry, separate mode saves, Continue and restart pass. Next62 makes the ending genuinely voluntary;63 compares functional worked land, then world actions and visible before/after. No new needs or second scenario promised.

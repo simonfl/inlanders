@@ -9,7 +9,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Earlier farmstead"]);await Frames();
         await UiClick(_mainButtons["Another village · The long way home"]);await Frames();await CaptureReviewBundle("working-village-context");
         await UiClick(_mainButtons["New · The long way home"]);await Frames();
         Check(_world.Founding?.WorkingVillage==true && _world.Housed==8 && CurrentSavePath==WorkingVillagePath,"Wrong inhabited entry/slot");

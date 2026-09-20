@@ -1,6 +1,6 @@
 # Next chunks — one place worth changing
 
-Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **60**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
+Whole-game review60 reviews fixed `58cc3cc` after five playable outcomes56–60. Count **61**. Next periodic review **65**, regular visual/audio **70**, and earlier after substantial presentation changes. This queue replaces the second-transformation implementation sequence; work stops at the current review.
 
 ## Chosen direction
 
@@ -30,3 +30,6 @@ These are scopes, not five automatic outcome credits. Split only at independentl
 Keep physical goods/meals, shared work, recoverable moves, staging, editable paths, warm small-scale presentation and optional growth. Catalogue expansion, new needs, a mill chain, seasons and forced long sessions remain deferred. Descendants remain lore only.
 
 Delivered56–60: contested working ground (`3013138`), garden relocation/replanting (`9eae780`), real paths/crops/framing (`cd6955d`), concise entry/action hierarchy (`0fab7df`), paired current food access (`58cc3cc`). See [review60](REVIEW_CHECKPOINT_60.md) for evidence and limitations.
+
+
+Checkpoint61 · F38a: Play now opens the inhabited hamlet with Normal/relaxed entry on one page. Historical experiments require --developer (review/smoke runs retain access). A small retained-place profile supplies creation/restart/save identity; legacy scenarios remain developer comparisons, not public alternatives. Native960 entry, separate mode saves, Continue and restart pass. Next62 makes the ending genuinely voluntary;63 compares functional worked land, then world actions and visible before/after. No new needs or second scenario promised.

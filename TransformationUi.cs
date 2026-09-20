@@ -3,7 +3,7 @@ using Inlanders.Simulation;
 public partial class Game
 {
     private string TransformationPath=>TransformationSavePath(_world.Creative);
-    private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,relaxed?"transformation-relaxed.json":"transformation.json");
+    private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
     private void TransformationMenu()
     {
         MenuPage("Between wood and water");
@@ -14,16 +14,16 @@ public partial class Game
             string path=TransformationSavePath(relaxed),label=relaxed?"relaxed hamlet":"hamlet";
             _mainColumn.AddChild(Text(relaxed?"Relaxed · free building, real daily life, no hunger penalty":"Normal · real materials, work and meals",15,true));
             if(File.Exists(path))MenuButton("Resume "+label,()=>MenuAttempt(()=>EnterFromMenu(World.LoadFile(path))));
-            void Start()=>MenuAttempt(()=>{var w=World.NewTransformationHamlet(relaxed);w.SaveFile(path);EnterFromMenu(w);});
+            void Start()=>MenuAttempt(()=>{var w=new HamletProfile(relaxed).Create();w.SaveFile(path);EnterFromMenu(w);});
             MenuButton("New "+label,()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this "+label+"?",Start,TransformationMenu);else Start();});
         }
         MenuButton("About this place",()=>{
             MenuPage("Life between wood and water");
             _mainColumn.AddChild(Text("The woodlot is preserved; release chosen trees when you need timber. The meadow beyond the inlet has growing room. A crossing shortens journeys but grows no food.",16,true));
             _mainColumn.AddChild(Text("Choose what you want to improve. Pause a kitchen garden to move it; growing crops need fresh sowing. Homes and most paused workplaces can move too. Shared places use ordinary meals from nearby stores.",16,true));
-            _mainColumn.AddChild(Text("Normal and relaxed share this place, recipes and daily behavior. Relaxed also allows free editing. Both have their own saves. This is a development comparison, with no prescribed building sequence or deadline.",16,true));
+            _mainColumn.AddChild(Text("Normal and relaxed share this place, recipes and daily behavior. Relaxed also allows free editing. Both have their own saves. Make a place you would like to keep. No prescribed building sequence or deadline.",16,true));
             MenuButton("Back",TransformationMenu);
         });
-        MenuButton("Back",ComparisonMenu);
+        MenuButton("Back",ShowMainMenu);
     }
 }

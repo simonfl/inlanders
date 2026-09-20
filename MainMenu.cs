@@ -3,6 +3,7 @@ using Inlanders.Simulation;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 public partial class Game
 {
@@ -56,9 +57,9 @@ public partial class Game
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
-        MenuButton("Play", RiverFarmsteadMenu);
-        MenuButton("Free arrangement", ()=>CourtStartMenu(false));
-        MenuButton("Earlier prototypes", ComparisonMenu);
+        MenuButton("Play", TransformationMenu);
+        if(_reviewRequest!=null || OS.GetCmdlineUserArgs().Any(a=>a=="--developer" || a.EndsWith("smoke-test")))
+            MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
         MenuButton("Quit", RequestQuit);
         _mainColumn.AddChild(Text("New France, 17th century. Make a home by the river, live from the land, and build a life worth staying for.", 15, true));
@@ -97,10 +98,12 @@ public partial class Game
     });
     private void ComparisonMenu()
     {
-        MenuPage("Earlier prototypes");
+        MenuPage("Developer · archived experiments");
+        MenuButton("Earlier farmstead",RiverFarmsteadMenu);
+        MenuButton("Free arrangement",()=>CourtStartMenu(false));
         MenuButton("Found a village · A home by the water",FoundingMenu);
         MenuButton("Short introduction · A place to gather",()=>CourtStartMenu(true));
-        _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play and Free arrangement are the current village experience.",15,true));
+        _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play opens the current inhabited hamlet in Normal or relaxed mode.",15,true));
         MenuButton("Earlier settlements", NeighborhoodMenu);
         MenuButton("Between wood and water · prototype",TransformationMenu);
         MenuButton("Earlier free court", CreativeCourtMenu);
