@@ -58,7 +58,7 @@ public partial class Game
         _removeBuildingButton.Disabled = problem != null;
         _removalInfo.Text = problem ?? "Creative: remove instantly. Stored goods return to the yard; villagers keep carried goods.";
         if (selected.Kind == BuildingKind.VegetableGarden)
-            _siteInfo.Text = $"VEGETABLE GARDEN {selected.Id}\n\n1 farmer slot · crop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe · 8 per harvest\nFood needs are disabled.";
+            _siteInfo.Text = $"VEGETABLE GARDEN {selected.Id}\n\n1 farmer slot · crop {selected.Growth:P0}\n{selected.Harvest} vegetables ripe · 8 per harvest\n" + (_world.SimulatesMeals ? "Residents collect real meals; hunger penalties are relaxed." : "Food needs are disabled.");
         if (selected.Kind == BuildingKind.Square)
             _siteInfo.Text = $"VILLAGE SQUARE {selected.Id}\n\nShort breaks between jobs · no staff.\nLeave open space around the entrance. Supper is disabled in Creative.";
     }

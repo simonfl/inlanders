@@ -27,6 +27,16 @@ public partial class Game
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
         Check(_world.SaveJson()==saved && CurrentSavePath==RiverFarmsteadPath,"Farmstead Continue differs");
         await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved,"Farmstead F9 differs");
-        File.WriteAllText(Path.Combine(_reviewDirectory,"farmstead-controls.txt"),"PASS: actual menu entry/held finish/Continue/F9, eight residents. Construction commands and accelerated ticks; not human play.");
+        Reset();await Frames();
+        Check(_world.Founding?.RiverFarmstead==true && CurrentSavePath==RiverFarmsteadPath && !_world.Founding.Finished,"Restart changed scenario/slot");
+        await Press(Key.O);await Frames();UpdateRecoveryUi();
+        _drawerPages[3].EnsureControlVisible(_restoreRestart);await Frames();
+        Check(!_restoreRestart.Disabled,"Restart backup unavailable");await UiClick(_restoreRestart);await Frames();
+        Check(_world.SaveJson()==saved,"Before-restart recovery differs");
+        await Press(Key.F5);await Frames();await Press(Key.F9);await Frames();
+        Check(_world.SaveJson()==saved,"Recovered manual save differs");
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
+        Check(_world.SaveJson()==saved && CurrentSavePath==RiverFarmsteadPath,"Recovered Continue differs");
+        File.WriteAllText(Path.Combine(_reviewDirectory,"farmstead-controls.txt"),"PASS: actual menu entry/held finish/restart/restore/F5/F9/Continue, eight residents. Construction commands and accelerated ticks; not human play.");
     }
 }

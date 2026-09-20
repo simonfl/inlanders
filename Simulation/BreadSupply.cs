@@ -15,14 +15,15 @@ public sealed partial class World
         string text=$"Last {Math.Min(Food.Time,FoodFlowWindow):0}s: {delivered} bread delivered · {eaten} eaten in meals\n"+
             "Deliveries to all pantries; transfers excluded. Delivered bread may already be eaten.\n\n"+
             $"Central: {Food.Bread} stored · {FoodReservedAt(null,Resource.Bread)} reserved · {central} available\n"+
-            $"Local pantries: {local} stored\n"+
+            $"Local stores: {local} stored\n"+
             $"At bakeries: {Cottages.Sum(c=>c.OutputBread)} · carried: {People.Where(p=>p.Cargo==Resource.Bread).Sum(p=>p.Carried)}\n";
-        if(!Creative && !Food.SupperComplete && !Food.Celebrating)
+        bool supperApplies=!Creative && Founding==null && Neighborhood==null;
+        if(supperApplies && !Food.SupperComplete && !Food.Celebrating)
             text+=$"Supper needs {SupperCost} available centrally; {Math.Max(0,SupperCost-central)} more needed.\n";
-        text+="\nMeals use bread too. Bakers fetch grain from the central pantry, not directly from farms. Check staffing, targets and those trips before adding ovens.\n";
+        text+="\nMeals use bread too. " + (LocalGrainSupply ? "Bakers fetch grain from reachable farm stores or the central pantry." : "Bakers fetch grain from the central pantry, not directly from farms.") + " Check staffing, targets and those trips before adding ovens.\n";
         if(local>0)
-            text+="Return local surplus: lower its pantry target and assign a hauler. Haulers return surplus food, not bread specifically; meals can claim it first.";
-        else text+="Supper also needs homes and clear gathering space.";
+            text+="Return local surplus: lower its pantry target" + (SharedWork ? "; available residents haul automatically." : " and assign a hauler.") + " Haulers return surplus food, not bread specifically; meals can claim it first.";
+        else if(supperApplies) text+="Supper also needs homes and clear gathering space.";
         return text;
     }
 }

@@ -14,6 +14,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 ## Chunk ledger
 
+**Review-40 corrections:** Farmstead restart retains its scenario and backup slot; actual native restart/restore/F5/F9/Continue pass at 960 and 1440 (`20260920-034305-575-farmstead-720396`, `20260920-034339-234-farmstead-ff0fbf`). Free garden and local-grain bread guidance corrected. Count stays **40**. F34c next.
+
 **Full review 40 — September 19/20, 2026:** [Five fresh independent roles](REVIEW_CHECKPOINT_40.md) at `772a653`. Partially convincing: retain normal/Free foundation, correct restart and mode-copy defects, test real cultivated extent and domestic life, then a working-village alternative/recovery. Source and fresh broad stills/scripted workflows; no human play or listening. Count stays **40**. First of three requested reviews complete; next **45**, horizon **50**.
 
 **F33d — September 19/20, 2026:** [Primary normal opening](OPENING_F33D.md): Play enters the farmstead, earlier introductions move under Earlier prototypes, food-first guidance and optional no-growth finish. Native 960/1440 entry/finish/resume and legacy founding entry pass. Count **40**; five-role whole-game review due now before implementation.
