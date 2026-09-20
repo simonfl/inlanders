@@ -1,0 +1,11 @@
+# F36e — reading work in the village
+
+Clicking a completed producer/carpenter/pantry in current normal or Free arrangement opens a compact world card: current activity, actual worker, available local food and any current meal collector. Watch work / Follow meal open that actual resident and camera follow. Pause/resume, contextual Move and full Details are directly accessible; disabled actions explain their reason. The card stays on one upper side while open, avoiding jumpy action positions. Escape closes it and its controls block camera gestures.
+
+Provisioned workplaces now explain why shared workers have gone home rather than reporting that they merely need a worker. Dedicated staffing, policies, stock targets, construction/demolition and supply information remain in existing inspectors. Inspection confirmed Details & policies already hid advanced controls; this feature does not duplicate that earlier work or misrepresent expanded review screenshots as the default.
+
+Native960/1440 complete flows (`20260920-045811-151-working-village-a25dbd`, `20260920-045848-282-working-village-594bdc`) pass actual world click, held pause/resume, Details, actual worker/collector follow, Escape, legal workshop construction, actual furnished-home order, carpenter completion and F5/F9. The960 card still was inspected; current activity and actionable controls fit with the selected building visible. These are scripted input and accelerated production waits, not uncoached play.
+
+Broad default simulation regression passes, including archived campaign routes, terrain, current saves, homes/comfort, fishing/wildlife and all six producer delivery types. The ten-suite current-experience profile separately covers the recent normal and Free experiences. The sixty-minute sixteen-resident grain extension was regenerated in current format for review. No new long-session render-performance, continuous-motion or listening acceptance.
+
+Retained as checkpoint50. Freeze implementation and run the third requested full whole-game review now, including visual/audio, before selecting further work. Evaluate all F36 outcomes critically; successful furnishing, capacity and card probes do not prove that the village is now fun or sufficiently deep.

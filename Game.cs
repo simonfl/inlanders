@@ -195,7 +195,7 @@ public partial class Game : Node3D
         else if (Ground(position) is Vector3 p)
         {
             var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-            if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
+            if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
         }
     }
     public override void _Process(double delta)

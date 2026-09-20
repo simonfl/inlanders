@@ -95,6 +95,8 @@ public sealed partial class World
             return new(state, string.Join("\n", workers.Select(w => $"{w.Name}: {w.Status}")), source, p.Task==Work.ToGrain?p.GrainSourceId:p.Task==Work.ToPantry && p.GrainDestinationId!=null?p.GrainDestinationId:p.Task is Work.ToSawLogs or Work.ToStockpile ? p.StorageId : null);
         }
         if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes; assign a carpenter and supply planks.");
+        if(ProvisionedLife && !FoodWorkNeeded && Buildings.Get(site.Kind).Worker is Role foodRole && FoodRole(foodRole) && AssignedWorkers(site.Id)==0)
+            return new("Provisions ready", "Shared workers have enough food in store. They take other jobs or return home; food work resumes as stores fall.");
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
         if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Automatic farmers can work elsewhere. Assigned farmers wait for this orchard; choose Automatic in People to release them. Mature trees stay for repeat harvests.");
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");

@@ -123,7 +123,7 @@ public partial class Game
         }
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
-        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi(); MakeDailyLifeUi();
+        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi(); MakeDailyLifeUi();MakeWorkplaceCard();
         MakeContextualInspector(); MakeResourceSurvey(inspection);
         inspection.AddChild(Button("Move camera here", () =>
         {
