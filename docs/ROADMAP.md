@@ -14,7 +14,7 @@
 
 Keep the easy opening as introduction/control. Do not add more needs, catalogue entries, mills or tutorial scenarios before this comparison. Normal and Free should share recipes, domestic behavior and scheduling; test consolidation in the prototype before changing the public modes. Improve whole-place composition alongside the land decisions, rather than adding isolated decoration.
 
-The [active queue](NEXT_CHUNKS.md) defines gates and alternatives. Playable count **54**. All three requested review syntheses, **40, 45 and 50**, are complete; the prior run stopped here; the user has resumed through review55. Review50 has four independent disciplinary contexts plus a dependent playtest-evidence pass after agent-limit failures, not five independent reviewers. Next periodic review55; visual/audio60 or earlier after substantial presentation changes.
+The [active queue](NEXT_CHUNKS.md) defines gates and alternatives. Playable count **55**. All three requested review syntheses, **40, 45 and 50**, are complete; the prior run stopped here; the user has resumed through review55. Review50 has four independent disciplinary contexts plus a dependent playtest-evidence pass after agent-limit failures, not five independent reviewers. Next periodic review55; visual/audio60 or earlier after substantial presentation changes.
 
 ## What stays, what changes
 

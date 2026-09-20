@@ -39,7 +39,7 @@ public partial class Game
     }
 
     private bool FarmsteadWater(float x,float z)=>_world.Founding?.RiverFarmstead==true &&
-        x>=8.5f+(z< -5.5f?1:z>6.5f?-1:0);
+        x>=8.5f+(_world.Founding?.TransformationHamlet==true?0:z< -5.5f?1:z>6.5f?-1:0);
 
     private void MakeFarmsteadRiverContext(int margin)
     {

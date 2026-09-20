@@ -11,7 +11,7 @@ public partial class Game
     private void SaveWorld()
     {
         try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }
-        catch (Exception e) { Notice("Could not save: " + e.Message); }
+        catch (Exception e) { GD.PrintErr($"Save failure at {CurrentSavePath}: {e}");Notice("Could not save: " + e.Message); }
     }
     private void LoadWorld()
     {

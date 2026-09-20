@@ -7,6 +7,11 @@ public partial class Game
     private Color ContinuousGroundTint(Vector3 at)
     {
         float patch=MathF.Sin(at.X*.31f)*MathF.Cos(at.Z*.27f)*.025f;
+        if(_world.Founding?.TransformationHamlet==true)
+        {
+            float meadow=Math.Clamp((-at.Z-1)/8,0,1);
+            return new Color("8b9160").Lerp(new("a3a571"),meadow).Lightened(patch+Math.Max(0,at.Y)*.025f);
+        }
         if(_storybookScene)return new Color(.34f+patch,.46f+patch,.28f+patch).Lightened(Math.Max(0,at.Y)*.025f);
         return new Color(.43f+patch,.50f+patch,.33f+patch).Lightened(Math.Max(0,at.Y)*.025f);
     }

@@ -21,12 +21,16 @@ public sealed partial class World
             if(x<-10 || z>12 && x<-6 || z<-12 && x<-5)w.Map.Excluded.Add(c);
             else if(x>=9 || z==0 && x>=-4)w.Map.Water.Add(c);
         }
-        Cottage Ready(Cell c,BuildingKind kind)
+        // The western woodlot rises gently; the house bank, inlet and northern meadow remain level.
+        w.Map.Heights=new float[(w.Map.Width+1)*(w.Map.Depth+1)];
+        for(int z=0;z<=w.Map.Depth;z++)for(int x=0;x<=w.Map.Width;x++)
+            w.Map.Heights[z*(w.Map.Width+1)+x]=.3f*Math.Clamp(-(w.Map.MinX+x-.5f)-5.5f,0,4);
+        Cottage Ready(Cell c,BuildingKind kind,int rotation=0)
         {
-            var b=w.Place(c,0,kind)??throw new InvalidOperationException($"Hamlet {kind} {c}: {w.PlacementProblem(c,0,kind)}");
+            var b=w.Place(c,rotation,kind)??throw new InvalidOperationException($"Hamlet {kind} {c}: {w.PlacementProblem(c,0,kind)}");
             b.Delivered=b.Required;b.Construction=1;return b;
         }
-        foreach(var c in new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)})Ready(c,BuildingKind.Cottage);
+        foreach(var c in new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)})Ready(c,BuildingKind.Cottage,c.X==-3?1:c.X==1?3:c.Z==11?2:0);
         foreach(var c in new[]{new Cell(-1,-5),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
         foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})

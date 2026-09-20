@@ -1,6 +1,6 @@
 # Next chunks — sustained village transformation
 
-[Whole-game review 50](REVIEW_CHECKPOINT_50.md) selects the next experiment. Playable count **54**; requested reviews **40, 45 and 50 completed**. User resumed work through the next review at55. Next periodic review55, visual/audio60 or earlier for substantial presentation changes.
+[Whole-game review 50](REVIEW_CHECKPOINT_50.md) selects the next experiment. Playable count **55**; requested reviews **40, 45 and 50 completed**. User resumed work through the next review at55. Next periodic review55, visual/audio60 or earlier for substantial presentation changes.
 
 ## Next: F37 — one place, consequential choices
 
@@ -30,3 +30,5 @@ F36a–e delivered checkpoints46–50: provisioning-led rhythm, normal shared me
 Freeze new catalogue/needs/milling and a promised campaign series. No inheritance/aging/generations, seasons, winter deadline or migrations. Descendants remain lore. Saves disposable; current-format correctness required.
 
 Accept small evidence investments: isolated comparison reports with provenance, existing ten-suite current profile plus separate broad regressions, representative native captures and intervention traces. No speculative framework. After each retained playable outcome reevaluate this queue and roadmap; count outcomes once, not commits or test runs.
+
+All five playable outcomes51–55 committed. Freeze feature implementation for whole-game review55, including visual/audio due to the presentation change. Evidence gates remain provisional; stable food and nicer ground do not prove sustained decisions.
