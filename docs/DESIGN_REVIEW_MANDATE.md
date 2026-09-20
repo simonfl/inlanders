@@ -6,6 +6,8 @@ September 12, 2026, following the user's concern at checkpoint 8. This supersede
 
 Decide whether the game is moving toward a peaceful settlement experience that is satisfying to arrange, manage and watch. Ask whether someone would want to play this game, what they would enjoy doing, and whether the current design produces that experience. Technical correctness is necessary; it is not the product verdict.
 
+Apply the current [Les Habitants theme and explicit user constraints](LES_HABITANTS.md). Descendants are narrative motivation, not inheritance or generational mechanics. A review may challenge our implementation hypotheses; it does not override explicit user exclusions.
+
 Nothing earns protection because it is implemented, tested, documented, numbered in the roadmap or expensive to replace. Review the core loop, resources, buildings, labor, needs, campaign, objectives, controls, map, art and architecture as revisable choices. Cutting half the buildings, replacing assessments, changing how labor works, rebuilding the interface or adopting a different art direction are legitimate proposals. Earlier roadmap cuts and exclusions can also be reconsidered as design hypotheses. The actual project constraints—personal, local Windows game—still apply.
 
 Be critical without manufacturing objections. Make a positive case for what deserves to stay, supported by its contribution to the intended experience. A lack of proof that a replacement is better is not proof that the existing design is good.

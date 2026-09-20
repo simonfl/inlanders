@@ -4,6 +4,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **36**.
+- Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 remain pending.
 - Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
@@ -12,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**Les Habitants planning — September 19/20, 2026:** [Five-role thematic review](THEME_REVIEW_36.md) and revised roadmap, theme brief, campaign concepts and queue. Farming, river frontage and improving the present village become the design focus. Descendants remain narrative motivation only; no inheritance or related family mechanics, and seasons stays removed. Internal Inlanders naming remains; UI branding is queued. Archived pre-theme plans preserve history. Documentation only, count stays **36**, next periodic review **40**, prior run horizon **45**.
 
 **T07 — September19/20,2026:** [Interaction attribution](INTERACTION_T07.md), paused/running native traces and completed-frame summary. No sustained bottleneck reproduced, no performance patch or playable increment. Count36, review40.
 
