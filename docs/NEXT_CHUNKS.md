@@ -1,12 +1,12 @@
 # Next chunks — Les Habitants
 
-Playable count **38**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
+Playable count **39**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
 
 **User constraint:** descendants are motivation only. No inheritance, aging, genealogy, succession, generational handoffs or legacy metrics. F13 seasons remains removed. Internal Inlanders naming stays. [Theme and references](LES_HABITANTS.md).
 
 ## Delivered: F34a — public identity and one coherent reference palette
 
-[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. Next implementation is F33b.
+[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. F33b is delivered; F33d integration is next.
 
 Apply **Les Habitants** and **A home for generations** to player-facing title/menu/HUD/window branding. Keep project, filenames, namespaces, assemblies, internal kinds, save paths and tooling names unchanged. Use the existing display-name boundary or one small shared title value; no generic localization framework or mass replacement.
 
@@ -24,13 +24,17 @@ Author river frontage, growing ground, woodland and home/work placement together
 
 Use current founding as the control. Preserve an imperfect recovery route, record material/labor/land commitments and actual meals, and inspect ordinary/opposing views. Test current bread economics before claiming a useful advantage. Good planning may succeed; invisible or irrelevant choices are the failure. No family systems, deadlines, new needs or population gate required.
 
-## 3. F34b — make that working farmstead convincing to watch
+## Partly delivered: F34b — make the farmstead convincing
+
+[Independent review and first pass](FARMSTEAD_PRESENTATION_F34B.md). Lower houses and river context retained; functional cultivated scale and composition remain open for review 40.
 
 Develop the actual F33b scene, not a separate asset showroom. Give cultivated ground meaningful visual space; connect homes, work/storage, water approach and shared ground. Replace selected generic proportions/materials where the reference palette warrants it. Add only the people/tool/crop/structure treatment necessary for that coherent scene; no catalogue-wide detail marathon.
 
 Keep actual work, meals, carrying, growth and construction visible at normal zoom and opposite cameras. Let the river read as geography rather than a geometric pond decoration. Audition the existing work/water/nature/music mix before deciding additions. Substantial presentation changes require independent visual/audio review before acceptance; no screenshot or cue-count substitute for motion/listening.
 
-## 4. F33c — test a livelihood and a worthwhile improvement
+## Delivered evidence: F33c — livelihood and improvement comparison
+
+[Results and provisional selection](FARMSTEAD_COMPARISON_F33C.md). No playable increment. Integrate F33d next; do not claim enjoyment or full art acceptance.
 
 Compare the themed situation with current founding and Free arrangement through existing snapshots. An unfamiliar player should be able to explain a land choice, establish supply, recover from a placement mistake, choose an improvement and recognize residents using it. Let stopping, remaining small and optional growth have equal standing. Do not prescribe cottages, producer counts or coordinates.
 

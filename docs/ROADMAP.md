@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: F34b, the working farmstead presentation.** [F33b](RIVER_FARMSTEAD_F33B.md) delivers an eight-resident river start with three viable livelihoods and recoverable shortages. [F34a public identity/reference palette](REFERENCE_PALETTE_F34A.md) is delivered. Develop agriculture, the village's layout and visible daily activity together. The efficient result should look like a place people live and work, rather than a cluster of roofs around a stockpile. Farming must be useful and legible; it does not need a mandatory farmer quota or a ban on alternative food.
+**Next: F33d, integrate the chosen opening.** [F34b first pass](FARMSTEAD_PRESENTATION_F34B.md) is retained after independent review, with full cultivated-land composition still open. [F33c](FARMSTEAD_COMPARISON_F33C.md) selects the river start provisionally; deeper play and human preference remain unproven. [F33b](RIVER_FARMSTEAD_F33B.md) delivers an eight-resident river start with three viable livelihoods and recoverable shortages. [F34a public identity/reference palette](REFERENCE_PALETTE_F34A.md) is delivered. Develop agriculture, the village's layout and visible daily activity together. The efficient result should look like a place people live and work, rather than a cluster of roofs around a stockpile. Farming must be useful and legible; it does not need a mandatory farmer quota or a ban on alternative food.
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **38**. The current implementation horizon is three full reviews: **40, 45 and 50**, as newly requested. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **39**. The current implementation horizon is three full reviews: **40, 45 and 50**, as newly requested. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
