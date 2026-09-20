@@ -14,7 +14,7 @@
 
 Keep physical meals, labor, recoverable changes, optional arrivals and voluntary finishing. Preserving kitchen gardens is a legitimate preference. Compact and cultivated-bank layouts remain comparisons; joining three small plots did not complete the substantial working-landscape experiment. Test a neutral invitation and visible resident routines, with an authored repair alternative if needed. Reject arbitrary edits, prescribed commons solutions and payoff visible only in accounting panels.
 
-The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **65**; review65 closes this requested run. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
+The [active queue](NEXT_CHUNKS.md) defines F39a–c and rejection criteria. Playable count **66**. Direct domestic furnishing is playable; a presentation-triggered whole-game review follows this first F40 house/yard slice before further implementation. Next periodic and regular visual/audio review **70**, earlier after substantial presentation changes. Human enjoyment, listening and continuous-motion acceptance remain unproven; window-state automation blocked the hands-on attempt before any input.
 
 ## What stays, what changes
 

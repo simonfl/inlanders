@@ -28,7 +28,7 @@ public sealed partial class World
         bool Short(Resource r)=>stocks.Single(s=>s.Resource==r) is var s && s.ConstructionNeed>s.Available;
         NeedSite(BuildingKind.Sawmill,Short(Resource.Planks),"Plank orders exceed available planks.");
         NeedSite(BuildingKind.Quarry,Short(Resource.Stone),"Stone orders exceed available stone.");
-        NeedSite(BuildingKind.Carpenter,sites.Any(c=>c.ImprovementRequested),"Home improvements need an open workshop, planks and an accessible installation spot.");
+        NeedSite(BuildingKind.Carpenter,PublicPlace==null && sites.Any(c=>c.ImprovementRequested),"Home improvements need an open workshop, planks and an accessible installation spot.");
         if(Short(Resource.Logs) && !Trees.Any(t=>t.Logs>0 || t.Growth<1 || t.NeedsPlanting))issues.Add(new("plant","Construction needs timber; mark new alders to plant.",Plant:true));
         var bakery=sites.FirstOrDefault(c=>c.Kind==BuildingKind.Bakery && c.Complete && !c.WorkPaused);
         if(bakery!=null && StoredGrain+sites.Sum(c=>c.InputGrain)==0 && !sites.Any(c=>c.Kind==BuildingKind.Farm))

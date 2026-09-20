@@ -5,6 +5,8 @@ public partial class Game
 {
     private void MakeHabitantHome(Node3D root,int stage,int variant,CottageFinish finish)
     {
+        bool framed=variant%2==1;
+        float rise=framed?1.05f:.82f;
         // A low, broad dwelling leaves people and worked ground visible beside it.
         var palette=CottagePalette(finish==CottageFinish.Automatic?(CottageFinish)(1+variant):finish);
         if(finish==CottageFinish.Automatic)palette=(new Color("827f6b").Lightened(variant*.04f),new Color("cabb98"));
@@ -18,8 +20,10 @@ public partial class Game
         if(stage<2)return;
         Box(root,new(0,.73f,-.14f),new(2.25f,1.16f,1.30f),palette.Wall.Darkened(.16f));
         // Shallow timber courses give the walls depth without an oversized porch.
-        for(int i=0;i<5;i++)foreach(float z in new[]{-.805f,.525f})
+        for(int i=0;i<(framed?0:5);i++)foreach(float z in new[]{-.805f,.525f})
             Box(root,new(0,.25f+i*.23f,z),new(2.25f,.045f,.045f),timber);
+        if(framed)foreach(float x in new[]{-1.06f,-.78f,-.12f,.22f,1.06f})foreach(float z in new[]{-.825f,.55f})
+            Box(root,new(x,.76f,z),new(.10f,1.15f,.09f),timber.Darkened(.14f));
         Box(root,new(-.48f,.63f,.57f),new(.57f,1.02f,.075f),_recess);
         Box(root,new(-.48f,.60f,.615f),new(.43f,.90f,.04f),_frameTimber);
         Box(root,new(-.48f,1.18f,.60f),new(.76f,.14f,.14f),timber);
@@ -28,14 +32,17 @@ public partial class Game
         CottageWindow(root,new(1.15f,.82f,-.18f),90,false);
         CottageWindow(root,new(.40f,.81f,-.82f),180,false);
         if(stage<3)return;
-        VillageRoof(root,new(0,1.41f,-.14f),2.70f,1.89f,.76f,palette.Roof.Darkened(.06f),true,timber);
+        VillageRoof(root,new(0,1.41f,-.14f),2.70f,1.89f,rise,palette.Roof.Darkened(.06f),true,timber);
+        // Deep eaves, a broken stone plinth and distinct framing read as construction rather than a painted box.
+        foreach(float x in new[]{-1f,-.65f,-.3f,.05f,.4f,.75f,1.1f})
+            Box(root,new(x,.13f,.61f),new(.30f,.19f,.12f),_stone.Darkened(x<0?.12f:.02f));
         // A masonry chimney and roof battens remain recognizable at village scale.
         Box(root,new(.74f,1.95f,-.38f),new(.37f,1.05f,.39f),_stone.Darkened(.08f));
         Box(root,new(.74f,2.50f,-.38f),new(.47f,.12f,.49f),_stone);
         Box(root,new(.74f,2.565f,-.38f),new(.23f,.015f,.25f),_recess);
         foreach(float x in new[]{-.95f,-.45f,.05f,.55f,1.05f})
             foreach(float side in new[]{-1f,1f})
-                TimberBeam(root,new(x,1.44f,-.14f+side*.94f),new(x,2.19f,-.14f),.035f,palette.Roof.Lightened(.13f));
+                TimberBeam(root,new(x,1.44f,-.14f+side*.94f),new(x,1.41f+rise,-.14f),.035f,palette.Roof.Lightened(.13f));
     }
 
     private bool FarmsteadWater(float x,float z)=>_world.Founding?.RiverFarmstead==true &&

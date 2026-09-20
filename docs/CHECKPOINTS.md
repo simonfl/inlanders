@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **65**.
+- Playable checkpoints since adoption: **66**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; stop here.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
@@ -288,3 +288,6 @@ Closeout65 validation: zero-warning build; compact960 and bank960 native public-
 
 
 **Roadmap theming update — September20,2026:** user requested stronger New France aesthetics. Added [F40a–h](NEW_FRANCE_ART_DIRECTION.md), integrating houses/land/yards with the next F39 domestic-work slice and sequencing work structures, river landing, people, atmosphere/audio and UI identity. Documentation only; count stays65, next periodic review70. No gameplay or assets implemented.
+
+
+Checkpoint66 · F39a / first F40a,c slice: occupied homes can be furnished directly from their world card. Shared workers deliver/install real planks without a carpenter workshop in public hamlets; redundant workshop catalogue entry removed there. Normal four-phase cancellation/recovery/reorder and exact continuation pass in both layouts, relaxed instant furnishing retained, legacy carpenter checks pass. Two framing/roof treatments, deeper stone footing and clear-center yard furniture accompany actual domestic use. Native960 order/cancel/catalog/public flow passes. House forms draw on the museum reference already in NEW_FRANCE_ART_DIRECTION.md; these are stylized interpretations, not reconstructed historical buildings. Freeze for an early whole-game presentation review; no67 work. Regular review70 remains due.

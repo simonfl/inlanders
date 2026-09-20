@@ -11,6 +11,12 @@ public partial class Game
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await CaptureReviewBundle("hamlet-brief");
         await UiClick(_mainButtons["New hamlet"]);await Frames();Check(_world.Founding?.TransformationHamlet==true && _world.Population==12 && CurrentSavePath==TransformationPath,"Hamlet entry failed");
+        var domestic=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
+        ShowWorkplaceCard(domestic.Id);await Frames();Check(_workCardFurnish.IsVisibleInTree(),"Direct furnishing action hidden");
+        await UiClick(_workCardFurnish);await Frames();Check(domestic.ImprovementRequested && _workCardFurnish.Text=="Cancel furnishing","Direct furnishing order failed");
+        await CaptureReviewBundle("direct-domestic-order");
+        await UiClick(_workCardFurnish);await Frames();Check(!domestic.ImprovementRequested,"Direct furnishing cancellation failed");ClearSelection();
+        await Press(Key.B);await Frames();_buildingFilter.Select(3);UpdateVillageDirectory();await Frames();Check(!_kindButtons[BuildingKind.Carpenter].IsVisibleInTree(),"Redundant workshop still offered");CloseDrawer();
         await Press(Key.G);await Frames();Check(!_foundingFinish.Disabled,"Personal ending is gated by production");
         await UiClick(_foundingFinish);await Frames();Check(_world.Founding!.Finished && _paused && _hamletEnding.Visible && !_drawer.Visible,"Personal finish failed");await CaptureReviewBundle("personal-ending-world");
         string ended=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(ended==_world.SaveJson(),"Finished state lost on reload");

@@ -62,6 +62,7 @@ public partial class Game
     }
     private void UpdateBuildingGroups(int category)
     {
+        _kindButtons[BuildingKind.Carpenter].Visible=_world.PublicPlace==null;
         foreach(var heading in _foodGroupHeadings) heading.Visible=category!=2;
         foreach (var group in _buildingGroups) group.Panel.Visible = category == 0 || group.Category == category;
         foreach (var button in _categoryButtons)

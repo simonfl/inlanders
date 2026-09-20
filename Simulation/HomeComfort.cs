@@ -45,13 +45,13 @@ public sealed partial class World
     public string ComfortSummary(Cottage home)
     {
         if(Founding?.RiverFarmstead==true && !home.ImprovementRequested)
-            return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the sides of the entrance to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. Requires carpenter and planks; keep entrance sides clear.");
+            return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the sides of the entrance to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. {(PublicPlace!=null?"Shared workers deliver and install the planks":"Requires carpenter and planks")}; keep entrance sides clear.");
         if(home.Improved) return "Improved home · rest benefit lasts 5m; next rest due after 4m. No extra beds.";
         if(!home.ImprovementRequested) return home.ImprovementPlanks>0 ? $"Cancelled · builders recover {home.ImprovementPlanks} planks." : $"Improve for {ComfortCost(home)} planks. Rest benefit lasts 5m instead of 4m; visits are due after 4m instead of 3m.";
         var worker=People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);
         string reason=worker!=null?$"{worker.Name}: {worker.Status}": !People.Any(p=>p.HomeId==home.Id)?"Waiting for a resident.":
-            !Cottages.Any(c=>c.Kind==BuildingKind.Carpenter && c.Complete && !c.DemolitionRequested && !c.WorkPaused)?"Needs an open carpenter workshop.":
-            !SharedWork && !People.Any(p=>p.Role==Role.Carpenter)?"Assign a carpenter in People.":home.ImprovementPlanks+ComfortIncoming(home)<ComfortCost(home) && AvailablePlanks==0?"Waiting for unreserved planks.":SharedWork?"Shared workers take installation jobs when the workshop and a home work spot are reachable.":"Waiting for a carpenter and reachable free work spot.";
+            PublicPlace==null && !Cottages.Any(c=>c.Kind==BuildingKind.Carpenter && c.Complete && !c.DemolitionRequested && !c.WorkPaused)?"Needs an open carpenter workshop.":
+            !SharedWork && !People.Any(p=>p.Role==Role.Carpenter)?"Assign a carpenter in People.":home.ImprovementPlanks+ComfortIncoming(home)<ComfortCost(home) && AvailablePlanks==0?"Waiting for unreserved planks.":SharedWork?"Shared workers deliver planks and install furnishings at a reachable home work spot.":"Waiting for a carpenter and reachable free work spot.";
         return $"Home improvement · {home.ImprovementPlanks}/{ComfortCost(home)} planks delivered · {ComfortIncoming(home)} committed · installed {home.ImprovementProgress:P0}\n{reason}";
     }
     private Cell? ComfortSpot(Villager worker,Cottage home)
@@ -69,8 +69,8 @@ public sealed partial class World
     }
     private void ClaimComfort(Villager worker)
     {
-        var workshop=FoodSite(worker,BuildingKind.Carpenter,c=>!c.DemolitionRequested && FindPath(At(worker),c.Entrance,Blocked)!=null);
-        if(workshop==null) {worker.Status=ProductionWait(worker);return;}
+        var workshop=PublicPlace!=null?null:FoodSite(worker,BuildingKind.Carpenter,c=>!c.DemolitionRequested && FindPath(At(worker),c.Entrance,Blocked)!=null);
+        if(workshop==null && PublicPlace==null) {worker.Status=ProductionWait(worker);return;}
         foreach(var home in Cottages.Where(c=>IsHome(c) && c.ImprovementRequested && People.Any(p=>p.HomeId==c.Id) && !People.Any(p=>p.ComfortHomeId==c.Id)).OrderBy(c=>c.ImprovementOrderedAt).ThenBy(c=>c.Id))
         {
             if(FindPath(At(worker),home.Entrance,Blocked)==null) continue;
@@ -78,11 +78,11 @@ public sealed partial class World
             {
                 if(!TryMaterialSource(home.Entrance,Resource.Planks,1,out int? source)) continue;
                 worker.Reserved=Math.Min(2,Math.Min(ComfortCost(home)-home.ImprovementPlanks,AvailableMaterialAt(source,Resource.Planks)));
-                worker.Cargo=Resource.Planks;worker.StorageId=source;worker.ComfortHomeId=home.Id;worker.WorkplaceId=workshop.Id;
+                worker.Cargo=Resource.Planks;worker.StorageId=source;worker.ComfortHomeId=home.Id;worker.WorkplaceId=workshop?.Id;
                 Go(worker,StorageAccess(source),Work.ToComfortPlanks,"Collecting planks for home improvement");return;
             }
             if(ComfortSpot(worker,home) is not Cell spot) continue;
-            worker.ComfortHomeId=home.Id;worker.WorkplaceId=workshop.Id;
+            worker.ComfortHomeId=home.Id;worker.WorkplaceId=workshop?.Id;
             Go(worker,spot,Work.ToComfortInstall,"Walking to improve an occupied home");return;
         }
         worker.Status="Waiting for occupied-home orders, planks or a free installation spot";
@@ -126,7 +126,7 @@ public sealed partial class World
             if(active!=(p.ComfortHomeId!=null)) throw new InvalidOperationException("Orphaned comfort job");
             if(!active) continue;
             var home=Cottages.FirstOrDefault(c=>c.Id==p.ComfortHomeId && !c.DemolitionRequested);
-            if(home==null || !IsHome(home) || p.SiteId!=null || p.Task!=Work.ToComfortRecovery && (!home.ImprovementRequested || !Cottages.Any(c=>c.Id==p.WorkplaceId && c.Kind==BuildingKind.Carpenter && c.Complete && !c.DemolitionRequested))) throw new InvalidOperationException("Invalid comfort destination");
+            if(home==null || !IsHome(home) || p.SiteId!=null || p.Task!=Work.ToComfortRecovery && (!home.ImprovementRequested || (PublicPlace!=null?p.WorkplaceId!=null:!Cottages.Any(c=>c.Id==p.WorkplaceId && c.Kind==BuildingKind.Carpenter && c.Complete && !c.DemolitionRequested)))) throw new InvalidOperationException("Invalid comfort destination");
             if(p.Task is Work.ToComfortPlanks or Work.ToComfortHome && (p.Cargo!=Resource.Planks || p.Reserved is <1 or >2 || p.Carried!=(p.Task==Work.ToComfortHome?p.Reserved:0))) throw new InvalidOperationException("Invalid comfort shipment");
             if(ComfortWork(p) && (p.Carried!=0 || p.Reserved!=0 || Blocked(p.Destination))) throw new InvalidOperationException("Invalid comfort installation");
         }
