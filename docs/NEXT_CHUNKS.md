@@ -1,6 +1,6 @@
 # Next chunks — a working farmstead, not an upgrade checklist
 
-Count **68**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
+Count **69**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
 
 ## Direction
 
@@ -36,3 +36,6 @@ Progress67: larger functional vegetable-field option delivered. Next68: use that
 
 
 Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden (36 cultivated tiles/48 vegetables per combined crop versus compact18/24). This explicitly changes productive extent; per-tile yield/cost rules remain unchanged and larger harvests require more labor. Same12 residents,12 loose logs,72 food and now4 starting planks in both layouts. One domestic intervention can precede a sawmill. Lower/broader bank house massing and low shoreline shingle accompany the land comparison. Normal/relaxed ten-minute simulations had zero hungry ticks; active saves and native960 actual field move/cancel/comparison pass. Next69: choose which side of a home supports actual outdoor life;70 adds spatial preview/outcome-first control before the whole-game review.
+
+
+Checkpoint69: choose entrance/left/rear/right outdoor ground for each public home. Actual quiet work and nearby meals follow the selected side; existing furniture can move free, while active furnishing/recovery must finish first. All four sides in Normal/relaxed pass real-use, exact saves and occupied-yard interruption/conservation tests. Native960 side action passed; first run reproduced save replacement denial after the interaction, second full run passed (`20260920-231513-309-cultivated-bank-750b68`). Windows FileIO tracing exists but start was denied by OS access permissions both sandboxed and elevated-tool execution; no recording obtained and no retry-policy change. Next70: visible preview and confirmation, compact outcome-first home actions, then fixed whole-game review.

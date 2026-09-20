@@ -15,6 +15,8 @@ public partial class Game
         var home=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z-1)));await Frames();
         Check(_workCard.Visible && _workCardSite==home.Id && !_inspector.Visible,"Home click did not expose compact actions");await CaptureReviewBundle("home-world-actions");
+        int oldSide=home.YardSide;await UiClick(_workCardYard);await Frames();Check(home.YardSide!=oldSide,"Yard-side action failed");
+        await CaptureReviewBundle("chosen-yard-side");
         await UiClick(_workCardWorker);await Frames();Check(_dailyCard.Visible,"Watch resident failed");ClearSelection();
         var staged=_world.Place(new(1,-9),0,BuildingKind.Cottage);Check(staged!=null,"Construction card fixture unavailable");CreateActors();RenderActors(0);
         await Click(_camera.UnprojectPosition(OnGround(1,-10)));await Frames();Check(_workCardSite==staged!.Id && _workCardCancel.Visible,"Construction click missed actions");

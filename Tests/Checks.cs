@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--yard-arrangement")){try{YardArrangementChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--vegetable-field")){try{VegetableFieldChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--direct-domestic")){try{DirectDomesticChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--cultivated-bank")){try{CultivatedBankChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

@@ -15,7 +15,7 @@ public sealed partial class World
         if(home==null || !IsHome(home)) return "Choose a completed home not marked for demolition.";
         if(Food.Celebrating) return "Wait until supper finishes.";
         if(home.Improved) return "This home is already improved.";
-        if(Founding?.RiverFarmstead==true && PotentialHomeYardPlaces(home).Length==0)return "Clear one side of this home’s entrance before furnishing its forecourt.";
+        if(Founding?.RiverFarmstead==true && PotentialHomeYardPlaces(home).Length==0)return "Choose a clear yard side before furnishing this home.";
         if(home.ImprovementRequested) return "An improvement is already ordered.";
         if(home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==id)) return "Wait for cancelled materials to be recovered.";
         if(!People.Any(p=>p.HomeId==id)) return "Assign a resident before improving this home.";
@@ -47,7 +47,7 @@ public sealed partial class World
         if(!home.Improved && !home.ImprovementRequested && (home.ImprovementPlanks>0 || People.Any(p=>p.ComfortHomeId==home.Id)))
             return $"Cancelled furnishing · recovering {home.ImprovementPlanks} delivered planks. Carried supplies return physically. Wait for recovery before ordering again.";
         if(Founding?.RiverFarmstead==true && !home.ImprovementRequested)
-            return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the sides of the entrance to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the two sides of the entrance clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. {(PublicPlace!=null?"Shared workers deliver and install the planks":"Requires carpenter and planks")}; keep entrance sides clear.");
+            return $"{PotentialHomeYardPlaces(home).Length}/2 outdoor places usable · {YardSideName(home.YardSide)}. "+(PotentialHomeYardPlaces(home).Length==0?"Clear the selected yard side to restore outdoor use. ":"")+(home.Improved?"Furnished forecourt · residents mend and take nearby meals outside at home. Shared meals take precedence. Keep the selected yard places clear. Rest also lasts longer; no extra beds.":$"Furnish this occupied home for {ComfortCost(home)} planks. Residents use the forecourt during quiet work time and bring nearby meals home. {(PublicPlace!=null?"Shared workers deliver and install the planks":"Requires carpenter and planks")}; keep the selected yard places clear.");
         if(home.Improved) return "Improved home · rest benefit lasts 5m; next rest due after 4m. No extra beds.";
         if(!home.ImprovementRequested) return home.ImprovementPlanks>0 ? $"Cancelled · builders recover {home.ImprovementPlanks} planks." : $"Improve for {ComfortCost(home)} planks. Rest benefit lasts 5m instead of 4m; visits are due after 4m instead of 3m.";
         var worker=People.FirstOrDefault(p=>p.ComfortHomeId==home.Id);
@@ -116,6 +116,7 @@ public sealed partial class World
     {
         foreach(var home in Cottages)
         {
+            if(home.YardSide is <0 or >3 || Buildings.Get(home.Kind).Beds==0 && home.YardSide!=0)throw new InvalidOperationException("Invalid domestic yard side");
             bool hasState=home.Improved || home.ImprovementRequested || home.ImprovementPlanks!=0 || home.ImprovementProgress!=0;
             if(hasState && (Buildings.Get(home.Kind).Beds==0 || !home.Complete) || home.ImprovementPlanks<0 || home.ImprovementPlanks+ComfortIncoming(home)>ComfortCost(home) ||
                 !float.IsFinite(home.ImprovementProgress) || home.ImprovementProgress<0 || home.ImprovementProgress>1 || !float.IsFinite(home.ImprovementOrderedAt) || home.ImprovementOrderedAt<0 || home.ImprovementOrderedAt>Food.Time ||

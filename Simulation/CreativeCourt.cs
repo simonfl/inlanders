@@ -30,9 +30,9 @@ public sealed partial class World
         var home=Cottages.FirstOrDefault(h=>h.Id==id && IsHome(h));if(home==null)return;
         var occupied=People.Where(p=>p.Id!=person.Id).Select(At)
             .Concat(People.Where(p=>p.Id!=person.Id && (p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure || IdleHomeJourney(p))).Select(p=>p.Destination)).ToHashSet();
-        bool Free(Cell c)=>!Blocked(c) && !occupied.Contains(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) &&
-            c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) && (c.Point-home.Entrance.Point).LengthSquared()<=4;
         var yard=HomeYardPlaces(home);
+        bool Free(Cell c)=>!Blocked(c) && !occupied.Contains(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) &&
+            c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) && ((c.Point-home.Entrance.Point).LengthSquared()<=4 || yard.Contains(c));
         if(Free(At(person)) && (yard.Length==0 || yard.Contains(At(person)))){person.Status=yard.Length>0?"Mending at home — available for work":"At home — available for work";return;}
         var spot=Map.Land.Where(Free).OrderBy(c=>yard.Contains(c)?0:1).ThenBy(c=>(c.Point-home.Entrance.Point).LengthSquared())
             .ThenBy(c=>c.Z).ThenBy(c=>c.X).Cast<Cell?>().FirstOrDefault(c=>FindPath(At(person),c!.Value,Blocked)!=null);

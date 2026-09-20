@@ -82,6 +82,7 @@ public sealed class Cottage
     [JsonInclude] public int StoredGrain { get; internal set; }
     [JsonInclude] public CottageFinish Finish { get; internal set; }
     [JsonInclude] public CivicIdentity Identity { get; internal set; }
+    public int YardSide { get; set; }
     public bool ImprovementRequested { get; set; }
     public bool Improved { get; set; }
     public int ImprovementPlanks { get; set; }

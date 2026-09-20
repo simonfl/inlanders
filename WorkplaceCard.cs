@@ -6,7 +6,8 @@ public partial class Game
     private PanelContainer _workCard=null!;
     private Label _workCardText=null!;
     private Button _workCardPause=null!,_workCardMove=null!,_workCardDetails=null!,_workCardWorker=null!,_workCardDiner=null!,_workCardCancel=null!;
-    private Button _workCardFurnish=null!;
+    private Button _workCardFurnish=null!,_workCardYard=null!;
+    private int NextYardSide(Cottage home)=>Enumerable.Range(1,3).Select(i=>(home.YardSide+i)%4).FirstOrDefault(side=>_world.HomeYardProblem(home.Id,side)==null,-1);
     private int _workCardSite=-1;
     private World? _workCardWorld;
     private float _nextWorkCard;
@@ -35,6 +36,7 @@ public partial class Game
         _workCardDetails=Button("Details",()=>{int id=_workCardSite;_workCardSite=-1;SelectBuilding(id);});actions.AddChild(_workCardDetails);
         actions.AddChild(Button("×",ClearSelection));
         _workCardFurnish=Button("Furnish forecourt",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
+        _workCardYard=Button("Change yard side",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null && NextYardSide(home) is int side && side>=0)_world.SetHomeYard(home.Id,side);_nextWorkCard=0;});column.AddChild(_workCardYard);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()
@@ -53,6 +55,10 @@ public partial class Game
         else if(Buildings.Get(site.Kind).RecreationSlots>0)detail=$"{_world.People.Count(p=>p.LeisureSiteId==site.Id)} neighbors visiting\nA place for ordinary breaks.";
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
+        _workCardYard.Visible=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
+        _workCardYard.Text="Yard: "+World.YardSideName(site.YardSide)+" · change";
+        _workCardYard.Disabled=NextYardSide(site)<0;
+        _workCardYard.TooltipText="Cycle through clear sides of this home. Residents use the chosen ground for quiet work and nearby meals after furnishing. Existing furniture moves free.";
         _workCardFurnish.Visible=site.Complete && Buildings.Get(site.Kind).Beds>0 && !site.Improved;
         _workCardFurnish.Text=site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish forecourt · free":$"Furnish forecourt · {World.ComfortCost(site)} planks";
         _workCardFurnish.Disabled=!site.ImprovementRequested && _world.ImprovementProblem(site.Id)!=null;

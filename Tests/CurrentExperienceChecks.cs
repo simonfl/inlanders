@@ -26,6 +26,7 @@ static class CurrentExperienceChecks
         Run("NormalCommons",NormalCommonsChecks.Run);
         Run("HomeYards",HomeYardChecks.Run);
         Run("DirectDomestic",DirectDomesticChecks.Run);
+        Run("YardArrangement",YardArrangementChecks.Run);
         Run("VegetableField",VegetableFieldChecks.Run);
         Run("BatchBread",BatchBreadChecks.Run);
         Run("CourtExperience",CourtExperienceChecks.Run);
