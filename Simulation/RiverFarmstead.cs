@@ -38,6 +38,8 @@ public sealed partial class World
         w.ReconcileHomes(); w.Validate(); w.ValidateMapOccupancy(); return w;
     }
 
+    public bool FoundingHasNewFood => DeliveredEdible>0;
+
     private string? FarmsteadReadyProblem() => Housed<Population ? "Give everyone a finished home." :
         DeliveredEdible==0 ? "Establish a food source and bring its first food into storage." :
         People.Any(p=>!p.Fed) ? "Some neighbors missed a meal. Restore food service before finishing." : null;

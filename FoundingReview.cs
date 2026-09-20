@@ -11,7 +11,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         async Task Click(Button b){_drawerPages[2].EnsureControlVisible(b);await Frames();await UiClick(b,6);await Frames();}
-        ShowMainMenu();await Frames();await CaptureReviewBundle("main-menu");await UiClick(_mainButtons["Play"]);await Frames();
+        ShowMainMenu();await Frames();await CaptureReviewBundle("main-menu");await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
         await UiClick(_mainButtons["Found a village · A home by the water"]);await Frames();
         await CaptureReviewBundle("founding-start-menu");
         await UiClick(_mainButtons["New · A home by the water"]);await Frames();
@@ -46,7 +46,7 @@ public partial class Game
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Continue"]);await Frames();
         Check(_world.SaveJson()==saved && CurrentSavePath==FoundingPath,"Continue changed finished village");
         await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved,"Restore lost founding state");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Found a village · A home by the water"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();await UiClick(_mainButtons["Found a village · A home by the water"]);await Frames();
         await UiClick(_mainButtons["New · A home by the water"]);await Frames();await UiClick(_mainButtons["Cancel"]);await Frames();
         Check(File.ReadAllText(FoundingPath)==saved,"Cancelled replacement changed save");
         await UiClick(_mainButtons["Resume · A home by the water"]);await Frames();

@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **39**.
+- Playable checkpoints since adoption: **40**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40 and 45 remain pending.
 - Last periodic review: **checkpoint35**, [whole-game synthesis](REVIEW_CHECKPOINT_35.md). Five separate reused reviewer contexts after thread-limit failures; development lead completed on retry after a usage interruption. Source/stills/scripted controls/native frame traces, no uncoached play, motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
@@ -13,6 +13,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Next regular visual/audio review: **checkpoint 40**. Substantial presentation changes, including future substantial activity/composition changes, trigger earlier reviews.
 
 ## Chunk ledger
+
+**F33d — September 19/20, 2026:** [Primary normal opening](OPENING_F33D.md): Play enters the farmstead, earlier introductions move under Earlier prototypes, food-first guidance and optional no-growth finish. Native 960/1440 entry/finish/resume and legacy founding entry pass. Count **40**; five-role whole-game review due now before implementation.
 
 **F34b first pass + F33c evidence — September 19/20, 2026:** [Presentation](FARMSTEAD_PRESENTATION_F34B.md) retained by a fresh independent visual/audio reviewer at `558070c`: lower homes, open river, removed trees in water. One outcome, count **39**; full cultivated composition remains open. [Improvement comparison](FARMSTEAD_COMPARISON_F33C.md) adds evidence only, no extra count. Fixed-population improvements work; enjoyment/listening remain unobserved. F33d next, then full review **40**.
 

@@ -56,7 +56,7 @@ public partial class Game
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
-        MenuButton("Play", PlaySettlementsMenu);
+        MenuButton("Play", RiverFarmsteadMenu);
         MenuButton("Free arrangement", ()=>CourtStartMenu(false));
         MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);
@@ -97,7 +97,8 @@ public partial class Game
     private void ComparisonMenu()
     {
         MenuPage("Earlier prototypes");
-        MenuButton("Try · A place of our own",RiverFarmsteadMenu);
+        MenuButton("Found a village · A home by the water",FoundingMenu);
+        MenuButton("Short introduction · A place to gather",()=>CourtStartMenu(true));
         _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play and Free arrangement are the current village experience.",15,true));
         MenuButton("Earlier settlements", NeighborhoodMenu);
         MenuButton("Earlier free court", CreativeCourtMenu);

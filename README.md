@@ -6,7 +6,7 @@ The public identity is **Les Habitants**: 17th-century French settlers in New Fr
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Choose **Play → Found a village · A home by the water → New** for the founding candidate. **Play → Short introduction · A place to gather** keeps the earlier introduction available; **Free arrangement** opens the unrestricted court. [Current queue](docs/NEXT_CHUNKS.md).
+Choose **Play → New · A place of our own** for the river farmstead: eight settlers, a home, starting supplies and a livelihood to establish. Stay small or grow; finishing is optional. **Free arrangement** opens the unrestricted court. The older lake opening and gathering introduction remain under **Earlier prototypes**. [Current queue](docs/NEXT_CHUNKS.md).
 
 ## Run from a fresh clone
 

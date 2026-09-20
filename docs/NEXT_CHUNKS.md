@@ -1,12 +1,12 @@
 # Next chunks — Les Habitants
 
-Playable count **39**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
+Playable count **40**. [Thematic synthesis](THEME_REVIEW_36.md) at fixed `e3f575f`; two fresh and three reused independent reviewer contexts. Documentation does not increment the count. The user now requests implementation through three full reviews: checkpoints 40, 45 and 50. Reevaluate after every chunk and review; stop after the checkpoint-50 synthesis.
 
 **User constraint:** descendants are motivation only. No inheritance, aging, genealogy, succession, generational handoffs or legacy metrics. F13 seasons remains removed. Internal Inlanders naming stays. [Theme and references](LES_HABITANTS.md).
 
 ## Delivered: F34a — public identity and one coherent reference palette
 
-[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. F33b is delivered; F33d integration is next.
+[Delivery and reference palette](REFERENCE_PALETTE_F34A.md): menu/HUD/runtime window branding, 960/1440 entry/resume checks. F33b and F33d are delivered; full review 40 is next.
 
 Apply **Les Habitants** and **A home for generations** to player-facing title/menu/HUD/window branding. Keep project, filenames, namespaces, assemblies, internal kinds, save paths and tooling names unchanged. Use the existing display-name boundary or one small shared title value; no generic localization framework or mass replacement.
 
@@ -40,7 +40,9 @@ Compare the themed situation with current founding and Free arrangement through 
 
 Reject or revise if starting supply bypasses the choice, both approaches collapse to the same producer package, one trivially dominates, or improvements require statistics to be noticed. Keep actual human/motion/listening limitations explicit. This comparison may produce no playable increment; do not invent one to reach a scheduled review.
 
-## 5. F33d — select and integrate the themed opening
+## Delivered: F33d — select and integrate the themed opening
+
+[Primary opening and checks](OPENING_F33D.md). Play now enters the farmstead; old openings remain under Earlier prototypes. Review 40 is due before the next implementation.
 
 Choose after comparison: a normal-rule opening with contextual teaching and a clear optional ending is the current preference. Reuse the existing game/save workflow rather than add a thematic runtime mode. Keep Free arrangement explicit. Move earlier prototype choices to development access when the chosen replacement is ready; do not hide the only working route beforehand.
 

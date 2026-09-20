@@ -11,8 +11,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
-        await UiClick(_mainButtons["Try · A place of our own"]);await Frames();await CaptureReviewBundle("farmstead-menu");
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await CaptureReviewBundle("farmstead-menu");
         await UiClick(_mainButtons["New · A place of our own"]);await Frames();
         Check(_world.Founding?.RiverFarmstead==true && CurrentSavePath==RiverFarmsteadPath && _paused,"Farmstead entry/slot failed");
         Check(_foundingFinish.Visible && _foundingFinish.Disabled,"Opening finish feedback missing");
