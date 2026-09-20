@@ -34,7 +34,8 @@ public sealed partial class World
         var homes=cultivatedBank?new[]{new Cell(-3,6),new(1,6),new(-3,11),new(1,11),new(-3,-4),new(1,-4)}:new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)};
         foreach(var c in homes)Ready(c,BuildingKind.Cottage,cultivatedBank?0:c.X==-3?1:c.X==1?3:c.Z==11?2:0);
         foreach(var p in w.People)p.Position=w.Cottages[p.Id/2].Entrance.Point;
-        foreach(var c in cultivatedBank?new[]{new Cell(5,4),new(5,7),new(5,10)}:new[]{new Cell(1,3),new(5,3),new(4,-5)}){var b=Ready(c,BuildingKind.VegetableGarden,cultivatedBank?1:0);b.Planted=true;b.Growth=.6f;}
+        foreach(var c in cultivatedBank?new[]{new Cell(5,6),new(5,12),new(5,-5)}:new[]{new Cell(1,3),new(5,3),new(4,-5)})
+        {var b=Ready(c,cultivatedBank && c.Z>0?BuildingKind.VegetableField:BuildingKind.VegetableGarden,0);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
         foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=c,Logs=8,Preserved=true});
@@ -43,13 +44,14 @@ public sealed partial class World
         w.Map.FishingGrounds.Add(new(){Id=1,Name="Upper river",Cell=new(11,-8),Capacity=16,Stock=16,RegrowthPerSecond=1f/15});
         var habitat=new WoodlandHabitat{Id=0,Cell=new(-6,-6)};habitat.Stock=w.HabitatCapacity(habitat);w.Map.Wildlife.Add(habitat);
         w.Map.StoneDeposits.Add(new(){Id=0,Cell=new(-8,-12),Capacity=36,Remaining=36});
-        w._yardLogs=12;w.InitialLogs=w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
+        w._yardPlanks=4;w.SawnLogs=2; // Existing sawn supplies: one modest domestic intervention in both comparisons.
+        w._yardLogs=12;w.InitialLogs=w.SawnLogs+w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
         w.History.Clear();w.History.Add("Three gardens feed twelve neighbors. The kitchen plots fill the open ground by the houses. Keep food close, or make room for a shared place and grow beyond the inlet. The woodlot and northern meadow offer different ways to reshape this hamlet.");
-        if(cultivatedBank){w.History.Clear();w.History.Add("Three groups of homes share a cultivated river bank. The long vegetable strip is three actual working plots. Keep the bank productive, or move a plot to open a place by the water. Northern homes cross the inlet for food and company.");}
+        if(cultivatedBank){w.History.Clear();w.History.Add("Three home groups share two working fields and a northern kitchen garden. Fields occupy36 cultivated tiles in total with the garden, yielding48 vegetables per combined crop instead of the compact village’s18 tiles/24 vegetables; larger harvests take more collection work. Four planks can furnish one home. Keep crops nearby, change a yard, or open shared ground. Northern neighbors walk around the inlet; a crossing is one possible improvement, not an objective.");}
         // These are actual editable paths: they affect travel, and stop at real entrances.
-        foreach(var site in w.Cottages.OrderBy(c=>c.Kind==BuildingKind.VegetableGarden?0:1).ThenBy(c=>c.Id))
+        foreach(var site in w.Cottages.OrderBy(c=>IsVegetablePlot(c.Kind)?0:1).ThenBy(c=>c.Id))
             if(!w.ConnectPaths(w.YardAccess,site.Entrance))throw new InvalidOperationException("Hamlet approach unavailable");
         w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
         w.ReconcileHomes();w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;

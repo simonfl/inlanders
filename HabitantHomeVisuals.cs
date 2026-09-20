@@ -5,6 +5,10 @@ public partial class Game
 {
     private void MakeHabitantHome(Node3D root,int stage,int variant,CottageFinish finish)
     {
+        if(_world.PublicPlace?.CultivatedBank==true)
+        {
+            var mass=new Node3D{Scale=new(1.07f,.86f,1.03f)};root.AddChild(mass);root=mass;
+        }
         bool framed=variant%2==1;
         float rise=framed?1.05f:.82f;
         // A low, broad dwelling leaves people and worked ground visible beside it.
@@ -52,6 +56,14 @@ public partial class Game
     {
         if(_world.Founding?.RiverFarmstead!=true)return;
         var map=_world.Map;
+        // Low shingle and silt soften the waterline without creating pretend obstacles/resources.
+        foreach(var bank in map.Land)
+        {
+            if(!map.Water.Contains(new(bank.X+1,bank.Z)))continue;
+            Box(_landscape,OnGround(bank.X+.38f,bank.Z,.016f),new(.23f,.026f,.94f),new("a69b74"));
+            if((bank.Z+30)%3==0)foreach(float z in new[]{-.25f,.18f})
+                Mesh(_landscape,new SphereMesh{Radius=.10f,Height=.065f,RadialSegments=5,Rings=2},OnGround(bank.X+.37f,bank.Z+z,.055f),new("989583"));
+        }
         using var water=new SurfaceTool();water.Begin(Godot.Mesh.PrimitiveType.Triangles);
         for(int z=map.MinZ-margin;z<=map.MaxZ+margin;z++)
             for(int x=map.MinX;x<=map.MaxX+margin;x++)

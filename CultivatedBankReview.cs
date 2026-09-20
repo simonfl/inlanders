@@ -20,7 +20,7 @@ public partial class Game
         await Click(_camera.UnprojectPosition(OnGround(1,-10)));await Frames();Check(_workCardSite==staged!.Id && _workCardCancel.Visible,"Construction click missed actions");
         await UiClick(_workCardPause);await Frames();Check(staged.ConstructionPaused,"Card staging failed");await CaptureReviewBundle("construction-world-actions");
         await UiClick(_workCardCancel);await Frames();Check(!_world.Cottages.Contains(staged),"Card cancellation failed");ClearSelection();
-        var plot=_world.Cottages.Single(c=>c.Kind==BuildingKind.VegetableGarden && c.Cell.Z==7);
+        var plot=_world.Cottages.Single(c=>c.Kind==BuildingKind.VegetableField && c.Cell.Z==6);
         ShowWorkplaceCard(plot.Id);await Frames();await UiClick(_workCardPause);await Frames();await UiClick(_workCardMove);await Frames();
         await Click(_camera.UnprojectPosition(OnGround(4,-8)));await Frames();Check(plot.Cell==new Cell(4,-8) && plot.WorkPaused,"Cultivated strip move failed");
         Check(_workCard.Visible && !_inspector.Visible,"Move lost compact actions");await CaptureReviewBundle("cultivated-bank-opened");await UiClick(_workCardPause);await Frames();CloseDrawer();ClearSelection();
@@ -28,7 +28,7 @@ public partial class Game
         var added=_world.Cottages.Single(c=>c.Cell==new Cell(1,-9));Check(!added.Complete,"Added footprint fixture not staged");
         string unchanged=_world.SaveJson();await Press(Key.G);await Frames();await UiClick(_hamletCompare);await Frames();
         Check(_courtStartingLayout!.Visible && _hamletComparePanel.Visible && unchanged==_world.SaveJson(),"Opening comparison mutated the village");
-        Check(_world.Founding!.StartingBuildings.Single(b=>b.Id==plot.Id).Cell==new Cell(5,7),"Move rewrote opening");Check(_courtStartingLayout.GetChildCount()==30,"Comparison omitted new placement or retained unchanged outlines");await CaptureReviewBundle("opening-versus-current");
+        Check(_world.Founding!.StartingBuildings.Single(b=>b.Id==plot.Id).Cell==new Cell(5,6),"Move rewrote opening");Check(_courtStartingLayout.GetChildCount()==42,"Comparison omitted new placement or retained unchanged outlines");await CaptureReviewBundle("opening-versus-current");
         await Press(Key.Escape);await Frames();Check(!_courtStartingLayout.Visible && !_hamletComparePanel.Visible,"Comparison escape failed");
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Bank save differs");
         Reset();await Frames();Check(_world.PublicPlace==new HamletProfile(false,true),"Bank restart changed place");

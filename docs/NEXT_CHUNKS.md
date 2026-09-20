@@ -1,6 +1,6 @@
 # Next chunks — a working farmstead, not an upgrade checklist
 
-Count **67**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
+Count **68**. [Presentation-triggered whole-game review66](REVIEW_PRESENTATION_66.md) follows the first direct-domestic/art slice. The regular five-outcome and visual/audio review stays **70**; the early review does not reset it. User requested five more playable outcomes:67–71. Run the regular review70 before implementing71, then stop for the user’s playtest.
 
 ## Direction
 
@@ -33,3 +33,6 @@ Delivered66: direct home-card furnishing/cancellation, shared delivery/installat
 No inheritance, ownership bureaucracy, genealogy, aging, succession, seasons/winter deadlines, new needs, mandatory growth or longer quotas.
 
 Progress67: larger functional vegetable-field option delivered. Next68: use that real land extent in the bank opening; then spatial yard choices and outcome-first previews. Choose71 after review70, prioritizing playtest readiness.
+
+
+Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden (36 cultivated tiles/48 vegetables per combined crop versus compact18/24). This explicitly changes productive extent; per-tile yield/cost rules remain unchanged and larger harvests require more labor. Same12 residents,12 loose logs,72 food and now4 starting planks in both layouts. One domestic intervention can precede a sawmill. Lower/broader bank house massing and low shoreline shingle accompany the land comparison. Normal/relaxed ten-minute simulations had zero hungry ticks; active saves and native960 actual field move/cancel/comparison pass. Next69: choose which side of a home supports actual outdoor life;70 adds spatial preview/outcome-first control before the whole-game review.

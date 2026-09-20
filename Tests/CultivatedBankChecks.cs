@@ -7,7 +7,9 @@ static class CultivatedBankChecks
         foreach(bool relaxed in new[]{false,true})
         {
             var baseline=World.NewTransformationHamlet(relaxed);var w=new HamletProfile(relaxed,true).Create();
-            if(w.Population!=baseline.Population || w.Housed!=baseline.Housed || w.EdibleStored!=baseline.EdibleStored || !w.Cottages.Select(c=>c.Kind).SequenceEqual(baseline.Cottages.Select(c=>c.Kind)))throw new Exception("Comparison changed inventory/population");
+            if(w.Population!=baseline.Population || w.Housed!=baseline.Housed || w.EdibleStored!=baseline.EdibleStored || w.Stored!=baseline.Stored || w.Planks!=baseline.Planks)throw new Exception("Comparison changed inventory/population");
+            if(w.Cottages.Count(c=>c.Kind==BuildingKind.VegetableField)!=2 || w.Cottages.Where(c=>World.IsVegetablePlot(c.Kind)).Sum(c=>World.Footprint(c.Cell,c.Rotation,c.Kind).Count())!=36)throw new Exception("Working land extent differs");
+            if(w.Planks!=4)throw new Exception("Missing first-intervention supply");
             if(w.Cottages.Any(c=>!w.Paths.Contains(c.Entrance)))throw new Exception("Missing real approach");
             w.Validate();
             int hungry=0;for(int i=0;i<6000;i++){w.Tick(.1f);if(w.People.Any(p=>!p.Fed))hungry++;if(i%100==0)w.Validate();}

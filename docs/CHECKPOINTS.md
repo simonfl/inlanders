@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **67**.
+- Playable checkpoints since adoption: **68**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint65**, [whole-game synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`. Five fresh independent roles including presentation. Source/stills/scripted evidence; attempted hands-on observation returned zero screenshots/inputs. Working outdoor places selected as the next experiment; enjoyment/audio remain unproven. Closeout corrections/tooling count zero; review66 below is an early presentation follow-up.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
@@ -299,3 +299,6 @@ Review66 closeout: stale public workshop instruction corrected, relaxed Details 
 
 
 Checkpoint67 · working vegetable fields: players can choose a15-tile field beside the6-tile kitchen garden.20 versus8 vegetables per60-second crop,10 versus4 logs: area/yield/cost scale together, while entered-row work and pair collection add real labor. Actual four-rotation construction, crop conservation, active saves, paused relocation and demolition pass; native960 placement/cancel and1440 ripe field inspected. New land-use choice, no new resource chain. Next68 integrates functional fields and first-intervention supplies into the bank composition. No art-direction acceptance inferred. User authorized five outcomes67–71, with review70 before71.
+
+
+Checkpoint68: bank opening now has two15-tile fields and a6-tile kitchen garden (36 cultivated tiles/48 vegetables per combined crop versus compact18/24). This explicitly changes productive extent; per-tile yield/cost rules remain unchanged and larger harvests require more labor. Same12 residents,12 loose logs,72 food and now4 starting planks in both layouts. One domestic intervention can precede a sawmill. Lower/broader bank house massing and low shoreline shingle accompany the land comparison. Normal/relaxed ten-minute simulations had zero hungry ticks; active saves and native960 actual field move/cancel/comparison pass. Next69: choose which side of a home supports actual outdoor life;70 adds spatial preview/outcome-first control before the whole-game review.
