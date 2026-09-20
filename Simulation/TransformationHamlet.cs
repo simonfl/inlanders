@@ -39,7 +39,7 @@ public sealed partial class World
         w.Map.FishingGrounds.Add(new(){Id=0,Name="Southern shallows",Cell=new(11,8),Capacity=16,Stock=16,RegrowthPerSecond=.1f});
         w.Map.FishingGrounds.Add(new(){Id=1,Name="Upper river",Cell=new(11,-8),Capacity=16,Stock=16,RegrowthPerSecond=1f/15});
         var habitat=new WoodlandHabitat{Id=0,Cell=new(-6,-6)};habitat.Stock=w.HabitatCapacity(habitat);w.Map.Wildlife.Add(habitat);
-        w.Map.StoneDeposits.Add(new(){Id=0,Cell=new(-9,-12),Capacity=36,Remaining=36});
+        w.Map.StoneDeposits.Add(new(){Id=0,Cell=new(-8,-12),Capacity=36,Remaining=36});
         w._yardLogs=12;w.InitialLogs=w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=72;
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");

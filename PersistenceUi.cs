@@ -10,8 +10,10 @@ public partial class Game
     private void Notice(string message) { _notice = message; _noticeUntil = _uiTime + 8; }
     private void SaveWorld()
     {
-        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }
-        catch (Exception e) { GD.PrintErr($"Save failure at {CurrentSavePath}: {e}");Notice("Could not save: " + e.Message); }
+        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
+        catch (Exception e) { GD.PrintErr($"Settlement slot save failure: {e}");Notice("Could not save: " + e.Message);return; }
+        try { RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }
+        catch (Exception e) { GD.PrintErr($"Continue save failure after successful slot save: {e}");Notice("Settlement saved for F9, but Continue could not be updated: " + e.Message); }
     }
     private void LoadWorld()
     {

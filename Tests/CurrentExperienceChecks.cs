@@ -29,6 +29,7 @@ static class CurrentExperienceChecks
         Run("CourtExperience",CourtExperienceChecks.Run);
         Run("CreativeCourt",CreativeCourtChecks.Run);
         Run("RelaxedHamlet",RelaxedHamletChecks.Run);
+        Run("HamletLayout",HamletLayoutChecks.Run);
         Run("FoodAccess",FoodAccessChecks.Run);
         Run("ConstructionStaging",ConstructionStagingChecks.Run);
     }
