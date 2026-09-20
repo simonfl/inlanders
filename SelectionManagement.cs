@@ -63,9 +63,9 @@ public partial class Game
         if (_selectedPerson >= 0) {
             var person=_world.People[_selectedPerson];
             _jobChoice.SetItemText(0,_world.SharedWork?"Shared work":RoleName(Role.Unassigned));
-            if(_jobChoicePerson!=person.Id) { _jobChoice.Select((int)person.Role); _jobChoicePerson=person.Id; }
+            if(_jobChoicePerson!=person.Id) { _jobChoice.Select(person.SharedWorker?0:(int)person.Role); _jobChoicePerson=person.Id; }
             _jobChoice.Disabled = _world.Food.Celebrating;
-            _assignButton.Text = (_peopleKeyboard && _peopleKeyboardPerson==person.Id ? $"Assign {person.Name}: " : "Assign: ") + RoleName((Role)_jobChoice.GetSelectedId());
+            _assignButton.Text = (_peopleKeyboard && _peopleKeyboardPerson==person.Id ? $"Assign {person.Name}: " : "Assign: ") + (_world.SharedWork && _jobChoice.GetSelectedId()==0?"Shared work":RoleName((Role)_jobChoice.GetSelectedId()));
             _assignButton.Disabled = _world.Food.Celebrating || (_jobChoice.GetSelectedId()==(int)person.Role && !person.SharedWorker);
             _assignButton.TooltipText="Changing role returns workplace assignment to Automatic.";
         } else _jobChoicePerson=-1;

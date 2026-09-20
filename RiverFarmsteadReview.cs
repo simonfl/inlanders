@@ -21,6 +21,15 @@ public partial class Game
         Check(_world.Place(new(8,3),1,BuildingKind.FishingDock)!=null,"Dock order failed");
         for(int i=0;i<2400;i++)_world.Tick(.1f);
         UpdateHud();await Frames();Check(_world.FinishFoundingProblem()==null && _world.Population==8,"No-growth finish unavailable");
+        CloseDrawer();_inspector.Hide();await Frames();
+        var person=_world.People[0];
+        await Click(_camera.UnprojectPosition(_people[person.Id].Body.Position+new Vector3(0,.5f,0)));await Frames();
+        Check(_dailyCard.Visible && _dailyPerson>=0 && !_dailyRestore.Visible,"Normal resident journey missing/false restore");
+        await UiClick(_dailyFollow);await Frames();Check(_followPerson,"Resident follow failed");
+        _dailyExpanded=true;await Frames();await CaptureReviewBundle("farmstead-daily-life");
+        await UiClick(_dailyDetails);await Frames();Check(_inspector.Visible && _selectedPerson>=0,"Resident details unavailable");
+        Check(_inspect.Text.Contains("Shared village work") && _assignButton.Text.Contains("Shared work"),"Misleading shared role");
+        await Press(Key.G);await Frames();
         _drawerPages[2].EnsureControlVisible(_foundingFinish);await Frames();await UiClick(_foundingFinish,6);await Frames();
         Check(_world.Founding!.Finished && _paused && !_hallBegin.Visible,"Finish or old hall recipe wrong");
         await CaptureReviewBundle("farmstead-finished");string saved=_world.SaveJson();

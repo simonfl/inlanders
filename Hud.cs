@@ -295,7 +295,7 @@ public partial class Game
         foreach (var v in _world.People) { _roster[v.Id].TooltipText = $"{RoleName(v.Role)} · {v.Status}"; _roster[v.Id].Modulate = v.Id == _selectedPerson ? _cream : Colors.White; }
         if (_selectedPerson >= 0)
         {
-            var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{RoleName(p.Role)} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
+            var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{(p.SharedWorker?"Shared village work":RoleName(p.Role))} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
         UpdateVillageDirectory(); UpdateServiceCoverage(); UpdateResourceSurvey();

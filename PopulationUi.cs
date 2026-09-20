@@ -46,7 +46,7 @@ public partial class Game
         Resize(_roster, _rosterContainer, false);
         Resize(_workerLinks, _buildingDetails, false);
         Resize(_idleLinks, _idleContainer, true);
-        foreach (var p in _world.People) _roster[p.Id].Text = p.Name + "\n" + RoleName(p.Role);
+        foreach (var p in _world.People) _roster[p.Id].Text = p.Name + "\n" + (p.SharedWorker?"Shared work · "+TaskName(p.Task):RoleName(p.Role));
         string? problem = _world.InvitationProblem();
         _inviteButton.Disabled = problem != null;
         _arrivalInfo.Text = $"{_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare\n" +

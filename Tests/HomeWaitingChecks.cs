@@ -12,11 +12,15 @@ static class HomeWaitingChecks
         Check(w.People.Any(p=>p.Status=="At home — available for work"),"Normal idle workers did not disperse home");
         Check(w.People.Where(p=>p.Status=="At home — available for work").All(p=>!w.Cottages.Any(c=>c.Entrance==World.At(p)) && World.At(p)!=w.YardAccess),"Idle waiting blocks an entrance");
         Directory.CreateDirectory("artifacts/home-waiting");w.SaveFile("artifacts/home-waiting/quiet.json");
+        var idle=w.People.First(p=>p.Status=="At home — available for work");
+        var reading=w.ReadDailyJourney(idle.Id);Check(reading.Source==idle.HomeId && reading.InspectLabel=="Inspect home","Idle home reader wrong");
         var home=w.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         var move=w.Map.Land.OrderBy(c=>(c.Point-new Cell(5,7).Point).LengthSquared()).First(c=>w.RelocationProblem(home.Id,c,0)==null);
         Check(w.MoveBuilding(home.Id,move,0),"Home move failed");Step(w,2);
         var walking=w.People.Where(p=>p.Task==Work.Waiting && p.Route.Count>0).ToArray();
         Check(walking.Length>0,"No homeward route after move");
+        string beforeRead=w.SaveJson();var journey=w.ReadDailyJourney(walking[0].Id);
+        Check(journey.Route.SequenceEqual(walking[0].Route) && journey.Claimed && w.SaveJson()==beforeRead,"Reader substitutes food route or mutates state");
         var copy=World.LoadJson(w.SaveJson());Step(w,10);Step(copy,10);Check(copy.SaveJson()==w.SaveJson(),"Homeward save diverged");
         // Restrict the shared pool to the walker so another resident cannot mask delayed work claiming.
         int chosen=walking[0].Id;foreach(var p in w.People.Where(p=>p.Id!=chosen))w.Assign(p.Id,Role.Farmer);

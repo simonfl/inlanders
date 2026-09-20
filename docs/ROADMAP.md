@@ -14,7 +14,7 @@
 
 Use one coherent first situation before committing to a campaign series. Retain current founding and Free arrangement as comparisons. Favor a short normal-rule opening with contextual teaching and an optional ending; test whether the player wants to stay, improve or grow. Earlier assessment levels remain development material, not the progression template.
 
-The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **42**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
+The [active queue](NEXT_CHUNKS.md) defines scope and acceptance. Playable count **43**. The first of three requested reviews, **40**, is complete. Continue through **45 and 50**. Substantial presentation changes trigger an additional visual review.
 
 ## What stays, what changes
 
@@ -73,3 +73,5 @@ Review-40 corrections complete: scenario-preserving restart/recovery verified at
 F34c delivered at checkpoint 41: real 3 × 5 grain plot and paced field work. Grain remains optional; compact food competition is an open design question, not a reason to force a farming quota.
 
 F34f delivered (42), [evidence](HOME_LIFE_F34F.md). Revised order: F35c daily-life understanding → F35b production recovery → F35a contrasting working village → whole-game review45. These remain hypotheses, not guaranteed increments.
+
+F35c delivered (43), [evidence](DAILY_JOURNEY_F35C.md). F35b production recovery next, then F35a inhabited-village alternative. Review45 still due after two retained outcomes.

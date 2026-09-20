@@ -191,7 +191,7 @@ public partial class Game : Node3D
     {
         if(PickResourceSource(position)) return;
         var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(v.Body.Position + Vector3.Up * 0.6f).DistanceTo(position))).OrderBy(v => v.Distance).First();
-        if (closest.Distance < 25) { if(_world.IsArrangementCourt)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
+        if (closest.Distance < 25) { if(_world.IsArrangementCourt || _world.Founding!=null)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
         else if (Ground(position) is Vector3 p)
         {
             var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
