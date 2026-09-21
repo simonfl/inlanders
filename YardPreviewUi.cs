@@ -58,12 +58,20 @@ public partial class Game
         _yardApply=Button("Use this ground",()=>{if(_world.SetHomeYard(_yardPreviewHome,_yardPreviewSide))FinishYardPreview();});actions.AddChild(_yardApply);
         actions.AddChild(Button("Cancel [Esc]",StopYardPreview));
     }
+    private void PickYardGround(Vector2 pointer)
+    {
+        var home=_world.Cottages.FirstOrDefault(c=>c.Id==_yardPreviewHome);if(home==null)return;
+        var nearest=Enumerable.Range(0,4).SelectMany(side=>_world.YardPlaces(home,side).Select(c=>new{side,distance=_camera.UnprojectPosition(OnGround(c.X,c.Z,.08f)).DistanceTo(pointer)})).OrderBy(p=>p.distance).FirstOrDefault();
+        if(nearest==null || nearest.distance>26)return;
+        // Ground selection keeps the user's view stable; side buttons can still frame a hidden side.
+        _yardPreviewSide=nearest.side;_nextWorkCard=0;
+    }
     private void RenderYardPreview(Cottage home)
     {
         bool show=_yardPreviewHome==home.Id && _yardPreviewSide>=0;_yardChoices.Visible=show;if(!show)return;
         string? problem=_world.HomeYardProblem(home.Id,_yardPreviewSide);
         var places=_world.YardPlaces(home,_yardPreviewSide);
-        _yardPreviewInfo.Text=problem??"Blue furniture is a preview. Residents use this ground for mending and nearby meals.";
+        _yardPreviewInfo.Text=problem??"Click outlined ground or a side above. Blue furniture previews a yard for mending and meals.";
         if(problem==null && !home.Improved && !_world.Creative && _world.AvailablePlanks<World.ComfortCost(home))
             _yardPreviewInfo.Text+=$" Only {_world.AvailablePlanks} planks available; the order will wait for supplies.";
         _yardApply.Disabled=problem!=null;_yardApply.Text=home.Improved?"Move yard here":"Choose ground only";
@@ -73,7 +81,18 @@ public partial class Game
         foreach(var side in Enumerable.Range(0,4))_yardSides[side].Modulate=side==_yardPreviewSide?_cream:Colors.White;
         if(_yardPreviewGround==null || !GodotObject.IsInstanceValid(_yardPreviewGround)){_yardPreviewGround=new();AddChild(_yardPreviewGround);_yardPreviewKey="";}
         _yardPreviewGround.Show();string key=$"{home.Id}/{_yardPreviewSide}/{problem}/"+string.Join(';',places.Select(c=>$"{c}:{Height(c.X,c.Z)}"));
+        key+="/"+string.Join("/",Enumerable.Range(0,4).Select(i=>_world.HomeYardProblem(home.Id,i)+string.Join(";",_world.YardPlaces(home,i))));
         if(key==_yardPreviewKey)return;_yardPreviewKey=key;Clear(_yardPreviewGround);
+        foreach(int side in Enumerable.Range(0,4).Where(i=>i!=_yardPreviewSide))
+        foreach(var c in _world.YardPlaces(home,side))
+        {
+            Color outline=_world.HomeYardProblem(home.Id,side)==null?_cream:new("bf7860");
+            foreach(float d in new[]{-.40f,.40f})
+            {
+                Box(_yardPreviewGround,OnGround(c.X+d,c.Z,.09f),new(.04f,.04f,.84f),outline);
+                Box(_yardPreviewGround,OnGround(c.X,c.Z+d,.09f),new(.84f,.04f,.04f),outline);
+            }
+        }
         foreach(var c in places)
         {
             GroundPatch(_yardPreviewGround,c.X,c.Z,.92f,.92f,problem==null?new("367a89"):new Color("bf7860"),.075f);

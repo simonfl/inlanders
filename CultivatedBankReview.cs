@@ -29,6 +29,11 @@ public partial class Game
             }
             await CaptureReviewBundle("yard-side-"+side);
         }
+        await UiClick(_yardSides[0]);await Frames();float groundAngle=_angle;
+        var groundChoice=_world.YardPlaces(home,targetSide).First();
+        await Click(_camera.UnprojectPosition(OnGround(groundChoice.X,groundChoice.Z,.08f)));await Frames();
+        Check(_yardPreviewSide==targetSide && _angle==groundAngle && beforeYard==_world.SaveJson(),"Direct yard ground selection changed camera/world or missed candidate");
+        await CaptureReviewBundle("yard-ground-click");
         await UiClick(_yardSides[targetSide]);await Frames();Check(home.YardSide==oldSide && _world.SaveJson()==beforeYard && _yardPreviewGround!.Visible,"Preview changed world or is invisible");
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
         await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");

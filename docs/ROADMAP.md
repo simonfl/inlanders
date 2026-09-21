@@ -16,7 +16,7 @@ Keep physical meals/labor, recoverable changes, optional arrivals and voluntary 
 
 The [active queue](NEXT_CHUNKS.md) now stops for human evidence and makes72–76 conditional on that result. Ask for a wanted change or a reason to keep the place; distinguish intention, prediction and actual consequence. If arrangement appeals, test differentiated home/land groups at equal productive inventory. If the user wants livelihood problems, prototype a recoverable geographic dilemma. If neither appeals, replace the loop instead of adding needs, buildings or longer quotas.
 
-Playable count **72**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
+Playable count **73**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
 
 ## What stays, what changes
 
@@ -95,3 +95,6 @@ Checkpoints67–71 deliver larger working fields, the broader bank composition, 
 
 
 Checkpoint72: Watch this place frames a home and its chosen yard with management panels hidden, without following one resident away. Existing pause/speed controls remain under player control; Escape/H returns. Native960 actual button/view/return checks preserve simulation state and pass with the full bank flow (`20260921-114954-829-cultivated-bank-b67aa1`). No simulated visitor or forced activity. Next73: choose candidate yard ground directly;74: shared-place world controls;75: equal-inventory home/land comparison, then full review. Human playtest has not happened; user explicitly resumed until review75.
+
+
+Checkpoint73: all usable yard-side candidates appear as world outlines during arrangement. Click their ground to select a proposal without turning the camera; side buttons remain available to frame hidden sides. Confirmation/cancel and real costs stay explicit. Native960 direct ground click, unchanged simulation/camera, all sides and full bank flow pass (`20260921-115217-910-cultivated-bank-8b0f1a`). Next74 makes existing shared meal places directly selectable;75 remains the equal-inventory composition comparison. No motivation claim or new service.

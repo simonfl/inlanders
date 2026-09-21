@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **72**.
+- Playable checkpoints since adoption: **73**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint70**, [whole-game synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`. Five fresh independent roles including presentation. Partially convincing; inspectable spatial furnishing selected before user playtest. Hands-on play, listening and continuous-motion acceptance unperformed. Corrections count zero.
 - Previous review65: [synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`, five fresh independent roles.
@@ -322,3 +322,6 @@ Validation: zero-warning build; all20 current suites passed before final overlay
 
 
 Checkpoint72: Watch this place frames a home and its chosen yard with management panels hidden, without following one resident away. Existing pause/speed controls remain under player control; Escape/H returns. Native960 actual button/view/return checks preserve simulation state and pass with the full bank flow (`20260921-114954-829-cultivated-bank-b67aa1`). No simulated visitor or forced activity. Next73: choose candidate yard ground directly;74: shared-place world controls;75: equal-inventory home/land comparison, then full review. Human playtest has not happened; user explicitly resumed until review75.
+
+
+Checkpoint73: all usable yard-side candidates appear as world outlines during arrangement. Click their ground to select a proposal without turning the camera; side buttons remain available to frame hidden sides. Confirmation/cancel and real costs stay explicit. Native960 direct ground click, unchanged simulation/camera, all sides and full bank flow pass (`20260921-115217-910-cultivated-bank-8b0f1a`). Next74 makes existing shared meal places directly selectable;75 remains the equal-inventory composition comparison. No motivation claim or new service.

@@ -191,6 +191,7 @@ public partial class Game : Node3D
     }
     private void SelectAtPointer(Vector2 position)
     {
+        if(_yardPreviewSide>=0){PickYardGround(position);return;}
         if(PickResourceSource(position)) return;
         var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(PresentedPerson(i) + Vector3.Up * 0.6f).DistanceTo(position))).OrderBy(v => v.Distance).First();
         if (closest.Distance < 25) { if(_world.IsArrangementCourt || _world.Founding!=null)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
