@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **75**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint70**, [whole-game synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`. Five fresh independent roles including presentation. Partially convincing; inspectable spatial furnishing selected before user playtest. Hands-on play, listening and continuous-motion acceptance unperformed. Corrections count zero.
+- Last periodic review: **checkpoint75**, [whole-game synthesis](REVIEW_CHECKPOINT_75.md), fixed `87de771`. Three fresh independent roles plus an independent reused older-context playtest audit; visual/audio is a dependent UX-context supplement after thread limits. Partially convincing; next hypothesis is a recoverable home/land dilemma. No hands-on/listening acceptance.
+- Previous review70: [synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`, five fresh independent roles.
 - Previous review65: [synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`, five fresh independent roles.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
 - Previous review55: [synthesis](REVIEW_CHECKPOINT_55.md), fixed `53a8e72`, five fresh independent roles; source/stills/scripted evidence only.
@@ -14,8 +15,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 75**.
-- Latest whole-game visual/audio supplement: **checkpoint70**, included in the five-role periodic review. No listening or continuous-motion acceptance; stills and source only.
+- Next four-role review: **checkpoint 80**.
+- Latest visual/audio supplement: **checkpoint75**, dependent on reused UX context due thread limits; not a fifth independent verdict. Stills/source only, no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint 80**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -331,3 +332,9 @@ Checkpoint74: click an existing shared meal place on the map to inspect actual d
 
 
 Checkpoint75: Homes among the fields is a public comparison with the same six homes, two15-tile fields, kitchen garden, twelve residents, woodland, food, logs and planks as the cultivated bank. Homes face smaller clearings across the inlet; productive capacity stays36 tiles/48 crop while routes change. Separate Normal/relaxed saves retain layout on reload/restart. Ten-minute simulations have zero hungry ticks,51 final food versus bank48; this is a journey consequence, not a starting-capacity buff. Native960 entry/furnishing/field move/save/restart/mode checks pass (`20260921-115942-723-grouped-farmsteads-8cab01`). Opening still inspected. Freeze for full independent review75, including visual/audio because composition changed. No76 implementation.
+
+
+**Review75 — September21,2026:** fixed `87de771`; [synthesis](REVIEW_CHECKPOINT_75.md). Outcomes72–75 commits `527a508`, `40efdcf`, `552a21d`, `87de771`. All21 current suites and broad simulation regressions passed at the fixed build. Fresh grouped1440/1× recording, archived court/dense stills and earlier-in-batch actual960 controls inspected. A fresh fixed75 bank UI run failed on the known atomic target replacement denial,425ms/0x80070005; actor unresolved. Four core disciplines independently reviewed the whole project, but fresh-role thread limits required an older-context playtest audit and a dependent UX-context visual/audio supplement. Do not call this five independent reviews or a passed human/audio session. Stop after concrete closeout, count75; no76.
+
+
+Review75 closeout: reproduced the furnished-yard/shared-ground relocation bug before repair at(-2,-9), rotation0 with commons at(2,-9). Normal/relaxed rejection/query-purity regression passes after adding commons exclusivity to yard claims. Watch cancels pending yard preview; one Escape exits. Zero-warning build, focused yard/commons/home-use/direct-work checks and final native960 full bank run `20260921-121502-080-cultivated-bank-98e263` pass. Save denial remains open despite this later pass. Review/roadmap updated; count75, no76.

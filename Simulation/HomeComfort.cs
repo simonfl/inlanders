@@ -118,6 +118,7 @@ public sealed partial class World
         if(PublicPlace!=null)
         {
             var claimed=Cottages.SelectMany(ClaimedHomeYardPlaces).ToArray();
+            if(Commons is {} commons && claimed.Intersect(commons.Places.Append(commons.Center)).Any())throw new InvalidOperationException("Domestic yard overlaps shared meal ground");
             if(claimed.Distinct().Count()!=claimed.Length)throw new InvalidOperationException("Overlapping domestic yards");
         }
         foreach(var home in Cottages)

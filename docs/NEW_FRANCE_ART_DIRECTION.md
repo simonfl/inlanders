@@ -48,3 +48,8 @@ Direct furnishing and two framing/roof treatments with clear-center yard furnitu
 ## Evidence after67–71
 
 Real larger fields, lower/broader bank homes and four usable domestic-yard locations form a first playable ensemble comparison. Yard previews now show faithful proposed furniture and explicit commitment. [Review70](REVIEW_CHECKPOINT_70.md) finds the whole scene stronger but still too regular and lawn-dominated; roofs and daily-life clutter can hide the payoff. F40a–c remain partial, not accepted. Equalize productive inventory in the next composition-only comparison. Pause for human play; do not roll directly into work/shore props or new audio without the evidence gates above.
+
+
+## Review75 assessment
+
+Matched bank/grouped inventory now supports a fairer composition comparison. Grouped homes improve the reading of working clearings, but F40 remains unaccepted: uniform lawn, geometric shore/inlet and repeated silhouettes still dominate. [Review75](REVIEW_CHECKPOINT_75.md) prioritizes a coherent worked-ground/approach/woodland-margin/river-transition treatment alongside a meaningful spatial transformation, not another small-prop pass. Audio and continuous motion are unassessed; the visual/audio supplement reused UX context under thread limits and is not a fifth independent verdict.

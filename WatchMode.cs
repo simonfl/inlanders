@@ -32,7 +32,7 @@ public partial class Game
     {
         if(_watching) { ExitWatch(); return; }
         if(_atMainMenu) return;
-        StopResourceSurvey();
+        StopYardPreview();StopResourceSurvey();
         _watching=true;
         // Cancel the placement gesture, but retain the drawer, selection and camera follow.
         _placing=false; _pathStroke=false; _lastPathCell=null;

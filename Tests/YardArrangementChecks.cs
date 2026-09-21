@@ -39,6 +39,19 @@ static class YardArrangementChecks
             Check(candidate!=default,"No overlap relocation counterexample found");
             Check(!w.MoveBuilding(b.Id,candidate.c,candidate.r) && before==w.SaveJson(),"Conflicting move accepted or query mutated world");w.Validate();
         }
+        foreach(bool relaxed in new[]{false,true})
+        {
+            var w=World.NewTransformationHamlet(relaxed,true);var h=w.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
+            Check(w.FurnishHomeYard(h.Id,3),"Commons conflict fixture order failed");Until(w,()=>h.Improved,"Commons conflict fixture furnishing stalled");
+            Check(w.SetCommons(new Cell(2,-9)),"Commons conflict fixture unavailable");
+            string before=w.SaveJson();
+            var shared=w.Commons!.Places.Append(w.Commons.Center).ToHashSet();
+            var candidate=w.Map.Land.SelectMany(c=>Enumerable.Range(0,4).Select(r=>(c,r))).Where(v=>new[]{World.RotateOffset(v.c,2,-1,v.r),World.RotateOffset(v.c,2,0,v.r)}.Any(shared.Contains))
+                .FirstOrDefault(v=>w.RelocationProblem(h.Id,v.c,v.r)==null);
+            Check(candidate==default,$"Moving furnished yard onto shared ground accepted: {candidate.c} rotation {candidate.r}");
+            Check(!w.MoveBuilding(h.Id,new Cell(-2,-9),0) && before==w.SaveJson(),"Commons conflict move/queries changed world");
+            w.Validate();
+        }
         Console.WriteLine("PASS: four yard sides in Normal/relaxed, real quiet work and meals, exact saves, occupied-yard rearrangement and rejection purity.");
     }
 }

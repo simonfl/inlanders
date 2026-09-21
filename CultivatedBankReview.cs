@@ -35,7 +35,11 @@ public partial class Game
         Check(_yardPreviewSide==targetSide && _angle==groundAngle && beforeYard==_world.SaveJson(),"Direct yard ground selection changed camera/world or missed candidate");
         await CaptureReviewBundle("yard-ground-click");
         await UiClick(_yardSides[targetSide]);await Frames();Check(home.YardSide==oldSide && _world.SaveJson()==beforeYard && _yardPreviewGround!.Visible,"Preview changed world or is invisible");
-        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
+        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");
+        await Press(Key.H);await Frames();Check(_watching && _yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Watch retained a proposal or changed simulation");
+        await Press(Key.Escape);await Frames();Check(!_watching,"One Escape did not leave Watch after yard proposal");
+        await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();
+        await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
         await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");
         Check(!home.ImprovementRequested && !home.Improved,"Ground-only confirmation ordered furnishing");
         await UiClick(_workCardYard);await Frames();await UiClick(_yardFurnish);await Frames();

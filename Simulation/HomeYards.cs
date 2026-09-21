@@ -18,8 +18,13 @@ public sealed partial class World
             .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
                 !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray();
     private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested)?YardGround(home,home.YardSide):System.Array.Empty<Cell>();
-    private string? YardClaimProblem(Cottage home,int side)=>Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(YardGround(home,side)).Any()
-        ?"Another home's furnished or ordered yard uses this ground.":null;
+    private string? YardClaimProblem(Cottage home,int side)
+    {
+        var ground=YardGround(home,side);
+        if(Commons is {} commons && ground.Intersect(commons.Places.Append(commons.Center)).Any())return "A shared meal place uses this ground. Choose another side or move the shared place.";
+        return Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(ground).Any()
+            ?"Another home's furnished or ordered yard uses this ground.":null;
+    }
     public string? HomeYardProblem(int id,int side)
     {
         var home=Cottages.FirstOrDefault(c=>c.Id==id && IsHome(c));
