@@ -1,6 +1,6 @@
 # Next chunks — test whether this is a place worth shaping
 
-Count **71** after this run. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. **Stop for the user’s playtest.** Do not automatically start72.
+Count **72**. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. User resumed execution through75 on September21; playtest has not happened. Proceed with the review70 comparison hypothesis, then stop after full review75.
 
 ## Delivered67–71
 
@@ -35,3 +35,6 @@ This supersedes an automatic catalogue/art rollout. If neither expression nor li
 - Intermittent save replacement denial remains unresolved. Windows FileIO trace start was denied; actor unknown. Obtain bounded operation evidence on recurrence, without blind retry increases or compatibility work.
 
 No inheritance, ownership bureaucracy, genealogy, aging, succession, seasons/winter deadlines, new needs or mandatory growth.
+
+
+Checkpoint72: Watch this place frames a home and its chosen yard with management panels hidden, without following one resident away. Existing pause/speed controls remain under player control; Escape/H returns. Native960 actual button/view/return checks preserve simulation state and pass with the full bank flow (`20260921-114954-829-cultivated-bank-b67aa1`). No simulated visitor or forced activity. Next73: choose candidate yard ground directly;74: shared-place world controls;75: equal-inventory home/land comparison, then full review. Human playtest has not happened; user explicitly resumed until review75.

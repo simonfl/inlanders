@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **71**.
+- Playable checkpoints since adoption: **72**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint70**, [whole-game synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`. Five fresh independent roles including presentation. Partially convincing; inspectable spatial furnishing selected before user playtest. Hands-on play, listening and continuous-motion acceptance unperformed. Corrections count zero.
 - Previous review65: [synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`, five fresh independent roles.
@@ -319,3 +319,6 @@ Checkpoint71 · inspectable domestic arrangement: preview looks toward the selec
 Validation: zero-warning build; all20 current suites passed before final overlay/claim-geometry tightening; focused yard/direct-domestic checks and broad regressions passed on final code. Actual scripted960 and1440 controls cover all four sides, correct preview state, viewport fit, pure cancellation, ground-only versus furnishing, paid/free behavior, overlapping-ground blocker and save/restart. Final runs `20260920-233756-179-cultivated-bank-01d567` and `20260920-233935-646-cultivated-bank-0546fb`; left/rear/blocked stills inspected. Geometry claims remain exclusive even if an obstructing building later moves; usable resident places still exclude blocked ground. No listening, independent play or enjoyment verdict. Save denial remains unresolved despite passing final runs.
 
 **Five outcomes67–71 complete. Stop for the user’s playtest.** Review70 preceded71; next periodic75. Roadmap/queue now make further work conditional on human intention and observed consequence rather than an automatic asset/catalogue rollout.
+
+
+Checkpoint72: Watch this place frames a home and its chosen yard with management panels hidden, without following one resident away. Existing pause/speed controls remain under player control; Escape/H returns. Native960 actual button/view/return checks preserve simulation state and pass with the full bank flow (`20260921-114954-829-cultivated-bank-b67aa1`). No simulated visitor or forced activity. Next73: choose candidate yard ground directly;74: shared-place world controls;75: equal-inventory home/land comparison, then full review. Human playtest has not happened; user explicitly resumed until review75.

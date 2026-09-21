@@ -6,7 +6,7 @@ public partial class Game
     private PanelContainer _workCard=null!;
     private Label _workCardText=null!;
     private Button _workCardPause=null!,_workCardMove=null!,_workCardDetails=null!,_workCardWorker=null!,_workCardDiner=null!,_workCardCancel=null!;
-    private Button _workCardFurnish=null!,_workCardYard=null!;
+    private Button _workCardFurnish=null!,_workCardYard=null!,_workCardWatchPlace=null!;
 
     private int _workCardSite=-1;
     private World? _workCardWorld;
@@ -29,6 +29,11 @@ public partial class Game
         var people=new HBoxContainer();column.AddChild(people);
         void Watch(Villager? person){if(person==null)return;_workCardSite=-1;ShowDailyLife(person.Id);_followPerson=true;}
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
+        _workCardWatchPlace=Button("Watch this place",()=>{
+            var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
+            ClearSelection();FrameHomeYard(home,home.YardSide,false);ToggleWatch();
+        });people.AddChild(_workCardWatchPlace);
+        _workCardWatchPlace.TooltipText="Stay with this home's yard as people come and go. H or Esc returns to management. Pause and speed stay as you set them.";
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
@@ -72,6 +77,7 @@ public partial class Game
             _workCardText.Text+=$"\n\n{available} meal portions available here\n"+(diner!=null?diner.Name+" is collecting or carrying a meal.":"No meal collection in progress.");
         }
         _workCardDiner.Visible=Buildings.Get(site.Kind).Beds==0;
+        _workCardWatchPlace.Visible=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0 && _yardPreviewSide<0;
         RenderYardPreview(site);
         _workCardWorker.Disabled=worker==null;_workCardDiner.Disabled=diner==null;
         _workCardWorker.TooltipText=worker==null?"No worker is currently using this workplace.":"Follow "+worker.Name;

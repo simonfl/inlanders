@@ -16,13 +16,17 @@ public partial class Game
     private void FrameYardPreview()
     {
         var home=_world.Cottages.FirstOrDefault(c=>c.Id==_yardPreviewHome);if(home==null)return;
+        FrameHomeYard(home,_yardPreviewSide,true);
+    }
+    private void FrameHomeYard(Cottage home,int side,bool besideCard)
+    {
         // Look toward the house from the selected ground, so its roof sits behind the proposal.
-        var direction=World.RotateOffset(home.Cell,_yardPreviewSide==1?-2:_yardPreviewSide==3?2:0,_yardPreviewSide==0?2:_yardPreviewSide==2?-2:0,home.Rotation);
+        var direction=World.RotateOffset(home.Cell,side==1?-2:side==3?2:0,side==0?2:side==2?-2:0,home.Rotation);
         _angle=Mathf.Atan2(direction.X-home.Cell.X,direction.Z-home.Cell.Z)+.22f;
         _followPerson=false;_watchOrbit=false;_camera.Size=12;
         _focus=OnGround((home.Cell.X+direction.X)*.5f,(home.Cell.Z+direction.Z)*.5f);UpdateCamera();
         _workCardRight=true;
-        var target=new Vector2((_hud.Size.X-346)/2,_hud.Size.Y*.51f);
+        var target=new Vector2((_hud.Size.X-(besideCard?346:0))/2,_hud.Size.Y*.48f);
         _focus+=CameraDragPoint(_hud.Size*.5f)-CameraDragPoint(target);UpdateCamera();
     }
     private void FinishYardPreview()

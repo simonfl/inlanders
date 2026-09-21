@@ -37,6 +37,11 @@ public partial class Game
         Check(home.YardSide==targetSide && home.ImprovementRequested && !home.Improved,"Priced furnishing did not order real work");
         await CaptureReviewBundle("chosen-yard-side");
         await UiClick(_workCardFurnish);await Frames();Check(!home.ImprovementRequested,"Combined order cannot cancel");
+        string beforeWatch=_world.SaveJson();bool wasPaused=_paused;float wasSpeed=_speed;
+        await UiClick(_workCardWatchPlace);await Frames();
+        Check(_watching && !_hud.Visible && !_followPerson && _world.SaveJson()==beforeWatch && _paused==wasPaused && _speed==wasSpeed,"Watch place changed life or followed a person");
+        await CaptureReviewBundle("watch-domestic-place");await Press(Key.Escape);await Frames();
+        ShowWorkplaceCard(home.Id);await Frames();
         await UiClick(_workCardWorker);await Frames();Check(_dailyCard.Visible,"Watch resident failed");ClearSelection();_focus=initialFocus;_angle=initialAngle;_camera.Size=initialZoom;UpdateCamera();
         var staged=_world.Place(new(1,-9),0,BuildingKind.Cottage);Check(staged!=null,"Construction card fixture unavailable");CreateActors();RenderActors(0);
         await Click(_camera.UnprojectPosition(OnGround(1,-10)));await Frames();Check(_workCardSite==staged!.Id && _workCardCancel.Visible,"Construction click missed actions");

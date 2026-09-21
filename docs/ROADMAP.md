@@ -16,7 +16,7 @@ Keep physical meals/labor, recoverable changes, optional arrivals and voluntary 
 
 The [active queue](NEXT_CHUNKS.md) now stops for human evidence and makes72–76 conditional on that result. Ask for a wanted change or a reason to keep the place; distinguish intention, prediction and actual consequence. If arrangement appeals, test differentiated home/land groups at equal productive inventory. If the user wants livelihood problems, prototype a recoverable geographic dilemma. If neither appeals, replace the loop instead of adding needs, buildings or longer quotas.
 
-Playable count **71**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
+Playable count **72**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
 
 ## What stays, what changes
 
@@ -92,3 +92,6 @@ Checkpoints56–60 delivered contested cultivation/shared ground, paused garden 
 Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. Checkpoint66 subsequently delivered direct furnishing and the first limited house/yard treatment; see [review66](REVIEW_PRESENTATION_66.md).
 
 Checkpoints67–71 deliver larger working fields, the broader bank composition, four real yard locations, candidate previews and an explicit furnishing transaction. [Review70](REVIEW_CHECKPOINT_70.md) challenges motivation and scene structure; [the active queue](NEXT_CHUNKS.md) pauses for human play and makes the next five scopes conditional. Ground overlap fixes count zero. Current saves remain required; intermittent replacement denial remains unresolved. See the ledger for validation and chronology.
+
+
+Checkpoint72: Watch this place frames a home and its chosen yard with management panels hidden, without following one resident away. Existing pause/speed controls remain under player control; Escape/H returns. Native960 actual button/view/return checks preserve simulation state and pass with the full bank flow (`20260921-114954-829-cultivated-bank-b67aa1`). No simulated visitor or forced activity. Next73: choose candidate yard ground directly;74: shared-place world controls;75: equal-inventory home/land comparison, then full review. Human playtest has not happened; user explicitly resumed until review75.
