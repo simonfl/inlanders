@@ -78,6 +78,7 @@ public partial class Game
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
         (_hamletEnding!=null && _hamletEnding.Visible && _hamletEnding.GetGlobalRect().HasPoint(point)) ||
         (_hamletComparePanel!=null && _hamletComparePanel.Visible && _hamletComparePanel.GetGlobalRect().HasPoint(point)) ||
+        (_commonsCard!=null && _commonsCard.Visible && _commonsCard.GetGlobalRect().HasPoint(point)) ||
         (_workCard!=null && _workCard.Visible && _workCard.GetGlobalRect().HasPoint(point)) ||
         (_dailyCard!=null && _dailyCard.Visible && _dailyCard.GetGlobalRect().HasPoint(point)) ||
         (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||

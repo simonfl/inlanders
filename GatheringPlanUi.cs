@@ -17,6 +17,7 @@ public partial class Game
     private float _gatherPlanRefresh;
     private void MakeGatheringPlanUi()
     {
+        MakeCommonsCard();
         _gatherPlanPanel=HudPanel(_hud);_gatherPlanPanel.Hide();var column=new VBoxContainer();_gatherPlanPanel.AddChild(column);
         _gatherPlanTitle=Text("OUTDOOR MEAL",16);column.AddChild(_gatherPlanTitle);_gatherPlanInfo=Text("",14,true);column.AddChild(_gatherPlanInfo);
         _gatherLayout=Button("Seating: circle",()=>{_gatherSpread=!_gatherSpread;_gatherPlanRefresh=0;UpdateGatheringPlan();});column.AddChild(_gatherLayout);
@@ -38,7 +39,7 @@ public partial class Game
     private void UpdateGatheringPlan()
     {
         if(_gatherPlanEntry!=null){_gatherPlanEntry.Visible=_world.Neighborhood?.Complete==true;_gatherPlanEntry.Text=_world.Gathering?.Active==true?"Show outdoor meal":"Plan an outdoor meal";_gatherGoalsCancel.Visible=_world.Gathering?.Active==true;}
-        UpdateCommonsView();
+        UpdateCommonsView();UpdateCommonsCard();
         if(!_gatherPlanning)return;
         if(_gatherPlanWorld!=_world || _placing || _watching || _atMainMenu){CancelGatheringPlan();return;}
         _gatherPlanPanel.Position=new(_hud.Size.X-310,92);_gatherPlanPanel.Size=new(294,0);
@@ -58,7 +59,7 @@ public partial class Game
     {
         if(_gatherPlanAt is not Cell at)return;
         if(!(_planningCommons?_world.SetCommons(at):_world.BeginGathering(at,_gatherSpread))){_gatherPlanRefresh=0;UpdateGatheringPlan();Notice((_planningCommons?_world.CommonsProblem(at):_world.GatheringProblem(at,_gatherSpread))??"Choose another spot.");return;}
-        bool commons=_planningCommons;CancelGatheringPlan();SaveWorld();UpdateHud();if(commons){Notice("A shared place for ordinary meals. Nearby food matters; move or remove it in Your place / Goals.");return;}Notice("People will bring their next meal here. Goals shows the gathering and lets you cancel.");
+        bool commons=_planningCommons;CancelGatheringPlan();SaveWorld();UpdateHud();if(commons){if(_world.PublicPlace!=null)ShowCommonsCard();Notice("A shared place for ordinary meals. Click its ground to watch, move or remove it.");return;}Notice("People will bring their next meal here. Goals shows the gathering and lets you cancel.");
     }
     private bool HandleGatheringPlanInput(InputEvent input)
     {

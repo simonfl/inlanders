@@ -1,6 +1,6 @@
 # Next chunks — test whether this is a place worth shaping
 
-Count **73**. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. User resumed execution through75 on September21; playtest has not happened. Proceed with the review70 comparison hypothesis, then stop after full review75.
+Count **74**. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. User resumed execution through75 on September21; playtest has not happened. Proceed with the review70 comparison hypothesis, then stop after full review75.
 
 ## Delivered67–71
 
@@ -41,3 +41,6 @@ Checkpoint72: Watch this place frames a home and its chosen yard with management
 
 
 Checkpoint73: all usable yard-side candidates appear as world outlines during arrangement. Click their ground to select a proposal without turning the camera; side buttons remain available to frame hidden sides. Confirmation/cancel and real costs stay explicit. Native960 direct ground click, unchanged simulation/camera, all sides and full bank flow pass (`20260921-115217-910-cultivated-bank-8b0f1a`). Next74 makes existing shared meal places directly selectable;75 remains the equal-inventory composition comparison. No motivation claim or new service.
+
+
+Checkpoint74: click an existing shared meal place on the map to inspect actual diners/arrivals and nearby food, watch it, preview a move or remove it. Free removal retains ordinary physical meal recovery. Planner confirmation returns to the world card. Native960 actual selection, pure move cancellation/watch and removal with world validation pass (`20260921-115459-680-cultivated-bank-624173`). No new gathering service or quota. Next75 compares a grouped farmstead layout with the bank at identical buildings, productive area/crop, population and starting inventory, then freezes for full review.

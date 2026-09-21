@@ -71,6 +71,7 @@ public partial class Game
         Check(_yardFurnish.Text.Contains("free"),"Relaxed preview misstates price");await UiClick(_yardFurnish);await Frames();Check(relaxedHome.Improved && relaxedHome.YardSide==3,"Relaxed combined furnishing failed");
         var neighbor=_world.Cottages.Single(c=>c.Cell==new Cell(1,6));ShowWorkplaceCard(neighbor.Id);await Frames();await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[1]);await Frames();
         Check(_yardFurnish.Disabled && _yardApply.Disabled && _yardPreviewInfo.Text.Contains("yard uses"),"Overlapping yard preview lacks blocker");await CaptureReviewBundle("blocked-yard-preview");await Press(Key.Escape);await Frames();ClearSelection();
+        await ProbeCommonsCard();
         await ProbePublicPlaceContract();
         GD.Print("PASS: public bank comparison, actual garden move/replant, exact save, retained restart and relaxed slot (scripted UI).");
     }

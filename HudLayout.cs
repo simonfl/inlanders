@@ -58,7 +58,7 @@ public partial class Game
         _hintPanel.Size = new(width, 0);
         _hintPanel.Position = new(left + Math.Max(0, (right - left - width) / 2), _bottomBar.Position.Y - _hintPanel.Size.Y - 10);
     }
-    private void ClearSelection() { StopYardPreview(); _workCardSite=-1; _dailyPerson=-1; StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
+    private void ClearSelection() { _selectedCommons=false;if(_commonsCard!=null)_commonsCard.Hide();StopYardPreview(); _workCardSite=-1; _dailyPerson=-1; StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _followPerson = false; _selectedPerson = -1; _selectedSite = -1; _inspector.Hide(); RefreshSelection(); }
     private void CloseManagementUi() { CancelAreaRemoval();CancelBushMove();CancelGatheringPlan();CancelTerrain();CancelRelocation(false);StopGoalsKeyboard();StopEconomyKeyboard();_economyFocusKey="survey";_economyReturnKey="survey";StopPeopleKeyboard();_peopleLastPerson=0; if (_viewName != null) { _viewName.Text = ""; _viewName.ReleaseFocus(); }
         CancelDecorationStroke(); StopResourceSurvey(); _decorating = false; ExitWatch(); CloseDrawer(); ClearSelection(); ResetDirectoryFilters(); SelectBuildSection(0); }
     private void SelectPerson(int id) { if(_peopleKeyboard && _peopleKeyboardPerson!=id)StopPeopleKeyboard(); _selectedSource=null; _sourceReport=null; _jobChoice.Select(_world.People[id].SharedWorker?0:(int)_world.People[id].Role); _jobChoicePerson=id; _selectedPerson = id; _selectedSite = -1; ShowInspector(); RefreshSelection(); }
