@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **74**.
+- Playable checkpoints since adoption: **75**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint70**, [whole-game synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`. Five fresh independent roles including presentation. Partially convincing; inspectable spatial furnishing selected before user playtest. Hands-on play, listening and continuous-motion acceptance unperformed. Corrections count zero.
 - Previous review65: [synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`, five fresh independent roles.
@@ -328,3 +328,6 @@ Checkpoint73: all usable yard-side candidates appear as world outlines during ar
 
 
 Checkpoint74: click an existing shared meal place on the map to inspect actual diners/arrivals and nearby food, watch it, preview a move or remove it. Free removal retains ordinary physical meal recovery. Planner confirmation returns to the world card. Native960 actual selection, pure move cancellation/watch and removal with world validation pass (`20260921-115459-680-cultivated-bank-624173`). No new gathering service or quota. Next75 compares a grouped farmstead layout with the bank at identical buildings, productive area/crop, population and starting inventory, then freezes for full review.
+
+
+Checkpoint75: Homes among the fields is a public comparison with the same six homes, two15-tile fields, kitchen garden, twelve residents, woodland, food, logs and planks as the cultivated bank. Homes face smaller clearings across the inlet; productive capacity stays36 tiles/48 crop while routes change. Separate Normal/relaxed saves retain layout on reload/restart. Ten-minute simulations have zero hungry ticks,51 final food versus bank48; this is a journey consequence, not a starting-capacity buff. Native960 entry/furnishing/field move/save/restart/mode checks pass (`20260921-115942-723-grouped-farmsteads-8cab01`). Opening still inspected. Freeze for full independent review75, including visual/audio because composition changed. No76 implementation.

@@ -9,12 +9,13 @@ public sealed partial class World
         var w=LoadJson(source.SaveJson());w.Creative=true;w.Food.Hunger=0;
         w.History.Add("Relaxed hamlet: the same meals, work and homes; free construction and no hunger penalties.");w.Validate();return w;
     }
-    public static World NewTransformationHamlet(bool relaxed=false,bool cultivatedBank=false)
+    public static World NewTransformationHamlet(bool relaxed=false,bool cultivatedBank=false,bool groupedFarmsteads=false)
     {
+        if(groupedFarmsteads)cultivatedBank=true;
         var w=NewRiverFarmstead();w.Cottages.Clear();w.Trees.Clear();w.Bushes.Clear();w._nextSite=1;w._nextTree=0;
         foreach(var p in w.People)p.HomeId=null;
         w.Map=new(){Name="Entre bois et rivière · Between wood and water",MinX=-12,MinZ=-14,Width=28,Depth=29};
-        w.Founding!.TransformationHamlet=true;w.Founding.CultivatedBank=cultivatedBank;
+        w.Founding!.TransformationHamlet=true;w.Founding.CultivatedBank=cultivatedBank;w.Founding.GroupedFarmsteads=groupedFarmsteads;
         if(cultivatedBank)w.Map.Name="La rive cultivée · The cultivated bank";
         for(int z=w.Map.MinZ;z<=w.Map.MaxZ;z++)for(int x=w.Map.MinX;x<=w.Map.MaxX;x++)
         {
@@ -32,10 +33,14 @@ public sealed partial class World
             b.Delivered=b.Required;b.Construction=1;return b;
         }
         var homes=cultivatedBank?new[]{new Cell(-3,6),new(1,6),new(-3,11),new(1,11),new(-3,-4),new(1,-4)}:new[]{new Cell(-3,7),new(1,7),new(5,7),new(-3,11),new(1,11),new(5,11)};
-        foreach(var c in homes)Ready(c,BuildingKind.Cottage,cultivatedBank?0:c.X==-3?1:c.X==1?3:c.Z==11?2:0);
+        if(groupedFarmsteads)
+        {
+            foreach(var (at,turn) in new[]{(new Cell(-1,10),1),(new Cell(1,6),0),(new Cell(0,-6),1),(new Cell(4,-2),2),(new Cell(-4,5),1),(new Cell(-3,-3),0)})Ready(at,BuildingKind.Cottage,turn);
+        }
+        else foreach(var c in homes)Ready(c,BuildingKind.Cottage,cultivatedBank?0:c.X==-3?1:c.X==1?3:c.Z==11?2:0);
         foreach(var p in w.People)p.Position=w.Cottages[p.Id/2].Entrance.Point;
-        foreach(var c in cultivatedBank?new[]{new Cell(5,6),new(5,12),new(5,-5)}:new[]{new Cell(1,3),new(5,3),new(4,-5)})
-        {var b=Ready(c,cultivatedBank && c.Z>0?BuildingKind.VegetableField:BuildingKind.VegetableGarden,0);b.Planted=true;b.Growth=.6f;}
+        foreach(var c in groupedFarmsteads?new[]{new Cell(5,11),new(5,-5),new(0,3)}:cultivatedBank?new[]{new Cell(5,6),new(5,12),new(5,-5)}:new[]{new Cell(1,3),new(5,3),new(4,-5)})
+        {var b=Ready(c,cultivatedBank && (groupedFarmsteads?c.X==5:c.Z>0)?BuildingKind.VegetableField:BuildingKind.VegetableGarden,0);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
         foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=c,Logs=8,Preserved=true});
@@ -50,6 +55,7 @@ public sealed partial class World
         if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Hamlet households refused");
         w.History.Clear();w.History.Add("Three gardens feed twelve neighbors. The kitchen plots fill the open ground by the houses. Keep food close, or make room for a shared place and grow beyond the inlet. The woodlot and northern meadow offer different ways to reshape this hamlet.");
         if(cultivatedBank){w.History.Clear();w.History.Add("Three home groups share two working fields and a northern kitchen garden. Fields occupy36 cultivated tiles in total with the garden, yielding48 vegetables per combined crop instead of the compact village’s18 tiles/24 vegetables; larger harvests take more collection work. Four planks can furnish one home. Keep crops nearby, change a yard, or open shared ground. Northern neighbors walk around the inlet; a crossing is one possible improvement, not an objective.");}
+        if(groupedFarmsteads){w.Map.Name="Des maisons parmi les champs · Homes among the fields";w.History.Clear();w.History.Add("Six homes, two fields and one kitchen garden, with the same people, crop capacity, woodland and supplies as the cultivated bank. Homes face smaller working clearings on both sides of the inlet. Keep a yard close, open shared ground or change the routes; no prescribed improvement.");}
         // These are actual editable paths: they affect travel, and stop at real entrances.
         foreach(var site in w.Cottages.OrderBy(c=>IsVegetablePlot(c.Kind)?0:1).ThenBy(c=>c.Id))
             if(!w.ConnectPaths(w.YardAccess,site.Entrance))throw new InvalidOperationException("Hamlet approach unavailable");

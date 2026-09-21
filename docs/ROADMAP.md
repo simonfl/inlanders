@@ -16,7 +16,7 @@ Keep physical meals/labor, recoverable changes, optional arrivals and voluntary 
 
 The [active queue](NEXT_CHUNKS.md) now stops for human evidence and makes72–76 conditional on that result. Ask for a wanted change or a reason to keep the place; distinguish intention, prediction and actual consequence. If arrangement appeals, test differentiated home/land groups at equal productive inventory. If the user wants livelihood problems, prototype a recoverable geographic dilemma. If neither appeals, replace the loop instead of adding needs, buildings or longer quotas.
 
-Playable count **74**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
+Playable count **75**. Review70 is complete; next periodic75, regular visual/audio80 or earlier after substantial presentation. Listening, continuous-motion judgment and independent hands-on agent play remain unperformed; scripted tests and stills establish no enjoyment verdict. Intermittent save target replacement denial remains unresolved.
 
 ## What stays, what changes
 
@@ -101,3 +101,6 @@ Checkpoint73: all usable yard-side candidates appear as world outlines during ar
 
 
 Checkpoint74: click an existing shared meal place on the map to inspect actual diners/arrivals and nearby food, watch it, preview a move or remove it. Free removal retains ordinary physical meal recovery. Planner confirmation returns to the world card. Native960 actual selection, pure move cancellation/watch and removal with world validation pass (`20260921-115459-680-cultivated-bank-624173`). No new gathering service or quota. Next75 compares a grouped farmstead layout with the bank at identical buildings, productive area/crop, population and starting inventory, then freezes for full review.
+
+
+Checkpoint75: Homes among the fields is a public comparison with the same six homes, two15-tile fields, kitchen garden, twelve residents, woodland, food, logs and planks as the cultivated bank. Homes face smaller clearings across the inlet; productive capacity stays36 tiles/48 crop while routes change. Separate Normal/relaxed saves retain layout on reload/restart. Ten-minute simulations have zero hungry ticks,51 final food versus bank48; this is a journey consequence, not a starting-capacity buff. Native960 entry/furnishing/field move/save/restart/mode checks pass (`20260921-115942-723-grouped-farmsteads-8cab01`). Opening still inspected. Freeze for full independent review75, including visual/audio because composition changed. No76 implementation.

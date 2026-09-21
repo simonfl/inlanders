@@ -1,6 +1,6 @@
 # Next chunks — test whether this is a place worth shaping
 
-Count **74**. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. User resumed execution through75 on September21; playtest has not happened. Proceed with the review70 comparison hypothesis, then stop after full review75.
+Count **75**. [Whole-game review70](REVIEW_CHECKPOINT_70.md) is complete on `c2fc6db`, with all five independent roles. Next periodic review75; regular visual/audio80, earlier after substantial presentation. User resumed execution through75 on September21; playtest has not happened. Proceed with the review70 comparison hypothesis, then stop after full review75.
 
 ## Delivered67–71
 
@@ -44,3 +44,6 @@ Checkpoint73: all usable yard-side candidates appear as world outlines during ar
 
 
 Checkpoint74: click an existing shared meal place on the map to inspect actual diners/arrivals and nearby food, watch it, preview a move or remove it. Free removal retains ordinary physical meal recovery. Planner confirmation returns to the world card. Native960 actual selection, pure move cancellation/watch and removal with world validation pass (`20260921-115459-680-cultivated-bank-624173`). No new gathering service or quota. Next75 compares a grouped farmstead layout with the bank at identical buildings, productive area/crop, population and starting inventory, then freezes for full review.
+
+
+Checkpoint75: Homes among the fields is a public comparison with the same six homes, two15-tile fields, kitchen garden, twelve residents, woodland, food, logs and planks as the cultivated bank. Homes face smaller clearings across the inlet; productive capacity stays36 tiles/48 crop while routes change. Separate Normal/relaxed saves retain layout on reload/restart. Ten-minute simulations have zero hungry ticks,51 final food versus bank48; this is a journey consequence, not a starting-capacity buff. Native960 entry/furnishing/field move/save/restart/mode checks pass (`20260921-115942-723-grouped-farmsteads-8cab01`). Opening still inspected. Freeze for full independent review75, including visual/audio because composition changed. No76 implementation.

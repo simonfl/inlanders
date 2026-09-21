@@ -11,7 +11,7 @@ public partial class Game
         Check(!CanContinuePlace(archived,false) && CanContinuePlace(archived,true),"Continue can bypass public place boundary");
         foreach(bool relaxed in new[]{false,true})
         {
-            var profile=new Inlanders.Simulation.HamletProfile(relaxed,_world.Founding!.CultivatedBank);
+            var profile=new Inlanders.Simulation.HamletProfile(relaxed,_world.Founding!.CultivatedBank,_world.Founding.GroupedFarmsteads);
             AdoptWorld(profile.Create());Check(CanContinuePlace(_world,false),"Continue rejects retained place");UpdateHud();await Frames();
             await Press(Key.O);await Frames();Check(!_legacyMapOptions.IsVisibleInTree(),"Public Options exposes legacy maps");
             string saved=_world.SaveJson();OpenLargeMap();OpenOriginalMap();Check(saved==_world.SaveJson(),"Public map guard escaped retained place");CloseDrawer();

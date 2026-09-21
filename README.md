@@ -6,7 +6,7 @@ The public identity is **Les Habitants**: 17th-century French settlers in New Fr
 
 ![A settlement after its first village supper](docs/images/settlement.png)
 
-Choose **Play → New hamlet** for an inhabited12-person settlement, or **Play → Compare: cultivated bank → New hamlet** for the larger working-field layout. Both offer a relaxed option. Arrange a place you want to live in, watch daily work and meals, and finish whenever you choose. [Current queue](docs/NEXT_CHUNKS.md).
+Choose **Play → New hamlet** for an inhabited12-person settlement, or **Play → Compare: cultivated bank → New hamlet** for the larger working-field layout. **Play → Compare: grouped farmsteads** offers the same buildings, productive capacity and supplies as the bank in a different arrangement. All offer a relaxed option. Arrange a place you want to live in, watch daily work and meals, and finish whenever you choose. [Current queue](docs/NEXT_CHUNKS.md).
 
 ## Run from a fresh clone
 
@@ -29,7 +29,7 @@ For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Rev
 
 The compact hamlet and cultivated-bank comparison begin with12 residents, homes, food work and four planks for one modest furnishing project. The bank has larger functional fields and more cultivated ground; it is a different whole-place experiment, not an equal-productivity aesthetic comparison.
 
-Click a home to inspect it, preview any of four yard sides, choose ground only or explicitly furnish there. Normal play uses real planks delivered and installed by shared workers; relaxed construction/furnishing is free while residents still work and eat. Furnished ground supports quiet work and nearby meals. Moves are recoverable, growth is optional, and **Village** lets you finish or keep shaping the place.
+Click a home to inspect it, preview any of four yard sides, choose ground only or explicitly furnish there. Normal play uses real planks delivered and installed by shared workers; relaxed construction/furnishing is free while residents still work and eat. Furnished ground supports quiet work and nearby meals. Use **Watch this place** to stay with a yard as residents come and go. Shared meal places can be clicked on the map to watch, move or remove them. Moves are recoverable, growth is optional, and **Village** lets you finish or keep shaping the place.
 
 Earlier campaigns, founding projects and Free variants are archives available only with `--developer`. Their notes below describe historical experiments, not the current public progression.
 

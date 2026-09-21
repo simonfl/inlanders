@@ -390,5 +390,21 @@
     "focusX": 0,
     "focusZ": 3,
     "zoom": 29
+  },
+  {
+    "name": "grouped-farmsteads",
+    "description": "Matched working-bank inventory arranged into smaller home/field groups",
+    "generator": "grouped-farmsteads",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
+  },
+  {
+    "name": "grouped-farmsteads-relaxed",
+    "description": "Matched working-bank inventory arranged into smaller home/field groups",
+    "generator": "grouped-farmsteads-relaxed",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]
