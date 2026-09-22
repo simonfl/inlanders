@@ -12,8 +12,8 @@ public partial class Game
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
         await UiClick(_mainButtons["Between wood and water · prototype"]);await Frames();Check(_menuPageTitle==new HamletProfile(false).Title,"Archived compact link opens another place");
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
-        await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();Check(_menuPageTitle==new HamletProfile(false,true).Title,"Matched control link missing");
-        await UiClick(_mainButtons["Compare: across the inlet"]);await Frames();
+        await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();Check(_menuPageTitle==new HamletProfile(false,true).Title,"Matched control link missing");
+        await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: across the inlet"]);await Frames();
         await CaptureReviewBundle("inlet-choice-entry");await UiClick(_mainButtons["New hamlet"]);await Frames();
         var profile=new HamletProfile(false,true,false,true);Check(_world.PublicPlace==profile && CurrentSavePath.EndsWith(profile.SaveName),"Inlet entry or save slot wrong");
         await CaptureReviewBundle("inlet-choice-opening");

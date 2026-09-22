@@ -57,7 +57,7 @@ public partial class Game
         if(_world.Founding?.RiverFarmstead!=true)return;
         var map=_world.Map;
         // Low shingle and silt soften the waterline without creating pretend obstacles/resources.
-        foreach(var bank in map.Land)
+        if(_world.PublicPlace==null || _plainFarmstead)foreach(var bank in map.Land)
         {
             if(!map.Water.Contains(new(bank.X+1,bank.Z)))continue;
             Box(_landscape,OnGround(bank.X+.38f,bank.Z,.016f),new(.23f,.026f,.94f),new("a69b74"));

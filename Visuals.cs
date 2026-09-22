@@ -36,7 +36,7 @@ public partial class Game : Node3D
     private void RebuildLandscape()
     {
         // Commons ground is separate from actors; moves/terrain rebuilds invalidate its clipping too.
-        _commonsVisualWorld=null;
+        _commonsVisualWorld=null;_workedWorld=null;_nextWorkedLand=0;
         if (_landscape == null) { _landscape = new(); AddChild(_landscape); }
         else Clear(_landscape);
         if (!_world.Map.OriginalOutline) { MakeExpandedLandscape(); MakeYard(); BatchStaticGeometry(_landscape); return; }

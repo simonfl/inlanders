@@ -12,6 +12,7 @@ param(
     [switch]$Storybook,
     [switch]$CommonsMats,
     [switch]$CourtControl,
+    [switch]$PlainFarmstead,
     [ValidateRange(0,60)][int]$ObserveSeconds=0,
     [switch]$Movie
 )
@@ -125,6 +126,7 @@ $request.courtControl=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Na
 $requestPath=Join-Path $runDir 'request.json'
 $request.observeSeconds=$ObserveSeconds;$request.movieFps=if($Movie){24}else{0}
 if($Storybook -and -not $Bundle){$request.storybook=$true}
+$request.plainFarmstead=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Name -contains "plainFarmstead" -and $bundleRecord.rendering.plainFarmstead}else{$PlainFarmstead.IsPresent}
 $request.commonsMats=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Name -contains "commonsMats" -and $bundleRecord.rendering.commonsMats}else{$CommonsMats.IsPresent}
 if($ProbeControls) { $request.probeControls=$true }
 # Publish the complete request once; repeated immediate rewrites can collide with a sync/indexer mapping it.

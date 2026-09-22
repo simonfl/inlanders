@@ -9,7 +9,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Compare: grouped farmsteads"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: grouped farmsteads"]);await Frames();
         await CaptureReviewBundle("grouped-farmsteads-entry");await UiClick(_mainButtons["New hamlet"]);await Frames();
         var profile=new HamletProfile(false,true,true);Check(_world.PublicPlace==profile && CurrentSavePath.EndsWith(profile.SaveName),"Grouped entry or save slot wrong");
         await CaptureReviewBundle("grouped-farmsteads-opening");
@@ -21,7 +21,7 @@ public partial class Game
         Check(_world.MoveBuilding(field.Id,destination,field.Rotation),"Grouped field move rejected");_world.Validate();
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Grouped save continuation differs");
         Reset();await Frames();Check(_world.PublicPlace==profile && _world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField).Cell==new Cell(5,11),"Grouped restart lost layout");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Compare: grouped farmsteads"]);await Frames();await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: grouped farmsteads"]);await Frames();await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();
         Check(_world.PublicPlace==profile with {Relaxed=true},"Grouped relaxed mode lost layout");await ProbePublicPlaceContract();
         GD.Print("PASS: grouped public entry, paid yard action, movable real field, exact save/restart and relaxed identity (scripted UI).");
     }

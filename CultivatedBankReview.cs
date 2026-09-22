@@ -10,7 +10,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
-        await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();await CaptureReviewBundle("cultivated-bank-choice");
+        await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();await CaptureReviewBundle("cultivated-bank-choice");
         await UiClick(_mainButtons["New hamlet"]);await Frames();Check(_world.PublicPlace==new HamletProfile(false,true),"Wrong bank profile");
         var home=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z-1)));await Frames();
@@ -68,7 +68,7 @@ public partial class Game
         await Press(Key.Escape);await Frames();Check(!_courtStartingLayout.Visible && !_hamletComparePanel.Visible,"Comparison escape failed");
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Bank save differs");
         Reset();await Frames();Check(_world.PublicPlace==new HamletProfile(false,true),"Bank restart changed place");
-        ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Play"),"Bank return to menu/save failed: "+_notice);await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();
+        ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Play"),"Bank return to menu/save failed: "+_notice);await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();
         await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();Check(_world.PublicPlace==new HamletProfile(true,true) && CurrentSavePath.EndsWith("cultivated-bank-relaxed.json"),"Relaxed bank slot differs");
         var relaxedHome=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         ShowWorkplaceCard(relaxedHome.Id);await Frames();await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[3]);await Frames();

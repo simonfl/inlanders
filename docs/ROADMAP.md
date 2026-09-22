@@ -16,7 +16,7 @@ Test F40b/c on the existing inlet: actual cultivated ground, domestic clearings,
 
 The substantial alternative is a small farmstead-composition game with real material constraints and daily life, broad catalogue secondary. Keep buildings available as requested. Campaign may eventually offer distinct places to transform; do not restore population/service certificates through inertia. No hunger emergency, compulsory bridge, new need or generational system.
 
-The [active queue](NEXT_CHUNKS.md) and [decision evidence](INLET_COMPARISON_76.md) define the experiment and rejection criteria. Count **76**. Five independent roles completed review76 (three fresh, two reused contexts); no human play, independent discovery, listening or native performance verdict. Review was brought forward after one coherent outcome; periodic80 remains due. **Stop after review76 closeout; no77 implementation.** Current-save replacement denial remains unresolved; precise partial-save feedback is a separate correction.
+The [active queue](NEXT_CHUNKS.md) and [decision evidence](INLET_COMPARISON_76.md) define the experiment and rejection criteria. Count **77**. Five independent roles completed review76 (three fresh, two reused contexts); no human play, independent discovery, listening or native performance verdict. Review was brought forward after one coherent outcome; periodic80 remains due. User-authorized run now continues through90 with full reviews80/85/90.77 adds dynamic worked-land treatment and secondary comparison entry; visual acceptance remains provisional. Next78 tests actual selected-place journeys, using the existing simulation. Current-save replacement denial remains unresolved; precise partial-save feedback is a separate correction.
 
 ## What stays, what changes
 

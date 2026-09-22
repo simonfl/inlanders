@@ -7,6 +7,7 @@ public partial class Game
     private Color ContinuousGroundTint(Vector3 at)
     {
         float patch=MathF.Sin(at.X*.31f)*MathF.Cos(at.Z*.27f)*.025f;
+        if(_world.PublicPlace!=null && !_plainFarmstead)return new Color("818353").Lightened(patch);
         if(_world.Founding?.TransformationHamlet==true)
         {
             float meadow=Math.Clamp((-at.Z-1)/8,0,1);
