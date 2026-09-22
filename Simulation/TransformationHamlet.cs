@@ -22,7 +22,12 @@ public sealed partial class World
         {
             var c=new Cell(x,z);
             if(x<-10 || z>12 && x<-6 || z<-12 && x<-5)w.Map.Excluded.Add(c);
-            else if(x>=9 || z==0 && x>=-4)w.Map.Water.Add(c);
+            else
+            {
+                int riverEdge=acrossTheInlet?(z is >=-9 and <=-4?11:z is >=3 and <=7?10:9):9;
+                bool backwater=acrossTheInlet && (z==-1 && x is >=-3 and <=-2 || z==1 && x is >=0 and <=1);
+                if(x>=riverEdge || z==0 && x>=-4 || backwater)w.Map.Water.Add(c);
+            }
         }
         // The western woodlot rises gently; the house bank, inlet and northern meadow remain level.
         w.Map.Heights=new float[(w.Map.Width+1)*(w.Map.Depth+1)];
@@ -43,7 +48,8 @@ public sealed partial class World
         foreach(var c in acrossTheInlet?new[]{new Cell(1,-5),new(5,-5),new(5,3)}:groupedFarmsteads?new[]{new Cell(5,11),new(5,-5),new(0,3)}:cultivatedBank?new[]{new Cell(5,6),new(5,12),new(5,-5)}:new[]{new Cell(1,3),new(5,3),new(4,-5)})
         {var b=Ready(c,cultivatedBank && (acrossTheInlet?c.Z<0:groupedFarmsteads?c.X==5:c.Z>0)?BuildingKind.VegetableField:BuildingKind.VegetableGarden,0);b.Planted=true;b.Growth=.6f;}
         // These working woods compete with nearby domestic expansion; the northern meadow is further away.
-        foreach(var c in new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
+        foreach(var c in acrossTheInlet?new[]{new Cell(-8,-9),new(-6,-8),new(-8,-5),new(-6,-5),new(-9,-2),new(-8,4),new(-6,6),new(-8,8),new(-6,10),new(-9,11)}:
+            new[]{new Cell(-8,3),new(-8,6),new(-8,9),new(-6,12),new(-8,-3),new(-8,-6),new(-8,-9),new(-5,-10),new(-2,-11),new(6,13)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=c,Logs=8,Preserved=true});
         w.Bushes.Add(new(){Id=0,Cell=new(-8,12)});
         w.Map.FishingGrounds.Add(new(){Id=0,Name="Southern shallows",Cell=new(11,8),Capacity=16,Stock=16,RegrowthPerSecond=.1f});
