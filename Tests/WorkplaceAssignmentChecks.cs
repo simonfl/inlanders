@@ -103,7 +103,7 @@ static class WorkplaceAssignmentChecks
     }
     static void BoundFishing()
     {
-        var w=World.NewLakeMap();var first=w.Place(new(3,4),true,BuildingKind.FishingDock)!;var second=w.Place(new(14,0),true,BuildingKind.FishingDock)!;
+        var w=World.NewLakeMap();var first=w.Place(new(3,5),true,BuildingKind.FishingDock)!;var second=w.Place(new(14,0),true,BuildingKind.FishingDock)!;
         Until(w,()=>first.Complete && second.Complete,"Two docks not built");foreach(var resident in w.People)w.Assign(resident.Id,Role.Unassigned);
         w.Assign(0,Role.Fisher);Check(w.SetWorkplaceAssignment(0,second.Id),"Cannot assign dock");
         Until(w,()=>w.People[0].Task==Work.Aboard,"Assigned fisher never sailed");Check(w.People[0].WorkplaceId==second.Id,"Fisher chose nearer dock");

@@ -10,7 +10,7 @@ public static class LakeChecks
         Check(done(),$"Lake stalled at {step}, {w.Food.Time:0}s: {w.LakeObjective}");
         Console.WriteLine($"LAKE {step}: {w.Food.Time:0}s, {w.Population} residents, {w.Food.EdibleStored} food, {w.DeliveredFish} fish delivered.");
     }
-    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false) => w.Place(cell,kind==BuildingKind.Farm?3:rotated?1:0,kind) ?? throw new Exception($"Lake rejected {kind} at {cell}");
+    static Cottage Build(World w,Cell cell,BuildingKind kind,bool rotated=false) => w.Place(cell,kind==BuildingKind.Farm?3:kind==BuildingKind.FishingDock || rotated?1:0,kind) ?? throw new Exception($"Lake rejected {kind} at {cell}");
     public static void Run()
     {
         foreach(bool bread in new[]{false,true})
@@ -18,7 +18,7 @@ public static class LakeChecks
             var w=World.NewCampaign(7);
             Check(w.CurrentCampaignHint()!=null && !w.AdvanceLakePhase(),"Lake opening/guidance invalid");
             string initial=w.SaveJson(); Check(World.LoadJson(initial).SaveJson()==initial,"Lake opening save changed");
-            Build(w,new(3,4),BuildingKind.FishingDock);
+            Build(w,new(3,5),BuildingKind.FishingDock);
             if(!bread) Build(w,new(-3,6),BuildingKind.Square);
             Build(w,bread?new(-3,6):new(-6,6),bread?BuildingKind.Farm:BuildingKind.VegetableGarden,!bread);
             if(bread) { Until(w,()=>w.Food.Time>20,"bakery access"); Build(w,new(-6,6),BuildingKind.Bakery,true); w.Assign(1,Role.Baker); }
@@ -62,7 +62,7 @@ public static class LakeChecks
     static void LayoutRecovery()
     {
         var w=World.NewCampaign(7);
-        Build(w,new(3,4),BuildingKind.FishingDock); Build(w,new(-3,6),BuildingKind.VegetableGarden);
+        Build(w,new(3,5),BuildingKind.FishingDock); Build(w,new(-3,6),BuildingKind.VegetableGarden);
         w.Assign(6,Role.Fisher); w.Assign(7,Role.Farmer);
         Until(w,()=>w.DeliveredFish>=4,"rough layout catch"); Check(w.AdvanceLakePhase(),"Rough layout catch rejected");
         foreach(var tree in w.Trees.Where(t=>t.Cell.X<3)) w.SetClearing(tree.Cell,true);

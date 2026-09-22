@@ -33,7 +33,7 @@ public static class LakePressureExperiments
                 while(!done() && w.Food.Time<deadline) { w.Tick(.1f); if((int)(w.Food.Time*10)%20==0) w.Validate(); }
                 return done();
             }
-            Build(new(3,4),BuildingKind.FishingDock,true); w.Assign(6,Role.Fisher);
+            Build(new(3,5),BuildingKind.FishingDock,true); w.Assign(6,Role.Fisher);
             if(plan!="fish only")
             {
                 Build(new(0,-3),plan=="fish + garden"?BuildingKind.VegetableGarden:BuildingKind.Bakery);
@@ -86,7 +86,7 @@ public static class LakePressureExperiments
             var plot=plots[0]; w.Place(plot.Cell,plot.Rotated,kind);
             Console.WriteLine($"NARROW {(bread?"bread":"garden")}{(centralSquare?" / central square":"")} planned {kind} at {plot.Cell.X},{plot.Cell.Z} (rotated {plot.Rotated}) at {w.Food.Time:0}s.");
         }
-        Plan(BuildingKind.FishingDock,new(3,4)); w.Assign(6,Role.Fisher);
+        Plan(BuildingKind.FishingDock,new(3,5)); w.Assign(6,Role.Fisher);
         if(centralSquare) Plan(BuildingKind.Square,new(-3,6));
         Plan(bread?BuildingKind.Farm:BuildingKind.VegetableGarden,new(-3,6)); w.Assign(7,Role.Farmer);
         if(bread) { Until(()=>w.Food.Time>20,21); Plan(BuildingKind.Bakery,new(0,3)); w.Assign(1,Role.Baker); }

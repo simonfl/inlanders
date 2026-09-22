@@ -4,7 +4,7 @@ public static class FishingBalance
 {
     public static void Run()
     {
-        foreach(var (name,cell,kind) in new[]{("near landing",new Cell(3,4),BuildingKind.FishingDock),("far landing",new Cell(14,0),BuildingKind.FishingDock),("near garden",new Cell(0,-3),BuildingKind.VegetableGarden)})
+        foreach(var (name,cell,kind) in new[]{("near landing",new Cell(3,5),BuildingKind.FishingDock),("far landing",new Cell(14,0),BuildingKind.FishingDock),("near garden",new Cell(0,-3),BuildingKind.VegetableGarden)})
         {
             var w=World.NewLakeMap();
             var dock=w.Place(cell,kind==BuildingKind.FishingDock,kind) ?? throw new Exception(w.PlacementProblem(cell,kind==BuildingKind.FishingDock,kind));

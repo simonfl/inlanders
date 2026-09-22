@@ -23,6 +23,7 @@ static class CurrentExperienceChecks
         Run("ProductionRecovery",ProductionRecoveryChecks.Run);
         Run("WorkingVillage",WorkingVillageChecks.Run);
         Run("ProvisionedLife",ProvisionedLifeChecks.Run);
+        Run("Landing",LandingChecks.Run);
         Run("MealPlace",MealPlaceChecks.Run);
         Run("NormalCommons",NormalCommonsChecks.Run);
         Run("HomeYards",HomeYardChecks.Run);

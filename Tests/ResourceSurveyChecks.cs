@@ -26,7 +26,7 @@ public static class ResourceSurveyChecks
         var tree=w.Trees.First(t=>habitat.Contains(t.Cell) && !t.Felled);
         w.SetClearing(tree.Cell,true); w.Tick(.1f);
         Check(before!=w.ReadResourceSurvey(woodland)!.Detail,"Tree loss did not change survey");
-        var lake=World.NewLakeMap(); var dock=lake.Place(new(3,4),true,BuildingKind.FishingDock)!;
+        var lake=World.NewLakeMap(); var dock=lake.Place(new(3,5),true,BuildingKind.FishingDock)!;
         Check(dock!=null,"Survey dock rejected");
         foreach(var source in lake.ResourceSources())
         {

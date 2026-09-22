@@ -9,7 +9,7 @@ static class ProvisionedLifeChecks
         foreach(bool provisioned in new[]{false,true})
         {
             var w=World.NewWorkingVillage();w.Founding!.ProvisionedLife=provisioned;
-            Check(w.Place(new(7,8),1,BuildingKind.FishingDock)!=null,"Dock rejected");
+            Check(w.Place(new(8,4),1,BuildingKind.FishingDock)!=null,"Dock rejected");
             double quiet=0,hungry=0,working=0;int projectId=0;float? completed=null;
             for(int i=0;i<18000;i++)
             {

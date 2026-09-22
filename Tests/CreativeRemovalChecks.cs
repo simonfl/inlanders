@@ -40,7 +40,7 @@ static class CreativeRemovalChecks
         for(int i=0;i<8000 && !live.People.Any(p=>p.Cargo==Resource.Fruit && p.Carried>0);i++)Step(live,1);
         Check(live.People.Any(p=>p.Cargo==Resource.Fruit && p.Carried>0),"No actual orchard cargo");Commit(live,Selection(live,liveOrchard.Id));
         var lakeJson=JsonNode.Parse(World.NewLakeMap().SaveJson())!;lakeJson["Creative"]=true;var lake=World.LoadJson(lakeJson.ToJsonString());
-        var dock=lake.Place(new(3,4),1,BuildingKind.FishingDock)!;lake.Assign(6,Role.Fisher);
+        var dock=lake.Place(new(3,5),1,BuildingKind.FishingDock)!;lake.Assign(6,Role.Fisher);
         var extra=lake.Place(lake.Map.Land.First(c=>lake.PlacementProblem(c,0,BuildingKind.Cottage)==null),0,BuildingKind.Cottage)!;
         for(int i=0;i<2000 && dock.Boat?.FisherId==null;i++)Step(lake,1);
         Check(dock.Boat?.FisherId!=null,"No active boat");var both=Selection(lake,extra.Id,dock.Id);string active=lake.SaveJson();

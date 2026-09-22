@@ -24,7 +24,7 @@ public static class Buildings
         new("Bridge", 6, Resource.Logs, Width: 1, Depth: 1),
         new("Stockpile", 4, Resource.Logs, Worker: Role.Hauler),
         new("Vegetable garden", 4, Resource.Logs, Worker: Role.Farmer, Slots: 1),
-        new("Fishing dock", 8, Resource.Logs, Worker: Role.Fisher, Slots: 1, Width: 1, Depth: 1),
+        new("Fishing dock", 8, Resource.Logs, Worker: Role.Fisher, Slots: 1, Width: 3, Depth: 1),
         new("Quarry camp", 6, Resource.Logs, Worker: Role.Quarrier, Slots: 1),
         new("Gathering hall", 8, Resource.Planks, StoneCost: 12, RecreationSlots: 8, RecreationSeconds: 12, RecreationInterval: 120, RecreationMemory: 240),
         new("Hunting lodge", 6, Resource.Logs, Worker: Role.Hunter, Slots: 1),

@@ -81,7 +81,7 @@ static class RelocationChecks
         // Use the authored lake, changing only its mode in this isolated fixture.
         var lakeJson=JsonNode.Parse(World.NewLakeMap().SaveJson())!;lakeJson["Creative"]=true;
         var lake=World.LoadJson(lakeJson.ToJsonString());Check(lake.Creative,"Lake fixture mode failed");
-        var dock=lake.Place(new(3,4),1,BuildingKind.FishingDock)!;Check(dock!=null,"Dock fixture failed");lake.Assign(6,Role.Fisher);
+        var dock=lake.Place(new(3,5),1,BuildingKind.FishingDock)!;Check(dock!=null,"Dock fixture failed");lake.Assign(6,Role.Fisher);
         for(int i=0;i<2000 && dock!.Boat?.FisherId==null;i++)Step(lake);
         string active=lake.SaveJson();Check(lake.RelocationProblem(dock!.Id)!=null && !lake.MoveBuilding(dock.Id,dock.Cell,2) && lake.SaveJson()==active,"Active boat allowed relocation");
         lake.SetWorkplacePaused(dock.Id,true);for(int i=0;i<8000 && dock.Boat?.FisherId!=null;i++)Step(lake);

@@ -10,39 +10,29 @@ public partial class Game
     }
     private void MakeFishingDock(Node3D parent,int stage)
     {
-        foreach(float x in new[]{-.36f,.36f})foreach(float z in new[]{.29f,-.92f})ShorePile(parent,x,z,.36f);
-        foreach(float x in new[]{-.36f,.36f})
-        {
-            Box(parent,new(x,.12f,-.30f),new(.15f,.18f,1.54f),_frameTimber);
-            TimberBeam(parent,new(x,-.24f,-.90f),new(x,.13f,.25f),.09f,_frameTimber);
-        }
+        // Three actual shore cells: covered gear bay, clear gangway, catch-handling bay.
+        foreach(float x in new[]{-1.34f,-.36f,.36f,1.34f})foreach(float z in new[]{-.36f,.36f})ShorePile(parent,x,z,.22f);
+        foreach(float x in new[]{-.36f,.36f})ShorePile(parent,x,-1.05f,.24f);
         if(stage==0)return;
         for(int i=0;i<(stage==1?4:8);i++)
-            Box(parent,new(0,.23f,.35f-i*.18f),new(.89f,.10f,.166f),new Color("b69a70").Lightened((i%3)*.035f));
+            Box(parent,new(0,.19f,-.35f+i*.10f),new(2.87f,.11f,.092f),new Color("9f8561").Lightened(i%3*.035f));
+        for(int i=0;i<5;i++)Box(parent,new(0,.19f,-.44f-i*.15f),new(.85f,.11f,.14f),new("b69a70"));
         if(stage==1)return;
-        foreach(float x in new[]{-.37f,.37f})
-        {
-            Box(parent,new(x,.88f,.24f),new(.10f,1.25f,.10f),_frameTimber);
-            TimberBeam(parent,new(x,1.19f,.24f),new(x,1.46f,-.14f),.07f,_wood);
-        }
-        Box(parent,new(0,1.49f,.24f),new(.95f,.12f,.12f),_frameTimber);
+        foreach(float x in new[]{-1.32f,-.50f})foreach(float z in new[]{-.32f,.32f})
+            Box(parent,new(x,.84f,z),new(.11f,1.35f,.11f),_frameTimber);
+        Box(parent,new(-.91f,1.49f,0),new(1.03f,.14f,.91f),_frameTimber);
+        // The right-hand bay holds only actual stored catch (rendered separately).
+        Box(parent,new(.96f,.42f,0),new(.76f,.40f,.64f),new("776448"));
+        Box(parent,new(.96f,.65f,0),new(.88f,.09f,.72f),new("b6a17a"));
         if(stage==2)return;
-        // Canvas sits above the shore end; net and rope stay to the side of the landing.
-        for(int panel=0;panel<5;panel++)
-        {
-            var canvas=Box(parent,new(-.408f+panel*.204f,1.53f,.05f),new(.205f,.065f,.80f),panel%2==0?new("6f958b"):new("bbc4a0"));
-            canvas.RotationDegrees=new(-12,0,0);
-        }
-        Box(parent,new(0,1.37f,-.34f),new(1.03f,.13f,.06f),new("6f958b"));
-        for(int line=0;line<5;line++)Box(parent,new(.425f,.90f,-.12f+line*.085f),new(.014f,.48f,.016f),new("c8bb91"));
-        for(int line=0;line<5;line++)Box(parent,new(.425f,.68f+line*.11f,.05f),new(.016f,.014f,.40f),new("c8bb91"));
-        foreach(float x in new[]{-.36f,.36f})Box(parent,new(x,.36f,-.48f),new(.15f,.07f,.07f),new("c4ad7c"));
-        for(int i=0;i<10;i++)
-        {
-            float a=i*Mathf.Tau/10,b=(i+1)*Mathf.Tau/10;
-            TimberBeam(parent,new(-.26f+MathF.Cos(a)*.105f,.30f,-.33f+MathF.Sin(a)*.12f),new(-.26f+MathF.Cos(b)*.105f,.30f,-.33f+MathF.Sin(b)*.12f),.025f,new("c8bb91"));
-        }
+        var roof=Box(parent,new(-.91f,1.60f,-.02f),new(1.15f,.13f,1.10f),new("647566"));roof.RotationDegrees=new(-14,0,0);
+        for(int i=0;i<5;i++)Box(parent,new(-1.30f,.80f,-.26f+i*.13f),new(.025f,.63f,.022f),new("bdb18e"));
+        for(int i=0;i<5;i++)Box(parent,new(-1.30f,.51f+i*.15f,0),new(.024f,.024f,.55f),new("bdb18e"));
+        foreach(float z in new[]{-.22f,.22f})
+            TimberBeam(parent,new(-1.13f,.28f,z),new(-.66f,1.18f,z),.055f,new("b69a70"));
+        foreach(float x in new[]{-.38f,.38f})Box(parent,new(x,.29f,-.78f),new(.14f,.10f,.08f),new("c4ad7c"));
     }
+
     private void MakeBridge(Node3D parent,int stage)
     {
         foreach(float x in new[]{-.43f,.43f})

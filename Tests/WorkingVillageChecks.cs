@@ -11,7 +11,7 @@ static class WorkingVillageChecks
         {
             var w=World.LoadJson(initial.SaveJson());Check(w.Housed==8 && w.Population==8,"Starting village incomplete");
             if(arm=="crossing")Check(w.Place(new(4,2),0,BuildingKind.Bridge)!=null,"Crossing rejected");
-            if(arm=="shore")Check(w.Place(new(7,8),1,BuildingKind.FishingDock)!=null,"Shore rejected");
+            if(arm=="shore")Check(w.Place(new(8,4),1,BuildingKind.FishingDock)!=null,"Shore rejected");
             var oven=w.Cottages.Single(c=>c.Kind==BuildingKind.Bakery);
             if(arm=="poor-recovered")
             {

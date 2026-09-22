@@ -6,6 +6,12 @@ public partial class Game
 {
     private void MakeWorkplaceFoodStock(Node3D parent,Cottage site)
     {
+        if(site.Kind==BuildingKind.FishingDock)
+        {
+            int fish=site.PantryFood[System.Array.IndexOf(World.EdibleKinds,Resource.Fish)];
+            for(int i=0;i<fish;i++)MakeFish(parent,new(.77f+i%3*.17f,.75f+i/6*.055f,-.17f+i/3%2*.30f));
+            return;
+        }
         int portion=0;
         for(int kind=0;kind<World.EdibleKinds.Length;kind++)for(int n=0;n<site.PantryFood[kind];n++)
         {

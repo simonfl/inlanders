@@ -7,8 +7,8 @@ public static class FishChecks
     {
         var lake=World.NewLakeMap();
         Check(lake.Map.FishingGrounds.Count==2 && lake.Housed==8 && World.LoadJson(lake.SaveJson()).SaveJson()==lake.SaveJson(),"Authored lake opening failed");
-        var west = new Cell(3,4); var east = new Cell(14,0);
-        Check(lake.DockLaunch(west,true)==new Cell(4,4) && lake.DockEntrance(west,true)==new Cell(2,4),"West shore dock faces away from water");
+        var west = new Cell(3,5); var east = new Cell(14,0);
+        Check(lake.DockLaunch(west,true)==new Cell(4,5) && lake.DockEntrance(west,true)==new Cell(2,5),"West shore dock faces away from water");
         Check(lake.DockLaunch(east,true)==new Cell(13,0) && lake.DockEntrance(east,true)==new Cell(15,0),"East shore dock faces away from water");
         Check(lake.DockProblem(east,true)==null,"East shore landing rejected");
         Check(lake.DockProblem(east,false)!=null,"Inland-facing dock accepted");
@@ -18,7 +18,7 @@ public static class FishChecks
         Check(dock!.Complete,"Normal builders did not construct the dock");
         Check(World.LoadJson(lake.SaveJson()).SaveJson()==lake.SaveJson(),"Constructed dock save changed");
         var cancelled=World.LoadJson(lake.SaveJson());
-        var unfinished=cancelled.Place(new(3,4),true,BuildingKind.FishingDock);
+        var unfinished=cancelled.Place(new(3,5),true,BuildingKind.FishingDock);
         Check(unfinished!=null,"West dock cancellation fixture rejected");
         for(int i=0;i<3000 && unfinished!.Delivered==0;i++) cancelled.Tick(.1f);
         Check(unfinished!.Delivered>0 && cancelled.Cancel(unfinished.Id),"Part-delivered shore dock could not be cancelled");
@@ -64,7 +64,7 @@ public static class FishChecks
         }
         Check(fishing.DeliveredFish>0 && phases.IsSupersetOf(new[]{"Walking","Outbound","Fishing","Returning"}),"Complete fishing trip phases were not exercised");
         var shared=World.LoadJson(lake.SaveJson());
-        var second=shared.Place(new(14,2),true,BuildingKind.FishingDock);
+        var second=shared.Place(new(14,3),true,BuildingKind.FishingDock);
         Check(second!=null,"Second shore dock rejected");
         for(int i=0;i<6000 && !second!.Complete;i++) shared.Tick(.1f);
         Check(second!.Complete,"Second dock construction stalled");
@@ -90,18 +90,18 @@ public static class FishChecks
         Check(channel.FindBoatRoute(new(5,0),new(5,2))==null,"Boat route crosses a planned bridge");
         Check(channel.FindBoatRoute(new(5,1),new(5,1))==null,"Blocked launch accepted as an empty route");
         var crossing=World.NewCreative();
-        crossing.Map.Water.UnionWith(new[]{new Cell(5,0),new(5,1),new(5,2)});
-        crossing.Map.FishingGrounds.Add(new FishHabitat { Id=0,Cell=new(5,2) });
+        crossing.Map.Water.UnionWith(new[]{new Cell(5,0),new(5,1),new(5,2),new(5,3)});
+        crossing.Map.FishingGrounds.Add(new FishHabitat { Id=0,Cell=new(5,3) });
         var landing=crossing.Place(new(4,0),true,BuildingKind.FishingDock)!;
         Check(landing!=null,"Channel dock rejected");
         foreach(var p in crossing.People) crossing.Assign(p.Id,Role.Unassigned);
         crossing.Assign(0,Role.Fisher);
         for(int i=0;i<1000 && landing!.Boat?.Phase!=BoatPhase.Fishing;i++) crossing.Tick(.1f);
         Check(landing!.Boat?.Phase==BoatPhase.Fishing,"Channel trip stalled");
-        Check(crossing.Place(new(5,1),true,BuildingKind.Bridge)==null,"Bridge stranded fisher behind crossing");
+        Check(crossing.Place(new(5,2),true,BuildingKind.Bridge)==null,"Bridge stranded fisher behind crossing");
         crossing.SetWorkplacePaused(landing.Id,true);
         for(int i=0;i<1000 && landing.Boat!.FisherId!=null;i++) { crossing.Tick(.1f); crossing.Validate(); }
-        Check(crossing.Place(new(5,1),true,BuildingKind.Bridge)!=null,"Returned boat unnecessarily blocked crossing");
+        Check(crossing.Place(new(5,2),true,BuildingKind.Bridge)!=null,"Returned boat unnecessarily blocked crossing");
         crossing.SetWorkplacePaused(landing.Id,false); crossing.Tick(1); crossing.Validate();
         Check(crossing.ReadWorkplace(landing).State=="No reachable fishing ground","Blocked fishing route not explained");
         var water=World.NewLargeMap(true,false);

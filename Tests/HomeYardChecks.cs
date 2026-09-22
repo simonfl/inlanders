@@ -5,7 +5,7 @@ static class HomeYardChecks
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/home-yards");var w=World.NewWorkingVillage();
-        Check(w.Place(new(7,8),1,BuildingKind.FishingDock)!=null,"Dock rejected");
+        Check(w.Place(new(8,4),1,BuildingKind.FishingDock)!=null,"Dock rejected");
         foreach(var kind in new[]{BuildingKind.Sawmill,BuildingKind.Carpenter}){var p=ReviewPlacement.Find(w,kind,new(-3,7),(c,r)=>true,"furnishing")!;w.Place(p.Actual,p.Rotation,kind);}
         foreach(var h in w.Cottages.Where(c=>c.Kind==BuildingKind.Cottage))Check(w.RequestImprovement(h.Id),"Order rejected: "+w.ImprovementProblem(h.Id));
         bool quiet=false,meal=false;int furnished=0;

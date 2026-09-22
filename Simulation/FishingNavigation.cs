@@ -43,11 +43,12 @@ public sealed partial class World
             return "Choose dry shore with open water beside it. Turn the dock to face the water.";
         if (!Map.Contains(entrance) || Map.Water.Contains(entrance))
             return "The dock needs a dry entrance opposite its launch.";
-        if (!Map.LevelGround(new[] { cell, entrance, launch }))
+        var footprint=Footprint(cell,rotated,BuildingKind.FishingDock).ToHashSet();
+        if (!Map.LevelGround(footprint.Append(entrance).Append(launch)))
             return "Choose a level shoreline for the dock and launch.";
         if (Cottages.Any(c => c.Kind == BuildingKind.FishingDock && c.Launch == launch))
             return "Another dock needs this launch. Choose a different landing.";
-        var problem = CheckPlacement(new HashSet<Cell> { cell }, entrance);
+        var problem = CheckPlacement(footprint, entrance);
         if (problem != null) return problem;
         if (!Map.FishingGrounds.Any(h => FindBoatRoute(launch, h.Cell) != null))
             return "No fishing ground is reachable from this launch.";
