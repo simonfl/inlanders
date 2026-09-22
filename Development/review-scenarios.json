@@ -454,5 +454,13 @@
     "focusX": 0,
     "focusZ": 1,
     "zoom": 29
+  },
+  {
+    "name": "livelihood-siting",
+    "description": "Actual grain/oven dependency and spatial connection before placement",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]

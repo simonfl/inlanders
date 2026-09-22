@@ -139,6 +139,7 @@ public partial class Game
         }
         marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 4 });
+        RefreshLivelihoodPreview();
     }
     private void PreparePreview(Node root,bool retainColors=false)
     {

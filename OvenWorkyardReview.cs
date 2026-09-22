@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 public partial class Game
 {
-    private async Task ProbeOvenWorkyard()
+    private async Task ProbeOvenWorkyard(bool previewOnly=false)
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
@@ -16,10 +16,13 @@ public partial class Game
             _drawerPages[1].EnsureControlVisible(_kindButtons[plan.Item1]);await Frames();await UiClick(_kindButtons[plan.Item1]);CloseDrawer();
             _rotation=0;_focus=OnGround(-2,-3);_camera.Size=18;UpdateCamera();await Frames();
             var point=_camera.UnprojectPosition(OnGround(plan.Item2.X,plan.Item2.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();
-            Check(_ghostValid,"Workyard proposal rejected: "+_placementProblem);await CaptureReviewBundle("workyard-"+plan.Item1+"-proposal");
+            Check(_ghostValid,"Workyard proposal rejected: "+_placementProblem);
+            Check(_livelihoodSite!=null && (plan.Item1==BuildingKind.Farm?_livelihoodSite.Summary.Contains("oven"):_livelihoodSite.Route.Length>1),"Livelihood dependency/connection missing");
+            Check(_topBar.GetGlobalRect().End.X<=_hud.Size.X,"Context status overflows compact viewport");await CaptureReviewBundle("workyard-"+plan.Item1+"-proposal");
             await Click(point);await Frames();await Press(Key.Escape);await Frames();
             Check(_world.Cottages.Any(c=>c.Kind==plan.Item1 && c.Cell==plan.Item2),"Workyard world placement failed");
         }
+        if(previewOnly){GD.Print("PASS: actual grain/oven catalogue siting, missing dependency and planned connection preview, compact status.");return;}
         var oven=_world.Cottages.Single(c=>c.Kind==BuildingKind.Bakery);_paused=false;_speed=6;
         bool baked=false,meal=false;double start=_uiTime;
         while(_uiTime-start<90 && !meal)

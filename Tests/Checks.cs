@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--livelihood-site")){try{LivelihoodSiteChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--player-founded")){try{PlayerFoundedChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--grain-relocation")){try{GrainRelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--oven-workyard")){try{OvenWorkyardChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

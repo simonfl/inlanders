@@ -133,6 +133,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="livelihood-siting"){await ProbeOvenWorkyard(true);return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="player-founded"){await ProbePlayerFounded();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="grain-relocation")await ProbeGrainRelocation();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="oven-workyard")await ProbeOvenWorkyard();
