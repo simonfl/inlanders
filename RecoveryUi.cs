@@ -36,7 +36,7 @@ public partial class Game
     {
         if (!_menuEnabled || _atMainMenu) return;
         _autosaveElapsed += seconds;
-        if (_autosaveElapsed < 120) return;
+        if (_autosaveElapsed < 120 || MoveIntentActive) return;
         _autosaveElapsed = 0;
         bool slotSaved=false;
         try
@@ -66,6 +66,7 @@ public partial class Game
     }
     private bool SaveSession()
     {
+        SettleMoveBeforeSave();
         try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
         catch (Exception e) { GD.PrintErr($"Session settlement-slot save failure: {e}");Notice("Could not save settlement; village kept open. Try F5 again."); return false; }
         try { RememberSettlement(); return true; }

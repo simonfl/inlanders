@@ -5,7 +5,9 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    public string? RelocationProblem(int id)
+    public string? RelocationProblem(int id)=>RelocationProblem(id,false);
+    public string? RelocationIntentProblem(int id)=>RelocationProblem(id,true);
+    private string? RelocationProblem(int id,bool intent)
     {
         var site=Cottages.FirstOrDefault(c=>c.Id==id);
         if(!Creative && !IsArrangementCourt && Founding==null)return "Moving buildings is available in founding, Creative or Willow court.";
@@ -14,13 +16,13 @@ public sealed partial class World
             if(!Founding.RiverFarmstead)return "Rearrange homes and gathering places for free. Rebuild workplaces to change their sites.";
             if(site.Kind is BuildingKind.Orchard or BuildingKind.Bridge)
                 return "Orchards and crossings keep their sites. Rebuild to change the land you use.";
-            if((ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && !site.WorkPaused)
+            if((ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && !site.WorkPaused && !intent)
                 return "Pause production first, then move this workplace. Goods and settings stay with it.";
         }
         if(!Creative && IsArrangementCourt && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
         if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished building that is not being demolished.";
         if(Food.Celebrating)return "Wait until supper finishes.";
-        if(site.Boat?.FisherId!=null)return "Pause the dock and wait for its fisher to return before moving it.";
+        if(!intent && site.Boat?.FisherId!=null)return "Pause the dock and wait for its fisher to return before moving it.";
         return null;
     }
     private bool MoveAffects(Villager p,Cottage site)=>p.SiteId==site.Id || p.WorkplaceId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id ||

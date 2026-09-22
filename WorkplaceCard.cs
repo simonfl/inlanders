@@ -40,7 +40,7 @@ public partial class Game
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
-        _workCardMove=Button("Move",BeginRelocation);actions.AddChild(_workCardMove);
+        _workCardMove=Button("Move",ChooseMoveIntent);actions.AddChild(_workCardMove);
         _workCardDetails=Button("Details",()=>{int id=_workCardSite;_workCardSite=-1;SelectBuilding(id);});actions.AddChild(_workCardDetails);
         actions.AddChild(Button("×",ClearSelection));
         _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
@@ -87,9 +87,11 @@ public partial class Game
         _workCardWorker.TooltipText=worker==null?"No worker is currently using this workplace.":"Follow "+worker.Name;
         _workCardDiner.TooltipText=diner==null?"Available when a resident collects a meal here.":"Follow "+diner.Name;
         _workCardPause.Visible=!site.Complete || World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter;
-        _workCardPause.Text=(site.Complete?site.WorkPaused:site.ConstructionPaused)?"Resume":"Pause";_workCardPause.Disabled=site.DemolitionRequested || _world.Food.Celebrating;
+        _workCardPause.Text=(site.Complete?site.WorkPaused:site.ConstructionPaused)?"Resume":"Pause";_workCardPause.Disabled=site.DemolitionRequested || _world.Food.Celebrating || _waitingMove==site.Id;
         _workCardMove.Visible=site.Complete && _yardPreviewSide<0;
         _workCardWorker.Visible=_yardPreviewSide<0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);_workCardDetails.Visible=_yardPreviewSide<0;
-        _workCardMove.Disabled=_world.RelocationProblem(site.Id)!=null;_workCardMove.TooltipText=_world.RelocationProblem(site.Id)??"Choose a new location.";
+        _workCardMove.Text=_waitingMove==site.Id?"Cancel move":!site.WorkPaused && (World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && _world.PublicPlace!=null?"Pause & move":"Move";
+        string? moveProblem=_world.PublicPlace!=null?_world.RelocationIntentProblem(site.Id):_world.RelocationProblem(site.Id);
+        _workCardMove.Disabled=moveProblem!=null;_workCardMove.TooltipText=moveProblem??"Preview another location. Work pauses and resumes when you place or cancel; an already paused workplace stays paused. Growing crops need fresh sowing after moving.";
     }
 }

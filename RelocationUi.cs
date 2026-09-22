@@ -11,10 +11,10 @@ public partial class Game
     private Button _moveButton=null!;
     private float _nextMoveRefresh;
     private (Cell Cell,int Rotation,string Problem)? _moveCheck;
-    private void DiscardRelocation(){_movingSite=-1;_moveWorld=null;_moveCheck=null;}
+    private void DiscardRelocation(){if(_resumeMovedWork && _movingSite>=0)_moveWorld?.SetWorkplacePaused(_movingSite,false);_resumeMovedWork=false;_movingSite=-1;_moveWorld=null;_moveCheck=null;}
     private void CancelRelocation(bool inspect)
     {
-        int id=_movingSite;if(id<0)return;bool card=_moveFromCard;DiscardRelocation();_placing=false;RefreshGhost();
+        CancelMoveWait();int id=_movingSite;if(id<0)return;bool card=_moveFromCard;DiscardRelocation();_placing=false;RefreshGhost();
         if(inspect && _world.Cottages.Any(c=>c.Id==id)){if(card)ShowWorkplaceCard(id);else SelectBuilding(id);}
     }
     private void BeginRelocation()
@@ -33,7 +33,7 @@ public partial class Game
     }
     private void UpdateRelocation()
     {
-        if(_movingSite<0)return;
+        UpdateMoveIntent();if(_movingSite<0)return;
         if(!ReferenceEquals(_moveWorld,_world) || !_world.Cottages.Any(c=>c.Id==_movingSite)){CancelRelocation(false);return;}
         if(!_placing || _plantingTrees || _clearingTrees || _decorating || _pathTool>0 || _woodlandTool>0){DiscardRelocation();return;}
         if(_uiTime>=_nextMoveRefresh){_nextMoveRefresh=_uiTime+.25f;_moveCheck=null;RefreshGhost();}

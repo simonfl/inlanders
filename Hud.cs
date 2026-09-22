@@ -321,6 +321,7 @@ public partial class Game
         if (_placing && _pathTool == 3) _hint.Text = "Connect paths · free · Esc cancels\n" + (PointerOverHud(_pointerPosition) ? "Choose two clear ground tiles or building entrances." : !_ghostValid ? _placementProblem : _pathAnchor == null ? "Click the start of the path." : "Preview walking route · click to connect.");
         else if (_uiTime < _noticeUntil) _hint.Text = _notice;
         if(_movingSite>=0)_hint.Text=$"Move {BuildingName(_buildKind)} {_movingSite} · R / Shift+R rotates · Esc / right-click cancels\n"+(PointerOverHud(_pointerPosition)?"Choose a destination on the map.":_ghostValid?"Click to move this building":_placementProblem);
+        if(_movingSite>=0 && _resumeMovedWork)_hint.Text+="\nWork resumes on place or cancel. Growing crops restart; ripe crops and goods stay.";
         if(_placing && !PointerOverHud(_pointerPosition))
         {
             if(_clearingTrees) _hint.Text+="\n"+_world.HabitatLoss(_hover);

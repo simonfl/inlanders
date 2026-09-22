@@ -10,6 +10,7 @@ public partial class Game
     private void Notice(string message) { _notice = message; _noticeUntil = _uiTime + 8; }
     private void SaveWorld()
     {
+        SettleMoveBeforeSave();
         try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
         catch (Exception e) { GD.PrintErr($"Settlement slot save failure: {e}");Notice("Could not save: " + e.Message);return; }
         try { RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }

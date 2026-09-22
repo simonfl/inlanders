@@ -12,7 +12,7 @@ static class GrainRelocationChecks
             for(int i=0;i<4000 && !(field.Complete && (ripe?field.Harvest>0:field.Planted && field.Growth>0 && field.Harvest==0));i++)w.Tick(.1f);
             Check(field.Complete && (ripe?field.Harvest>0:field.Planted && field.Growth>0),"Required real crop phase absent");
             w.SaveFile($"artifacts/grain-relocation/{relaxed}-{ripe}-before.json");
-            Check(w.RelocationProblem(field.Id)!=null,"Unpaused grain field movable");
+            Check(w.RelocationProblem(field.Id)!=null && w.RelocationIntentProblem(field.Id)==null,"Intent unavailable or unpaused grain field directly movable");
             Check(w.SetWorkplacePaused(field.Id,true),"Pause failed");
             var target=w.Map.Land.OrderBy(c=>c.Z).ThenBy(c=>c.X).First(c=>c!=field.Cell && w.RelocationProblem(field.Id,c,1)==null);
             int grain=w.StoredGrain,harvest=field.Harvest;float growth=field.Growth;string saved=w.SaveJson();
