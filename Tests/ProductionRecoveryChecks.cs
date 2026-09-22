@@ -29,7 +29,7 @@ static class ProductionRecoveryChecks
                 Check(w.MoveBuilding(old.Id,original,facing),"Paused recovery rejected");
                 Check(old.InputGrain==grain && old.OutputBread==bread && old.BakeProgress==progress && w.EdibleStored==food,"Move lost goods or processing");
                 w.SetWorkplacePaused(old.Id,false);w=World.LoadJson(w.SaveJson());
-                Check(w.RelocationProblem(w.Cottages.First(c=>c.Kind==BuildingKind.Farm).Id)!=null,"Field became movable");
+                Check(w.RelocationProblem(w.Cottages.First(c=>c.Kind==BuildingKind.Farm).Id)!=null,"Unpaused field became movable");
             }
             for(int i=0;i<3000;i++){w.Tick(.1f);hunger+=w.People.Count(p=>!p.Fed)*.1;if(first==null && w.DeliveredBread>delivered)first=w.Food.Time-began;if(i%100==0)w.Validate();}
             Check(w.DeliveredBread>delivered,"Production failed to resume: "+arm);
@@ -38,6 +38,6 @@ static class ProductionRecoveryChecks
             var row=new{arm,first,delivered=w.DeliveredBread-delivered,hunger,food=w.EdibleStored};rows.Add(row);Console.WriteLine(JsonSerializer.Serialize(row));
         }
         File.WriteAllText(folder+"/report.json",JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true}));
-        Console.WriteLine("PASS: matched misplaced-workplace recovery, goods/processing, rejected queries, field restriction and current saves.");
+        Console.WriteLine("PASS: matched misplaced-workplace recovery, goods/processing, rejected queries, pause requirement and current saves.");
     }
 }

@@ -438,5 +438,13 @@
     "focusX": 0,
     "focusZ": 1,
     "zoom": 29
+  },
+  {
+    "name": "grain-relocation",
+    "description": "Actual pause, rejected/cancelled move and resumed established grain production",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]

@@ -12,8 +12,8 @@ public sealed partial class World
         if(Founding!=null && site!=null && Buildings.Get(site.Kind).Beds==0 && Buildings.Get(site.Kind).RecreationSlots==0)
         {
             if(!Founding.RiverFarmstead)return "Rearrange homes and gathering places for free. Rebuild workplaces to change their sites.";
-            if(site.Kind is BuildingKind.Farm or BuildingKind.Orchard or BuildingKind.Bridge)
-                return "Grain fields, orchards and crossings keep their sites. Rebuild to change the land you use.";
+            if(site.Kind is BuildingKind.Orchard or BuildingKind.Bridge)
+                return "Orchards and crossings keep their sites. Rebuild to change the land you use.";
             if((ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && !site.WorkPaused)
                 return "Pause production first, then move this workplace. Goods and settings stay with it.";
         }
@@ -68,10 +68,10 @@ public sealed partial class World
         site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));
         site.DockFromFar=site.Kind==BuildingKind.FishingDock && DockEntrance(at,rotation)==FarBank(at,rotation);
         site.Cell=at;site.Rotation=rotation;Cottages.Insert(index,site);
-        if(IsVegetablePlot(site.Kind) && site.Harvest==0)
+        if((IsVegetablePlot(site.Kind) || site.Kind==BuildingKind.Farm) && site.Harvest==0)
         {
             site.Planted=false;site.Growth=0;
-            History.Add("Kitchen garden moved: sow a fresh crop here. Ripe produce and stored food are retained.");
+            History.Add("Field moved: sow a fresh crop here. Ripe crops and stored goods are retained.");
         }
         RemovePaths(Footprint(at,rotation,site.Kind));
         ManagedWoodland.ExceptWith(Footprint(at,rotation,site.Kind).Append(site.Entrance));

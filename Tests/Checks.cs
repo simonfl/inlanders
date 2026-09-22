@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--grain-relocation")){try{GrainRelocationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--oven-workyard")){try{OvenWorkyardChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--fishing")){try{FishChecks.Run();LakeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--landing")){try{LandingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
