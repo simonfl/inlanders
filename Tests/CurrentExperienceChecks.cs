@@ -5,46 +5,54 @@ static class CurrentExperienceChecks
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/current-experience");
-        var rows=new List<object>();
-        void Run(string name,Action action)
+        var cases=new (string Name,Action Execute)[]{
+            ("RiverFarmstead",RiverFarmsteadChecks.Run),
+            ("HomeWaiting",HomeWaitingChecks.Run),
+            ("ProductionRecovery",ProductionRecoveryChecks.Run),
+            ("WorkingVillage",WorkingVillageChecks.Run),
+            ("ProvisionedLife",ProvisionedLifeChecks.Run),
+            ("GrainRelocation",GrainRelocationChecks.Run),
+            ("OvenWorkyard",OvenWorkyardChecks.Run),
+            ("Landing",LandingChecks.Run),
+            ("MealPlace",MealPlaceChecks.Run),
+            ("NormalCommons",NormalCommonsChecks.Run),
+            ("HomeYards",HomeYardChecks.Run),
+            ("DirectDomestic",DirectDomesticChecks.Run),
+            ("YardArrangement",YardArrangementChecks.Run),
+            ("VegetableField",VegetableFieldChecks.Run),
+            ("BatchBread",BatchBreadChecks.Run),
+            ("CourtExperience",CourtExperienceChecks.Run),
+            ("CreativeCourt",CreativeCourtChecks.Run),
+            ("CultivatedBank",CultivatedBankChecks.Run),
+            ("PlaceJourneys",PlaceJourneyChecks.Run),
+            ("InletBank",InletBankChecks.Run),
+            ("InletChoice",InletChoiceChecks.Run),
+            ("GroupedFarmsteads",GroupedFarmsteadChecks.Run),
+            ("HamletEnding",HamletEndingChecks.Run),
+            ("RelaxedHamlet",RelaxedHamletChecks.Run),
+            ("GardenRelocation",GardenRelocationChecks.Run),
+            ("HamletLayout",HamletLayoutChecks.Run),
+            ("FoodAccess",FoodAccessChecks.Run),
+            ("ConstructionStaging",ConstructionStagingChecks.Run),
+        };
+        var rows=new List<object>();string status="running",runId=Guid.NewGuid().ToString("N");var startedUtc=DateTime.UtcNow;
+        void Report()=>File.WriteAllText("artifacts/current-experience/report.json",JsonSerializer.Serialize(new {
+            runId,startedUtc,status,expectedSuites=cases.Length,finishedSuites=rows.Count,
+            assembly=typeof(CurrentExperienceChecks).Assembly.ManifestModule.ModuleVersionId,
+            prerequisite="RiverFarmstead generates snapshots used by HomeWaiting and ProductionRecovery",suites=rows
+        },new JsonSerializerOptions{WriteIndented=true}));
+        Report();
+        try
         {
-            var clock=Stopwatch.StartNew();string result="passed";
-            try {action();} catch {result="failed";throw;}
-            finally {
-                rows.Add(new {name,result,seconds=clock.Elapsed.TotalSeconds});
-                File.WriteAllText("artifacts/current-experience/report.json",JsonSerializer.Serialize(new {
-                    assembly=typeof(CurrentExperienceChecks).Assembly.ManifestModule.ModuleVersionId,
-                    prerequisite="RiverFarmstead generates snapshots used by HomeWaiting and ProductionRecovery",suites=rows
-                },new JsonSerializerOptions{WriteIndented=true}));
+            foreach(var item in cases)
+            {
+                var clock=Stopwatch.StartNew();string result="passed";
+                try{item.Execute();}catch{result="failed";throw;}
+                finally{rows.Add(new{name=item.Name,result,seconds=clock.Elapsed.TotalSeconds});Report();}
             }
+            status="completed";
         }
-        Run("RiverFarmstead",RiverFarmsteadChecks.Run);
-        Run("HomeWaiting",HomeWaitingChecks.Run);
-        Run("ProductionRecovery",ProductionRecoveryChecks.Run);
-        Run("WorkingVillage",WorkingVillageChecks.Run);
-        Run("ProvisionedLife",ProvisionedLifeChecks.Run);
-        Run("GrainRelocation",GrainRelocationChecks.Run);
-        Run("OvenWorkyard",OvenWorkyardChecks.Run);
-        Run("Landing",LandingChecks.Run);
-        Run("MealPlace",MealPlaceChecks.Run);
-        Run("NormalCommons",NormalCommonsChecks.Run);
-        Run("HomeYards",HomeYardChecks.Run);
-        Run("DirectDomestic",DirectDomesticChecks.Run);
-        Run("YardArrangement",YardArrangementChecks.Run);
-        Run("VegetableField",VegetableFieldChecks.Run);
-        Run("BatchBread",BatchBreadChecks.Run);
-        Run("CourtExperience",CourtExperienceChecks.Run);
-        Run("CreativeCourt",CreativeCourtChecks.Run);
-        Run("CultivatedBank",CultivatedBankChecks.Run);
-        Run("PlaceJourneys",PlaceJourneyChecks.Run);
-        Run("InletBank",InletBankChecks.Run);
-        Run("InletChoice",InletChoiceChecks.Run);
-        Run("GroupedFarmsteads",GroupedFarmsteadChecks.Run);
-        Run("HamletEnding",HamletEndingChecks.Run);
-        Run("RelaxedHamlet",RelaxedHamletChecks.Run);
-        Run("GardenRelocation",GardenRelocationChecks.Run);
-        Run("HamletLayout",HamletLayoutChecks.Run);
-        Run("FoodAccess",FoodAccessChecks.Run);
-        Run("ConstructionStaging",ConstructionStagingChecks.Run);
+        catch{status="failed";throw;}
+        finally{Report();}
     }
 }

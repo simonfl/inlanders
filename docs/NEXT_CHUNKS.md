@@ -1,29 +1,15 @@
-# Next work — visibly different productive places
+# Next work — establish a place of your own
 
-Playable count **85**. [Full review80](REVIEW_CHECKPOINT_80.md) completed on b4fbcee with five independent fresh roles. All25 current suites/broad regressions/native960 pass. No human play, listening, continuous-motion or native performance acceptance. User authorizes through90, with full reviews85 and90 before further features.
+Playable count **85**. [Whole-game review85](REVIEW_CHECKPOINT_85.md) chooses provisioned founding on the existing inlet as a substantial comparison against the already inhabited hamlet. Five separate discipline passes; two reused earlier contexts, explicitly documented.28 current suites pass. No human play/listening/performance acceptance. User authorizes through90.
 
-## Direction
-
-Keep the small inhabited farmstead and real material/daily-life substrate. Test existing livelihoods as visibly different places instead of adding observer panels, commodities, needs or another opening. Keep the full catalogue available but secondary. No compulsory bridge/growth, hunger emergency or service-certificate campaign.
-
-| Outcome | Playable scope and decision |
+| Outcome | Conditional playable scope |
 | --- | --- |
-|81 delivered | Continuous worked fields: the existing productive footprint should read as cultivated land instead of fifteen little raised beds. Preserve crop/work truth and compare ordinary whole views. |
-|82 delivered | Working river landing: existing dock, boat, actual catch/approach compose one useful shore place. Ordinary construction and siting; no new trade/fleet. |
-|83 delivered | Oven workyard: existing grain/bakery chain gains a legible, distinct working ensemble and actual process, not another processing resource. |
-|84 delivered | Consolidate place-focused productive actions and public HUD: relevant cost/status, fewer parallel observation controls, full economy/catalogue still accessible. |
-|85 delivered; review due | Meaningful later rearrangement: remove unjustified restrictions on established food-work placement where evidence supports it, with real crop/material consequences and ordinary-control recovery. Then full review85. |
+|86 next | Player establishes homes and first livelihood on the same land with ample provisions/materials. Keep inhabited arrangement selectable; no forced growth, emergency, service certificate or new needs. |
+|87 | Make actual livelihood land/material/input implications visible before committing placement, including the existing grain/oven dependency. |
+|88 | Coherent rearrangement intent: pause, preview consequences, cancel/reject safely, commit and resume through the place action. |
+|89 | Optional household enlargement tied to a real completed home, showing beds/food implications. Staying small remains valid. |
+|90 | Consolidate the entry and establishment experience from evidence; preserve comparison clearly, then full whole-game90 review. |
 
-Reevaluate every outcome; candidates may merge/change, but count playable results honestly. Substantial presentation changes get independent visual review without resetting periodic cadence.
+These are conditional outcomes, not five protected commits. Reevaluate after each. If founding merely creates a prescribed building checklist or hunger countdown, revise before dependent work. Variable-footprint cultivation is deferred until fixed fields prevent a wanted composition; a pure expressive arrangement experience remains the alternative if management only adds waiting.
 
-## Evidence/reliability
-
-Use matched ordinary views, actual production and current-format continuation. Extend one strategic probe through real controls, including rejected ground and recovery. Aggregate walking is not matched-work efficiency. Human intention remains unobserved; no further mandatory question before proceeding.
-
-Review80 closeout corrects stale meal precedence copy, unknown-test fallback and actual profile labels in imported captures. These count zero. Atomic replacement denial0x80070005 remains open; actor unknown and no blind retries. Do not preserve/migrate personal saves.
-
-Existing tooling is sufficient. Accept narrow paired-control evidence and provenance fixes; defer replay/ECS/editors/blanket optimization. No inheritance, genealogy, aging, succession, ownership bureaucracy, seasons or new needs.
-
-[Visual81](REVIEW_PRESENTATION_81.md) retains continuous fields.82 gives the landing three real shore cells; old narrow lake fixtures move to legal sites. Broad regression, four-way docks, fishing/lake recovery and actual960 placement/catch pass. All26 current suites passed; visual82 retains the useful landing.83 now exposes the grain/bake/bread sequence in an open oven workspace; visual83 retains the ensemble provisionally.84 consolidates the public status/card hierarchy; default place watching and expanded people/trips pass at960.85 tests established grain-field rearrangement.
-
-85 actual grain pause/move/cancel/rejected destination/place/Resume and later harvest pass at960. Growing crops restart, ripe/stored goods remain; both modes and exact continuation pass. Freeze for full85; no86 until synthesis.
+No catalogue/need expansion, inheritance/genealogy/aging/succession, ownership bureaucracy or seasons. All buildings available; current saves correct, migrations unnecessary. Atomic replacement denial remains open. Zero-credit closeout: complete/partial current-run report identity and consistent autosave partial-success feedback. No replay/ECS/general editor investment.

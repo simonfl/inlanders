@@ -10,11 +10,9 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: make existing livelihoods visibly different places**, selected by [whole-game review80](REVIEW_CHECKPOINT_80.md). Count **85**. Five independent roles retained the small inhabited farmstead provisionally while challenging repeated forms, commodity-dashboard prominence and unobserved motivation. All25 current suites/broad regressions pass; no human/audio/performance acceptance.
+**Next: establish a place of your own**, selected by [whole-game review85](REVIEW_CHECKPOINT_85.md). Count **85**. Existing fields, landing and oven are clearer and grain rearrangement works, but the opening authors most consequential choices before play. Compare a provisioned player-founded village on the same land against the inhabited arrangement option. No survival emergency or prescribed service campaign.
 
-81 delivers continuous actual cultivated fields, keeping kitchen gardens distinct. 82 delivers a broader actual river landing/boat/catch-handling place. 83 exposes the existing grain-to-bread sequence in an open oven workyard. 84 simplifies the public status bar and place controls. 85 enables established grain-field rearrangement with fresh sowing for growing crops and retained ripe/stored goods. Freeze for full85 review. No additional resource, venue, need or authored opening. Keep all buildings accessible; ordinary material/crop consequences remain. The active scopes81–85 are in [NEXT_CHUNKS](NEXT_CHUNKS.md), reconsidered after each outcome. Full85 then90 reviews choose what survives; user-authorized execution continues through90.
-
-F40a–c remain partial. Ground and real bank/woodlot geometry improve composition but have not established distinctive New France identity. Large forms and ordinary work take precedence over small props, roof details and more observers. Current-save replacement denial remains unresolved despite passing later captures.
+86–90 test founding, spatial livelihood choice, coherent rearrangement, optional household enlargement and a consolidated entry. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the conditional queue. Full90 review decides what survives. Keep the physical simulation and all catalogue access; no additional resources or needs. F40 ensemble identity remains partial; variable productive footprints are a deferred alternative, not another automatic feature queue. Current-save replacement denial remains unresolved.
 
 ## What stays, what changes
 

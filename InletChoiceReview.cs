@@ -35,6 +35,9 @@ public partial class Game
             Check(!SaveSession() && !_atMainMenu && _notice.StartsWith("Settlement saved for F9, but Continue"),"Partial save success was reported as total failure");
             Check(World.LoadFile(CurrentSavePath).SaveJson()==live && _world.SaveJson()==live,"Partial save failure lost slot or live state");
             await CaptureReviewBundle("saved-slot-continue-failure");
+            _lastAutosaved=null;AdvanceAutosave(120);
+            Check(_notice.StartsWith("Autosave is available in Options, but Continue"),"Autosave partial success misreported");
+            Check(World.LoadFile(AutosavePath).SaveJson()==live && _world.SaveJson()==live,"Autosave failure lost slot/live state");
         }
         finally{_continuePath=continueSlot;}
 

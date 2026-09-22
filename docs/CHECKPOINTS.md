@@ -392,3 +392,8 @@ Checkpoint84: public status prioritizes logs, planks, total stored food and hous
 
 
 Checkpoint85: established grain fields can move after pausing in public farmsteads. Growing crops require fresh sowing; ripe crops, grain stores, assignments and identity remain. No-op/rejected proposals preserve exact state. Normal/relaxed growing/ripe scenarios continue identically after saving and resume real production. Native960 actual Pause/Move/cancel/rejected ground/place/Resume and subsequent harvest passed20260922-013905-656-grain-relocation-c4526e. Snapshot setup is explicit; this is scripted controls, not uncoached discovery. Zero-warning build;28-suite current run pending. Freeze for whole-game85 review, then select86–90.
+
+
+Whole-game review85 completed on2b46990 with five separate discipline passes (three fresh, UX/lead reused earlier contexts). [Synthesis](REVIEW_CHECKPOINT_85.md) challenges the pre-solved opening and chooses provisioned player founding as a substantial comparison. All28 current suites pass; fresh fixed native grain960 passes20260922-014520-196-grain-relocation-2be74b. Oven1440 and archivedCreative1440 captured. No human/listening/performance acceptance. Continue86–90 under the conditional revised queue; full90 due.
+
+85 broad regression completed exit0 (artifacts/review85-regression.log). Closeout adds explicit current-report running/completed/failed identity/count and truthful autosave-slot versus Continue feedback, zero playable credit.

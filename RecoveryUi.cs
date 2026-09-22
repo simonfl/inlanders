@@ -38,13 +38,14 @@ public partial class Game
         _autosaveElapsed += seconds;
         if (_autosaveElapsed < 120) return;
         _autosaveElapsed = 0;
+        bool slotSaved=false;
         try
         {
             string json = _world.SaveJson();
             if (json == _lastAutosaved) return;
-            _world.SaveFile(AutosavePath); RememberSettlement(); _lastAutosaved = json;
+            _world.SaveFile(AutosavePath); slotSaved=true;RememberSettlement(); _lastAutosaved = json;
         }
-        catch (Exception e) { Notice("Autosave failed; village kept open. Try F5. " + e.Message); }
+        catch (Exception e) { GD.PrintErr($"Autosave {(slotSaved?"Continue":"settlement-slot")} failure: {e}");Notice(slotSaved?"Autosave is available in Options, but Continue could not be updated. Village kept open.":"Autosave failed; village kept open. Try F5."); }
     }
     private void RestoreRecovery(string path)
     {
