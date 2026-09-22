@@ -1,6 +1,6 @@
 # Next work — make the changed place worth keeping
 
-Playable count **77**. [Whole-game review76](REVIEW_CHECKPOINT_76.md) completed on fixed718865e with five independent roles (three fresh, two reused prior contexts). No human playtest, independent UI discovery, listening or performance acceptance. The review was brought forward after the first coherent experiment; periodic80 remains due. The user has now authorized execution through checkpoint90, including full periodic reviews80/85/90. Continue after each review unless redirected.
+Playable count **78**. [Whole-game review76](REVIEW_CHECKPOINT_76.md) completed on fixed718865e with five independent roles (three fresh, two reused prior contexts). No human playtest, independent UI discovery, listening or performance acceptance. The review was brought forward after the first coherent experiment; periodic80 remains due. The user has now authorized execution through checkpoint90, including full periodic reviews80/85/90. Continue after each review unless redirected.
 
 ## Chosen direction
 
@@ -8,7 +8,9 @@ Across the inlet creates a readable spatial situation and three viable responses
 
 **77 delivered: first dynamic worked-land comparison and secondary layout entry.** Field soil follows actual productive footprints; domestic clearings, path shoulders, woodland and bank tint follow actual geometry. No simulation changes. Review the whole scene before extending the treatment.
 
-**Next78 hypothesis: make an existing place’s actual journeys inspectable in the world.** Observe a matched food trip and its consequence; avoid adding another throughput meter. Test the substantial alternative of a small composition game with real material constraints and everyday life, rather than extending the broad management hybrid by default.
+**78 delivered: actual selected-place journeys with framing/following and observed arrival.** No route is invented; work/meal/household relations are explicit and an observed trip ends without silently switching. Native960 follows a carried meal from a workplace to its seat. This is not a matched-work efficiency comparison or discovery test.
+
+**Next79: actual bank and woodlot silhouettes**, following [presentation review77](REVIEW_PRESENTATION_77.md). Keep resource/building inventory and the viable alternatives; change real land/water and actual tree grouping instead of adding decorative obstacles. Do not create another permanent layout slot. Test the substantial alternative of a small composition game with real material constraints and everyday life, rather than extending the broad management hybrid by default.
 
 - Compose actual cultivated footprints, domestic clearings, worn approaches, rough woodland margins and riverbank transitions as large readable forms. Keep existing people, supplies, capacity, movement and keep/cross/reshape responses.
 - Make land use and change recognizable at ordinary zoom in both orientations. No fake productive extent, decorative residents or catalogue-wide prop scatter. F40a–c remain partial until the whole ensemble earns acceptance.

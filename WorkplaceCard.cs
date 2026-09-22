@@ -42,6 +42,7 @@ public partial class Game
         actions.AddChild(Button("×",ClearSelection));
         _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
         _workCardYard=Button("Arrange yard",BeginYardPreview);column.AddChild(_workCardYard);MakeYardPreview(column);
+        MakePlaceJourneys(column);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()

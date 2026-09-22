@@ -133,6 +133,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="place-journeys")await ProbePlaceJourneys();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="across-inlet")await ProbeInletChoice();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="grouped-farmsteads")await ProbeGroupedFarmsteads();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="cultivated-bank")await ProbeCultivatedBank();

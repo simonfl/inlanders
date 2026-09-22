@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--place-journeys")){try{PlaceJourneyChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--inlet-choice")){try{InletChoiceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--grouped-farmsteads")){try{GroupedFarmsteadChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--yard-arrangement")){try{YardArrangementChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
