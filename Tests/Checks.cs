@@ -141,6 +141,8 @@ if (args.Contains("--local-storage")) { try { LocalStorageExperiments.Run(); } c
 if (args.Contains("--plank-storage")) { try { PlankStorageChecks.Run(); } catch(Exception e) { Console.Error.WriteLine(e); Environment.ExitCode=1; } return; }
 if (args.Contains("--balance")) { BalanceExperiments.Run(); return; }
 
+if(args.Length>0){Console.Error.WriteLine("Unknown test request: "+string.Join(" ",args)+". No tests ran. Use --current-experience for public play, or no arguments for broad regressions. Focused commands are listed in Tests/Checks.cs.");Environment.ExitCode=2;return;}
+
 try
 {
 static void Check(bool condition, string message) { if (!condition) throw new Exception(message); }

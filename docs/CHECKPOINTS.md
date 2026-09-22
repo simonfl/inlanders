@@ -366,3 +366,6 @@ Checkpoint79: Across the inlet now has actual uneven river frontage, two connect
 
 
 Checkpoint80: ordinary meals now compare the actual path cost to eligible furnished home/shared ground, favoring home on a tie; both alternatives choose their closest available seat. Existing welcome/gathering precedence remains. Real paid/free furnishing, actual home and shared meals, active exact saves and removal pass in both public modes; zero-warning build. Freeze for full five-role review80; choose81 from the synthesis and continue through90.
+
+
+Review80 completed on b4fbcee: [whole-game synthesis](REVIEW_CHECKPOINT_80.md). Five independent fresh roles, staggered under thread limits. All25 current suites and broad regressions pass; native960 and fresh opposite/inhabited/dense scenes inspected. No hands-on discovery, listening, continuous-motion or native performance acceptance. Choose productive-place comparison81–85 using existing fields/landing/oven, contextual interaction and real rearrangement; continue through90. Stale meal copy, fail-fast test requests and actual capture-profile labels are zero-count closeout. Save replacement denial remains open.

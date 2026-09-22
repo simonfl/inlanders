@@ -176,13 +176,13 @@ public partial class Game
                 camera=new{focusX=_focus.X,focusY=_focus.Y,focusZ=_focus.Z,angle=_angle,zoom=_camera.Size},
                 window=new{width=GetWindow().Size.X,height=GetWindow().Size.Y},
                 selected=new{personId=_selectedPerson,siteId=_selectedSite,personStatus=person?.Status,role=person?.Role.ToString(),task=person?.Task.ToString(),siteKind=site?.Kind.ToString()},
-                village=new{population=_world.Population,buildings=_world.Cottages.Count,map=_world.Map.Name,objective=_world.CampaignObjective},
+                village=new{publicPlace=_world.PublicPlace?.Title,relaxed=_world.PublicPlace?.Relaxed,creative=_world.Creative,population=_world.Population,buildings=_world.Cottages.Count,map=_world.Map.Name,objective=_world.CampaignObjective},
                 rendering=new{renderer=RenderingServer.GetCurrentRenderingMethod(),adapter=RenderingServer.GetVideoAdapterName(),vsync=DisplayServer.WindowGetVsyncMode().ToString(),maxFps=Engine.MaxFps,goldenHour=_goldenHour,foliage=_foliageMotion,labels=_showWorldLabels,storybook=_storybookScene,commonsMats=_commonsMats,courtControl=_courtControl,plainFarmstead=_plainFarmstead,readableCourt=ReadableCourt},
                 audio=new{effects=_effectsVolume,music=_musicVolume,nature=_ambienceVolume,muted=_soundMuted,musicMuted=_musicMuted}
             };
             File.WriteAllText(Path.Combine(directory,"manifest.json"),JsonSerializer.Serialize(record,new JsonSerializerOptions{WriteIndented=true}));
             string title=semantic??(_atMainMenu?"menu-"+_menuPageTitle:site!=null?"selected-"+site.Kind:person!=null?"selected-person":"village");
-            File.AppendAllText(Path.Combine(_reviewDirectory,"index.md"),$"- [{title}](capture-{_reviewCapture:0000}/view.png) · [state and provenance](capture-{_reviewCapture:0000}/manifest.json)\n");
+            File.AppendAllText(Path.Combine(_reviewDirectory,"index.md"),$"- [{title} · {_world.PublicPlace?.Title??_world.Map.Name}](capture-{_reviewCapture:0000}/view.png) · [state and provenance](capture-{_reviewCapture:0000}/manifest.json)\n");
             GD.Print($"REVIEW CAPTURE: {directory}");
         }
         catch(Exception e) { GD.PushError("Review capture failed: "+e);if(_reviewRequest.RootElement.GetProperty("captureOnly").GetBoolean())throw; }

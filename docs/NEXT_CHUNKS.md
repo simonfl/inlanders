@@ -1,41 +1,25 @@
-# Next work — make the changed place worth keeping
+# Next work — visibly different productive places
 
-Playable count **80**. [Whole-game review76](REVIEW_CHECKPOINT_76.md) completed on fixed718865e with five independent roles (three fresh, two reused prior contexts). No human playtest, independent UI discovery, listening or performance acceptance. The review was brought forward after the first coherent experiment; periodic80 remains due. The user has now authorized execution through checkpoint90, including full periodic reviews80/85/90. Continue after each review unless redirected.
+Playable count **80**. [Full review80](REVIEW_CHECKPOINT_80.md) completed on b4fbcee with five independent fresh roles. All25 current suites/broad regressions/native960 pass. No human play, listening, continuous-motion or native performance acceptance. User authorizes through90, with full reviews85 and90 before further features.
 
-## Chosen direction
+## Direction
 
-Across the inlet creates a readable spatial situation and three viable responses, but still does not establish a wanted transformation. Do not fill77–80 with household policies, venue sizes, restoration tools or another authored layout. Retain the current inlet presentation and matched bank as controls.
+Keep the small inhabited farmstead and real material/daily-life substrate. Test existing livelihoods as visibly different places instead of adding observer panels, commodities, needs or another opening. Keep the full catalogue available but secondary. No compulsory bridge/growth, hunger emergency or service-certificate campaign.
 
-**77 delivered: first dynamic worked-land comparison and secondary layout entry.** Field soil follows actual productive footprints; domestic clearings, path shoulders, woodland and bank tint follow actual geometry. No simulation changes. Review the whole scene before extending the treatment.
+| Outcome | Playable scope and decision |
+| --- | --- |
+|81 next | Continuous worked fields: the existing productive footprint should read as cultivated land instead of fifteen little raised beds. Preserve crop/work truth and compare ordinary whole views. |
+|82 candidate | Working river landing: existing dock, boat, actual catch/approach compose one useful shore place. Ordinary construction and siting; no new trade/fleet. |
+|83 candidate | Oven workyard: existing grain/bakery chain gains a legible, distinct working ensemble and actual process, not another processing resource. |
+|84 candidate | Consolidate place-focused productive actions and public HUD: relevant cost/status, fewer parallel observation controls, full economy/catalogue still accessible. |
+|85 candidate | Meaningful later rearrangement: remove unjustified restrictions on established food-work placement where evidence supports it, with real crop/material consequences and ordinary-control recovery. Then full review85. |
 
-**78 delivered: actual selected-place journeys with framing/following and observed arrival.** No route is invented; work/meal/household relations are explicit and an observed trip ends without silently switching. Native960 follows a carried meal from a workplace to its seat. This is not a matched-work efficiency comparison or discovery test.
+Reevaluate every outcome; candidates may merge/change, but count playable results honestly. Substantial presentation changes get independent visual review without resetting periodic cadence.
 
-**79 delivered: actual inlet banks and clustered usable woodland.** Two backwaters and a stepped river frontage replace the straight edge; the same ten usable trees form small groups. All six keep/cross/reshape mode branches remain viable, with zero hungry ticks. Geometry is real navigable land/water, not decorative obstacles.
+## Evidence/reliability
 
-**80 delivered: ordinary meal placement uses actual travel cost between eligible home and shared seats.** Ties favor home; both places remain used. Gathering/welcome selection is preserved. Freeze for whole-game review80 with five independent roles before choosing81–85. Continue through90 as authorized.
+Use matched ordinary views, actual production and current-format continuation. Extend one strategic probe through real controls, including rejected ground and recovery. Aggregate walking is not matched-work efficiency. Human intention remains unobserved; no further mandatory question before proceeding.
 
-- Compose actual cultivated footprints, domestic clearings, worn approaches, rough woodland margins and riverbank transitions as large readable forms. Keep existing people, supplies, capacity, movement and keep/cross/reshape responses.
-- Make land use and change recognizable at ordinary zoom in both orientations. No fake productive extent, decorative residents or catalogue-wide prop scatter. F40a–c remain partial until the whole ensemble earns acceptance.
-- Couple only the interface changes necessary to that experience: one foreground opening, clearly secondary comparisons/full catalogue, relevant immediate costs and actual selected-place trips. Do not count menu/resource-strip cleanup separately.
-- Judge domestic/shared activity deliberately: commons currently precede home seats. Do not automatically add preference controls or another venue to conceal that interaction.
+Review80 closeout corrects stale meal precedence copy, unknown-test fallback and actual profile labels in imported captures. These count zero. Atomic replacement denial0x80070005 remains open; actor unknown and no blind retries. Do not preserve/migrate personal saves.
 
-This can span commits but counts once when playable. Exact geometry, ground treatment and controls remain TBD during implementation. Existing buildings stay available; no blanket feature lockout.
-
-## Evidence that must improve
-
-[The76 decision record](INLET_COMPARISON_76.md) contains authored intentions and matched branch scenes. It is not a player account. Total movement is not efficiency: jobs, waits, setup and crop phases differ.
-
-Capture one ordinary completed journey with departure, goods and destination alongside the changed place. Test the strategic action through ordinary controls, not only API calls. Compare the same population/rules at960/1440 and1×; use3×/6× for production waits.
-
-When human play is available, observe intention before controls, alternatives, prediction, action and recognized consequence; allow keeping the village. Reject a treatment that only adds clutter, needs throughput reports to justify itself, or just prescribes the bridge. Human feedback can replace this hypothesis; its absence is not acceptance.
-
-## Reliability and tooling
-
-- Keep current-format correctness; no migrations or personal-save preservation programme.
-- Atomic replacement denial remains open:76 reproduced11 attempts/414ms/0x80070005. Actor unknown; no blind retry extension or attribution. Stage-specific session feedback is corrected, not the denial itself.
-- Existing decision annotation/captures are enough infrastructure. Add a matched journey sample during the next actual comparison; expected a few hours to half-day and low upkeep. Validate a reviewer can reconstruct one choice within two minutes. No new replay/editor/ECS framework.
-- No repeat of unchanged hung native observation attempts. Report scripted/still/listening limits honestly.
-
-## Direction boundaries
-
-No inheritance, genealogy, aging, succession, ownership bureaucracy, seasons/winter deadlines, new needs or compulsory growth. Campaign can eventually supply distinct places to transform; archived service/population certificates are not the chosen progression. Keep broad economy availability secondary rather than assume every chain belongs in the foreground.
+Existing tooling is sufficient. Accept narrow paired-control evidence and provenance fixes; defer replay/ECS/editors/blanket optimization. No inheritance, genealogy, aging, succession, ownership bureaucracy, seasons or new needs.
