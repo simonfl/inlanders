@@ -406,5 +406,13 @@
     "focusX": 0,
     "focusZ": 1,
     "zoom": 29
+  },
+  {
+    "name": "across-inlet",
+    "description": "Viable crowded home bank and distant fields; two recoverable land responses",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]

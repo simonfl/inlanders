@@ -338,3 +338,8 @@ Checkpoint75: Homes among the fields is a public comparison with the same six ho
 
 
 Review75 closeout: reproduced the furnished-yard/shared-ground relocation bug before repair at(-2,-9), rotation0 with commons at(2,-9). Normal/relaxed rejection/query-purity regression passes after adding commons exclusivity to yard claims. Watch cancels pending yard preview; one Escape exits. Zero-warning build, focused yard/commons/home-use/direct-work checks and final native960 full bank run `20260921-121502-080-cultivated-bank-98e263` pass. Save denial remains open despite this later pass. Review/roadmap updated; count75, no76.
+
+
+Checkpoint76 — Across the inlet: a matched-capacity public experiment with six homes on the crowded southern bank, two fields beyond the inlet and a nearby kitchen garden. Ordinary alternatives: keep the village, build a six-log crossing with approaches, or move a home north and a field into the released southern space (fresh sowing required). All preserve optional finishing and separate Normal/relaxed saves. This is one coherent playable outcome, not one credit per branch or test.
+
+The lead brings the next full direction/presentation review forward after76: don't spend four more outcomes assuming this geography has solved motivation. Periodic80 is unchanged. Freeze after validation; record the fixed commit, final evidence and review limitations in the synthesis.

@@ -21,6 +21,7 @@ static class ReviewFixtures
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "farmstead"=>World.NewRiverFarmstead(),
+            "across-inlet"=>new HamletProfile(false,true,false,true).Create(),
             "grouped-farmsteads"=>new HamletProfile(false,true,true).Create(),
             "grouped-farmsteads-relaxed"=>new HamletProfile(true,true,true).Create(),
             "cultivated-bank"=>World.NewTransformationHamlet(false,true),

@@ -16,7 +16,7 @@ Test a visibly awkward but viable everyday journey and competing use of useful g
 
 The substantial alternative is a focused domestic composition game with a smaller foreground vocabulary and much stronger visible before/after land treatment. Broad economy/catalogue breadth is not earned by implementation. F40 still needs worked-ground, silhouette and river/woodland composition rather than small added props. Archived geography may be useful; archived assessment/service certificates are not the chosen progression.
 
-The [active queue](NEXT_CHUNKS.md) defines the coherent experiment and falsification criteria. Playable count **75**. This requested run stops after review75 closeout; no76 implementation. Four core disciplinary findings are independent (three fresh contexts, one reused older context); visual/audio is a dependent UX-context supplement due thread limits. No human play, independent hands-on discovery, continuous-motion acceptance or listening. Next periodic80, with earlier presentation review when required. Save replacement denial recurred and remains unresolved.
+The [active queue](NEXT_CHUNKS.md) defines the experiment and falsification criteria. Playable count **76**: Across the inlet places the same cultivated-bank inventory on a crowded home bank and across the inlet. Keep it, build a crossing, or redistribute a home and a field through ordinary rules. No new need or completion gate. Freeze for an early whole-game direction/presentation review before dependent additions; periodic80 remains due. No human play or listening verdict. Current-save replacement denial recurred during native UI validation and remains unresolved.
 
 ## What stays, what changes
 

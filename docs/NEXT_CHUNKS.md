@@ -1,12 +1,14 @@
 # Next work — a wanted change, not another feature batch
 
-Playable count **75**. [Whole-game review75](REVIEW_CHECKPOINT_75.md) covers the entire project at `87de771`. Four core disciplines supplied independent findings (three fresh, one reused older context); the visual/audio supplement reused the UX context after thread limits and is dependent. No hands-on play or listening acceptance. **This requested run stops after review75 closeout. No76 implementation.** Next periodic review80; presentation changes trigger an earlier visual/audio review.
+Playable count **76**. The user resumed through the next review. The first coherent experiment from [review75](REVIEW_CHECKPOINT_75.md) is now implemented as **Across the inlet**. Freeze it for an earlier full direction/presentation review before adding dependent features. This does not advance or reset the periodic review at80. Do not count the alternative branches, tests or capture tooling as additional playable outcomes.
+
+The initial expectation was to continue to80. The lead brought review forward because the changed opening makes the spatial choice testable but does not establish its value: leave-it remains viable, the crossing's aggregate effect is modest, and the reshaped scene needs qualitative judgment. Review the experiment before committing to four more systems.
 
 ## Chosen direction
 
 The game is partially convincing as an arrangement toy, but the inhabited opening may already solve its interesting livelihood problem. Better controls and equal-inventory layouts make the question testable; they do not answer it. Stop automatic catalogue, venue, need and interaction expansion.
 
-Next implementation hypothesis: **one visible, recoverable home-and-land dilemma**, using the existing simulation. An awkward ordinary journey and competing use of useful ground should invite a personally chosen transformation. Preserve a viable leave-it option. Keep one matched opening as the control. Human feedback, when available, takes precedence over this hypothesis.
+Implemented hypothesis awaiting review: **one visible, recoverable home-and-land dilemma**, using the existing simulation. An awkward ordinary journey and competing use of useful ground should invite a personally chosen transformation. Preserve a viable leave-it option. Keep one matched opening as the control. Human feedback, when available, takes precedence over this hypothesis.
 
 ## One coherent experiment
 
