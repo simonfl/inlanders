@@ -63,6 +63,7 @@ public sealed partial class World
             (home.Entrance.Point-supply.Point).LengthSquared()>64)return null;
         return HomeYardPlaces(home).Where(c=>!MealSpotReserved(c) && !ComfortSpotReserved(c) &&
             !People.Any(p=>p.Id!=person.Id && (At(p)==c || p.Destination==c && p.Route.Count>0)))
+            .OrderBy(c=>TravelCost(supply,c)).ThenBy(c=>c.Z).ThenBy(c=>c.X)
             .Cast<Cell?>().FirstOrDefault(c=>FindPath(supply,c!.Value,Blocked) is {} path && path.Count<=12);
     }
 }

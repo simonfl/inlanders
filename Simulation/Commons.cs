@@ -43,7 +43,7 @@ public sealed partial class World
     {
         if(Commons is not {} commons || (supply.Point-commons.Center.Point).LengthSquared()>64)return null;
         return commons.Places.Where(c=>!People.Any(p=>(p.Meal is {Reserved:true} or {Carrying:true}) && p.Meal.Seat==c) &&
-            !Blocked(c) && FindPath(supply,c,Blocked)!=null).Cast<Cell?>().FirstOrDefault();
+            !Blocked(c) && FindPath(supply,c,Blocked)!=null).OrderBy(c=>TravelCost(supply,c)).ThenBy(c=>c.Z).ThenBy(c=>c.X).Cast<Cell?>().FirstOrDefault();
     }
     private void ValidateCommons()
     {

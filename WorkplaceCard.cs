@@ -64,7 +64,7 @@ public partial class Game
         _workCardYard.Visible=_yardPreviewSide<0 && _world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _workCardYard.Text="Arrange yard · preview";
         _workCardYard.Disabled=site.ImprovementRequested || site.DemolitionRequested;
-        _workCardYard.TooltipText="Preview the four sides before choosing. Residents use the chosen ground for quiet work and nearby meals after furnishing. Existing furniture moves free.";
+        _workCardYard.TooltipText="Preview the four sides before choosing. Residents use the chosen ground for quiet work and nearby meals after furnishing. Meals use the shorter eligible trip to home or shared ground. Existing furniture moves free.";
         _workCardFurnish.Visible=_yardPreviewSide<0 && site.Complete && Buildings.Get(site.Kind).Beds>0 && !site.Improved;
         _workCardFurnish.Text=site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish yard · free":$"Furnish yard · {World.ComfortCost(site)} planks";
         _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && _world.ImprovementProblem(site.Id)!=null;

@@ -363,3 +363,6 @@ Checkpoint78: Journeys here on a selected place exposes only current committed r
 
 
 Checkpoint79: Across the inlet now has actual uneven river frontage, two connected backwaters and clustered usable woodland. Tree count/log content, initial supplies, crop capacity, people and buildings remain equal. All six Normal/relaxed keep/cross/reshape branches pass with zero hungry ticks; Normal final food48/51/45, logs12/6/12. Aggregate movement is not a matched efficiency measure. Current-map validation, bridge legality and exact saves pass. Zero-warning build and native960 full flow (`20260922-005042-844-across-inlet-59b7a3`) pass;1440 opening inspected (`20260922-004646-661-across-inlet-59be30`). Coast remains visibly grid-based; no atmosphere acceptance. Next80 natural meal-seat proximity, then full whole-game review.
+
+
+Checkpoint80: ordinary meals now compare the actual path cost to eligible furnished home/shared ground, favoring home on a tie; both alternatives choose their closest available seat. Existing welcome/gathering precedence remains. Real paid/free furnishing, actual home and shared meals, active exact saves and removal pass in both public modes; zero-warning build. Freeze for full five-role review80; choose81 from the synthesis and continue through90.

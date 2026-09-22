@@ -116,6 +116,8 @@ public sealed partial class World
             if(kinds.Length==0 || FindPath(At(person),access,Blocked)==null) continue;
             var commons=!gathering && welcome==null?AvailableCommonsPlace(access):null;
             var homeSeat=!gathering && welcome==null?HomeMealPlace(person,access):null;
+            // Ordinary meals use the shorter eligible trip; a tie favors home.
+            if(commons is {} shared && homeSeat is {} domestic && TravelCost(access,domestic)<=TravelCost(access,shared))commons=null;
             var seat=commons ?? homeSeat ?? (gathering?(Cell?)Gathering!.Seats[person.Id]:Map.Land.Where(c=>(c.Point-access.Point).LengthSquared()<=4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !occupied.Contains(c))
                 .OrderBy(c=>(c.Point-access.Point).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
                 .Cast<Cell?>().FirstOrDefault(c=>FindPath(access,c!.Value,Blocked)!=null));

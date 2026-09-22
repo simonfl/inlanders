@@ -1,6 +1,6 @@
 # Next work — make the changed place worth keeping
 
-Playable count **79**. [Whole-game review76](REVIEW_CHECKPOINT_76.md) completed on fixed718865e with five independent roles (three fresh, two reused prior contexts). No human playtest, independent UI discovery, listening or performance acceptance. The review was brought forward after the first coherent experiment; periodic80 remains due. The user has now authorized execution through checkpoint90, including full periodic reviews80/85/90. Continue after each review unless redirected.
+Playable count **80**. [Whole-game review76](REVIEW_CHECKPOINT_76.md) completed on fixed718865e with five independent roles (three fresh, two reused prior contexts). No human playtest, independent UI discovery, listening or performance acceptance. The review was brought forward after the first coherent experiment; periodic80 remains due. The user has now authorized execution through checkpoint90, including full periodic reviews80/85/90. Continue after each review unless redirected.
 
 ## Chosen direction
 
@@ -12,7 +12,7 @@ Across the inlet creates a readable spatial situation and three viable responses
 
 **79 delivered: actual inlet banks and clustered usable woodland.** Two backwaters and a stepped river frontage replace the straight edge; the same ten usable trees form small groups. All six keep/cross/reshape mode branches remain viable, with zero hungry ticks. Geometry is real navigable land/water, not decorative obstacles.
 
-**Next80: let the shorter food-to-seat journey choose between furnished home ground and shared ground.** The current unconditional commons priority defeats domestic arrangement. Compare eligible actual routes without adding a preference panel, need or venue; preserve gathering/welcome behavior. Then freeze for the full review80 before choosing81–85.
+**80 delivered: ordinary meal placement uses actual travel cost between eligible home and shared seats.** Ties favor home; both places remain used. Gathering/welcome selection is preserved. Freeze for whole-game review80 with five independent roles before choosing81–85. Continue through90 as authorized.
 
 - Compose actual cultivated footprints, domestic clearings, worn approaches, rough woodland margins and riverbank transitions as large readable forms. Keep existing people, supplies, capacity, movement and keep/cross/reshape responses.
 - Make land use and change recognizable at ordinary zoom in both orientations. No fake productive extent, decorative residents or catalogue-wide prop scatter. F40a–c remain partial until the whole ensemble earns acceptance.
