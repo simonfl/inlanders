@@ -53,3 +53,8 @@ Real larger fields, lower/broader bank homes and four usable domestic-yard locat
 ## Review75 assessment
 
 Matched bank/grouped inventory now supports a fairer composition comparison. Grouped homes improve the reading of working clearings, but F40 remains unaccepted: uniform lawn, geometric shore/inlet and repeated silhouettes still dominate. [Review75](REVIEW_CHECKPOINT_75.md) prioritizes a coherent worked-ground/approach/woodland-margin/river-transition treatment alongside a meaningful spatial transformation, not another small-prop pass. Audio and continuous motion are unassessed; the visual/audio supplement reused UX context under thread limits and is not a fifth independent verdict.
+
+
+## Review76 priority
+
+[Whole-game review76](REVIEW_CHECKPOINT_76.md) keeps F40a–c partial: readable components have not yet formed the promised farmstead ensemble. The next coherent slice is F40b/c on the existing inlet, preserving productive extent, people and rules. Prioritize large worked-ground/clearing/woodlot/bank relationships and visible before/after arrangement over more props. Couple only necessary place-focused controls. Compare current treatment as control at ordinary960/1440 views, both orientations, with actual daily journeys. No historical reconstruction, motion, audio or enjoyment acceptance is implied by the stills.

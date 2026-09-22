@@ -21,8 +21,8 @@ public partial class Game
         }
         if(!acrossTheInlet)MenuButton("Compare: across the inlet",()=>HamletMenu(true,false,true));
         MenuButton(cultivatedBank?"Compare: compact hamlet":"Compare: cultivated bank",()=>HamletMenu(!cultivatedBank));
-        if(groupedFarmsteads)MenuButton("Compare: cultivated bank",()=>HamletMenu(true));
-        else MenuButton("Compare: grouped farmsteads",()=>HamletMenu(true,true));
+        if(groupedFarmsteads || acrossTheInlet)MenuButton("Compare: cultivated bank",()=>HamletMenu(true));
+        if(!groupedFarmsteads)MenuButton("Compare: grouped farmsteads",()=>HamletMenu(true,true));
         MenuButton("About this place",()=>{
             MenuPage("Life between wood and water");
             _mainColumn.AddChild(Text("All openings have twelve residents, twelve logs, four planks and72 starting food. The bank and grouped farmsteads have identical buildings and36 cultivated tiles/48 vegetables per full crop; the compact village has18 tiles/24 vegetables. More land brings larger crops and more collection work. The woodlot is preserved; release chosen trees when you need timber. The meadow beyond the inlet has growing room. A crossing shortens journeys but grows no food.",16,true));

@@ -65,12 +65,10 @@ public partial class Game
     }
     private bool SaveSession()
     {
-        try
-        {
-            if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath);
-            RememberSettlement(); return true;
-        }
-        catch (Exception e) { Notice("Could not save; village kept open. " + e.Message); return false; }
+        try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
+        catch (Exception e) { GD.PrintErr($"Session settlement-slot save failure: {e}");Notice("Could not save settlement; village kept open. Try F5 again."); return false; }
+        try { RememberSettlement(); return true; }
+        catch (Exception e) { GD.PrintErr($"Session Continue failure after successful slot save: {e}");Notice("Settlement saved for F9, but Continue could not be updated. Village kept open; try F5 again."); return false; }
     }
     private void RequestQuit()
     {

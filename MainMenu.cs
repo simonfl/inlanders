@@ -108,7 +108,7 @@ public partial class Game
         MenuButton("Short introduction · A place to gather",()=>CourtStartMenu(true));
         _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play opens the current inhabited hamlet in Normal or relaxed mode.",15,true));
         MenuButton("Earlier settlements", NeighborhoodMenu);
-        MenuButton("Between wood and water · prototype",TransformationMenu);
+        MenuButton("Between wood and water · prototype",()=>HamletMenu(false));
         MenuButton("Earlier free court", CreativeCourtMenu);
         MenuButton("Campaign", CampaignMenu);
         MenuButton("Free play", FreePlayMenu);
