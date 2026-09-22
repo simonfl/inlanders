@@ -19,6 +19,7 @@ public partial class Game
             void Start()=>MenuAttempt(()=>{var w=profile.Create();w.SaveFile(path);EnterFromMenu(w);});
             MenuButton("New "+label,()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this "+label+"?",Start,()=>HamletMenu(cultivatedBank,groupedFarmsteads,acrossTheInlet));else Start();});
         }
+        MenuButton("Establish a farmstead",PlayerFoundedMenu);
         MenuButton("Other starting layouts",()=>{
             MenuPage("Other starting layouts");
             _mainColumn.AddChild(Text("Optional comparisons. Each layout and mode has its own save.",16,true));
