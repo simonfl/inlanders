@@ -31,9 +31,12 @@ public partial class Game
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
         _workCardWatchPlace=Button("Watch this place",()=>{
             var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
-            ClearSelection();FrameHomeYard(home,home.YardSide,false);ToggleWatch();
-        });people.AddChild(_workCardWatchPlace);
-        _workCardWatchPlace.TooltipText="Stay with this home's yard as people come and go. H or Esc returns to management. Pause and speed stay as you set them.";
+            ClearSelection();
+            if(Buildings.Get(home.Kind).Beds>0)FrameHomeYard(home,home.YardSide,false);
+            else{_focus=BuildingPosition(home.Cell,home.Rotation,home.Kind);_camera.Size=home.Kind is BuildingKind.Farm or BuildingKind.VegetableField?17:14;_followPerson=false;_watchOrbit=false;UpdateCamera();}
+            ToggleWatch();
+        });column.AddChild(_workCardWatchPlace);
+        _workCardWatchPlace.TooltipText="Stay with this place as people come and go. H or Esc returns to management. Pause and speed stay as you set them.";
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
@@ -70,15 +73,15 @@ public partial class Game
         _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && _world.ImprovementProblem(site.Id)!=null;
         _workCardFurnish.TooltipText=_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
         if(site.Complete && Buildings.Get(site.Kind).Beds>0)_workCardText.Text+="\n"+HomeCardOutcome(site);
-        _workCardWorker.Text=Buildings.Get(site.Kind).Beds>0?"Watch resident":!site.Complete?"Watch builder":"Watch work";
+        _workCardWorker.Text=Buildings.Get(site.Kind).Beds>0?"Follow resident":!site.Complete?"Follow builder":"Follow worker";
         _workCardCancel.Visible=!site.Complete && !site.DemolitionRequested;
         if(site.Complete && (_world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Pantry))
         {
             int available=World.EdibleKinds.Sum(k=>_world.FoodAvailableAt(site.Id,k));
             _workCardText.Text+=$"\n\n{available} meal portions available here\n"+(diner!=null?diner.Name+" is collecting or carrying a meal.":"No meal collection in progress.");
         }
-        _workCardDiner.Visible=Buildings.Get(site.Kind).Beds==0;
-        _workCardWatchPlace.Visible=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0 && _yardPreviewSide<0;
+        _workCardDiner.Visible=Buildings.Get(site.Kind).Beds==0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);
+        _workCardWatchPlace.Visible=_world.PublicPlace!=null && site.Complete && _yardPreviewSide<0 && _placeJourneySite!=site.Id;
         RenderYardPreview(site);
         _workCardWorker.Disabled=worker==null;_workCardDiner.Disabled=diner==null;
         _workCardWorker.TooltipText=worker==null?"No worker is currently using this workplace.":"Follow "+worker.Name;
@@ -86,7 +89,7 @@ public partial class Game
         _workCardPause.Visible=!site.Complete || World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter;
         _workCardPause.Text=(site.Complete?site.WorkPaused:site.ConstructionPaused)?"Resume":"Pause";_workCardPause.Disabled=site.DemolitionRequested || _world.Food.Celebrating;
         _workCardMove.Visible=site.Complete && _yardPreviewSide<0;
-        _workCardWorker.Visible=_yardPreviewSide<0;_workCardDetails.Visible=_yardPreviewSide<0;
+        _workCardWorker.Visible=_yardPreviewSide<0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);_workCardDetails.Visible=_yardPreviewSide<0;
         _workCardMove.Disabled=_world.RelocationProblem(site.Id)!=null;_workCardMove.TooltipText=_world.RelocationProblem(site.Id)??"Choose a new location.";
     }
 }

@@ -74,6 +74,7 @@ public partial class Game
             col.GuiInput += input => { if (input is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true }) { OpenEconomy(); col.AcceptEvent(); } };
             col.TooltipText = resource == Resource.Grain ? "Raw grain feeds the bakery; villagers eat berries, vegetables, and bread." : "Stored " + resource.ToString().ToLowerInvariant();
         }
+        MakePlaceStatus(top);
         var population = new VBoxContainer { CustomMinimumSize = new(84, 0) }; top.AddChild(population);
         population.AddChild(Text("HOUSING", 11)); _housing = Text("0 / 8", 18); population.AddChild(_housing);
         var clock = new VBoxContainer { CustomMinimumSize = new(90, 0) }; top.AddChild(clock);
@@ -237,13 +238,14 @@ public partial class Game
         _foodStatus.GetParent<Control>().TooltipText = _world.PublicPlace is {Relaxed:true}?"Real meals, work and rest; no hunger penalty. Building is free and instant.":_world.Creative ? (_world.IsArrangementCourt?"Real meals without hunger penalties. Work stays at full speed; missing food does not lower mood. Construction is instant and free.":"Creative: food needs disabled; full work speed. Production and hauling still use real resources.") : $"Work efficiency: {_world.Food.WorkEfficiency:P0}. Meals share available berries, vegetables and bread; inspect Economy for the last meal.";
         _foodStatus.Modulate = _world.Food.Hunger > 0 ? new("ffd39b") : new("a8bcb0");
         foreach (var (resource, label) in _resourceValues)
-            label.Text = (World.EdibleKinds.Contains(resource)?_world.StoredFood(resource):resource switch { Resource.Game => _world.Food.Game, Resource.Stone => _world.Stone, Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.Food.Grain, Resource.Fish => _world.Food.Fish, _ => _world.Food.Bread }).ToString();
+            label.Text = (World.EdibleKinds.Contains(resource)?_world.StoredFood(resource):resource switch { Resource.Game => _world.Food.Game, Resource.Stone => _world.Stone, Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.StoredGrain, Resource.Fish => _world.Food.Fish, _ => _world.Food.Bread }).ToString();
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
         _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · select a sawmill to inspect its stock target";
         _resourceValues[Resource.Game].GetParent<Control>().Visible=_world.Map.Wildlife.Count>0 || _world.Food.HuntedGame>0 || _world.CreativeAdded(Resource.Game)>0;
         _resourceValues[Resource.Fruit].GetParent<Control>().Visible=_world.Cottages.Any(c=>c.Kind==BuildingKind.Orchard) || _world.Food.GrownFruit>0 || _world.CreativeAdded(Resource.Fruit)>0;
         _resourceValues[Resource.Fish].GetParent<Control>().Visible=_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0 || _world.CreativeAdded(Resource.Fish)>0;
         _resourceValues[Resource.Stone].GetParent<Control>().Visible=_world.Map.StoneDeposits.Count>0 || _world.Stone>0;
+        UpdatePlaceStatus();
         // Conditional resource columns can grow the panel before their visibility settles.
         // Reapply the viewport width so switching villages can shrink it again.
         _topBar.Size=new(_hud.Size.X-32,68);

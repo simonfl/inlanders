@@ -13,7 +13,7 @@ public partial class Game
     private string? _placeJourneyEnding;
     private void MakePlaceJourneys(VBoxContainer column)
     {
-        _workCardTrips=Button("Journeys here",()=>{_placeJourneySite=_placeJourneySite==_workCardSite?-1:_workCardSite;_placeJourneyPerson=-1;_placeJourney=null;_placeJourneyEnding=null;});column.AddChild(_workCardTrips);
+        _workCardTrips=Button("People & trips",()=>{_placeJourneySite=_placeJourneySite==_workCardSite?-1:_workCardSite;_placeJourneyPerson=-1;_placeJourney=null;_placeJourneyEnding=null;_nextWorkCard=0;});column.AddChild(_workCardTrips);
         _placeTripsPanel=new();column.AddChild(_placeTripsPanel);_placeTripText=Text("",14,true);_placeTripsPanel.AddChild(_placeTripText);
         var row=new HBoxContainer();_placeTripsPanel.AddChild(row);
         _placeTripNext=Button("Next trip",()=>{
@@ -34,7 +34,7 @@ public partial class Game
         _workCardTrips.Visible=_world.PublicPlace!=null && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
-        _workCardTrips.Text=show?"Hide journeys":"Journeys here";
+        _workCardTrips.Text=show?"Hide people & trips":"People & trips";
         if(!show){_placeJourney=null;return;}
         var trips=_world.ReadPlaceJourneys(_placeJourneySite);
         var next=trips.FirstOrDefault(t=>t.Person==_placeJourneyPerson);

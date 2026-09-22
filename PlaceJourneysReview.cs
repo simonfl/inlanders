@@ -9,6 +9,11 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        Check(_placeFood.IsVisibleInTree(),"Public food summary missing");
+        await Click(_placeFood.GetGlobalRect().GetCenter());await Frames();
+        Check(_drawer.Visible && _tabs.CurrentTab==4,"Food summary does not open full Economy");
+        await Press(Key.Escape);await Frames();
+        Check(_topBar.GetGlobalRect().End.X<=_hud.Size.X,"Public status overflows viewport");
         Cottage? field=null;
         for(int i=0;i<6000 && field==null;i++)
         {
@@ -17,7 +22,13 @@ public partial class Game
         }
         Check(field!=null,"No actual carried meal from any workplace in observation interval");
         RenderActors(0);ShowWorkplaceCard(field!.Id);await Frames();string saved=_world.SaveJson();
+        Check(!_workCardWorker.Visible && !_workCardDiner.Visible,"Default card did not consolidate following controls");
+        await CaptureReviewBundle("place-default-card");
+        await UiClick(_workCardWatchPlace);await Frames();
+        Check(_watching && !_followPerson && _camera.Size<=17 && saved==_world.SaveJson(),"Watch place failed to frame workplace purely");
+        await Press(Key.Escape);await Frames();ShowWorkplaceCard(field.Id);await Frames();
         await UiClick(_workCardTrips);await Frames();
+        Check(_workCardWorker.Visible && _workCardDiner.Visible,"Expanded people controls missing");
         for(int i=0;i<_world.Population && (_placeJourney?.Relation!="Meal from this place" || _placeJourney.Amount==0);i++){await UiClick(_placeTripNext);await Frames();}
         Check(_placeJourney is {Relation:"Meal from this place",Amount:>0},"No real meal trip visible");
         int person=_placeJourney!.Person;await UiClick(_placeTripFrame);await Frames();
@@ -32,3 +43,4 @@ public partial class Game
         GD.Print("PASS: actual meal route inspection/frame, pure controls, observed arrival, compact layout and Watch boundary.");
     }
 }
+

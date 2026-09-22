@@ -1,6 +1,6 @@
 # Next work — visibly different productive places
 
-Playable count **83**. [Full review80](REVIEW_CHECKPOINT_80.md) completed on b4fbcee with five independent fresh roles. All25 current suites/broad regressions/native960 pass. No human play, listening, continuous-motion or native performance acceptance. User authorizes through90, with full reviews85 and90 before further features.
+Playable count **84**. [Full review80](REVIEW_CHECKPOINT_80.md) completed on b4fbcee with five independent fresh roles. All25 current suites/broad regressions/native960 pass. No human play, listening, continuous-motion or native performance acceptance. User authorizes through90, with full reviews85 and90 before further features.
 
 ## Direction
 
@@ -11,8 +11,8 @@ Keep the small inhabited farmstead and real material/daily-life substrate. Test 
 |81 delivered | Continuous worked fields: the existing productive footprint should read as cultivated land instead of fifteen little raised beds. Preserve crop/work truth and compare ordinary whole views. |
 |82 delivered | Working river landing: existing dock, boat, actual catch/approach compose one useful shore place. Ordinary construction and siting; no new trade/fleet. |
 |83 delivered | Oven workyard: existing grain/bakery chain gains a legible, distinct working ensemble and actual process, not another processing resource. |
-|84 next, after visual83 | Consolidate place-focused productive actions and public HUD: relevant cost/status, fewer parallel observation controls, full economy/catalogue still accessible. |
-|85 candidate | Meaningful later rearrangement: remove unjustified restrictions on established food-work placement where evidence supports it, with real crop/material consequences and ordinary-control recovery. Then full review85. |
+|84 delivered | Consolidate place-focused productive actions and public HUD: relevant cost/status, fewer parallel observation controls, full economy/catalogue still accessible. |
+|85 next | Meaningful later rearrangement: remove unjustified restrictions on established food-work placement where evidence supports it, with real crop/material consequences and ordinary-control recovery. Then full review85. |
 
 Reevaluate every outcome; candidates may merge/change, but count playable results honestly. Substantial presentation changes get independent visual review without resetting periodic cadence.
 
@@ -24,4 +24,4 @@ Review80 closeout corrects stale meal precedence copy, unknown-test fallback and
 
 Existing tooling is sufficient. Accept narrow paired-control evidence and provenance fixes; defer replay/ECS/editors/blanket optimization. No inheritance, genealogy, aging, succession, ownership bureaucracy, seasons or new needs.
 
-[Visual81](REVIEW_PRESENTATION_81.md) retains continuous fields.82 gives the landing three real shore cells; old narrow lake fixtures move to legal sites. Broad regression, four-way docks, fishing/lake recovery and actual960 placement/catch pass. All26 current suites passed; visual82 retains the useful landing.83 now exposes the grain/bake/bread sequence in an open oven workspace; inspect visual83 before84.
+[Visual81](REVIEW_PRESENTATION_81.md) retains continuous fields.82 gives the landing three real shore cells; old narrow lake fixtures move to legal sites. Broad regression, four-way docks, fishing/lake recovery and actual960 placement/catch pass. All26 current suites passed; visual82 retains the useful landing.83 now exposes the grain/bake/bread sequence in an open oven workspace; visual83 retains the ensemble provisionally.84 consolidates the public status/card hierarchy; default place watching and expanded people/trips pass at960.85 tests established grain-field rearrangement.
