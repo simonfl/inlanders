@@ -5,6 +5,7 @@ public partial class Game
 {
     private void MakeBakery(Node3D parent, Cottage site, int stage)
     {
+        if(!_plainFarmstead){MakeOpenOven(parent,site,stage);return;}
         var masonry = new Color("bc9572");
         var brick = new Color("997353");
         StoneFoot(parent, new(-.55f, .13f, -.22f), new(1.65f, .23f, 1.27f));

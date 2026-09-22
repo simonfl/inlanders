@@ -12,6 +12,12 @@ public partial class Game
             for(int i=0;i<fish;i++)MakeFish(parent,new(.77f+i%3*.17f,.75f+i/6*.055f,-.17f+i/3%2*.30f));
             return;
         }
+        if(site.Kind==BuildingKind.Bakery && !_plainFarmstead)
+        {
+            int bread=site.PantryFood[System.Array.IndexOf(World.EdibleKinds,Resource.Bread)];
+            for(int i=0;i<bread;i++)MakeOvenLoaf(parent,new(.96f+i%2*.25f,.92f+i/6*.08f,.13f+i/2%3*.20f),"StoredBread"+i);
+            return;
+        }
         int portion=0;
         for(int kind=0;kind<World.EdibleKinds.Length;kind++)for(int n=0;n<site.PantryFood[kind];n++)
         {

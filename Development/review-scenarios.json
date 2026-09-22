@@ -430,5 +430,13 @@
     "focusX": 0,
     "focusZ": 1,
     "zoom": 29
+  },
+  {
+    "name": "oven-workyard",
+    "description": "Actual grain and oven investment, baking and carried bread",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]
