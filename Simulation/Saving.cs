@@ -8,7 +8,8 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 49;
+    public int Version { get; set; } = 50;
+    public GroundUse[] GroundUse { get; set; } = System.Array.Empty<GroundUse>();
     public FoundingProgress? Founding { get; set; }
     public bool SharedWork { get; set; }
     public NeighborhoodProgress? Neighborhood { get; set; }
@@ -51,7 +52,7 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
+            GroundUse=ReadGroundUse(),Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
             Creative = Creative, Gardener = Gardener, CameraViews = CameraViews, Decorations = Decorations, TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = _yardPlanks, Stone=_stone, QuarriedStone=QuarriedStone, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History, RecentFood = RecentFood, ManagedWoodland=ManagedWoodland
         }, SaveOptions);
@@ -59,7 +60,7 @@ public sealed partial class World
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version != 49) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
+        if (s.Version != 50) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
         if (s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && ((s.Campaign.Level < 1 || s.Campaign.Level > CampaignLevels.Length) || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
@@ -88,7 +89,7 @@ public sealed partial class World
         w.MeetingSpots.AddRange(s.MeetingSpots); w.History.AddRange(s.History);
         if (s.TreesPlanted < 0) throw new InvalidDataException("Invalid planting count");
         if (s.Paths == null || s.Paths.Any(c => w.Blocked(c) || map.Water.Contains(c))) throw new InvalidDataException("Invalid path tiles");
-        w.Paths = s.Paths;
+        w.Paths = s.Paths;w.RestoreGroundUse(s.GroundUse);
         w.ManagedWoodland=s.ManagedWoodland ?? throw new InvalidDataException("Missing woodland settings");
         w.Gardener = s.Gardener;
         w.CameraViews = s.CameraViews ?? throw new InvalidDataException("Missing camera views");

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--ground-use")){try{GroundUseChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--establishment")){try{EstablishmentChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--home-invitation")){try{HomeInvitationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--livelihood-site")){try{LivelihoodSiteChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

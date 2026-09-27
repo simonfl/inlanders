@@ -405,7 +405,7 @@ public sealed partial class World
             {
                 var offset = waypoint.Point - v.Position; float distance = offset.Length();
                 float travel = 1.8f * dt * (Paths.Contains(waypoint) ? 1.25f : 1);
-                if (distance <= travel) { v.Position = waypoint.Point; v.Route.Dequeue(); }
+                if (distance <= travel) { v.Position = waypoint.Point; v.Route.Dequeue(); RecordFootfall(waypoint); }
                 else v.Position += offset / distance * travel;
                 continue;
             }

@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **91**.
+- Playable checkpoints since adoption: **92**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint90**, [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
 - Previous review85: [synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused.
@@ -429,3 +429,10 @@ Verdict partially convincing. Choose bounded first productive cycle under unchan
 Checkpoint91 — September27: new player-founded fields, ovens and landings perform a bounded real first crop/batch/trip under unchanged120-food provisions. Shared workers respect pause, input, staffing and output limits; mature reserve scheduling resumes after the cycle. Bake output is fully collected. Relocation and current saves retain cycle state, with no migration. The previous reserve-only variant remains available to development comparisons.
 
 Twelve mode/livelihood/control runs pass, no hungry ticks, active exact save and pause/move/reload checks pass. Normal first vegetable/bread/fish meals:749/790/685s control,192/195/129s candidate. Per-site timeline distinguishes first workplace completion from all workplaces completed; first grain work can precede oven completion. Zero-warning build. Actual960 catalogue/world placement, construction, homes/rest and first ordinary vegetable meal passed20260927-221015-388-player-founded-948de3; inspected.32-suite current run pending. No human pacing/enjoyment claim. Next92 connected ground-use presentation comparison, then independent visual review. User resumed through100;95/100 full reviews remain due.
+
+91 closeout: all32 current-experience suites completed successfully, exit0, run `d48f735ab9f0448096391c709c51f232` (artifacts/checkpoint91-current.log), before92 source changes were built.
+
+
+Checkpoint92: repeated actual walking leaves bounded ground wear in public villages. Visits accumulate only at real route waypoints, survive current saves, and affect no routing/speed or production. The existing continuous landscape material blends adjacent used ground into lanes; no fake path objects or decorative templates. Blocked ground is hidden. Save version50; no migration. The development IndependentPlaces option hides wear on the same scene and is recorded in capture metadata.
+
+Both-mode tests cover actual use, bounded dry-ground counts, detached queries, invalid-save rejection and exact continuation. All six Normal/relaxed livelihood branches pass again. Zero-warning build. Working-build matched1440 state hashes agree; initial bright spots were replaced by restrained connected lanes. Final1440 view20260927-221949-931-player-founded-47c739 and opposite relaxed960 view20260927-221949-938-player-founded-335ea1 inspected; earlier hidden-wear control20260927-221825-224-player-founded-c8c985 differs only in rendering. Freeze for fresh fixed-build visual92 review before93; current whole-scene identity remains unaccepted.

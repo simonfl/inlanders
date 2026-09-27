@@ -6,17 +6,18 @@ using System.Collections.Generic;
 public partial class Game
 {
     private bool _plainFarmstead;
+    private bool _independentPlaces;
     private Node3D? _workedLand;
     private World? _workedWorld;
     private string _workedKey="";
     private float _nextWorkedLand;
     private void UpdateWorkedLandscape(bool force=false)
     {
-        if(!force && _uiTime<_nextWorkedLand)return;_nextWorkedLand=_uiTime+.25f;
+        if(!force && _uiTime<_nextWorkedLand)return;_nextWorkedLand=_uiTime+1;
         if(_workedLand==null){_workedLand=new(){Name="WorkedLandscape"};AddChild(_workedLand);}
         _workedLand.Visible=_world.PublicPlace!=null && !_plainFarmstead;
         if(!_workedLand.Visible)return;
-        string key=_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Improved}:{c.YardSide}"))+":"+
+        string key=_world.GroundUseRevision+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Improved}:{c.YardSide}"))+":"+
             string.Join(';',_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).Select(t=>$"{t.Cell}:{t.Growth>=1}"))+":"+string.Join(';',_world.Commons?.Places??Array.Empty<Cell>());
         if(!force && _workedWorld==_world && key==_workedKey)return;
         _workedWorld=_world;_workedKey=key;Clear(_workedLand);
@@ -25,6 +26,7 @@ public partial class Game
         var homes=_world.Cottages.Where(c=>c.Complete && Buildings.Get(c.Kind).Beds>0).SelectMany(c=>World.Footprint(c.Cell,c.Rotation,c.Kind)).ToArray();
         var yards=_world.Cottages.SelectMany(c=>_world.HomeYardPlaces(c)).Concat(_world.Commons?.Places??Array.Empty<Cell>()).ToArray();
         var trees=_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting && t.Growth>=1).Select(t=>t.Cell).ToArray();
+        var wear=_world.ReadGroundUse(true).Where(m=>m.Visits>=3).ToDictionary(m=>m.Cell,m=>m.Visits);
         var paths=_world.Paths.ToArray();var water=_world.Map.Water.ToHashSet();
         float Distance(float x,float z,IEnumerable<Cell> cells,float extent=0)
         {
@@ -52,6 +54,28 @@ public partial class Game
             else color=color.Lerp(new Color("958464"),Math.Clamp(1-field/.55f,0,1)*.65f);
             float path=Math.Clamp(1-Distance(x,z,paths)/.8f,0,1);
             color=color.Lerp(new("9b8562"),path*.65f);
+            if(!_independentPlaces)
+            {
+                float use=0;int cx=(int)MathF.Round(x),cz=(int)MathF.Round(z);
+                for(int iz=cz-1;iz<=cz+1;iz++)for(int ix=cx-1;ix<=cx+1;ix++)
+                {
+                    if(!wear.TryGetValue(new(ix,iz),out int visits))continue;
+                    float radius=.26f+Math.Min(visits,24)*.009f;
+                    float distance=MathF.Sqrt((x-ix)*(x-ix)+(z-iz)*(z-iz));
+                    // Adjacent visited ground forms a continuous worn lane, not bright dots.
+                    foreach(var step in new[]{new Cell(1,0),new Cell(0,1)})
+                    {
+                        if(!wear.TryGetValue(new(ix+step.X,iz+step.Z),out int other))continue;
+                        float t=Math.Clamp((x-ix)*step.X+(z-iz)*step.Z,0,1);
+                        float dx=x-ix-step.X*t,dz=z-iz-step.Z*t;
+                        float d=MathF.Sqrt(dx*dx+dz*dz);
+                        float strength=Math.Min(.76f,(Math.Min(visits,other)-2)*.055f);
+                        use=Math.Max(use,Math.Clamp(1-d/radius,0,1)*strength);
+                    }
+                    use=Math.Max(use,Math.Clamp(1-distance/radius,0,1)*Math.Min(.76f,(visits-2)*.055f));
+                }
+                color=color.Lerp(new Color("9e8968").Lightened(mottling),use);
+            }
             colors[sample]=color;return color;
         }
         using var surface=new SurfaceTool();surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
