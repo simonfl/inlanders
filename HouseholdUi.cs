@@ -16,11 +16,12 @@ public partial class Game
             var button=Button("",()=>{});button.CustomMinimumSize=new(148,45);button.AddThemeFontSizeOverride("font_size",13);_householdResidents[i]=button;_householdPeople.AddChild(button);
             button.Pressed+=()=>{if(!button.HasMeta("person"))return;int person=(int)button.GetMeta("person");_householdOrigin=_workCardSite;_householdOriginWorld=_world;_workCardSite=-1;ShowDailyLife(person);_dailyExpanded=true;_followPerson=true;};
         }
+        _householdChange=Button("Choose another home",()=>{_householdFrom=_workCardSite;_householdTo=-1;_householdMoveWorld=_world;});column.AddChild(_householdChange);MakeHouseholdMoveUi();
     }
     private void RenderHouseholdUi(Cottage home)
     {
         bool show=_world.PublicPlace!=null && home.Complete && Buildings.Get(home.Kind).Beds>0 && _yardPreviewSide<0 && _placeJourneySite!=home.Id;
-        _householdPeople.Visible=show;if(!show)return;
+        _householdPeople.Visible=show;_householdChange.Visible=show && _world.People.Any(p=>p.HomeId==home.Id);if(!show)return;
         var residents=_world.People.Where(p=>p.HomeId==home.Id).ToArray();
         for(int i=0;i<4;i++)
         {

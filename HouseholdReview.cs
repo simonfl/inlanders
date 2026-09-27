@@ -16,6 +16,15 @@ public partial class Game
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-75,"Household card overflows");string saved=_world.SaveJson();await CaptureReviewBundle("household-at-a-glance");
         await UiClick(_householdResidents[residents.Length-1]);await Frames();Check(_dailyPerson==residents[^1].Id && _dailyExpanded && _followPerson && _dailyHomeBack.Visible,"Cannot follow chosen household resident");
         await CaptureReviewBundle("chosen-household-journey");await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==home.Id && _world.SaveJson()==saved,"Household return changed simulation");
-        await CaptureReviewBundle("back-to-household");GD.Print("PASS: actual home selection, all household residents, chosen resident/current journey and pure return at compact size.");
+        await CaptureReviewBundle("back-to-household");
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="household-move")
+        {
+            var other=_world.Cottages.First(c=>c.Id!=home.Id && c.Complete && Buildings.Get(c.Kind).Beds>0);var others=_world.People.Where(p=>p.HomeId==other.Id).Select(p=>p.Id).ToArray();
+            _focus=BuildingPosition(other);_camera.Size=20;UpdateCamera();await Frames();
+            await UiClick(_householdChange);await Frames();var point=_camera.UnprojectPosition(BuildingPosition(other));await Click(point);await Frames();Check(_householdTo==other.Id && !_householdConfirm.Disabled,"Home choice not actionable");
+            await CaptureReviewBundle("household-exchange-proposal");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled household exchange changed state");
+            await UiClick(_householdChange);await Frames();await Click(point);await Frames();await UiClick(_householdConfirm);await Frames();Check(residents.All(p=>p.HomeId==other.Id) && others.All(id=>_world.People[id].HomeId==home.Id),"Households did not exchange");_world.Validate();await CaptureReviewBundle("chosen-households");
+        }
+        GD.Print("PASS: actual home selection, all household residents, chosen resident/current journey and pure return at compact size.");
     }
 }

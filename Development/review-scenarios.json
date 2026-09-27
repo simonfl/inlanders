@@ -518,5 +518,13 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 23
+  },
+  {
+    "name": "household-move",
+    "description": "Preview, cancel and exchange existing occupied households using world selection",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 23
   }
 ]

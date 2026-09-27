@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: shape useful land around lived households**, selected by [whole-game95](REVIEW_CHECKPOINT_95.md). Count **98**; user authorized through100 and its full review. Four fresh independent roles judge the direction partially convincing. First productive payoff is stronger, but sustained motivation and the value of management remain unproven.
+**Next: shape useful land around lived households**, selected by [whole-game95](REVIEW_CHECKPOINT_95.md). Count **99**; user authorized through100 and its full review. Four fresh independent roles judge the direction partially convincing. First productive payoff is stronger, but sustained motivation and the value of management remain unproven.
 
 Compare a bounded land-first vegetable plot with fixed-building placement: decide extent, preserve ground for homes/access/trees, see actual output and work, revise it. Household observation and relocation should make those consequences understandable. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the conditional96–100 slice. Reject obvious maximum-size optimization or fiddly editing; do not substitute more entry polish or catalogue growth for the direction decision.
 

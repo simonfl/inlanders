@@ -42,7 +42,7 @@ public partial class Game
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
         _workCardMove=Button("Move",ChooseMoveIntent);actions.AddChild(_workCardMove);
         _workCardDetails=Button("Details",()=>{int id=_workCardSite;_workCardSite=-1;SelectBuilding(id);});actions.AddChild(_workCardDetails);
-        actions.AddChild(Button("Ãƒ—",ClearSelection));
+        actions.AddChild(Button("×",ClearSelection));
         _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested || home.PlannedYard)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
         _workCardYard=Button("Arrange yard",BeginYardPreview);column.AddChild(_workCardYard);MakeYardPreview(column);
         MakePlotRevision(column);MakeHomeInvitation(column);MakePlaceJourneys(column);
@@ -52,7 +52,7 @@ public partial class Game
     {
         if(_workCardWorld!=_world)_workCardSite=-1;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);
-        bool show=site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
+        bool show=_householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
         _workCard.Visible=show;if(!show || site==null){StopYardPreview();EndPlotRevision();return;}
         _workCard.Size=new(330,0);
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
@@ -60,7 +60,7 @@ public partial class Game
         var worker=CardWorker();var diner=CardDiner();
         RenderPlotRevision(site);RenderHouseholdUi(site);
         string detail;
-        if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials Ã‚· {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+(site.ConstructionPaused?"Construction paused; supplies stay here.":"Shared workers build when supplies are available.");
+        if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials · {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+(site.ConstructionPaused?"Construction paused; supplies stay here.":"Shared workers build when supplies are available.");
         else if(Buildings.Get(site.Kind).Beds>0)detail=$"{_world.People.Count(p=>p.HomeId==site.Id)}/{Buildings.Get(site.Kind).Beds} neighbors live here";
         else if(Buildings.Get(site.Kind).RecreationSlots>0)detail=$"{_world.People.Count(p=>p.LeisureSiteId==site.Id)} neighbors visiting\nA place for ordinary breaks.";
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
@@ -69,11 +69,11 @@ public partial class Game
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
         _workCardYard.Visible=_yardPreviewSide<0 && _world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
-        _workCardYard.Text="Arrange yard Ã‚· preview";
+        _workCardYard.Text="Arrange yard · preview";
         _workCardYard.Disabled=site.ImprovementRequested || site.DemolitionRequested;
         _workCardYard.TooltipText="Preview the four sides before choosing. Residents use the chosen ground for quiet work and nearby meals after furnishing. Meals use the shorter eligible trip to home or shared ground. Existing furniture moves free.";
         _workCardFurnish.Visible=_yardPreviewSide<0 && (site.Complete || site.PlannedYard) && Buildings.Get(site.Kind).Beds>0 && !site.Improved;
-        _workCardFurnish.Text=site.PlannedYard?"Cancel planned yard":site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish yard Ã‚· free":$"Furnish yard Ã‚· {World.ComfortCost(site)} planks";
+        _workCardFurnish.Text=site.PlannedYard?"Cancel planned yard":site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish yard · free":$"Furnish yard · {World.ComfortCost(site)} planks";
         _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && !site.PlannedYard && _world.ImprovementProblem(site.Id)!=null;
         _workCardFurnish.TooltipText=site.PlannedYard?"Cancel the future yard order; keep the house. No furnishing supplies are sent before the home is occupied.":_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
         if(site.Complete && Buildings.Get(site.Kind).Beds>0)_workCardText.Text+="\n"+HomeCardOutcome(site);
