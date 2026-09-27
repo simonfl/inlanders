@@ -11,6 +11,16 @@ static class LivelihoodSiteChecks
         Check(!route.Route.Any(World.Footprint(new(1,-5),0,BuildingKind.Farm).Contains),"Preview route crosses proposed footprint");
         var fish=w.ReadLivelihoodSite(new(8,8),1,BuildingKind.FishingDock);Check(fish.Route.Length>1 && fish.Route.All(w.Map.Water.Contains),"Dock route leaves water");
         Check(w.ReadLivelihoodSite(w.Stockpile,0,BuildingKind.Farm).Summary=="","Illegal site promises connection");
-        Check(before==w.SaveJson(),"Siting queries changed world");Console.WriteLine("PASS: actual planned grain dependency, proposed footprint exclusion, water reachability and pure/invalid livelihood preview.");
+        Check(before==w.SaveJson(),"Siting queries changed world");var homes=World.NewPlayerFounded();var home=homes.PlaceHomePlot(new(1,8),0,BuildingKind.Cottage,0)!;
+        string planned=homes.SaveJson();var gardenLink=homes.ReadLivelihoodSite(new(4,8),0,BuildingKind.VegetableGarden);
+        Check(gardenLink.Destination=="Planned home" && gardenLink.Route[^1]==home.Entrance && planned==homes.SaveJson(),"Garden ignores planned home or changes state");
+        var food=World.NewPlayerFounded();var garden=food.Place(new(4,8),0,BuildingKind.VegetableGarden)!;planned=food.SaveJson();
+        for(int turn=0;turn<4;turn++)
+        {
+            var link=food.ReadLivelihoodSite(new(1,8),turn,BuildingKind.Cottage);
+            Check(link.Destination=="Planned vegetable plot" && link.Route[^1]==garden.Entrance && !link.Route.Any(World.Footprint(new(1,8),turn,BuildingKind.Cottage).Contains),"Home-first/food-first link or rotated footprint wrong");
+        }
+        Check(planned==food.SaveJson(),"Home connection query mutates state");
+        Console.WriteLine("PASS: actual planned grain dependency, proposed footprint exclusion, water reachability and pure/invalid livelihood preview.");
     }
 }

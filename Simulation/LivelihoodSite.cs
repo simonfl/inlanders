@@ -26,8 +26,15 @@ public sealed partial class World
         }
         if(IsVegetablePlot(kind))
         {
-            var target=Cottages.Where(c=>IsHome(c) && !c.DemolitionRequested).Select(c=>new{Site=c,Route=FindPath(door,c.Entrance,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Site.Id).FirstOrDefault();
+            var target=Cottages.Where(c=>Buildings.Get(c.Kind).Beds>0 && !c.DemolitionRequested).Select(c=>new{Site=c,Route=FindPath(door,c.Entrance,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Site.Id).FirstOrDefault();
             return target==null?new("Vegetables are eaten here or carried to a seat Â· choose homes nearby","",Array.Empty<Cell>()):new($"Possible meal walk Â· {target.Route!.Count} ground steps to nearest home",(target.Site.Complete?"":"Planned ")+"home",new[]{door}.Concat(target.Route).ToArray());
+        }
+        if(Buildings.Get(kind).Beds>0)
+        {
+            var target=Cottages.Where(c=>!c.DemolitionRequested && (IsVegetablePlot(c.Kind) || c.Kind is BuildingKind.Bakery or BuildingKind.FishingDock)).Select(c=>new{Site=c,Route=FindPath(door,c.Entrance,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Site.Id).FirstOrDefault();
+            if(target==null)return new("Homes need a livelihood nearby · vegetables, bread or fishing", "",Array.Empty<Cell>());
+            string name=IsVegetablePlot(target.Site.Kind)?"vegetable plot":target.Site.Kind==BuildingKind.Bakery?"oven":"landing";
+            return new($"Possible food walk · {target.Route!.Count} ground steps · meals depend on available food and seating",(target.Site.Complete?"":"Planned ")+name,new[]{door}.Concat(target.Route).ToArray());
         }
         return new("","",Array.Empty<Cell>());
     }
