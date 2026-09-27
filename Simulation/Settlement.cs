@@ -84,6 +84,7 @@ public sealed class Cottage
     [JsonInclude] public CottageFinish Finish { get; internal set; }
     [JsonInclude] public CivicIdentity Identity { get; internal set; }
     public int YardSide { get; set; }
+    [JsonInclude] public bool PlannedYard { get; internal set; }
     public bool ImprovementRequested { get; set; }
     public bool Improved { get; set; }
     public int ImprovementPlanks { get; set; }
@@ -390,7 +391,7 @@ public sealed partial class World
         AdvanceVisitor();
         AdvanceWoodland(dt);
         foreach(var habitat in Map.FishingGrounds) habitat.Advance(dt);
-        ReconcileHomes();
+        ReconcileHomes();ProcessPlannedYards();
         dt *= Neighborhood?.HungerSlowsActivity==false ? 1 : Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
         if(retry && SimulatesMeals && !Food.Celebrating)

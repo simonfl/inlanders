@@ -486,5 +486,13 @@
     "focusX": 0,
     "focusZ": 1,
     "zoom": 29
+  },
+  {
+    "name": "home-plot",
+    "description": "Plan a home and usable outdoor yard, then see ordinary household use",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": 8,
+    "zoom": 22
   }
 ]

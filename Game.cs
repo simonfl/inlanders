@@ -131,7 +131,7 @@ public partial class Game : Node3D
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
-        var site = _world.Place(at, _rotation, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
+        var site = HomePlotActive && _homePlotSide>=0?_world.PlaceHomePlot(at,_rotation,_buildKind,_homePlotSide):_world.Place(at, _rotation, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
         if(_world.PublicPlace!=null)ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
@@ -166,6 +166,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
+            if(key.Keycode==Key.Y && HomePlotActive){CycleHomePlot();return;}
             if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating && _decorationKind!=DecorationKind.Gateway?2:4); RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.I) ToggleDrawer(4);
@@ -222,7 +223,7 @@ public partial class Game : Node3D
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
         TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
         RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
-        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding();RenderFirstPlaceUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
+        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding();RenderFirstPlaceUi();RenderHomePlotUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
     {

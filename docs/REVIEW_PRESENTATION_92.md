@@ -1,0 +1,9 @@
+# Presentation review92
+
+Fixed `d31cd17`, fresh independent read-only `visual92`. Verdict: **partially convincing; retain wear provisionally, ensemble question still open**. Actual occupation gives ground a history, but the strongest bread-view mark reads as a mottled tan strip rather than a clear home/work relationship. Four repeated houses and detached field/oven remain. No amount of surface polish establishes the larger composition.
+
+Matched fixed1440 bread: candidate `20260927-222153-474-player-founded-a7b595`, hidden-wear control `20260927-222153-700-player-founded-aba37c`. Earlier garden/opposite960 working-build views support only limited comparison. The reviewer also inspected review90 archived intro/dense/free-court stills. No UI play, listening, continuous motion or performance verdict. The regular whole-game95 review is unchanged.
+
+Keep actual journeys, low houses, cultivated land and restrained wear. Reject decoration density as a substitute for composition. Next compare homes addressing usable outdoor space with an oven and actual cultivated access; use existing placement/moves before adding a multi-place editor. Include an awkward orientation and ordinary recovery; reject a scene that only works from one camera or needs explanatory overlays.
+
+Lead decision:92 is a supporting layer, not the promised ensemble conclusion. Cut the automatic multi-object sketch slot. The concrete next interaction gap is that outdoor home life can only be planned after a house is built/occupied: a founding placement previews the roof and footprint but not the ground residents would use.93 will let an optional home-and-yard proposal show real usable ground and total material commitment together, then build/furnish through ordinary work. No fixed home/garden template or compulsory furnishing. Use this to create and compare a connected home/food arrangement, then decide94 from the resulting activity.

@@ -43,7 +43,7 @@ public partial class Game
         _workCardMove=Button("Move",ChooseMoveIntent);actions.AddChild(_workCardMove);
         _workCardDetails=Button("Details",()=>{int id=_workCardSite;_workCardSite=-1;SelectBuilding(id);});actions.AddChild(_workCardDetails);
         actions.AddChild(Button("×",ClearSelection));
-        _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
+        _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested || home.PlannedYard)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
         _workCardYard=Button("Arrange yard",BeginYardPreview);column.AddChild(_workCardYard);MakeYardPreview(column);
         MakeHomeInvitation(column);MakePlaceJourneys(column);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
@@ -63,15 +63,16 @@ public partial class Game
         else if(Buildings.Get(site.Kind).Beds>0)detail=$"{_world.People.Count(p=>p.HomeId==site.Id)}/{Buildings.Get(site.Kind).Beds} neighbors live here";
         else if(Buildings.Get(site.Kind).RecreationSlots>0)detail=$"{_world.People.Count(p=>p.LeisureSiteId==site.Id)} neighbors visiting\nA place for ordinary breaks.";
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
+        if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
         _workCardYard.Visible=_yardPreviewSide<0 && _world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _workCardYard.Text="Arrange yard · preview";
         _workCardYard.Disabled=site.ImprovementRequested || site.DemolitionRequested;
         _workCardYard.TooltipText="Preview the four sides before choosing. Residents use the chosen ground for quiet work and nearby meals after furnishing. Meals use the shorter eligible trip to home or shared ground. Existing furniture moves free.";
-        _workCardFurnish.Visible=_yardPreviewSide<0 && site.Complete && Buildings.Get(site.Kind).Beds>0 && !site.Improved;
-        _workCardFurnish.Text=site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish yard · free":$"Furnish yard · {World.ComfortCost(site)} planks";
-        _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && _world.ImprovementProblem(site.Id)!=null;
-        _workCardFurnish.TooltipText=_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
+        _workCardFurnish.Visible=_yardPreviewSide<0 && (site.Complete || site.PlannedYard) && Buildings.Get(site.Kind).Beds>0 && !site.Improved;
+        _workCardFurnish.Text=site.PlannedYard?"Cancel planned yard":site.ImprovementRequested?"Cancel furnishing":_world.Creative?"Furnish yard · free":$"Furnish yard · {World.ComfortCost(site)} planks";
+        _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && !site.PlannedYard && _world.ImprovementProblem(site.Id)!=null;
+        _workCardFurnish.TooltipText=site.PlannedYard?"Cancel the future yard order; keep the house. No furnishing supplies are sent before the home is occupied.":_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
         if(site.Complete && Buildings.Get(site.Kind).Beds>0)_workCardText.Text+="\n"+HomeCardOutcome(site);
         _workCardWorker.Text=Buildings.Get(site.Kind).Beds>0?"Follow resident":!site.Complete?"Follow builder":"Follow worker";
         _workCardCancel.Visible=!site.Complete && !site.DemolitionRequested;

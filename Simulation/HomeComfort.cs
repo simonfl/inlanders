@@ -26,20 +26,20 @@ public sealed partial class World
     {
         if(ImprovementProblem(id)!=null) return false;
         var home=Cottages.Single(c=>c.Id==id);
-        home.ImprovementOrderedAt=Food.Time;
+        home.PlannedYard=false;home.ImprovementOrderedAt=Food.Time;
         if(Creative) { home.Improved=true;home.ImprovementProgress=1; }
         else home.ImprovementRequested=true;
         _retry=0; return true;
     }
     public bool CancelImprovement(int id)
     {
-        var home=Cottages.FirstOrDefault(c=>c.Id==id && c.ImprovementRequested && !c.DemolitionRequested);
+        var home=Cottages.FirstOrDefault(c=>c.Id==id && (c.ImprovementRequested || c.PlannedYard) && !c.DemolitionRequested);
         if(home==null || Food.Celebrating) return false;
         StopImprovement(home); return true;
     }
     private void StopImprovement(Cottage home)
     {
-        home.ImprovementRequested=false; if(!home.Improved) home.ImprovementProgress=0;
+        home.PlannedYard=false;home.ImprovementRequested=false; if(!home.Improved) home.ImprovementProgress=0;
         foreach(var p in People.Where(p=>p.ComfortHomeId==home.Id).ToArray()) Interrupt(p);
         _retry=0;
     }
@@ -123,6 +123,7 @@ public sealed partial class World
         }
         foreach(var home in Cottages)
         {
+            if(home.PlannedYard && (PublicPlace==null || Buildings.Get(home.Kind).Beds==0 || home.Improved || home.ImprovementRequested))throw new InvalidOperationException("Invalid planned yard");
             if(home.YardSide is <0 or >3 || Buildings.Get(home.Kind).Beds==0 && home.YardSide!=0)throw new InvalidOperationException("Invalid domestic yard side");
             bool hasState=home.Improved || home.ImprovementRequested || home.ImprovementPlanks!=0 || home.ImprovementProgress!=0;
             if(hasState && (Buildings.Get(home.Kind).Beds==0 || !home.Complete) || home.ImprovementPlanks<0 || home.ImprovementPlanks+ComfortIncoming(home)>ComfortCost(home) ||

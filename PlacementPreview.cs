@@ -73,9 +73,10 @@ public partial class Game
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : _world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : HomePlotActive && _homePlotSide>=0?_world.PreviewHomePlot(cell,_rotation,_buildKind,_homePlotSide).Problem:_world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
+        (_homePlotPanel!=null && _homePlotPanel.Visible && _homePlotPanel.GetGlobalRect().HasPoint(point)) ||
         (_firstPlace!=null && _firstPlace.Visible && _firstPlace.GetGlobalRect().HasPoint(point)) ||
         (_hamletEnding!=null && _hamletEnding.Visible && _hamletEnding.GetGlobalRect().HasPoint(point)) ||
         (_hamletComparePanel!=null && _hamletComparePanel.Visible && _hamletComparePanel.GetGlobalRect().HasPoint(point)) ||
@@ -140,7 +141,7 @@ public partial class Game
         }
         marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 4 });
-        RefreshLivelihoodPreview();
+        RefreshLivelihoodPreview();RefreshHomePlotPreview();
     }
     private void PreparePreview(Node root,bool retainColors=false)
     {

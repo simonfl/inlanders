@@ -5,7 +5,7 @@ public sealed partial class World
     public Cell[] HomeYardPlaces(Cottage home)=>home.Improved?PotentialHomeYardPlaces(home):System.Array.Empty<Cell>();
     public static string YardSideName(int side)=>new[]{"Entrance","Left side","Behind home","Right side"}[side];
     public Cell[] PotentialHomeYardPlaces(Cottage home)=>YardPlaces(home,home.YardSide);
-    private Cell[] YardGround(Cottage home,int side)=>Founding?.RiverFarmstead==true && IsHome(home)
+    private Cell[] YardGround(Cottage home,int side)=>Founding?.RiverFarmstead==true && Buildings.Get(home.Kind).Beds>0 && !home.DemolitionRequested
         ? (side switch {
             0=>new[]{new Cell(-1,1),new Cell(1,1)},
             1=>new[]{new Cell(-2,-1),new Cell(-2,0)},
@@ -17,7 +17,7 @@ public sealed partial class World
     public Cell[] YardPlaces(Cottage home,int side)=>YardGround(home,side)
             .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
                 !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray();
-    private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested)?YardGround(home,home.YardSide):System.Array.Empty<Cell>();
+    private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested || home.PlannedYard)?YardGround(home,home.YardSide):System.Array.Empty<Cell>();
     private string? YardClaimProblem(Cottage home,int side)
     {
         var ground=YardGround(home,side);
