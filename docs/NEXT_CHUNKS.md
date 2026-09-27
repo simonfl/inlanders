@@ -1,27 +1,37 @@
-# Next work — shape useful land around lived homes
+# Next work — make improvement a real choice
 
-Playable count **100**. [Whole-game95](REVIEW_CHECKPOINT_95.md) completed on add7737 with four fresh independent roles; partially convincing. User authorized through100 and its review, then stop.
+Playable count **100**. [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
 
-The first home/livelihood now works, but post-establishment motivation remains unresolved. Do not fill another batch with entry polish. Compare land-first village-making with fixed-object placement while retaining Normal and relaxed physical life.
+The small working farmstead is more coherent and direct ground drawing has real consequences. The unresolved product question is why a player would choose one improvement over another after it works. Do not answer with more buildings, needs, entry polish or prescribed campaign tasks.
 
-| Slot | Playable outcome | Gate |
+## Chosen comparison
+
+One viable inhabited river settlement with two places worth improving, compared with open founding. Keep eight residents and comparable resources/productive capacity initially. Compact domestic ground competes with cultivation on one side; existing food/shore/woodland access competes with awkward daily journeys on the other. Consolidation and supporting separate clusters must both be plausible. Exact layout TBD through actual land/route checks; do not prescribe a bridge or hide a single best solution.
+
+Pair that situation with world-focused consequences and a substantial bank/clearing/woodland composition comparison. Public Normal and relaxed keep the same daily life; growth and finishing remain optional. Existing catalogue stays available; archived Carpenter dependency, foodless Creative and campaign certificates do not become the teaching spine.
+
+| Conditional outcome | Playable scope | Gate before proceeding |
 | --- | --- | --- |
-|96 delivered | Choose the extent of a vegetable strip; actual ground, cost, crops and labor follow it. | Two credible sizes on same land; not a cosmetic scale or free extra output. Existing fixed gardens remain the control. |
-|97 delivered | Revise established cultivation with safe cancellation and ordinary consequences. | Current stores/work/save correctness; no material duplication or invisible lost crops. |
-|98 delivered | Understand a household through its actual residents, use and journeys together. | Replace redundant navigation, no hypothetical trips or permanent dashboard. |
-|99 delivered | Reconsider where existing neighbors live, if a meaningful spatial choice. | No compulsory growth, genealogy or new need; occupancy and active meals/rest remain correct. |
-|100 delivered | Consolidate the strongest land/household workflow after complete-session evidence. | Scope follows96–99; no token polish solely to reach the counter. Full five-role whole-game review, stop. |
+|101 — A place with competing improvements| Replace one inhabited scenario with a viable two-cluster land/use problem, while keeping current founding/control accessible. | Demonstrate at least two materially different viable revisions at comparable investment. Fail if nearest-field packing or one bridge dominates every consequence. No quota or compulsory growth. |
+|102 — See the change you chose| Place selection exposes actual use; proposal and next affected visit form one coherent interaction, replacing redundant person/card navigation. | A person can predict and recognize a consequence; actual and possible trips distinguished, no permanent dashboard. Household exchange remains secondary unless it earns purpose. |
+|103 — A river settlement worth arranging| Matched editable landscape/domestic composition: meaningful bank transition, clearing, woodland edge, paths and worked yards at whole-village scale. Update public menu imagery only around the chosen direction. |960/1440, both views, equal inventory, label-free legibility and ordinary interaction. No fixed diorama or props-only response. Independent presentation review. |
+|104 — Resolve the strongest remaining choice/pacing failure| Scope follows101–103. If reserve quiet is opaque, compare bounded repeat work episodes against the current scheduler under equal food obligations. Otherwise remove a demonstrated dominant arrangement or redundant interaction. | Quiet/rest can be satisfying; no forced motion, new chores or automatic lowering of safety provisions. Choose from evidence, not counter-filling. |
+|105 — Consolidate the selected experience| Retire the weaker public variant/navigation after comparison; preserve development controls. Complete-session evidence and full whole-game review. | Ordinary entry, a self-directed revision or contented ending, recovery/current saves and whole-scene life. Scripted feasibility does not establish preference; keep unknowns explicit. |
 
-Reassess after each outcome. Presentation changes get an independent visual pass. Keep inhabited/founded starts equally available; public catalogue excludes archived Carpenter workflow. Campaign geography remains usable, service recipes remain archived. No seasons, inheritance, new satisfaction needs or save migrations.
+Reevaluate after every outcome. If101 fails structurally, redesign it before continuing this sequence. Do not reserve five numbers for five patches regardless of findings. Documentation/tooling alone adds no count. The next periodic review is105 only after five further committed playable outcomes; significant presentation changes trigger visual review sooner.
 
-Alongside experiments extend existing event evidence past first output into mature work/quiet intervals and a revision. Scripted feasibility cannot establish a voluntarily wanted action or fun; no human feedback is currently available. Review95 documents unknown audio/performance/save-replacement cause and bounded tooling decisions.
+## Evidence and tooling alongside play
 
-96 chooses1–8 rows of three tiles. Cost2 logs and crop4 vegetables per row; actual walk time grows with depth. Geometry is instance-aware throughout placement, selection, routing, removal and terrain. Native compact catalogue/length controls through actual harvest/meal pass. Before97 get independent visual review.97 should revise the footprint of the same plot, preserving its identity and ordinary preparation cost, rather than force demolition/rebuying. Complete crops before resizing; rejected/cancelled proposals must be pure.
+The final mature comparison holds initial6 rows/18 tiles/12 logs constant. A nearby single strip sustains the village; remote single has shortages; nearby split also sustains it. Worker slots, travel and crop timing differ, so this is no size-only causal proof. First24 vegetables arrive around180s; reserve-driven inactivity continues through840s and subsequent crop completion through roughly960s. A successful20-minute scripted native session now covers all homes, real meals/rest and a revision, but not unaided motivation.
 
-97 releases/restores rows within the same prepared plot. It preserves timber investment and stored food, blocks overwriting another use of released land, and restarts only unripe crops. Additional capacity is deliberately deferred rather than silently granting timber or bypassing delivery. Tests place a home on genuinely released ground.98 now integrates the actual household into home selection: all residents and their real current activities, with direct routes/follow. Reuse existing trip machinery and replace the hidden first-resident workflow.
+Extend existing mature reports with a compact causal timeline and pair before/action/ordinary-speed-after evidence. Estimated half to one day each, low maintenance; validate reduced reviewer reconstruction and understandable consequences. Use existing audio capture for actual listening before redesigning sound. No new review framework. Investigate native save/frame correlation on recurrence; the intermittent replacement denial remains unattributed, no more blind retries or migrations.
 
-98 makes all residents and their actual activity visible directly in home selection, with a chosen-person journey and return to the household.99 is narrowed after source inspection: individual spare-bed assignment already exists. Add a household exchange between occupied homes, so a fully housed village can change who lives where without a temporary spare building or moving the architecture. This is residence choice, not family/inheritance.
+## Delivered96–100
 
-99 exchanges households between completed homes after an explicit world selection/preview, without teleporting or growing population. Existing spare-bed assignment stays.100 now makes cultivation a direct drag on the ground, retaining click/keyboard length controls, and removes duplicate placement guidance/tiny labels that obscure the land. Carry matched Normal/relaxed villages beyond first production and through a land revision using existing test/capture infrastructure; scripted choice is not spontaneous preference. Then freeze and full100 review.
+- 96:1–8-row vegetable strips with real cost, crop, travel and instance geometry.
+- 97: release/restore prepared rows, preserve investment/stores, reject occupied ground and uncollected ripe crops.
+- 98: actual household roster, chosen resident follow and return.
+- 99: choose another occupied home and exchange households without teleportation.
+- 100: direct four-direction ground drawing, pure cancellation, consolidated proposals and mature full-session evidence.
 
-100 delivered direct ground drawing with one compact proposal, four-direction cancellation checks, a complete20-minute ordinary-control session and mature matched-investment comparisons. Freeze and review the whole game before choosing further work; do not execute101 in this authorization.
+Earlier91–95 delivered a real first productive cycle, actual-use ground wear, home/yard planning, bidirectional siting previews and equal founded/inhabited entry. See [CHECKPOINTS](CHECKPOINTS.md) for validation and [review95](REVIEW_CHECKPOINT_95.md) for that direction decision. No seasons, inheritance, genealogy, aging, succession or automatic new needs; descendants remain narrative theme.
