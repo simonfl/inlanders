@@ -31,7 +31,7 @@ public partial class Game
     }
     private void RenderPlaceJourneys()
     {
-        _workCardTrips.Visible=_world.PublicPlace!=null && _workCard.Visible && _yardPreviewSide<0;
+        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
         _workCardTrips.Text=show?"Hide people & trips":"People & trips";

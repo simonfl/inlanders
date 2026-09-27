@@ -134,7 +134,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
-        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="cultivation"){await ProbeCultivation();return;}
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "cultivation" or "plot-revision"){await ProbeCultivation();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="home-plot"){await ProbeHomePlot();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="first-place"){await ProbeFirstPlace();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="home-invitation"){await ProbeHomeInvitation();return;}

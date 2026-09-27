@@ -79,6 +79,7 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public int PreparedRows { get; internal set; }
     [JsonInclude] public int PlotRows { get; internal set; }
     public int Depth => PlotRows>0?PlotRows:Buildings.Get(Kind).Depth;
     [JsonInclude] public bool EstablishmentPending { get; internal set; }
@@ -139,7 +140,7 @@ public sealed class Cottage
     public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotation) : World.Door(Cell, Rotation);
     public Cell Launch => DockFromFar ? World.Door(Cell, Rotation) : World.FarBank(Cell, Rotation);
     public Resource Material => Buildings.Get(Kind).Material;
-    public int Required => PlotRows>0?PlotRows*2:Buildings.Get(Kind).Cost;
+    public int Required => PlotRows>0?Math.Max(PlotRows,PreparedRows)*2:Buildings.Get(Kind).Cost;
 }
 
 // Commands and fixed-step Tick run on one thread. Claiming a job, storage units,

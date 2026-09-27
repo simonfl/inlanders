@@ -502,5 +502,13 @@
     "focusX": 1,
     "focusZ": -5,
     "zoom": 23
+  },
+  {
+    "name": "plot-revision",
+    "description": "Actual strip preparation, harvest, reversible reduction and resume",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": -5,
+    "zoom": 23
   }
 ]

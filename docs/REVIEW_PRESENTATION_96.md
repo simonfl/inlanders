@@ -1,0 +1,5 @@
+# Presentation96
+
+Fresh read-only visual96 reviewed fixed dc11979 source and same-source predecessor960/1440 cultivation captures, plus fixed95 public inhabited views. Partially convincing: retain real cultivated ground/crop/worker relationship, not proof of a composed farmstead. Fields still isolated; variable length must enable relationships rather than larger rectangles.960 proposal has duplicate panel/banner instructions; tiny world labels are not usable feedback. Inspector should retain chosen dimensions.
+
+Lead:97 will let an established field release growing ground and restore it within its already-prepared extent, freeing room for another use without destroying its identity/stores. Growing crops restart explicitly; ripe crops must finish. Retain all invested timber in the plot, no instant refund or free additional capacity. Further expansion needs a later ordinary-material preparation design. This is a bounded revision experiment, not an unrestricted editor.100 consolidation should reduce duplicate placement text and tiny labels based on whole-session evidence. No new props. No independent UI/motion/listening/performance acceptance; full100 remains due.

@@ -17,6 +17,15 @@ public partial class Game
         await Click(point);await Press(Key.Escape);await Frames();var field=_world.Cottages.Single();Check(field.PlotRows==3 && World.Footprint(field).Count()==9,"Placed wrong extent");
         _paused=false;_speed=6;double start=_uiTime;while(_uiTime-start<80 && _world.Food.EatenVegetables==0)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         _paused=true;Check(field.Complete && _world.Food.GrownVegetables>=12 && _world.Food.EatenVegetables>0,"Chosen ground did not feed actual meal");ShowWorkplaceCard(field.Id);await Frames();await CaptureReviewBundle("cultivation-in-use");_world.Validate();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="plot-revision")
+        {
+            _paused=false;start=_uiTime;while(_uiTime-start<60 && (field.Harvest>0 || field.Planted || _world.People.Any(p=>p.WorkplaceId==field.Id)))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _paused=true;await Frames();await UiClick(_workCardPause);await Frames();Check(field.WorkPaused && !_reshapePlot.Disabled,"Finished field cannot reshape");
+            string saved=_world.SaveJson();await UiClick(_reshapePlot);await Frames();await UiClick(_revisionLess);await Frames();await CaptureReviewBundle("release-growing-ground");
+            Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-75,"Revision card overflows compact view");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled revision changed world");
+            await UiClick(_reshapePlot);await Frames();await UiClick(_revisionLess);await Frames();await UiClick(_revisionApply);await Frames();Check(field.Depth==2 && field.PreparedRows==3 && field.WorkPaused,"Revision lost extent/state");
+            await UiClick(_workCardPause);await Frames();Check(!field.WorkPaused,"Revised field cannot resume");await CaptureReviewBundle("ground-released");_world.Validate();
+        }
         GD.Print("PASS: catalogue to actual variable strip, visible matching cost/extent, real preparation/crop/vegetable meal.");
     }
 }
