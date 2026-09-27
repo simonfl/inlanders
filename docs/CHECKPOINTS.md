@@ -449,3 +449,8 @@ Checkpoint94: arranging home and food works in either order. Vegetable previews 
 
 
 Checkpoint95: Play first offers establishing a farmstead or reshaping an inhabited hamlet, both fully visible at960. Normal/relaxed selection follows; Back returns to the situation choice. Existing saves and public/archived boundary remain. Zero-warning build; actual960 menu, both visible situations, first-place cancellation/catalogue/dismissal, save/load and relaxed home placement passed20260927-224103-010-first-place-c10cc8.34-suite current run underway. Freeze for whole-game95 review before96.
+
+
+[Whole-game95](REVIEW_CHECKPOINT_95.md) completed on add7737 with four fresh independent roles, all partially convincing. First payoff improves; sustained motivation remains unknown. The earlier94/95 broad experience gate is explicitly not closed by preview/menu changes. Choose bounded variable cultivation plus household-oriented revision as a substantial alternative, retaining fixed-garden control and both modes. No independent UI/listening/performance acceptance. Continue96–100, full100 review then stop.
+
+95 closeout: all34 current-experience suites and broad regression completed exit0 on the frozen build (artifacts/checkpoint95-current.log and checkpoint95-regression.log). No simulation changes during these runs.
