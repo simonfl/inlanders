@@ -25,7 +25,7 @@ public partial class Game
     private void MakeWorkplaceCard()
     {
         _workCard=HudPanel(_hud);var column=new VBoxContainer();_workCard.AddChild(column);
-        _workCardText=Text("",14,true);_workCardText.CustomMinimumSize=new(306,0);column.AddChild(_workCardText);
+        _workCardText=Text("",14,true);_workCardText.CustomMinimumSize=new(306,0);column.AddChild(_workCardText);MakeHouseholdUi(column);
         var people=new HBoxContainer();column.AddChild(people);
         void Watch(Villager? person){if(person==null)return;_workCardSite=-1;ShowDailyLife(person.Id);_followPerson=true;}
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
@@ -58,7 +58,7 @@ public partial class Game
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
-        RenderPlotRevision(site);
+        RenderPlotRevision(site);RenderHouseholdUi(site);
         string detail;
         if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials Ã‚· {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+(site.ConstructionPaused?"Construction paused; supplies stay here.":"Shared workers build when supplies are available.");
         else if(Buildings.Get(site.Kind).Beds>0)detail=$"{_world.People.Count(p=>p.HomeId==site.Id)}/{Buildings.Get(site.Kind).Beds} neighbors live here";

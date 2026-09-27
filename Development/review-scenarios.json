@@ -510,5 +510,13 @@
     "focusX": 1,
     "focusZ": -5,
     "zoom": 23
+  },
+  {
+    "name": "household",
+    "description": "Select an inhabited home and follow any current household resident",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 23
   }
 ]
