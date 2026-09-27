@@ -20,7 +20,8 @@ public partial class Game
     {
         _plotPanel.Visible=PlotActive && !_drawer.Visible && !_atMainMenu;if(!_plotPanel.Visible)return;
         _plotPanel.Position=new(16,92);_plotPanel.Size=new(290,0);
-        _plotInfo.Text=$"3 × {_plotRows} ground tiles · {_plotRows*4} vegetables per crop\n"+(_world.Creative?"Free cultivation":$"{_plotRows*2} logs to prepare")+" · one farmer\nLonger strips use more land and take more walking and harvesting. Leave room for homes, trees and access. R rotates.";
+        _plotInfo.Text=$"3 × {_plotRows} tiles · {_plotRows*4} vegetables/crop\n"+(_world.Creative?"Free cultivation":$"{_plotRows*2} logs")+" · one farmer\nDrag from the entrance row toward the far row, or click the chosen size. Esc cancels.\n"+(!PointerOverHud(_pointerPosition)?(_ghostValid?(_livelihoodSite?.Summary??"Leave room for homes and access."):_placementProblem):"Z / X changes length; R rotates.");
+        _plotInfo.TooltipText="Longer strips use more land, timber and harvesting work. All sizes use one farmer. Preparation and crops use the real footprint.";
         _plotLess.Disabled=_plotRows==1;_plotMore.Disabled=_plotRows==8;
     }
 }

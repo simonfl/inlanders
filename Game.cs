@@ -99,11 +99,11 @@ public partial class Game : Node3D
         float distance = Math.Max(25, Math.Max(map.Width, map.Depth) * 1.5f);
         _camera.Far = distance * 4;
         _camera.Position = _focus + new Vector3(MathF.Sin(_angle) * distance, distance * (ReadableCourt?1.22f:.96f), MathF.Cos(_angle) * distance); _camera.LookAt(_focus);
-        UpdateAudioListener();
+        ApplyWorldLabels();UpdateAudioListener();
     }
     private void RefreshSelection()
     {
-        Clear(_selection); _selection.Position = Vector3.Zero;
+        ApplyWorldLabels();Clear(_selection); _selection.Position = Vector3.Zero;
         if(_selectedSource!=null && _sourceReport is ResourceSurvey resource)
         {
             GroundPatch(_selection,resource.Source.Cell.X,resource.Source.Cell.Z,1.2f,1.2f,new("e8c688"),.055f); return;
@@ -217,7 +217,7 @@ public partial class Game : Node3D
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
         if (_ghost.Visible && Ground(_pointerPosition) is Vector3 p)
         {
-            var cell = new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
+            var cell = _plotAnchor??new Cell(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z));
             if (cell != _hover || _placementProblem != PlacementProblem(cell)) { _hover = cell; RefreshGhost(); }
         }
         TracePhase(0);

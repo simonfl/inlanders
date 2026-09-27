@@ -16,6 +16,6 @@ public partial class Game
         if(_livelihoodSite is not {} site)return;
         for(int i=0;i<site.Route.Length;i++)
         {var c=site.Route[i];GroundPatch(_ghostCells,c.X,c.Z,.23f,.23f,new("89c7cd"),.14f);}
-        if(site.Route.Length>0){var c=site.Route[^1];var mark=new Node3D{Position=OnGround(c.X,c.Z,.2f)};_ghostCells.AddChild(mark);FoodSign(mark,site.Destination,.5f);}
+        if(site.Route.Length>0){var c=site.Route[^1];GroundPatch(_ghostCells,c.X,c.Z,.46f,.46f,new("edc57c"),.16f);}
     }
 }

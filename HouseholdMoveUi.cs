@@ -15,7 +15,8 @@ public partial class Game
         _householdConfirm=Button("Use these homes",()=>{int target=_householdTo;if(_world.MoveHousehold(_householdFrom,target)){_householdFrom=_householdTo=-1;_householdMovePanel.Hide();ShowWorkplaceCard(target);Notice("Homes exchanged. Neighbors finish their current activity, then use their new home.");}});column.AddChild(_householdConfirm);
         column.AddChild(Button("Cancel [Esc]",CancelHouseholdMove));_householdMovePanel.Hide();
     }
-    private void CancelHouseholdMove(){int home=_householdFrom;_householdFrom=_householdTo=-1;_householdMovePanel.Hide();if(_householdMoveWorld==_world && _world.Cottages.Any(c=>c.Id==home))ShowWorkplaceCard(home);}
+    private void CancelHouseholdMove()=>CancelHouseholdMove(true);
+    private void CancelHouseholdMove(bool inspect){int home=_householdFrom;_householdFrom=_householdTo=-1;_householdMovePanel?.Hide();if(inspect && _householdMoveWorld==_world && _world.Cottages.Any(c=>c.Id==home))ShowWorkplaceCard(home);}
     private void RenderHouseholdMove()
     {
         if(_householdMoveWorld!=_world || _atMainMenu)_householdFrom=-1;
@@ -31,6 +32,7 @@ public partial class Game
     {
         if(_householdFrom<0)return false;
         if(input is InputEventKey{Pressed:true,Keycode:Key.Escape} || input is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Right}){CancelHouseholdMove();return true;}
+        if(input is InputEventKey{Pressed:true} key && key.Keycode is Key.B or Key.V or Key.G or Key.I or Key.O or Key.H or Key.U or Key.T or Key.C or Key.P){CancelHouseholdMove(false);return false;}
         if(input is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Left} click && !PointerOverHud(click.Position))
         {
             if(Ground(click.Position) is Vector3 point){var cell=new Cell(Mathf.RoundToInt(point.X),Mathf.RoundToInt(point.Z));_householdTo=_world.Cottages.FirstOrDefault(c=>World.Footprint(c).Contains(cell))?.Id??-1;_selectedSite=_householdTo;RefreshSelection();}return true;

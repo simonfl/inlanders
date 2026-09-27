@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--mature-cultivation")){try{MatureCultivationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--household-move")){try{HouseholdMoveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--plot-revision")){try{PlotRevisionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--cultivation")){try{CultivationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

@@ -4,14 +4,14 @@ public partial class Game
 {
     private bool _showWorldLabels = true;
     private bool ContextualWorldLabels => _storybookScene || _world.IsArrangementCourt || _world.Founding!=null;
-    private bool WorldLabelsVisible => _showWorldLabels && !_cleanWatch && (!ContextualWorldLabels || _selectedSite>=0);
+    private bool WorldLabelsVisible => _showWorldLabels && !_cleanWatch && (_world.PublicPlace==null || _camera!=null && _camera.Size<=14) && (!ContextualWorldLabels || _selectedSite>=0);
     private Button _worldLabelsButton = null!, _watchLabelsButton = null!;
     private bool EditingText => GetViewport().GuiGetFocusOwner() is LineEdit or TextEdit;
 
     private void RegisterWorldLabel(Node node)
     {
         if (node is not Label3D label || label.GetViewport() != GetViewport() || (_ghost != null && _ghost.IsAncestorOf(label))) return;
-        label.AddToGroup("world_labels"); label.Visible = WorldLabelsVisible;
+        label.AddToGroup("world_labels"); label.Visible = !ContextualWorldLabels && WorldLabelsVisible;Callable.From(ApplyWorldLabels).CallDeferred();
     }
     private void ToggleWorldLabels()
     {

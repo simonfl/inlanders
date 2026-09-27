@@ -526,5 +526,21 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 23
+  },
+  {
+    "name": "land-first",
+    "description": "Scripted public entry to whole farmstead, mature livelihood and direct land revision",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": 7,
+    "zoom": 25
+  },
+  {
+    "name": "land-drawing",
+    "description": "Four-direction direct cultivation, cancel, UI-release safety and placement",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": -5,
+    "zoom": 23
   }
 ]

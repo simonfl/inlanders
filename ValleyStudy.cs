@@ -93,7 +93,7 @@ public partial class Game
     }
     private void UpdateStorybookSpaces()
     {
-        if(_studyBoundary!=null && GodotObject.IsInstanceValid(_studyBoundary))_studyBoundary.Visible=UseLandscapeContext && (_placing || _terrainEditing || _movingSite>=0 || _bushMoving);
+        if(_studyBoundary!=null && GodotObject.IsInstanceValid(_studyBoundary))_studyBoundary.Visible=UseLandscapeContext && !PlotActive && (_placing || _terrainEditing || _movingSite>=0 || _bushMoving);
         if(!_storybookScene && _world.Founding==null)return;
         ApplyWorldLabels();
         if(_world.PublicPlace!=null && !_plainFarmstead)

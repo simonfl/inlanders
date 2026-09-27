@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(HandleCultivationGesture(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleHouseholdMove(input)){GetViewport().SetInputAsHandled();return;}
         if(_reshapingPlot>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndPlotRevision();GetViewport().SetInputAsHandled();return;}
         if(HandleFoodAccessInput(input)){GetViewport().SetInputAsHandled();return;}
@@ -144,7 +145,7 @@ public partial class Game
         {
             var arm = Box(marker, new(side * 0.09f, 0, -0.15f), new(0.1f, 0.06f, 0.28f), _cream); arm.RotationDegrees = new(0, side * 45, 0);
         }
-        marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
+        if(!PlotActive)marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 4 });
         RefreshLivelihoodPreview();RefreshHomePlotPreview();
     }

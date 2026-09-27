@@ -339,7 +339,7 @@ public partial class Game
         if(_peopleKeyboard)_hint.Text=PeopleKeyboardHint();
         if(_catalogKeyboard)_hint.Text=CatalogKeyboardHint();
         if(_areaRemoving)_hint.Text="Drag to select · Middle-drag / WASD pans · Esc / right-click cancels";
-        _hintPanel.Visible = _hint.Text.Length > 0;
+        _hintPanel.Visible = _hint.Text.Length > 0 && !PlotActive;
         if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
         UpdateManagementControls();

@@ -3,9 +3,10 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **92**.
+- Playable checkpoints since adoption: **100**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint90**, [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
+- Last periodic review: **checkpoint95**, [whole-game synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles. Partially convincing; land-first cultivation and household revision selected. Review100 pending frozen build.
+- Previous periodic review90: [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
 - Previous review85: [synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused.
 - Previous review80: [synthesis](REVIEW_CHECKPOINT_80.md), fixed `b4fbcee`, five fresh independent roles.
 - Previous review75: [synthesis](REVIEW_CHECKPOINT_75.md), fixed `87de771`.
@@ -474,3 +475,10 @@ Checkpoint98: selecting a public home shows its current residents and ordinary a
 Checkpoint99: a selected household can choose another finished home directly in the village. Preview names both groups and explains the exchange; confirmation swaps assignments only when both fit. Existing work and meals continue, active home/rest visits are interrupted safely, and subsequent home visits use new residences. No teleportation, population change or family system. Household roster replaces redundant home People & trips expansion.
 
 Both-mode tests cover full homes, active carried meal, pure rejection/query, unchanged physical positions, exact continuation and fresh actual rest visits. Native960 roster/return, world target, preview/Escape purity and confirmed exchange passed20260927-231326-060-household-move-557580; inspected. Zero-warning build. Also repairs visible text encoding at source by using explicit UTF-8 for both Python input and file reads;98 controls passed but punctuation was not visually acceptable until this correction.37 current suites due100.100 direct cultivation gesture/consolidation then full review and stop.
+
+
+Checkpoint100: cultivate a strip by dragging on the ground in any of four directions, with the existing click/length controls retained. Escape or releasing over UI cancels without placing. One compact proposal replaces duplicate field-placement guidance; tiny public world labels are limited to close selected views. Household exchange intent clears when switching tools.
+
+Zero-warning final build. Native960 four-direction drawing, cancellation and anchored placement passed20260927-233041-227-land-drawing-2fd436; household selection/exchange passed20260927-233109-608-household-move-e519d9. The predecessor100 working build completed a scripted ordinary-control session from public entry through four homes, two drawn strips,20 simulated minutes of meals/home visits, household observation and land revision:20260927-231943-605-land-first-f2f8f6. It reached8/8 housed,72 vegetables grown and45 eaten at1200s. Camera framing and accelerated waits were scripted; this is feasibility, not unaided play or preference. Final changes afterward are UI-only plus comparison tooling.
+
+All37 current-experience suites completed exit0, run `cb92501286d14ee1802d11cd49201df8`; broad regression exit0, unchanged game simulation. Final six mature comparisons run1800 seconds in Normal/relaxed, with the same initial6 rows/18 tiles/12 logs and a scripted one-row reduction after900s. One nearby strip:144 grown,0 hungry-person ticks; remote strip:104 grown,8442 Normal hungry-person ticks; two nearby strips:156 grown,0 hungry-person ticks. This separates a nearby single-strip control from the initial confounded remote-versus-split comparison. Location, worker parallelism and revision timing remain coupled; no size-only causal claim. Artifacts:checkpoint100-current.log, checkpoint100-regression.log, checkpoint100-mature-final.log and mature-cultivation/report.json. Freeze for five-role whole-game100 review; stop afterward.
