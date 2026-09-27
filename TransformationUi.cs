@@ -4,7 +4,16 @@ public partial class Game
 {
     private string TransformationPath=>TransformationSavePath(_world.Creative);
     private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
-    private void TransformationMenu()=>PlayerFoundedMenu();
+    private void TransformationMenu()
+    {
+        MenuPage("Choose a beginning");
+        _mainColumn.AddChild(Text("Establish your own home and livelihood, or reshape a place already alive.",18,true));
+        MenuButton("Establish a farmstead",PlayerFoundedMenu);
+        _mainColumn.AddChild(Text("Eight neighbors, open land and provisions. Choose where homes and work belong.",15,true));
+        MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
+        _mainColumn.AddChild(Text("Twelve neighbors with homes and working fields. Bring everyday life closer across an inlet.",15,true));
+        MenuButton("Back",ShowMainMenu);
+    }
     private void HamletMenu(bool cultivatedBank,bool groupedFarmsteads=false,bool acrossTheInlet=false)
     {
         MenuPage(new HamletProfile(false,cultivatedBank,groupedFarmsteads,acrossTheInlet).Title);
@@ -36,6 +45,6 @@ public partial class Game
             _mainColumn.AddChild(Text("Normal and relaxed share this place, recipes and daily behavior. Relaxed also allows free editing. Both have their own saves. Make a place you would like to keep. No prescribed building sequence or deadline.",16,true));
             MenuButton("Back",()=>HamletMenu(cultivatedBank,groupedFarmsteads,acrossTheInlet));
         });
-        MenuButton("Back",ShowMainMenu);
+        MenuButton("Back",TransformationMenu);
     }
 }

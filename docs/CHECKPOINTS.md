@@ -446,3 +446,6 @@ Normal/relaxed checks cover all rotations/sides, query and rejection purity, act
 
 
 Checkpoint94: arranging home and food works in either order. Vegetable previews recognize unfinished homes; proposed homes show a possible connection to the nearest reachable garden, oven or landing. Proposed footprint stays closed and the text qualifies actual food/seating availability. Pure-query tests cover planned homes and all four home rotations. Zero-warning build; native960 home/yard-to-planned-garden connection and ordinary vegetable meal passed20260927-223854-177-home-plot-3b8314.95 equalizes starting-situation access, then whole-game review. No claim that preview routes dictate actual meal choice.
+
+
+Checkpoint95: Play first offers establishing a farmstead or reshaping an inhabited hamlet, both fully visible at960. Normal/relaxed selection follows; Back returns to the situation choice. Existing saves and public/archived boundary remain. Zero-warning build; actual960 menu, both visible situations, first-place cancellation/catalogue/dismissal, save/load and relaxed home placement passed20260927-224103-010-first-place-c10cc8.34-suite current run underway. Freeze for whole-game95 review before96.

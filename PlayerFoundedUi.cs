@@ -18,6 +18,6 @@ public partial class Game
         }
         _mainColumn.AddChild(Text("Keep the village small or invite neighbors when you want. No required building sequence or deadline. You can finish for now and return later.",15,true));
         MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
-        MenuButton("Back",ShowMainMenu);
+        MenuButton("Back",TransformationMenu);
     }
 }
