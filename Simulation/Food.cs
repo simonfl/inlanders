@@ -217,7 +217,7 @@ public sealed partial class World
             if (farm.Growth == 1)
             {
                 if(farm.Kind==BuildingKind.Orchard){farm.Harvest=8;farm.OrchardMature=true;Food.GrownFruit+=8;}
-                else if (IsVegetablePlot(farm.Kind)) { farm.Harvest = VegetableYield(farm.Kind); Food.GrownVegetables += farm.Harvest; }
+                else if (IsVegetablePlot(farm.Kind)) { farm.Harvest = VegetableYield(farm); Food.GrownVegetables += farm.Harvest; }
                 else { farm.Harvest = 6; Food.GrownGrain += 6; }
             }
         }

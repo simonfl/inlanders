@@ -79,6 +79,8 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public int PlotRows { get; internal set; }
+    public int Depth => PlotRows>0?PlotRows:Buildings.Get(Kind).Depth;
     [JsonInclude] public bool EstablishmentPending { get; internal set; }
     [JsonInclude] public int StoredGrain { get; internal set; }
     [JsonInclude] public CottageFinish Finish { get; internal set; }
@@ -137,7 +139,7 @@ public sealed class Cottage
     public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotation) : World.Door(Cell, Rotation);
     public Cell Launch => DockFromFar ? World.Door(Cell, Rotation) : World.FarBank(Cell, Rotation);
     public Resource Material => Buildings.Get(Kind).Material;
-    public int Required => Buildings.Get(Kind).Cost;
+    public int Required => PlotRows>0?PlotRows*2:Buildings.Get(Kind).Cost;
 }
 
 // Commands and fixed-step Tick run on one thread. Claiming a job, storage units,
@@ -181,20 +183,21 @@ public sealed partial class World
         InitializeFood();
     }
     public static Cell Door(Cell c, int rotated) => RotateOffset(c, 0, 1, rotated);
-    public static IEnumerable<Cell> Footprint(Cell c, int rotated, BuildingKind kind = BuildingKind.Cottage)
+    public static IEnumerable<Cell> Footprint(Cottage site)=>Footprint(site.Cell,site.Rotation,site.Kind,site.PlotRows);
+    public static IEnumerable<Cell> Footprint(Cell c, int rotated, BuildingKind kind = BuildingKind.Cottage,int rows=0)
     {
         var bounds=Buildings.Get(kind);
         for (int x = -bounds.Width/2; x <= bounds.Width/2; x++)
-            for (int z = 1-bounds.Depth; z <= 0; z++) yield return RotateOffset(c, x, z, rotated);
+            for (int z = 1-(rows>0?rows:bounds.Depth); z <= 0; z++) yield return RotateOffset(c, x, z, rotated);
     }
     public static Cell At(Villager v) => new((int)MathF.Round(v.Position.X), (int)MathF.Round(v.Position.Y));
     private bool Inside(Cell c) => Map.Contains(c);
-    internal static bool OccupiesFootprint(Cell origin,int rotation,BuildingKind kind,Cell cell)
+    internal static bool OccupiesFootprint(Cell origin,int rotation,BuildingKind kind,Cell cell,int rows=0)
     {
         var bounds=Buildings.Get(kind);
         int dx=cell.X-origin.X,dz=cell.Z-origin.Z;
         var (x,z)=rotation switch {0=>(dx,dz),1=>(-dz,dx),2=>(-dx,-dz),3=>(dz,-dx),_=>throw new ArgumentOutOfRangeException(nameof(rotation))};
-        return x>=-bounds.Width/2 && x<=bounds.Width/2 && z>=1-bounds.Depth && z<=0;
+        return x>=-bounds.Width/2 && x<=bounds.Width/2 && z>=1-(rows>0?rows:bounds.Depth) && z<=0;
     }
     private bool Blocked(Cell c)
     {
@@ -211,19 +214,19 @@ public sealed partial class World
         }
         foreach(var tree in Trees)if(tree.Cell==c)return true;
         foreach(var bush in Bushes)if(bush.Cell==c)return true;
-        foreach(var site in Cottages)if(site.Kind!=BuildingKind.Bridge && OccupiesFootprint(site.Cell,site.Rotation,site.Kind,c))return true;
+        foreach(var site in Cottages)if(site.Kind!=BuildingKind.Bridge && OccupiesFootprint(site.Cell,site.Rotation,site.Kind,c,site.PlotRows))return true;
         return false;
     }
 
     public bool CanPlace(Cell cell, int rotated) => PlacementProblem(cell, rotated) == null;
-    public Cottage? Place(Cell cell, int rotated = 0, BuildingKind kind = BuildingKind.Cottage)
+    public Cottage? Place(Cell cell, int rotated = 0, BuildingKind kind = BuildingKind.Cottage,int rows=0)
     {
-        if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
-        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotation = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
+        if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind,rows) != null) return null;
+        var site = new Cottage { Id = _nextSite++, Cell = cell, Rotation = rotated, Kind = kind, PlotRows=rows, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
         site.EstablishmentPending=Founding is {PlayerFounded:true,ReserveOnlyWork:false} && EstablishmentKind(kind);
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
-        RemovePaths(Footprint(cell, rotated, kind));
-        ManagedWoodland.ExceptWith(Footprint(cell,rotated,kind).Append(site.Entrance));
+        RemovePaths(Footprint(site));
+        ManagedWoodland.ExceptWith(Footprint(site).Append(site.Entrance));
         if(kind==BuildingKind.Bridge) { ManagedWoodland.Remove(Door(cell,rotated)); ManagedWoodland.Remove(FarBank(cell,rotated)); }
         foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
         ReconcileHomes(); History.Add($"{kind} {site.Id} {(Creative ? "placed" : "planned")}"); _retry = 0; return site;

@@ -10,18 +10,18 @@ public partial class Game
         bed.Scale=new(width/2,1,depth/2);
     }
     private bool ContinuousFields=>_world.PublicPlace!=null && !_plainFarmstead;
-    private void MakeWorkedField(Node3D parent,int stage,bool grain)
+    private void MakeWorkedField(Node3D parent,int stage,bool grain,int plotRows=5)
     {
-        foreach(float x in new[]{-1.43f,1.43f})foreach(float z in new[]{-2.43f,2.43f})
+        foreach(float x in new[]{-1.43f,1.43f})foreach(float z in new[]{-plotRows/2f+.07f,plotRows/2f-.07f})
             Box(parent,new(x,.10f,z),new(.035f,.20f,.035f),_wood);
         if(stage<1)return;
         // One continuous tilled surface, entirely inside the real 3x5 reserved plot.
-        float depth=stage==1?2.46f:4.94f;
-        Box(parent,new(0,.021f,stage==1?1.24f:0),new(2.94f,.038f,depth),new("736044"));
-        int rows=grain?6:5;
+        float depth=stage==1?plotRows/2f-.04f:plotRows-.06f;
+        Box(parent,new(0,.021f,stage==1?plotRows/4f:0),new(2.94f,.038f,depth),new("736044"));
+        int rows=grain?6:plotRows;
         for(int i=0;i<rows;i++)
         {
-            float z=grain?World.GrainRow(i+1):-1.8f+i*.9f;
+            float z=grain?World.GrainRow(i+1):-(plotRows-1)/2f+i;
             if(stage==1 && z<0)continue;
             Box(parent,new(0,.046f,z),new(2.85f,.055f,.12f),new("8a7450"));
             Box(parent,new(0,.037f,z+.17f),new(2.85f,.022f,.055f),new("574a35"));

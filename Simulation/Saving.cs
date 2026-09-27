@@ -8,7 +8,7 @@ namespace Inlanders.Simulation;
 
 public sealed class WorldSave
 {
-    public int Version { get; set; } = 50;
+    public int Version { get; set; } = 51;
     public GroundUse[] GroundUse { get; set; } = System.Array.Empty<GroundUse>();
     public FoundingProgress? Founding { get; set; }
     public bool SharedWork { get; set; }
@@ -60,7 +60,7 @@ public sealed partial class World
     public static World LoadJson(string json)
     {
         var s = JsonSerializer.Deserialize<WorldSave>(json, SaveOptions) ?? throw new InvalidDataException("Empty save file");
-        if (s.Version != 50) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
+        if (s.Version != 51) throw new InvalidDataException($"Unsupported save version {s.Version}; start a fresh settlement");
         if (s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && ((s.Campaign.Level < 1 || s.Campaign.Level > CampaignLevels.Length) || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
@@ -102,4 +102,3 @@ public sealed partial class World
     }
     public static World LoadFile(string path) => LoadJson(File.ReadAllText(path));
 }
-

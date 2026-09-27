@@ -54,7 +54,7 @@ public sealed partial class World
         Add(Bushes.Select(b=>b.Cell),"Berry bush",avoid);Add(Bushes.Select(b=>b.Access),"Bush access",avoid);
         Add(Map.StoneDeposits.Select(d=>d.Cell),"Stone deposit",avoid);Add(Map.StoneDeposits.Select(d=>d.Access),"Stone access",avoid);
         Add(Map.Wildlife.Select(h=>h.Cell),"Wildlife tracking ground",avoid);
-        Add(Cottages.SelectMany(c=>Footprint(c.Cell,c.Rotation,c.Kind)),"Building","Remove the building or change the terrace.");
+        Add(Cottages.SelectMany(c=>Footprint(c)),"Building","Remove the building or change the terrace.");
         Add(Cottages.Select(c=>c.Entrance),"Building entrance",avoid);
         Add(Cottages.Where(c=>c.Kind==BuildingKind.Bridge).SelectMany(c=>new[]{Door(c.Cell,c.Rotation),FarBank(c.Cell,c.Rotation)}),"Bridge access",avoid);
         Add(Cottages.Where(c=>c.Kind==BuildingKind.FishingDock).Select(c=>c.Launch),"Dock launch",avoid);

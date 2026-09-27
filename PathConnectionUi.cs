@@ -15,7 +15,7 @@ public partial class Game
     private List<Cell> _connectionRoute = new();
     private Cell PathEndpoint(Cell cell)
     {
-        var site = _world.Cottages.FirstOrDefault(c => c.Complete && World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(cell));
+        var site = _world.Cottages.FirstOrDefault(c => c.Complete && World.Footprint(c).Contains(cell));
         return site?.Entrance ?? cell;
     }
     private string? ConnectionProblem(Cell cell)

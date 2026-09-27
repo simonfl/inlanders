@@ -20,7 +20,7 @@ public sealed partial class World
             if(!reachable.Contains(position) || boat.Route.Contains(cell) || boat.GroundId is int ground && !reachable.Contains(Map.FishingGrounds.Single(g=>g.Id==ground).Cell))
                 return "This crossing would block an active fishing trip. Pause the dock and let its boat return first.";
         }
-        if (Cottages.Any(c => Footprint(c.Cell, c.Rotation, c.Kind).Contains(cell))) return "A bridge already occupies this crossing.";
+        if (Cottages.Any(c => Footprint(c).Contains(cell))) return "A bridge already occupies this crossing.";
         var near = Door(cell, rotated); var far = FarBank(cell, rotated);
         if (!Map.Contains(near) || !Map.Contains(far) || Map.Water.Contains(near) || Map.Water.Contains(far))
             return "Both ends need dry banks. Press R to turn the crossing.";

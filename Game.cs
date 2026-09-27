@@ -114,7 +114,7 @@ public partial class Game : Node3D
             return;
         }
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
-        foreach (var c in World.Footprint(site.Cell, site.Rotation, site.Kind)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
+        foreach (var c in World.Footprint(site)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
     }
     private void PlaceCottage(Cell at)
     {
@@ -131,7 +131,7 @@ public partial class Game : Node3D
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
-        var site = HomePlotActive && _homePlotSide>=0?_world.PlaceHomePlot(at,_rotation,_buildKind,_homePlotSide):_world.Place(at, _rotation, _buildKind); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
+        var site = HomePlotActive && _homePlotSide>=0?_world.PlaceHomePlot(at,_rotation,_buildKind,_homePlotSide):_world.Place(at, _rotation, _buildKind,PlacementRows); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
         if(_world.PublicPlace!=null)ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
     }
@@ -166,6 +166,7 @@ public partial class Game : Node3D
             if (key.Keycode == Key.F5) SaveWorld();
             if (key.Keycode == Key.F9) LoadWorld();
             if (key.Keycode == Key.Home) FrameMap();
+            if(PlotActive && key.Keycode is Key.Z or Key.X){ChangePlotRows(key.Keycode==Key.Z?-1:1);return;}
             if(key.Keycode==Key.Y && HomePlotActive){CycleHomePlot();return;}
             if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating && _decorationKind!=DecorationKind.Gateway?2:4); RefreshGhost(); }
             if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
@@ -199,7 +200,7 @@ public partial class Game : Node3D
         if (closest.Distance < 25) { if(_world.IsArrangementCourt || _world.Founding!=null)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
         else if (Ground(position) is Vector3 p)
         {
-            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c.Cell, c.Rotation, c.Kind).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
             if(site==null && _world.PublicPlace!=null && _world.Commons is {} commons && commons.Places.Append(commons.Center).Contains(new(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z)))){ShowCommonsCard();return;}
             if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
         }
@@ -223,7 +224,7 @@ public partial class Game : Node3D
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
         TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
         RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
-        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding();RenderFirstPlaceUi();RenderHomePlotUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
+        RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding();RenderFirstPlaceUi();RenderHomePlotUi();RenderCultivationUi(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
     {
@@ -333,12 +334,13 @@ public partial class Game : Node3D
             if (h.Kind == BuildingKind.Bakery) viewKey = stage * 100 + h.InputGrain * 10 + h.OutputBread;
             if (h.Kind == BuildingKind.Sawmill) viewKey = stage * 100 + h.InputLogs * 10 + h.OutputPlanks;
             if(h.Kind==BuildingKind.Pantry || _world.IsWorkplaceFoodStore(h)) foreach(int amount in h.PantryFood) viewKey=viewKey*25+amount;
+            viewKey=unchecked(viewKey*9+h.PlotRows);
             if (h.DemolitionRequested) viewKey += 10000;
             if (view.Stage != viewKey)
             {
                 Clear(view.Body); MakeBuilding(view.Body, h, stage);
                 if (h.DemolitionRequested) { Box(view.Body, new(0,.55f,1.2f), new(.9f,.12f,.12f), new("d7a453")); Box(view.Body, new(-.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); Box(view.Body, new(.32f,.3f,1.2f), new(.1f,.6f,.1f), _wood); }
-                view.Body.Position = BuildingPosition(h.Cell,h.Rotation,h.Kind);
+                view.Body.Position = BuildingPosition(h);
                 view.Body.RotationDegrees = new(0, (h.Rotation * 90) + (h.Kind == BuildingKind.FishingDock && h.DockFromFar ? 180 : 0), 0); _cottages[h.Id] = (view.Body, viewKey);
             }
             if (stage == 3 && h.Kind == BuildingKind.Sawmill)

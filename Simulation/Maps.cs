@@ -76,11 +76,11 @@ public sealed partial class World
             if (!Map.Contains(cell) || Map.Water.Contains(cell) || !occupied.Add(cell)) throw new InvalidDataException("Invalid resource terrain");
         foreach (var site in Cottages)
         {
-            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site.Cell, site.Rotation, site.Kind).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
+            if (site.Kind != BuildingKind.Bridge && !Map.LevelGround(Footprint(site).Append(site.Entrance))) throw new InvalidDataException("Building needs level terrain");
             if (site.Kind == BuildingKind.FishingDock && (BoatBlocked(site.Launch) || Map.Water.Contains(site.Entrance) ||
                 !Map.LevelGround(new[] { site.Cell, site.Entrance, site.Launch }) || Cottages.Any(c => c.Id != site.Id && c.Kind == BuildingKind.FishingDock && c.Launch == site.Launch)))
                 throw new InvalidDataException("Dock needs a clear, level water launch and dry entrance");
-            foreach (var cell in Footprint(site.Cell, site.Rotation, site.Kind))
+            foreach (var cell in Footprint(site))
                 if (!Map.Contains(cell) || Map.Water.Contains(cell) != (site.Kind == BuildingKind.Bridge) || !occupied.Add(cell))
                     throw new InvalidDataException("Invalid building terrain");
             if (site.Kind == BuildingKind.Bridge && !Map.LevelGround(new[] { site.Cell, Door(site.Cell,site.Rotation), FarBank(site.Cell,site.Rotation) }))

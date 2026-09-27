@@ -24,7 +24,7 @@ public partial class Game
         // A single low surface gives the place a silhouette without adding an obstacle.
         if(!_commonsMats)
         {
-            _commonsGroundExcluded=_world.Cottages.SelectMany(b=>World.Footprint(b.Cell,b.Rotation,b.Kind))
+            _commonsGroundExcluded=_world.Cottages.SelectMany(b=>World.Footprint(b))
                 .Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell))
                 .Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
             var points=commons.Places.Append(commons.Center).SelectMany(p=>new[]{new Vector2(p.X-.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z+.65f),new Vector2(p.X-.65f,p.Z+.65f)}).ToArray();

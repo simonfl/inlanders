@@ -42,7 +42,7 @@ public sealed partial class World
             Resource.Fish => StoredFood(Resource.Fish) + cargo + Cottages.Sum(c=>(c.Boat?.Fish??0)+(c.Boat?.ReservedCatch??0)),
             Resource.Berries => StoredFood(Resource.Berries) + cargo + People.Where(p => p.Task is Work.ToBush or Work.Foraging && p.BushId != null).Sum(p => Math.Min(2, Bushes.Single(b => b.Id == p.BushId).Ripe)),
             Resource.Grain => StoredGrain + cargo + Cottages.Sum(c => c.InputGrain) + Crops(BuildingKind.Farm, 6),
-            Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8) + Crops(BuildingKind.VegetableField,20),
+            Resource.Vegetables => StoredFood(Resource.Vegetables) + cargo + Crops(BuildingKind.VegetableGarden, 8) + Cottages.Where(c=>c.Kind==BuildingKind.VegetableField).Sum(c=>c.Harvest+(c.Planted && c.Harvest==0?VegetableYield(c):0)+People.Count(p=>p.WorkplaceId==c.Id && !c.Planted && c.Harvest==0 && p.Task is Work.ToFarm or Work.Planting)*VegetableYield(c)),
             Resource.Fruit => StoredFood(Resource.Fruit) + cargo + Crops(BuildingKind.Orchard, 8),
             Resource.Bread => StoredFood(Resource.Bread) + cargo + Cottages.Sum(c => c.OutputBread + c.InputGrain * BreadPerGrain) +
                 People.Where(p => p.Task == Work.ToGrain).Sum(p => p.FoodReserved * BreadPerGrain) + People.Where(p => p.Task == Work.ToOven).Sum(p => p.Carried * BreadPerGrain),
@@ -124,7 +124,7 @@ public sealed partial class World
     {
         ValidateWorkplaceAssignments();
         foreach (var c in Cottages)
-            if (c.EstablishmentPending && (!EstablishmentKind(c.Kind) || Founding is not {PlayerFounded:true,ReserveOnlyWork:false}) || c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested && c.Kind!=BuildingKind.Carpenter || c.OutputTarget != -1)))
+            if (c.PlotRows!=0 && (c.Kind!=BuildingKind.VegetableField || c.PlotRows is <1 or >8) || c.EstablishmentPending && (!EstablishmentKind(c.Kind) || Founding is not {PlayerFounded:true,ReserveOnlyWork:false}) || c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested && c.Kind!=BuildingKind.Carpenter || c.OutputTarget != -1)))
                 throw new InvalidOperationException("Invalid workplace controls");
     }
 }

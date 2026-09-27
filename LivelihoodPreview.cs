@@ -12,7 +12,7 @@ public partial class Game
         if(!LivelihoodPreviewActive){_livelihoodSite=null;return;}
         var key=(_hover,_rotation,_buildKind);
         if(_livelihoodSite==null || _livelihoodWorld!=_world || key!=_livelihoodKey || _uiTime>=_nextLivelihoodPreview)
-        {_livelihoodWorld=_world;_livelihoodKey=key;_nextLivelihoodPreview=_uiTime+.5;_livelihoodSite=_world.ReadLivelihoodSite(_hover,_rotation,_buildKind);}
+        {_livelihoodWorld=_world;_livelihoodKey=key;_nextLivelihoodPreview=_uiTime+.5;_livelihoodSite=_world.ReadLivelihoodSite(_hover,_rotation,_buildKind,PlacementRows);}
         if(_livelihoodSite is not {} site)return;
         for(int i=0;i<site.Route.Length;i++)
         {var c=site.Route[i];GroundPatch(_ghostCells,c.X,c.Z,.23f,.23f,new("89c7cd"),.14f);}

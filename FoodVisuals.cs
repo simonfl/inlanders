@@ -45,7 +45,7 @@ public partial class Game
         if (site.Kind == BuildingKind.Bakery) { MakeBakery(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Sawmill) { MakeSawmill(parent, site, stage); return; }
         if (site.Kind == BuildingKind.Lodge) { MakeLodge(parent, stage); return; }
-        if (World.IsVegetablePlot(site.Kind)) { MakeVegetableGarden(parent, stage,site.Kind); return; }
+        if (World.IsVegetablePlot(site.Kind)) { MakeVegetableGarden(parent, stage,site.Kind,site.PlotRows); return; }
         if(site.Kind==BuildingKind.Orchard){MakeOrchardPlot(parent,stage);return;}
         if (site.Kind == BuildingKind.Farm) { MakeFarm(parent, stage); return; }
         if (site.Kind == BuildingKind.ForagerHut) { MakeForagerHut(parent, stage); return; }
@@ -77,10 +77,10 @@ public partial class Game
         foreach (var farm in _world.Cottages.Where(c => (c.Kind is BuildingKind.Farm or BuildingKind.VegetableField or BuildingKind.VegetableGarden or BuildingKind.Orchard) && c.Complete))
         {
             int stage = farm.Harvest > 0 ? 4 : farm.Planted ? 1 + (int)(farm.Growth * 2.9f) : 0;
-            int viewKey=stage*10+farm.Harvest+(farm.OrchardMature?100:0);
+            int viewKey=stage*100+farm.PlotRows*1000+farm.Harvest+(farm.OrchardMature?100:0);
             if (_cropViews.TryGetValue(farm.Id, out var old) && old.Stage == viewKey) continue;
             if (old.Body != null) old.Body.QueueFree();
-            var root = new Node3D { Position = BuildingPosition(farm.Cell,farm.Rotation,farm.Kind), RotationDegrees = new(0, farm.Rotation * 90, 0) };
+            var root = new Node3D { Position = BuildingPosition(farm), RotationDegrees = new(0, farm.Rotation * 90, 0) };
             _dynamic.AddChild(root);
             if(farm.Kind==BuildingKind.Orchard)MakeOrchardTrees(root,farm,stage); else if (World.IsVegetablePlot(farm.Kind)) MakeVegetables(root, farm, stage);
             else MakeCrops(root, farm, stage);

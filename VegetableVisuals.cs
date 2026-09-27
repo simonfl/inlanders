@@ -3,9 +3,9 @@ using Inlanders.Simulation;
 
 public partial class Game
 {
-    private void MakeVegetableGarden(Node3D root, int stage,BuildingKind kind=BuildingKind.VegetableGarden)
+    private void MakeVegetableGarden(Node3D root, int stage,BuildingKind kind=BuildingKind.VegetableGarden,int plotRows=0)
     {
-        if(kind==BuildingKind.VegetableField && ContinuousFields){MakeWorkedField(root,stage,false);return;}
+        if(kind==BuildingKind.VegetableField && (ContinuousFields || plotRows>0)){MakeWorkedField(root,stage,false,plotRows>0?plotRows:5);return;}
         float edge=kind==BuildingKind.VegetableField?2.35f:.82f;
         var rows=kind==BuildingKind.VegetableField?new[]{-1.8f,-.9f,0,.9f,1.8f}:new[]{-.45f,.45f};
         foreach(float x in new[]{-1.3f,1.3f}) foreach(float z in new[]{-edge,edge})
@@ -35,10 +35,10 @@ public partial class Game
     {
         if(stage==0) return;
         bool field=garden.Kind==BuildingKind.VegetableField && ContinuousFields;
-        for(int i=0;i<World.VegetableYield(garden.Kind);i++)
+        for(int i=0;i<World.VegetableYield(garden);i++)
         {
             bool standing=stage<4 || i<garden.Harvest;
-            var plant=new Node3D { Name=$"Vegetable{i}",Position=new(-.96f+i%4*.64f,field?.06f:.25f,World.VegetableRow(garden.Kind,i)) };
+            var plant=new Node3D { Name=$"Vegetable{i}",Position=new(-.96f+i%4*.64f,field?.06f:.25f,World.VegetableRow(garden,i)) };
             if(field)plant.Scale=new(.87f,.82f,.87f);
             root.AddChild(plant); plant.SetMeta("standing",standing);
             if(!standing) { Box(plant,new(0,.02f,0),new(.17f,.035f,.08f),new("8c8657")); continue; }

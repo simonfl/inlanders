@@ -45,7 +45,7 @@ public sealed partial class World
         Cottages.RemoveAt(index);
         try
         {
-            problem=PlacementProblem(at,rotation,site.Kind);if(problem!=null)return problem;
+            problem=PlacementProblem(at,rotation,site.Kind,site.PlotRows);if(problem!=null)return problem;
             site.BridgeFromFar=site.Kind==BuildingKind.Bridge && !Accessible(Door(at,rotation));
             site.DockFromFar=site.Kind==BuildingKind.FishingDock && DockEntrance(at,rotation)==FarBank(at,rotation);
             site.Cell=at;site.Rotation=rotation;Cottages.Insert(index,site);
@@ -75,8 +75,8 @@ public sealed partial class World
             site.Planted=false;site.Growth=0;
             History.Add("Field moved: sow a fresh crop here. Ripe crops and stored goods are retained.");
         }
-        RemovePaths(Footprint(at,rotation,site.Kind));
-        ManagedWoodland.ExceptWith(Footprint(at,rotation,site.Kind).Append(site.Entrance));
+        RemovePaths(Footprint(at,rotation,site.Kind,site.PlotRows));
+        ManagedWoodland.ExceptWith(Footprint(at,rotation,site.Kind,site.PlotRows).Append(site.Entrance));
         if(site.Kind==BuildingKind.Bridge){ManagedWoodland.Remove(Door(at,rotation));ManagedWoodland.Remove(FarBank(at,rotation));}
         if(site.Boat is {} boat){boat.Position=site.Launch.Point;boat.Heading=rotation*MathF.PI/2+(site.DockFromFar?MathF.PI:0);}
         ReconcileHomes();

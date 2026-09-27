@@ -20,7 +20,7 @@ public partial class Game
     {
         ClearSelection();CloseDrawer();_workCardSite=_selectedSite=id;_workCardWorld=_world;_nextWorkCard=0;
         var site=_world.Cottages.First(c=>c.Id==id);
-        _workCardRight=_camera.UnprojectPosition(BuildingPosition(site.Cell,site.Rotation,site.Kind)).X<_hud.Size.X/2;RefreshSelection();
+        _workCardRight=_camera.UnprojectPosition(BuildingPosition(site)).X<_hud.Size.X/2;RefreshSelection();
     }
     private void MakeWorkplaceCard()
     {
@@ -33,7 +33,7 @@ public partial class Game
             var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
             ClearSelection();
             if(Buildings.Get(home.Kind).Beds>0)FrameHomeYard(home,home.YardSide,false);
-            else{_focus=BuildingPosition(home.Cell,home.Rotation,home.Kind);_camera.Size=home.Kind is BuildingKind.Farm or BuildingKind.VegetableField?17:14;_followPerson=false;_watchOrbit=false;UpdateCamera();}
+            else{_focus=BuildingPosition(home);_camera.Size=home.Kind is BuildingKind.Farm or BuildingKind.VegetableField?17:14;_followPerson=false;_watchOrbit=false;UpdateCamera();}
             ToggleWatch();
         });column.AddChild(_workCardWatchPlace);
         _workCardWatchPlace.TooltipText="Stay with this place as people come and go. H or Esc returns to management. Pause and speed stay as you set them.";

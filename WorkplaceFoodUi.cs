@@ -18,14 +18,15 @@ public partial class Game
             for(int i=0;i<bread;i++)MakeOvenLoaf(parent,new(.96f+i%2*.25f,.92f+i/6*.08f,.13f+i/2%3*.20f),"StoredBread"+i);
             return;
         }
+        float front=site.Kind==BuildingKind.VegetableField?site.Depth/2f+.1f:1.1f;
         int portion=0;
         for(int kind=0;kind<World.EdibleKinds.Length;kind++)for(int n=0;n<site.PantryFood[kind];n++)
         {
             int slot=portion++;
-            var at=new Vector3(-1.05f+slot%4*.17f,.17f+slot/8*.10f,1.02f+slot/4%2*.16f);
+            var at=new Vector3(-1.05f+slot%4*.17f,.17f+slot/8*.10f,front-.08f+slot/4%2*.16f);
             Color color=World.EdibleKinds[kind] switch {Resource.Berries=>new("ac667d"),Resource.Vegetables=>new("81975e"),Resource.Fish=>new("8badae"),Resource.Game=>new("b08067"),Resource.Fruit=>new("bd5544"),_=>new("d1ab70")};
             Box(parent,at,new(.14f,.09f,.13f),color);
         }
-        if(portion>0)Box(parent,new(-.79f,.08f,1.1f),new(.79f,.09f,.46f),new("846d4c"));
+        if(portion>0)Box(parent,new(-.79f,.08f,front),new(.79f,.09f,.46f),new("846d4c"));
     }
 }

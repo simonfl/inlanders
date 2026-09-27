@@ -4,11 +4,11 @@ namespace Inlanders.Simulation;
 public sealed record LivelihoodSite(string Summary,string Destination,Cell[] Route);
 public sealed partial class World
 {
-    public LivelihoodSite ReadLivelihoodSite(Cell at,int rotation,BuildingKind kind)
+    public LivelihoodSite ReadLivelihoodSite(Cell at,int rotation,BuildingKind kind,int rows=0)
     {
-        if(PlacementProblem(at,rotation,kind)!=null)return new("","",Array.Empty<Cell>());
+        if(PlacementProblem(at,rotation,kind,rows)!=null)return new("","",Array.Empty<Cell>());
         Cell door=kind==BuildingKind.FishingDock?DockEntrance(at,rotation):Door(at,rotation);
-        var footprint=Footprint(at,rotation,kind).ToHashSet();
+        var footprint=Footprint(at,rotation,kind,rows).ToHashSet();
         bool Closed(Cell c)=>Blocked(c)||footprint.Contains(c);
         if(kind==BuildingKind.FishingDock)
         {
@@ -32,9 +32,9 @@ public sealed partial class World
         if(Buildings.Get(kind).Beds>0)
         {
             var target=Cottages.Where(c=>!c.DemolitionRequested && (IsVegetablePlot(c.Kind) || c.Kind is BuildingKind.Bakery or BuildingKind.FishingDock)).Select(c=>new{Site=c,Route=FindPath(door,c.Entrance,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Site.Id).FirstOrDefault();
-            if(target==null)return new("Homes need a livelihood nearby · vegetables, bread or fishing", "",Array.Empty<Cell>());
+            if(target==null)return new("Homes need a livelihood nearby Â· vegetables, bread or fishing", "",Array.Empty<Cell>());
             string name=IsVegetablePlot(target.Site.Kind)?"vegetable plot":target.Site.Kind==BuildingKind.Bakery?"oven":"landing";
-            return new($"Possible food walk · {target.Route!.Count} ground steps · meals depend on available food and seating",(target.Site.Complete?"":"Planned ")+name,new[]{door}.Concat(target.Route).ToArray());
+            return new($"Possible food walk Â· {target.Route!.Count} ground steps Â· meals depend on available food and seating",(target.Site.Complete?"":"Planned ")+name,new[]{door}.Concat(target.Route).ToArray());
         }
         return new("","",Array.Empty<Cell>());
     }

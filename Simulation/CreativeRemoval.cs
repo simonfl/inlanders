@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
-public sealed record BuildingRemovalTarget(int Id,Cell Cell,int Rotation,BuildingKind Kind);
+public sealed record BuildingRemovalTarget(int Id,Cell Cell,int Rotation,BuildingKind Kind,int PlotRows=0);
 public sealed record CreativeRemovalSelection(IReadOnlyList<BuildingRemovalTarget> Buildings,
     IReadOnlyList<Decoration> Decorations,IReadOnlyList<Cell> Paths)
 {
@@ -18,8 +18,8 @@ public sealed partial class World
     {
         bool Inside(Cell c)=>c.X>=Math.Min(first.X,last.X) && c.X<=Math.Max(first.X,last.X) &&
             c.Z>=Math.Min(first.Z,last.Z) && c.Z<=Math.Max(first.Z,last.Z);
-        return new(Cottages.Where(c=>Footprint(c.Cell,c.Rotation,c.Kind).Any(Inside))
-                .Select(c=>new BuildingRemovalTarget(c.Id,c.Cell,c.Rotation,c.Kind)).ToArray(),
+        return new(Cottages.Where(c=>Footprint(c).Any(Inside))
+                .Select(c=>new BuildingRemovalTarget(c.Id,c.Cell,c.Rotation,c.Kind,c.PlotRows)).ToArray(),
             Decorations.Where(d=>Inside(d.Cell)).ToArray(),Paths.Where(Inside).ToArray());
     }
 
@@ -36,7 +36,7 @@ public sealed partial class World
         foreach(var target in buildings)
         {
             var site=Cottages.FirstOrDefault(c=>c.Id==target.Id);
-            if(site==null || site.Cell!=target.Cell || site.Rotation!=target.Rotation || site.Kind!=target.Kind)
+            if(site==null || site.Cell!=target.Cell || site.Rotation!=target.Rotation || site.Kind!=target.Kind || site.PlotRows!=target.PlotRows)
                 return Reject("A selected building changed. Select the area again.");
             if(!site.Complete)return Reject("Finish or cancel selected construction plans individually.");
         }

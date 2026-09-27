@@ -494,5 +494,13 @@
     "focusX": 1,
     "focusZ": 8,
     "zoom": 22
+  },
+  {
+    "name": "cultivation",
+    "description": "Choose actual cultivated extent and observe ordinary crop and meal",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": -5,
+    "zoom": 23
   }
 ]

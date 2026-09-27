@@ -11,12 +11,12 @@ public partial class Game
         bool vegetables=World.IsVegetablePlot(field.Kind);
         int plant=Math.Max(0,field.Harvest-1);
         Vector3 local=sowing ? new(0,.25f,.45f) : vegetables
-            ? new(-.96f+plant%4*.64f+.08f,.35f,World.VegetableRow(field.Kind,plant)+.03f)
+            ? new(-.96f+plant%4*.64f+.08f,.35f,World.VegetableRow(field,plant)+.03f)
             : new(-1.05f+Math.Min(2,plant)*.42f,.38f,.56f);
         if(field.Kind==BuildingKind.VegetableField && sowing)local=new(0,.25f,0);
         if(field.Kind==BuildingKind.Farm)local=new(0,sowing?.25f:.38f,sowing?0:World.GrainRow(field.Harvest));
         if(field.Kind==BuildingKind.Orchard && !sowing)local=OrchardFruitPosition(plant);
-        return BuildingPosition(field.Cell,field.Rotation,field.Kind)
+        return BuildingPosition(field)
             +local.Rotated(Vector3.Up,field.Rotation*Mathf.Pi/2);
     }
 

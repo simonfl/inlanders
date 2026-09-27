@@ -53,7 +53,7 @@ public sealed partial class World
         if (Decorations.Select(d => d.Cell).Distinct().Count() != Decorations.Count ||
             Decorations.Any(d => !Enum.IsDefined(d.Kind) || d.Facing is <0 or >3 || (d.Kind==DecorationKind.Gateway ? d.Rotated!=(d.Facing%2!=0) : d.Facing!=0) || (d.Kind == DecorationKind.Sunflowers && !SunflowersUnlocked) || !Map.Contains(d.Cell) || Map.Water.Contains(d.Cell) ||
                 Map.StoneDeposits.Any(s=>s.Cell==d.Cell) || d.Cell == Stockpile || Trees.Any(t => t.Cell == d.Cell) || Bushes.Any(b => b.Cell == d.Cell) ||
-                Cottages.Any(c => Footprint(c.Cell,c.Rotation,c.Kind).Contains(d.Cell)) || (d.Solid && Paths.Contains(d.Cell))))
+                Cottages.Any(c => Footprint(c).Contains(d.Cell)) || (d.Solid && Paths.Contains(d.Cell))))
             throw new InvalidOperationException("Invalid decorations");
     }
 }

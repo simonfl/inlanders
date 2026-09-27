@@ -56,7 +56,7 @@ public partial class Game
             foreach(var c in _world.Map.Land.Where(c=>c.X>=left && c.X<=right && c.Z>=back && c.Z<=front && (c.X==left || c.X==right || c.Z==back || c.Z==front)))
                 Box(_areaMarks,OnGround(c.X,c.Z)+new Vector3(0,.09f,0),new(.98f,.045f,.98f),new("dbc17e"));
         }
-        var cells=selection.Buildings.SelectMany(b=>World.Footprint(b.Cell,b.Rotation,b.Kind))
+        var cells=selection.Buildings.SelectMany(b=>World.Footprint(b.Cell,b.Rotation,b.Kind,b.PlotRows))
             .Concat(selection.Decorations.Select(d=>d.Cell)).Concat(selection.Paths).Distinct();
         foreach(var cell in cells)Box(_areaMarks,OnGround(cell.X,cell.Z)+new Vector3(0,.075f,0),new(.9f,.06f,.9f),new("d88967"));
     }

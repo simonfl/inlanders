@@ -67,15 +67,17 @@ public partial class Game
         BuildingKind.ForagerHut => "Supports 2 foragers who gather berries from nearby bushes and bring them to storage.",
         BuildingKind.VegetableGarden => "Grows 8 vegetables in 60 seconds after planting. Eaten directly; no bakery needed. " + (_world.HasWorkplaceFood ? "Harvests are stored at the garden for collection." : "Harvests are carried to food storage."),
         BuildingKind.Farm => "Supports 1 farmer. Grows 6 grain in 45 seconds; harvest loads hold up to 4. Grain needs a bakery before villagers can eat it.",
+        BuildingKind.VegetableField when _world.PublicPlace!=null => "Choose 1–8 rows of growing ground. Each row uses 3 tiles, costs 2 logs and grows 4 vegetables. Longer strips need more walking and harvesting; one farmer works at a time.",
         BuildingKind.VegetableField => "15 tiles of cultivated ground; 20 vegetables per crop after 60 seconds growing. Costs 10 logs. One farmer enters the rows to sow and harvest, carrying pairs back. Same yield per tile as a kitchen garden; more land and collection work. Move while paused to replant.",
         BuildingKind.Orchard => "1 farmer plants trees once. First fruit takes 3 minutes; mature trees grow 8 fruit every 60 seconds after picking. Farmers carry pairs to food storage. Keep quick food during establishment. Targets hold new batches; clearing loses mature trees.",
         BuildingKind.Bakery => $"Turns 2 grain into {2*_world.BreadPerGrain} loaves in 10 work seconds. " + (_world.HasWorkplaceFood ? "Keep grain suppliers and diners close; bread is stored at the bakery." : "Build near food storage to shorten trips."),
         BuildingKind.Sawmill => $"Supports 1 sawyer. Turns 2 logs into 4 planks in 10 work seconds. Starts with an adjustable {World.PlankStockTarget}-plank stock target.",
         _ => ""
     };
-    private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : HomePlotActive && _homePlotSide>=0?_world.PreviewHomePlot(cell,_rotation,_buildKind,_homePlotSide).Problem:_world.PlacementProblem(cell, _rotation, _buildKind)) ?? "";
+    private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : HomePlotActive && _homePlotSide>=0?_world.PreviewHomePlot(cell,_rotation,_buildKind,_homePlotSide).Problem:_world.PlacementProblem(cell, _rotation, _buildKind,PlacementRows)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
+        (_plotPanel!=null && _plotPanel.Visible && _plotPanel.GetGlobalRect().HasPoint(point)) ||
         (_homePlotPanel!=null && _homePlotPanel.Visible && _homePlotPanel.GetGlobalRect().HasPoint(point)) ||
         (_firstPlace!=null && _firstPlace.Visible && _firstPlace.GetGlobalRect().HasPoint(point)) ||
         (_hamletEnding!=null && _hamletEnding.Visible && _hamletEnding.GetGlobalRect().HasPoint(point)) ||
@@ -109,22 +111,22 @@ public partial class Game
         if (_clearingTrees) { RefreshClearingGhost(); return; }
         var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
         var moving=_movingSite>=0?_world.Cottages.FirstOrDefault(c=>c.Id==_movingSite):null;
-        string key = moving!=null?RelocationModelKey(moving):_plantingTrees ? "tree" : _buildKind.ToString();
+        string key = moving!=null?RelocationModelKey(moving):_plantingTrees ? "tree" : _buildKind.ToString()+PlacementRows;
         if (_ghostModelKey != key)
         {
             Clear(_ghostModel); _previewMaterials.Clear(); _ghostModelKey = key;
             if (_plantingTrees) MakeTree(Vector3.Zero, 0.4f, new("8cad69")).Reparent(_ghostModel, false);
-            else MakeBuilding(_ghostModel, moving??new Cottage { Kind = _buildKind }, 3);
+            else MakeBuilding(_ghostModel, moving??new Cottage { Kind = _buildKind,PlotRows=PlacementRows }, 3);
             if(!_plantingTrees && _buildKind==BuildingKind.Orchard)MakeOrchardTrees(_ghostModel,moving??new Cottage{Kind=_buildKind,Planted=true,OrchardMature=true,Harvest=8},moving==null?4:moving.Harvest>0?4:moving.Planted?1+(int)(moving.Growth*2.9f):0);
             PreparePreview(_ghostModel,moving!=null);
         }
         foreach (var material in _previewMaterials) material.AlbedoColor = new(tint.R, tint.G, tint.B, 0.42f);
         var moveDoor=moving!=null?_world.RelocationEntrance(moving.Id,_hover,_rotation):(Cell?)null;
         bool dockFar = !_plantingTrees && _buildKind == BuildingKind.FishingDock && (moveDoor??_world.DockEntrance(_hover,_rotation))==World.FarBank(_hover,_rotation);
-        _ghostModel.Position = _plantingTrees?OnGround(_hover.X,_hover.Z,.1f):BuildingPosition(_hover,_rotation,_buildKind,.1f);
+        _ghostModel.Position = _plantingTrees?OnGround(_hover.X,_hover.Z,.1f):BuildingPosition(_hover,_rotation,_buildKind,.1f,PlacementRows);
         _ghostModel.RotationDegrees = new(0, (_plantingTrees?0:_rotation*90)+(dockFar?180:0), 0);
         Clear(_ghostCells);
-        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotation, _buildKind);
+        var footprint = _plantingTrees ? new[] { _hover } : World.Footprint(_hover, _rotation, _buildKind,PlacementRows);
         foreach (var cell in footprint) GroundPatch(_ghostCells,cell.X,cell.Z,.94f,.94f,tint.Darkened(.15f),.06f);
         var door = moveDoor??(_plantingTrees ? new Cell(_hover.X + 1, _hover.Z) : _buildKind == BuildingKind.FishingDock ? _world.DockEntrance(_hover,_rotation) : _buildKind == BuildingKind.Bridge ? _world.BridgeEntrance(_hover, _rotation) : World.Door(_hover, _rotation));
         var marker = new Node3D { Position = OnGround(door.X,door.Z,.10f), RotationDegrees = new(0, (_plantingTrees?90:_rotation*90) + (dockFar || !_plantingTrees && _buildKind == BuildingKind.Bridge && door == World.FarBank(_hover, _rotation) ? 180 : 0), 0) }; _ghostCells.AddChild(marker);
@@ -181,7 +183,7 @@ public partial class Game
         if (_world.Creative && !_plantingTrees) { _buildDescription.Text = $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nInstant · Free. Choose level ground for the footprint and entrance."+(_buildKind==BuildingKind.Quarry?"\n"+_world.QuarrySurvey(_hover):_buildKind==BuildingKind.HuntingLodge?"\n"+_world.WildlifeSurvey(_hover):""); return; }
         var definition = Buildings.Get(_buildKind);
         int available = definition.Material == Inlanders.Simulation.Resource.Planks ? _world.AvailablePlanks : _world.Available;
-        int cost = definition.Cost;
+        int cost = PlacementRows>0?PlacementRows*2:definition.Cost;
         string material = definition.Material.ToString().ToLowerInvariant();
         _buildDescription.Text = _plantingTrees && _placing ? "ALDERS\nLoggers plant for free. Grow for 3 days; yield 8 logs. Replant exhausted stumps." :
             $"{BuildingName(_buildKind).ToUpperInvariant()}\n{BuildingDescription(_buildKind)}\n\nBuildings need level ground, including the entrance.\n{available} {material} available · {cost} needed" + (available < cost ? "\nYou can plan now; builders wait for materials." : "");

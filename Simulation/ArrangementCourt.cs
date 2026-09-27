@@ -21,7 +21,7 @@ public sealed partial class World
         var positions=new[]{(new Cell(-4,0),0),(new Cell(-1,0),0),(new Cell(2,1),1),(new Cell(-4,5),2)};
         for(int i=0;i<homes.Length;i++){homes[i].Cell=positions[i].Item1;homes[i].Rotation=positions[i].Item2;}
         var venue=w.Cottages.Single(c=>c.Kind==BuildingKind.SeatingGarden);venue.Cell=new(-1,3);
-        var ground=w.Cottages.SelectMany(c=>Footprint(c.Cell,c.Rotation,c.Kind).Append(c.Entrance)).ToHashSet();
+        var ground=w.Cottages.SelectMany(c=>Footprint(c).Append(c.Entrance)).ToHashSet();
         // Relocate conflicting inherited trees, preserving timber capability and accounting.
         foreach(var tree in w.Trees.Where(t=>ground.Contains(t.Cell) || ground.Contains(t.Access) || t.Cell.X>=9 && t.Cell.X<=16 && t.Cell.Z>=0 && t.Cell.Z<=8).ToArray())
         {

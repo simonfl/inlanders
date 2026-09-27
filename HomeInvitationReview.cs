@@ -10,7 +10,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         var home=_world.Cottages.Single(c=>c.Cell==new Cell(1,-5));int first=_world.Population;
-        CloseManagementUi();_focus=BuildingPosition(home.Cell,home.Rotation,home.Kind);_camera.Size=17;UpdateCamera();await Frames();
+        CloseManagementUi();_focus=BuildingPosition(home);_camera.Size=17;UpdateCamera();await Frames();
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z)));await Frames();
         Check(_workCardSite==home.Id && _homeInvite.IsVisibleInTree() && !_homeInvite.Disabled,"Empty home invitation not accessible by world click");
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Invitation card overflows compact view");await CaptureReviewBundle("home-invitation-choice");

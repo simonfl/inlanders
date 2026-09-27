@@ -39,7 +39,7 @@ public partial class Game
         var away=_world.Map.Land.OrderBy(c=>(c.Point-new Cell(14,9).Point).LengthSquared()).First(c=>c!=beside.Cell && _world.RelocationProblem(beside.Id,c,0)==null);
         Check(_world.MoveBuilding(beside.Id,away,0),"Move-after-commons fixture failed");
         CreateActors();RenderActors(0);UpdateCommonsView();await Frames();
-        var excluded=_world.Cottages.SelectMany(c=>World.Footprint(c.Cell,c.Rotation,c.Kind)).Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell)).Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
+        var excluded=_world.Cottages.SelectMany(c=>World.Footprint(c)).Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell)).Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
         Check(_commonsGroundExcluded.SetEquals(excluded),"Commons surface retained pre-move building footprint");
         ToggleDrawer(2);await Frames();await ClickGoal(_courtFinishButton);
         Check(_world.CourtStudy!.Finished && _paused && _courtLeaveButton.IsVisibleInTree() && !_courtStartingLayout.Visible,"Finish did not expose ending");

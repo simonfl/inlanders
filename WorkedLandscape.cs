@@ -22,8 +22,8 @@ public partial class Game
         if(!force && _workedWorld==_world && key==_workedKey)return;
         _workedWorld=_world;_workedKey=key;Clear(_workedLand);
         var fields=_world.Cottages.Where(c=>c.Complete && (World.IsVegetablePlot(c.Kind) || c.Kind is BuildingKind.Farm or BuildingKind.Orchard))
-            .SelectMany(c=>World.Footprint(c.Cell,c.Rotation,c.Kind)).ToHashSet();
-        var homes=_world.Cottages.Where(c=>c.Complete && Buildings.Get(c.Kind).Beds>0).SelectMany(c=>World.Footprint(c.Cell,c.Rotation,c.Kind)).ToArray();
+            .SelectMany(c=>World.Footprint(c)).ToHashSet();
+        var homes=_world.Cottages.Where(c=>c.Complete && Buildings.Get(c.Kind).Beds>0).SelectMany(c=>World.Footprint(c)).ToArray();
         var yards=_world.Cottages.SelectMany(c=>_world.HomeYardPlaces(c)).Concat(_world.Commons?.Places??Array.Empty<Cell>()).ToArray();
         var trees=_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting && t.Growth>=1).Select(t=>t.Cell).ToArray();
         var wear=_world.ReadGroundUse(true).Where(m=>m.Visits>=3).ToDictionary(m=>m.Cell,m=>m.Visits);
