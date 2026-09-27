@@ -34,6 +34,7 @@ public sealed partial class World
     // Named slots are reserved, even during meals/rest. Existing automatic work is never interrupted.
     private bool CanClaimWorkplace(Villager person,Cottage site)
     {
+        if(person.SharedWorker && !FoodWorkNeeded && Buildings.Get(site.Kind).Worker is Role role && FoodRole(role) && !EstablishmentWork(site))return false;
         if(person.AssignedWorkplaceId is int assigned)return assigned==site.Id;
         return AssignedWorkers(site.Id)+People.Count(p=>p.WorkplaceId==site.Id && p.AssignedWorkplaceId!=site.Id)<Buildings.Get(site.Kind).Slots;
     }

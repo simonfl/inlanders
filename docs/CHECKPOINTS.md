@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **90**.
+- Playable checkpoints since adoption: **91**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint90**, [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
 - Previous review85: [synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused.
@@ -424,3 +424,8 @@ Checkpoint90 — September27: primary Play offers provisioned founding in Normal
 Review90 completed September27 on `d390bf1`: [whole-game synthesis](REVIEW_CHECKPOINT_90.md), five fresh independent roles. Fixed960/1440 first-place and960 inhabited controls pass; broad representative founded bread/fish, inhabited, intro/dense campaign and free-court stills inspected. All31 current suites completed (run `7cd29345a9ff42be8c830ffcad19795e`, UI-only final fix afterward, unchanged simulation/tests); broad regression exit0 on final build. Zero-warning build. The overlapping entry notice is fixed in the reviewed commit.1x recording available, not listened to or accepted for motion/performance.
 
 Verdict partially convincing. Choose bounded first productive cycle under unchanged safety provisions, then connected farmstead composition comparison; conditionally challenge management against composition-first play. No content/need expansion or automatic five-patch queue. Source/stills/scripted controls remain distinct from uncoached play and enjoyment. Unknown save replacement denial remains open. Review/docs add no count; user stopping condition satisfied at90,91 not started.
+
+
+Checkpoint91 — September27: new player-founded fields, ovens and landings perform a bounded real first crop/batch/trip under unchanged120-food provisions. Shared workers respect pause, input, staffing and output limits; mature reserve scheduling resumes after the cycle. Bake output is fully collected. Relocation and current saves retain cycle state, with no migration. The previous reserve-only variant remains available to development comparisons.
+
+Twelve mode/livelihood/control runs pass, no hungry ticks, active exact save and pause/move/reload checks pass. Normal first vegetable/bread/fish meals:749/790/685s control,192/195/129s candidate. Per-site timeline distinguishes first workplace completion from all workplaces completed; first grain work can precede oven completion. Zero-warning build. Actual960 catalogue/world placement, construction, homes/rest and first ordinary vegetable meal passed20260927-221015-388-player-founded-948de3; inspected.32-suite current run pending. No human pacing/enjoyment claim. Next92 connected ground-use presentation comparison, then independent visual review. User resumed through100;95/100 full reviews remain due.

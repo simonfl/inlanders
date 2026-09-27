@@ -56,7 +56,7 @@ public sealed partial class World
         }
         bool FoodWork()
         {
-            if(!FoodWorkNeeded)return false;
+            if(!FoodWorkNeeded && !Cottages.Any(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && EstablishmentWork(c)))return false;
             if(People.Count(p=>FoodRole(p.Role))>=Math.Max(1,(Population+1)/2))return false;
             foreach(var role in new[]{Role.Baker,Role.Forager,Role.Farmer,Role.Fisher,Role.Hunter}
                 .OrderBy(r=>People.Count(p=>p.Role==r)))if(Try(role))return true;

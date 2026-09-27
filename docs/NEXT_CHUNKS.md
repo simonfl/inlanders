@@ -1,12 +1,12 @@
 # Next work — make the chosen place come to life
 
-Playable count **90**. [Whole-game review90](REVIEW_CHECKPOINT_90.md) completed on `d390bf1` with five fresh independent roles. Verdict: **partially convincing**. Founding restores authorship, but its generous reserve can defer the chosen livelihood's first payoff; whole scenes still read as isolated buildings rather than inhabited places. All 31 current suites, broad regression and fixed960/1440 input checks pass. Those results do not establish fun, unaided discovery, listening or performance.
+Playable count **91**. [Whole-game review90](REVIEW_CHECKPOINT_90.md) completed on `d390bf1` with five fresh independent roles. Verdict: **partially convincing**. Founding restores authorship, but its generous reserve can defer the chosen livelihood's first payoff; whole scenes still read as isolated buildings rather than inhabited places. All 31 current suites, broad regression and fixed960/1440 input checks pass. Those results do not establish fun, unaided discovery, listening or performance.
 
-**Stopped after 90 as requested. No91 implementation has started.** Next regular four-role review 95; add visual/audio for substantial ensemble changes, and full five roles at 100. Bring a direction review forward if the experiment rejects the premise.
+**User resumed through checkpoint100 and its full review.**91 is delivered; continue toward95, reassessing each outcome. Next regular four-role review 95; add visual/audio for substantial ensemble changes, and full five roles at 100. Bring a direction review forward if the experiment rejects the premise.
 
-## Chosen next outcome
+## Delivered91 and chosen next outcome
 
-**91 — A livelihood starts working while provisions keep people safe.** Compare today's reserve-only scheduling against a bounded real establishment cycle on the same inlet with the same 120 food, people and costs. A chosen garden, complete grain/oven chain or landing should visibly start useful work and produce actual food. Preserve shared labor, capacity/input rules, ordinary meal choice, optional growth and safe placement recovery. Do not reduce provisions to manufacture urgency or animate work that did not happen.
+**91 delivered — A livelihood starts working while provisions keep people safe.** Compare today's reserve-only scheduling against a bounded real establishment cycle on the same inlet with the same 120 food, people and costs. A chosen garden, complete grain/oven chain or landing should visibly start useful work and produce actual food. Preserve shared labor, capacity/input rules, ordinary meal choice, optional growth and safe placement recovery. Do not reduce provisions to manufacture urgency or animate work that did not happen.
 
 Add narrow event timing alongside this experiment: workplace completed, first work/output/meal, move/resume and inputs, using existing capture/comparison infrastructure. Record contention and surplus as well as speed. Tools alone receive no playable credit. A faster harvest is insufficient: reject the direction if it still does not make the chosen place understandable or worth watching/revising.
 
@@ -36,3 +36,5 @@ Atomic replacement denial remains unresolved. On recurrence, correlate the faili
 ## Completed comparison86–90
 
 86 established the provisioned player-founded option;87 exposed proposed livelihood connections and grain/oven dependency;88 consolidated pause/move/cancel/resume, including boat return;89 added optional invitations into a specific spare home with food demand;90 made founding the primary entry with dismissible first-place choices and retained inhabited play. Detailed evidence and historical decisions live in [CHECKPOINTS](CHECKPOINTS.md) and [review90](REVIEW_CHECKPOINT_90.md).
+
+91 comparison: under unchanged provisions, Normal first vegetable/bread/fish meals moved from749/790/685s to192/195/129s. Each new supported producer performs one real crop/batch/trip, then returns to reserve scheduling; finished cycles survive moves/saves, and explicit pause/targets remain. Per-site completion/work/output timestamps are in artifacts/establishment/timeline.json; all12 matched mode/livelihood/control runs pass with no hunger. Native960 actual construction through first vegetable meal passes.32-suite full current run is pending. Next92 tests ground shaped by actual domestic/work movement as a connected composition comparison, not prefab decoration; a separate visual review follows before93.

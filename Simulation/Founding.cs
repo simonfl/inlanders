@@ -8,6 +8,7 @@ public sealed class FoundingProgress
 {
     public SharedCommons? Commons { get; set; }
     public bool PlayerFounded { get; set; }
+    public bool ReserveOnlyWork { get; set; } // Development comparison: retain the previous reserve-only scheduler.
     public bool ProvisionedLife { get; set; }
     public bool RiverFarmstead { get; set; }
     public bool TransformationHamlet { get; set; }

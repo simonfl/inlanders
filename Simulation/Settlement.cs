@@ -79,6 +79,7 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public bool EstablishmentPending { get; internal set; }
     [JsonInclude] public int StoredGrain { get; internal set; }
     [JsonInclude] public CottageFinish Finish { get; internal set; }
     [JsonInclude] public CivicIdentity Identity { get; internal set; }
@@ -218,6 +219,7 @@ public sealed partial class World
     {
         if (!Enum.IsDefined(kind) || PlacementProblem(cell, rotated, kind) != null) return null;
         var site = new Cottage { Id = _nextSite++, Cell = cell, Rotation = rotated, Kind = kind, Construction = Creative ? 1 : 0, BridgeFromFar = kind == BuildingKind.Bridge && !Accessible(Door(cell, rotated)), DockFromFar = kind == BuildingKind.FishingDock && DockEntrance(cell,rotated) == FarBank(cell,rotated) }; Cottages.Add(site);
+        site.EstablishmentPending=Founding is {PlayerFounded:true,ReserveOnlyWork:false} && EstablishmentKind(kind);
         if (kind == BuildingKind.Sawmill) site.OutputTarget = PlankStockTarget;
         RemovePaths(Footprint(cell, rotated, kind));
         ManagedWoodland.ExceptWith(Footprint(cell,rotated,kind).Append(site.Entrance));

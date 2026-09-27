@@ -95,6 +95,7 @@ public sealed partial class World
                 if(boat.Timer<8) break;
                 var ground=Map.FishingGrounds.Single(g=>g.Id==boat.GroundId);
                 boat.Fish=ground.Take(boat.ReservedCatch); Food.CaughtFish+=boat.Fish;
+                if(boat.Fish>0)dock.EstablishmentPending=false;
                 ReturnBoat(dock); break;
             case BoatPhase.Returning:
                 boat.Timer+=dt; person.Status="Unloading at the dock";

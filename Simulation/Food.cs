@@ -156,7 +156,7 @@ public sealed partial class World
             case Work.Harvesting:
                 if (v.Timer < FieldWorkSeconds(Station(),false)) break;
                 var farm = Station(); int grain = Math.Min(farm.Kind == BuildingKind.Farm ? 4 : 2, farm.Harvest); farm.Harvest -= grain;
-                if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; }
+                if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; farm.EstablishmentPending=false; }
                 CarryFood(ProductionOutput(farm.Kind)!.Value, grain); break;
             case Work.ToGrain:
                 ChangeGrainAt(v.GrainSourceId,-v.FoodReserved);v.GrainSourceId=null; v.Carried = v.FoodReserved; v.Cargo = Resource.Grain; v.FoodReserved = 0;
@@ -168,6 +168,7 @@ public sealed partial class World
                 var bakery = Station(); bakery.BakeProgress += dt / 10;
                 if (bakery.BakeProgress < 1) break;
                 Food.UsedGrain += bakery.InputGrain; Food.BakedBread += bakery.InputGrain * BreadPerGrain;
+                bakery.EstablishmentPending=false;
                 bakery.OutputBread += bakery.InputGrain * BreadPerGrain; bakery.InputGrain = 0; bakery.BakeProgress = 0;
                 v.Task = Work.ToBread; break;
             case Work.ToBread:

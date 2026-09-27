@@ -18,9 +18,9 @@ public partial class Game
             var point=_camera.UnprojectPosition(OnGround(plan.Item2.X,plan.Item2.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();Check(_ghostValid,"Founding proposal rejected: "+_placementProblem);await Click(point);await Frames();await Press(Key.Escape);await Frames();
         }
         _paused=false;_speed=6;double start=_uiTime;
-        while(_uiTime-start<65 && (_world.Housed<8 || !_world.People.Any(p=>p.HomeId!=null && p.Task==Work.Resting)))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
-        _paused=true;Check(_world.Housed==8 && _world.People.Any(p=>p.HomeId!=null && p.Task==Work.Resting),"Built homes did not become inhabited/rested");
+        while(_uiTime-start<65 && (_world.Housed<8 || _world.Food.EatenVegetables==0 || !_world.People.Any(p=>p.HomeId!=null && p.Task==Work.Resting)))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+        _paused=true;Check(_world.Food.EatenVegetables>0,"First established food never became an ordinary meal");Check(_world.Housed==8 && _world.People.Any(p=>p.HomeId!=null && p.Task==Work.Resting),"Built homes did not become inhabited/rested");
         ClearSelection();_camera.Size=26;UpdateCamera();await Frames();await CaptureReviewBundle("player-established-homes");_world.Validate();
-        GD.Print("PASS: actual catalogue and world placement of chosen homes/gardens, real construction, household occupation and home rest at6x. No strategic preference claim.");
+        GD.Print("PASS: actual catalogue and world placement of chosen homes/gardens, real construction, household occupation, first real vegetable meal and home rest at6x. No strategic preference claim.");
     }
 }
