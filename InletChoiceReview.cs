@@ -11,7 +11,7 @@ public partial class Game
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
         await UiClick(_mainButtons["Between wood and water · prototype"]);await Frames();Check(_menuPageTitle==new HamletProfile(false).Title,"Archived compact link opens another place");
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();
         await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();Check(_menuPageTitle==new HamletProfile(false,true).Title,"Matched control link missing");
         await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: across the inlet"]);await Frames();
         await CaptureReviewBundle("inlet-choice-entry");await UiClick(_mainButtons["New hamlet"]);await Frames();
@@ -25,7 +25,7 @@ public partial class Game
         Check(_world.MoveBuilding(field.Id,destination,field.Rotation),"Inlet field move rejected");_world.Validate();
         string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Inlet save continuation differs");
         Reset();await Frames();Check(_world.PublicPlace==profile && _world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField).Cell==new Cell(1,-5),"Inlet restart lost layout");
-        ReturnToMainMenu();await Frames();Check(_atMainMenu,"Return to menu failed: inspect atomic-save diagnostics; do not treat as missing controls.");await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();
+        ReturnToMainMenu();await Frames();Check(_atMainMenu,"Return to menu failed: inspect atomic-save diagnostics; do not treat as missing controls.");await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();
         Check(_world.PublicPlace==profile with {Relaxed=true},"Inlet relaxed mode lost layout");await ProbePublicPlaceContract();
         string continueSlot=_continuePath,live=_world.SaveJson();
         try

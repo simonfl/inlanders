@@ -3,9 +3,11 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **75**.
+- Playable checkpoints since adoption: **90**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint75**, [whole-game synthesis](REVIEW_CHECKPOINT_75.md), fixed `87de771`. Three fresh independent roles plus an independent reused older-context playtest audit; visual/audio is a dependent UX-context supplement after thread limits. Partially convincing; next hypothesis is a recoverable home/land dilemma. No hands-on/listening acceptance.
+- Last periodic review: **checkpoint85**, [whole-game synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused. Full90 review is now due.
+- Previous review80: [synthesis](REVIEW_CHECKPOINT_80.md), fixed `b4fbcee`, five fresh independent roles.
+- Previous review75: [synthesis](REVIEW_CHECKPOINT_75.md), fixed `87de771`.
 - Previous review70: [synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`, five fresh independent roles.
 - Previous review65: [synthesis](REVIEW_CHECKPOINT_65.md), fixed `05bff29`, five fresh independent roles.
 - Previous review60: [synthesis](REVIEW_CHECKPOINT_60.md), fixed `58cc3cc`, five fresh independent roles.
@@ -15,7 +17,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next four-role review: **checkpoint 80**.
+- Next full five-role review: **checkpoint90**, due now.
 - Latest visual/audio supplement: **checkpoint75**, dependent on reused UX context due thread limits; not a fifth independent verdict. Stills/source only, no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint 80**. Substantial presentation changes trigger earlier reviews.
 
@@ -413,3 +415,6 @@ Zero-warning build. Final960 grain manual-pause preservation, intent/cancel/reje
 
 
 Checkpoint89 — September27: finished public homes with two spare beds can invite two neighbors into that specific home. The card states +2 meals/minute and explains population/current supply; all growth remains optional. Arrivals still enter by the yard and follow ordinary work, meal and rest rules. Existing residents are not displaced. Normal/relaxed tests cover empty/unfinished/full homes, query and rejection purity, selected-home assignment and exact active continuation. Native960 world selection/invitation, compact card and actual meals/home rest passed20260927-170229-962-home-invitation-2e0d3d; inspected. Zero-warning build. User resumed through full90 review;90 consolidates the public founding entry and first placement, without claiming human preference.
+
+
+Checkpoint90 — September27: primary Play offers provisioned founding in Normal/relaxed modes and retains inhabited arrangement. Empty founding worlds show four direct first-place choices with actual costs, the grain/oven dependency, full catalogue access and a dismissal option; ordinary controls remain. First placement retires the chooser. Native960 choice/cancel/dismiss/catalogue/save/load/relaxed placement and inhabited-flow probes passed on the working build. Inspection caught an introductory notice covering the lower chooser; final code removes that duplicate entry notice and includes Space in the chooser. Final rebuild/checks and full whole-game review pending at freeze; no enjoyment, listening or human discovery acceptance. Stop after review90.

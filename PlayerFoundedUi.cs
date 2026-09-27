@@ -6,7 +6,7 @@ public partial class Game
     {
         MenuPage("A place of our own");
         _mainColumn.AddChild(Text("Eight neighbors, open land and supplies to begin.",20,true));
-        _mainColumn.AddChild(Text("Choose where homes belong and how this place will feed itself. You have48 logs,4 planks and120 food portions. Gardens, grain with an oven, and fishing make different uses of the land. Shared workers build and tend them; no job assignments are needed.",16,true));
+        _mainColumn.AddChild(Text("Choose homes and a livelihood. Begin with 48 logs, 4 planks and 120 food portions. Shared workers build and tend the village.",16,true));
         foreach(bool relaxed in new[]{false,true})
         {
             var profile=new HamletProfile(relaxed,true,false,true,true);string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
@@ -17,6 +17,7 @@ public partial class Game
             MenuButton("New "+label,()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this farmstead?",Start,PlayerFoundedMenu);else Start();});
         }
         _mainColumn.AddChild(Text("Keep the village small or invite neighbors when you want. No required building sequence or deadline. You can finish for now and return later.",15,true));
-        MenuButton("Back",TransformationMenu);
+        MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
+        MenuButton("Back",ShowMainMenu);
     }
 }

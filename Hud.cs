@@ -127,7 +127,7 @@ public partial class Game
         _constructionPause.TooltipText="Stop work and release reservations. Delivered materials and progress remain; carried materials return to storage.";_buildingDetails.AddChild(_constructionPause);
         _cancelButton = Button("Cancel construction", () => { if (_world.Cancel(_selectedSite)) { ClearSelection(); RebuildQueue(); } });
         _cancelButton.TooltipText = "Delivered materials remain as salvage; carried materials return to storage."; _buildingDetails.AddChild(_cancelButton); MakeCreativeControls();
-        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi(); MakeDailyLifeUi();MakeWorkplaceCard();
+        MakeStorageControls(); MakeProductionControls(); MakeManagementControls(); MakeHomeUi(); MakeHappinessUi(); MakeDailyLifeUi();MakeWorkplaceCard();MakeFirstPlaceUi();
         MakeContextualInspector(); MakeResourceSurvey(inspection);
         inspection.AddChild(Button("Move camera here", () =>
         {

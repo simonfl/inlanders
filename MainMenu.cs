@@ -84,7 +84,7 @@ public partial class Game
         GetViewport().GuiGetFocusOwner()?.ReleaseFocus();
         _atMainMenu = false; _mainMenu.Hide(); _hud.Show(); _paused = true;
         if (world.Founding!=null || world.Campaign != null || world.Neighborhood!=null && !world.IsArrangementCourt) ToggleDrawer(2);
-        if(world.Founding?.TransformationHamlet==true){CloseDrawer();_focus=OnGround(0,4);_camera.Size=29;UpdateCamera();Notice(world.Founding.PlayerFounded?"Choose homes and a livelihood on this land. B opens Build; shared workers take care of construction. Space starts daily life.":"A working hamlet. Follow the garden paths, inspect a place, and choose what you would change. Space starts daily life.");}
+        if(world.Founding?.TransformationHamlet==true){CloseDrawer();_focus=OnGround(0,4);_camera.Size=29;UpdateCamera();if(world.Founding.PlayerFounded && world.Cottages.Count==0)_noticeUntil=0;else Notice(world.Founding.PlayerFounded?"Your farmstead is paused. Space starts daily life.":"A working hamlet. Follow the garden paths, inspect a place, and choose what you would change. Space starts daily life.");}
         else if(world.CourtStudy is {} study){_focus=OnGround(3,3);_camera.Size=CourtZoom(29);UpdateCamera();Notice(study.Finite?"Open a place to gather. Choose Your place [G] for the brief and starting layout. Space plays village life.":"Sixteen neighbors, a place of your own. Your place [G] shows the starting layout. Space plays village life.");}
         else if(world.IsArrangementCourt){_focus=OnGround(3,3);_camera.Size=CourtZoom(29);UpdateCamera();Notice(world.Creative?"Make a place of your own: free building, moves and removal. Real meals without hunger penalties. Welcoming is optional in Goals. Press Space to play.":"Choose a resident or home to follow daily life. Try one building elsewhere; restore it from the resident card. Welcoming is optional in Goals. Press Space to play.");}
         else Notice("Settlement ready and paused. Press Space to play.");
@@ -106,7 +106,7 @@ public partial class Game
         MenuButton("Free arrangement",()=>CourtStartMenu(false));
         MenuButton("Found a village · A home by the water",FoundingMenu);
         MenuButton("Short introduction · A place to gather",()=>CourtStartMenu(true));
-        _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play opens the current inhabited hamlet in Normal or relaxed mode.",15,true));
+        _mainColumn.AddChild(Text("Archived settlement experiments and earlier rule sets. Play opens a new farmstead or an inhabited hamlet in Normal or relaxed mode.",15,true));
         MenuButton("Earlier settlements", NeighborhoodMenu);
         MenuButton("Between wood and water · prototype",()=>HamletMenu(false));
         MenuButton("Earlier free court", CreativeCourtMenu);

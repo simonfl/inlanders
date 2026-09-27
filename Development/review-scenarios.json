@@ -478,5 +478,13 @@
     "focusX": 1,
     "focusZ": -5,
     "zoom": 20
+  },
+  {
+    "name": "first-place",
+    "description": "Primary founding menu and dismissible first-placement choices through ordinary controls",
+    "generator": "player-founded",
+    "focusX": 0,
+    "focusZ": 1,
+    "zoom": 29
   }
 ]

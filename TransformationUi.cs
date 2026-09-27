@@ -4,7 +4,7 @@ public partial class Game
 {
     private string TransformationPath=>TransformationSavePath(_world.Creative);
     private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
-    private void TransformationMenu()=>HamletMenu(true,false,true);
+    private void TransformationMenu()=>PlayerFoundedMenu();
     private void HamletMenu(bool cultivatedBank,bool groupedFarmsteads=false,bool acrossTheInlet=false)
     {
         MenuPage(new HamletProfile(false,cultivatedBank,groupedFarmsteads,acrossTheInlet).Title);
