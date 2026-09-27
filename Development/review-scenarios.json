@@ -470,5 +470,13 @@
     "focusX": 6,
     "focusZ": 7,
     "zoom": 20
+  },
+  {
+    "name": "home-invitation",
+    "description": "Choose a specific completed home for two optional new neighbors",
+    "generator": "player-founded",
+    "focusX": 1,
+    "focusZ": -5,
+    "zoom": 20
   }
 ]
