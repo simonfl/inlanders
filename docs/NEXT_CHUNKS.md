@@ -1,25 +1,38 @@
-# Next work — establish a place of your own
+# Next work — make the chosen place come to life
 
-Playable count **90**. [Whole-game review85](REVIEW_CHECKPOINT_85.md) chooses provisioned founding on the existing inlet as a substantial comparison against the already inhabited hamlet. Five separate discipline passes; two reused earlier contexts, explicitly documented.All30 current suites pass at88; actual960 grain/dock intent checks pass. No human play/listening/performance acceptance. User resumed through the next review on September27. Finish90, run the full whole-game90 review, then stop.
+Playable count **90**. [Whole-game review90](REVIEW_CHECKPOINT_90.md) completed on `d390bf1` with five fresh independent roles. Verdict: **partially convincing**. Founding restores authorship, but its generous reserve can defer the chosen livelihood's first payoff; whole scenes still read as isolated buildings rather than inhabited places. All 31 current suites, broad regression and fixed960/1440 input checks pass. Those results do not establish fun, unaided discovery, listening or performance.
 
-| Outcome | Conditional playable scope |
-| --- | --- |
-|86 delivered | Player establishes homes and first livelihood on the same land with ample provisions/materials. Keep inhabited arrangement selectable; no forced growth, emergency, service certificate or new needs. |
-|87 delivered | Make actual livelihood land/material/input implications visible before committing placement, including the existing grain/oven dependency. |
-|88 delivered | Coherent rearrangement intent: pause, preview consequences, cancel/reject safely, commit and resume through the place action. |
-|89 delivered | Optional household enlargement tied to a real completed home, showing beds/food implications. Staying small remains valid. |
-|90 delivered | Consolidate the entry and establishment experience from evidence; preserve comparison clearly, then full whole-game90 review. |
+**Stopped after 90 as requested. No91 implementation has started.** Next regular four-role review 95; add visual/audio for substantial ensemble changes, and full five roles at 100. Bring a direction review forward if the experiment rejects the premise.
 
-These are conditional outcomes, not five protected commits. Reevaluate after each. If founding merely creates a prescribed building checklist or hunger countdown, revise before dependent work. Variable-footprint cultivation is deferred until fixed fields prevent a wanted composition; a pure expressive arrangement experience remains the alternative if management only adds waiting.
+## Chosen next outcome
 
-No catalogue/need expansion, inheritance/genealogy/aging/succession, ownership bureaucracy or seasons. All buildings available; current saves correct, migrations unnecessary. Atomic replacement denial remains open. Zero-credit closeout: complete/partial current-run report identity and consistent autosave partial-success feedback. No replay/ECS/general editor investment.
+**91 — A livelihood starts working while provisions keep people safe.** Compare today's reserve-only scheduling against a bounded real establishment cycle on the same inlet with the same 120 food, people and costs. A chosen garden, complete grain/oven chain or landing should visibly start useful work and produce actual food. Preserve shared labor, capacity/input rules, ordinary meal choice, optional growth and safe placement recovery. Do not reduce provisions to manufacture urgency or animate work that did not happen.
 
-86: eight settlers,48 logs/4 planks/120 food on actual open inlet. Six Normal/relaxed garden/bread/fish branches run20minutes with no hungry ticks and exact saves. Initial12minute check correctly had no new harvest because provisions defer shared food work; do not force production by creating a crisis. Native960 chosen home/garden construction and real home rest pass. Next87 reveals livelihood siting/dependency before commitment; independent opening visual86 before presentation work.
+Add narrow event timing alongside this experiment: workplace completed, first work/output/meal, move/resume and inputs, using existing capture/comparison infrastructure. Record contention and surplus as well as speed. Tools alone receive no playable credit. A faster harvest is insufficient: reject the direction if it still does not make the chosen place understandable or worth watching/revising.
 
-87: placement marks a possible actual grain-partner, home-meal or water route, honoring proposed footprint and current navigation. Missing oven/field gives real extra cost. Labels distinguish planned sites and previews from current trips. Pure query checks and actual960 grain/oven catalogue preview pass;88 will consolidate pause/move/cancel/resume.
+## Conditional slots after 91
 
-88: Pause & move pauses working producers, waits for an actual returning fisher when necessary, then opens placement. Place/cancel restores work; already-paused places stay paused. Pending intent cancels on manual/session save, while autosaves defer, so temporary pauses are not stranded in a save. Actual960 grain/cancel/reject/F5/automatic resume/harvest and dock wait/cancel/real-return controls pass. The earlier stop at88 was lifted by the September27 instruction.
+These reserve room for a coherent experiment, not four promised patches. Reevaluate after each outcome and replace them if evidence changes the direction.
 
-89 ties an optional two-person invitation to a selected completed home with two spare beds. Current supply and +2 meals/min demand are explicit; ordinary arrivals, work, meals and rest remain. Both modes and exact saves pass; actual960 world selection/invite/home use passes.90 will make founding the primary entry and offer a dismissible first-placement chooser, retaining inhabited arrangement and the full catalogue. This is a clearer experiment entry, not evidence of preference.
+| Slot | Candidate playable outcome | Gate / rejection condition |
+| --- | --- | --- |
+|92 | **Connected farmstead comparison:** homes, useful domestic ground, work and access form a readable ensemble on the same land; retain current independent-building control. | Preserve actual placement/use and free component editing. Reject attractive but prescriptive templates or extra ground noise. This is whole-scene work, not a prop batch; independent presentation review follows. |
+|93 | **Place-first planning, only if needed:** compare a reversible spatial sketch with current object-by-object placement for a desired home/livelihood arrangement. | First identify a concrete intended composition that current controls impede. No fixed two-house package. If individual placement works, cut this slot rather than build an editor for its own sake. |
+|94 | **Consolidate the experience the comparison supports:** retain meaningful material/labor choices, or make composition-first working life the primary slice if management only adds waiting. | A substantial direction choice, not a new mode label. Keep the alternative accessible for comparison; a test-only comparison does not consume this number. Exact scope depends on91–93 evidence. |
+|95 | **A coherent first session and voluntary improvement in the chosen slice.** Integrate entry, establishment, actual use and one recoverable self-chosen revision; remove weaker competing workflows. | Define the player-visible outcome after the preceding comparison. Do not fill this slot with more tutorial prose, building quotas or a cosmetic checklist just to reach a review. Then full scheduled whole-game review. |
 
-90 makes provisioned founding the primary Play entry, keeps inhabited arrangement explicitly selectable, and offers four dismissible first-place choices with actual costs and the grain/oven dependency. Full catalogue and looking around remain available. Native960 tests cover each choice/cancel, dismissal/catalogue, save/load and relaxed first placement; visual inspection caught and removed an overlapping entry notice. Freeze for full review90; do not implement91 before synthesis.
+Before comparing entry choices, put founding and inhabited alternatives equally within reach at 960; current menu scroll biases discovery. Record an ordinary-control session from entry through a voluntary next decision. No scenario injection after entry for that evidence; label any coached/scripted actions. A human session is particularly valuable for preference, but unavailable feedback must not be replaced with an automation claim.
+
+## Retain, defer and cut
+
+Retain provisioned founding and inhabited comparison, public Normal/relaxed daily life, physical work/meals, recoverable moves, voluntary invitations and finishing. Full catalogue remains accessible. Keep diagnostic accounting secondary; no new needs, compulsory growth or campaign certificates.
+
+F40 continues as **connected landscape/household/workplace composition**, not polishing every model. Keep low houses and restrained materials; do not use the dense colorful archive as the target. Variable productive footprints, multi-place planning and new historical buildings need an actual missing decision or blocked composition first.
+
+Archived campaign geography can supply future situations; the old recipe/service progression is not the public roadmap. Descendants remain lore only. No inheritance/genealogy/aging/succession, ownership bureaucracy or seasons. No save migrations; current-format correctness still matters.
+
+Atomic replacement denial remains unresolved. On recurrence, correlate the failing slot/Continue operation and frame timing; do not add blind retries or repeat an unavailable trace. Reuse existing paired capture/soundscape tools for genuine observation/listening before audio or animation acceptance. Defer replay/ECS/general editor/public-archive engine forks.
+
+## Completed comparison86–90
+
+86 established the provisioned player-founded option;87 exposed proposed livelihood connections and grain/oven dependency;88 consolidated pause/move/cancel/resume, including boat return;89 added optional invitations into a specific spare home with food demand;90 made founding the primary entry with dismissible first-place choices and retained inhabited play. Detailed evidence and historical decisions live in [CHECKPOINTS](CHECKPOINTS.md) and [review90](REVIEW_CHECKPOINT_90.md).

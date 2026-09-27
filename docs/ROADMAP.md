@@ -10,15 +10,17 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: establish a place of your own**, selected by [whole-game review85](REVIEW_CHECKPOINT_85.md). Count **90**. Existing fields, landing and oven are clearer and grain rearrangement works, but the opening authors most consequential choices before play. 86 adds a provisioned player-founded village comparison on the same land against the inhabited arrangement option. No survival emergency or prescribed service campaign.
+**Next: make the chosen place come to life**, selected by [whole-game review90](REVIEW_CHECKPOINT_90.md). Count **90**; stopped after the requested review. Five fresh independent roles judge the direction partially convincing: founding restores authorship, but generous reserves delay the first productive payoff and village scenes still read as detached objects. 31 current suites, broad regression and fixed compact/wide input checks pass; enjoyment, listening and native performance remain unaccepted.
 
-86–90 test founding, spatial livelihood choice, coherent rearrangement, optional household enlargement and a consolidated entry. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the conditional queue. 87 previews livelihood connections;88 unifies working-place moves with pause/cancel/resume. 89 adds optional invitations into a chosen home. 90 consolidates founding as the primary entry with dismissible first-placement choices and explicit inhabited comparison. Freeze for full whole-game90 review before further work. Keep the physical simulation and all catalogue access; no additional resources or needs. F40 ensemble identity remains partial; variable productive footprints are a deferred alternative, not another automatic feature queue. Current-save replacement denial remains unresolved.
+First compare reserve-only work against a bounded real establishment cycle while retaining 120 starting food and ordinary rules. Then compare connected home/work-yard composition against isolated-building placement. A composition-first working village is a substantial alternative if resource management mostly adds waiting. Multi-place planning is conditional on a concrete blocked arrangement, not an automatic editor project. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns 91 and conditional 92–95; no implementation beyond 90 has begun.
+
+Keep founding and inhabited starts, public Normal/relaxed, recoverable moves, physical materials/meals, optional growth/finishing and full catalogue access. Equalize the two starts’ 960pxpx menu visibility before inferring preference. Do not revive archived service certificates or add needs/content to fill time. Extend existing event/capture evidence to explain completion→work→food→meal and voluntary revision. Current-save replacement denial remains unresolved; successful runs do not close it.
 
 ## What stays, what changes
 
 | Area | Direction |
 | --- | --- |
-| Core loop | Read the land, establish reliable food and homes, connect work and daily life, recover from mistakes, improve or finish. Keep shared work, physical materials/meals, optional arrivals and forgiving housing/public-space moves. |
+| Core loop | Read the land, establish homes and a visibly working livelihood, connect work and daily life, recover from mistakes, improve or finish. Test the first productive payoff separately from mature reserve control. Keep shared work, physical materials/meals, optional arrivals and forgiving housing/public-space moves. |
 | Land and maps — F01/F02/F12 | River frontage, long cultivated areas, kitchen gardens, woodlots and useful paths give the settlement its structure. Reuse current clearing, preservation, water and route rules. Exact plots remain freely arranged; no land-ownership bureaucracy. |
 | Food — F05/F07/F24/F26 | Put cultivation and food processing in the foreground; use fish, gathered foods and woodland as complementary choices. Compare adaptive food plans at equal investment; current batch bread is retained provisionally. Storage should solve actual access/batch problems, not serve a required building checklist. |
 | Homes and community — F04/F25 | Comfortable occupied homes and modest shared places express improvement. Keep food, home rest and recreation; no automatic education, religion, warmth or additional satisfaction meters. |
@@ -36,16 +38,16 @@
 | Priority | Item |
 | --- | --- |
 | Partial66–71; whole-scene identity unaccepted | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
-| Playable slice67–71; ensemble still provisional | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
-| Following the first ensemble | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
+| Fields/ground advanced through 81; connected ensemble next | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
+| Landing 82 and oven 83 delivered; ensemble still provisional | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
 | Extend the chosen scene | **F40f — clothing, tools and everyday poses**; **F40g — light, atmosphere, sound and music**. |
 | Across relevant UI work | **F40h — French names, local writing, menu art and restrained typography/material styling**. |
 
-Start with one inhabited farmstead ensemble and two house variants alongside direct domestic improvement. Judge the whole view at ordinary zoom before spreading the style across the catalogue. Specific historical forms need date/place references; the working anchor remains rural St. Lawrence,1670–1680. Details and later ordering stay TBD. This art track does not add seasons, inheritance, needs or compulsory buildings.
+Review 90 chooses a connected inhabited farmstead comparison using the existing low houses, fields, landing and oven. Domestic/work ground must respond to real placement and use; do not substitute preset decorative templates. Judge the whole view at ordinary zoom before spreading the style across the catalogue. Specific historical forms need date/place references; the working anchor remains rural St. Lawrence,1670–1680. Details and later ordering stay TBD. This art track does not add seasons, inheritance, needs or compulsory buildings.
 
 ## Feature priorities after the first situation
 
-These are candidates, not a shopping list. Reevaluate after seeing the themed slice. All existing feature IDs retain their history; F34 retains the initial theme-integration history; F40 is the active art-direction track.
+These are candidates, not a shopping list. Reevaluate after seeing the themed slice. All existing feature IDs retain their history; F34 retains the initial theme-integration history; F40 is the active art-direction track. Review 90 prioritizes connected farmstead composition over additional standalone assets; the following expansion candidates stay behind that comparison.
 
 | Priority | Candidate | Decision it should add / smallest scope |
 | --- | --- | --- |
@@ -72,7 +74,7 @@ Costs, outputs, field dimensions, chapter length, specific crops, new resource t
 
 ## Delivered foundation and history
 
-Current public game: the inhabited compact hamlet and cultivated-bank comparison, each with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Nineteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
+Current public game: provisioned player-founded farmstead and inhabited inlet comparison, each with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Nineteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
 
 Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 interaction sampling](INTERACTION_T07.md), [F32 landscape comparison](HAMLET_F32A.md), [simulation performance](HAMLET_PERFORMANCE_F32B.md), [rearrangement](HAMLET_REARRANGEMENT_F32C.md), [connected paths](HAMLET_PATHS_F32D.md). Their tests do not establish enjoyment or historical authenticity.
 

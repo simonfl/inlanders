@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **90**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint85**, [whole-game synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused. Full90 review is now due.
+- Last periodic review: **checkpoint90**, [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
+- Previous review85: [synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused.
 - Previous review80: [synthesis](REVIEW_CHECKPOINT_80.md), fixed `b4fbcee`, five fresh independent roles.
 - Previous review75: [synthesis](REVIEW_CHECKPOINT_75.md), fixed `87de771`.
 - Previous review70: [synthesis](REVIEW_CHECKPOINT_70.md), fixed `c2fc6db`, five fresh independent roles.
@@ -17,9 +18,9 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next full five-role review: **checkpoint90**, due now.
-- Latest visual/audio supplement: **checkpoint75**, dependent on reused UX context due thread limits; not a fifth independent verdict. Stills/source only, no listening or continuous-motion acceptance.
-- Next regular visual/audio review: **checkpoint 80**. Substantial presentation changes trigger earlier reviews.
+- Next regular four-role review: **checkpoint95**; add visual/audio after substantial presentation changes.
+- Latest independent visual/audio review: **checkpoint90**, fresh context in the full review. Broad stills/source; no listening or continuous-motion acceptance.
+- Next regular visual/audio review: **checkpoint100**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
 
@@ -418,3 +419,8 @@ Checkpoint89 — September27: finished public homes with two spare beds can invi
 
 
 Checkpoint90 — September27: primary Play offers provisioned founding in Normal/relaxed modes and retains inhabited arrangement. Empty founding worlds show four direct first-place choices with actual costs, the grain/oven dependency, full catalogue access and a dismissal option; ordinary controls remain. First placement retires the chooser. Native960 choice/cancel/dismiss/catalogue/save/load/relaxed placement and inhabited-flow probes passed on the working build. Inspection caught an introductory notice covering the lower chooser; final code removes that duplicate entry notice and includes Space in the chooser. Final rebuild/checks and full whole-game review pending at freeze; no enjoyment, listening or human discovery acceptance. Stop after review90.
+
+
+Review90 completed September27 on `d390bf1`: [whole-game synthesis](REVIEW_CHECKPOINT_90.md), five fresh independent roles. Fixed960/1440 first-place and960 inhabited controls pass; broad representative founded bread/fish, inhabited, intro/dense campaign and free-court stills inspected. All31 current suites completed (run `7cd29345a9ff42be8c830ffcad19795e`, UI-only final fix afterward, unchanged simulation/tests); broad regression exit0 on final build. Zero-warning build. The overlapping entry notice is fixed in the reviewed commit.1x recording available, not listened to or accepted for motion/performance.
+
+Verdict partially convincing. Choose bounded first productive cycle under unchanged safety provisions, then connected farmstead composition comparison; conditionally challenge management against composition-first play. No content/need expansion or automatic five-patch queue. Source/stills/scripted controls remain distinct from uncoached play and enjoyment. Unknown save replacement denial remains open. Review/docs add no count; user stopping condition satisfied at90,91 not started.
