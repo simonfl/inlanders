@@ -17,6 +17,7 @@ public partial class Game
     private void HamletMenu(bool cultivatedBank,bool groupedFarmsteads=false,bool acrossTheInlet=false)
     {
         MenuPage(new HamletProfile(false,cultivatedBank,groupedFarmsteads,acrossTheInlet).Title);
+        MenuButton("Landscape: inlet · change",FrontageHamletMenu);
         _mainColumn.AddChild(Text("Twelve neighbors. A working hamlet to make your own.",20,true));
         _mainColumn.AddChild(Text(acrossTheInlet?"Most crops grow beyond the inlet; the homes share a crowded bank. Keep this place, bring home and work closer, or change the journey between them.":groupedFarmsteads?"Homes face smaller working clearings beside fields and a kitchen garden. The same people and productive land as the cultivated bank, arranged differently.":cultivatedBank?"Homes share two working fields and a kitchen garden. Four planks can furnish one home. Keep what you like; change what you want.":"A compact hamlet with kitchen gardens. Four planks can furnish one home. Keep what you like; change what you want.",16,true));
         foreach(bool relaxed in new[]{false,true})

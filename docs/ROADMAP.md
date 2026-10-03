@@ -110,3 +110,6 @@ Checkpoint110: watching a selected place retains it for return without changing 
 
 
 Checkpoint111: public founding menu now compares inlet and river frontage, with distinct current save/restart identity in Normal/relaxed. Same eight people,48logs/4planks/120food and existing rules. Native960 actual menu/save/load plus construction, meals and home rest passed20261003-130234-242-river-frontage-f7aa6d. Focused both-mode garden/fishing routes and exact continuation pass; zero-warning build. Landing tests choose legal bend geometry rather than assume the inlet coordinate. Next112 supplies an inhabited comparison; preference unobserved.
+
+
+Checkpoint112: inhabited frontage is selectable beside the inlet, with six homes, two fields and a kitchen garden at equal population/reserves/crop capacity. Actual960 menu, household/watch/food controls pass130826-298-river-hamlet-a95b57; overview inspected. Both-mode actual meals/restart/exact continuation plus open garden/fishing routes pass, zero-warning build. Authored fields run inland; no objective recipe added. Next113 reuses existing resource survey with land-orientation access instead of adding another management overlay.

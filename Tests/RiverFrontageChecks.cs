@@ -3,6 +3,15 @@ static class RiverFrontageChecks
 {
     public static void Run()
     {
+        foreach(bool relaxed in new[]{false,true})
+        {
+            var w=World.NewRiverFrontage(relaxed,true);var control=World.NewTransformationHamlet(relaxed,true,false,true);
+            if(w.Population!=12 || w.Housed!=12 || w.Cottages.Count!=9 || w.EdibleStored!=control.EdibleStored || w.InitialLogs!=control.InitialLogs || w.PublicPlace!.Create().SaveJson()!=w.SaveJson())throw new Exception("Inhabited frontage inventory/identity differs");
+            for(int i=0;i<6000;i++)w.Tick(.1f);w.Validate();
+            if(w.Food.EatenVegetables==0 || w.Housed!=12)throw new Exception("Inhabited frontage life failed");
+            var copy=World.LoadJson(w.SaveJson());for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);}if(w.SaveJson()!=copy.SaveJson())throw new Exception("Inhabited continuation differs");
+            Console.WriteLine($"PASS inhabited frontage {relaxed}: equal inventory, actual meals and exact continuation");
+        }
         foreach(bool relaxed in new[]{false,true})foreach(bool fish in new[]{false,true})
         {
             var w=World.NewRiverFrontage(relaxed);var control=World.NewPlayerFounded(relaxed);

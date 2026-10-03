@@ -566,5 +566,13 @@
     "focusX": 0,
     "focusZ": 3,
     "zoom": 29
+  },
+  {
+    "name": "river-hamlet",
+    "description": "Inhabited river-frontage comparison",
+    "generator": "river-hamlet",
+    "focusX": 0,
+    "focusZ": 0,
+    "zoom": 29
   }
 ]

@@ -21,6 +21,7 @@ static class ReviewFixtures
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "farmstead"=>World.NewRiverFarmstead(),
+            "river-hamlet"=>World.NewRiverFrontage(false,true),
             "river-frontage"=>World.NewRiverFrontage(),
             "player-founded"=>World.NewPlayerFounded(),
             "across-inlet"=>new HamletProfile(false,true,false,true).Create(),
