@@ -574,5 +574,21 @@
     "focusX": 0,
     "focusZ": 0,
     "zoom": 29
+  },
+  {
+    "name": "working-clearing",
+    "description": "Smaller inhabited working clearing comparison",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 2,
+    "zoom": 29
+  },
+  {
+    "name": "working-clearing-relaxed",
+    "description": "Smaller inhabited working clearing comparison",
+    "generator": "working-clearing-relaxed",
+    "focusX": 0,
+    "focusZ": 2,
+    "zoom": 29
   }
 ]

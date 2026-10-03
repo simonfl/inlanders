@@ -132,6 +132,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="willow-court")await ProbeCourt();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="shortage-recovery")await ProbeShortageRecovery();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding-hall")await ProbeFoundingHall();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="working-clearing"){await ProbeWorkingClearing();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founding")await ProbeFounding();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="farmstead")await ProbeRiverFarmstead();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString() is "cultivation" or "plot-revision"){await ProbeCultivation();return;}

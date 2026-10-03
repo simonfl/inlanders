@@ -14,7 +14,7 @@ The user authorized ten more outcomes after120. This supersedes the previous sto
 
 [Whole-game synthesis](REVIEW_CHECKPOINT_125.md): partially convincing. Fix extension cancellation and turn preview first, with no extra playable count. Then:
 
-126. A smaller, imperfect but viable working clearing in Normal/relaxed; keep the finished hamlet for comparison.
+126. **Done** — A smaller, imperfect but viable working clearing in Normal/relaxed; keep the finished hamlet for comparison.
 127. Drag the actual far edge of an existing field to propose its extent.
 128. Preview possible food/work connections when relocating existing places.
 129. Descriptive public daily life instead of qualitative resident grades.

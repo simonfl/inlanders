@@ -21,6 +21,8 @@ static class ReviewFixtures
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "farmstead"=>World.NewRiverFarmstead(),
+            "working-clearing"=>World.NewWorkingClearing(),
+            "working-clearing-relaxed"=>World.NewWorkingClearing(true),
             "river-hamlet"=>World.NewRiverFrontage(false,true),
             "river-frontage"=>World.NewRiverFrontage(),
             "player-founded"=>World.NewPlayerFounded(),

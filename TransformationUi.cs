@@ -10,6 +10,8 @@ public partial class Game
         _mainColumn.AddChild(Text("Establish your own home and livelihood, or reshape a place already alive.",18,true));
         MenuButton("Establish a farmstead",PlayerFoundedMenu);
         _mainColumn.AddChild(Text("Eight neighbors, open land and provisions. Choose where homes and work belong.",15,true));
+        MenuButton("Tend a working clearing",WorkingClearingMenu);
+        _mainColumn.AddChild(Text("Eight neighbors already have homes and cultivated ground. Room to bring home, land and shore together.",15,true));
         MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
         _mainColumn.AddChild(Text("Twelve neighbors with homes and working fields. Bring everyday life closer across an inlet.",15,true));
         MenuButton("Back",ShowMainMenu);
