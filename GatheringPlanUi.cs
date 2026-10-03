@@ -70,7 +70,15 @@ public partial class Game
         if(_planningCommons)_gatherPlanInfo.Text=$"{seats.Length}/{_commonsSeats} reachable places\n"+(problem??"People bring ordinary meals here; no waiting for the whole village.")+"\n"+(_gatherPlanAt is Cell foodAt && _world.CommonsFoodNearby(foodAt)?"Food is available nearby now.":"Meals need nearby food. Quiet neighbors can still visit between jobs.")+"\n\nClick another spot; R turns the proposal. Select finished ground to change that place.";
         string key=$"{_gatherPlanAt}:{_gatherSpread}:{_commonsLayout}:{_commonsDirection}:{problem}:"+string.Join(';',seats);if(key==_gatherPlanKey)return;
         Clear(_gatherPlanMarks);_gatherPlanKey=key;
-        foreach(var cell in seats)Cylinder(_gatherPlanMarks,OnGround(cell.X,cell.Z,.04f),.30f,.05f,new(problem==null?"d7bf83":"c48170"));
+        foreach(var cell in seats)
+        {
+            Cylinder(_gatherPlanMarks,OnGround(cell.X,cell.Z,.04f),.30f,.05f,new(problem==null?"d7bf83":"c48170"));
+            if(_planningCommons && _commonsLayout==SharedPlaceLayout.Line)
+            {
+                var forward=World.RotateOffset(cell,0,1,_commonsDirection);var d=(forward.Point-cell.Point)*.37f;
+                Box(_gatherPlanMarks,OnGround(cell.X+d.X,cell.Z+d.Y,.06f),new(.10f,.06f,.10f),new("f1dfae"));
+            }
+        }
         if(_gatherPlanAt is Cell center)Box(_gatherPlanMarks,OnGround(center.X,center.Z,.07f),new(.18f,.08f,.18f),new("f1dfae"));
     }
     private void TurnCommonsProposal(){_commonsDirection=(_commonsDirection+1)%4;_gatherPlanRefresh=0;UpdateGatheringPlan();}

@@ -247,12 +247,13 @@ public partial class Game : Node3D
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
             if(v.Task==Work.EatingMeal && (v.Meal?.Gathering==true && _world.Gathering!=null || v.Meal?.Commons==true && _world.Commons!=null))
             {
-                var inward=(v.Meal!.Commons?_world.SharedPlaceAt(v.Meal.Seat)!.Center:_world.Gathering!.Center).Point-v.Position;
+                var shared=v.Meal!.Commons?_world.SharedPlaceAt(v.Meal.Seat):null;
+                var inward=shared?.Layout==SharedPlaceLayout.Line?World.RotateOffset(new(0,0),0,1,shared.Rotation).Point:(shared?.Center??_world.Gathering!.Center).Point-v.Position;
                 if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,MathF.Atan2(-inward.X,-inward.Y),0);
             }
             if(v.Route.Count==0 && _world.QuietSharedPlace(v) is {} quiet)
             {
-                var inward=quiet.Center.Point-v.Position;
+                var inward=quiet.Layout==SharedPlaceLayout.Line?World.RotateOffset(new(0,0),0,1,quiet.Rotation).Point:quiet.Center.Point-v.Position;
                 if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,Mathf.Atan2(-inward.X,-inward.Y),0);
             }
             if(_world.PassengerBoat(v) is FishingBoat boat)

@@ -15,7 +15,7 @@ public partial class Game
         _commonsEntry.Visible=_world.CanArrangeCommons;
         _commonsEntry.Text=_world.Commons==null?"Make a shared place":_world.PublicPlace!=null?"Add a shared place":"Rearrange shared place";
         _commonsRemove.Visible=_world.Commons!=null;
-        string key=$"{string.Join(';',_world.Cottages.Select(c=>$"{c.Cell}:{c.Rotation}:{c.Depth}"))}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join('/',_world.SharedPlaces.Select(c=>$"{c.Center}:"+string.Join(';',c.Places)))+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell));
+        string key=$"{string.Join(';',_world.Cottages.Select(c=>$"{c.Cell}:{c.Rotation}:{c.Depth}"))}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join('/',_world.SharedPlaces.Select(c=>$"{c.Center}:{c.Layout}:{c.Rotation}:"+string.Join(';',c.Places)))+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell));
         if(key==_commonsVisualKey && _commonsView!=null && _commonsVisualWorld==_world)return;
         _commonsVisualWorld=_world;
         _commonsVisualKey=key;
@@ -40,10 +40,15 @@ public partial class Game
             _commonsGroundExcluded=_world.Cottages.SelectMany(b=>World.Footprint(b))
                 .Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell))
                 .Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
+            // Public ground belongs to the existing blended worked-land surface.
+            // Keep the old hard pad only in archived scenes.
+            if(_world.PublicPlace==null)
+            {
             var hull=SharedPlaceHull(commons);
             CommonsSurface(hull,.012f,new("746850"));
             var center=new Vector2(commons.Center.X,commons.Center.Z);
             CommonsSurface(hull.Select(p=>p.MoveToward(center,.13f)).ToArray(),.025f,new("8b795c"));
+            }
         }
         // The older isolated mats remain a development comparison, using identical places and rules.
         foreach(var p in commons.Places)
@@ -52,6 +57,15 @@ public partial class Game
             {
                 Cylinder(_commonsView,OnGround(p.X,p.Z,.025f),.43f,.045f,new("b89569"));
                 Cylinder(_commonsView,OnGround(p.X,p.Z,.05f),.31f,.012f,new("758d7b"));
+                continue;
+            }
+            if(commons.Layout==SharedPlaceLayout.Line)
+            {
+                var bench=new Node3D{Position=OnGround(p.X,p.Z),Rotation=new(0,commons.Rotation*Mathf.Pi/2,0)};_commonsView.AddChild(bench);
+                Box(bench,new(0,.25f,0),new(.72f,.085f,.43f),new("9e8660"));
+                foreach(float x in new[]{-.25f,.25f})Box(bench,new(x,.11f,0),new(.085f,.22f,.32f),_frameTimber);
+                var along=World.RotateOffset(p,1,0,commons.Rotation);
+                if(commons.Places.Contains(along))Box(bench,new(.5f,.25f,0),new(.32f,.085f,.43f),new("9e8660"));
                 continue;
             }
             // The permanent stool uses the existing eating pose's seat height and center.
