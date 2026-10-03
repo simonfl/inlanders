@@ -125,3 +125,6 @@ Checkpoint115: existing workable trees now have mixed tall conifer and branched/
 
 
 Checkpoint116: resource survey can hand its current camera directly to everyday building/clearing choices. Back/Esc still returns to the original view; Build in this view deliberately keeps the chosen ground. Native960 survey/action/field-preview/cancel preserves simulation and camera132408-091-river-hamlet-af946d; zero-warning build. Next117 aligns the first-place vocabulary with that same small palette, retaining full catalogue access.
+
+
+Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.

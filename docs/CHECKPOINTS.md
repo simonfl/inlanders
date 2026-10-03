@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **116**.
+- Playable checkpoints since adoption: **117**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
@@ -557,3 +557,6 @@ Full115 review completed after commit12739a4 with five fresh independent roles; 
 
 
 Checkpoint116: resource survey can hand its current camera directly to everyday building/clearing choices. Back/Esc still returns to the original view; Build in this view deliberately keeps the chosen ground. Native960 survey/action/field-preview/cancel preserves simulation and camera132408-091-river-hamlet-af946d; zero-warning build. Next117 aligns the first-place vocabulary with that same small palette, retaining full catalogue access.
+
+
+Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.

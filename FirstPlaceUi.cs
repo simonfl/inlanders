@@ -8,18 +8,19 @@ public partial class Game
     private bool _firstPlaceDismissed;
     private readonly Dictionary<BuildingKind,Button> _firstPlaceChoices=new();
     private Button _firstPlaceBrowse=null!,_firstPlaceLook=null!;
-    private Label _firstPlaceGrain=null!;
+    private Button _firstPlaceTimber=null!;
     private void MakeFirstPlaceUi()
     {
         _firstPlace=HudPanel(_hud);var column=new VBoxContainer();column.AddThemeConstantOverride("separation",6);_firstPlace.AddChild(column);
         var heading=Text("MAKE A FIRST PLACE",16);column.AddChild(heading);
         var intro=Text("Choose your ground. Shared workers build; Space starts daily life. Supplies give you time.",14,true);intro.CustomMinimumSize=new(276,0);column.AddChild(intro);
-        foreach(var kind in new[]{BuildingKind.Cottage,BuildingKind.VegetableGarden,BuildingKind.Farm,BuildingKind.FishingDock})
+        foreach(var kind in EverydayBuildings)
         {
             var choice=kind;var button=Button("",()=>{CloseManagementUi();BeginPlacement(choice);_noticeUntil=0;});
             button.TooltipText=BuildingDescription(kind);column.AddChild(button);_firstPlaceChoices[kind]=button;
         }
-        _firstPlaceGrain=Text("",13,true);column.AddChild(_firstPlaceGrain);
+        _firstPlaceTimber=Button("Gather timber · choose trees",BeginEverydayTimber);column.AddChild(_firstPlaceTimber);
+        column.AddChild(Text("Draw a cultivated strip to choose its size. Kitchen gardens and grain are also in All building choices.",13,true));
         _firstPlaceBrowse=Button("All building choices [B]",()=>{_fullBuild=true;ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();});column.AddChild(_firstPlaceBrowse);
         _firstPlaceLook=Button("Look around first [Esc]",()=>_firstPlaceDismissed=true);column.AddChild(_firstPlaceLook);_firstPlace.Hide();
     }
@@ -31,9 +32,8 @@ public partial class Game
         _firstPlace.Position=new(16,92);_firstPlace.Size=new(300,0);
         foreach(var pair in _firstPlaceChoices)
         {
-            string title=pair.Key switch{BuildingKind.Cottage=>"Home for 2",BuildingKind.VegetableGarden=>"Vegetables",BuildingKind.Farm=>"Grain field",_=>"River landing"};
+            string title=pair.Key switch{BuildingKind.Cottage=>"Home for 2",BuildingKind.VegetableField=>"Cultivated strip",_=>"River landing"};
             pair.Value.Text=title+" · "+BuildCost(pair.Key);pair.Value.TooltipText=BuildingDescription(pair.Key);
         }
-        _firstPlaceGrain.Text="Grain also needs an oven · "+BuildCost(BuildingKind.Bakery)+". Vegetables and fish are eaten directly.";
     }
 }

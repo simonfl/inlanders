@@ -16,11 +16,12 @@ public partial class Game
         await UiClick(_mainButtons["New farmstead"]);await Frames();Check(_world.PublicPlace?.PlayerFounded==true && _world.Cottages.Count==0 && _firstPlace.IsVisibleInTree(),"Primary entry lost opening choices");
         Check(!_hintPanel.Visible || !_hintPanel.GetGlobalRect().Intersects(_firstPlace.GetGlobalRect()),"Entry hint covers first choices");
         string saved=_world.SaveJson();Check(_firstPlace.GetGlobalRect().End.Y<_hud.Size.Y-76,"First choices overflow compact view");await CaptureReviewBundle("first-place-choices");
-        foreach(var kind in new[]{BuildingKind.Cottage,BuildingKind.VegetableGarden,BuildingKind.Farm,BuildingKind.FishingDock})
+        foreach(var kind in EverydayBuildings)
         {
             await UiClick(_firstPlaceChoices[kind]);await Frames();Check(_placing && _buildKind==kind && !_firstPlace.Visible,"Direct first choice did not open placement");
             await Press(Key.Escape);await Frames();Check(!_placing && _firstPlace.Visible && saved==_world.SaveJson(),"Cancelled first choice changed village or lost alternatives");
         }
+        await UiClick(_firstPlaceTimber);await Frames();Check(_placing && _clearingTrees,"Opening timber action missing");await Press(Key.Escape);await Frames();Check(saved==_world.SaveJson(),"Opening timber cancel changed village");
         await UiClick(_firstPlaceBrowse);await Frames();Check(_drawer.Visible && _buildingFilter.Selected==0,"Full catalogue inaccessible");await Press(Key.Escape);await Frames();
         await UiClick(_firstPlaceLook);await Frames();Check(!_firstPlace.Visible && saved==_world.SaveJson(),"Look around changed the village");await Press(Key.B);await Frames();Check(_drawer.Visible,"Dismissal blocked normal build access");await Press(Key.Escape);await Frames();
         await Press(Key.F5);await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved && _world.PublicPlace!.PlayerFounded,"New entry lost save identity");
@@ -29,6 +30,6 @@ public partial class Game
         await UiClick(_firstPlaceChoices[BuildingKind.Cottage]);await Frames();_rotation=0;_focus=OnGround(0,7);_camera.Size=23;UpdateCamera();await Frames();
         var point=_camera.UnprojectPosition(OnGround(-3,7));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();Check(_ghostValid,"Chosen first home site invalid");await Click(point);await Press(Key.Escape);await Frames();
         Check(_world.Cottages.Any(c=>c.Cell==new Cell(-3,7)) && !_firstPlace.Visible,"First placement did not retire opening chooser");await CaptureReviewBundle("first-home-chosen");await ProbePublicPlaceContract();
-        GD.Print("PASS: actual primary menu, four cancelable first choices, all-catalogue and dismiss access, save/load, relaxed cost and first world placement.");
+        GD.Print("PASS: actual primary menu, shared everyday choices and cancelable timber action, all-catalogue and dismiss access, save/load, relaxed cost and first world placement.");
     }
 }

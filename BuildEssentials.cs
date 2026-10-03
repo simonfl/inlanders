@@ -3,6 +3,8 @@ using Inlanders.Simulation;
 using System.Collections.Generic;
 public partial class Game
 {
+    private static readonly BuildingKind[] EverydayBuildings={BuildingKind.Cottage,BuildingKind.VegetableField,BuildingKind.FishingDock};
+    private void BeginEverydayTimber(){ToggleClearing();CloseDrawer();}
     private bool _fullBuild;
     private VBoxContainer _essentials=null!;
     private Button _buildBreadth=null!,_gatherTimber=null!;
@@ -13,11 +15,11 @@ public partial class Game
         _buildBreadth=Button("Browse all buildings",()=>{_fullBuild=!_fullBuild;UpdateVillageDirectory();_drawerPages[1].ScrollVertical=0;});parent.AddChild(_buildBreadth);
         _essentials=new();parent.AddChild(_essentials);
         _essentials.AddChild(Text("All buildings remain available.",13,true));
-        foreach(var kind in new[]{BuildingKind.Cottage,BuildingKind.VegetableField,BuildingKind.FishingDock})
+        foreach(var kind in EverydayBuildings)
         {
             var choice=kind;var b=Button("",()=>{BeginPlacement(choice);CloseDrawer();});b.CustomMinimumSize=new(0,50);b.AutowrapMode=TextServer.AutowrapMode.WordSmart;_essentials.AddChild(b);_essentialChoices[kind]=b;
         }
-        _gatherTimber=Button("Gather timber · choose trees",()=>{ToggleClearing();CloseDrawer();});_gatherTimber.CustomMinimumSize=new(0,50);_gatherTimber.TooltipText="Shared workers collect the marked trees' timber and clear roots. Mark again to cancel before work; cutting cannot be undone.";_essentials.AddChild(_gatherTimber);
+        _gatherTimber=Button("Gather timber · choose trees",BeginEverydayTimber);_gatherTimber.CustomMinimumSize=new(0,50);_gatherTimber.TooltipText="Shared workers collect the marked trees' timber and clear roots. Mark again to cancel before work; cutting cannot be undone.";_essentials.AddChild(_gatherTimber);
     }
     private void RenderBuildEssentials()
     {
