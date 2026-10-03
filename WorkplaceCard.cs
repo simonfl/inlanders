@@ -49,7 +49,7 @@ public partial class Game
         _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
         MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
-        MakeHomeTurn(column);MakeHomeAppearance(column);MakeHomeInvitation(column);MakePlaceJourneys(column);
+        MakeHomeTurn(column);MakePlacePath(column);MakeHomeAppearance(column);MakeHomeInvitation(column);MakePlaceJourneys(column);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()
@@ -63,7 +63,7 @@ public partial class Game
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
-        RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);
+        RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
         bool publicHome=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _turnHomeButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeOptionsButton.Visible=publicHome && _yardPreviewSide<0;_homeOptionsButton.Text=_homeOptions?"Back to household life":"Change this home";

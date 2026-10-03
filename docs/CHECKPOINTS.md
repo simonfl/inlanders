@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **123**.
+- Playable checkpoints since adoption: **124**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
 - Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
@@ -586,3 +586,6 @@ Checkpoint122: homes can turn around their existing anchor from Change this home
 
 
 Checkpoint123: home appearance is directly selectable in Change this home, with free reversible existing roof/plaster finishes and immediate world feedback. Editing hides observation controls, keeping the compact960 card above navigation (also fixes122 expanded-card overlap). Native dropdown selection, turn/cancel and exact save/load passed20261003-135653-456-river-hamlet-a1995f (31.92s); actual image inspected. Zero-warning build. Next124 connects selected places directly rather than expanding the general toolbar.
+
+
+Checkpoint124: selected homes/workplaces can start a path at their actual entrance, preview the existing route algorithm to another place/ground, and return to the origin after apply or cancel. No new path rules or resources. Native960 real click route/cancel/origin return and exact save/load passed20261003-135931-864-river-hamlet-5af888 (34.6s), zero-warning build. Next125 improves the legibility of worked ground and freezes for the full direction review; additional home controls remain a review concern.

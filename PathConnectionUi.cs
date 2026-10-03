@@ -37,7 +37,7 @@ public partial class Game
             if (_world.PathProblem(end) != null) { UiCue(Cue.Reject); return; }
             _pathAnchor = end; UiCue(Cue.Click);
         }
-        else if (_world.ConnectPaths(start, end)) { _pathAnchor = null; UiCue(Cue.Click); }
+        else if (_world.ConnectPaths(start, end)) { _pathAnchor = null; UiCue(Cue.Click);if(_pathOrigin>=0){EndPlacePath();return;} }
         else UiCue(Cue.Reject);
         _connectionWorld = null; RefreshGhost();
     }

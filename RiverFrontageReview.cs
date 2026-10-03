@@ -24,7 +24,13 @@ public partial class Game
             int wanted=_homeTurn;await UiClick(_turnApply);await Frames();if(turnHome.Rotation!=wanted || turnHome.Cell!=anchor || _turnHome>=0)throw new Exception("Home turn failed");_world.Validate();await CaptureReviewBundle("home-turned");
             if(!_homeAppearance.IsVisibleInTree() || _workCard.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Home editing overflows compact view");
             await UiClick(_homeAppearance);await Press(Key.Down);await Press(Key.Enter);await Frames();
-            if(turnHome.Finish==CottageFinish.Automatic)throw new Exception("Appearance choice not applied");await CaptureReviewBundle("home-appearance-chosen");
+            if(turnHome.Finish==CottageFinish.Automatic)throw new Exception("Appearance choice not applied");await Press(Key.Escape);await Frames();await CaptureReviewBundle("home-appearance-chosen");
+            ShowWorkplaceCard(turnHome.Id);await Frames();await UiClick(_homeOptionsButton);await Frames();string pathBefore=_world.SaveJson();
+            await UiClick(_placePath);await Frames();if(_pathAnchor!=turnHome.Entrance)throw new Exception("Path origin lost selected entrance");await Press(Key.Escape);await Frames();if(_world.SaveJson()!=pathBefore || _workCardSite!=turnHome.Id)throw new Exception("Cancelled path lost state/context");
+            await UiClick(_homeOptionsButton);await Frames();await UiClick(_placePath);await Frames();
+            var destination=_world.Map.Land.Where(c=>c!=turnHome.Entrance && !_world.Paths.Contains(c) && _world.PathConnection(turnHome.Entrance,c,out _)==null).OrderBy(c=>(c.Point-turnHome.Entrance.Point).LengthSquared()).First();
+            _focus=OnGround(destination.X,destination.Z);_camera.Size=18;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("path-from-selected-home");await Click(pathPoint);await Frames();
+            if(!_world.Paths.Contains(destination) || _placing || _workCardSite!=turnHome.Id)throw new Exception("Selected-place path did not apply/return");_world.Validate();await CaptureReviewBundle("home-path-connected");
             string appearanceSave=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();if(appearanceSave!=_world.SaveJson())throw new Exception("Home appearance/turn save differs");
 
             CloseManagementUi();_paused=true;var origin=_focus;float zoom=_camera.Size;string before=_world.SaveJson();

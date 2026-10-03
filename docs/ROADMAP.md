@@ -153,3 +153,6 @@ Checkpoint122: homes can turn around their existing anchor from Change this home
 
 
 Checkpoint123: home appearance is directly selectable in Change this home, with free reversible existing roof/plaster finishes and immediate world feedback. Editing hides observation controls, keeping the compact960 card above navigation (also fixes122 expanded-card overlap). Native dropdown selection, turn/cancel and exact save/load passed20261003-135653-456-river-hamlet-a1995f (31.92s); actual image inspected. Zero-warning build. Next124 connects selected places directly rather than expanding the general toolbar.
+
+
+Checkpoint124: selected homes/workplaces can start a path at their actual entrance, preview the existing route algorithm to another place/ground, and return to the origin after apply or cancel. No new path rules or resources. Native960 real click route/cancel/origin return and exact save/load passed20261003-135931-864-river-hamlet-5af888 (34.6s), zero-warning build. Next125 improves the legibility of worked ground and freezes for the full direction review; additional home controls remain a review concern.
