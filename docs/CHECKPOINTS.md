@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **129**.
+- Playable checkpoints since adoption: **130**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
 - Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
@@ -611,3 +611,6 @@ Checkpoint128: relocation previews now show possible food/work connections using
 
 
 Checkpoint129: public resident panels now say Daily life and show actual activity, eating history and home/recreation visits. Public rest feedback no longer expires into a deficit, the staffing panel drops its recent-rest quota, and public idle poses no longer use hidden mood grades. Archived happiness rules remain available with archived play. Both-mode descriptive/pure-history and exact-save checks plus archived happiness pass; native960 actual panel and village controls passed143711-232-river-hamlet-d23d32 (23.78s), zero-warning build. Next130 gives shared meal ground a quieter furnished presence, then freezes for the full review.
+
+
+Checkpoint130: shared meal ground now has six permanent low stools at the actual eating positions, replacing empty target rings; the existing eating pose uses these seats without duplicate furniture. Carried food remains tied to real meals. The development mats comparison remains available. Ordinary1440 shared-place before/after15seconds1x capture143934-282-commons-recurring-a90a8c inspected; native960 working-clearing menu, household/save and relocation preview passed144016-477-working-clearing-89962c. Zero-warning build. All ten authorized playable outcomes are complete; freeze for whole-game130, broadened41-suite current regression and review synthesis. No131.

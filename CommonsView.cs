@@ -36,8 +36,18 @@ public partial class Game
         // The older isolated mats remain a development comparison, using identical places and rules.
         foreach(var p in commons.Places)
         {
-            Cylinder(_commonsView,OnGround(p.X,p.Z,.025f),.43f,.045f,new(_commonsMats?"b89569":"a08b66"));
-            Cylinder(_commonsView,OnGround(p.X,p.Z,.05f),.31f,.012f,new(_commonsMats?"758d7b":"756c56"));
+            if(_commonsMats)
+            {
+                Cylinder(_commonsView,OnGround(p.X,p.Z,.025f),.43f,.045f,new("b89569"));
+                Cylinder(_commonsView,OnGround(p.X,p.Z,.05f),.31f,.012f,new("758d7b"));
+                continue;
+            }
+            // The permanent stool uses the existing eating pose's seat height and center.
+            // Food appears only when somebody actually carries a portion here.
+            Cylinder(_commonsView,OnGround(p.X,p.Z,.23f),.22f,.06f,_wood);
+            foreach(float x in new[]{-.12f,.12f})foreach(float z in new[]{-.12f,.12f})
+                Box(_commonsView,OnGround(p.X+x,p.Z+z,.10f),new(.045f,.20f,.045f),_frameTimber);
+            Box(_commonsView,OnGround(p.X,p.Z,.265f),new(.34f,.012f,.30f),new("aa9771"));
         }
         if(_commonsMats)Box(_commonsView,OnGround(commons.Center.X,commons.Center.Z,.035f),new(.9f,.05f,.9f),new("ccaa79"));
         if(_commonsMats)Box(_commonsView,OnGround(commons.Center.X,commons.Center.Z,.065f),new(.65f,.02f,.65f),new("a9634b"));

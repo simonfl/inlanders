@@ -217,8 +217,8 @@ public partial class Game
             case Work.Leisure:
                 AnimateSquareVisit(view,v); break;
             case Work.EatingMeal:
-                if(ReadableCourt){AnimateCourtMeal(view,v);break;}
-                view.RestStool.Visible=true; view.Rig.Position=new(0,-.20f,0);
+                if(ReadableCourt){AnimateCourtMeal(view,v);view.RestStool.Visible=v.Meal?.Commons!=true || _commonsMats;break;}
+                view.RestStool.Visible=v.Meal?.Commons!=true || _commonsMats; view.Rig.Position=new(0,-.20f,0);
                 view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
                 view.Arm.Rotation=new(1.5f+(v.Meal?.Gathering==true && _world.Gathering?.Eating!=true?0:MathF.Sin(v.Timer*2)*.25f),0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
                 view.Head.Rotation=new(.12f,0,0); break;

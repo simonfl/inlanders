@@ -6,6 +6,10 @@ static class CurrentExperienceChecks
     {
         Directory.CreateDirectory("artifacts/current-experience");
         var cases=new (string Name,Action Execute)[]{
+            ("FieldExtension",FieldExtensionChecks.Run),
+            ("RelocationLivelihood",RelocationLivelihoodChecks.Run),
+            ("PublicMood",PublicMoodChecks.Run),
+            ("WorkingClearing",WorkingClearingChecks.Run),
             ("HouseholdMove",HouseholdMoveChecks.Run),
             ("PlotRevision",PlotRevisionChecks.Run),
             ("Cultivation",CultivationChecks.Run),
