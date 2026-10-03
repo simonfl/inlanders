@@ -180,3 +180,6 @@ Final130 validation: all41 current-experience suites passed exit0, run bef676296
 
 
 Checkpoint131: Play recommends the existing working clearing while retaining the founded/inhabited alternatives. The clearing mode page shows Normal and relaxed descriptions with compact New/Resume action rows, avoiding inventory paragraphs and hidden mode choices. Native960 actual menu rectangle assertions, entry, save and household controls passed154643-572-working-clearing-920beb (36.71s including build), zero-warning build. Next132 begins the continuous riverbank treatment; no new starting variant or rule system.
+
+
+Checkpoint132: public riverbanks now slope into a continuous silt/shallow-water band with joined corner normals and interpolated colors. Authoritative land/water, terrain height, fishing and placement remain unchanged; the build boundary stays explicit in tools. Rejected an initial segmented border after inspecting it; revised whole-scene1440 capture155042-668-working-clearing-56664a removes the ladder-like seams (16.46s including build). Zero warnings. The large grid bends remain visible and are not claimed solved. Next133 makes existing woodland read as a connected margin; assess the entire landscape at135.

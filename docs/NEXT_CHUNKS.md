@@ -5,7 +5,7 @@ The user authorized ten more after130. This supersedes the stop, not the finding
 ## First five — one working landscape
 
 131. **Done** — Recommend the working clearing for a first visit and show Normal/relaxed choices together without scrolling.
-132. Give the public river a continuous natural bank treatment, preserving authoritative land/water and placement.
+132. **Done** — Give the public river a continuous natural bank treatment, preserving authoritative land/water and placement.
 133. Make existing woodland read as an irregular wooded margin, reacting to actual clearing and regrowth.
 134. Replace uniform lawn with restrained open-ground vegetation that yields to actual buildings, paths and use.
 135. Make productive strips read as cultivated land through crop/soil composition at ordinary zoom; full whole-game and visual/audio review.

@@ -61,6 +61,7 @@ public partial class Game
     private void MakeFarmsteadRiverContext(int margin)
     {
         if(_world.Founding?.RiverFarmstead!=true)return;
+        MakeRiverBank();
         var map=_world.Map;
         // Low shingle and silt soften the waterline without creating pretend obstacles/resources.
         if(_world.PublicPlace==null || _plainFarmstead)foreach(var bank in map.Land)

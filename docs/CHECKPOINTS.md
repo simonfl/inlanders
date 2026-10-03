@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **131**.
+- Playable checkpoints since adoption: **132**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
 - Previous periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
@@ -624,3 +624,6 @@ Final130 validation: all41 current-experience suites passed exit0, run bef676296
 
 
 Checkpoint131: Play recommends the existing working clearing while retaining the founded/inhabited alternatives. The clearing mode page shows Normal and relaxed descriptions with compact New/Resume action rows, avoiding inventory paragraphs and hidden mode choices. Native960 actual menu rectangle assertions, entry, save and household controls passed154643-572-working-clearing-920beb (36.71s including build), zero-warning build. Next132 begins the continuous riverbank treatment; no new starting variant or rule system.
+
+
+Checkpoint132: public riverbanks now slope into a continuous silt/shallow-water band with joined corner normals and interpolated colors. Authoritative land/water, terrain height, fishing and placement remain unchanged; the build boundary stays explicit in tools. Rejected an initial segmented border after inspecting it; revised whole-scene1440 capture155042-668-working-clearing-56664a removes the ladder-like seams (16.46s including build). Zero warnings. The large grid bends remain visible and are not claimed solved. Next133 makes existing woodland read as a connected margin; assess the entire landscape at135.
