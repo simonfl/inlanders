@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **110**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
+**Checkpoint110: stop for human playtesting.** The ten authorized outcomes101–110 are complete, with full reviews at [105](REVIEW_CHECKPOINT_105.md) and [110](REVIEW_CHECKPOINT_110.md). The verdict remains partially convincing: physical village life and clearer controls are credible; satisfying choice and attachment are unproven.
 
-Choose a world-first surface over competing management panels, keeping the existing simulation: accessible timber work, temporary food inspection, grouped home changes, simpler public navigation and coherent watching/finishing. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns106–110 and checks. No new scenario, scheduler, needs or building types in this batch. Full catalogue and keyboard paths remain available. Stop after110 review.
+This batch reduced competing management surfaces: smaller everyday building choices, accessible timber gathering, direct cultivation revision, temporary food inspection, grouped home alterations, Build/Village navigation and coherent watching/return/finishing. Full catalogue and keyboard paths remain. No new resources, needs or building types. [NEXT_CHUNKS](NEXT_CHUNKS.md) records the stop and questions for human play; there is no automatic next batch.
 
-Retain Normal/relaxed, optional growth/finishing and the archive boundary. Human play will distinguish satisfying short visits from a core that lacks purpose; scripted feasibility cannot. Below remains a hypothesis inventory, not a shopping list.
+Retain Normal/relaxed, founded/inhabited starts and optional finishing as comparisons. A satisfying short visit is valid; understood controls followed by indifference challenges the core. Depending on that evidence, cut management for an inhabited-landscape experience or redesign competing spatial livelihoods. Do not implement both hypotheses preemptively. Below remains an inventory of hypotheses, not a shopping list.
 
 ## What stays, what changes
 

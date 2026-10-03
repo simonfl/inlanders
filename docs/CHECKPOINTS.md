@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **110**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
+- Last periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
+- Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
 - Previous periodic review95: [synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles.
 - Previous periodic review90: [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
@@ -21,8 +22,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next regular four-role review: **checkpoint95**; add visual/audio after substantial presentation changes.
-- Latest independent visual/audio review: **checkpoint90**, fresh context in the full review. Broad stills/source; no listening or continuous-motion acceptance.
+- Next periodic review would be **checkpoint115**, only if later authorized; implementation is stopped at110 for human play.
+- Latest independent visual/audio review: **checkpoint110**, fresh context. Broad stills/source; no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint100**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -529,3 +530,6 @@ Checkpoint109: public persistent navigation is Build/Village; Village has People
 
 
 Checkpoint110: watching a selected place retains it for return without changing pause/speed; public watch mode starts with Return, clock controls and expandable view options. Expanded controls fit compact view. Native960 navigation/household/watch/return/supply/optional finish/watch/reopen/exact save-load passed20261003-070608-239-quiet-visit-993d74; image inspected. Zero-warning build. Final broad regression and refreshed full20-minute founding session underway; freeze for whole-game110 plus visual/audio, then stop. No claim of human discovery, enjoyment or listening.
+
+
+110 closeout: final broad regression exited0 (artifacts/checkpoint110-regression.log); the37 current-experience suites passed at105 before106 rebuild. Final20-simulation-minute founding session passed215.57s (20261003-070656-260-land-first-d5b5bd); quiet-visit native finish/watch/return/save/reopen passed. Both precommit110 runs match fixed63a92e2 DLL SHA2565A855A88414C50B637B4232D0F57F818A93F6AC72F5A9A1BBD124153EAECDD21. Fresh fixed Normal/relaxed/archive captures supplement whole-game review. Root-certificate-store warning is present in native logs; not a gameplay-pass failure. Known108 atomic-save replacement failure remains unresolved. Review and documentation add no playable count; stop at110.
