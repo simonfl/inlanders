@@ -10,11 +10,9 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Checkpoint110: stop for human playtesting.** The ten authorized outcomes101–110 are complete, with full reviews at [105](REVIEW_CHECKPOINT_105.md) and [110](REVIEW_CHECKPOINT_110.md). The verdict remains partially convincing: physical village life and clearer controls are credible; satisfying choice and attachment are unproven.
+**Active batch111–120: river-frontage comparison**, newly authorized after110. [Review110](REVIEW_CHECKPOINT_110.md) remains partially convincing; human taste is unobserved. Choose its substantial landscape-composition alternative, using the same people/resources/rules rather than adding mechanics. Keep the inlet available for comparison.
 
-This batch reduced competing management surfaces: smaller everyday building choices, accessible timber gathering, direct cultivation revision, temporary food inspection, grouped home alterations, Build/Village navigation and coherent watching/return/finishing. Full catalogue and keyboard paths remain. No new resources, needs or building types. [NEXT_CHUNKS](NEXT_CHUNKS.md) records the stop and questions for human play; there is no automatic next batch.
-
-Retain Normal/relaxed, founded/inhabited starts and optional finishing as comparisons. A satisfying short visit is valid; understood controls followed by indifference challenges the core. Depending on that evidence, cut management for an inhabited-landscape experience or redesign competing spatial livelihoods. Do not implement both hypotheses preemptively. Below remains an inventory of hypotheses, not a shopping list.
+Open and inhabited river frontage, optional land reading, and coherent shore/woodland presentation form111–115. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the evidence gates; review115 chooses116–120, then full120 review and stop. Current save reliability remains required. No new needs, inheritance, production chains or objective checklist. Tests and stills establish operation/readability, not enjoyment.
 
 ## What stays, what changes
 
@@ -109,3 +107,6 @@ Checkpoint109: public persistent navigation is Build/Village; Village has People
 
 
 Checkpoint110: watching a selected place retains it for return without changing pause/speed; public watch mode starts with Return, clock controls and expandable view options. Expanded controls fit compact view. Native960 navigation/household/watch/return/supply/optional finish/watch/reopen/exact save-load passed20261003-070608-239-quiet-visit-993d74; image inspected. Zero-warning build. Final broad regression and refreshed full20-minute founding session underway; freeze for whole-game110 plus visual/audio, then stop. No claim of human discovery, enjoyment or listening.
+
+
+Checkpoint111: public founding menu now compares inlet and river frontage, with distinct current save/restart identity in Normal/relaxed. Same eight people,48logs/4planks/120food and existing rules. Native960 actual menu/save/load plus construction, meals and home rest passed20261003-130234-242-river-frontage-f7aa6d. Focused both-mode garden/fishing routes and exact continuation pass; zero-warning build. Landing tests choose legal bend geometry rather than assume the inlet coordinate. Next112 supplies an inhabited comparison; preference unobserved.

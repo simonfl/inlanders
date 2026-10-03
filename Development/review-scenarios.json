@@ -558,5 +558,13 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 23
+  },
+  {
+    "name": "river-frontage",
+    "description": "Public river-frontage alternative with unchanged starting economy",
+    "generator": "river-frontage",
+    "focusX": 0,
+    "focusZ": 3,
+    "zoom": 29
   }
 ]

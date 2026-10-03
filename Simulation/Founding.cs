@@ -7,6 +7,7 @@ namespace Inlanders.Simulation;
 public sealed class FoundingProgress
 {
     public SharedCommons? Commons { get; set; }
+    public bool RiverFrontage { get; set; }
     public bool PlayerFounded { get; set; }
     public bool ReserveOnlyWork { get; set; } // Development comparison: retain the previous reserve-only scheduler.
     public bool ProvisionedLife { get; set; }

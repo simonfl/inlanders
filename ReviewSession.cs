@@ -139,6 +139,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="land-drawing"){await ProbeLandDrawing();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="land-first"){await ProbeLandFirst();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="home-plot"){await ProbeHomePlot();return;}
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="river-frontage"){await ProbeRiverFrontage();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="first-place"){await ProbeFirstPlace();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="home-invitation"){await ProbeHomeInvitation();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="dock-move-intent"){await ProbeDockMoveIntent();return;}

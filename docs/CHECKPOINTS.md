@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **110**.
+- Playable checkpoints since adoption: **111**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
@@ -533,3 +533,6 @@ Checkpoint110: watching a selected place retains it for return without changing 
 
 
 110 closeout: final broad regression exited0 (artifacts/checkpoint110-regression.log); the37 current-experience suites passed at105 before106 rebuild. Final20-simulation-minute founding session passed215.57s (20261003-070656-260-land-first-d5b5bd); quiet-visit native finish/watch/return/save/reopen passed. Both precommit110 runs match fixed63a92e2 DLL SHA2565A855A88414C50B637B4232D0F57F818A93F6AC72F5A9A1BBD124153EAECDD21. Fresh fixed Normal/relaxed/archive captures supplement whole-game review. Root-certificate-store warning is present in native logs; not a gameplay-pass failure. Known108 atomic-save replacement failure remains unresolved. Review and documentation add no playable count; stop at110.
+
+
+Checkpoint111: public founding menu now compares inlet and river frontage, with distinct current save/restart identity in Normal/relaxed. Same eight people,48logs/4planks/120food and existing rules. Native960 actual menu/save/load plus construction, meals and home rest passed20261003-130234-242-river-frontage-f7aa6d. Focused both-mode garden/fishing routes and exact continuation pass; zero-warning build. Landing tests choose legal bend geometry rather than assume the inlet coordinate. Next112 supplies an inhabited comparison; preference unobserved.
