@@ -22,7 +22,7 @@ public partial class Game
             _paused=false;start=_uiTime;while(_uiTime-start<60 && (field.Harvest>0 || field.Planted || _world.People.Any(p=>p.WorkplaceId==field.Id)))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _paused=true;_nextWorkCard=0;await Frames();Check(!field.WorkPaused && !_reshapePlot.Disabled,$"Finished field cannot reshape: paused={field.WorkPaused}, ripe={field.Harvest}, disabled={_reshapePlot.Disabled}");
             string saved=_world.SaveJson();await UiClick(_reshapePlot);await Frames();await UiClick(_revisionLess);await Frames();await CaptureReviewBundle("release-growing-ground");
-            Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-75,"Revision card overflows compact view");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled revision changed world");
+            Check(!_workCard.Visible && _revisionProposal.GetGlobalRect().End.Y<_hud.Size.Y-75,"Revision stacks workplace or overflows compact view");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled revision changed world");
             await UiClick(_reshapePlot);await Frames();await UiClick(_revisionLess);await Frames();await UiClick(_revisionApply);await Frames();Check(field.Depth==2 && field.PreparedRows==3 && !field.WorkPaused,"Revision lost extent/state");
             Check(!field.WorkPaused,"Revision left work paused");await CaptureReviewBundle("ground-released");_world.Validate();
             await UiClick(_reshapePlot);await Frames();var edgePoint=_camera.UnprojectPosition(RevisionEdge(field,2));var longerPoint=_camera.UnprojectPosition(RevisionEdge(field,4));

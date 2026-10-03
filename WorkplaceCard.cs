@@ -66,6 +66,8 @@ public partial class Game
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);
         if(site!=null && _yardPreviewHome==site.Id && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible)
         {_workCard.Hide();RenderYardPreview(site);return;}
+        if(site!=null && _reshapingPlot==site.Id && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible)
+        {_workCard.Hide();RenderPlotRevision(site);return;}
         bool show=_turnHome<0 && !(_showFoodMap && _world.PublicPlace!=null) && _householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
         _workCard.Visible=show;if(!show || site==null){StopYardPreview();EndPlotRevision();return;}
         _workCard.Size=new(330,0);
