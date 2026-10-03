@@ -7,7 +7,8 @@ public partial class Game
 {
     private struct FrameTrace
     {
-        public double PersonMovementMs;
+        public double PersonMovementMs,WorkedLandMs;
+        public int WorkedLandRebuilds;
         public double ActorSetupMs,PeopleMs,TreesMs,StockMs,BuildingsMs,SlowPersonMs;
         public int SlowPersonId,SlowPersonTask;
         // ProcessMs is elapsed callback time, not CPU residency. ThreadCpuMs is

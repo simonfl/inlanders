@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Authorized through140:** [review130](REVIEW_CHECKPOINT_130.md) remains partially convincing. The next coherent slice addresses F40b's whole landscape—riverbank, woodland margin, open ground and actual productive strips—alongside a recommended, compact first entry. Review135 selects the remaining five; review140 then stop. No new needs/catalogue/start variants. [Active queue](NEXT_CHUNKS.md).
+**Checkpoint135 reviewed; authorized through140:** [synthesis](REVIEW_CHECKPOINT_135.md) finds clearer ground but insufficient spatial choice. Revise the existing clearing's usable-ground/river relationship, then consolidate local home/yard/field arrangement and observation. Fix measured worked-ground refresh cost without adding a checkpoint. [Active queue](NEXT_CHUNKS.md). No new starts, catalogue or needs; full140 review then stop.
 
 **Earlier checkpoint120:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. The subsequently authorized121–130 batch is now complete.
 

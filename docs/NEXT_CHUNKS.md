@@ -8,13 +8,21 @@ The user authorized ten more after130. This supersedes the stop, not the finding
 132. **Done** — Give the public river a continuous natural bank treatment, preserving authoritative land/water and placement.
 133. **Done** — Make existing woodland read as an irregular wooded margin, reacting to actual clearing and regrowth.
 134. **Done** — Replace uniform lawn with restrained open-ground vegetation that yields to actual buildings, paths and use.
-135. **Done; review pending** — Make productive strips read as cultivated land through crop/soil composition at ordinary zoom; full whole-game and visual/audio review.
+135. **Done; reviewed** — Make productive strips read as cultivated land through crop/soil composition at ordinary zoom; full whole-game and visual/audio review.
 
 These are playable scene and interaction outcomes, not asset foundations. Preserve ordinary-scale clarity, simulation, free arrangement and performance. Compare whole scenes, not only new geometry close-ups. Prior130 scene is the control; native captures and current save behavior remain required.
 
-## Remaining five
+## Review135 decision — remaining five
 
-136–140 are reserved for the135 synthesis. Reassess the direction before selecting them; do not prefill with unrelated conveniences. Full review140, then stop. Any reliability corrections finish the existing contract and do not inflate the count.
+[Whole-game synthesis](REVIEW_CHECKPOINT_135.md) selects a real spatial choice, supported by a coherent local editing flow:
+
+136. Constrain the existing working clearing through actual river/usable-ground geography; test near-home cultivation versus domestic/shared ground and shore livelihood.
+137. Compact home arrangement tray replacing the expanded editing stack.
+138. Choose and furnish domestic ground in one proposal with actual material consequences.
+139. Compact world proposal for cultivated-strip manipulation.
+140. Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
+
+No new start/catalogue/needs. Measure and correct recurring worked-ground refresh cost first, without a playable increment. Existing functionality cannot count twice; adapt scope when necessary. Complete contrasting same-start arrangements and test actual use, not only predicted routes.
 
 ## Evidence and limits
 

@@ -9,7 +9,8 @@ public partial class Game
     private bool _independentPlaces;
     private Node3D? _workedLand;
     private World? _workedWorld;
-    private string _workedKey="";
+    private string _workedKey="",_workedBaseKey="";
+    private readonly Dictionary<(int,int),Color> _workedBaseColors=new();
     private float _nextWorkedLand;
     private void UpdateWorkedLandscape(bool force=false)
     {
@@ -17,9 +18,12 @@ public partial class Game
         if(_workedLand==null){_workedLand=new(){Name="WorkedLandscape"};AddChild(_workedLand);}
         _workedLand.Visible=_world.PublicPlace!=null && !_plainFarmstead;
         if(!_workedLand.Visible)return;
-        string key=_world.GroundUseRevision+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Depth}:{c.Improved}:{c.YardSide}"))+":"+
+        string sceneryKey=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(_world.Map.Heights)+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Depth}:{c.Improved}:{c.YardSide}"))+":"+
             string.Join(';',_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).Select(t=>$"{t.Cell}:{t.Growth>=1}"))+":"+string.Join(';',_world.Commons?.Places??Array.Empty<Cell>());
+        string key=_world.GroundUseRevision+":"+sceneryKey;
         if(!force && _workedWorld==_world && key==_workedKey)return;
+        if(_workedWorld!=_world || _workedBaseKey!=sceneryKey){_workedBaseColors.Clear();_workedBaseKey=sceneryKey;}
+        ulong traceStart=_traceFrames?Time.GetTicksUsec():0;
         _workedWorld=_world;_workedKey=key;Clear(_workedLand);
         var fields=_world.Cottages.Where(c=>c.Complete && (World.IsVegetablePlot(c.Kind) || c.Kind is BuildingKind.Farm or BuildingKind.Orchard))
             .SelectMany(c=>World.Footprint(c)).ToHashSet();
@@ -39,7 +43,10 @@ public partial class Game
         {
             var sample=((int)MathF.Round(x*2),(int)MathF.Round(z*2));if(colors.TryGetValue(sample,out var saved))return saved;
             float mottling=MathF.Sin(x*1.37f+MathF.Sin(z*.72f))*.035f+MathF.Cos(z*1.91f-x*.34f)*.02f;
-            Color color=new Color("74804f").Lerp(new("858657"),(MathF.Sin(x*.23f+MathF.Sin(z*.19f))+1)*.25f).Lightened(mottling);
+            Color color;
+            if(!_workedBaseColors.TryGetValue(sample,out color))
+            {
+            color=new Color("74804f").Lerp(new("858657"),(MathF.Sin(x*.23f+MathF.Sin(z*.19f))+1)*.25f).Lightened(mottling);
             float forest=0;
             foreach(var t in trees){float dx=x-t.X,dz=z-t.Z;forest+=MathF.Exp(-(dx*dx+dz*dz)/7)*.62f;}
             forest=Math.Clamp(forest,0,1); // overlapping canopies form one woodland floor; clearing opens it again.
@@ -56,6 +63,8 @@ public partial class Game
             else color=color.Lerp(new Color("958464"),Math.Clamp(1-field/.55f,0,1)*.65f);
             float path=Math.Clamp(1-Distance(x,z,paths)/.8f,0,1);
             color=color.Lerp(new("9b8562"),path*.65f);
+            _workedBaseColors[sample]=color;
+            }
             if(!_independentPlaces)
             {
                 float use=0;int cx=(int)MathF.Round(x),cz=(int)MathF.Round(z);
@@ -95,5 +104,6 @@ public partial class Game
         SurfaceMesh(_workedLand,surface).Name="LandUseSurface";
         MakeWoodlandMargin(_workedLand,trees);
         MakeOpenMeadow(_workedLand,trees);
+        if(_traceFrames){_frameTrace.WorkedLandMs+=(Time.GetTicksUsec()-traceStart)/1000d;_frameTrace.WorkedLandRebuilds++;}
     }
 }

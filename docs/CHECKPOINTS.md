@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **135**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
+- Last periodic review: **checkpoint135**, [synthesis](REVIEW_CHECKPOINT_135.md), fixedb7a2753, five independent reused role contexts. Partially convincing; choose a spatial clearing experiment plus consolidated local arrangement through140.
+- Previous periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
 - Previous periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
 - Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
 - Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
@@ -636,3 +637,7 @@ Checkpoint134: open meadow now has broad restrained color variation and low gras
 
 
 Checkpoint135: public vegetable fields develop spreading faceted leaf cover from seedlings to mature rows; each visible plant still represents one actual remaining portion, and harvesting exposes stubble/soil. Same footprint, yields and timing.1440 ordinary12-second1x scene155920-347-river-hamlet-57b182 inspected; native960 existing field drag/extend and real preparation passed155950-254-plot-revision-77c06a (43.4s), zero-warning build. First five committed outcomes complete; freeze for full135 plus independent visual/audio review. Presentation is not accepted merely because more detail exists. Ordinary trace includes a486ms wall outlier and67ms process maximum; investigate provenance before attributing it or claiming smoothness.
+
+
+135 full review complete: five independent role verdicts synthesized before136. New landscape readability is retained conditionally; select a real near-home land-use choice and reduce interaction fragmentation. Narrow rendering attribution/fix adds no playable count.
+`n135 correction: attributed ground refresh in the existing trace, then cached static tint. Recurring same-scene rebuilds fell from28–35ms to11–14ms; initial rebuild remains33ms. Zero-warning build and ordinary native capture passed. No additional playable count.
