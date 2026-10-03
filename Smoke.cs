@@ -10,7 +10,11 @@ public partial class Game
     private void ReviewInput(InputEvent input)=>GetViewport().PushInput(input,true);
     private async Task OpenMenu(int index)
     {
-        if (!_drawer.Visible || _tabs.CurrentTab != index) await UiClick(_menuButtons[index]);
+        if (!_drawer.Visible || _tabs.CurrentTab != index)
+        {
+            if(_world.PublicPlace!=null && _villageLinks.ContainsKey(index)){if(!_drawer.Visible || _tabs.CurrentTab!=2)await UiClick(_menuButtons[2]);await UiClick(_villageLinks[index]);}
+            else await UiClick(_menuButtons[index]);
+        }
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
     private async Task UiClick(Button button,int heldFrames=0)

@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **108**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
+**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **109**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
 
 Choose a world-first surface over competing management panels, keeping the existing simulation: accessible timber work, temporary food inspection, grouped home changes, simpler public navigation and coherent watching/finishing. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns106–110 and checks. No new scenario, scheduler, needs or building types in this batch. Full catalogue and keyboard paths remain available. Stop after110 review.
 
@@ -103,3 +103,6 @@ Checkpoint107: public food inspection temporarily replaces place/person cards wi
 
 
 Checkpoint108: home selection leads with residents/use/watching; Move, furnishing and yard changes join occasional actions under Change this home. Native960 household exchange passes065738-923-household-move-c8b9f6. Broader bank probe updated from obsolete Follow resident to actual roster: full yard previews/apply/cancel/furnish, Normal/relaxed, saves/menu and shared-place flow passes20261003-070014-940-cultivated-bank-fc309b. Prior run065904-231 reproduced known replace-target0x80070005,11 attempts414ms; village correctly stayed open. Successful retry is not a fix; cause remains unknown, diagnostics retained. Zero-warning build, simulation unchanged. Next109 reduces public navigation with all management still reachable.
+
+
+Checkpoint109: public persistent navigation is Build/Village; Village has People, Supplies and Options links, while existing V/I/O shortcuts remain. Archived worlds restore the five domains. Shared native menu helper now follows visible public controls. Native960 all three secondary pages/Escape preserve simulation20261003-070234-747-household-7eb426; founding menu/placement/cancel/save-load/relaxed entry passed070246-356-first-place-6b6450. Zero-warning build; no simulation change.110 completes place watching with return context and compact controls, validates the batch and stops after full review.

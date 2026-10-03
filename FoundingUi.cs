@@ -23,6 +23,7 @@ public partial class Game
     }
     private void MakeFoundingUi(VBoxContainer column)
     {
+        MakePublicNavigation(column);
         _foundingGoals=new();column.AddChild(_foundingGoals);
         _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(_world.Founding?.WorkingVillage==true?0:_world.Founding?.RiverFarmstead==true && !_world.FoundingHasNewFood?2:1);UpdateVillageDirectory();}));
         _foundingCommons=Button("Make a shared place",()=>BeginGatheringPlan(_world.Commons?.Center,true));_foundingGoals.AddChild(_foundingCommons);

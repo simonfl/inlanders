@@ -1,6 +1,6 @@
 # Next work — a smaller world-first experience
 
-Count **108**. User authorizes through110, then human playtest. [Whole-game105](REVIEW_CHECKPOINT_105.md) complete on `d5c5b8f`, four fresh independent roles, partially convincing. No new needs/resources/building types or scheduler. Prior100 wait-for-player stop is superseded by the latest instruction; uncertainty about motivation is not.
+Count **109**. User authorizes through110, then human playtest. [Whole-game105](REVIEW_CHECKPOINT_105.md) complete on `d5c5b8f`, four fresh independent roles, partially convincing. No new needs/resources/building types or scheduler. Prior100 wait-for-player stop is superseded by the latest instruction; uncertainty about motivation is not.
 
 101–105 delivered secondary home actions, everyday build palette/full catalogue, consistent place/person return, atomic cultivation revision preserving work status, accurate crop status and direct food inspection. Native checks passed;37 current suites underway, completion recorded in ledger.
 
@@ -26,3 +26,6 @@ Checkpoint107: public food inspection temporarily replaces place/person cards wi
 
 
 Checkpoint108: home selection leads with residents/use/watching; Move, furnishing and yard changes join occasional actions under Change this home. Native960 household exchange passes065738-923-household-move-c8b9f6. Broader bank probe updated from obsolete Follow resident to actual roster: full yard previews/apply/cancel/furnish, Normal/relaxed, saves/menu and shared-place flow passes20261003-070014-940-cultivated-bank-fc309b. Prior run065904-231 reproduced known replace-target0x80070005,11 attempts414ms; village correctly stayed open. Successful retry is not a fix; cause remains unknown, diagnostics retained. Zero-warning build, simulation unchanged. Next109 reduces public navigation with all management still reachable.
+
+
+Checkpoint109: public persistent navigation is Build/Village; Village has People, Supplies and Options links, while existing V/I/O shortcuts remain. Archived worlds restore the five domains. Shared native menu helper now follows visible public controls. Native960 all three secondary pages/Escape preserve simulation20261003-070234-747-household-7eb426; founding menu/placement/cancel/save-load/relaxed entry passed070246-356-first-place-6b6450. Zero-warning build; no simulation change.110 completes place watching with return context and compact controls, validates the batch and stops after full review.

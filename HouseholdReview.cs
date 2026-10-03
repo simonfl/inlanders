@@ -24,6 +24,10 @@ public partial class Game
             while(_uiTime-started<45 && _world.Trees.Contains(tree))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _paused=true;Check(!_world.Trees.Contains(tree),"Marked timber never collected and cleared by shared labor");await CaptureReviewBundle("timber-ground-cleared");CloseDrawer();
         }
+        CloseManagementUi();string navigationState=_world.SaveJson();
+        Check(_menuButtons.Where(b=>b.Visible).Count()==2,"Public navigation is not reduced");
+        foreach(int page in new[]{0,4,3}){await OpenMenu(page);await Frames();Check(_drawer.Visible && _tabs.CurrentTab==page,"Village secondary navigation lost page");await Press(Key.Escape);await Frames();}
+        Check(_world.SaveJson()==navigationState,"Navigation changed village");
         var home=_world.Cottages.First(c=>c.Complete && _world.People.Count(p=>p.HomeId==c.Id)>0);CloseManagementUi();ClearSelection();
         _focus=BuildingPosition(home);_camera.Size=18;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(BuildingPosition(home)+Vector3.Up*.5f));await Frames();
         Check(_workCardSite==home.Id && _householdPeople.Visible,"Selecting home does not show household");

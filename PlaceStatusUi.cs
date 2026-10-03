@@ -15,6 +15,7 @@ public partial class Game
     }
     private void UpdatePlaceStatus()
     {
+        RenderPublicNavigation();
         bool place=_world.PublicPlace!=null;_placeFood.Visible=place;_brand.Visible=place || _hud.Size.X>=1200;
         // Reset every base column too, so leaving public play restores archived controls.
         foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables})_resourceValues[resource].GetParent<Control>().Visible=true;
