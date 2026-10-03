@@ -7,7 +7,7 @@ The user authorized ten more after130. This supersedes the stop, not the finding
 131. **Done** — Recommend the working clearing for a first visit and show Normal/relaxed choices together without scrolling.
 132. **Done** — Give the public river a continuous natural bank treatment, preserving authoritative land/water and placement.
 133. **Done** — Make existing woodland read as an irregular wooded margin, reacting to actual clearing and regrowth.
-134. Replace uniform lawn with restrained open-ground vegetation that yields to actual buildings, paths and use.
+134. **Done** — Replace uniform lawn with restrained open-ground vegetation that yields to actual buildings, paths and use.
 135. Make productive strips read as cultivated land through crop/soil composition at ordinary zoom; full whole-game and visual/audio review.
 
 These are playable scene and interaction outcomes, not asset foundations. Preserve ordinary-scale clarity, simulation, free arrangement and performance. Compare whole scenes, not only new geometry close-ups. Prior130 scene is the control; native captures and current save behavior remain required.

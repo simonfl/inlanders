@@ -186,3 +186,6 @@ Checkpoint132: public riverbanks now slope into a continuous silt/shallow-water 
 
 
 Checkpoint133: low irregular woodland undergrowth now joins the actual standing mature trees into a wooded margin. It clears from building footprints, paths, home yards, shared places and actual well-used ground; felled/removed trees leave the margin and regrown trees restore it through the existing visual refresh. Single batched mesh, no resource or collision introduced. Opposite1440 view155253-009 inspected and density softened; final960155403-183-working-clearing-3d3c12 inspected, zero-warning build. Next134 treats the remaining open lawn and actual walking wear together; whole-scene acceptance remains for135.
+
+
+Checkpoint134: open meadow now has broad restrained color variation and low grass distinct from woodland cover. Buildings, domestic space, paths and repeated real footfall suppress it, making occupied and traveled ground stand out without changing movement or resources. Ordinary1440 before/after12seconds1x155625-560-working-clearing-31e345 inspected; native960 actual home-to-field path through the meadow and updated ground passed155722-305-working-clearing-008c76 (35.58s including build). Zero warnings. Next135 completes readable crop cover, then the review must judge whether this is enough of a scene-level change rather than merely more detail.

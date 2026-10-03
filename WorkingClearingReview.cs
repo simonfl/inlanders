@@ -18,6 +18,11 @@ public partial class Game
         await UiClick(_workCardMove);await Frames();_focus=OnGround(at.X,at.Z);_camera.Size=22;UpdateCamera();await Frames();var point=_camera.UnprojectPosition(OnGround(at.X,at.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();
         if(!_ghostValid || _livelihoodSite is not {Route.Length:>0} || !_hint.Text.Contains("Possible food walk"))throw new Exception("Moved home lacks connection preview");await CaptureReviewBundle("moving-home-food-connection");await Press(Key.Escape);await Frames();
         if(_world.SaveJson()!=moveBefore || _workCardSite!=home.Id)throw new Exception("Move proposal cancellation changed world/context");
+        ShowWorkplaceCard(home.Id);await Frames();await UiClick(_homeOptionsButton);await Frames();await UiClick(_placePath);await Frames();
+        var field=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);var destination=field.Entrance;
+        _focus=OnGround(destination.X,destination.Z);_camera.Size=24;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));
+        Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("clearing-path-proposal");await Click(pathPoint);await Frames();
+        if(!_world.Paths.Contains(destination) || _placing)throw new Exception("Clearing connection did not apply");UpdateWorkedLandscape(true);await Frames();_world.Validate();await CaptureReviewBundle("clearing-path-opened");
         GD.Print("PASS working clearing actual menu, household controls, save identity and ordinary life");
     }
 }

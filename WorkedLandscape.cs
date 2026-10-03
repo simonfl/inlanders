@@ -39,7 +39,7 @@ public partial class Game
         {
             var sample=((int)MathF.Round(x*2),(int)MathF.Round(z*2));if(colors.TryGetValue(sample,out var saved))return saved;
             float mottling=MathF.Sin(x*1.37f+MathF.Sin(z*.72f))*.035f+MathF.Cos(z*1.91f-x*.34f)*.02f;
-            Color color=new Color("818353").Lightened(mottling);
+            Color color=new Color("74804f").Lerp(new("858657"),(MathF.Sin(x*.23f+MathF.Sin(z*.19f))+1)*.25f).Lightened(mottling);
             float forest=0;
             foreach(var t in trees){float dx=x-t.X,dz=z-t.Z;forest+=MathF.Exp(-(dx*dx+dz*dz)/7)*.62f;}
             forest=Math.Clamp(forest,0,1); // overlapping canopies form one woodland floor; clearing opens it again.
@@ -94,5 +94,6 @@ public partial class Game
         }
         SurfaceMesh(_workedLand,surface).Name="LandUseSurface";
         MakeWoodlandMargin(_workedLand,trees);
+        MakeOpenMeadow(_workedLand,trees);
     }
 }
