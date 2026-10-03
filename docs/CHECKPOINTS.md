@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **146**.
+- Playable checkpoints since adoption: **147**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint145**, [synthesis](REVIEW_CHECKPOINT_145.md), fixed8271689. Five independent reused roles; partially convincing. Merge routine substeps, address ensemble massing through150.
 - Previous periodic review: **checkpoint140**, [synthesis](REVIEW_CHECKPOINT_140.md), fixed237e2ad. Five independent reused roles, partially convincing; retain concrete comparisons, challenge opportunity cost, stop140. Final41-suite regression passed.
@@ -675,3 +675,5 @@ Checkpoint145: quiet neighbors can visit actual nearby shared seats between jobs
 145 frozen regression passed all45 suites, run ead6693ec2da48f38faec068d888537f, 476.1 seconds summed. Log artifacts/checkpoint145-current.log.
 
 Checkpoint146: all shared workers may make bounded nearby visits, including furnished-home residents. Visits alternate with home time, use actual paths, yield to work/meals and clear on edits; actual arrived companions mutually face/gesture, without a relationship need. Save54 records visit intent/timing. Four ten-minute Normal/relaxed single/split-place comparisons kept ordinary work active and demonstrated domestic use, vegetables/meals, both previously eligible/excluded residents, companion activity and exact continuation. Native960223856-175 passed visible-ground selection and Watch camera/selection return alongside prior multi-place controls. Ordinary1440 twelve-second1x active-work snapshot223908-638 inspected. Corrected meal-only wording and moved-building surface invalidation, no extra count. Next147 addresses house massing rather than more routine substeps.
+
+Checkpoint147: public cottages now form a stable three-part massing family: low horizontal timber dwelling, compact steeper-roofed framed home, and expanded dwelling with a lower adjoining room. Foundations, wall courses, openings, roof proportions and chimney positions differ; same beds/cost/footprints and saved building-ID appearance. Museum reference supports modest timber construction and expanded one-room dwellings; this is stylized, not a reconstruction.1440 overview224207-230 inspected; native960 opposite-camera working-clearing224215-567 passed menu/household/save, movement, paths and Watch return. Zero-warning build. Next148 integrates shared ground; presentation supplement due now without changing regular150 cadence.

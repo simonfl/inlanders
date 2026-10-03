@@ -23,7 +23,7 @@ Each item must be playable and current-save correct; reshape or merge scope if a
 Review145 chooses one inhabited ensemble, merging routine substeps rather than counting each separately. See [synthesis](REVIEW_CHECKPOINT_145.md).
 
 146. **Done** — Inclusive bounded quiet visits alongside furnished home life and real jobs/meals; actual companion response and active-work evidence.
-147. Differentiated public cottage silhouette family with stable appearance and recognizable entrances.
+147. **Done** — Differentiated public cottage silhouette family with stable appearance and recognizable entrances.
 148. Shared ground/furniture fitted to actual approaches and occupancy, replacing isolated pads.
 149. Recompose the recommended clearing's home/work/shared ensemble at the same population/capacity and explicit materials; old layout is a development comparator.
 150. Path approaches from selected shared places using existing previews/cancel/commit, retaining context. Full review/regression/push/stop.

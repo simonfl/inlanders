@@ -58,3 +58,7 @@ Matched bank/grouped inventory now supports a fairer composition comparison. Gro
 ## Review76 priority
 
 [Whole-game review76](REVIEW_CHECKPOINT_76.md) keeps F40a–c partial: readable components have not yet formed the promised farmstead ensemble. The next coherent slice is F40b/c on the existing inlet, preserving productive extent, people and rules. Prioritize large worked-ground/clearing/woodlot/bank relationships and visible before/after arrangement over more props. Couple only necessary place-focused controls. Compare current treatment as control at ordinary960/1440 views, both orientations, with actual daily journeys. No historical reconstruction, motion, audio or enjoyment acceptance is implied by the stills.
+
+## Checkpoint147 dwelling family
+
+Three stable cottage masses replace nearly identical public roofs: low squared-timber form, compact framed form and a dwelling expanded with a lower adjoining room. Same two residents and authoritative footprint. The [Canadian Museum of History architecture overview](https://www.historymuseum.ca/virtual-museum-of-new-france/daily-life/vernacular-architecture-in-new-france/) describes timber framing, horizontal squared timber in the later seventeenth century, modest foundations and one-room rural homes sometimes expanded with another room. Proportions, colors and attached roof junction are artistic choices, not a named archaeological reconstruction. Accessed October3,2026; no third-party imagery copied. Judge the family in the recomposed ensemble at150, not only as three assets.

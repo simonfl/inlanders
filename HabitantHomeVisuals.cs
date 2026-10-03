@@ -6,48 +6,55 @@ public partial class Game
 {
     private void MakeHabitantHome(Node3D root,int stage,int variant,CottageFinish finish)
     {
-        if(_world.PublicPlace?.CultivatedBank==true)
-        {
-            var mass=new Node3D{Scale=new(1.07f,.86f,1.03f)};root.AddChild(mass);root=mass;
-        }
-        bool framed=variant%2==1;
-        float rise=framed?1.05f:.82f;
-        // A low, broad dwelling leaves people and worked ground visible beside it.
+        // A small family of one-room timber houses, including an expanded room.
+        // Stable building-id variants change massing, not beds, cost or footprint.
+        bool compact=variant==1,expanded=variant==2;
+        float width=compact?1.94f:expanded?1.82f:2.56f,depth=compact?1.63f:1.36f;
+        float cx=expanded?-.37f:0,cz=-.14f,wall=compact?1.45f:1.19f,rise=compact?1.08f:.79f;
+        float front=cz+depth/2,back=cz-depth/2;
         var palette=CottagePalette(finish==CottageFinish.Automatic?(CottageFinish)(1+variant):finish);
-        if(finish==CottageFinish.Automatic)palette=(new Color("827f6b").Lightened(variant*.04f),new Color("cabb98"));
-        var timber=new Color("8b7658");
-        StoneFoot(root,new(0,.10f,-.14f),new(2.45f,.18f,1.46f));
-        StoneFoot(root,new(-.48f,.07f,.72f),new(.7f,.12f,.42f));
+        if(finish==CottageFinish.Automatic)palette=(new Color(compact?"93866a":expanded?"756e58":"797965"),new Color(compact?"c6b28e":"a99471"));
+        var timber=new Color("786346");
+        StoneFoot(root,new(cx,.10f,cz),new(width+.12f,.18f,depth+.10f));
+        StoneFoot(root,new(-.38f,.07f,front+.18f),new(.72f,.12f,.34f));
+        if(expanded)StoneFoot(root,new(.96f,.10f,cz),new(.72f,.18f,1.43f));
         if(stage<1)return;
-        foreach(float x in new[]{-1.14f,1.14f})foreach(float z in new[]{-.80f,.53f})
-            Box(root,new(x,.73f,z),new(.14f,1.30f,.14f),_frameTimber);
-        foreach(float z in new[]{-.80f,.53f})Box(root,new(0,1.34f,z),new(2.44f,.14f,.14f),_frameTimber);
+        foreach(float x in new[]{cx-width/2,cx+width/2})foreach(float z in new[]{back,front})
+            Box(root,new(x,wall/2+.12f,z),new(.13f,wall,.13f),_frameTimber);
+        foreach(float z in new[]{back,front})Box(root,new(cx,wall+.10f,z),new(width+.14f,.14f,.13f),_frameTimber);
+        if(expanded)foreach(float z in new[]{back,front})Box(root,new(1.27f,.60f,z),new(.12f,1.06f,.12f),_frameTimber);
         if(stage<2)return;
-        Box(root,new(0,.73f,-.14f),new(2.25f,1.16f,1.30f),palette.Wall.Darkened(.16f));
-        // Shallow timber courses give the walls depth without an oversized porch.
-        for(int i=0;i<(framed?0:5);i++)foreach(float z in new[]{-.805f,.525f})
-            Box(root,new(0,.25f+i*.23f,z),new(2.25f,.045f,.045f),timber);
-        if(framed)foreach(float x in new[]{-1.06f,-.78f,-.12f,.22f,1.06f})foreach(float z in new[]{-.825f,.55f})
-            Box(root,new(x,.76f,z),new(.10f,1.15f,.09f),timber.Darkened(.14f));
-        Box(root,new(-.48f,.63f,.57f),new(.57f,1.02f,.075f),_recess);
-        Box(root,new(-.48f,.60f,.615f),new(.43f,.90f,.04f),_frameTimber);
-        Box(root,new(-.48f,1.18f,.60f),new(.76f,.14f,.14f),timber);
-        CottageWindow(root,new(.62f,.81f,.55f));
-        CottageWindow(root,new(-1.15f,.82f,-.18f),-90,false);
-        CottageWindow(root,new(1.15f,.82f,-.18f),90,false);
-        CottageWindow(root,new(.40f,.81f,-.82f),180,false);
+        Box(root,new(cx,wall/2+.12f,cz),new(width,wall,depth),palette.Wall.Darkened(.09f));
+        if(compact)
+        {
+            foreach(float x in new[]{-.91f,-.70f,-.12f,.26f,.91f})foreach(float z in new[]{back-.02f,front+.02f})
+                Box(root,new(x,wall/2+.12f,z),new(.095f,wall,.08f),timber);
+        }
+        else for(int i=0;i<6;i++)foreach(float z in new[]{back-.025f,front+.025f})
+            Box(root,new(cx,.24f+i*.18f,z),new(width+.10f,.065f,.075f),i%2==0?timber:timber.Lightened(.10f));
+        Box(root,new(-.38f,.63f,front+.035f),new(.55f,1.02f,.075f),_recess);
+        Box(root,new(-.38f,.60f,front+.08f),new(.41f,.90f,.04f),_frameTimber);
+        Box(root,new(-.38f,1.18f,front+.06f),new(.69f,.12f,.12f),timber);
+        CottageWindow(root,new(compact?.49f:.40f,.79f,front+.035f));
+        CottageWindow(root,new(cx-width/2-.025f,.80f,cz),-90,false);
+        CottageWindow(root,new(cx+.30f,.79f,back-.025f),180,false);
+        if(expanded)
+        {
+            Box(root,new(.97f,.63f,cz),new(.66f,1.08f,1.36f),palette.Wall.Darkened(.2f));
+            for(int i=0;i<6;i++)Box(root,new(.97f,.22f+i*.18f,front+.025f),new(.70f,.06f,.075f),timber);
+        }
         if(stage<3)return;
-        VillageRoof(root,new(0,1.41f,-.14f),2.70f,1.89f,rise,palette.Roof.Darkened(.06f),true,timber);
-        // Deep eaves, a broken stone plinth and distinct framing read as construction rather than a painted box.
-        foreach(float x in new[]{-1f,-.65f,-.3f,.05f,.4f,.75f,1.1f})
-            Box(root,new(x,.13f,.61f),new(.30f,.19f,.12f),_stone.Darkened(x<0?.12f:.02f));
-        // A masonry chimney and roof battens remain recognizable at village scale.
-        Box(root,new(.74f,1.95f,-.38f),new(.37f,1.05f,.39f),_stone.Darkened(.08f));
-        Box(root,new(.74f,2.50f,-.38f),new(.47f,.12f,.49f),_stone);
-        Box(root,new(.74f,2.565f,-.38f),new(.23f,.015f,.25f),_recess);
-        foreach(float x in new[]{-.95f,-.45f,.05f,.55f,1.05f})
-            foreach(float side in new[]{-1f,1f})
-                TimberBeam(root,new(x,1.44f,-.14f+side*.94f),new(x,1.41f+rise,-.14f),.035f,palette.Roof.Lightened(.13f));
+        VillageRoof(root,new(cx,wall+.17f,cz),width+.30f,depth+.34f,rise,palette.Roof,true,compact?palette.Wall:timber);
+        if(expanded)VillageRoof(root,new(.98f,1.23f,cz),.91f,1.70f,.40f,palette.Roof.Darkened(.08f),true,timber);
+        float chimneyX=compact?.61f:cx-width*.36f,chimneyZ=cz-.21f,top=wall+rise+.43f;
+        Box(root,new(chimneyX,top-.43f,chimneyZ),new(.36f,.93f,.38f),_stone.Darkened(.08f));
+        Box(root,new(chimneyX,top+.06f,chimneyZ),new(.44f,.12f,.46f),_stone);
+        Box(root,new(chimneyX,top+.125f,chimneyZ),new(.22f,.015f,.24f),_recess);
+        // Restrained roof courses read as a material surface, not painted stripes.
+        for(int i=1;i<5;i++)foreach(float side in new[]{-1f,1f})
+        {
+            float t=i/5f;Box(root,new(cx,wall+.18f+rise*(1-t),cz+side*(depth+.34f)/2*t),new(width+.30f,.022f,.025f),palette.Roof.Darkened(.08f));
+        }
     }
 
     private bool FarmsteadWater(float x,float z)
