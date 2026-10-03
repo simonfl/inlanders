@@ -15,7 +15,7 @@ public partial class Game
     private void UpdateHappinessUi(Villager person)
     {
         var report=_world.ReadHappiness(person);
-        _happinessButton.Text=$"{report.Mood} · {report.Score}/100";
-        _happinessReasons.Text=report.Reasons+(_world.Creative ? "" : "\n\n" + _world.LastMealSummary)+"\n\nHome rest counts for four minutes, or five after using an improved home; a completed square break counts for two. Happiness changes idle reactions; it adds no work penalty.";
+        _happinessButton.Text=report.PublicLife?report.Mood:$"{report.Mood} · {report.Score}/100";
+        _happinessReasons.Text=report.PublicLife?report.Reasons+"\n\nDifferent foods are optional. Ordinary meals, a home, rest and breaks shape daily life. Mood adds no work penalty.":report.Reasons+(_world.Creative ? "" : "\n\n" + _world.LastMealSummary)+"\n\nHome rest counts for four minutes, or five after using an improved home; a completed square break counts for two. Happiness changes idle reactions; it adds no work penalty.";
     }
 }

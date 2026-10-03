@@ -1,6 +1,6 @@
 # Active batch111–120 — river-frontage comparison
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count118. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count119. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
 
 | Checkpoint | Intended playable outcome |
 | --- | --- |
@@ -43,3 +43,6 @@ Checkpoint117: first-place and everyday Build now share home/cultivated-strip/la
 
 
 Checkpoint118: inhabited frontage now uses two inland fields, an existing fishing landing and shared outdoor ground. Landing replaces kitchen garden and costs4additional invested logs, leaving8rather than12 in yard; total initial timber, people and72food stay matched. Crop capacity now40vegetables plus actual catches, not the old48vegetable claim. Both-mode fish/crop meals/exact continuation pass;960 native menu/household/survey/actions pass132702-230-river-hamlet-3866ea.1440 actual60simseconds at6x inspected132623-160-river-hamlet-98439a; no preference claim. Next119 removes public diet-score pressure rather than adding another purpose through needs.
+
+
+Checkpoint119: public resident mood no longer rewards a three-food diet or displays a completion score. It reflects actual meals/home/rest/breaks; relaxed missing meals remain penalty-free but are reported honestly. Public People and meal summaries omit variety grading; archive happiness/variety remains unchanged. Both-mode one-food versus varied-food independence, actual continuation and archive happiness checks pass.960 native mood inspection (person API-selected) plus menu/survey paths passed132905-348-river-hamlet-e2e0da, zero-warning build. Next120 completes observation camera return, full review and stop.

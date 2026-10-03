@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--public-mood")){try{PublicMoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--river-frontage")){try{RiverFrontageChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--mature-cultivation")){try{MatureCultivationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--household-move")){try{HouseholdMoveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
