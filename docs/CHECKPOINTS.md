@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **130**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
+- Last periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
+- Previous periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
 - Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
 - Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
@@ -614,3 +615,9 @@ Checkpoint129: public resident panels now say Daily life and show actual activit
 
 
 Checkpoint130: shared meal ground now has six permanent low stools at the actual eating positions, replacing empty target rings; the existing eating pose uses these seats without duplicate furniture. Carried food remains tied to real meals. The development mats comparison remains available. Ordinary1440 shared-place before/after15seconds1x capture143934-282-commons-recurring-a90a8c inspected; native960 working-clearing menu, household/save and relocation preview passed144016-477-working-clearing-89962c. Zero-warning build. All ten authorized playable outcomes are complete; freeze for whole-game130, broadened41-suite current regression and review synthesis. No131.
+
+
+130 review complete: all five independent role verdicts consolidated; fixed-build ordinary/dense, relaxed and archive samples recorded. Retain working clearing as a comparative experiment and stop at130. Correct misleading limited-food-preview wording, then finish final41-suite regression and push. No extra playable count.
+
+
+Final130 validation: all41 current-experience suites passed exit0, run bef67629662c4de8beefe27a569bfb1a, assembly 558ab58f-6ece-4486-b425-0ec5473e255a, log artifacts/checkpoint130-current.log. This includes extension cancellation, relocation connections, descriptive life and all six60-minute working-clearing branches. Corrected DLL FF13CE9E2CB5FA7F0B18C0C87150B66F791A02AB31AC213C91DEB124B4BA78E1 built with zero warnings. The only postreview game delta is the independently verified limited-preview wording; fixed130 native controls/scene evidence remains explicitly before that text correction. Ten outcomes and both whole-game reviews complete. Stop130, no131.
