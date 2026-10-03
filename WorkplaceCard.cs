@@ -49,14 +49,15 @@ public partial class Game
         _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
         MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
-        MakeHomeInvitation(column);MakePlaceJourneys(column);
+        MakeHomeTurn(column);MakeHomeInvitation(column);MakePlaceJourneys(column);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()
     {
+        RenderHomeTurn();
         if(_workCardWorld!=_world)_workCardSite=-1;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);
-        bool show=!(_showFoodMap && _world.PublicPlace!=null) && _householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
+        bool show=_turnHome<0 && !(_showFoodMap && _world.PublicPlace!=null) && _householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
         _workCard.Visible=show;if(!show || site==null){StopYardPreview();EndPlotRevision();return;}
         _workCard.Size=new(330,0);
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
@@ -64,6 +65,7 @@ public partial class Game
         var worker=CardWorker();var diner=CardDiner();
         RenderPlotRevision(site);RenderHouseholdUi(site);
         bool publicHome=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
+        _turnHomeButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeOptionsButton.Visible=publicHome && _yardPreviewSide<0;_homeOptionsButton.Text=_homeOptions?"Back to household life":"Change this home";
         string detail;
         if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials · {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+(site.ConstructionPaused?"Construction paused; supplies stay here.":"Shared workers build when supplies are available.");

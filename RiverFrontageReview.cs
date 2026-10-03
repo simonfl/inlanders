@@ -2,6 +2,7 @@ using Godot;
 using Inlanders.Simulation;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 public partial class Game
 {
     private async Task ProbeRiverFrontage()
@@ -14,6 +15,14 @@ public partial class Game
             await UiClick(_mainButtons["New hamlet"]);await Frames();
             if(_world.PublicPlace is not {RiverFrontage:true,PlayerFounded:false} || _world.Housed!=12)throw new Exception("Inhabited frontage entry failed");
             await ProbeHousehold();
+            _paused=false;_speed=6;double turnStart=_uiTime;while(_uiTime-turnStart<3)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);_paused=true;
+            var turnHome=_world.Cottages.ToArray().First(c=>c.Kind==BuildingKind.Cottage && Enumerable.Range(0,4).Any(r=>r!=c.Rotation && _world.RelocationProblem(c.Id,c.Cell,r)==null));
+            ShowWorkplaceCard(turnHome.Id);await Frames();await UiClick(_homeOptionsButton);await Frames();string turnBefore=_world.SaveJson();var anchor=turnHome.Cell;
+            await UiClick(_turnHomeButton);await Frames();await UiClick(_turnRight);await Frames();await CaptureReviewBundle("home-direction-preview");await Press(Key.Escape);await Frames();
+            if(_world.SaveJson()!=turnBefore)throw new Exception("Cancelled home turn mutated village");
+            await UiClick(_turnHomeButton);await Frames();for(int i=0;i<4 && _turnApply.Disabled;i++){await UiClick(_turnRight);await Frames();}
+            int wanted=_homeTurn;await UiClick(_turnApply);await Frames();if(turnHome.Rotation!=wanted || turnHome.Cell!=anchor || _turnHome>=0)throw new Exception("Home turn failed");_world.Validate();await CaptureReviewBundle("home-turned");
+
             CloseManagementUi();_paused=true;var origin=_focus;float zoom=_camera.Size;string before=_world.SaveJson();
             await OpenMenu(2);await Frames();await UiClick(_landSurvey);await Frames();
             foreach(var button in _landViewButtons){await UiClick(button);await Frames();if(!_surveying || !_paused || before!=_world.SaveJson())throw new Exception("Land views changed simulation");}

@@ -13,6 +13,7 @@ public partial class Game
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
+        if(_turnHome>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndHomeTurn();GetViewport().SetInputAsHandled();return;}
         if(HandleCultivationGesture(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleHouseholdMove(input)){GetViewport().SetInputAsHandled();return;}
         if(_reshapingPlot>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndPlotRevision();GetViewport().SetInputAsHandled();return;}

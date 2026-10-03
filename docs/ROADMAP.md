@@ -147,3 +147,6 @@ Checkpoint120: following a resident now remembers the original place and camera 
 
 
 Checkpoint121: existing cultivated strips can extend to eight rows with two logs per extra row and ordinary shared preparation in Normal; relaxed remains free. Stored food, identity and prior work setting stay; growing crops restart. Native960 existing plot shrink/cancel/extension and actual preparation passed 20261003-134951-417-plot-revision-da5692 (43.74s); proposal image inspected. Both-mode real delivery/crop/meals and exact continuation checks plus previous plot revisions pass. Zero-warning builds. Next122 tests direct home orientation; no new economy system.
+
+
+Checkpoint122: homes can turn around their existing anchor from Change this home, with pure footprint/entrance preview, authoritative access/yard checks and explicit apply/cancel. Identity, household, goods and clock stay. Native960 turn cancellation and legal application passed20261003-135444-003-river-hamlet-4d7d66 (29.03s), including existing observation/survey paths; zero-warning build. Initial residents standing at doors correctly prevented turns until actual life moved them; scripted probe now observes that wait. Next123 brings appearance choices into the same home interaction.
