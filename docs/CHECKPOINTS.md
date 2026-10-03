@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **134**.
+- Playable checkpoints since adoption: **135**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
 - Previous periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
@@ -633,3 +633,6 @@ Checkpoint133: low irregular woodland undergrowth now joins the actual standing 
 
 
 Checkpoint134: open meadow now has broad restrained color variation and low grass distinct from woodland cover. Buildings, domestic space, paths and repeated real footfall suppress it, making occupied and traveled ground stand out without changing movement or resources. Ordinary1440 before/after12seconds1x155625-560-working-clearing-31e345 inspected; native960 actual home-to-field path through the meadow and updated ground passed155722-305-working-clearing-008c76 (35.58s including build). Zero warnings. Next135 completes readable crop cover, then the review must judge whether this is enough of a scene-level change rather than merely more detail.
+
+
+Checkpoint135: public vegetable fields develop spreading faceted leaf cover from seedlings to mature rows; each visible plant still represents one actual remaining portion, and harvesting exposes stubble/soil. Same footprint, yields and timing.1440 ordinary12-second1x scene155920-347-river-hamlet-57b182 inspected; native960 existing field drag/extend and real preparation passed155950-254-plot-revision-77c06a (43.4s), zero-warning build. First five committed outcomes complete; freeze for full135 plus independent visual/audio review. Presentation is not accepted merely because more detail exists. Ordinary trace includes a486ms wall outlier and67ms process maximum; investigate provenance before attributing it or claiming smoothness.

@@ -39,9 +39,9 @@ public partial class Game
         {
             bool standing=stage<4 || i<garden.Harvest;
             var plant=new Node3D { Name=$"Vegetable{i}",Position=new(-.96f+i%4*.64f,field?.06f:.25f,World.VegetableRow(garden,i)) };
-            if(field)plant.Scale=new(.87f,.82f,.87f);
             root.AddChild(plant); plant.SetMeta("standing",standing);
             if(!standing) { Box(plant,new(0,.02f,0),new(.17f,.035f,.08f),new("8c8657")); continue; }
+            if(field){MakeFieldLeaves(plant,stage,i);continue;}
             float leafSize=stage==1?.14f:stage==2?.26f:.34f;
             for(int leaf=0;leaf<3;leaf++)
             {
@@ -51,5 +51,29 @@ public partial class Game
             }
             if(stage>=3) MakeSquash(plant,new(.08f,.1f,.03f),stage==3?.15f:.23f);
         }
+    }
+    private void MakeFieldLeaves(Node3D plant,int stage,int index)
+    {
+        // Each plant still represents one actual remaining harvest portion. A spreading
+        // canopy joins its row as it matures; cut portions expose the underlying furrow.
+        float radius=stage==1?.16f:stage==2?.29f:.39f;
+        float height=stage==1?.10f:stage==2?.19f:.29f;
+        using var leaves=new SurfaceTool();leaves.Begin(Godot.Mesh.PrimitiveType.Triangles);
+        var green=new Color(stage==1?"8ba85a":"597742").Lightened((index%3)*.025f);
+        for(int leaf=0;leaf<(stage==1?3:6);leaf++)
+        {
+            float angle=leaf*Mathf.Tau/6+index*.37f;
+            var direction=new Vector3(Mathf.Cos(angle),0,Mathf.Sin(angle));
+            var side=new Vector3(-direction.Z,0,direction.X)*radius*.40f;
+            var basePoint=new Vector3(0,.018f,0);
+            var ridge=direction*radius*.52f+Vector3.Up*height;
+            var tip=direction*radius+Vector3.Up*height*.55f;
+            Triangle(leaves,basePoint,ridge+side,tip,green);
+            Triangle(leaves,basePoint,tip,ridge-side,green.Darkened(.1f));
+            Triangle(leaves,basePoint,tip,ridge+side,green);
+            Triangle(leaves,basePoint,ridge-side,tip,green.Darkened(.1f));
+        }
+        SurfaceMesh(plant,leaves);
+        if(stage>=3)MakeSquash(plant,new(.08f,.10f,.03f),stage==3?.13f:.19f);
     }
 }
