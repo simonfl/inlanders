@@ -5,6 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **120**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
+- Last periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
+- Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
@@ -22,8 +24,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next periodic review: **checkpoint120**, user authorized through120; add visual/audio.
-- Latest independent visual/audio review: **checkpoint115**, fresh context. Broad stills/source; no listening or continuous-motion acceptance.
+- Next periodic review would be125 only if further work is authorized; stopped at120.
+- Latest independent visual/audio review: **checkpoint120**, independently reused115 context. Broad stills/source; no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint100**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -572,3 +574,6 @@ Checkpoint120: following a resident now remembers the original place and camera 
 
 
 120 review follow-up (zero new playable count): independent design/UX reviewers found mandatory-sounding recreation wording beside shared meal ground. Public RecreationSummary now neutrally distinguishes commons meals from a separate recreation venue; no leisure simulation or grade added. PublicMood and archived happiness checks pass. Base120review/performance fixed2c240c3 remains recorded; narrow text correction is separately committed and presented to reviewers.
+
+
+120 closeout: all five independent whole-game verdicts consolidated in [review120](REVIEW_CHECKPOINT_120.md), including visual reviewer reuse after a thread limit and explicit unobserved areas. Corrected fixed-build native inhabited controls passed133521-189-river-hamlet-740b65; actual founding/menu/save-load/construction/meals/home rest passed133608-278-river-frontage-3e7412 in65.95s. All37 final current-experience suites passed exit0, run e6199ab119024d8c9ad119d3f0836bf6, assembly cec8d911-ca67-4954-bea4-2425001519e8. Sequential base120 ordinary/dense1x samples recorded before the text-only correction. Known intermittent save denial remains unexplained; no listening or human enjoyment acceptance. Roadmap reevaluated; stop at120 with no automatic next batch. Review/documentation add no playable count.

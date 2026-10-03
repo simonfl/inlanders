@@ -10,9 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Active batch111–120: river-frontage comparison**, newly authorized after110. [Review110](REVIEW_CHECKPOINT_110.md) remains partially convincing; human taste is unobserved. Choose its substantial landscape-composition alternative, using the same people/resources/rules rather than adding mechanics. Keep the inlet available for comparison.
+**Checkpoint120 complete: stop for human judgment.** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. [NEXT_CHUNKS](NEXT_CHUNKS.md) records how to try it and the stopping point; no automatic121–125 queue.
 
-Open and inhabited river frontage, optional land reading, and coherent shore/woodland presentation form111–115. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the evidence gates; [Review115](REVIEW_CHECKPOINT_115.md) chooses direct survey-to-action, consistent building choices, a working landing, removal of public diet-score pressure and contextual observation return for116–120; then full120 review and stop. Current save reliability remains required. No new needs, inheritance, production chains or objective checklist. Tests and stills establish operation/readability, not enjoyment.
+The verdict remains partially convincing. A practical landing, inland fields and woodland provide a stronger place; fewer diet/UI obligations help authorship. Whether players want to reshape an already functioning hamlet remains unproven. Public qualitative mood may still imply a checklist. Keep founded/inhabited, inlet/frontage and Normal/relaxed comparisons; no new needs/resources/catalogue expansion to manufacture purpose.
+
+The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, repeated roofs and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
 
 ## What stays, what changes
 

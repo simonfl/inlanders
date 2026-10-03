@@ -1,54 +1,23 @@
-# Active batch111–120 — river-frontage comparison
+# Next work — stop at checkpoint120
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count120. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+Count **120**. The ten authorized outcomes111–120 are complete, with whole-game reviews at [115](REVIEW_CHECKPOINT_115.md) and [120](REVIEW_CHECKPOINT_120.md). Stop for human judgment; no automatic121–125 queue.
 
-| Checkpoint | Intended playable outcome |
-| --- | --- |
-|111| Choose an open river-frontage founding site in Normal/relaxed, with equal starting reserves and persistent identity. |
-|112| An inhabited river-frontage arrangement offers the same geography without founding overhead. |
-|113| Read the land through optional contextual views of shore, growing ground and woodland; no prescribed layout. |
-|114| Water and shore have readable depth and edges at village scale, preserving actual buildable ground. |
-|115| Woodland and clearing composition provides a coherent inland edge rather than scattered resource dots; whole-game review including presentation. |
-|116| Existing building/clearing actions from a surveyed view, without losing chosen ground. |
-|117| Consistent first-place and everyday cultivation/building choices. |
-|118| Existing landing makes inhabited frontage a working shore; explicit investment and real livelihood validation. |
-|119| Remove public diet-score pressure; keep actual food/home/rest/recreation feedback and archive rules. |
-|120| Resident observation returns to original place/camera; whole-game review and stop. |
+## Playable changes
 
-Each chunk counts only when playable, validated and committed. Reassess scope after each. Tests do not establish preference. Existing tools suffice; no framework project. Current saves required, compatibility unnecessary; known intermittent replacement failure remains open.
+- Open and inhabited river-frontage starts alongside the inlet, in Normal and relaxed modes.
+- Optional shore/open-ground/woodlot views, with direct building access that retains the chosen camera.
+- Consistent first-place/everyday home, drawn cultivation, landing and timber choices; full catalogue retained.
+- River shallows/depth, correct distant water edge and varied workable woodland with connected ground cover.
+- Inhabited frontage has two fields, a fishing landing and shared meal ground. It has8yardlogs versus the inlet’s12: four additional logs invested in the landing, equal total timber.40vegetables per combined crop plus actual fish replaces48vegetables; this is a livelihood comparison, not identical yields.
+- Public food variety is optional and no longer earns a happiness grade. Daily-life feedback remains; recreation wording distinguishes shared meals from a separate venue without prescribing one.
+- Following residents returns to the original place and camera; current simulation time is retained.
 
+## Next evidence
 
-Checkpoint111: public founding menu now compares inlet and river frontage, with distinct current save/restart identity in Normal/relaxed. Same eight people,48logs/4planks/120food and existing rules. Native960 actual menu/save/load plus construction, meals and home rest passed20261003-130234-242-river-frontage-f7aa6d. Focused both-mode garden/fishing routes and exact continuation pass; zero-warning build. Landing tests choose legal bend geometry rather than assume the inlet coordinate. Next112 supplies an inhabited comparison; preference unobserved.
+Use Play → Establish a farmstead or Shape an inhabited hamlet, then the Landscape button to compare inlet and river frontage. Try the version you feel like playing, without a required order or session length.
 
+Useful reactions: what you wanted to change; why; whether you noticed someone’s life change; what you stopped to watch; and whether you finished satisfied, confused or indifferent. Review120 still finds the direction partially convincing. The complete inhabited scene may leave no wanted alteration; qualitative resident grades may still imply obligations. If those concerns appear in play, reconsider the core and feedback hierarchy before adding content.
 
-Checkpoint112: inhabited frontage is selectable beside the inlet, with six homes, two fields and a kitchen garden at equal population/reserves/crop capacity. Actual960 menu, household/watch/food controls pass130826-298-river-hamlet-a95b57; overview inspected. Both-mode actual meals/restart/exact continuation plus open garden/fishing routes pass, zero-warning build. Authored fields run inland; no objective recipe added. Next113 reuses existing resource survey with land-orientation access instead of adding another management overlay.
+## Retained technical concerns
 
-
-Checkpoint113: Village now opens the existing resource survey with optional shore/open-land/woodlot views, computed from actual ground and standing trees. No soil bonus or prescribed site implied. Finish/Esc restores the entry camera; clock and simulation stay unchanged. Native960 all three views and exact return pass131111-488-river-hamlet-36bb44, zero-warning build. Reuses one inspector rather than adding an overlay. Next114 addresses broad water depth/shore readability, with115 presentation review.
-
-
-Checkpoint114: public river water now grades from shallow banks to deeper channel with fewer calmer ripple marks; distant water follows actual map-edge geometry rather than the old straight shore. Land/boat/placement rules unchanged. Zero-warning build, frontage1440 overview inspected131352-803-river-hamlet-cce182 and opposite inlet960 capture131425-838-across-inlet-bbbfe4. No motion/audio acceptance claimed. Next115 gives existing workable woodland distinct silhouettes and a coherent ground edge, then full presentation-inclusive review.
-
-
-Checkpoint115: existing workable trees now have mixed tall conifer and branched/light-bark silhouettes; overlapping canopy ground joins into a forest floor and clears with the real trees. No new resources/obstacles. Frontage1440 before/after8s1x captures131558-762-river-hamlet-1ade4e inspected; this is snapshots, not motion acceptance or isolated performance (another capture overlapped). Actual timber mark/cancel/collection/root clearing passed131613-218-essentials-f2337f, zero-warning build.37 current suites running; freeze for whole-game115 with visual/audio before116. Remaining outcomes are contingent on synthesis, not automatically more decoration.
-
-
-[Whole-game115](REVIEW_CHECKPOINT_115.md) completed with five fresh independent roles. Partially convincing. Choose look/act/observe, practical shore work and a narrower public satisfaction model; reject duplicate journey systems and further decoration-only batch.
-
-
-Checkpoint116: resource survey can hand its current camera directly to everyday building/clearing choices. Back/Esc still returns to the original view; Build in this view deliberately keeps the chosen ground. Native960 survey/action/field-preview/cancel preserves simulation and camera132408-091-river-hamlet-af946d; zero-warning build. Next117 aligns the first-place vocabulary with that same small palette, retaining full catalogue access.
-
-
-Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.
-
-
-Checkpoint118: inhabited frontage now uses two inland fields, an existing fishing landing and shared outdoor ground. Landing replaces kitchen garden and costs4additional invested logs, leaving8rather than12 in yard; total initial timber, people and72food stay matched. Crop capacity now40vegetables plus actual catches, not the old48vegetable claim. Both-mode fish/crop meals/exact continuation pass;960 native menu/household/survey/actions pass132702-230-river-hamlet-3866ea.1440 actual60simseconds at6x inspected132623-160-river-hamlet-98439a; no preference claim. Next119 removes public diet-score pressure rather than adding another purpose through needs.
-
-
-Checkpoint119: public resident mood no longer rewards a three-food diet or displays a completion score. It reflects actual meals/home/rest/breaks; relaxed missing meals remain penalty-free but are reported honestly. Public People and meal summaries omit variety grading; archive happiness/variety remains unchanged. Both-mode one-food versus varied-food independence, actual continuation and archive happiness checks pass.960 native mood inspection (person API-selected) plus menu/survey paths passed132905-348-river-hamlet-e2e0da, zero-warning build. Next120 completes observation camera return, full review and stop.
-
-
-Checkpoint120: following a resident now remembers the original place and camera (position/zoom/orientation); Back restores that view without rewinding time or changing the clock. Cycling residents preserves the observation origin. Native960 actual household follow/return now asserts exact camera and simulation, plus survey/action/mood paths passed133032-719-river-hamlet-16bdc6; zero-warning build. Ten authorized outcomes complete. Freeze for whole-game120, isolated ordinary/dense1x frame samples and final regression; no121.
-
-
-120 review follow-up (zero new playable count): independent design/UX reviewers found mandatory-sounding recreation wording beside shared meal ground. Public RecreationSummary now neutrally distinguishes commons meals from a separate recreation venue; no leisure simulation or grade added. PublicMood and archived happiness checks pass. Base120review/performance fixed2c240c3 remains recorded; narrow text correction is separately committed and presented to reviewers.
+Known intermittent Windows atomic-save replacement denial remains unexplained; a failed save keeps the village open. Dense archived1x sample contained a220ms wall-frame spike; ordinary frontage max57ms in a12s sample. Neither implies an established cause or performance regression. Later authorized diagnostics should target reproduced access/lock or Actors-phase evidence, using current tools. Audio has not received a listening review. No migrations, speculative frameworks or new needs.
