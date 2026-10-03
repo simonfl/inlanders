@@ -150,3 +150,6 @@ Checkpoint121: existing cultivated strips can extend to eight rows with two logs
 
 
 Checkpoint122: homes can turn around their existing anchor from Change this home, with pure footprint/entrance preview, authoritative access/yard checks and explicit apply/cancel. Identity, household, goods and clock stay. Native960 turn cancellation and legal application passed20261003-135444-003-river-hamlet-4d7d66 (29.03s), including existing observation/survey paths; zero-warning build. Initial residents standing at doors correctly prevented turns until actual life moved them; scripted probe now observes that wait. Next123 brings appearance choices into the same home interaction.
+
+
+Checkpoint123: home appearance is directly selectable in Change this home, with free reversible existing roof/plaster finishes and immediate world feedback. Editing hides observation controls, keeping the compact960 card above navigation (also fixes122 expanded-card overlap). Native dropdown selection, turn/cancel and exact save/load passed20261003-135653-456-river-hamlet-a1995f (31.92s); actual image inspected. Zero-warning build. Next124 connects selected places directly rather than expanding the general toolbar.

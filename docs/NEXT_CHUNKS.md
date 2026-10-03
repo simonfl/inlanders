@@ -6,7 +6,7 @@ The user authorized ten more outcomes after120. This supersedes the previous sto
 
 121. **Done** — Extend an existing cultivated strip into new ground, with ordinary timber delivery/preparation and retained stored food.
 122. **Done** — Turn an existing home in place with a preview of access and yard conflicts, without finding its anchor again.
-123. Give a home its own appearance directly from its world card; retain the broader inspector for details.
+123. **Done** — Give a home its own appearance directly from its world card; retain the broader inspector for details.
 124. Connect a selected place to another with a path in the world, retaining the origin and showing the actual route.
 125. Make cultivated ground and its working edge easier to read at village scale; evaluate the whole scene, then full review including visual/audio if presentation is substantial.
 

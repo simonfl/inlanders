@@ -22,6 +22,10 @@ public partial class Game
             if(_world.SaveJson()!=turnBefore)throw new Exception("Cancelled home turn mutated village");
             await UiClick(_turnHomeButton);await Frames();for(int i=0;i<4 && _turnApply.Disabled;i++){await UiClick(_turnRight);await Frames();}
             int wanted=_homeTurn;await UiClick(_turnApply);await Frames();if(turnHome.Rotation!=wanted || turnHome.Cell!=anchor || _turnHome>=0)throw new Exception("Home turn failed");_world.Validate();await CaptureReviewBundle("home-turned");
+            if(!_homeAppearance.IsVisibleInTree() || _workCard.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Home editing overflows compact view");
+            await UiClick(_homeAppearance);await Press(Key.Down);await Press(Key.Enter);await Frames();
+            if(turnHome.Finish==CottageFinish.Automatic)throw new Exception("Appearance choice not applied");await CaptureReviewBundle("home-appearance-chosen");
+            string appearanceSave=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();if(appearanceSave!=_world.SaveJson())throw new Exception("Home appearance/turn save differs");
 
             CloseManagementUi();_paused=true;var origin=_focus;float zoom=_camera.Size;string before=_world.SaveJson();
             await OpenMenu(2);await Frames();await UiClick(_landSurvey);await Frames();
