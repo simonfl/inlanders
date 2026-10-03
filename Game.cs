@@ -149,6 +149,7 @@ public partial class Game : Node3D
         if (input is InputEventKey key && key.Pressed && !key.Echo)
         {
             if (EditingText) return;
+            if(key.Keycode==Key.Escape && _showFoodMap && _world.PublicPlace!=null){ToggleFoodMap();return;}
             if(key.Keycode==Key.Escape && _firstPlace.IsVisibleInTree()){_firstPlaceDismissed=true;return;}
             if(key.Keycode==Key.Escape && _yardPreviewSide>=0){StopYardPreview();return;}
             if(key.Keycode==Key.Escape && _world.PublicPlace!=null && _courtShowBefore){_courtShowBefore=false;return;}

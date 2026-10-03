@@ -80,6 +80,7 @@ public partial class Game
     private string PlacementProblem(Cell cell) => (_movingSite>=0?MovePreviewProblem(cell):_woodlandTool>0 ? WoodlandProblem(cell) : _decorating ? _world.DecorationProblem(cell, _decorationKind, _removeDecoration) : _pathTool == 3 ? ConnectionProblem(cell) : _pathTool > 0 ? _world.PathProblem(cell, _pathTool == 2) : _clearingTrees ? _world.ClearingProblem(cell) : _plantingTrees ? _world.PlantingProblem(cell) : HomePlotActive && _homePlotSide>=0?_world.PreviewHomePlot(cell,_rotation,_buildKind,_homePlotSide).Problem:_world.PlacementProblem(cell, _rotation, _buildKind,PlacementRows)) ?? "";
     private bool PointerOverHud(Vector2 point) => _watching ? (_watchBar.Visible && _watchBar.GetGlobalRect().HasPoint(point)) :
         _topBar.GetGlobalRect().HasPoint(point) || _bottomBar.GetGlobalRect().HasPoint(point) ||
+        (_foodMapBar!=null && _foodMapBar.Visible && _foodMapBar.GetGlobalRect().HasPoint(point)) ||
         (_householdMovePanel!=null && _householdMovePanel.Visible && _householdMovePanel.GetGlobalRect().HasPoint(point)) ||
         (_plotPanel!=null && _plotPanel.Visible && _plotPanel.GetGlobalRect().HasPoint(point)) ||
         (_homePlotPanel!=null && _homePlotPanel.Visible && _homePlotPanel.GetGlobalRect().HasPoint(point)) ||

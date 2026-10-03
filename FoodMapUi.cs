@@ -6,26 +6,29 @@ public partial class Game
 {
     private bool _showFoodMap;
     private World? _foodMapWorld;
-    private Button _foodMapToggle=null!;
+    private Button _foodMapToggle=null!,_foodMapExit=null!;
+    private PanelContainer? _foodMapBar;
     private readonly Dictionary<int,(PanelContainer Panel,Label Label,Line2D Line)> _foodMapLabels=new();
     private float _nextFoodMap;
     private FoodMapStore[] _foodMapStores=System.Array.Empty<FoodMapStore>();
     private void ToggleFoodMap()
     {
-        _showFoodMap=!_showFoodMap;_nextFoodMap=0;_nextSupplyRefresh=0;
-        if(_showFoodMap){CloseDrawer();Notice("Food view: free portions, claimed portions and incoming deliveries. Gold routes carry food; blue routes collect. Toggle in Economy to close.");}
+        _showFoodMap=!_showFoodMap;_nextFoodMap=0;_nextSupplyRefresh=0;_nextWorkCard=0;
+        if(_showFoodMap){CloseDrawer();if(_world.PublicPlace!=null)_noticeUntil=0;else Notice("Food view: free portions, claimed portions and incoming deliveries. Toggle in Economy to close.");}
     }
     private void RenderFoodMap()
     {
         if(_foodMapWorld!=_world){_foodMapWorld=_world;_showFoodMap=false;_nextFoodMap=0;foreach(var item in _foodMapLabels.Values){item.Panel.QueueFree();item.Line.QueueFree();}_foodMapLabels.Clear();}
         _foodMapToggle.Text=_showFoodMap?"Hide food in the world":"Show food in the world";
         bool visible=_showFoodMap && !_watching && !_atMainMenu && !_drawer.Visible && !_inspector.Visible;
+        if(_foodMapBar==null){_foodMapBar=HudPanel(_hud);var row=new HBoxContainer();_foodMapBar.AddChild(row);row.AddChild(Text("FOOD STORES",14));_foodMapExit=Button("Back [Esc]",ToggleFoodMap);row.AddChild(_foodMapExit);_foodMapBar.TooltipText="Free portions can be collected; claimed portions belong to a current trip. Incoming food is not yet stored.";}
+        _foodMapBar.Visible=visible && _world.PublicPlace!=null;_foodMapBar.Position=new(16,92);_foodMapBar.Size=new(0,0);
         foreach(var item in _foodMapLabels.Values){item.Panel.Visible=false;item.Line.Visible=false;}
         if(!_showFoodMap)return;
         bool refresh=_uiTime>=_nextFoodMap;if(refresh)_nextFoodMap=_uiTime+.5f;
         if(refresh)_foodMapStores=_world.ReadFoodMap();var stores=_foodMapStores;var ids=stores.Select(s=>s.Id??-1).ToHashSet();
         foreach(int id in _foodMapLabels.Keys.Where(id=>!ids.Contains(id)).ToArray()){_foodMapLabels[id].Panel.QueueFree();_foodMapLabels[id].Line.QueueFree();_foodMapLabels.Remove(id);}
-        var occupied=new List<Rect2>();
+        var occupied=new List<Rect2>();if(_foodMapBar.Visible)occupied.Add(_foodMapBar.GetGlobalRect());
         foreach(var s in stores)
         {
             int key=s.Id??-1;

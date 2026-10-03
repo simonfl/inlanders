@@ -45,7 +45,7 @@ public partial class Game
     private void RenderDailyLife()
     {
         if(_dailyWorld!=_world){_dailyWorld=_world;_dailyPerson=-1;_dailyJourney=null;_nextDaily=0;}
-        bool show=(_world.IsArrangementCourt || _world.Founding!=null) && _dailyPerson>=0 && !_atMainMenu && !_watching && !_placing && !_drawer.Visible && !_inspector.Visible;
+        bool show=!(_showFoodMap && _world.PublicPlace!=null) && (_world.IsArrangementCourt || _world.Founding!=null) && _dailyPerson>=0 && !_atMainMenu && !_watching && !_placing && !_drawer.Visible && !_inspector.Visible;
         _dailyCard.Visible=show;_dailyRoute.Visible=show;if(!show)return;
         var p=_world.People[_dailyPerson];
         if(_uiTime>=_nextDaily){_nextDaily=_uiTime+.5f;_dailyJourney=_world.ReadDailyJourney(p.Id);_dailyRestoreProblem=_world.RestoreArrangementProblem();}

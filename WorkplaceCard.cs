@@ -56,7 +56,7 @@ public partial class Game
     {
         if(_workCardWorld!=_world)_workCardSite=-1;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);
-        bool show=_householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
+        bool show=!(_showFoodMap && _world.PublicPlace!=null) && _householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
         _workCard.Visible=show;if(!show || site==null){StopYardPreview();EndPlotRevision();return;}
         _workCard.Size=new(330,0);
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
@@ -72,7 +72,7 @@ public partial class Game
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
         _workCardSupply.Visible=_world.PublicPlace!=null && site.Complete && _reshapingPlot<0 && (_world.IsWorkplaceFoodStore(site) || site.Kind is BuildingKind.Farm or BuildingKind.Pantry);
         _workCardSupply.Text=_showFoodMap?"Hide food stores":"Show food stores";
-        if(site.Complete && _world.PublicPlace!=null && _world.ReadWorkplace(site).State=="Provisions ready")detail=$"Food work is resting\n{_world.EdibleStored} portions stored for {_world.Population} neighbors. Shared workers return as supplies fall.";
+        if(site.Complete && _world.PublicPlace!=null && _world.ReadWorkplace(site).RestingForFood)detail=$"Food work is resting\n{_world.EdibleStored} portions stored for {_world.Population} neighbors. Shared workers return as supplies fall.";
         if(site.Kind==BuildingKind.VegetableField)detail+=$"\n3 × {site.Depth} tiles · {World.VegetableYield(site)} vegetables/crop";
         if(_reshapingPlot==site.Id)detail="Choose how much of the prepared ground to cultivate.";
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);

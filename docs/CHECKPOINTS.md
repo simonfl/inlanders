@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **106**.
+- Playable checkpoints since adoption: **107**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
@@ -517,3 +517,6 @@ Review105 completed on d5c5b8f, four fresh independent roles. Whole public/archi
 
 
 Checkpoint106: everyday palette now offers home, cultivated ground, river landing and existing timber gathering. Bridge/forager remain in the full catalogue. Shared-worker clearing guidance no longer incorrectly requires manual logger assignment. Native960 all choices fit; mark/cancel/reorder and actual shared timber collection/root clearing pass20261003-065259-799-essentials-4c3590. The fixture preserves all trees; the probe explicitly chooses one for clearing, rather than assuming an unpreserved tree exists. Zero-warning build; simulation unchanged. Next107 removes overlapping food inspection surfaces.
+
+
+Checkpoint107: public food inspection temporarily replaces place/person cards with store labels and a compact Back/Esc control; menus close the overlay. Returning restores selected-place context. Removes the large stale notice and immediate toggle feedback delay; provision-rest uses a semantic report flag. Native960 food view/open/back and unchanged state passed20261003-065531-251-household-24346b; focused crop/revision checks pass, zero-warning build. Next108 groups occasional home alterations, then109 simpler public navigation.

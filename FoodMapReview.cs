@@ -13,7 +13,7 @@ public partial class Game
         foreach(var s in _world.ReadFoodMap())Check(_foodMapLabels[s.Id??-1].Label.Text.Contains($"{s.Available} free · {s.Claimed} claimed"),"Food label differs from live store");
         Check(_world.SaveJson()==saved,"Food observation changed simulation");
         ClearSelection();_noticeUntil=0;await CaptureReviewBundle("food-in-world");
-        await OpenMenu(4);await UiClick(_foodMapToggle);await Frames();
+        if(_world.PublicPlace!=null)await Press(Key.Escape);else{await OpenMenu(4);await UiClick(_foodMapToggle);}await Frames();
         Check(!_showFoodMap && _foodMapLabels.Values.All(l=>!l.Panel.Visible),"Food view failed to close");
         Check(_world.SaveJson()==saved,"Closing food view changed simulation");
         CloseDrawer();

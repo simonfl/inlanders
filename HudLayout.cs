@@ -43,6 +43,7 @@ public partial class Game
     }
     private void ToggleDrawer(int index)
     {
+        if(_world.PublicPlace!=null && _showFoodMap)ToggleFoodMap();
         CancelAreaRemoval();CancelBushMove();CancelGatheringPlan();CancelTerrain();
         if (_drawer.Visible && _tabs.CurrentTab == index) { CloseDrawer(); return; }
         _tabs.CurrentTab = index; _drawerTitle.Text = MenuNames[index]; _drawer.Show();
