@@ -18,15 +18,22 @@ public partial class Game
     private void MakeNaturalWater()
     {
         var water=new Node3D{Name="RiverMeadowWater"};_landscape.AddChild(water);
+        using var surface=new SurfaceTool();surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
         var directions=new[]{new Cell(1,0),new(-1,0),new(0,1),new(0,-1)};
         foreach(var cell in _world.Map.Water)
         {
             int hash=Math.Abs(cell.X*31+cell.Z*17);
             Box(water,new(cell.X,-.5f,cell.Z),new(1,.8f,1),new("687d73"));
-            Box(water,new(cell.X,-.11f,cell.Z),new(1,.06f,1),new("668e96"));
-            if(hash%3==0)
+            if(_world.PublicPlace!=null)
             {
-                var ripple=Box(water,new(cell.X-.09f,-.075f,cell.Z+.1f),new(.24f+hash%4*.045f,.008f,.018f),new("a1babc"));
+                var a=new Vector3(cell.X-.5f,-.08f,cell.Z-.5f);var b=new Vector3(cell.X+.5f,-.08f,cell.Z-.5f);
+                var c=new Vector3(cell.X+.5f,-.08f,cell.Z+.5f);var d=new Vector3(cell.X-.5f,-.08f,cell.Z+.5f);
+                RiverWaterTriangle(surface,a,d,c);RiverWaterTriangle(surface,a,c,b);
+            }
+            else Box(water,new(cell.X,-.11f,cell.Z),new(1,.06f,1),new("668e96"));
+            if(hash%(_world.PublicPlace!=null?7:3)==0)
+            {
+                var ripple=Box(water,new(cell.X-.09f,-.075f,cell.Z+.1f),new(_world.PublicPlace!=null?.55f:.24f+hash%4*.045f,.006f,.012f),new("8da6a4"));
                 ripple.RotationDegrees=new(0,12+hash%17,0);
             }
             foreach(var d in directions)
@@ -50,6 +57,7 @@ public partial class Game
                 pebble.Scale=new(1.2f,.75f,.8f);
             }
         }
+        if(_world.PublicPlace!=null)SurfaceMesh(water,surface).Name="RiverDepthSurface";
         BatchStaticGeometry(water);
     }
 }

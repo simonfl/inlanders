@@ -1,6 +1,6 @@
 # Active batch111–120 — river-frontage comparison
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count113. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count114. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
 
 | Checkpoint | Intended playable outcome |
 | --- | --- |
@@ -21,3 +21,6 @@ Checkpoint112: inhabited frontage is selectable beside the inlet, with six homes
 
 
 Checkpoint113: Village now opens the existing resource survey with optional shore/open-land/woodlot views, computed from actual ground and standing trees. No soil bonus or prescribed site implied. Finish/Esc restores the entry camera; clock and simulation stay unchanged. Native960 all three views and exact return pass131111-488-river-hamlet-36bb44, zero-warning build. Reuses one inspector rather than adding an overlay. Next114 addresses broad water depth/shore readability, with115 presentation review.
+
+
+Checkpoint114: public river water now grades from shallow banks to deeper channel with fewer calmer ripple marks; distant water follows actual map-edge geometry rather than the old straight shore. Land/boat/placement rules unchanged. Zero-warning build, frontage1440 overview inspected131352-803-river-hamlet-cce182 and opposite inlet960 capture131425-838-across-inlet-bbbfe4. No motion/audio acceptance claimed. Next115 gives existing workable woodland distinct silhouettes and a coherent ground edge, then full presentation-inclusive review.

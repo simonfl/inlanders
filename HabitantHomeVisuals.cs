@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Inlanders.Simulation;
 
@@ -49,8 +50,13 @@ public partial class Game
                 TimberBeam(root,new(x,1.44f,-.14f+side*.94f),new(x,1.41f+rise,-.14f),.035f,palette.Roof.Lightened(.13f));
     }
 
-    private bool FarmsteadWater(float x,float z)=>_world.Founding?.RiverFarmstead==true &&
-        x>=8.5f+(_world.Founding?.TransformationHamlet==true?0:z< -5.5f?1:z>6.5f?-1:0);
+    private bool FarmsteadWater(float x,float z)
+    {
+        if(_world.Founding?.RiverFarmstead!=true)return false;
+        var map=_world.Map;int row=Math.Clamp((int)MathF.Round(z),map.MinZ,map.MaxZ),edge=map.MaxX+1;
+        while(edge>map.MinX && map.Water.Contains(new(edge-1,row)))edge--;
+        return x>=edge-.5f;
+    }
 
     private void MakeFarmsteadRiverContext(int margin)
     {
@@ -71,7 +77,8 @@ public partial class Game
                 if(map.Contains(new(x,z)) || !FarmsteadWater(x,z))continue;
                 var a=new Vector3(x-.5f,-.08f,z-.5f);var b=new Vector3(x+.5f,-.08f,z-.5f);
                 var c=new Vector3(x+.5f,-.08f,z+.5f);var d=new Vector3(x-.5f,-.08f,z+.5f);
-                Triangle(water,a,d,c,new("668e96"));Triangle(water,a,c,b,new("668e96"));
+                if(_world.PublicPlace!=null){RiverWaterTriangle(water,a,d,c);RiverWaterTriangle(water,a,c,b);}
+                else {Triangle(water,a,d,c,new("668e96"));Triangle(water,a,c,b,new("668e96"));}
             }
         SurfaceMesh(_landscape,water).Name="RiverBeyondSettlement";
     }
