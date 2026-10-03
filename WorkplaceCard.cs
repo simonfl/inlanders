@@ -31,14 +31,8 @@ public partial class Game
         var people=new HBoxContainer();column.AddChild(people);
         void Watch(Villager? person){if(person==null)return;int origin=_workCardSite;_workCardSite=-1;ShowDailyLife(person.Id,origin);_followPerson=true;}
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
-        _workCardWatchPlace=Button("Watch this place",()=>{
-            var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
-            CloseDrawer();
-            if(Buildings.Get(home.Kind).Beds>0)FrameHomeYard(home,home.YardSide,false);
-            else{_focus=BuildingPosition(home);_camera.Size=home.Kind is BuildingKind.Farm or BuildingKind.VegetableField?17:14;_followPerson=false;_watchOrbit=false;UpdateCamera();}
-            ToggleWatch();
-        });column.AddChild(_workCardWatchPlace);
-        _workCardWatchPlace.TooltipText="Stay with this place as people come and go. H or Esc returns to management. Pause and speed stay as you set them.";
+        _workCardWatchPlace=Button("Watch this part of the village",WatchLocalPlace);column.AddChild(_workCardWatchPlace);
+        _workCardWatchPlace.TooltipText="See this place with nearby homes, working ground and shared space. Actual life continues at your chosen speed. H or Esc returns to this place and your previous view.";
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
@@ -110,7 +104,7 @@ public partial class Game
             _workCardText.Text+=$"\n\n{available} meal portions available here\n"+(diner!=null?diner.Name+" is collecting or carrying a meal.":"No meal collection in progress.");
         }
         _workCardDiner.Visible=Buildings.Get(site.Kind).Beds==0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);
-        _workCardWatchPlace.Visible=(!publicHome || !_homeOptions) && _world.PublicPlace!=null && site.Complete && _yardPreviewSide<0 && _reshapingPlot!=site.Id && _placeJourneySite!=site.Id;
+        _workCardWatchPlace.Visible= _world.PublicPlace!=null && site.Complete && _yardPreviewSide<0 && _reshapingPlot!=site.Id && _placeJourneySite!=site.Id;
         RenderYardPreview(site);RenderHomeInvitation(site);
         _workCardWorker.Disabled=worker==null;_workCardDiner.Disabled=diner==null;
         _workCardWorker.TooltipText=worker==null?"No worker is currently using this workplace.":"Follow "+worker.Name;

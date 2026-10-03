@@ -20,7 +20,7 @@ These are playable scene and interaction outcomes, not asset foundations. Preser
 137. **Done** — Compact home arrangement tray replacing the expanded editing stack.
 138. **Done** — Present the existing choose-and-furnish operation as a focused world proposal, removing the redundant unfurnished ground-only route from its primary flow. Existing combined command is already implemented and cannot count again.
 139. **Done** — Compact world proposal for cultivated-strip manipulation.
-140. Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
+140. **Done; review pending** — Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
 
 No new start/catalogue/needs. Measure and correct recurring worked-ground refresh cost first, without a playable increment. Existing functionality cannot count twice; adapt scope when necessary. Complete contrasting same-start arrangements and test actual use, not only predicted routes.
 

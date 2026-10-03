@@ -23,6 +23,12 @@ public partial class Game
         _focus=OnGround(destination.X,destination.Z);_camera.Size=24;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));
         Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("clearing-path-proposal");await Click(pathPoint);await Frames();
         if(!_world.Paths.Contains(destination) || _placing)throw new Exception("Clearing connection did not apply");UpdateWorkedLandscape(true);await Frames();_world.Validate();await CaptureReviewBundle("clearing-path-opened");
+        ShowWorkplaceCard(home.Id);await Frames();await UiClick(_homeOptionsButton);await Frames();
+        var returnFocus=_focus;float returnZoom=_camera.Size,returnAngle=_angle;string beforeWatch=_world.SaveJson();
+        await UiClick(_workCardWatchPlace);await Frames();
+        if(!_watching || _followPerson || _world.SaveJson()!=beforeWatch || !_watchReturn.Text.Contains("this place"))throw new Exception("Local observation changed world or lacks return context");
+        await CaptureReviewBundle("watch-home-and-working-ground");await Press(Key.Escape);await Frames();
+        if(_workCardSite!=home.Id || !_homeOptions || _focus!=returnFocus || _camera.Size!=returnZoom || _angle!=returnAngle)throw new Exception("Local observation lost arrangement or camera context");
         GD.Print("PASS working clearing actual menu, household controls, save identity and ordinary life");
     }
 }

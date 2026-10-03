@@ -47,7 +47,7 @@ public partial class Game
     {
         if(!_watching) return;
         _watching=false; _cleanWatch=false; _watchOrbit=false; _watchBar.Show(); ApplyWorldLabels(); _watchRoot.Hide(); _hud.Show(); _selection.Show();
-        RefreshSelection(); LayoutHud();
+        ReturnFromLocalWatch();RefreshSelection(); LayoutHud();
     }
     private void ToggleCleanWatch()
     {
@@ -71,6 +71,7 @@ public partial class Game
     private void UpdateWatchUi()
     {
         if(!_watching) return;
+        _watchReturn.Text=_localWatchSite>=0?"Return to this place [H]":"Return [H]";
         bool simple=_world.PublicPlace!=null;
         _watchMoreButton.Visible=simple;_watchMoreButton.Text=_watchMore?"Fewer controls":"View options";
         _watchExtras.Visible=!simple || _watchMore;
