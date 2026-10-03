@@ -14,7 +14,7 @@ public partial class Game
         _localWatchFocus=_focus;_localWatchAngle=_angle;_localWatchZoom=_camera.Size;
         var nearby=_world.Cottages.Where(c=>c.Complete && (c.Cell.Point-site.Cell.Point).LengthSquared()<=64).ToList();
         // Include the nearest actual food workplace when homes stand apart from their fields.
-        if(!nearby.Any(c=>World.ProductionOutput(c.Kind)!=null))
+        if(!nearby.Any(c=>_world.IsWorkplaceFoodStore(c)))
         {
             var food=_world.Cottages.Where(c=>c.Complete && _world.IsWorkplaceFoodStore(c)).OrderBy(c=>(c.Cell.Point-site.Cell.Point).LengthSquared()).FirstOrDefault();
             if(food!=null)nearby.Add(food);

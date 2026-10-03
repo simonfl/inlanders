@@ -1,4 +1,4 @@
-# Next work — checkpoints131–140
+# Completed batch — checkpoints131–140
 
 The user authorized ten more after130. This supersedes the stop, not the finding that enjoyment is unproven. No new human feedback assumed. Core bet for this batch: make the existing working landscape more inviting at ordinary scale, with fewer obstacles to entering and observing it. No new needs, buildings or alternative starts.
 
@@ -20,10 +20,21 @@ These are playable scene and interaction outcomes, not asset foundations. Preser
 137. **Done** — Compact home arrangement tray replacing the expanded editing stack.
 138. **Done** — Present the existing choose-and-furnish operation as a focused world proposal, removing the redundant unfurnished ground-only route from its primary flow. Existing combined command is already implemented and cannot count again.
 139. **Done** — Compact world proposal for cultivated-strip manipulation.
-140. **Done; review pending** — Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
+140. **Done; reviewed** — Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
 
 No new start/catalogue/needs. Measure and correct recurring worked-ground refresh cost first, without a playable increment. Existing functionality cannot count twice; adapt scope when necessary. Complete contrasting same-start arrangements and test actual use, not only predicted routes.
 
 ## Evidence and limits
 
 Use existing native captures at960/1440 with fixed build identity, current-game simulation and real changes to ground. Whole-game reviews cover public/archived/Normal/relaxed/Creative, catalogue/economy/needs, controls, presentation/audio and technical risks. Actual human preference and audio listening remain unobserved until performed. Save compatibility is out of scope.
+
+## Review140 — stop, no active141
+
+[Full synthesis](REVIEW_CHECKPOINT_140.md): five independent roles partially convinced. Retain the working-place comparison, not a claim of proven fun or strategic depth. Final41-suite regression and narrow framing correction passed; commit/push handoff and stop.
+
+Later authorized candidates, not a promised batch:
+
+- Adversarial third arrangement: shared court plus nearby cultivation. Test whether the current opportunity cost survives ordinary freedom.
+- Human intention/consequence trial and ordinary-speed screen/audio evidence, using existing tools. Separate satisfying completion from confusion or indifference.
+- If the tradeoff fails, choose expressive inhabited landscape or redesign terrain/scale and livelihood consequences together; no arbitrary exclusion zones or decorative filler.
+- Bound long-frame attribution work; keep current save diagnostics. No compatibility, broad rewrite or new tooling framework.
