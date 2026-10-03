@@ -591,8 +591,44 @@
     "focusZ": 2,
     "zoom": 29
   },
-  {"name":"clearing-growing","description":"Same clearing after choosing court cultivation and furnishing; ten minutes actual life","generator":"clearing-growing","focusX":0,"focusZ":5,"zoom":27},
-  {"name":"clearing-shore","description":"Same clearing after shared court, paid landing and furnishing; ten minutes actual life","generator":"clearing-shore","focusX":0,"focusZ":5,"zoom":27},
-  {"name":"clearing-combined","description":"Adversarial court commons plus nearby field, no paid dock; ten minutes actual life","generator":"clearing-combined","focusX":0,"focusZ":5,"zoom":27},
-  {"name":"shared-places","description":"Independent shared places: actual add/select/move/remove/save","generator":"working-clearing","focusX":0,"focusZ":4,"zoom":27}
+  {
+    "name": "clearing-growing",
+    "description": "Same clearing after choosing court cultivation and furnishing; ten minutes actual life",
+    "generator": "clearing-growing",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 27
+  },
+  {
+    "name": "clearing-shore",
+    "description": "Same clearing after shared court, paid landing and furnishing; ten minutes actual life",
+    "generator": "clearing-shore",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 27
+  },
+  {
+    "name": "clearing-combined",
+    "description": "Adversarial court commons plus nearby field, no paid dock; ten minutes actual life",
+    "generator": "clearing-combined",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 27
+  },
+  {
+    "name": "shared-places",
+    "description": "Independent shared places: actual add/select/move/remove/save",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 27
+  },
+  {
+    "name": "quiet-shared-place",
+    "description": "Actual quiet visitors on shared ground, yielding to real meals and work.",
+    "generator": "quiet-shared-place",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 27
+  }
 ]

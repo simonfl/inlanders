@@ -250,6 +250,11 @@ public partial class Game : Node3D
                 var inward=(v.Meal!.Commons?_world.SharedPlaceAt(v.Meal.Seat)!.Center:_world.Gathering!.Center).Point-v.Position;
                 if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,MathF.Atan2(-inward.X,-inward.Y),0);
             }
+            if(v.Route.Count==0 && _world.QuietSharedPlace(v) is {} quiet)
+            {
+                var inward=quiet.Center.Point-v.Position;
+                if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,Mathf.Atan2(-inward.X,-inward.Y),0);
+            }
             if(_world.PassengerBoat(v) is FishingBoat boat)
             {
                 view.Body.Position=new(boat.Position.X,.19f,boat.Position.Y);

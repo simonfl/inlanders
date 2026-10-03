@@ -54,6 +54,8 @@ public sealed partial class World
     }
     private void InterruptCommonsMeals(SharedCommons place)
     {
+        foreach(var p in People.Where(p=>QuietSharedPlace(p)==place).ToArray())Interrupt(p);
+        _retry=0;
         foreach(var p in People.Where(p=>p.Meal?.Commons==true && place.Places.Contains(p.Meal.Seat)).ToArray())
         {p.Meal!.Commons=false;InterruptMeal(p);}
     }

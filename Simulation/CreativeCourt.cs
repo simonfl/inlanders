@@ -23,9 +23,32 @@ public sealed partial class World
     // An available worker remains available while walking home: Waiting already
     // allows meal requests and fresh work to replace this unclaimed journey.
     private bool IdleHomeJourney(Villager p)=>SharedWork && p.SharedWorker && p.Task==Work.Waiting && p.Route.Count>0;
+    public SharedCommons? QuietSharedPlace(Villager p)=>PublicPlace!=null && p.SharedWorker && p.Task==Work.Waiting
+        ?SharedPlaces.FirstOrDefault(c=>c.Places.Contains(p.Route.Count>0?p.Destination:At(p))):null;
+    private bool WaitAtSharedPlace(Villager p)
+    {
+        if(PublicPlace==null || p.HomeId is not int id)return false;
+        var home=Cottages.FirstOrDefault(h=>h.Id==id);if(home==null)return false;
+        bool Free(Cell c)=>!Blocked(c) && !People.Any(o=>o.Id!=p.Id &&
+            (At(o)==c || IdleHomeJourney(o) && o.Destination==c || (o.Meal is {Reserved:true} or {Carrying:true}) && o.Meal.Seat==c));
+        var current=QuietSharedPlace(p);
+        if(current!=null)
+        {
+            var target=p.Route.Count>0?p.Destination:At(p);
+            if(Free(target)){p.Status=p.Route.Count>0?"Heading to shared ground — available for work":"Sitting together — available for work";return true;}
+            p.Route.Clear(); // A real meal takes priority over a quiet visit.
+        }
+        if(p.Id%2!=0 || HomeYardPlaces(home).Length>0)return false;
+        var seat=SharedPlaces.Where(c=>(c.Center.Point-home.Entrance.Point).LengthSquared()<=64).SelectMany(c=>c.Places)
+            .Where(Free).OrderBy(c=>(c.Point-p.Position).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
+            .Cast<Cell?>().FirstOrDefault(c=>FindPath(At(p),c!.Value,Blocked)!=null);
+        if(seat is not Cell at)return false;
+        Go(p,at,Work.Waiting,"Heading to shared ground — available for work");return true;
+    }
     private void WaitNearHome(Villager person)
     {
         if(!SharedWork || person.HomeId is not int id)return;
+        if(WaitAtSharedPlace(person))return;
         if(IdleHomeJourney(person)){person.Status="Heading home while work is quiet";return;}
         var home=Cottages.FirstOrDefault(h=>h.Id==id && IsHome(h));if(home==null)return;
         var occupied=People.Where(p=>p.Id!=person.Id).Select(At)
