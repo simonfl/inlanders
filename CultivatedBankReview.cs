@@ -21,7 +21,7 @@ public partial class Game
         foreach(int side in Enumerable.Range(0,4))
         {
             await UiClick(_yardSides[side]);await Frames();
-            Check(_workCardText.Text.Contains("Preview: "+World.YardSideName(side)),"Preview card reports wrong side");
+            Check(_yardPreviewInfo.Text.StartsWith(World.YardSideName(side)),"Preview card reports wrong side");
             foreach(var place in _world.YardPlaces(home,side))
             {
                 var point=_camera.UnprojectPosition(OnGround(place.X,place.Z,.35f));
@@ -35,19 +35,18 @@ public partial class Game
         Check(_yardPreviewSide==targetSide && _angle==groundAngle && beforeYard==_world.SaveJson(),"Direct yard ground selection changed camera/world or missed candidate");
         await CaptureReviewBundle("yard-ground-click");
         await UiClick(_yardSides[targetSide]);await Frames();Check(home.YardSide==oldSide && _world.SaveJson()==beforeYard && _yardPreviewGround!.Visible,"Preview changed world or is invisible");
-        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");
+        Check(!_workCard.Visible && _yardProposal.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps controls or stacks household card");await CaptureReviewBundle("yard-ground-preview");
         await Press(Key.H);await Frames();Check(_watching && _yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Watch retained a proposal or changed simulation");
         await Press(Key.Escape);await Frames();Check(!_watching,"One Escape did not leave Watch after yard proposal");
         if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();
         await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
-        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");
-        Check(!home.ImprovementRequested && !home.Improved,"Ground-only confirmation ordered furnishing");
-        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardFurnish);await Frames();
+        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();
+        Check(!_yardApply.Visible && _yardFurnish.Visible,"Unfurnished yard exposes competing confirmations");await UiClick(_yardFurnish);await Frames();
         Check(home.YardSide==targetSide && home.ImprovementRequested && !home.Improved,"Priced furnishing did not order real work");
         await CaptureReviewBundle("chosen-yard-side");
         if(!_workCardFurnish.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardFurnish);await Frames();Check(!home.ImprovementRequested,"Combined order cannot cancel");
         string beforeWatch=_world.SaveJson();bool wasPaused=_paused;float wasSpeed=_speed;
-        await UiClick(_workCardWatchPlace);await Frames();
+        if(_homeOptions){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardWatchPlace);await Frames();
         Check(_watching && !_hud.Visible && !_followPerson && _world.SaveJson()==beforeWatch && _paused==wasPaused && _speed==wasSpeed,"Watch place changed life or followed a person");
         await CaptureReviewBundle("watch-domestic-place");await Press(Key.Escape);await Frames();
         ShowWorkplaceCard(home.Id);await Frames();

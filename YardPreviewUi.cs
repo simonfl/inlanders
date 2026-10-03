@@ -4,6 +4,7 @@ using System.Linq;
 public partial class Game
 {
     private VBoxContainer _yardChoices=null!;
+    private PanelContainer _yardProposal=null!;
     private readonly Button[] _yardSides=new Button[4];
     private Button _yardApply=null!,_yardFurnish=null!;
     private Label _yardPreviewInfo=null!;
@@ -38,6 +39,7 @@ public partial class Game
         if(_yardCameraSaved){_focus=_yardPreviousFocus;_angle=_yardPreviousAngle;_camera.Size=_yardPreviousZoom;_yardCameraSaved=false;UpdateCamera();}
         _yardPreviewSide=_yardPreviewHome=-1;_yardPreviewKey="";
         if(_yardChoices!=null)_yardChoices.Hide();
+        if(_yardProposal!=null)_yardProposal.Hide();
         if(_yardPreviewGround!=null && GodotObject.IsInstanceValid(_yardPreviewGround))_yardPreviewGround.Hide();
         _nextWorkCard=0;
     }
@@ -49,7 +51,9 @@ public partial class Game
     }
     private void MakeYardPreview(VBoxContainer column)
     {
-        _yardChoices=new(){Visible=false};column.AddChild(_yardChoices);
+        _yardProposal=HudPanel(_hud);_yardProposal.Hide();
+        _yardChoices=new(){Visible=false};_yardProposal.AddChild(_yardChoices);
+        var title=Text("ARRANGE OUTDOOR LIFE",15);title.CustomMinimumSize=new(306,0);_yardChoices.AddChild(title);
         var grid=new GridContainer{Columns=2};_yardChoices.AddChild(grid);
         for(int i=0;i<4;i++){int side=i;_yardSides[i]=Button(World.YardSideName(i),()=>{_yardPreviewSide=side;_nextWorkCard=0;FrameYardPreview();});_yardSides[i].SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;grid.AddChild(_yardSides[i]);}
         _yardPreviewInfo=Text("",13,true);_yardChoices.AddChild(_yardPreviewInfo);
@@ -68,13 +72,14 @@ public partial class Game
     }
     private void RenderYardPreview(Cottage home)
     {
-        bool show=_yardPreviewHome==home.Id && _yardPreviewSide>=0;_yardChoices.Visible=show;if(!show)return;
+        bool show=_yardPreviewHome==home.Id && _yardPreviewSide>=0;_yardProposal.Visible=_yardChoices.Visible=show;if(!show)return;
+        _yardProposal.Size=new(330,0);_yardProposal.Position=new(Mathf.Max(16,_hud.Size.X-346),92);
         string? problem=_world.HomeYardProblem(home.Id,_yardPreviewSide);
         var places=_world.YardPlaces(home,_yardPreviewSide);
-        _yardPreviewInfo.Text=problem??"Click outlined ground or a side above. Blue furniture previews a yard for mending and meals.";
+        _yardPreviewInfo.Text=World.YardSideName(_yardPreviewSide)+$" · {places.Length} outdoor places\n"+(problem??"Choose outlined ground for mending and nearby meals. Blue furniture is a proposal.");
         if(problem==null && !home.Improved && !_world.Creative && _world.AvailablePlanks<World.ComfortCost(home))
             _yardPreviewInfo.Text+=$" Only {_world.AvailablePlanks} planks available; the order will wait for supplies.";
-        _yardApply.Disabled=problem!=null;_yardApply.Text=home.Improved?"Move yard here":"Choose ground only";
+        _yardApply.Visible=home.Improved;_yardApply.Disabled=problem!=null;_yardApply.Text="Move yard here · free";
         _yardFurnish.Visible=!home.Improved;_yardFurnish.Disabled=_world.FurnishHomeYardProblem(home.Id,_yardPreviewSide)!=null;
         _yardFurnish.Text=_world.Creative?"Furnish here · free":$"Furnish here · {World.ComfortCost(home)} planks";
         _yardFurnish.TooltipText=_world.FurnishHomeYardProblem(home.Id,_yardPreviewSide)??"Choose this ground and order shared workers to deliver and install the furnishings.";

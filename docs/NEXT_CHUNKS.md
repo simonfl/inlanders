@@ -18,7 +18,7 @@ These are playable scene and interaction outcomes, not asset foundations. Preser
 
 136. **Done** — Constrain the existing working clearing through actual river/usable-ground geography; test near-home cultivation versus domestic/shared ground and shore livelihood.
 137. **Done** — Compact home arrangement tray replacing the expanded editing stack.
-138. Present the existing choose-and-furnish operation as a focused world proposal, removing the redundant unfurnished ground-only route from its primary flow. Existing combined command is already implemented and cannot count again.
+138. **Done** — Present the existing choose-and-furnish operation as a focused world proposal, removing the redundant unfurnished ground-only route from its primary flow. Existing combined command is already implemented and cannot count again.
 139. Compact world proposal for cultivated-strip manipulation.
 140. Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
 
