@@ -93,5 +93,6 @@ public partial class Game
             Tri(a,d,c);Tri(a,c,b);
         }
         SurfaceMesh(_workedLand,surface).Name="LandUseSurface";
+        MakeWoodlandMargin(_workedLand,trees);
     }
 }

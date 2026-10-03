@@ -183,3 +183,6 @@ Checkpoint131: Play recommends the existing working clearing while retaining the
 
 
 Checkpoint132: public riverbanks now slope into a continuous silt/shallow-water band with joined corner normals and interpolated colors. Authoritative land/water, terrain height, fishing and placement remain unchanged; the build boundary stays explicit in tools. Rejected an initial segmented border after inspecting it; revised whole-scene1440 capture155042-668-working-clearing-56664a removes the ladder-like seams (16.46s including build). Zero warnings. The large grid bends remain visible and are not claimed solved. Next133 makes existing woodland read as a connected margin; assess the entire landscape at135.
+
+
+Checkpoint133: low irregular woodland undergrowth now joins the actual standing mature trees into a wooded margin. It clears from building footprints, paths, home yards, shared places and actual well-used ground; felled/removed trees leave the margin and regrown trees restore it through the existing visual refresh. Single batched mesh, no resource or collision introduced. Opposite1440 view155253-009 inspected and density softened; final960155403-183-working-clearing-3d3c12 inspected, zero-warning build. Next134 treats the remaining open lawn and actual walking wear together; whole-scene acceptance remains for135.
