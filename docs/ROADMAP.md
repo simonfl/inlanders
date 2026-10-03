@@ -156,3 +156,6 @@ Checkpoint123: home appearance is directly selectable in Change this home, with 
 
 
 Checkpoint124: selected homes/workplaces can start a path at their actual entrance, preview the existing route algorithm to another place/ground, and return to the origin after apply or cancel. No new path rules or resources. Native960 real click route/cancel/origin return and exact save/load passed20261003-135931-864-river-hamlet-5af888 (34.6s), zero-warning build. Next125 improves the legibility of worked ground and freezes for the full direction review; additional home controls remain a review concern.
+
+
+Checkpoint125: cultivated strips now have raised earth shoulders, dark furrows and a low working edge instead of permanent floating field placards. Ground tint invalidates on changed field depth, so released/restored ground updates with editing. Same actual footprints/yields.1440 ordinary1x10-second before/after captures20261003-140134-628-river-hamlet-902d35 inspected;960 relaxed overview140207-122-cultivated-bank-relaxed-5f8d69. Both-mode extension checks pass; zero-warning build. Five playable outcomes committed; freeze for independent whole-game125 plus visual/audio before126. Furrows improve local legibility; broad scene appeal and motivation remain unproven.

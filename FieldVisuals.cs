@@ -23,10 +23,28 @@ public partial class Game
         {
             float z=grain?World.GrainRow(i+1):-(plotRows-1)/2f+i;
             if(stage==1 && z<0)continue;
-            Box(parent,new(0,.046f,z),new(2.85f,.055f,.12f),new("8a7450"));
-            Box(parent,new(0,.037f,z+.17f),new(2.85f,.022f,.055f),new("574a35"));
+            // Raised shoulders catch light while the recessed furrow stays dark.
+            using var ridge=new SurfaceTool();ridge.Begin(Godot.Mesh.PrimitiveType.Triangles);
+            for(int segment=0;segment<6;segment++)
+            {
+                float left=-1.42f+segment*.47f,right=left+.47f;
+                float rise=.095f+(segment%3)*.008f;
+                var a=new Vector3(left,.044f,z-.15f);var b=new Vector3(right,.044f,z-.15f);
+                var c=new Vector3(right,rise,z);var d=new Vector3(left,rise,z);
+                Triangle(ridge,a,d,c,new("92764e"));Triangle(ridge,a,c,b,new("92764e"));
+                var e=new Vector3(left,.044f,z+.15f);var f=new Vector3(right,.044f,z+.15f);
+                Triangle(ridge,d,e,f,new("685139"));Triangle(ridge,d,f,c,new("685139"));
+            }
+            SurfaceMesh(parent,ridge);
+            Box(parent,new(0,.043f,z+.22f),new(2.85f,.012f,.10f),new("534631"));
         }
-        if(stage==3)FoodSign(parent,grain?"GRAIN FIELD":"VEGETABLE FIELD",1.35f);
+        if(stage==3)
+        {
+            // A low working edge reads as cultivated land; no floating field placard.
+            Box(parent,new(0,.041f,plotRows/2f-.18f),new(2.83f,.025f,.24f),new("a18b62"));
+            TimberBeam(parent,new(-1.25f,.06f,plotRows/2f-.25f),new(-1.19f,.59f,plotRows/2f-.39f),.035f,_wood);
+            Box(parent,new(-1.25f,.07f,plotRows/2f-.25f),new(.20f,.035f,.10f),new("65645b"));
+        }
     }
     private void MakeFarm(Node3D parent, int stage)
     {

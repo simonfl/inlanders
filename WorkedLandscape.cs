@@ -17,7 +17,7 @@ public partial class Game
         if(_workedLand==null){_workedLand=new(){Name="WorkedLandscape"};AddChild(_workedLand);}
         _workedLand.Visible=_world.PublicPlace!=null && !_plainFarmstead;
         if(!_workedLand.Visible)return;
-        string key=_world.GroundUseRevision+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Improved}:{c.YardSide}"))+":"+
+        string key=_world.GroundUseRevision+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Depth}:{c.Improved}:{c.YardSide}"))+":"+
             string.Join(';',_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).Select(t=>$"{t.Cell}:{t.Growth>=1}"))+":"+string.Join(';',_world.Commons?.Places??Array.Empty<Cell>());
         if(!force && _workedWorld==_world && key==_workedKey)return;
         _workedWorld=_world;_workedKey=key;Clear(_workedLand);
