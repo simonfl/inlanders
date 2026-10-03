@@ -9,7 +9,11 @@ The user authorized another ten outcomes after110. This supersedes the human-pla
 |113| Read the land through optional contextual views of shore, growing ground and woodland; no prescribed layout. |
 |114| Water and shore have readable depth and edges at village scale, preserving actual buildable ground. |
 |115| Woodland and clearing composition provides a coherent inland edge rather than scattered resource dots; whole-game review including presentation. |
-|116–120| Provisional: decided by115 synthesis; complete a coherent improvement to the compared experience, then full120 review and stop. |
+|116| Existing building/clearing actions from a surveyed view, without losing chosen ground. |
+|117| Consistent first-place and everyday cultivation/building choices. |
+|118| Existing landing makes inhabited frontage a working shore; explicit investment and real livelihood validation. |
+|119| Remove public diet-score pressure; keep actual food/home/rest/recreation feedback and archive rules. |
+|120| Resident observation returns to original place/camera; whole-game review and stop. |
 
 Each chunk counts only when playable, validated and committed. Reassess scope after each. Tests do not establish preference. Existing tools suffice; no framework project. Current saves required, compatibility unnecessary; known intermittent replacement failure remains open.
 
@@ -27,3 +31,6 @@ Checkpoint114: public river water now grades from shallow banks to deeper channe
 
 
 Checkpoint115: existing workable trees now have mixed tall conifer and branched/light-bark silhouettes; overlapping canopy ground joins into a forest floor and clears with the real trees. No new resources/obstacles. Frontage1440 before/after8s1x captures131558-762-river-hamlet-1ade4e inspected; this is snapshots, not motion acceptance or isolated performance (another capture overlapped). Actual timber mark/cancel/collection/root clearing passed131613-218-essentials-f2337f, zero-warning build.37 current suites running; freeze for whole-game115 with visual/audio before116. Remaining outcomes are contingent on synthesis, not automatically more decoration.
+
+
+[Whole-game115](REVIEW_CHECKPOINT_115.md) completed with five fresh independent roles. Partially convincing. Choose look/act/observe, practical shore work and a narrower public satisfaction model; reject duplicate journey systems and further decoration-only batch.

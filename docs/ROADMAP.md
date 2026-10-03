@@ -12,7 +12,7 @@
 
 **Active batch111–120: river-frontage comparison**, newly authorized after110. [Review110](REVIEW_CHECKPOINT_110.md) remains partially convincing; human taste is unobserved. Choose its substantial landscape-composition alternative, using the same people/resources/rules rather than adding mechanics. Keep the inlet available for comparison.
 
-Open and inhabited river frontage, optional land reading, and coherent shore/woodland presentation form111–115. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the evidence gates; review115 chooses116–120, then full120 review and stop. Current save reliability remains required. No new needs, inheritance, production chains or objective checklist. Tests and stills establish operation/readability, not enjoyment.
+Open and inhabited river frontage, optional land reading, and coherent shore/woodland presentation form111–115. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns the evidence gates; [Review115](REVIEW_CHECKPOINT_115.md) chooses direct survey-to-action, consistent building choices, a working landing, removal of public diet-score pressure and contextual observation return for116–120; then full120 review and stop. Current save reliability remains required. No new needs, inheritance, production chains or objective checklist. Tests and stills establish operation/readability, not enjoyment.
 
 ## What stays, what changes
 

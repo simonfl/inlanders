@@ -5,7 +5,7 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **115**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
+- Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
 - Previous periodic review95: [synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles.
@@ -22,8 +22,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Previous periodic review: **checkpoint 40**, [five fresh independent roles and synthesis](REVIEW_CHECKPOINT_40.md), fixed `772a653`. Source, broad actual stills and scripted native/simulation evidence; no uncoached play, continuous-motion viewing or listening.
 - Immediate strategic review: **synthesis recorded at checkpoint 8**, [decision and limits](STRATEGIC_REVIEW_8.md). Three independent agents; two further disciplinary passes reused contexts after thread-limit failures. Fresh native observation reached only the menu; no new gameplay or listening. This is not five fresh independent reviews or a successful playtest. The new queue tests a neighborhood redesign; documentation does not advance the count.
 - Latest requested full review: **checkpoint 19**, [five fresh independent roles and synthesis](WHOLE_GAME_REVIEW_19.md). F29b experiment adds no playable count; no uncoached native play/listening.
-- Next periodic review would be **checkpoint115**, only if later authorized; implementation is stopped at110 for human play.
-- Latest independent visual/audio review: **checkpoint110**, fresh context. Broad stills/source; no listening or continuous-motion acceptance.
+- Next periodic review: **checkpoint120**, user authorized through120; add visual/audio.
+- Latest independent visual/audio review: **checkpoint115**, fresh context. Broad stills/source; no listening or continuous-motion acceptance.
 - Next regular visual/audio review: **checkpoint100**. Substantial presentation changes trigger earlier reviews.
 
 ## Chunk ledger
@@ -548,3 +548,6 @@ Checkpoint114: public river water now grades from shallow banks to deeper channe
 
 
 Checkpoint115: existing workable trees now have mixed tall conifer and branched/light-bark silhouettes; overlapping canopy ground joins into a forest floor and clears with the real trees. No new resources/obstacles. Frontage1440 before/after8s1x captures131558-762-river-hamlet-1ade4e inspected; this is snapshots, not motion acceptance or isolated performance (another capture overlapped). Actual timber mark/cancel/collection/root clearing passed131613-218-essentials-f2337f, zero-warning build.37 current suites running; freeze for whole-game115 with visual/audio before116. Remaining outcomes are contingent on synthesis, not automatically more decoration.
+
+
+Full115 review completed after commit12739a4 with five fresh independent roles; [synthesis](REVIEW_CHECKPOINT_115.md). Partially convincing; selected coherent116–120, no playable increment for review.
