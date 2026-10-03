@@ -1,6 +1,6 @@
 # Next work — make improvement a real choice
 
-Playable count **101**.
+Playable count **102**.
 
 October3: user authorizes ten further playable outcomes through110, with playtesting afterward. This overrides the previous wait-for-player-evidence execution stop; uncertainty remains. First batch reduces default interface burden and makes existing corrections coherent:101 home action hierarchy,102 small reusable build palette,103 place/person navigation,104 cultivation revision intent,105 everyday work-state clarity. Scope is conditional; full105 review chooses106–110. No new needs/resources/building types. Stop after110 review.
  [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
@@ -33,3 +33,6 @@ Earlier91–95 delivered a real first productive cycle, actual-use ground wear, 
 
 
 Checkpoint101 — October3: home cards lead with actual residents and domestic use. Optional invitations, household exchange and full details sit behind More home actions; selection resets the expansion. Capabilities retained, no simulation changes. Zero-warning build and native960 household roster/follow/return/expanded exchange/cancel/confirm pass20261003-063041-296-household-move-8b5108. Reassess: retain this reduced surface provisionally; next102 offers a small reusable build palette with full catalogue access. User resumed through110 with105/110 reviews; prior wait-for-playtest execution stop is superseded, not a claim of enjoyment.
+
+
+Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cultivation, foraging, bridge). Full catalogue remains one click away and B retains keyboard catalogue navigation. No unlocks or simulation changes. Zero-warning build; native960 palette/field preview/cancel/full catalogue and household flow passed20261003-063324-291-essentials-b34aa6. Next103 unifies returning from a followed resident to the actual place of inspection, instead of opening detailed inspectors unexpectedly.

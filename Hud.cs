@@ -161,7 +161,7 @@ public partial class Game
     }
     private void MakeBuildMenu(VBoxContainer column)
     {
-        MakeBuildingFilter(column);
+        MakeBuildEssentials(column);MakeBuildingFilter(column);
         for (int i = 0; i < 3; i++)
         {
             _buildSections[i] = new(); _buildSections[i].AddThemeConstantOverride("separation", 8); column.AddChild(_buildSections[i]);

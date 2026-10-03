@@ -74,7 +74,7 @@ public partial class Game
     private void UpdateBuildCatalog()
     {
         if(_catalogKeyboard && !CatalogOpen)StopCatalogKeyboard();
-        UpdateBuildingCategoryNavigation();
+        RenderBuildEssentials();UpdateBuildingGroups(_buildingFilter.Selected);UpdateBuildingCategoryNavigation();
         bool buildOpen = _drawer.Visible && _tabs.CurrentTab == 1;
         _buildNavigation.Visible = buildOpen;
         _buildFooter.Visible = buildOpen && _placing;

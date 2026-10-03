@@ -20,7 +20,7 @@ public partial class Game
             button.TooltipText=BuildingDescription(kind);column.AddChild(button);_firstPlaceChoices[kind]=button;
         }
         _firstPlaceGrain=Text("",13,true);column.AddChild(_firstPlaceGrain);
-        _firstPlaceBrowse=Button("All building choices [B]",()=>{ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();});column.AddChild(_firstPlaceBrowse);
+        _firstPlaceBrowse=Button("All building choices [B]",()=>{_fullBuild=true;ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();});column.AddChild(_firstPlaceBrowse);
         _firstPlaceLook=Button("Look around first [Esc]",()=>_firstPlaceDismissed=true);column.AddChild(_firstPlaceLook);_firstPlace.Hide();
     }
     private void RenderFirstPlaceUi()

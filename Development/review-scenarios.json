@@ -542,5 +542,13 @@
     "focusX": 1,
     "focusZ": -5,
     "zoom": 23
+  },
+  {
+    "name": "essentials",
+    "description": "Reduced build palette and full catalogue access",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 23
   }
 ]

@@ -9,6 +9,14 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="essentials")
+        {
+            CloseManagementUi();_fullBuild=false;ToggleDrawer(1);await Frames();string before=_world.SaveJson();
+            Check(_essentials.IsVisibleInTree() && !_buildingCategories.Visible,"Small palette not primary");Check(_drawerPages[1].GetGlobalRect().Encloses(_essentialChoices[BuildingKind.Bridge].GetGlobalRect()),"Everyday choices need scrolling");await CaptureReviewBundle("everyday-building-choices");
+            await UiClick(_essentialChoices[BuildingKind.VegetableField]);await Frames();Check(_placing && _buildKind==BuildingKind.VegetableField,"Simple field choice failed");await Press(Key.Escape);await Frames();
+            ToggleDrawer(1);await Frames();await UiClick(_buildBreadth);await Frames();Check(_buildingCategories.Visible && !_essentials.Visible,"Full catalogue inaccessible");await CaptureReviewBundle("full-catalogue-retained");
+            Check(_world.SaveJson()==before,"Palette mutated village");CloseDrawer();
+        }
         var home=_world.Cottages.First(c=>c.Complete && _world.People.Count(p=>p.HomeId==c.Id)>0);CloseManagementUi();ClearSelection();
         _focus=BuildingPosition(home);_camera.Size=18;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(BuildingPosition(home)+Vector3.Up*.5f));await Frames();
         Check(_workCardSite==home.Id && _householdPeople.Visible,"Selecting home does not show household");

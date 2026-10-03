@@ -42,7 +42,7 @@ public partial class Game
     }
     private void UpdateBuildingCategoryNavigation()
     {
-        _buildingCategories.Visible = _buildSection == 0;
+        _buildingCategories.Visible = _buildSection == 0 && !SmallBuild;
         _buildingFilter.Visible = _buildSection == 2 || (_buildSection == 0 && _catalogKeyboard);
     }
     private void MakeGroupedBuildingCards(VBoxContainer parent)
@@ -65,7 +65,7 @@ public partial class Game
     {
         _kindButtons[BuildingKind.Carpenter].Visible=_world.PublicPlace==null;
         foreach(var heading in _foodGroupHeadings) heading.Visible=category!=2;
-        foreach (var group in _buildingGroups) group.Panel.Visible = category == 0 || group.Category == category;
+        foreach (var group in _buildingGroups) group.Panel.Visible = !SmallBuild && (category == 0 || group.Category == category);
         foreach (var button in _categoryButtons)
         {
             bool selected = button.Text.TrimStart('›', ' ') == BuildingCategoryNames[category];
