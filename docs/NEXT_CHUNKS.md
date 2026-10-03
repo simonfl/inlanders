@@ -1,47 +1,19 @@
-# Next work — make improvement a real choice
+# Next work — a smaller world-first experience
 
-Playable count **105**.
+Count **105**. User authorizes through110, then human playtest. [Whole-game105](REVIEW_CHECKPOINT_105.md) complete on `d5c5b8f`, four fresh independent roles, partially convincing. No new needs/resources/building types or scheduler. Prior100 wait-for-player stop is superseded by the latest instruction; uncertainty about motivation is not.
 
-October3: user authorizes ten further playable outcomes through110, with playtesting afterward. This overrides the previous wait-for-player-evidence execution stop; uncertainty remains. First batch reduces default interface burden and makes existing corrections coherent:101 home action hierarchy,102 small reusable build palette,103 place/person navigation,104 cultivation revision intent,105 everyday work-state clarity. Scope is conditional; full105 review chooses106–110. No new needs/resources/building types. Stop after110 review.
- [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
+101–105 delivered secondary home actions, everyday build palette/full catalogue, consistent place/person return, atomic cultivation revision preserving work status, accurate crop status and direct food inspection. Native checks passed;37 current suites underway, completion recorded in ledger.
 
-The small working farmstead is more coherent and direct ground drawing has real consequences. The unresolved product question is why a player would choose one improvement over another after it works. Do not answer with more buildings, needs, entry polish or prescribed campaign tasks.
+## Remaining authorized outcomes
 
-## Strategic correction after100
+| Checkpoint | Outcome | Evidence gate |
+| --- | --- | --- |
+|106| Reach existing timber gathering directly from the reduced build surface; shared-work guidance correct. | Actual mark/cancel and worker collection, not a new resource system. |
+|107| Temporary food inspection without place-card/notice stacking; direct visible dismissal and immediate feedback. | Pure toggle/cancel; stores remain selectable, view clears correctly across menus/worlds. |
+|108| Home card prioritizes inhabitants/use; occasional physical/home management grouped together. | Wanted changes remain accessible at960; no hidden required step or state mutation on browse. |
+|109| Public persistent navigation becomes Build/Village with coherent secondary People/Economy access and retained shortcuts. | Ordinary mouse/keyboard paths, save/options, archived behavior and cancellation still work. |
+|110| Watching, returning and contented finishing form a coherent ordinary endpoint. | Place context and clock state survive, can reopen/save/load, full review and stop. |
 
-The user questions accumulated complexity before the core is validated. [Immediate strategic review](STRATEGIC_REVIEW_100_CORE.md) supersedes the101–105 batch. The five-outcome cadence is a maximum interval between reviews, not a requirement to invent five features before making a direction decision.
+Reevaluate after every outcome; substitute concrete friction found in validation instead of inventing features. Design's landscape/scenario alternative remains parked before human play. No claim these reductions prove enjoyment. If understood controls still produce no cared-for result, redirect the core after the session rather than adding another tool.
 
-**Next is one comparison and a decision, not a feature batch.** First use the frozen current build for an ordinary uncoached session, roughly15–25 minutes maximum or until contented finishing. The core hypothesis is: choose where a few homes and a livelihood belong, see residents build/work/eat there, and either want to improve the arrangement or enjoy leaving it as it is. No prescribed revision or minimum duration.
-
-Keep the current full version as control. If observed interface breadth interferes, compare a reduced first-use surface using the same simulation: homes, one cultivation choice, existing modest timber supply, shared labor, actual meals/rest, pause/speed, reversible placement and inspect/follow/back. Retain useful current visual quality. All buildings remain accessible through the full catalogue as the user requested; this is reduced prominence, not campaign locks. Household exchange/manual staffing/advanced services are candidates for secondary details, not new core objectives. Preserve Normal/relaxed as comparators without multiplying scenarios.
-
-Do not prebuild a new map, consequence interface, landscape overhaul and reserve scheduler before the observation. An existing inhabited state can distinguish making a place from revising one; lightly rearrange it only if a specific test requires it. Existing unused systems need not be deleted or rewritten now.
-
-Observe whether the player can explain a placement decision, understand a result, recover, and voluntarily arrange/watch/finish with satisfaction. If they understand the controls but neither care about the resulting place nor want to change anything, reject or redirect the core. Do not translate that result into another tooltip or processing chain. If removing controls blocks a wanted action, restore that action. A pleasant short session is valid; elapsed duration and number of actions are not success criteria.
-
-Until actual player evidence exists, autonomous work is limited to a concrete blocker to observing the core, not further source reviews, balance-framework investment or invented playtest conclusions. A future chosen playable outcome becomes101; the periodic review remains105 only if five further outcomes actually occur. No gameplay work authorized or started by this strategy discussion.
-
-## Delivered96–100
-
-- 96:1–8-row vegetable strips with real cost, crop, travel and instance geometry.
-- 97: release/restore prepared rows, preserve investment/stores, reject occupied ground and uncollected ripe crops.
-- 98: actual household roster, chosen resident follow and return.
-- 99: choose another occupied home and exchange households without teleportation.
-- 100: direct four-direction ground drawing, pure cancellation, consolidated proposals and mature full-session evidence.
-
-Earlier91–95 delivered a real first productive cycle, actual-use ground wear, home/yard planning, bidirectional siting previews and equal founded/inhabited entry. See [CHECKPOINTS](CHECKPOINTS.md) for validation and [review95](REVIEW_CHECKPOINT_95.md) for that direction decision. No seasons, inheritance, genealogy, aging, succession or automatic new needs; descendants remain narrative theme.
-
-
-Checkpoint101 — October3: home cards lead with actual residents and domestic use. Optional invitations, household exchange and full details sit behind More home actions; selection resets the expansion. Capabilities retained, no simulation changes. Zero-warning build and native960 household roster/follow/return/expanded exchange/cancel/confirm pass20261003-063041-296-household-move-8b5108. Reassess: retain this reduced surface provisionally; next102 offers a small reusable build palette with full catalogue access. User resumed through110 with105/110 reviews; prior wait-for-playtest execution stop is superseded, not a claim of enjoyment.
-
-
-Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cultivation, foraging, bridge). Full catalogue remains one click away and B retains keyboard catalogue navigation. No unlocks or simulation changes. Zero-warning build; native960 palette/field preview/cancel/full catalogue and household flow passed20261003-063324-291-essentials-b34aa6. Next103 unifies returning from a followed resident to the actual place of inspection, instead of opening detailed inspectors unexpectedly.
-
-
-Checkpoint103: following a resident from a place retains an explicit return to that place; direct resident inspection offers their household, and food-source inspection opens the same public place card. Removes a surprising jump to full management. Zero-warning build; native960 household follow/return plus explicit workplace-origin return passed20261003-063651-145-household-381ff3, query state unchanged. Workplace origin setup in the extra assertion is API-prepared, return is actual input; not an uncoached play claim. Next104 removes manual pause/resume choreography from cultivation revision while preserving work state and cancel purity.
-
-
-Checkpoint104: cultivated-ground revision previews without stopping work; applying atomically pauses/revises/restores prior work state. No-op/cancel/rejection remain pure, explicit pauses survive. Existing ripe-crop and prepared-capacity rules retained. Both-mode simulation checks and native960 actual crop/meal/preview/Escape/apply/automatic working restoration passed20261003-064020-302-plot-revision-36dd70. Initial probe read the throttled card before refresh; forcing its refresh before assertion corrected the probe, not game timing. Zero-warning build. Next105 ties selected food-place status to actual supplies, then freeze for whole review.
-
-
-Checkpoint105: selected food places link directly to actual world food stores and back; reserve-resting state gives current supply/population without implying a guaranteed future. Crop growth now precedes provision-rest status so living crops are not hidden behind an idle explanation. No scheduling changes. Zero-warning build, both-mode crop-state/revision checks and native960 selected-place food view open/close/pure-state passed20261003-064251-393-household-3fc3a0. Freeze for independent whole-game105 before choosing106–110.
+Existing fixtures and recording tools suffice. Local settled-UI assertions only where needed; no causal dashboard/replay/framework. Current saves correct, personal saves disposable, intermittent replacement denial still unattributed. Full110 review covers wholegame and adds visual/audio reviewer, with source/stills/scripted controls distinguished from actual play/listening/performance.

@@ -10,11 +10,11 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: validate a smaller experience before adding mechanics.** Count **105**. The user's complexity concern triggers [an immediate strategic correction](STRATEGIC_REVIEW_100_CORE.md), superseding the101–105 batch from [whole-game100](REVIEW_CHECKPOINT_100.md). The farmstead is a credible hypothesis, not an accepted core. We have stronger proof that its systems function than that a player wants to use them.
+**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **105**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
 
-Use the frozen build for one bounded uncoached session, then compare a reduced first-use surface if observed complexity warrants it. Keep homes, cultivation, physical shared work/meals/rest, useful visual quality and forgiving arrangement. Preserve existing code and full catalogue access; lower unearned prominence rather than starting an architectural purge. [NEXT_CHUNKS](NEXT_CHUNKS.md) records the test and decision gates. No new scenario/UI/art/scheduler bundle is scheduled ahead of evidence.
+Choose a world-first surface over competing management panels, keeping the existing simulation: accessible timber work, temporary food inspection, grouped home changes, simpler public navigation and coherent watching/finishing. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns106–110 and checks. No new scenario, scheduler, needs or building types in this batch. Full catalogue and keyboard paths remain available. Stop after110 review.
 
-Retain Normal/relaxed as comparators, optional growth/finishing and the archived campaign boundary. A satisfying short visit is a valid outcome; compulsory expansion and busywork are not cures for uncertainty. Below is a parked hypothesis inventory, not an execution queue. Save reliability still matters, but more tooling and source reviews cannot substitute for observing someone play.
+Retain Normal/relaxed, optional growth/finishing and the archive boundary. Human play will distinguish satisfying short visits from a core that lacks purpose; scripted feasibility cannot. Below remains a hypothesis inventory, not a shopping list.
 
 ## What stays, what changes
 
@@ -94,17 +94,3 @@ Checkpoints67–71 deliver larger working fields, the broader bank composition, 
 
 Checkpoints72–75 add place watching, direct ground-side choice, shared-meal world controls and the matched-inventory grouped farmstead. [Review75](REVIEW_CHECKPOINT_75.md) records the whole-game critique, reviewer-independence limits, evidence and reliability closeout. The next queue prioritizes a wanted transformation rather than another convenience batch.
 
-
-Checkpoint101 — October3: home cards lead with actual residents and domestic use. Optional invitations, household exchange and full details sit behind More home actions; selection resets the expansion. Capabilities retained, no simulation changes. Zero-warning build and native960 household roster/follow/return/expanded exchange/cancel/confirm pass20261003-063041-296-household-move-8b5108. Reassess: retain this reduced surface provisionally; next102 offers a small reusable build palette with full catalogue access. User resumed through110 with105/110 reviews; prior wait-for-playtest execution stop is superseded, not a claim of enjoyment.
-
-
-Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cultivation, foraging, bridge). Full catalogue remains one click away and B retains keyboard catalogue navigation. No unlocks or simulation changes. Zero-warning build; native960 palette/field preview/cancel/full catalogue and household flow passed20261003-063324-291-essentials-b34aa6. Next103 unifies returning from a followed resident to the actual place of inspection, instead of opening detailed inspectors unexpectedly.
-
-
-Checkpoint103: following a resident from a place retains an explicit return to that place; direct resident inspection offers their household, and food-source inspection opens the same public place card. Removes a surprising jump to full management. Zero-warning build; native960 household follow/return plus explicit workplace-origin return passed20261003-063651-145-household-381ff3, query state unchanged. Workplace origin setup in the extra assertion is API-prepared, return is actual input; not an uncoached play claim. Next104 removes manual pause/resume choreography from cultivation revision while preserving work state and cancel purity.
-
-
-Checkpoint104: cultivated-ground revision previews without stopping work; applying atomically pauses/revises/restores prior work state. No-op/cancel/rejection remain pure, explicit pauses survive. Existing ripe-crop and prepared-capacity rules retained. Both-mode simulation checks and native960 actual crop/meal/preview/Escape/apply/automatic working restoration passed20261003-064020-302-plot-revision-36dd70. Initial probe read the throttled card before refresh; forcing its refresh before assertion corrected the probe, not game timing. Zero-warning build. Next105 ties selected food-place status to actual supplies, then freeze for whole review.
-
-
-Checkpoint105: selected food places link directly to actual world food stores and back; reserve-resting state gives current supply/population without implying a guaranteed future. Crop growth now precedes provision-rest status so living crops are not hidden behind an idle explanation. No scheduling changes. Zero-warning build, both-mode crop-state/revision checks and native960 selected-place food view open/close/pure-state passed20261003-064251-393-household-3fc3a0. Freeze for independent whole-game105 before choosing106–110.

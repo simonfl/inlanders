@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **105**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint100**, [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
+- Last periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
+- Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
 - Previous periodic review95: [synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles.
 - Previous periodic review90: [whole-game synthesis](REVIEW_CHECKPOINT_90.md), fixed `d390bf1`; five fresh independent roles. Partially convincing; first working payoff and connected farmstead comparison next. Stopped before91.
 - Previous review85: [synthesis](REVIEW_CHECKPOINT_85.md), fixed `2b46990`; five separate roles, three fresh and two reused.
@@ -508,3 +509,6 @@ Checkpoint104: cultivated-ground revision previews without stopping work; applyi
 
 
 Checkpoint105: selected food places link directly to actual world food stores and back; reserve-resting state gives current supply/population without implying a guaranteed future. Crop growth now precedes provision-rest status so living crops are not hidden behind an idle explanation. No scheduling changes. Zero-warning build, both-mode crop-state/revision checks and native960 selected-place food view open/close/pure-state passed20261003-064251-393-household-3fc3a0. Freeze for independent whole-game105 before choosing106–110.
+
+
+Review105 completed on d5c5b8f, four fresh independent roles. Whole public/archived representative evidence and limitations in synthesis; no listening/independent live play/performance acceptance. Select106–110 interaction hierarchy reduction over newmaps/scheduling/art overhaul.37-suite run still pending here; do not backdate test completion.
