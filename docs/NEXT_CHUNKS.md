@@ -1,6 +1,6 @@
 # Next work — make improvement a real choice
 
-Playable count **103**.
+Playable count **104**.
 
 October3: user authorizes ten further playable outcomes through110, with playtesting afterward. This overrides the previous wait-for-player-evidence execution stop; uncertainty remains. First batch reduces default interface burden and makes existing corrections coherent:101 home action hierarchy,102 small reusable build palette,103 place/person navigation,104 cultivation revision intent,105 everyday work-state clarity. Scope is conditional; full105 review chooses106–110. No new needs/resources/building types. Stop after110 review.
  [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
@@ -39,3 +39,6 @@ Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cu
 
 
 Checkpoint103: following a resident from a place retains an explicit return to that place; direct resident inspection offers their household, and food-source inspection opens the same public place card. Removes a surprising jump to full management. Zero-warning build; native960 household follow/return plus explicit workplace-origin return passed20261003-063651-145-household-381ff3, query state unchanged. Workplace origin setup in the extra assertion is API-prepared, return is actual input; not an uncoached play claim. Next104 removes manual pause/resume choreography from cultivation revision while preserving work state and cancel purity.
+
+
+Checkpoint104: cultivated-ground revision previews without stopping work; applying atomically pauses/revises/restores prior work state. No-op/cancel/rejection remain pure, explicit pauses survive. Existing ripe-crop and prepared-capacity rules retained. Both-mode simulation checks and native960 actual crop/meal/preview/Escape/apply/automatic working restoration passed20261003-064020-302-plot-revision-36dd70. Initial probe read the throttled card before refresh; forcing its refresh before assertion corrected the probe, not game timing. Zero-warning build. Next105 ties selected food-place status to actual supplies, then freeze for whole review.

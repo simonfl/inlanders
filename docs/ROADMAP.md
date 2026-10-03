@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Next: validate a smaller experience before adding mechanics.** Count **103**. The user's complexity concern triggers [an immediate strategic correction](STRATEGIC_REVIEW_100_CORE.md), superseding the101–105 batch from [whole-game100](REVIEW_CHECKPOINT_100.md). The farmstead is a credible hypothesis, not an accepted core. We have stronger proof that its systems function than that a player wants to use them.
+**Next: validate a smaller experience before adding mechanics.** Count **104**. The user's complexity concern triggers [an immediate strategic correction](STRATEGIC_REVIEW_100_CORE.md), superseding the101–105 batch from [whole-game100](REVIEW_CHECKPOINT_100.md). The farmstead is a credible hypothesis, not an accepted core. We have stronger proof that its systems function than that a player wants to use them.
 
 Use the frozen build for one bounded uncoached session, then compare a reduced first-use surface if observed complexity warrants it. Keep homes, cultivation, physical shared work/meals/rest, useful visual quality and forgiving arrangement. Preserve existing code and full catalogue access; lower unearned prominence rather than starting an architectural purge. [NEXT_CHUNKS](NEXT_CHUNKS.md) records the test and decision gates. No new scenario/UI/art/scheduler bundle is scheduled ahead of evidence.
 
@@ -102,3 +102,6 @@ Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cu
 
 
 Checkpoint103: following a resident from a place retains an explicit return to that place; direct resident inspection offers their household, and food-source inspection opens the same public place card. Removes a surprising jump to full management. Zero-warning build; native960 household follow/return plus explicit workplace-origin return passed20261003-063651-145-household-381ff3, query state unchanged. Workplace origin setup in the extra assertion is API-prepared, return is actual input; not an uncoached play claim. Next104 removes manual pause/resume choreography from cultivation revision while preserving work state and cancel purity.
+
+
+Checkpoint104: cultivated-ground revision previews without stopping work; applying atomically pauses/revises/restores prior work state. No-op/cancel/rejection remain pure, explicit pauses survive. Existing ripe-crop and prepared-capacity rules retained. Both-mode simulation checks and native960 actual crop/meal/preview/Escape/apply/automatic working restoration passed20261003-064020-302-plot-revision-36dd70. Initial probe read the throttled card before refresh; forcing its refresh before assertion corrected the probe, not game timing. Zero-warning build. Next105 ties selected food-place status to actual supplies, then freeze for whole review.
