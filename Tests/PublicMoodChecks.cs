@@ -7,6 +7,7 @@ static class PublicMoodChecks
         {
             var w=World.NewRiverFrontage(relaxed,true);var p=w.People[0];
             w.Food.LastMealRequired=12;w.Food.LastMealBerries=12;w.Food.LastMealChoices=1;
+            if(w.RecreationSummary(p).Contains("build a place") || !w.RecreationSummary(p).Contains("Shared ground hosts meals"))throw new Exception("Public recreation misrepresents shared meals or prescribes a venue");
             int single=w.ReadHappiness(p).Score;
             w.Food.LastMealBerries=4;w.Food.LastMealVegetables=4;w.Food.LastMealFish=4;w.Food.LastMealChoices=3;
             if(single!=w.ReadHappiness(p).Score || w.ReadHappiness(p).Choice!=0 || w.LastMealSummary.Contains("credit"))throw new Exception("Public mood still grades diet");

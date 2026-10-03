@@ -49,3 +49,6 @@ Checkpoint119: public resident mood no longer rewards a three-food diet or displ
 
 
 Checkpoint120: following a resident now remembers the original place and camera (position/zoom/orientation); Back restores that view without rewinding time or changing the clock. Cycling residents preserves the observation origin. Native960 actual household follow/return now asserts exact camera and simulation, plus survey/action/mood paths passed133032-719-river-hamlet-16bdc6; zero-warning build. Ten authorized outcomes complete. Freeze for whole-game120, isolated ordinary/dense1x frame samples and final regression; no121.
+
+
+120 review follow-up (zero new playable count): independent design/UX reviewers found mandatory-sounding recreation wording beside shared meal ground. Public RecreationSummary now neutrally distinguishes commons meals from a separate recreation venue; no leisure simulation or grade added. PublicMood and archived happiness checks pass. Base120review/performance fixed2c240c3 remains recorded; narrow text correction is separately committed and presented to reviewers.
