@@ -6,7 +6,7 @@ public partial class Game
     {
         MenuPage("An inhabited river frontage");
         MenuButton("Landscape: river frontage · change",()=>HamletMenu(true,false,true));
-        _mainColumn.AddChild(Text("Homes along the river; growing ground inland. Twelve neighbors already live here. Change the distances between home and work, or keep a place you like.",17,true));
+        _mainColumn.AddChild(Text("Homes along the river, two inland fields and a working fishing landing. Twelve neighbors share a small outdoor place. Change a journey or a yard, or keep what you like.",17,true));
         foreach(bool relaxed in new[]{false,true})
         {
             var profile=new HamletProfile(relaxed,true,false,false,false,true);
@@ -16,7 +16,7 @@ public partial class Game
             void Start()=>MenuAttempt(()=>{var w=profile.Create();w.SaveFile(path);EnterFromMenu(w);});
             MenuButton("New "+label,()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this river hamlet?",Start,FrontageHamletMenu);else Start();});
         }
-        _mainColumn.AddChild(Text("Same people, buildings and starting reserves as the inlet; different relationships to the land. No required improvement or deadline.",15,true));
+        _mainColumn.AddChild(Text("The landing replaces the inlet kitchen garden: 8 logs in the yard instead of12, equal total timber investment, 4 planks and72 food. Fish and crops have different timing. No required improvement or deadline.",15,true));
         MenuButton("Back",TransformationMenu);
     }
 }

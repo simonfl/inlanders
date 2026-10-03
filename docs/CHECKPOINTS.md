@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **117**.
+- Playable checkpoints since adoption: **118**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
@@ -560,3 +560,6 @@ Checkpoint116: resource survey can hand its current camera directly to everyday 
 
 
 Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.
+
+
+Checkpoint118: inhabited frontage now uses two inland fields, an existing fishing landing and shared outdoor ground. Landing replaces kitchen garden and costs4additional invested logs, leaving8rather than12 in yard; total initial timber, people and72food stay matched. Crop capacity now40vegetables plus actual catches, not the old48vegetable claim. Both-mode fish/crop meals/exact continuation pass;960 native menu/household/survey/actions pass132702-230-river-hamlet-3866ea.1440 actual60simseconds at6x inspected132623-160-river-hamlet-98439a; no preference claim. Next119 removes public diet-score pressure rather than adding another purpose through needs.

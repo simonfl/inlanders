@@ -27,15 +27,17 @@ public sealed partial class World
                 b.Delivered=b.Required;b.Construction=1;b.EstablishmentPending=false;return b;
             }
             foreach(var (at,turn) in new[]{(new Cell(-2,-10),1),(new Cell(3,-7),0),(new Cell(4,-2),1),(new Cell(4,4),1),(new Cell(2,9),2),(new Cell(-3,10),1)})Ready(at,BuildingKind.Cottage,turn);
-            foreach(var at in new[]{new Cell(1,-6),new Cell(1,0),new Cell(0,5)})
-            {var b=Ready(at,at.Z==5?BuildingKind.VegetableGarden:BuildingKind.VegetableField,at.Z==5?0:1);b.Planted=true;b.Growth=.6f;}
+            foreach(var at in new[]{new Cell(1,-6),new Cell(1,0)})
+            {var b=Ready(at,BuildingKind.VegetableField,1);b.Planted=true;b.Growth=.6f;}
+            Ready(new(8,5),BuildingKind.FishingDock,1);
             if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Frontage households refused");
             w.ReconcileHomes();foreach(var person in w.People)person.Position=w.Cottages.First(c=>c.Id==person.HomeId).Entrance.Point;
             foreach(var b in w.Cottages)if(!w.ConnectPaths(w.YardAccess,b.Entrance))throw new InvalidOperationException("Frontage approach unavailable");
-            w._yardLogs=12;w.InitialLogs=w.SawnLogs+w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
+            w._yardLogs=8;w.InitialLogs=w.SawnLogs+w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
             w.Food.InitialBerries=w.Food.Berries=72;
+            if(!w.SetCommons(new(0,5)))throw new InvalidOperationException("Frontage shared ground unavailable");
             w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
-            w.History.Clear();w.History.Add("Homes follow the river; cultivated strips reach inland toward the woodlot. The same twelve neighbors, two fields, kitchen garden and reserves as the inlet. Keep the long frontage, bring a household closer to work, or open another shared clearing. Nothing must be built to finish.");
+            w.History.Clear();w.History.Add("Homes follow the river; cultivated strips reach inland toward the woodlot. Twelve neighbors share two fields, a fishing landing and outdoor ground. The landing replaces the inlet kitchen garden: four more logs invested, four fewer in the yard (eight), with the same total timber investment and72 initial food. Fields yield40 vegetables per combined crop; the river supplies actual catches instead of the garden’s8 vegetables. Keep the long frontage, shorten a journey or reshape a yard. Nothing must be built to finish.");
         }
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }

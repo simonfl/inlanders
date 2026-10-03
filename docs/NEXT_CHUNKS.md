@@ -1,6 +1,6 @@
 # Active batch111–120 — river-frontage comparison
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count117. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count118. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
 
 | Checkpoint | Intended playable outcome |
 | --- | --- |
@@ -40,3 +40,6 @@ Checkpoint116: resource survey can hand its current camera directly to everyday 
 
 
 Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.
+
+
+Checkpoint118: inhabited frontage now uses two inland fields, an existing fishing landing and shared outdoor ground. Landing replaces kitchen garden and costs4additional invested logs, leaving8rather than12 in yard; total initial timber, people and72food stay matched. Crop capacity now40vegetables plus actual catches, not the old48vegetable claim. Both-mode fish/crop meals/exact continuation pass;960 native menu/household/survey/actions pass132702-230-river-hamlet-3866ea.1440 actual60simseconds at6x inspected132623-160-river-hamlet-98439a; no preference claim. Next119 removes public diet-score pressure rather than adding another purpose through needs.
