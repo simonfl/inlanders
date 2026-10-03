@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **126**.
+- Playable checkpoints since adoption: **127**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
 - Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
@@ -602,3 +602,6 @@ Checkpoint125: cultivated strips now have raised earth shoulders, dark furrows a
 
 
 Checkpoint126: Play now offers A working clearing: eight housed residents, two small strips apart from four homes,16 spare logs/4planks/80food, Normal/relaxed and distinct current save/restart identity. It is a different starting situation, not equal-population comparison with the finished hamlet. One four-row strip failed a60-minute no-change test despite passing20minutes; replaced with two two-row strips at identical area/investment to give sufficient concurrent farm work. Keep, move-one-field and add-landing alternatives each pass60simminutes with zero hungry ticks in both modes and exact continuation. Native960 actual menu/household/save and ordinary life passed142319-713-working-clearing-7dabc9 (24.9s), zero-warning build. Next127 tests direct manipulation of an existing field edge; no new needs or prescribed completion.
+
+
+Checkpoint127: existing strips expose a gold far-edge handle that can be dragged directly on the land. Dragging changes only the proposal; explicit apply/cancel, timber/preparation and crop-loss rules remain shared with button controls. Native960 actual mouse press/move/release, unchanged-world proposal, apply and preparation passed142636-635-plot-revision-2f484c (55.47s), zero-warning build. Next128 reuses route previews while moving existing places to connect arrangement with possible daily journeys.

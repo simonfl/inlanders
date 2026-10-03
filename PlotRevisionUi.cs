@@ -18,7 +18,7 @@ public partial class Game
         _revisionApply=Button("Use this ground",()=>{if(_revisionRows>_world.PreparedPlotRows(_world.Cottages.Single(c=>c.Id==_reshapingPlot))?_world.ExtendCultivation(_reshapingPlot,_revisionRows):_world.ReviseCultivation(_reshapingPlot,_revisionRows)){EndPlotRevision();CreateActors();RenderActors(0);RenderFoodViews();RefreshSelection();}});actions.AddChild(_revisionApply);
         actions.AddChild(Button("Cancel",EndPlotRevision));
     }
-    private void EndPlotRevision(){_reshapingPlot=-1;_revisionPanel.Hide();if(_revisionGround!=null)_revisionGround.Hide();_nextWorkCard=0;}
+    private void EndPlotRevision(){_dragPlotEdge=false;_reshapingPlot=-1;_revisionPanel.Hide();if(_revisionGround!=null)_revisionGround.Hide();_nextWorkCard=0;}
     private void RenderPlotRevision(Cottage site)
     {
         bool eligible=_world.PublicPlace!=null && site.Complete && site.Kind==BuildingKind.VegetableField;
@@ -29,8 +29,10 @@ public partial class Game
         bool extending=_revisionRows>_world.PreparedPlotRows(site);
         var problem=extending?_world.ExtendCultivationProblem(site.Id,_revisionRows):_world.ReshapePlotProblem(site.Id,_revisionRows,false);
         _revisionLess.Disabled=_revisionRows==1;_revisionMore.Disabled=_revisionRows==8;
-        _revisionInfo.Text=$"3 × {_revisionRows} tiles · {_revisionRows*4} vegetables/crop\n"+(problem??(extending?(_world.Creative?"Free preparation.":$"{(_revisionRows-_world.PreparedPlotRows(site))*2} extra logs delivered by shared workers.")+" Stored food stays; growing crops restart after preparation.":"Timber and food stay. Growing crops restart; previous working status stays."));_revisionApply.Disabled=problem!=null;
+        _revisionInfo.Text="Drag the gold end of the strip, or use the buttons. Apply when ready.\n"+$"3 × {_revisionRows} tiles · {_revisionRows*4} vegetables/crop\n"+(problem??(extending?(_world.Creative?"Free preparation.":$"{(_revisionRows-_world.PreparedPlotRows(site))*2} extra logs delivered by shared workers.")+" Stored food stays; growing crops restart after preparation.":"Timber and food stay. Growing crops restart; previous working status stays."));_revisionApply.Disabled=problem!=null;
         if(_revisionGround==null){_revisionGround=new();AddChild(_revisionGround);}Clear(_revisionGround);_revisionGround.Show();
+        var edge=RevisionEdge(site,_revisionRows);
+        Cylinder(_revisionGround,edge,.26f,.06f,new("edc57c"));
         foreach(var c in World.Footprint(site.Cell,site.Rotation,site.Kind,_revisionRows))GroundPatch(_revisionGround,c.X,c.Z,.88f,.88f,problem==null?new("69adb3"):new Color("bf7860"),.09f);
     }
 }

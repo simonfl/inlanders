@@ -16,6 +16,7 @@ public partial class Game
         if(_turnHome>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndHomeTurn();GetViewport().SetInputAsHandled();return;}
         if(_pathOrigin>=0 && (_pathOriginWorld!=_world || !_placing || _pathTool!=3)){_pathOrigin=-1;_pathOriginWorld=null;}
         if(_pathOrigin>=0 && (input is InputEventKey{Pressed:true,Keycode:Key.Escape} || input is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Right})){EndPlacePath();GetViewport().SetInputAsHandled();return;}
+        if(HandlePlotEdge(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleCultivationGesture(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleHouseholdMove(input)){GetViewport().SetInputAsHandled();return;}
         if(_reshapingPlot>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndPlotRevision();GetViewport().SetInputAsHandled();return;}
