@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **119**.
+- Playable checkpoints since adoption: **120**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
@@ -566,3 +566,6 @@ Checkpoint118: inhabited frontage now uses two inland fields, an existing fishin
 
 
 Checkpoint119: public resident mood no longer rewards a three-food diet or displays a completion score. It reflects actual meals/home/rest/breaks; relaxed missing meals remain penalty-free but are reported honestly. Public People and meal summaries omit variety grading; archive happiness/variety remains unchanged. Both-mode one-food versus varied-food independence, actual continuation and archive happiness checks pass.960 native mood inspection (person API-selected) plus menu/survey paths passed132905-348-river-hamlet-e2e0da, zero-warning build. Next120 completes observation camera return, full review and stop.
+
+
+Checkpoint120: following a resident now remembers the original place and camera (position/zoom/orientation); Back restores that view without rewinding time or changing the clock. Cycling residents preserves the observation origin. Native960 actual household follow/return now asserts exact camera and simulation, plus survey/action/mood paths passed133032-719-river-hamlet-16bdc6; zero-warning build. Ten authorized outcomes complete. Freeze for whole-game120, isolated ordinary/dense1x frame samples and final regression; no121.

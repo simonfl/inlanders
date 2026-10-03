@@ -1,6 +1,6 @@
 # Active batch111–120 — river-frontage comparison
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count119. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count120. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
 
 | Checkpoint | Intended playable outcome |
 | --- | --- |
@@ -46,3 +46,6 @@ Checkpoint118: inhabited frontage now uses two inland fields, an existing fishin
 
 
 Checkpoint119: public resident mood no longer rewards a three-food diet or displays a completion score. It reflects actual meals/home/rest/breaks; relaxed missing meals remain penalty-free but are reported honestly. Public People and meal summaries omit variety grading; archive happiness/variety remains unchanged. Both-mode one-food versus varied-food independence, actual continuation and archive happiness checks pass.960 native mood inspection (person API-selected) plus menu/survey paths passed132905-348-river-hamlet-e2e0da, zero-warning build. Next120 completes observation camera return, full review and stop.
+
+
+Checkpoint120: following a resident now remembers the original place and camera (position/zoom/orientation); Back restores that view without rewinding time or changing the clock. Cycling residents preserves the observation origin. Native960 actual household follow/return now asserts exact camera and simulation, plus survey/action/mood paths passed133032-719-river-hamlet-16bdc6; zero-warning build. Ten authorized outcomes complete. Freeze for whole-game120, isolated ordinary/dense1x frame samples and final regression; no121.

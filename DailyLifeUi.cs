@@ -10,7 +10,9 @@ public partial class Game
     private Button _dailySource=null!,_dailyMove=null!,_dailyRestore=null!,_dailyFollow=null!,_dailyDetails=null!;
     private Line2D _dailyRoute=null!;
     private int _dailyPerson=-1;
-    private World? _dailyWorld;
+    private World? _dailyWorld,_dailyReturnWorld;
+    private Vector3 _dailyReturnFocus;
+    private float _dailyReturnZoom,_dailyReturnAngle;
     private DailyJourney? _dailyJourney;
     private float _nextDaily;
     private string? _dailyRestoreProblem;
@@ -25,7 +27,7 @@ public partial class Game
         _dailyRoute=new(){Width=3,DefaultColor=new("edc57c"),Antialiased=true};_hud.AddChild(_dailyRoute);
         _dailyCard=HudPanel(_hud);var column=new VBoxContainer();_dailyCard.AddChild(column);
         var row=new HBoxContainer();column.AddChild(row);
-        row.AddChild(Button("Next resident",()=>ShowDailyLife((_dailyPerson+1)%_world.Population)));
+        row.AddChild(Button("Next resident",()=>ShowDailyLife((_dailyPerson+1)%_world.Population,_householdOrigin,true)));
         row.AddChild(Button("Journey",()=>{_dailyExpanded=!_dailyExpanded;}));
         _dailyDetails=Button("Details",()=>{int id=_dailyPerson;_dailyPerson=-1;SelectPerson(id);ShowInspector();});row.AddChild(_dailyDetails);
         row.AddChild(Button("×",()=>{_dailyPerson=-1;ClearSelection();}));
@@ -34,11 +36,13 @@ public partial class Game
         _dailySource=Button("Inspect food",()=>{if(_dailyJourney?.Source is int id){_dailyPerson=-1;if(_world.PublicPlace!=null)ShowWorkplaceCard(id);else{SelectBuilding(id);ShowInspector();}}else{var at=_dailyJourney?.Route.LastOrDefault()??_world.YardAccess;_focus=OnGround(at.X,at.Z);UpdateCamera();}});actions.AddChild(_dailySource);
         _dailyMove=Button("Try home elsewhere",()=>{var p=_world.People[_dailyPerson];if(p.HomeId is not int id)return;_selectedSite=id;_selectedPerson=-1;BeginRelocation();});actions.AddChild(_dailyMove);
         _dailyFollow=Button("Follow",()=>_followPerson=!_followPerson);actions.AddChild(_dailyFollow);
-        _dailyHomeBack=Button("Back to household",()=>{int id=_householdOrigin;_followPerson=false;ShowWorkplaceCard(id);});column.AddChild(_dailyHomeBack);
+        _dailyHomeBack=Button("Back to household",()=>{int id=_householdOrigin;_followPerson=false;_watchOrbit=false;ShowWorkplaceCard(id);
+            if(_dailyReturnWorld==_world){_focus=_dailyReturnFocus;_camera.Size=_dailyReturnZoom;_angle=_dailyReturnAngle;UpdateCamera();}});column.AddChild(_dailyHomeBack);
         _dailyRestore=Button("Restore trial building",RestoreTrialInWorld);column.AddChild(_dailyRestore);_dailyCard.Hide();
     }
-    private void ShowDailyLife(int id, int origin=-1)
+    private void ShowDailyLife(int id, int origin=-1,bool preserveReturnView=false)
     {
+        if(!preserveReturnView || _dailyReturnWorld!=_world){_dailyReturnWorld=_world;_dailyReturnFocus=_focus;_dailyReturnZoom=_camera.Size;_dailyReturnAngle=_angle;}
         _householdOrigin=origin>=0?origin:_world.People[id].HomeId??-1;_householdOriginWorld=_world;
         CloseDrawer();_inspector.Hide();_selectedPerson=id;_selectedSite=-1;_dailyPerson=id;_nextDaily=0;RefreshSelection();
     }
@@ -59,6 +63,7 @@ public partial class Game
         _dailyMove.TooltipText=p.HomeId is int homeId?(_world.RelocationProblem(homeId)??(_world.Creative || _world.Founding!=null?"Move this home freely. Residents keep their home assignment.":"Try this home in another place. Restore its position from this card; daily life keeps progressing.")):"This resident has no home.";
         var origin=_world.Cottages.FirstOrDefault(c=>c.Id==_householdOrigin);
         _dailyHomeBack.Visible=_householdOriginWorld==_world && origin!=null;
+        _dailyHomeBack.TooltipText="Return to the place and camera view where observation began. Time and daily life keep their current state.";
         _dailyHomeBack.Text=origin!=null && Buildings.Get(origin.Kind).Beds>0?"Back to household":"Back to "+(origin==null?"place":BuildingName(origin.Kind));
         _dailyRestore.Visible=_world.Neighborhood?.Arrangement?.BuildingId!=null;
         _dailyRestore.TooltipText=_dailyRestoreProblem??"Restore the original location. Food, time and work are not rewound.";
