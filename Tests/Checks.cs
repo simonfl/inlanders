@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--shared-place-scale")){try{SharedPlaceScaleChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--relocation-livelihood")){try{RelocationLivelihoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--working-clearing")){try{WorkingClearingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--field-extension")){try{FieldExtensionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

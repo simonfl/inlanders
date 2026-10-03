@@ -33,7 +33,7 @@ public partial class Game
         _commonsCard.Position=new(_hud.Size.X-322,92);_commonsCard.Size=new(306,0);
         int eating=_world.People.Count(p=>p.Task==Work.EatingMeal && p.Meal?.Commons==true);
         int arriving=_world.People.Count(p=>p.Meal?.Commons==true && p.Task!=Work.EatingMeal);
-        _commonsCardText.Text=$"SHARED MEAL PLACE\n{eating} eating here · {arriving} on the way\n"+
+        _commonsCardText.Text=$"SHARED MEAL PLACE · {place.Places.Length} seats\n{eating} eating here · {arriving} on the way\n"+
             (_world.CommonsFoodNearby(place.Center)?"Food is available nearby. Neighbors bring their ordinary meals.":"No food available nearby now. Move closer to food or restore the nearby supply.")+"\nMoving or removing this place is free.";
     }
 }

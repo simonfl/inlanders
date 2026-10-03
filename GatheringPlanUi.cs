@@ -5,6 +5,9 @@ using System.Linq;
 public partial class Game
 {
     private bool _gatherPlanning,_gatherSpread=true,_planningCommons;
+    private int _commonsSeats=6;
+    private HBoxContainer _commonsSizes=null!;
+    private readonly Button[] _commonsSizeButtons=new Button[3];
     private Button _commonsEntry=null!,_commonsRemove=null!;
     private Label _gatherPlanTitle=null!;
     private Cell? _gatherPlanAt;
@@ -20,6 +23,8 @@ public partial class Game
         MakeCommonsCard();
         _gatherPlanPanel=HudPanel(_hud);_gatherPlanPanel.Hide();var column=new VBoxContainer();_gatherPlanPanel.AddChild(column);
         _gatherPlanTitle=Text("OUTDOOR MEAL",16);column.AddChild(_gatherPlanTitle);_gatherPlanInfo=Text("",14,true);column.AddChild(_gatherPlanInfo);
+        _commonsSizes=new();column.AddChild(_commonsSizes);
+        for(int i=0;i<3;i++){int seats=(i+1)*2;var button=Button($"{seats} seats",()=>{_commonsSeats=seats;_gatherPlanRefresh=0;UpdateGatheringPlan();});button.SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;_commonsSizeButtons[i]=button;_commonsSizes.AddChild(button);}
         _gatherLayout=Button("Seating: circle",()=>{_gatherSpread=!_gatherSpread;_gatherPlanRefresh=0;UpdateGatheringPlan();});column.AddChild(_gatherLayout);
         _gatherPlanStart=Button("Gather at these places",ConfirmGatheringPlan);column.AddChild(_gatherPlanStart);
         column.AddChild(Button("Cancel [Esc]",CancelGatheringPlan));_gatherPlanMarks=new();AddChild(_gatherPlanMarks);
@@ -28,6 +33,7 @@ public partial class Game
     {
         if(commons?!_world.CanArrangeCommons:_world.Neighborhood?.Complete!=true || _world.Gathering?.Active==true)return;
         CloseManagementUi();_placing=false;RefreshGhost();CancelCameraDrag();
+        _commonsSizes.Visible=commons;_commonsSeats=center!=null && _world.Commons is {} prior?prior.Places.Length:6;
         _planningCommons=commons;_gatherPlanTitle.Text=commons?"SHARED PLACE":"OUTDOOR MEAL";_gatherPlanStart.Text=commons?"Keep this shared place":"Gather at these places";_gatherLayout.Visible=!commons;
         _gatherPlanning=true;_gatherPlanWorld=_world;_gatherPlanAt=center;_gatherPlanPanel.Show();_gatherPlanRefresh=0;UpdateGatheringPlan();
     }
@@ -44,12 +50,13 @@ public partial class Game
         if(_gatherPlanWorld!=_world || _placing || _watching || _atMainMenu){CancelGatheringPlan();return;}
         _gatherPlanPanel.Position=new(_hud.Size.X-310,92);_gatherPlanPanel.Size=new(294,0);
         if(_uiTime<_gatherPlanRefresh)return;_gatherPlanRefresh=_uiTime+.25f;
-        var seats=_gatherPlanAt is Cell at?(_planningCommons?_world.CommonsPlaces(at):_world.GatheringPlaces(at,_gatherSpread)):System.Array.Empty<Cell>();
-        string? problem=_gatherPlanAt is Cell target?(_planningCommons?_world.CommonsProblem(target):_world.GatheringProblem(target,_gatherSpread)):"Click open ground to preview real places. No building is required.";
+        var seats=_gatherPlanAt is Cell at?(_planningCommons?_world.CommonsPlaces(at,_commonsSeats):_world.GatheringPlaces(at,_gatherSpread)):System.Array.Empty<Cell>();
+        string? problem=_gatherPlanAt is Cell target?(_planningCommons?_world.CommonsProblem(target,_commonsSeats):_world.GatheringProblem(target,_gatherSpread)):"Click open ground to preview real places. No building is required.";
+        for(int i=0;i<3;i++)_commonsSizeButtons[i].Modulate=_commonsSeats==(i+1)*2?_cream:Colors.White;
         _gatherLayout.Text=_gatherSpread?"Seating: circle":"Seating: compact";
         _gatherPlanStart.Disabled=problem!=null;
         _gatherPlanInfo.Text=$"{seats.Length}/{_world.Population} reachable places\n"+(problem??"Each marker is a real place. Everyone brings their next meal, waits together, then eats.")+"\n\nChoose another spot by clicking ground. Middle-drag or WASD moves the camera. No food is committed until you confirm.";
-        if(_planningCommons)_gatherPlanInfo.Text=$"{seats.Length}/6 reachable places\n"+(problem??"People bring ordinary meals here; no waiting for the whole village.")+"\n"+(_gatherPlanAt is Cell foodAt && _world.CommonsFoodNearby(foodAt)?"Food is available nearby now.":"No available food nearby. Place near a food store, or add food access before expecting visits.")+"\n\nClick another spot. Move or remove from Your place / Goals.";
+        if(_planningCommons)_gatherPlanInfo.Text=$"{seats.Length}/{_commonsSeats} reachable places\n"+(problem??"People bring ordinary meals here; no waiting for the whole village.")+"\n"+(_gatherPlanAt is Cell foodAt && _world.CommonsFoodNearby(foodAt)?"Food is available nearby now.":"No available food nearby. Place near a food store, or add food access before expecting visits.")+"\n\nClick another spot. Move or remove from Your place / Goals.";
         string key=$"{_gatherPlanAt}:{_gatherSpread}:{problem}:"+string.Join(';',seats);if(key==_gatherPlanKey)return;
         Clear(_gatherPlanMarks);_gatherPlanKey=key;
         foreach(var cell in seats)Cylinder(_gatherPlanMarks,OnGround(cell.X,cell.Z,.04f),.30f,.05f,new(problem==null?"d7bf83":"c48170"));
@@ -58,7 +65,7 @@ public partial class Game
     private void ConfirmGatheringPlan()
     {
         if(_gatherPlanAt is not Cell at)return;
-        if(!(_planningCommons?_world.SetCommons(at):_world.BeginGathering(at,_gatherSpread))){_gatherPlanRefresh=0;UpdateGatheringPlan();Notice((_planningCommons?_world.CommonsProblem(at):_world.GatheringProblem(at,_gatherSpread))??"Choose another spot.");return;}
+        if(!(_planningCommons?_world.SetCommons(at,_commonsSeats):_world.BeginGathering(at,_gatherSpread))){_gatherPlanRefresh=0;UpdateGatheringPlan();Notice((_planningCommons?_world.CommonsProblem(at,_commonsSeats):_world.GatheringProblem(at,_gatherSpread))??"Choose another spot.");return;}
         bool commons=_planningCommons;CancelGatheringPlan();SaveWorld();UpdateHud();if(commons){if(_world.PublicPlace!=null)ShowCommonsCard();Notice("A shared place for ordinary meals. Click its ground to watch, move or remove it.");return;}Notice("People will bring their next meal here. Goals shows the gathering and lets you cancel.");
     }
     private bool HandleGatheringPlanInput(InputEvent input)

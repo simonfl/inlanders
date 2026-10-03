@@ -13,8 +13,10 @@ public partial class Game
         await OpenMenu(2);await UiClick(_world.Founding!=null?_foundingCommons:_commonsEntry);await Frames();
         _focus=OnGround(center.X,center.Z);_camera.Size=17;UpdateCamera();await Frames();
         await Click(_camera.UnprojectPosition(OnGround(center.X,center.Z)));await Frames();
+        await UiClick(_commonsSizeButtons[0]);await Frames();
+        Check(_gatherPlanInfo.Text.Contains("2/2 reachable") && _gatherPlanPanel.GetGlobalRect().End.Y<_hud.Size.Y-70,"Small shared proposal missing or clipped");
         Check(!_gatherPlanStart.Disabled,"Commons ground plan refused");await CaptureReviewBundle("commons-plan");
-        await UiClick(_gatherPlanStart);await Frames();Check(_world.Commons!=null,"Commons confirmation failed");
+        await UiClick(_gatherPlanStart);await Frames();Check(_world.Commons?.Places.Length==2,"Commons confirmation ignored chosen scale");
         await CaptureReviewBundle("commons-empty");
         for(int i=0;i<1800 && !_world.People.Any(p=>p.Meal?.Commons==true && p.Task==Work.EatingMeal);i++)
         {_world.Tick(.1f);if(i%50==0){RenderActors(0);UpdateHud();await Frames();}}
