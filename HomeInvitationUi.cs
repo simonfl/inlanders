@@ -15,7 +15,7 @@ public partial class Game
     private void RenderHomeInvitation(Cottage home)
     {
         int beds=Buildings.Get(home.Kind).Beds;
-        _homeInvite.Visible=_homeOptions && _world.PublicPlace!=null && home.Complete && beds>0 && !home.DemolitionRequested && _yardPreviewSide<0 && _placeJourneySite!=home.Id && beds-_world.People.Count(p=>p.HomeId==home.Id)>=2;
+        _homeInvite.Visible=_homeOptions && _homeMore && _world.PublicPlace!=null && home.Complete && beds>0 && !home.DemolitionRequested && _yardPreviewSide<0 && _placeJourneySite!=home.Id && beds-_world.People.Count(p=>p.HomeId==home.Id)>=2;
         _homeInvite.Disabled=_world.HomeInvitationProblem(home.Id)!=null;
         _homeInvite.TooltipText=_world.HomeInvitationProblem(home.Id)??$"Two neighbors will use this home and share the work. Population {_world.Population} → {_world.Population+2}; food demand {_world.Population} → {_world.Population+2} portions/minute. {_world.EdibleStored} portions stored now; storage is not a promise of continued supply. Staying small is fine.";
     }

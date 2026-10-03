@@ -48,9 +48,9 @@ public partial class Game
             Check(!_householdChange.Visible && !_workCardDetails.Visible,"Secondary home actions exposed by default");await UiClick(_homeOptionsButton);await Frames();
             var other=_world.Cottages.First(c=>c.Id!=home.Id && c.Complete && Buildings.Get(c.Kind).Beds>0);var others=_world.People.Where(p=>p.HomeId==other.Id).Select(p=>p.Id).ToArray();
             _focus=BuildingPosition(other);_camera.Size=20;UpdateCamera();await Frames();
-            await UiClick(_householdChange);await Frames();var point=_camera.UnprojectPosition(BuildingPosition(other));await Click(point);await Frames();Check(_householdTo==other.Id && !_householdConfirm.Disabled,"Home choice not actionable");
+            await UiClick(_homeMoreButton);await Frames();await UiClick(_householdChange);await Frames();var point=_camera.UnprojectPosition(BuildingPosition(other));await Click(point);await Frames();Check(_householdTo==other.Id && !_householdConfirm.Disabled,"Home choice not actionable");
             await CaptureReviewBundle("household-exchange-proposal");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled household exchange changed state");
-            await UiClick(_homeOptionsButton);await Frames();await UiClick(_householdChange);await Frames();await Click(point);await Frames();await UiClick(_householdConfirm);await Frames();Check(residents.All(p=>p.HomeId==other.Id) && others.All(id=>_world.People[id].HomeId==home.Id),"Households did not exchange");_world.Validate();await CaptureReviewBundle("chosen-households");
+            await UiClick(_homeOptionsButton);await Frames();await UiClick(_homeMoreButton);await Frames();await UiClick(_householdChange);await Frames();await Click(point);await Frames();await UiClick(_householdConfirm);await Frames();Check(residents.All(p=>p.HomeId==other.Id) && others.All(id=>_world.People[id].HomeId==home.Id),"Households did not exchange");_world.Validate();await CaptureReviewBundle("chosen-households");
         }
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="quiet-visit")
         {

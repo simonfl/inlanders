@@ -12,7 +12,7 @@ public partial class Game
     private string _turnKey="";
     private void MakeHomeTurn(VBoxContainer column)
     {
-        _turnHomeButton=Button("Turn home · preview",()=>{var home=_world.Cottages.Single(c=>c.Id==_workCardSite);_turnHome=home.Id;_turnWorld=_world;_homeTurn=home.Rotation;_turnKey="";});column.AddChild(_turnHomeButton);
+        _turnHomeButton=Button("Turn home",()=>{var home=_world.Cottages.Single(c=>c.Id==_workCardSite);_turnHome=home.Id;_turnWorld=_world;_homeTurn=home.Rotation;_turnKey="";});column.AddChild(_turnHomeButton);
         _turnPanel=HudPanel(_hud);var box=new VBoxContainer();_turnPanel.AddChild(box);box.AddChild(Text("TURN THIS HOME",15));
         _turnInfo=Text("",14,true);_turnInfo.CustomMinimumSize=new(280,0);box.AddChild(_turnInfo);
         var row=new HBoxContainer();box.AddChild(row);_turnLeft=Button("Turn left",()=>_homeTurn=(_homeTurn+3)%4);row.AddChild(_turnLeft);_turnRight=Button("Turn right",()=>_homeTurn=(_homeTurn+1)%4);row.AddChild(_turnRight);
