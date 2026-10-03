@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **130**.
+- Playable checkpoints since adoption: **131**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint130**, [synthesis](REVIEW_CHECKPOINT_130.md), fixed9cacabf. Five independent reused contexts after thread quota, partially convincing. Stop130 for human choice/attention evidence; narrow preview wording correction adds no outcome.
 - Previous periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
@@ -621,3 +621,6 @@ Checkpoint130: shared meal ground now has six permanent low stools at the actual
 
 
 Final130 validation: all41 current-experience suites passed exit0, run bef67629662c4de8beefe27a569bfb1a, assembly 558ab58f-6ece-4486-b425-0ec5473e255a, log artifacts/checkpoint130-current.log. This includes extension cancellation, relocation connections, descriptive life and all six60-minute working-clearing branches. Corrected DLL FF13CE9E2CB5FA7F0B18C0C87150B66F791A02AB31AC213C91DEB124B4BA78E1 built with zero warnings. The only postreview game delta is the independently verified limited-preview wording; fixed130 native controls/scene evidence remains explicitly before that text correction. Ten outcomes and both whole-game reviews complete. Stop130, no131.
+
+
+Checkpoint131: Play recommends the existing working clearing while retaining the founded/inhabited alternatives. The clearing mode page shows Normal and relaxed descriptions with compact New/Resume action rows, avoiding inventory paragraphs and hidden mode choices. Native960 actual menu rectangle assertions, entry, save and household controls passed154643-572-working-clearing-920beb (36.71s including build), zero-warning build. Next132 begins the continuous riverbank treatment; no new starting variant or rule system.

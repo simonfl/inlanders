@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Checkpoint130 complete; full review finished:** [synthesis](REVIEW_CHECKPOINT_130.md) judges the working clearing a better experiment, still only partially convincing. Ten outcomes121–130 and reviews125/130 are complete. Stop for play: no automatic131 queue, new needs or catalogue expansion. Existing alternatives test composition versus livelihood management; [active queue](NEXT_CHUNKS.md) records the comparison and conditional direction choices.
+**Authorized through140:** [review130](REVIEW_CHECKPOINT_130.md) remains partially convincing. The next coherent slice addresses F40b's whole landscape—riverbank, woodland margin, open ground and actual productive strips—alongside a recommended, compact first entry. Review135 selects the remaining five; review140 then stop. No new needs/catalogue/start variants. [Active queue](NEXT_CHUNKS.md).
 
 **Earlier checkpoint120:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. The subsequently authorized121–130 batch is now complete.
 
@@ -177,3 +177,6 @@ Checkpoint130: shared meal ground now has six permanent low stools at the actual
 
 
 Final130 validation: all41 current-experience suites passed exit0, run bef67629662c4de8beefe27a569bfb1a, assembly 558ab58f-6ece-4486-b425-0ec5473e255a, log artifacts/checkpoint130-current.log. This includes extension cancellation, relocation connections, descriptive life and all six60-minute working-clearing branches. Corrected DLL FF13CE9E2CB5FA7F0B18C0C87150B66F791A02AB31AC213C91DEB124B4BA78E1 built with zero warnings. The only postreview game delta is the independently verified limited-preview wording; fixed130 native controls/scene evidence remains explicitly before that text correction. Ten outcomes and both whole-game reviews complete. Stop130, no131.
+
+
+Checkpoint131: Play recommends the existing working clearing while retaining the founded/inhabited alternatives. The clearing mode page shows Normal and relaxed descriptions with compact New/Resume action rows, avoiding inventory paragraphs and hidden mode choices. Native960 actual menu rectangle assertions, entry, save and household controls passed154643-572-working-clearing-920beb (36.71s including build), zero-warning build. Next132 begins the continuous riverbank treatment; no new starting variant or rule system.

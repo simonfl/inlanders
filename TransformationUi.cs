@@ -6,14 +6,15 @@ public partial class Game
     private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
     private void TransformationMenu()
     {
-        MenuPage("Choose a beginning");
-        _mainColumn.AddChild(Text("Establish your own home and livelihood, or reshape a place already alive.",18,true));
-        MenuButton("Establish a farmstead",PlayerFoundedMenu);
-        _mainColumn.AddChild(Text("Eight neighbors, open land and provisions. Choose where homes and work belong.",15,true));
+        MenuPage("Make a place your own");
+        _mainColumn.AddChild(Text("Recommended first visit",18,true));
         MenuButton("Tend a working clearing",WorkingClearingMenu);
-        _mainColumn.AddChild(Text("Eight neighbors already have homes and cultivated ground. Room to bring home, land and shore together.",15,true));
+        _mainColumn.AddChild(Text("Eight neighbors, four homes and two small fields. A modest place to explore and reshape at your own pace.",15,true));
+        _mainColumn.AddChild(Text("Other beginnings",18,true));
+        MenuButton("Establish a farmstead",PlayerFoundedMenu);
+        _mainColumn.AddChild(Text("Start with open land and provisions; choose the first homes and livelihood.",15,true));
         MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
-        _mainColumn.AddChild(Text("Twelve neighbors with homes and working fields. Bring everyday life closer across an inlet.",15,true));
+        _mainColumn.AddChild(Text("Start with twelve neighbors and a larger working settlement.",15,true));
         MenuButton("Back",ShowMainMenu);
     }
     private void HamletMenu(bool cultivatedBank,bool groupedFarmsteads=false,bool acrossTheInlet=false)
