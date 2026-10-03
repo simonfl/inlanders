@@ -32,7 +32,7 @@ public partial class Game
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
         _workCardWatchPlace=Button("Watch this place",()=>{
             var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
-            ClearSelection();
+            CloseDrawer();
             if(Buildings.Get(home.Kind).Beds>0)FrameHomeYard(home,home.YardSide,false);
             else{_focus=BuildingPosition(home);_camera.Size=home.Kind is BuildingKind.Farm or BuildingKind.VegetableField?17:14;_followPerson=false;_watchOrbit=false;UpdateCamera();}
             ToggleWatch();

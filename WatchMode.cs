@@ -4,7 +4,9 @@ public partial class Game
 {
     private bool _watching;
     private bool _cleanWatch;
-    private bool _watchOrbit;
+    private bool _watchOrbit, _watchMore;
+    private HBoxContainer _watchExtras=null!;
+    private Button _watchMoreButton=null!;
     private Button _watchOrbitButton = null!;
     private Control _watchRoot = null!;
     private PanelContainer _watchBar = null!;
@@ -16,14 +18,16 @@ public partial class Game
         _watchRoot=new Control { MouseFilter=Control.MouseFilterEnum.Ignore, Theme=HudTheme() };
         layer.AddChild(_watchRoot); _watchRoot.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _watchBar=HudPanel(_watchRoot);
-        var row=new HBoxContainer(); row.AddThemeConstantOverride("separation",8); _watchBar.AddChild(row);
-        _watchReturn=Button("Manage [H]",ExitWatch,126); row.AddChild(_watchReturn);
+        var column=new VBoxContainer();_watchBar.AddChild(column);var row=new HBoxContainer(); row.AddThemeConstantOverride("separation",8); column.AddChild(row);
+        _watchReturn=Button("Return [H]",ExitWatch,126); row.AddChild(_watchReturn);
         _watchPause=Button("Pause",TogglePause,90); row.AddChild(_watchPause);
         _watchSpeed=Button("1×",()=>_speed=_speed==1?3:_speed==3?6:1,48); row.AddChild(_watchSpeed);
-        row.AddChild(Button("Frame map",FrameMap,100));
-        _watchLabelsButton = Button("", ToggleWorldLabels, 100); row.AddChild(_watchLabelsButton); UpdateLabelButtons();
-        _watchClean=Button("Clean view [Tab]",ToggleCleanWatch,140); row.AddChild(_watchClean);
-        _watchOrbitButton=Button("Orbit [J]",ToggleWatchOrbit,130); row.AddChild(_watchOrbitButton);
+        _watchMoreButton=Button("View options",()=>{_watchMore=!_watchMore;UpdateWatchUi();});row.AddChild(_watchMoreButton);
+        _watchExtras=new();column.AddChild(_watchExtras);
+        _watchExtras.AddChild(Button("Frame map",FrameMap,100));
+        _watchLabelsButton = Button("", ToggleWorldLabels, 100); _watchExtras.AddChild(_watchLabelsButton); UpdateLabelButtons();
+        _watchClean=Button("Clean view [Tab]",ToggleCleanWatch,140); _watchExtras.AddChild(_watchClean);
+        _watchOrbitButton=Button("Orbit [J]",ToggleWatchOrbit,130); _watchExtras.AddChild(_watchOrbitButton);
         _watchOrbitButton.TooltipText="Slowly circle the current focus, even while paused. Stops following a resident. J stops the orbit; pan, zoom, Q/E, Frame map or a saved view takes over immediately.";
         _watchBar.TooltipText="Drag / WASD pan · Wheel zoom · Q/E orbit · Space pause · 1–3 saved views · Ctrl+1–3 saves · Tab hides/restores controls and labels · H or Esc returns to management";
         _watchRoot.Hide();
@@ -33,7 +37,7 @@ public partial class Game
         if(_watching) { ExitWatch(); return; }
         if(_atMainMenu) return;
         StopYardPreview();StopResourceSurvey();
-        _watching=true;
+        _watching=true;_watchMore=false;
         // Cancel the placement gesture, but retain the drawer, selection and camera follow.
         _placing=false; _pathStroke=false; _lastPathCell=null;
         RefreshGhost(); _selection.Hide(); _hud.Hide(); _watchRoot.Show();
@@ -67,8 +71,11 @@ public partial class Game
     private void UpdateWatchUi()
     {
         if(!_watching) return;
-        _watchBar.Size=new(840,58);
-        _watchBar.Position=new((_watchRoot.Size.X-_watchBar.Size.X)/2,_watchRoot.Size.Y-74);
+        bool simple=_world.PublicPlace!=null;
+        _watchMoreButton.Visible=simple;_watchMoreButton.Text=_watchMore?"Fewer controls":"View options";
+        _watchExtras.Visible=!simple || _watchMore;
+        _watchBar.Size=Vector2.Zero;
+        _watchBar.Position=new((_watchRoot.Size.X-_watchBar.Size.X)/2,_watchRoot.Size.Y-_watchBar.Size.Y-16);
         _watchPause.Text=_paused?"Resume":"Pause";
         _watchSpeed.Text=$"{_speed}×";
         _watchOrbitButton.Text=_watchOrbit?"Stop orbit [J]":"Orbit [J]";

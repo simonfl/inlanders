@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **109**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
+**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **110**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
 
 Choose a world-first surface over competing management panels, keeping the existing simulation: accessible timber work, temporary food inspection, grouped home changes, simpler public navigation and coherent watching/finishing. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns106–110 and checks. No new scenario, scheduler, needs or building types in this batch. Full catalogue and keyboard paths remain available. Stop after110 review.
 
@@ -106,3 +106,6 @@ Checkpoint108: home selection leads with residents/use/watching; Move, furnishin
 
 
 Checkpoint109: public persistent navigation is Build/Village; Village has People, Supplies and Options links, while existing V/I/O shortcuts remain. Archived worlds restore the five domains. Shared native menu helper now follows visible public controls. Native960 all three secondary pages/Escape preserve simulation20261003-070234-747-household-7eb426; founding menu/placement/cancel/save-load/relaxed entry passed070246-356-first-place-6b6450. Zero-warning build; no simulation change.110 completes place watching with return context and compact controls, validates the batch and stops after full review.
+
+
+Checkpoint110: watching a selected place retains it for return without changing pause/speed; public watch mode starts with Return, clock controls and expandable view options. Expanded controls fit compact view. Native960 navigation/household/watch/return/supply/optional finish/watch/reopen/exact save-load passed20261003-070608-239-quiet-visit-993d74; image inspected. Zero-warning build. Final broad regression and refreshed full20-minute founding session underway; freeze for whole-game110 plus visual/audio, then stop. No claim of human discovery, enjoyment or listening.

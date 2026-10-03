@@ -550,5 +550,13 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 23
+  },
+  {
+    "name": "quiet-visit",
+    "description": "Whole public navigation, quiet place watching, finish/reopen/current save",
+    "generator": "across-inlet",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 23
   }
 ]
