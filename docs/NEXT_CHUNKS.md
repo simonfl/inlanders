@@ -1,23 +1,17 @@
-# Next work — stop at checkpoint120
+# Next work — checkpoints 121–130
 
-Count **120**. The ten authorized outcomes111–120 are complete, with whole-game reviews at [115](REVIEW_CHECKPOINT_115.md) and [120](REVIEW_CHECKPOINT_120.md). Stop for human judgment; no automatic121–125 queue.
+The user authorized ten more outcomes after120. This supersedes the previous stop, not the review findings. Core bet: reshaping an existing working landscape should be a satisfying activity in its own right. No new needs, resources or building catalogue entries.
 
-## Playable changes
+## First five
 
-- Open and inhabited river-frontage starts alongside the inlet, in Normal and relaxed modes.
-- Optional shore/open-ground/woodlot views, with direct building access that retains the chosen camera.
-- Consistent first-place/everyday home, drawn cultivation, landing and timber choices; full catalogue retained.
-- River shallows/depth, correct distant water edge and varied workable woodland with connected ground cover.
-- Inhabited frontage has two fields, a fishing landing and shared meal ground. It has8yardlogs versus the inlet’s12: four additional logs invested in the landing, equal total timber.40vegetables per combined crop plus actual fish replaces48vegetables; this is a livelihood comparison, not identical yields.
-- Public food variety is optional and no longer earns a happiness grade. Daily-life feedback remains; recreation wording distinguishes shared meals from a separate venue without prescribing one.
-- Following residents returns to the original place and camera; current simulation time is retained.
+121. **Done** — Extend an existing cultivated strip into new ground, with ordinary timber delivery/preparation and retained stored food.
+122. Turn an existing home in place with a preview of access and yard conflicts, without finding its anchor again.
+123. Give a home its own appearance directly from its world card; retain the broader inspector for details.
+124. Connect a selected place to another with a path in the world, retaining the origin and showing the actual route.
+125. Make cultivated ground and its working edge easier to read at village scale; evaluate the whole scene, then full review including visual/audio if presentation is substantial.
 
-## Next evidence
+126–130 remain contingent on review125. Candidate direction is a coherent home–work–shore arrangement, not five mandatory cosmetic additions. Revise/cut the queue if evidence contradicts it.
 
-Use Play → Establish a farmstead or Shape an inhabited hamlet, then the Landscape button to compare inlet and river frontage. Try the version you feel like playing, without a required order or session length.
+## Evidence and limits
 
-Useful reactions: what you wanted to change; why; whether you noticed someone’s life change; what you stopped to watch; and whether you finished satisfied, confused or indifferent. Review120 still finds the direction partially convincing. The complete inhabited scene may leave no wanted alteration; qualitative resident grades may still imply obligations. If those concerns appear in play, reconsider the core and feedback hierarchy before adding content.
-
-## Retained technical concerns
-
-Known intermittent Windows atomic-save replacement denial remains unexplained; a failed save keeps the village open. Dense archived1x sample contained a220ms wall-frame spike; ordinary frontage max57ms in a12s sample. Neither implies an established cause or performance regression. Later authorized diagnostics should target reproduced access/lock or Actors-phase evidence, using current tools. Audio has not received a listening review. No migrations, speculative frameworks or new needs.
+Test real delivery, blocked land, current saves and actual native controls; capture ordinary and wider village views. Source and scripted operation cannot decide whether a human wants a second alteration. Stop after130 and its full review. Known intermittent save denial, dense stutter and unauditioned audio remain open. Use existing capture/profiling tools; no speculative framework.

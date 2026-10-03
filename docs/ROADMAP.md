@@ -10,7 +10,9 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Checkpoint120 complete: stop for human judgment.** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. [NEXT_CHUNKS](NEXT_CHUNKS.md) records how to try it and the stopping point; no automatic121–125 queue.
+**Checkpoints121–130 authorized:** reshape existing home and working ground, review at125/130, then stop. See [active queue](NEXT_CHUNKS.md). Previous120 verdict remains the starting evidence, not a human playtest.
+
+**Checkpoint120 complete:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. [NEXT_CHUNKS](NEXT_CHUNKS.md) records how to try it and the stopping point; no automatic121–125 queue.
 
 The verdict remains partially convincing. A practical landing, inland fields and woodland provide a stronger place; fewer diet/UI obligations help authorship. Whether players want to reshape an already functioning hamlet remains unproven. Public qualitative mood may still imply a checklist. Keep founded/inhabited, inlet/frontage and Normal/relaxed comparisons; no new needs/resources/catalogue expansion to manufacture purpose.
 
@@ -142,3 +144,6 @@ Checkpoint120: following a resident now remembers the original place and camera 
 
 
 120 review follow-up (zero new playable count): independent design/UX reviewers found mandatory-sounding recreation wording beside shared meal ground. Public RecreationSummary now neutrally distinguishes commons meals from a separate recreation venue; no leisure simulation or grade added. PublicMood and archived happiness checks pass. Base120review/performance fixed2c240c3 remains recorded; narrow text correction is separately committed and presented to reviewers.
+
+
+Checkpoint121: existing cultivated strips can extend to eight rows with two logs per extra row and ordinary shared preparation in Normal; relaxed remains free. Stored food, identity and prior work setting stay; growing crops restart. Native960 existing plot shrink/cancel/extension and actual preparation passed 20261003-134951-417-plot-revision-da5692 (43.74s); proposal image inspected. Both-mode real delivery/crop/meals and exact continuation checks plus previous plot revisions pass. Zero-warning builds. Next122 tests direct home orientation; no new economy system.

@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **120**.
+- Playable checkpoints since adoption: **121**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
 - Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
@@ -577,3 +577,6 @@ Checkpoint120: following a resident now remembers the original place and camera 
 
 
 120 closeout: all five independent whole-game verdicts consolidated in [review120](REVIEW_CHECKPOINT_120.md), including visual reviewer reuse after a thread limit and explicit unobserved areas. Corrected fixed-build native inhabited controls passed133521-189-river-hamlet-740b65; actual founding/menu/save-load/construction/meals/home rest passed133608-278-river-frontage-3e7412 in65.95s. All37 final current-experience suites passed exit0, run e6199ab119024d8c9ad119d3f0836bf6, assembly cec8d911-ca67-4954-bea4-2425001519e8. Sequential base120 ordinary/dense1x samples recorded before the text-only correction. Known intermittent save denial remains unexplained; no listening or human enjoyment acceptance. Roadmap reevaluated; stop at120 with no automatic next batch. Review/documentation add no playable count.
+
+
+Checkpoint121: existing cultivated strips can extend to eight rows with two logs per extra row and ordinary shared preparation in Normal; relaxed remains free. Stored food, identity and prior work setting stay; growing crops restart. Native960 existing plot shrink/cancel/extension and actual preparation passed 20261003-134951-417-plot-revision-da5692 (43.74s); proposal image inspected. Both-mode real delivery/crop/meals and exact continuation checks plus previous plot revisions pass. Zero-warning builds. Next122 tests direct home orientation; no new economy system.

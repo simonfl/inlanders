@@ -74,7 +74,7 @@ public partial class Game
         _workCardSupply.Text=_showFoodMap?"Hide food stores":"Show food stores";
         if(site.Complete && _world.PublicPlace!=null && _world.ReadWorkplace(site).RestingForFood)detail=$"Food work is resting\n{_world.EdibleStored} portions stored for {_world.Population} neighbors. Shared workers return as supplies fall.";
         if(site.Kind==BuildingKind.VegetableField)detail+=$"\n3 × {site.Depth} tiles · {World.VegetableYield(site)} vegetables/crop";
-        if(_reshapingPlot==site.Id)detail="Choose how much of the prepared ground to cultivate.";
+        if(_reshapingPlot==site.Id)detail="Choose how much ground to cultivate.";
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
         _workCardYard.Visible=(!publicHome || _homeOptions) && _yardPreviewSide<0 && _world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;

@@ -25,6 +25,11 @@ public partial class Game
             Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-75,"Revision card overflows compact view");await Press(Key.Escape);await Frames();Check(_world.SaveJson()==saved,"Cancelled revision changed world");
             await UiClick(_reshapePlot);await Frames();await UiClick(_revisionLess);await Frames();await UiClick(_revisionApply);await Frames();Check(field.Depth==2 && field.PreparedRows==3 && !field.WorkPaused,"Revision lost extent/state");
             Check(!field.WorkPaused,"Revision left work paused");await CaptureReviewBundle("ground-released");_world.Validate();
+            await UiClick(_reshapePlot);await Frames();await UiClick(_revisionMore);await UiClick(_revisionMore);await Frames();
+            Check(_revisionInfo.Text.Contains("2 extra logs") && !_revisionApply.Disabled,"Extension cost/proposal missing");await CaptureReviewBundle("extend-existing-ground");
+            await UiClick(_revisionApply);await Frames();Check(field.Depth==4 && field.Required==8 && !field.Complete,"Extension skipped preparation");
+            _paused=false;start=_uiTime;while(_uiTime-start<35 && !field.Complete)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _paused=true;Check(field.Complete,"Extended ground was not prepared");_world.Validate();await CaptureReviewBundle("extended-ground-prepared");
         }
         GD.Print("PASS: catalogue to actual variable strip, visible matching cost/extent, real preparation/crop/vegetable meal.");
     }

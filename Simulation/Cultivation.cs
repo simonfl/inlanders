@@ -17,6 +17,28 @@ public sealed partial class World
         try{return PlacementProblem(site.Cell,site.Rotation,site.Kind,rows);}
         finally{Cottages.Insert(index,site);}
     }
+    public string? ExtendCultivationProblem(int id,int rows)
+    {
+        var site=Cottages.FirstOrDefault(c=>c.Id==id);
+        if(PublicPlace==null || site==null || site.Kind!=BuildingKind.VegetableField || !site.Complete || site.DemolitionRequested)return "Choose a finished cultivated strip.";
+        if(rows<=PreparedPlotRows(site) || rows>8)return "Extend beyond the prepared rows, up to eight rows.";
+        if(Food.Celebrating)return "Wait until supper finishes.";
+        if(site.Harvest>0)return "Collect the ripe crop before preparing more ground.";
+        int index=Cottages.IndexOf(site);Cottages.RemoveAt(index);
+        try{return PlacementProblem(site.Cell,site.Rotation,site.Kind,rows);}
+        finally{Cottages.Insert(index,site);}
+    }
+    public bool ExtendCultivation(int id,int rows)
+    {
+        if(ExtendCultivationProblem(id,rows)!=null)return false;
+        var site=Cottages.Single(c=>c.Id==id);int oldRequired=site.Required;
+        foreach(var person in People.Where(p=>MoveAffects(p,site)).ToArray())Interrupt(person);
+        site.PlotRows=site.PreparedRows=rows;site.Planted=false;site.Growth=0;
+        if(!Creative)site.Construction=(float)oldRequired/site.Required;
+        RemovePaths(Footprint(site));ManagedWoodland.ExceptWith(Footprint(site));
+        foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.Destination);
+        History.Add($"Cultivated strip {id} extended to {rows} rows. Prepare the extra ground before sowing; stored food stays.");_retry=0;return true;
+    }
     public bool ReviseCultivation(int id,int rows)
     {
         if(ReshapePlotProblem(id,rows,false)!=null)return false;
