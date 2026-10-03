@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--shared-place-layout")){try{SharedPlaceLayoutChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--multiple-shared-places")){try{MultipleSharedPlacesChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--shared-place-scale")){try{SharedPlaceScaleChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--relocation-livelihood")){try{RelocationLivelihoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

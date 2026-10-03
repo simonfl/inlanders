@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Authorized141–150:** [review140](REVIEW_CHECKPOINT_140.md) challenged the court tradeoff; the combined commons/near-field test now works without a dock. Choose personally composed inhabited landscape over a forced binary puzzle. 141 reopens continuous ground;142 supplies two/four/six-seat places; 143 supports independent local places; next deliberate seating layouts and quiet shared use, keeping actual work and meals. Full reviews145/150; stop150. [Active queue](NEXT_CHUNKS.md). No new needs/resources or compulsory growth.
+**Authorized141–150:** [review140](REVIEW_CHECKPOINT_140.md) challenged the court tradeoff; the combined commons/near-field test now works without a dock. Choose personally composed inhabited landscape over a forced binary puzzle. 141 reopens continuous ground;142 supplies two/four/six-seat places; 143 supports independent local places; 144 adds gathered/linear seating and orientation; next quiet shared use and review145, keeping actual work and meals. Full reviews145/150; stop150. [Active queue](NEXT_CHUNKS.md). No new needs/resources or compulsory growth.
 
 **Earlier checkpoint120:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. The subsequently authorized121–130 batch is now complete.
 

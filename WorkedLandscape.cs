@@ -19,7 +19,7 @@ public partial class Game
         _workedLand.Visible=_world.PublicPlace!=null && !_plainFarmstead;
         if(!_workedLand.Visible)return;
         string sceneryKey=System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(_world.Map.Heights)+":"+_independentPlaces+":"+_world.PathsRevision+":"+string.Join(';',_world.Cottages.Select(c=>$"{c.Id}:{c.Cell}:{c.Rotation}:{c.Complete}:{c.Depth}:{c.Improved}:{c.YardSide}"))+":"+
-            string.Join(';',_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).Select(t=>$"{t.Cell}:{t.Growth>=1}"))+":"+string.Join(';',_world.SharedPlaces.SelectMany(c=>c.Places));
+            string.Join(';',_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting).Select(t=>$"{t.Cell}:{t.Growth>=1}"))+":"+string.Join(';',_world.SharedPlaces.SelectMany(c=>c.Places.Append(c.Center)));
         string key=_world.GroundUseRevision+":"+sceneryKey;
         if(!force && _workedWorld==_world && key==_workedKey)return;
         if(_workedWorld!=_world || _workedBaseKey!=sceneryKey){_workedBaseColors.Clear();_workedBaseKey=sceneryKey;}
@@ -28,7 +28,7 @@ public partial class Game
         var fields=_world.Cottages.Where(c=>c.Complete && (World.IsVegetablePlot(c.Kind) || c.Kind is BuildingKind.Farm or BuildingKind.Orchard))
             .SelectMany(c=>World.Footprint(c)).ToHashSet();
         var homes=_world.Cottages.Where(c=>c.Complete && Buildings.Get(c.Kind).Beds>0).SelectMany(c=>World.Footprint(c)).ToArray();
-        var yards=_world.Cottages.SelectMany(c=>_world.HomeYardPlaces(c)).Concat(_world.SharedPlaces.SelectMany(c=>c.Places)).ToArray();
+        var yards=_world.Cottages.SelectMany(c=>_world.HomeYardPlaces(c)).Concat(_world.SharedPlaces.SelectMany(c=>c.Places.Append(c.Center))).ToArray();
         var trees=_world.Trees.Where(t=>!t.Felled && !t.NeedsPlanting && t.Growth>=1).Select(t=>t.Cell).ToArray();
         var wear=_world.ReadGroundUse(true).Where(m=>m.Visits>=3).ToDictionary(m=>m.Cell,m=>m.Visits);
         var paths=_world.Paths.ToArray();var water=_world.Map.Water.ToHashSet();

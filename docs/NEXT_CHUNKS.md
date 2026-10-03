@@ -13,7 +13,7 @@ Choose the inhabited-landscape direction for this batch: useful places can be co
 141. **Done** — Reopen a continuous field-to-home shoreline, replacing the contrived deep notch and binary-choice framing in the existing clearing.
 142. **Done** — Let a shared place fit two, four or six actual diners, with matching footprint, preview and meals.
 143. **Done** — Support more than one local shared place, so separate home/work groups can have nearby outdoor life.
-144. Shape a shared place as gathered seating or a line along an approach, with orientation and truthful occupied-ground preview. Selected-place moving is required as part of143, not a separate new outcome.
+144. **Done** — Shape a shared place as gathered seating or a line along an approach, with orientation and truthful occupied-ground preview. Selected-place moving is required as part of143, not a separate new outcome.
 145. Let quiet neighbors use nearby shared ground between work, yielding promptly to real jobs/meals; full whole-game review including visual/audio if presentation warrants.
 
 Each item must be playable and current-save correct; reshape or merge scope if an operation already exists. Update the queue after every outcome. Multiple places must not become a compulsory service network or new satisfaction grade.

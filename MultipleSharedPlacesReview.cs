@@ -12,10 +12,13 @@ public partial class Game
         async Task Choose(Cell at){_focus=OnGround(at.X,at.Z);_camera.Size=20;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(OnGround(at.X,at.Z)));await Frames();}
         foreach(var (center,seats) in new[]{(new Cell(0,7),2),(new Cell(0,0),4)})
         {
-            await OpenMenu(2);await Frames();await UiClick(_foundingCommons);await Frames();await UiClick(_commonsSizeButtons[seats/2-1]);await Frames();await Choose(center);
+            await OpenMenu(2);await Frames();await UiClick(_foundingCommons);await Frames();await UiClick(_commonsSizeButtons[seats/2-1]);await Frames();
+            if(seats==4){await UiClick(_commonsShape);await Frames();await Press(Key.R);await Frames();}
+            await Choose(center);
             Check(!_gatherPlanStart.Disabled,"Independent shared-place proposal refused");await UiClick(_gatherPlanStart);await Frames();
             Check(SelectedSharedPlace?.Center==center && SelectedSharedPlace.Places.Length==seats,"Wrong place selected after creation");
         }
+        Check(_world.SharedPlaces[1].Layout==SharedPlaceLayout.Line && _world.SharedPlaces[1].Rotation==1,"Line direction ignored");
         Check(_world.SharedPlaces.Count==2,"Adding replaced existing place");FrameMap();await Frames();await CaptureReviewBundle("two-independent-shared-places");
         var original=_world.SharedPlaces[0].Center;var second=_world.SharedPlaces[1];var secondSeats=second.Places.ToArray();ClearSelection();await Choose(original);
         Check(_commonsCard.Visible && SelectedSharedPlace?.Center==original,"Ground selection did not choose first place");string saved=_world.SaveJson();

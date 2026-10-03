@@ -10,7 +10,7 @@ public partial class Game
         if(trees.Length==0)return;
         var occupied=_world.Cottages.SelectMany(World.Footprint)
             .Concat(_world.Cottages.SelectMany(c=>_world.HomeYardPlaces(c)))
-            .Concat(_world.Paths).Concat(_world.SharedPlaces.SelectMany(c=>c.Places))
+            .Concat(_world.Paths).Concat(_world.SharedPlaces.SelectMany(c=>c.Places.Append(c.Center)))
             .Concat(_world.ReadGroundUse(true).Where(m=>m.Visits>=3).Select(m=>m.Cell)).ToHashSet();
         using var surface=new SurfaceTool();surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
         int count=0;
