@@ -11,6 +11,7 @@ static class PlotRevisionChecks
             for(int i=0;i<12000 && !(w.Food.GrownVegetables>0 && f.Harvest==0 && !f.Planted && !w.People.Any(p=>p.WorkplaceId==f.Id));i++){w.Tick(.1f);if(i%10==0)w.Validate();}
             Check(w.Food.GrownVegetables>0 && f.Harvest==0,"Crop did not finish");w.SetWorkplacePaused(f.Id,true);
             w.SetWorkplacePaused(f.Id,false);string running=w.SaveJson();Check(w.ReshapePlotProblem(f.Id,3,false)==null && w.SaveJson()==running,"Running preview mutated work");
+            var statusCopy=World.LoadJson(w.SaveJson());var crop=statusCopy.Cottages.Single(c=>c.Id==f.Id);crop.Planted=true;crop.Growth=.5f;Check(statusCopy.ReadWorkplace(crop).State=="Growing","Provisioned crop activity hidden by reserve status");
             Check(w.ReviseCultivation(f.Id,3) && !f.WorkPaused,"Revision left automatic work paused");
             running=w.SaveJson();Check(!w.ReviseCultivation(f.Id,9) && w.SaveJson()==running,"Invalid automatic revision changed state");
             Check(w.ReviseCultivation(f.Id,5) && !f.WorkPaused,"Restore failed");w.SetWorkplacePaused(f.Id,true);

@@ -12,7 +12,7 @@ public partial class Game
     private World? _workCardWorld;
     private float _nextWorkCard;
     private bool _workCardRight, _homeOptions;
-    private Button _homeOptionsButton=null!;
+    private Button _homeOptionsButton=null!,_workCardSupply=null!;
     private bool UsesWorkCard(Cottage site)=>_world.PublicPlace!=null || (_world.Founding!=null || _world.IsArrangementCourt) && site.Complete &&
         (World.ProductionOutput(site.Kind)!=null || site.Kind is BuildingKind.Carpenter or BuildingKind.Pantry);
     private Villager? CardWorker()=>_world.People.FirstOrDefault(p=>p.WorkplaceId==_workCardSite || p.SiteId==_workCardSite || p.HomeId==_workCardSite || p.LeisureSiteId==_workCardSite);
@@ -46,6 +46,7 @@ public partial class Game
         actions.AddChild(Button("×",ClearSelection));
         _workCardFurnish=Button("Furnish yard",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home!=null){if(home.ImprovementRequested || home.PlannedYard)_world.CancelImprovement(home.Id);else _world.RequestImprovement(home.Id);}_nextWorkCard=0;});column.AddChild(_workCardFurnish);
         _workCardYard=Button("Arrange yard",BeginYardPreview);column.AddChild(_workCardYard);MakeYardPreview(column);
+        _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
         MakePlotRevision(column);
         _homeOptionsButton=Button("More home actions",()=>{_homeOptions=!_homeOptions;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
         MakeHomeInvitation(column);MakePlaceJourneys(column);
@@ -69,6 +70,9 @@ public partial class Game
         else if(Buildings.Get(site.Kind).Beds>0)detail=$"{_world.People.Count(p=>p.HomeId==site.Id)}/{Buildings.Get(site.Kind).Beds} neighbors live here";
         else if(Buildings.Get(site.Kind).RecreationSlots>0)detail=$"{_world.People.Count(p=>p.LeisureSiteId==site.Id)} neighbors visiting\nA place for ordinary breaks.";
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
+        _workCardSupply.Visible=_world.PublicPlace!=null && site.Complete && _reshapingPlot<0 && (_world.IsWorkplaceFoodStore(site) || site.Kind is BuildingKind.Farm or BuildingKind.Pantry);
+        _workCardSupply.Text=_showFoodMap?"Hide food stores":"Show food stores";
+        if(site.Complete && _world.PublicPlace!=null && _world.ReadWorkplace(site).State=="Provisions ready")detail=$"Food work is resting\n{_world.EdibleStored} portions stored for {_world.Population} neighbors. Shared workers return as supplies fall.";
         if(site.Kind==BuildingKind.VegetableField)detail+=$"\n3 × {site.Depth} tiles · {World.VegetableYield(site)} vegetables/crop";
         if(_reshapingPlot==site.Id)detail="Choose how much of the prepared ground to cultivate.";
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);

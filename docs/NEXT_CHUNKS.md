@@ -1,6 +1,6 @@
 # Next work — make improvement a real choice
 
-Playable count **104**.
+Playable count **105**.
 
 October3: user authorizes ten further playable outcomes through110, with playtesting afterward. This overrides the previous wait-for-player-evidence execution stop; uncertainty remains. First batch reduces default interface burden and makes existing corrections coherent:101 home action hierarchy,102 small reusable build palette,103 place/person navigation,104 cultivation revision intent,105 everyday work-state clarity. Scope is conditional; full105 review chooses106–110. No new needs/resources/building types. Stop after110 review.
  [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
@@ -42,3 +42,6 @@ Checkpoint103: following a resident from a place retains an explicit return to t
 
 
 Checkpoint104: cultivated-ground revision previews without stopping work; applying atomically pauses/revises/restores prior work state. No-op/cancel/rejection remain pure, explicit pauses survive. Existing ripe-crop and prepared-capacity rules retained. Both-mode simulation checks and native960 actual crop/meal/preview/Escape/apply/automatic working restoration passed20261003-064020-302-plot-revision-36dd70. Initial probe read the throttled card before refresh; forcing its refresh before assertion corrected the probe, not game timing. Zero-warning build. Next105 ties selected food-place status to actual supplies, then freeze for whole review.
+
+
+Checkpoint105: selected food places link directly to actual world food stores and back; reserve-resting state gives current supply/population without implying a guaranteed future. Crop growth now precedes provision-rest status so living crops are not hidden behind an idle explanation. No scheduling changes. Zero-warning build, both-mode crop-state/revision checks and native960 selected-place food view open/close/pure-state passed20261003-064251-393-household-3fc3a0. Freeze for independent whole-game105 before choosing106–110.
