@@ -1,6 +1,6 @@
 # Active batch111–120 — river-frontage comparison
 
-The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count115. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
+The user authorized another ten outcomes after110. This supersedes the human-play execution stop, not uncertainty about enjoyment. Count116. Use existing economy to test a different relationship between homes, cultivated ground, woodlot and river. Keep the inlet available; no new needs or production chains.
 
 | Checkpoint | Intended playable outcome |
 | --- | --- |
@@ -34,3 +34,6 @@ Checkpoint115: existing workable trees now have mixed tall conifer and branched/
 
 
 [Whole-game115](REVIEW_CHECKPOINT_115.md) completed with five fresh independent roles. Partially convincing. Choose look/act/observe, practical shore work and a narrower public satisfaction model; reject duplicate journey systems and further decoration-only batch.
+
+
+Checkpoint116: resource survey can hand its current camera directly to everyday building/clearing choices. Back/Esc still returns to the original view; Build in this view deliberately keeps the chosen ground. Native960 survey/action/field-preview/cancel preserves simulation and camera132408-091-river-hamlet-af946d; zero-warning build. Next117 aligns the first-place vocabulary with that same small palette, retaining full catalogue access.

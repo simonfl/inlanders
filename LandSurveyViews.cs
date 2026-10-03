@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 public partial class Game
 {
+    private Button _surveyBuildHere=null!;
     private VBoxContainer _landSurveyViews=null!;
     private readonly List<Button> _landViewButtons=new();
     private World? _surveyOriginWorld;
@@ -13,6 +14,12 @@ public partial class Game
     {
         _landSurveyViews=new();parent.AddChild(_landSurveyViews);
         _landSurveyViews.AddChild(Text("Look at the shore, open ground or existing trees. These are views, not suggested building sites or soil ratings.",14,true));
+        _surveyBuildHere=Button("Build in this view",()=>
+        {
+            _surveyOriginWorld=null;StopResourceSurvey();CloseManagementUi();
+            _fullBuild=false;ToggleDrawer(1);SelectBuildSection(0);UpdateVillageDirectory();
+        });_landSurveyViews.AddChild(_surveyBuildHere);
+        _surveyBuildHere.TooltipText="Keep this camera view and choose a home, growing ground, landing or timber work. Nothing is placed until you choose ground.";
         var row=new HBoxContainer();_landSurveyViews.AddChild(row);
         for(int i=0;i<3;i++){int choice=i;var b=Button(new[]{"Shore","Open land","Woodlot"}[i],()=>LookAtLand(choice));b.AddThemeFontSizeOverride("font_size",13);row.AddChild(b);_landViewButtons.Add(b);}
     }

@@ -19,7 +19,14 @@ public partial class Game
             foreach(var button in _landViewButtons){await UiClick(button);await Frames();if(!_surveying || !_paused || before!=_world.SaveJson())throw new Exception("Land views changed simulation");}
             await CaptureReviewBundle("look-over-the-land");await Press(Key.Escape);await Frames();
             if(_surveying || _focus!=origin || _camera.Size!=zoom || before!=_world.SaveJson())throw new Exception("Land survey return lost view/state");
-            GD.Print("PASS: actual land views preserve village/clock and return to original camera.");return;
+            await OpenMenu(2);await Frames();await UiClick(_landSurvey);await Frames();await UiClick(_landViewButtons[0]);await Frames();
+            var chosen=_focus;float chosenZoom=_camera.Size;await UiClick(_surveyBuildHere);await Frames();
+            if(_surveying || !_drawer.Visible || _focus!=chosen || _camera.Size!=chosenZoom || before!=_world.SaveJson())throw new Exception("Survey build lost chosen view");
+            await UiClick(_essentialChoices[BuildingKind.VegetableField]);await Frames();
+            if(!_placing || _focus!=chosen)throw new Exception("Survey-to-field placement lost place");
+            await Press(Key.Escape);await Frames();if(before!=_world.SaveJson())throw new Exception("Survey action cancel changed village");
+            await CaptureReviewBundle("survey-to-building");
+            GD.Print("PASS: actual land views, return, build at chosen view and pure placement cancellation.");return;
         }
         _frontageStart=false;ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
         await UiClick(_mainButtons["Establish a farmstead"]);await Frames();
