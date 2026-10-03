@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **102**.
+- Playable checkpoints since adoption: **103**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint100**, [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
 - Previous periodic review95: [synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles.
@@ -499,3 +499,6 @@ Checkpoint101 — October3: home cards lead with actual residents and domestic u
 Checkpoint102: public Build opens a four-choice everyday palette (home, drawn cultivation, foraging, bridge). Full catalogue remains one click away and B retains keyboard catalogue navigation. No unlocks or simulation changes. Zero-warning build; native960 palette/field preview/cancel/full catalogue and household flow passed20261003-063324-291-essentials-b34aa6. Next103 unifies returning from a followed resident to the actual place of inspection, instead of opening detailed inspectors unexpectedly.
 
 102 visual inspection caught the fourth choice below the compact viewport. Reduced card/intro height; final960 rerun20261003-063453-068-essentials-d86021 asserts all four choices fit and passes.
+
+
+Checkpoint103: following a resident from a place retains an explicit return to that place; direct resident inspection offers their household, and food-source inspection opens the same public place card. Removes a surprising jump to full management. Zero-warning build; native960 household follow/return plus explicit workplace-origin return passed20261003-063651-145-household-381ff3, query state unchanged. Workplace origin setup in the extra assertion is API-prepared, return is actual input; not an uncoached play claim. Next104 removes manual pause/resume choreography from cultivation revision while preserving work state and cancel purity.

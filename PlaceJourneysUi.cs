@@ -26,7 +26,7 @@ public partial class Game
             float x=(points.Min(p=>p.X)+points.Max(p=>p.X))/2,z=(points.Min(p=>p.Y)+points.Max(p=>p.Y))/2;
             _focus=OnGround(x,z);_camera.Size=Math.Clamp(Math.Max(points.Max(p=>p.X)-points.Min(p=>p.X),points.Max(p=>p.Y)-points.Min(p=>p.Y))*1.6f+9,12,MaximumZoom);_followPerson=false;_watchOrbit=false;UpdateCamera();
         });row.AddChild(_placeTripFrame);
-        _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person);_followPerson=true;}});row.AddChild(_placeTripFollow);
+        _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person,_placeJourneySite);_followPerson=true;}});row.AddChild(_placeTripFollow);
         _placeTripLine=new(){Width=3,Antialiased=true,ZIndex=-1};_hud.AddChild(_placeTripLine);_placeTripsPanel.Hide();
     }
     private void RenderPlaceJourneys()

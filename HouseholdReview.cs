@@ -25,6 +25,9 @@ public partial class Game
         await UiClick(_householdResidents[residents.Length-1]);await Frames();Check(_dailyPerson==residents[^1].Id && _dailyExpanded && _followPerson && _dailyHomeBack.Visible,"Cannot follow chosen household resident");
         await CaptureReviewBundle("chosen-household-journey");await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==home.Id && _world.SaveJson()==saved,"Household return changed simulation");
         await CaptureReviewBundle("back-to-household");
+        var workplace=_world.Cottages.FirstOrDefault(c=>c.Complete && World.ProductionOutput(c.Kind)!=null);
+        if(workplace!=null){ShowDailyLife(residents[0].Id,workplace.Id);await Frames();Check(_dailyHomeBack.Visible && _dailyHomeBack.Text.Contains(BuildingName(workplace.Kind)),"Origin workplace return missing");await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==workplace.Id && !_inspector.Visible && _world.SaveJson()==saved,"Return opened wrong place or mutated world");ShowWorkplaceCard(home.Id);await Frames();}
+
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="household-move")
         {
             Check(!_householdChange.Visible && !_workCardDetails.Visible,"Secondary home actions exposed by default");await UiClick(_homeOptionsButton);await Frames();

@@ -14,7 +14,7 @@ public partial class Game
         for(int i=0;i<4;i++)
         {
             var button=Button("",()=>{});button.CustomMinimumSize=new(148,45);button.AddThemeFontSizeOverride("font_size",13);_householdResidents[i]=button;_householdPeople.AddChild(button);
-            button.Pressed+=()=>{if(!button.HasMeta("person"))return;int person=(int)button.GetMeta("person");_householdOrigin=_workCardSite;_householdOriginWorld=_world;_workCardSite=-1;ShowDailyLife(person);_dailyExpanded=true;_followPerson=true;};
+            button.Pressed+=()=>{if(!button.HasMeta("person"))return;int person=(int)button.GetMeta("person");int origin=_workCardSite;_workCardSite=-1;ShowDailyLife(person,origin);_dailyExpanded=true;_followPerson=true;};
         }
         _householdChange=Button("Choose another home",()=>{_householdFrom=_workCardSite;_householdTo=-1;_householdMoveWorld=_world;});column.AddChild(_householdChange);MakeHouseholdMoveUi();
     }

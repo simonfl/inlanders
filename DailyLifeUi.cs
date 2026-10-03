@@ -31,14 +31,15 @@ public partial class Game
         row.AddChild(Button("×",()=>{_dailyPerson=-1;ClearSelection();}));
         _dailyText=Text("",14,true);_dailyText.CustomMinimumSize=new(330,0);column.AddChild(_dailyText);
         var actions=new HBoxContainer();column.AddChild(actions);
-        _dailySource=Button("Inspect food",()=>{if(_dailyJourney?.Source is int id){_dailyPerson=-1;SelectBuilding(id);ShowInspector();}else{var at=_dailyJourney?.Route.LastOrDefault()??_world.YardAccess;_focus=OnGround(at.X,at.Z);UpdateCamera();}});actions.AddChild(_dailySource);
+        _dailySource=Button("Inspect food",()=>{if(_dailyJourney?.Source is int id){_dailyPerson=-1;if(_world.PublicPlace!=null)ShowWorkplaceCard(id);else{SelectBuilding(id);ShowInspector();}}else{var at=_dailyJourney?.Route.LastOrDefault()??_world.YardAccess;_focus=OnGround(at.X,at.Z);UpdateCamera();}});actions.AddChild(_dailySource);
         _dailyMove=Button("Try home elsewhere",()=>{var p=_world.People[_dailyPerson];if(p.HomeId is not int id)return;_selectedSite=id;_selectedPerson=-1;BeginRelocation();});actions.AddChild(_dailyMove);
         _dailyFollow=Button("Follow",()=>_followPerson=!_followPerson);actions.AddChild(_dailyFollow);
         _dailyHomeBack=Button("Back to household",()=>{int id=_householdOrigin;_followPerson=false;ShowWorkplaceCard(id);});column.AddChild(_dailyHomeBack);
         _dailyRestore=Button("Restore trial building",RestoreTrialInWorld);column.AddChild(_dailyRestore);_dailyCard.Hide();
     }
-    private void ShowDailyLife(int id)
+    private void ShowDailyLife(int id, int origin=-1)
     {
+        _householdOrigin=origin>=0?origin:_world.People[id].HomeId??-1;_householdOriginWorld=_world;
         CloseDrawer();_inspector.Hide();_selectedPerson=id;_selectedSite=-1;_dailyPerson=id;_nextDaily=0;RefreshSelection();
     }
     private void RenderDailyLife()
@@ -56,7 +57,9 @@ public partial class Game
         _dailySource.Disabled=!j.CanInspect || j.Source==null && j.Route.Length==0;
         _dailyMove.Disabled=p.HomeId is not int home || _world.RelocationProblem(home)!=null;
         _dailyMove.TooltipText=p.HomeId is int homeId?(_world.RelocationProblem(homeId)??(_world.Creative || _world.Founding!=null?"Move this home freely. Residents keep their home assignment.":"Try this home in another place. Restore its position from this card; daily life keeps progressing.")):"This resident has no home.";
-        _dailyHomeBack.Visible=_householdOriginWorld==_world && p.HomeId==_householdOrigin && _world.Cottages.Any(c=>c.Id==_householdOrigin);
+        var origin=_world.Cottages.FirstOrDefault(c=>c.Id==_householdOrigin);
+        _dailyHomeBack.Visible=_householdOriginWorld==_world && origin!=null;
+        _dailyHomeBack.Text=origin!=null && Buildings.Get(origin.Kind).Beds>0?"Back to household":"Back to "+(origin==null?"place":BuildingName(origin.Kind));
         _dailyRestore.Visible=_world.Neighborhood?.Arrangement?.BuildingId!=null;
         _dailyRestore.TooltipText=_dailyRestoreProblem??"Restore the original location. Food, time and work are not rewound.";
         _dailyCard.Size=new(354,0);

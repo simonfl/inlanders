@@ -28,7 +28,7 @@ public partial class Game
         _workCard=HudPanel(_hud);var column=new VBoxContainer();_workCard.AddChild(column);
         _workCardText=Text("",14,true);_workCardText.CustomMinimumSize=new(306,0);column.AddChild(_workCardText);MakeHouseholdUi(column);
         var people=new HBoxContainer();column.AddChild(people);
-        void Watch(Villager? person){if(person==null)return;_workCardSite=-1;ShowDailyLife(person.Id);_followPerson=true;}
+        void Watch(Villager? person){if(person==null)return;int origin=_workCardSite;_workCardSite=-1;ShowDailyLife(person.Id,origin);_followPerson=true;}
         _workCardWorker=Button("Watch work",()=>Watch(CardWorker()));people.AddChild(_workCardWorker);
         _workCardWatchPlace=Button("Watch this place",()=>{
             var home=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(home==null)return;
