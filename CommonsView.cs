@@ -15,12 +15,21 @@ public partial class Game
         _commonsEntry.Visible=_world.CanArrangeCommons;
         _commonsEntry.Text=_world.Commons==null?"Make a shared place":_world.PublicPlace!=null?"Add a shared place":"Rearrange shared place";
         _commonsRemove.Visible=_world.Commons!=null;
-        string key=$"{_world.Cottages.Count}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join('/',_world.SharedPlaces.Select(c=>$"{c.Center}:"+string.Join(';',c.Places)))+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell));
+        string key=$"{string.Join(';',_world.Cottages.Select(c=>$"{c.Cell}:{c.Rotation}:{c.Depth}"))}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join('/',_world.SharedPlaces.Select(c=>$"{c.Center}:"+string.Join(';',c.Places)))+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell));
         if(key==_commonsVisualKey && _commonsView!=null && _commonsVisualWorld==_world)return;
         _commonsVisualWorld=_world;
         _commonsVisualKey=key;
         if(_commonsView==null){_commonsView=new();AddChild(_commonsView);}else Clear(_commonsView);
         foreach(var commons in _world.SharedPlaces)MakeSharedPlaceView(commons);
+    }
+    private Vector2[] SharedPlaceHull(SharedCommons commons)=>Geometry2D.ConvexHull(commons.Places.Append(commons.Center)
+        .SelectMany(p=>new[]{new Vector2(p.X-.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z+.65f),new Vector2(p.X-.65f,p.Z+.65f)}).ToArray());
+    private SharedCommons? SharedPlaceHit(Vector3 point)
+    {
+        var cell=new Cell(Mathf.RoundToInt(point.X),Mathf.RoundToInt(point.Z));
+        if(!_world.Map.Contains(cell) || _world.Map.Water.Contains(cell) || _commonsGroundExcluded.Contains(cell))return null;
+        return _world.SharedPlaceAt(cell)??_world.SharedPlaces.OrderBy(c=>(c.Center.Point-cell.Point).LengthSquared())
+            .FirstOrDefault(c=>Geometry2D.IsPointInPolygon(new(point.X,point.Z),SharedPlaceHull(c)));
     }
     private void MakeSharedPlaceView(SharedCommons commons)
     {
@@ -31,8 +40,7 @@ public partial class Game
             _commonsGroundExcluded=_world.Cottages.SelectMany(b=>World.Footprint(b))
                 .Concat(_world.Trees.Select(t=>t.Cell)).Concat(_world.Bushes.Select(b=>b.Cell))
                 .Concat(_world.Map.StoneDeposits.Select(d=>d.Cell)).Concat(_world.Decorations.Where(d=>d.Solid).Select(d=>d.Cell)).ToHashSet();
-            var points=commons.Places.Append(commons.Center).SelectMany(p=>new[]{new Vector2(p.X-.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z-.65f),new Vector2(p.X+.65f,p.Z+.65f),new Vector2(p.X-.65f,p.Z+.65f)}).ToArray();
-            var hull=Geometry2D.ConvexHull(points);
+            var hull=SharedPlaceHull(commons);
             CommonsSurface(hull,.012f,new("746850"));
             var center=new Vector2(commons.Center.X,commons.Center.Z);
             CommonsSurface(hull.Select(p=>p.MoveToward(center,.13f)).ToArray(),.025f,new("8b795c"));

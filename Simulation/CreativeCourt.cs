@@ -24,7 +24,12 @@ public sealed partial class World
     // allows meal requests and fresh work to replace this unclaimed journey.
     private bool IdleHomeJourney(Villager p)=>SharedWork && p.SharedWorker && p.Task==Work.Waiting && p.Route.Count>0;
     public SharedCommons? QuietSharedPlace(Villager p)=>PublicPlace!=null && p.SharedWorker && p.Task==Work.Waiting
-        ?SharedPlaces.FirstOrDefault(c=>c.Places.Contains(p.Route.Count>0?p.Destination:At(p))):null;
+        ?SharedPlaces.FirstOrDefault(c=>c.Center==p.QuietSharedCenter && c.Places.Contains(p.Route.Count>0?p.Destination:At(p))):null;
+    private void EndQuietVisit(Villager p)
+    {
+        if(p.QuietSharedCenter==null)return;
+        p.QuietSharedCenter=null;p.QuietVisitUntil=0;p.NextQuietVisitTime=Food.Time+32+(p.Id*7%19);
+    }
     private bool WaitAtSharedPlace(Villager p)
     {
         if(PublicPlace==null || p.HomeId is not int id)return false;
@@ -35,15 +40,31 @@ public sealed partial class World
         if(current!=null)
         {
             var target=p.Route.Count>0?p.Destination:At(p);
-            if(Free(target)){p.Status=p.Route.Count>0?"Heading to shared ground — available for work":"Sitting together — available for work";return true;}
-            p.Route.Clear(); // A real meal takes priority over a quiet visit.
+            if(p.Route.Count==0 && p.QuietVisitUntil==0)p.QuietVisitUntil=Food.Time+18+(p.Id*7%15);
+            if(Free(target) && (p.QuietVisitUntil==0 || Food.Time<p.QuietVisitUntil))
+            {p.Status=p.Route.Count>0?"Heading to shared ground — available for work":"Sitting together — available for work";return true;}
+            EndQuietVisit(p);p.Route.Clear(); // Return home; meals and new work may replace this trip.
         }
-        if(p.Id%2!=0 || HomeYardPlaces(home).Length>0)return false;
+        if(Food.Time<p.NextQuietVisitTime || Food.Time<p.Id*3)return false;
         var seat=SharedPlaces.Where(c=>(c.Center.Point-home.Entrance.Point).LengthSquared()<=64).SelectMany(c=>c.Places)
             .Where(Free).OrderBy(c=>(c.Point-p.Position).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
             .Cast<Cell?>().FirstOrDefault(c=>FindPath(At(p),c!.Value,Blocked)!=null);
         if(seat is not Cell at)return false;
+        p.QuietSharedCenter=SharedPlaceAt(at)!.Center;p.QuietVisitUntil=0;
         Go(p,at,Work.Waiting,"Heading to shared ground — available for work");return true;
+    }
+    public Villager? QuietCompanion(Villager person)
+    {
+        var place=QuietSharedPlace(person);if(place==null || person.Route.Count>0 || place.Layout!=SharedPlaceLayout.Gathered)return null;
+        var visitors=People.Where(p=>p.Route.Count==0 && QuietSharedPlace(p)==place).OrderBy(p=>p.Id).ToList();
+        while(visitors.Count>1)
+        {
+            var first=visitors[0];visitors.RemoveAt(0);
+            var other=visitors.Where(p=>(p.Position-first.Position).LengthSquared()<=6.25f).OrderBy(p=>(p.Position-first.Position).LengthSquared()).ThenBy(p=>p.Id).FirstOrDefault();
+            if(other==null)continue;visitors.Remove(other);
+            if(first==person)return other;if(other==person)return first;
+        }
+        return null;
     }
     private void WaitNearHome(Villager person)
     {

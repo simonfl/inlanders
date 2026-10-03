@@ -82,6 +82,9 @@ public sealed partial class World
                 c.Places.Any(p=>!Map.Contains(p) || Blocked(p) || (p.Point-c.Center.Point).LengthSquared()>(c.Layout==SharedPlaceLayout.Line?10:8) || FindPath(YardAccess,p,Blocked)==null) || !c.Places.Append(c.Center).All(claimed.Add))
                 throw new InvalidOperationException("Invalid or overlapping shared places");
         }
+        foreach(var p in People)
+            if(!float.IsFinite(p.QuietVisitUntil) || p.QuietVisitUntil<0 || !float.IsFinite(p.NextQuietVisitTime) || p.NextQuietVisitTime<0 || p.QuietSharedCenter!=null && QuietSharedPlace(p)==null)
+                throw new InvalidOperationException("Invalid quiet shared visit");
         foreach(var p in People.Where(p=>p.Meal is {Commons:true,Reserved:true} or {Commons:true,Carrying:true}))
             if(!SharedPlaces.Any(c=>c.Places.Contains(p.Meal!.Seat)))throw new InvalidOperationException("Meal outside its shared place");
     }

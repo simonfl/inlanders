@@ -13,10 +13,7 @@ public partial class Game
     {
         _commonsCard=HudPanel(_hud);_commonsCard.Hide();var column=new VBoxContainer();_commonsCard.AddChild(column);
         _commonsCardText=Text("",14,true);_commonsCardText.CustomMinimumSize=new(282,0);column.AddChild(_commonsCardText);
-        _commonsCardWatch=Button("Watch this place",()=>{
-            if(SelectedSharedPlace is not {} place)return;
-            ClearSelection();_focus=OnGround(place.Center.X,place.Center.Z);_camera.Size=14;UpdateCamera();ToggleWatch();
-        });column.AddChild(_commonsCardWatch);
+        _commonsCardWatch=Button("Watch this place",WatchSharedPlace);column.AddChild(_commonsCardWatch);
         _commonsCardMove=Button("Arrange · preview",()=>BeginGatheringPlan(SelectedSharedPlace?.Center,true));column.AddChild(_commonsCardMove);
         _commonsCardRemove=Button("Remove shared place",()=>{if(_selectedCommonsCenter is Cell center)_world.RemoveCommons(center);ClearSelection();});column.AddChild(_commonsCardRemove);
         _commonsCardRemove.TooltipText="Remove the meal place. Carried meals remain physical and residents find another place to eat.";
@@ -37,6 +34,6 @@ public partial class Game
         int arriving=_world.People.Count(p=>p.Meal?.Commons==true && p.Task!=Work.EatingMeal && place.Places.Contains(p.Meal.Seat));
         int quiet=_world.People.Count(p=>_world.QuietSharedPlace(p)==place);
         _commonsCardText.Text=$"SHARED MEAL PLACE · {place.Places.Length} seats\n{(place.Layout==SharedPlaceLayout.Line?"Seating in a line":"Gathered seating")}\n{eating} eating here · {arriving} on the way\n{quiet} visiting between jobs\n"+
-            (_world.CommonsFoodNearby(place.Center)?"Food is available nearby. Neighbors bring their ordinary meals.":"No food available nearby now. Move closer to food or restore the nearby supply.")+"\nMoving or removing this place is free.";
+            (_world.CommonsFoodNearby(place.Center)?"Food is available nearby. Neighbors bring their ordinary meals.":"Meals need nearby food. Quiet neighbors can still visit between jobs.")+"\nMoving or removing this place is free.";
     }
 }

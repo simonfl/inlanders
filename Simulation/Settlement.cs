@@ -16,6 +16,9 @@ public enum Work { Waiting, ToArrival, ToTree, Chopping, ToStockpile, ToMaterial
 
 public sealed class Villager
 {
+    public Cell? QuietSharedCenter { get; set; }
+    public float QuietVisitUntil { get; set; }
+    public float NextQuietVisitTime { get; set; }
     public int? GrainSourceId { get; set; }
     public int? GrainDestinationId { get; set; }
     public int? ComfortHomeId { get; set; }
@@ -286,6 +289,7 @@ public sealed partial class World
         People.FirstOrDefault(v => v.Role == Role.Unassigned) ?? People.LastOrDefault(v => v.Role != role);
     private void Interrupt(Villager v)
     {
+        EndQuietVisit(v);
         v.ComfortHomeId=null;
         if(InterruptMeal(v)) return;
         if(InterruptFishing(v)) return;
@@ -315,6 +319,7 @@ public sealed partial class World
     }
     private void Go(Villager v, Cell target, Work task, string status)
     {
+        if(task!=Work.Waiting)EndQuietVisit(v);
         SetRoute(v, target); v.Task = task; v.Timer = 0; v.Status = status;
     }
     private void Finish(Villager v)

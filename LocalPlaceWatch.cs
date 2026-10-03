@@ -5,12 +5,20 @@ public partial class Game
 {
     private World? _localWatchWorld;
     private int _localWatchSite=-1;
+    private Cell? _localWatchCommons;
+    private void WatchSharedPlace()
+    {
+        if(SelectedSharedPlace is not {} place)return;
+        _localWatchWorld=_world;_localWatchSite=-1;_localWatchCommons=place.Center;
+        _localWatchFocus=_focus;_localWatchAngle=_angle;_localWatchZoom=_camera.Size;
+        _focus=OnGround(place.Center.X,place.Center.Z);_camera.Size=14;_followPerson=false;_watchOrbit=false;UpdateCamera();ToggleWatch();
+    }
     private Vector3 _localWatchFocus;
     private float _localWatchAngle,_localWatchZoom;
     private void WatchLocalPlace()
     {
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site==null)return;
-        _localWatchWorld=_world;_localWatchSite=site.Id;
+        _localWatchWorld=_world;_localWatchSite=site.Id;_localWatchCommons=null;
         _localWatchFocus=_focus;_localWatchAngle=_angle;_localWatchZoom=_camera.Size;
         var nearby=_world.Cottages.Where(c=>c.Complete && (c.Cell.Point-site.Cell.Point).LengthSquared()<=64).ToList();
         // Include the nearest actual food workplace when homes stand apart from their fields.
@@ -35,6 +43,10 @@ public partial class Game
             _focus=_localWatchFocus;_angle=_localWatchAngle;_camera.Size=_localWatchZoom;_followPerson=false;UpdateCamera();
             _workCardSite=_selectedSite=_localWatchSite;_nextWorkCard=0;
         }
-        _localWatchWorld=null;_localWatchSite=-1;
+        if(_localWatchWorld==_world && _localWatchCommons is Cell center && _world.SharedPlaces.Any(c=>c.Center==center))
+        {
+            ShowCommonsCard(center);_focus=_localWatchFocus;_angle=_localWatchAngle;_camera.Size=_localWatchZoom;UpdateCamera();
+        }
+        _localWatchWorld=null;_localWatchSite=-1;_localWatchCommons=null;
     }
 }

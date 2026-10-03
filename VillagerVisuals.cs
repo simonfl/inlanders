@@ -229,10 +229,7 @@ public partial class Game
             case Work.Waiting:
                 if(v.Route.Count==0 && _world.QuietSharedPlace(v)!=null)
                 {
-                    view.Rig.Position=new(0,-.20f,0);view.RestStool.Visible=false;
-                    view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f);view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
-                    view.Arm.Rotation=new(.75f,0,-.12f);view.LeftArm.Rotation=new(.7f,0,.12f);
-                    view.Head.Rotation=new(0,MathF.Sin(_clock*.4f+v.Id)*.18f,0);break;
+                    AnimateQuietSharedVisit(view,v);break;
                 }
                 if(_world.QuietAtFurnishedHome(v))
                 {

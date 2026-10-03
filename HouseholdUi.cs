@@ -26,7 +26,7 @@ public partial class Game
         for(int i=0;i<4;i++)
         {
             var button=_householdResidents[i];button.Visible=i<residents.Length;if(i>=residents.Length)continue;
-            var p=residents[i];string activity=p.Task==Work.EatingMeal?"Eating":p.Task==Work.Resting?"Resting":p.Task==Work.Leisure?"Taking a break":p.Route.Count>0?"Walking":p.Task==Work.Waiting?(_world.AvailableAtHome(p)?"At home":"Available"):"Working";
+            var p=residents[i];string activity=p.Task==Work.EatingMeal?"Eating":p.Task==Work.Resting?"Resting":p.Task==Work.Leisure?"Taking a break":p.Route.Count>0?"Walking":p.Task==Work.Waiting?(_world.QuietSharedPlace(p)!=null?"At shared ground":_world.AvailableAtHome(p)?"At home":"Available"):"Working";
             button.Text=p.Name+"\n"+activity;button.TooltipText=p.Status+". Select to follow the actual resident and current journey.";button.SetMeta("person",p.Id);
         }
     }

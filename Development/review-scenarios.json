@@ -630,5 +630,13 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 27
+  },
+  {
+    "name": "ordinary-outdoor-life",
+    "description": "Unpaused working clearing with shared ground and an actual furnishing order",
+    "generator": "ordinary-outdoor-life",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 24
   }
 ]

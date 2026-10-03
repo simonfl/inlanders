@@ -90,6 +90,21 @@ public partial class Game
         view.Rig.Position=new(0,breath*.006f*settle,0);
     }
 
+    private void AnimateQuietSharedVisit(PersonView view,Villager person)
+    {
+        float settle=Mathf.SmoothStep(0,1,person.Timer/.7f);
+        view.Rig.Position=new(0,-.20f*settle,0);view.RestStool.Visible=false;
+        view.LeftLeg.Rotation=new(Mathf.Pi/2*settle,0,-.08f);view.RightLeg.Rotation=new(Mathf.Pi/2*settle,0,.08f);
+        view.Arm.Rotation=new(.75f,0,-.12f);view.LeftArm.Rotation=new(.7f,0,.12f);
+        var companion=_world.QuietCompanion(person);
+        if(companion==null){view.Head.Rotation=new(0,MathF.Sin(_world.Food.Time*.4f+person.Id)*.18f,0);return;}
+        FaceVisit(view,new Vector3(companion.Position.X,view.Body.Position.Y,companion.Position.Y)-view.Body.Position);
+        float time=_world.Food.Time+Math.Min(person.Id,companion.Id)*.37f,phase=time%4;
+        bool speaker=((int)(time/4)%2==0)==(person.Id<companion.Id);
+        float gesture=phase<1.2f?MathF.Sin(phase/1.2f*Mathf.Pi):0;
+        view.Arm.Rotation=new(.75f+(speaker?.35f*gesture:0),0,-.12f-(speaker?.12f*gesture:0));
+        view.Head.Rotation=new(speaker?0:.08f*gesture,0,0);
+    }
     private void AnimateHomeRest(PersonView view,Villager person)
     {
         var home=_world.Cottages.FirstOrDefault(c=>c.Id==person.HomeId);

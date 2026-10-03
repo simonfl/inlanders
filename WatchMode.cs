@@ -71,7 +71,7 @@ public partial class Game
     private void UpdateWatchUi()
     {
         if(!_watching) return;
-        _watchReturn.Text=_localWatchSite>=0?"Return to this place [H]":"Return [H]";
+        _watchReturn.Text=_localWatchSite>=0 || _localWatchCommons!=null?"Return to this place [H]":"Return [H]";
         bool simple=_world.PublicPlace!=null;
         _watchMoreButton.Visible=simple;_watchMoreButton.Text=_watchMore?"Fewer controls":"View options";
         _watchExtras.Visible=!simple || _watchMore;

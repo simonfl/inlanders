@@ -19,6 +19,10 @@ public partial class Game
             Check(SelectedSharedPlace?.Center==center && SelectedSharedPlace.Places.Length==seats,"Wrong place selected after creation");
         }
         Check(_world.SharedPlaces[1].Layout==SharedPlaceLayout.Line && _world.SharedPlaces[1].Rotation==1,"Line direction ignored");
+        var line=_world.SharedPlaces[1];var gap=new Cell((int)line.Places.Average(p=>p.X),(int)line.Places.Average(p=>p.Z));
+        ClearSelection();await Choose(gap);Check(SelectedSharedPlace==line,"Visible ground between line seats missed selection");
+        var oldFocus=_focus;float oldZoom=_camera.Size;await UiClick(_commonsCardWatch);await Frames();await Press(Key.H);await Frames();
+        Check(SelectedSharedPlace==line && _focus==oldFocus && _camera.Size==oldZoom,"Shared Watch lost place/camera");
         Check(_world.SharedPlaces.Count==2,"Adding replaced existing place");FrameMap();await Frames();await CaptureReviewBundle("two-independent-shared-places");
         var original=_world.SharedPlaces[0].Center;var second=_world.SharedPlaces[1];var secondSeats=second.Places.ToArray();ClearSelection();await Choose(original);
         Check(_commonsCard.Visible && SelectedSharedPlace?.Center==original,"Ground selection did not choose first place");string saved=_world.SaveJson();
