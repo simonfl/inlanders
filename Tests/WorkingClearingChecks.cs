@@ -4,7 +4,7 @@ static class WorkingClearingChecks
     public static void Run()
     {
         CheckCourtChoice();
-        PrepareCourtComparison("growing");PrepareCourtComparison("shore");
+        PrepareCourtComparison("growing");PrepareCourtComparison("shore");PrepareCourtComparison("combined");
         foreach(bool relaxed in new[]{false,true})foreach(string change in new[]{"keep","near-field","landing"})
         {
             void Check(bool ok,string why){if(!ok)throw new Exception(why);}
@@ -28,7 +28,7 @@ static class WorkingClearingChecks
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         var w=World.NewWorkingClearing();var home=w.Cottages.Single(c=>c.Cell==new Cell(-3,9));
-        Check(w.Map.Water.Contains(new(3,1)) && !w.Map.LevelGround(new[]{new Cell(0,12)}),"Court geography missing");
+        Check(w.Map.Water.Contains(new(5,1)) && !w.Map.Water.Contains(new(3,1)) && !w.Map.LevelGround(new[]{new Cell(0,12)}),"Court geography missing");
         Check(w.SetCommons(new(0,7)),"Court shared ground unavailable");
         var f=w.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);w.SetWorkplacePaused(f.Id,true);
         Check(w.RelocationProblem(f.Id,new(0,7),1)!=null,"Field can occupy shared court");
@@ -42,10 +42,12 @@ static class WorkingClearingChecks
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         var w=World.NewWorkingClearing();
-        if(arm=="growing")
+        if(arm is "growing" or "combined")
         {
             var f=w.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);w.SetWorkplacePaused(f.Id,true);
-            Check(w.MoveBuilding(f.Id,new(0,7),1),"Comparison field refused");w.SetWorkplacePaused(f.Id,false);
+            if(arm=="combined")Check(w.SetCommons(new(0,7)),"Combined commons refused");
+            var target=arm=="combined"?new Cell(0,2):new Cell(0,7);
+            Check(w.MoveBuilding(f.Id,target,1),"Comparison field refused: "+w.RelocationProblem(f.Id,target,1));w.SetWorkplacePaused(f.Id,false);
         }
         else
         {
@@ -63,7 +65,7 @@ static class WorkingClearingChecks
             if(w.People.Any(p=>!p.Fed))hungry++;
         }
         Check(home.Improved && domestic>0 && hungry==0,"Comparison lacked furnished domestic use or food");
-        Check(arm=="growing"?w.Food.EatenVegetables>0:w.Food.EatenFish>0 && shared>0,"Comparison livelihood/shared ground unused");
+        Check(arm=="shore"?w.Food.EatenFish>0 && shared>0:w.Food.EatenVegetables>0 && (arm!="combined" || shared>0),"Comparison livelihood/shared ground unused");
         w.Validate();Check(World.LoadJson(w.SaveJson()).SaveJson()==w.SaveJson(),"Comparison save");
         Console.WriteLine($"PASS court {arm}: 10min actual life; domestic ticks {domestic}, shared meal ticks {shared}, fish eaten {w.Food.EatenFish}, vegetables eaten {w.Food.EatenVegetables}, hungry {hungry}");
         return w;

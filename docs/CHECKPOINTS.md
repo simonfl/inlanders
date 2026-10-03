@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **140**.
+- Playable checkpoints since adoption: **141**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint140**, [synthesis](REVIEW_CHECKPOINT_140.md), fixed237e2ad. Five independent reused roles, partially convincing; retain concrete comparisons, challenge opportunity cost, stop140. Final41-suite regression passed.
 - Previous periodic review: **checkpoint135**, [synthesis](REVIEW_CHECKPOINT_135.md), fixedb7a2753, five independent reused role contexts. Partially convincing; choose a spatial clearing experiment plus consolidated local arrangement through140.
@@ -658,3 +658,5 @@ Checkpoint140: Watch from a home/workplace now frames nearby homes, productive g
 140 full review complete: all five independent verdicts consolidated. Different viable arrangements do not establish a strong dilemma or enjoyment; shared court plus a nearby field is the next adversarial hypothesis if work is later authorized. Preserve a short satisfied visit as valid. Correct the nearest-food framing predicate without a new outcome, then finish regression and push; no141.
 
 Final140 validation: All41 current-experience suites passed, exit0; run `591a078cae5347e79d8705e8b1399606`, assembly `cea901a1-723d-4efd-8dcc-ec5ead3e52c3`, 448.7s summed suite time. Log: `artifacts/checkpoint140-current.log`. Includes both ten-minute court arrangements, all six60-minute working-clearing branches, actual domestic/shared meals, placement/relocation, current-save continuation, food access and construction cancellation/resume. No further game changes after corrected build. Corrected game DLL5D151AED8D11DF05C9EAE16FC35D5888FE3491563254EA066A4EBAD9B4B1BA60; zero-warning build and native960 household exchange passed164251-267. Both full reviews complete. Stop140.
+
+Checkpoint141: adversarial third arrangement proves nearby cultivation and central commons coexist on140 rules with no dock. Select inhabited-landscape authorship, not a forced binary puzzle. The existing clearing now has a shallower stepped bend and continuous field-to-home ground; remove binary-choice framing. Same population, supply and working fields. Revised1440 ordinary12s1x combined capture220217-699 inspected; all three10-minute arrangements and six60-minute Normal/relaxed keep/move/landing branches passed with no hunger and exact continuation. Zero-warning build. Next142 scales actual shared seating; no new needs or resource ladder.

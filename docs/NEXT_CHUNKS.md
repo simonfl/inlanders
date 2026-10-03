@@ -1,40 +1,27 @@
-# Completed batch — checkpoints131–140
+# Active work — checkpoints141–150
 
-The user authorized ten more after130. This supersedes the stop, not the finding that enjoyment is unproven. No new human feedback assumed. Core bet for this batch: make the existing working landscape more inviting at ordinary scale, with fewer obstacles to entering and observing it. No new needs, buildings or alternative starts.
+The user authorized ten more after140. No new playtest feedback assumed. Two full whole-game reviews are due145/150; stop150.
 
-## First five — one working landscape
+## Design decision from the adversarial test
 
-131. **Done** — Recommend the working clearing for a first visit and show Normal/relaxed choices together without scrolling.
-132. **Done** — Give the public river a continuous natural bank treatment, preserving authoritative land/water and placement.
-133. **Done** — Make existing woodland read as an irregular wooded margin, reacting to actual clearing and regrowth.
-134. **Done** — Replace uniform lawn with restrained open-ground vegetation that yields to actual buildings, paths and use.
-135. **Done; reviewed** — Make productive strips read as cultivated land through crop/soil composition at ordinary zoom; full whole-game and visual/audio review.
+On the140 rules, a field at(0,2) and commons at(0,7) coexist without a dock. Ten actual minutes produce16 vegetable meals,2950 shared-eating ticks and5621 domestic-use ticks, with no hungry ticks. Evidence:20261003-220009-654-clearing-combined-6bbe2d. This falsifies the proposed binary court-versus-food dilemma. Do not add arbitrary locks to rescue it.
 
-These are playable scene and interaction outcomes, not asset foundations. Preserve ordinary-scale clarity, simulation, free arrangement and performance. Compare whole scenes, not only new geometry close-ups. Prior130 scene is the control; native captures and current save behavior remain required.
+Choose the inhabited-landscape direction for this batch: useful places can be combined and personally composed. Keep physical work/materials/meals, optional stopping and full catalogue access. No new needs, resources or compulsory growth. Tests/fixtures are evidence, not playable outcomes.
 
-## Review135 decision — remaining five
+## First five — shared outdoor life at the player's scale
 
-[Whole-game synthesis](REVIEW_CHECKPOINT_135.md) selects a real spatial choice, supported by a coherent local editing flow:
+141. **Done** — Reopen a continuous field-to-home shoreline, replacing the contrived deep notch and binary-choice framing in the existing clearing.
+142. Let a shared place fit two, four or six actual diners, with matching footprint, preview and meals.
+143. Support more than one local shared place, so separate home/work groups can have nearby outdoor life.
+144. Reposition a selected shared place without replacing other places; make cancellation and occupied-place recovery explicit.
+145. Let quiet neighbors use nearby shared ground between work, yielding promptly to real jobs/meals; full whole-game review including visual/audio if presentation warrants.
 
-136. **Done** — Constrain the existing working clearing through actual river/usable-ground geography; test near-home cultivation versus domestic/shared ground and shore livelihood.
-137. **Done** — Compact home arrangement tray replacing the expanded editing stack.
-138. **Done** — Present the existing choose-and-furnish operation as a focused world proposal, removing the redundant unfurnished ground-only route from its primary flow. Existing combined command is already implemented and cannot count again.
-139. **Done** — Compact world proposal for cultivated-strip manipulation.
-140. **Done; reviewed** — Observe the edited home–work ensemble with actual life and retained return context; full review and stop.
+Each item must be playable and current-save correct; reshape or merge scope if an operation already exists. Update the queue after every outcome. Multiple places must not become a compulsory service network or new satisfaction grade.
 
-No new start/catalogue/needs. Measure and correct recurring worked-ground refresh cost first, without a playable increment. Existing functionality cannot count twice; adapt scope when necessary. Complete contrasting same-start arrangements and test actual use, not only predicted routes.
+## Remaining five
 
-## Evidence and limits
+146–150 remain contingent on review145. Continue only work that supports the chosen experience or addresses that review's structural finding. Consider coherent landscape/presentation, actual interaction and recovery; do not fill the count with documentation/tests or cosmetic toggles. Full150 review, final regression, commit/push, stop.
 
-Use existing native captures at960/1440 with fixed build identity, current-game simulation and real changes to ground. Whole-game reviews cover public/archived/Normal/relaxed/Creative, catalogue/economy/needs, controls, presentation/audio and technical risks. Actual human preference and audio listening remain unobserved until performed. Save compatibility is out of scope.
+## Evidence
 
-## Review140 — stop, no active141
-
-[Full synthesis](REVIEW_CHECKPOINT_140.md): five independent roles partially convinced. Retain the working-place comparison, not a claim of proven fun or strategic depth. Final41-suite regression and narrow framing correction passed; commit/push handoff and stop.
-
-Later authorized candidates, not a promised batch:
-
-- Adversarial third arrangement: shared court plus nearby cultivation. Test whether the current opportunity cost survives ordinary freedom.
-- Human intention/consequence trial and ordinary-speed screen/audio evidence, using existing tools. Separate satisfying completion from confusion or indifference.
-- If the tradeoff fails, choose expressive inhabited landscape or redesign terrain/scale and livelihood consequences together; no arbitrary exclusion zones or decorative filler.
-- Bound long-frame attribution work; keep current save diagnostics. No compatibility, broad rewrite or new tooling framework.
+Use existing same-start comparisons, native960/1440 control probes, ordinary-speed scene/frame evidence and current saves. Review whole public/archived/Normal/relaxed/Creative game, catalogue/needs, controls, presentation/audio and reliability. Listening/human preference remain unobserved until actually performed. Keep bounded tooling investments tied to diagnosed repeated cost or evidence gaps.

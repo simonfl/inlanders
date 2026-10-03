@@ -21,6 +21,7 @@ static class ReviewFixtures
             "founding-hall"=>FoundingHallChecks.Ready(),
             "founding"=>World.NewFoundingSettlement(),
             "farmstead"=>World.NewRiverFarmstead(),
+            "clearing-combined"=>WorkingClearingChecks.PrepareCourtComparison("combined"),
             "clearing-growing"=>WorkingClearingChecks.PrepareCourtComparison("growing"),
             "clearing-shore"=>WorkingClearingChecks.PrepareCourtComparison("shore"),
             "working-clearing"=>World.NewWorkingClearing(),

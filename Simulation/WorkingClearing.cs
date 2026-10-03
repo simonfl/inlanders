@@ -6,10 +6,13 @@ public sealed partial class World
     public static World NewWorkingClearing(bool relaxed=false)
     {
         var w=NewRiverFrontage();w.Founding!.PlayerFounded=false;w.Founding.WorkingClearing=true;w.Founding.AcrossTheInlet=false;
-        // A low river bend and rising southern ground leave the central court valuable.
-        // These are ordinary water/slope constraints, not reserved or locked building zones.
-        for(int z=-2;z<=10;z++)for(int x=z<=2?3:6;x<=w.Map.MaxX;x++)
-            if(w.Map.Contains(new(x,z)))w.Map.Water.Add(new(x,z));
+        // A gradual bend connects the field ground to the home shore.
+        // Shared ground and nearby cultivation may coexist; this is not a binary puzzle.
+        for(int z=-6;z<=10;z++)
+        {
+            int edge=z<-5?8:z<-3?7:z<-1?6:z<3?5:z<9?6:7;
+            for(int x=edge;x<=w.Map.MaxX;x++)if(w.Map.Contains(new(x,z)))w.Map.Water.Add(new(x,z));
+        }
         for(int z=0;z<=w.Map.Depth;z++)for(int x=0;x<=w.Map.Width;x++)
         {
             float px=w.Map.MinX+x-.5f,pz=w.Map.MinZ+z-.5f;
@@ -30,7 +33,7 @@ public sealed partial class World
         w.Food.InitialBerries=w.Food.Berries=80;
         w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
         w.Map.Name="La clairière · A working clearing";
-        w.History.Clear();w.History.Add("Eight neighbors have homes beside the river. Their two small working strips lie toward the woods, apart from the houses. A river bend and rising ground leave a small open court between the homes; cultivate it or keep room for outdoor life. Sixteen logs, four planks and eighty food portions leave time to choose. Bring growing ground closer, extend it, make a landing, or leave this modest place as it is. No required improvement or arrivals.");
+        w.History.Clear();w.History.Add("Eight neighbors have homes beside the river. Their two small working strips lie toward the woods, apart from the houses. Open ground joins the homes, fields and river. Bring work closer, make room to share a meal, or combine them in your own arrangement. Sixteen logs, four planks and eighty food portions leave time to choose. Bring growing ground closer, extend it, make a landing, or leave this modest place as it is. No required improvement or arrivals.");
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }
