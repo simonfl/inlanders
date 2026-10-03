@@ -10,7 +10,7 @@ public partial class Game
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         async Task Choose(Cell at){_focus=OnGround(at.X,at.Z);_camera.Size=20;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(OnGround(at.X,at.Z)));await Frames();}
-        foreach(var (center,seats) in new[]{(new Cell(0,7),2),(new Cell(0,0),4)})
+        foreach(var (center,seats) in new[]{(new Cell(0,7),2),(new Cell(0,1),4)})
         {
             await OpenMenu(2);await Frames();await UiClick(_foundingCommons);await Frames();await UiClick(_commonsSizeButtons[seats/2-1]);await Frames();
             if(seats==4){await UiClick(_commonsShape);await Frames();await Press(Key.R);await Frames();}

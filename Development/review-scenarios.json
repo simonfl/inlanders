@@ -580,16 +580,16 @@
     "description": "Smaller inhabited working clearing comparison",
     "generator": "working-clearing",
     "focusX": 0,
-    "focusZ": 2,
-    "zoom": 29
+    "focusZ": 4,
+    "zoom": 24
   },
   {
     "name": "working-clearing-relaxed",
     "description": "Smaller inhabited working clearing comparison",
     "generator": "working-clearing-relaxed",
     "focusX": 0,
-    "focusZ": 2,
-    "zoom": 29
+    "focusZ": 4,
+    "zoom": 24
   },
   {
     "name": "clearing-growing",
@@ -637,6 +637,14 @@
     "generator": "ordinary-outdoor-life",
     "focusX": 0,
     "focusZ": 5,
+    "zoom": 24
+  },
+  {
+    "name": "clearing-original",
+    "description": "Pre149 clearing composition with identical capacity/resources, current models/rules",
+    "generator": "clearing-original",
+    "focusX": 0,
+    "focusZ": 4,
     "zoom": 24
   }
 ]

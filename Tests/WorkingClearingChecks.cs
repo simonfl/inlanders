@@ -3,6 +3,7 @@ static class WorkingClearingChecks
 {
     public static void Run()
     {
+        Ensemble();
         CheckCourtChoice();
         PrepareCourtComparison("growing");PrepareCourtComparison("shore");PrepareCourtComparison("combined");
         foreach(bool relaxed in new[]{false,true})foreach(string change in new[]{"keep","near-field","landing"})
@@ -22,6 +23,24 @@ static class WorkingClearingChecks
             Check(relaxed || hungry==0,$"Clearing {change} cannot remain modest: {hungry} hungry ticks");
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);}Check(w.SaveJson()==copy.SaveJson(),"Clearing continuation");
             Console.WriteLine($"PASS clearing {relaxed}/{change}: 60min actual life, food {w.EdibleStored}, grown {w.Food.GrownVegetables}, hungry ticks {hungry}, exact continuation");
+        }
+    }
+    public static void Ensemble()
+    {
+        foreach(bool relaxed in new[]{false,true})
+        {
+            var old=World.NewWorkingClearing(relaxed,true);var current=World.NewWorkingClearing(relaxed);
+            void Check(bool ok,string why){if(!ok)throw new Exception(why);}
+            Check(old.Population==current.Population && old.Housed==current.Housed && old.InitialLogs==current.InitialLogs && old.Stored==current.Stored && old.Planks==current.Planks && old.EdibleStored==current.EdibleStored,"Ensemble changed initial supply");
+            Check(old.Cottages.Select(c=>(c.Kind,c.Required,c.Depth,c.Growth)).SequenceEqual(current.Cottages.Select(c=>(c.Kind,c.Required,c.Depth,c.Growth))),"Ensemble changed productive capacity/investment");
+            foreach(var (w,label) in new[]{(old,"former"),(current,"recomposed")})
+            {
+                int hungry=0;for(int i=0;i<6000;i++){w.Tick(.1f);if(w.People.Any(p=>!p.Fed))hungry++;if(i%100==0)w.Validate();}
+                Check(w.Food.EatenVegetables>0 && (relaxed || hungry==0),"Ensemble failed ordinary life");
+                var copy=World.LoadJson(w.SaveJson());for(int i=0;i<50;i++){w.Tick(.1f);copy.Tick(.1f);}Check(w.SaveJson()==copy.SaveJson(),"Ensemble save continuation");
+                Directory.CreateDirectory("artifacts/clearing-ensemble");w.SaveFile($"artifacts/clearing-ensemble/{label}-{relaxed}.json");
+                Console.WriteLine($"PASS ensemble {label}/{relaxed}: equal initial supply/crop capacity; ten minutes, vegetables eaten {w.Food.EatenVegetables}, grown {w.Food.GrownVegetables}, hungry {hungry}, exact continuation");
+            }
         }
     }
     private static void CheckCourtChoice()
