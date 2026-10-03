@@ -4,6 +4,13 @@ namespace Inlanders.Simulation;
 public sealed record LivelihoodSite(string Summary,string Destination,Cell[] Route);
 public sealed partial class World
 {
+    public LivelihoodSite ReadRelocationLivelihood(int id,Cell at,int rotation)
+    {
+        if(RelocationProblem(id,at,rotation)!=null)return new("","",Array.Empty<Cell>());
+        var site=Cottages.Single(c=>c.Id==id);int index=Cottages.IndexOf(site);Cottages.RemoveAt(index);
+        try{return ReadLivelihoodSite(at,rotation,site.Kind,site.PlotRows);}
+        finally{Cottages.Insert(index,site);}
+    }
     public LivelihoodSite ReadLivelihoodSite(Cell at,int rotation,BuildingKind kind,int rows=0)
     {
         if(PlacementProblem(at,rotation,kind,rows)!=null)return new("","",Array.Empty<Cell>());

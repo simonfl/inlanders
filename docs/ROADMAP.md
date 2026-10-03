@@ -165,3 +165,6 @@ Checkpoint126: Play now offers A working clearing: eight housed residents, two s
 
 
 Checkpoint127: existing strips expose a gold far-edge handle that can be dragged directly on the land. Dragging changes only the proposal; explicit apply/cancel, timber/preparation and crop-loss rules remain shared with button controls. Native960 actual mouse press/move/release, unchanged-world proposal, apply and preparation passed142636-635-plot-revision-2f484c (55.47s), zero-warning build. Next128 reuses route previews while moving existing places to connect arrangement with possible daily journeys.
+
+
+Checkpoint128: relocation previews now show possible food/work connections using the same authoritative route query as new placement. They describe opportunities, not promised meals. Queries restore the original building/order without changing saved state. Four Normal/relaxed home/field move cases pass actual food production and exact continuation after15 simulated minutes; the initial five-minute test ended before starting food reserves triggered field work. Native960 actual move/cancel preview passed142928-586-working-clearing-cb312b, zero-warning build. Next129 removes qualitative public resident grades in favor of observed daily life.
