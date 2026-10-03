@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **128**.
+- Playable checkpoints since adoption: **129**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
 - Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
@@ -608,3 +608,6 @@ Checkpoint127: existing strips expose a gold far-edge handle that can be dragged
 
 
 Checkpoint128: relocation previews now show possible food/work connections using the same authoritative route query as new placement. They describe opportunities, not promised meals. Queries restore the original building/order without changing saved state. Four Normal/relaxed home/field move cases pass actual food production and exact continuation after15 simulated minutes; the initial five-minute test ended before starting food reserves triggered field work. Native960 actual move/cancel preview passed142928-586-working-clearing-cb312b, zero-warning build. Next129 removes qualitative public resident grades in favor of observed daily life.
+
+
+Checkpoint129: public resident panels now say Daily life and show actual activity, eating history and home/recreation visits. Public rest feedback no longer expires into a deficit, the staffing panel drops its recent-rest quota, and public idle poses no longer use hidden mood grades. Archived happiness rules remain available with archived play. Both-mode descriptive/pure-history and exact-save checks plus archived happiness pass; native960 actual panel and village controls passed143711-232-river-hamlet-d23d32 (23.78s), zero-warning build. Next130 gives shared meal ground a quieter furnished presence, then freezes for the full review.

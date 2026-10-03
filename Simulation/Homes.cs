@@ -59,6 +59,13 @@ public sealed partial class World
     }
     public string RestSummary(Villager person)
     {
+        if(PublicPlace!=null)
+        {
+            if(person.HomeId==null)return "No home assigned.";
+            if(person.Task==Work.ToRest)return "Walking home.";
+            if(person.Task==Work.Resting)return "Resting at home.";
+            return person.LastRestTime is float visit?$"Last home rest {(int)(Food.Time-visit)}s ago.":"Has a home; no completed rest visit recorded yet.";
+        }
         if(person.HomeId==null) return "No assigned home — finish housing with a spare bed.";
         if(person.Task==Work.ToRest) return "Heading home; rest counts after the visit.";
         if(person.Task==Work.Resting) return "Resting at home.";
@@ -68,6 +75,12 @@ public sealed partial class World
     public string RecreationSummary(Villager person)
     {
         if(person.Task is Work.ToLeisure or Work.Leisure) return person.Task==Work.ToLeisure ? "Going to a recreation venue." : "Taking a recreation break.";
+        if(PublicPlace!=null)
+        {
+            if(person.LastLeisureTime is float visit)return $"Last recreation visit {(int)(Food.Time-visit)}s ago.";
+            bool venue=Cottages.Any(c=>Buildings.Get(c.Kind).RecreationSlots>0 && c.Complete && !c.DemolitionRequested);
+            return venue?"No recreation visit recorded yet.":Commons!=null?"Shared ground hosts meals. There is no separate recreation venue.":"No separate recreation venue in this village.";
+        }
         if(person.LastLeisureTime is float last && Food.Time-last<person.LastLeisureWindow) return $"Recreation break completed {(int)(Food.Time-last)}s ago; benefit lasts another {(int)(person.LastLeisureWindow-(Food.Time-last))}s.";
         var squares=Cottages.Where(c=>Buildings.Get(c.Kind).RecreationSlots>0 && c.Complete && !c.DemolitionRequested).ToArray();
         if(squares.Length==0) return PublicPlace!=null ? (Commons!=null?"Shared ground hosts meals. There is no separate recreation venue.":"No separate recreation venue in this village.") : "No open square, hall or seating garden — build a place to meet.";

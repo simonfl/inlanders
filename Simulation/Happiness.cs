@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 public sealed record HappinessReport(int Meals, int Choice, int Housing, int Leisure, int FoodChoices, bool Creative = false, int Rest = 0, bool PublicLife = false)
 {
     public int Score => PublicLife ? (Creative || Meals>0?40:0)+(Housing>0?20:0)+(Rest>0?20:0)+(Leisure>0?20:0) : 10 + Meals + Choice + Housing + Rest + Leisure;
-    public string Mood => Score >= 85 ? "Cheerful" : Score >= 70 ? "Content" : Score >= 40 ? "Settling in" : "Unsettled";
+    public string Mood => PublicLife ? "Daily life" : Score >= 85 ? "Cheerful" : Score >= 70 ? "Content" : Score >= 40 ? "Settling in" : "Unsettled";
     public string Reasons => PublicLife ? (Meals>0?"Ate an ordinary meal":"Missing a recent meal"+(Creative?" · hunger penalties off":""))+"\n"+(Housing>0?"Has a home":"Needs a home")+"\n"+(Rest>0?"Rested at home recently":"Has not rested at home recently")+"\n"+(Leisure>0?"Enjoyed a recent break":"Has not taken a recent break") : (Creative ? "Food mood penalties disabled in Creative: +50/50" : $"Meals: +{Meals}/30\nVillage meal variety: +{Choice}/20 ({FoodChoices} types eaten)") + $"\nAssigned home: +{Housing}/10\nRecent home rest: +{Rest}/10\nRecent recreation: +{Leisure}/20\nStarting optimism: +10";
 }
 public sealed partial class World
@@ -17,6 +17,12 @@ public sealed partial class World
         person.HomeId!=null ? 10 : 0,
         person.LastLeisureTime is float last && Food.Time - last < person.LastLeisureWindow ? 20 : 0,
         Food.LastMealChoices, Creative, RecentlyRested(person) ? 10 : 0, PublicPlace!=null);
+    public string PublicDailyLife(Villager person)
+    {
+        var meal=Food.MealConsumptions.LastOrDefault(m=>m.Person==person.Id);
+        string eating=meal==null?"No eating recorded in the last three minutes.":$"Ate {meal.Kind.ToString().ToLowerInvariant()} {(int)(Food.Time-meal.Time)}s ago.";
+        return person.Status+"\n"+eating+"\n"+RestSummary(person)+"\n"+RecreationSummary(person);
+    }
     public int VillageHappiness => (int)Math.Round(People.Average(p => ReadHappiness(p).Score));
     // Reward portions outside the dominant food, relative to a balanced three-food meal for this population.
     public int MealVarietyScore => Food.LastMealRequired == 0 ? 0 : Math.Min(20, (int)MathF.Round(20f *

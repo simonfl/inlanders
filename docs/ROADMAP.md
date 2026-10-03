@@ -168,3 +168,6 @@ Checkpoint127: existing strips expose a gold far-edge handle that can be dragged
 
 
 Checkpoint128: relocation previews now show possible food/work connections using the same authoritative route query as new placement. They describe opportunities, not promised meals. Queries restore the original building/order without changing saved state. Four Normal/relaxed home/field move cases pass actual food production and exact continuation after15 simulated minutes; the initial five-minute test ended before starting food reserves triggered field work. Native960 actual move/cancel preview passed142928-586-working-clearing-cb312b, zero-warning build. Next129 removes qualitative public resident grades in favor of observed daily life.
+
+
+Checkpoint129: public resident panels now say Daily life and show actual activity, eating history and home/recreation visits. Public rest feedback no longer expires into a deficit, the staffing panel drops its recent-rest quota, and public idle poses no longer use hidden mood grades. Archived happiness rules remain available with archived play. Both-mode descriptive/pure-history and exact-save checks plus archived happiness pass; native960 actual panel and village controls passed143711-232-river-hamlet-d23d32 (23.78s), zero-warning build. Next130 gives shared meal ground a quieter furnished presence, then freezes for the full review.

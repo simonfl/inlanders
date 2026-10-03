@@ -17,7 +17,7 @@ The user authorized ten more outcomes after120. This supersedes the previous sto
 126. **Done** — A smaller, imperfect but viable working clearing in Normal/relaxed; keep the finished hamlet for comparison.
 127. **Done** — Drag the actual far edge of an existing field to propose its extent.
 128. **Done** — Preview possible food/work connections when relocating existing places.
-129. Descriptive public daily life instead of qualitative resident grades.
+129. **Done** — Descriptive public daily life instead of qualitative resident grades.
 130. Readable shared meal ground in place of empty target rings; full review and stop.
 
 No new needs/catalogue. The new scene is a different population/inventory situation, not a controlled equal-economy comparison. Reject the premise if understandable edits still yield no desired change.

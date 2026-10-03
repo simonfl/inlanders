@@ -46,7 +46,7 @@ public partial class Game
             await Press(Key.Escape);await Frames();if(before!=_world.SaveJson())throw new Exception("Survey action cancel changed village");
             await CaptureReviewBundle("survey-to-building");
             SelectPerson(0);await Frames();await UiClick(_happinessButton);await Frames();
-            if(_happinessButton.Text.Contains("/100") || _happinessReasons.Text.Contains("balanced") || _staffing.Text.Contains("Village happiness"))throw new Exception("Public mood still advertises a completion score");
+            if(_happinessButton.Text!="Daily life" || _happinessButton.Text.Contains("/100") || _happinessReasons.Text.Contains("balanced") || _staffing.Text.Contains("Village happiness"))throw new Exception("Public mood still advertises a completion score");
             if(before!=_world.SaveJson())throw new Exception("Mood inspection changed village");await CaptureReviewBundle("ordinary-life-mood");
             GD.Print("PASS: land views/action/cancellation and score-free public mood inspection; person selected by fixture API.");return;
         }
