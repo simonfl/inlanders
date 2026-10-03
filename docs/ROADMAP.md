@@ -113,3 +113,6 @@ Checkpoint111: public founding menu now compares inlet and river frontage, with 
 
 
 Checkpoint112: inhabited frontage is selectable beside the inlet, with six homes, two fields and a kitchen garden at equal population/reserves/crop capacity. Actual960 menu, household/watch/food controls pass130826-298-river-hamlet-a95b57; overview inspected. Both-mode actual meals/restart/exact continuation plus open garden/fishing routes pass, zero-warning build. Authored fields run inland; no objective recipe added. Next113 reuses existing resource survey with land-orientation access instead of adding another management overlay.
+
+
+Checkpoint113: Village now opens the existing resource survey with optional shore/open-land/woodlot views, computed from actual ground and standing trees. No soil bonus or prescribed site implied. Finish/Esc restores the entry camera; clock and simulation stay unchanged. Native960 all three views and exact return pass131111-488-river-hamlet-36bb44, zero-warning build. Reuses one inspector rather than adding an overlay. Next114 addresses broad water depth/shore readability, with115 presentation review.

@@ -28,6 +28,7 @@ public partial class Game
         _sourceMarkers.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); _sourceMarkers.Hide();
         _surveyDetails=new VBoxContainer(); _surveyDetails.AddThemeConstantOverride("separation",10); inspection.AddChild(_surveyDetails);
         _surveyDetails.AddChild(Text("RESOURCE SURVEY",16));
+        MakeLandSurveyViews(_surveyDetails);
         _sourceChoice=DirectoryFilter(_surveyDetails,"Choose a source here, or click its marker on the map.");
         _sourceChoice.ItemSelected+=i=> { if(i>0 && i<=_sourceList.Count) SelectResourceSource(_sourceList[(int)i-1].Key,true); };
         _sourceInfo=Text("",14,true); _surveyDetails.AddChild(_sourceInfo);
@@ -40,7 +41,7 @@ public partial class Game
     {
         if(_surveying) { StopResourceSurvey(); return; }
         ExitWatch(); _placing=false; _pathStroke=false; _woodlandStroke=false; _showSupplyRoutes=false; RefreshGhost(); ClearSelection();
-        _surveying=true; _sourceMarkers.Show();
+        RememberSurveyView();_surveying=true; _sourceMarkers.Show();
         RefreshSurveySources(true);
         ShowInspector(); _nextSourceRefresh=0; UpdateResourceSurvey();
     }
@@ -68,7 +69,7 @@ public partial class Game
         StopSurveyKeyboard();
         if(!_surveying) return;
         bool selected=_selectedSource!=null || (_selectedSite<0 && _selectedPerson<0);
-        _surveying=false; _selectedSource=null; _lastSurveySource=null; _sourceReport=null; _surveyDetails.Hide(); _surveyBack.Hide(); _sourceMarkers.Hide();
+        RestoreSurveyView();_surveying=false; _selectedSource=null; _lastSurveySource=null; _sourceReport=null; _surveyDetails.Hide(); _surveyBack.Hide(); _sourceMarkers.Hide();
         if(selected) { _inspector.Hide(); RefreshSelection(); }
     }
     private void SelectResourceSource(SourceKey key,bool moveCamera)
@@ -91,6 +92,7 @@ public partial class Game
     private void UpdateResourceSurvey()
     {
         _surveyToggle.Text=_surveying?"Finish resource survey [U]":"Survey map resources [U]";
+        _landSurveyViews.Visible=_world.PublicPlace!=null;
         _surveyDetails.Visible=_surveying && _selectedSite<0 && _selectedPerson<0;
         _surveyBack.Visible=_surveying && !_surveyDetails.Visible && _lastSurveySource!=null;
         foreach(var view in _depositViews.Values)
