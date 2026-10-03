@@ -8,13 +8,15 @@ public partial class Game
     private SharedCommons? SelectedSharedPlace=>_world.SharedPlaces.FirstOrDefault(c=>c.Center==_selectedCommonsCenter);
     private PanelContainer _commonsCard=null!;
     private Label _commonsCardText=null!;
-    private Button _commonsCardMove=null!,_commonsCardWatch=null!,_commonsCardRemove=null!;
+    private Button _commonsCardMove=null!,_commonsCardWatch=null!,_commonsCardRemove=null!,_commonsCardPath=null!;
     private void MakeCommonsCard()
     {
         _commonsCard=HudPanel(_hud);_commonsCard.Hide();var column=new VBoxContainer();_commonsCard.AddChild(column);
         _commonsCardText=Text("",14,true);_commonsCardText.CustomMinimumSize=new(282,0);column.AddChild(_commonsCardText);
         _commonsCardWatch=Button("Watch this place",WatchSharedPlace);column.AddChild(_commonsCardWatch);
         _commonsCardMove=Button("Arrange · preview",()=>BeginGatheringPlan(SelectedSharedPlace?.Center,true));column.AddChild(_commonsCardMove);
+        _commonsCardPath=Button("Path from here",BeginSharedPlacePath);column.AddChild(_commonsCardPath);
+        _commonsCardPath.TooltipText="Preview a walking path to a home, workplace or another shared place. Click to connect; Esc returns here without changing the ground.";
         _commonsCardRemove=Button("Remove shared place",()=>{if(_selectedCommonsCenter is Cell center)_world.RemoveCommons(center);ClearSelection();});column.AddChild(_commonsCardRemove);
         _commonsCardRemove.TooltipText="Remove the meal place. Carried meals remain physical and residents find another place to eat.";
         column.AddChild(Button("Close [Esc]",ClearSelection));
@@ -30,6 +32,7 @@ public partial class Game
         _commonsCard.Visible=show;if(!show)return;
         var place=SelectedSharedPlace!;
         _commonsCard.Position=new(_hud.Size.X-322,92);_commonsCard.Size=new(306,0);
+        _commonsCardPath.Disabled=_world.PathProblem(place.Center)!=null;
         int eating=_world.People.Count(p=>p.Task==Work.EatingMeal && p.Meal?.Commons==true && place.Places.Contains(p.Meal.Seat));
         int arriving=_world.People.Count(p=>p.Meal?.Commons==true && p.Task!=Work.EatingMeal && place.Places.Contains(p.Meal.Seat));
         int quiet=_world.People.Count(p=>_world.QuietSharedPlace(p)==place);

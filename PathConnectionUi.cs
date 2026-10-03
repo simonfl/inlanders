@@ -16,7 +16,7 @@ public partial class Game
     private Cell PathEndpoint(Cell cell)
     {
         var site = _world.Cottages.FirstOrDefault(c => c.Complete && World.Footprint(c).Contains(cell));
-        return site?.Entrance ?? cell;
+        return site?.Entrance ?? SharedPlaceHit(OnGround(cell.X,cell.Z))?.Center ?? cell;
     }
     private string? ConnectionProblem(Cell cell)
     {
@@ -37,7 +37,7 @@ public partial class Game
             if (_world.PathProblem(end) != null) { UiCue(Cue.Reject); return; }
             _pathAnchor = end; UiCue(Cue.Click);
         }
-        else if (_world.ConnectPaths(start, end)) { _pathAnchor = null; UiCue(Cue.Click);if(_pathOrigin>=0){EndPlacePath();return;} }
+        else if (_world.ConnectPaths(start, end)) { _pathAnchor = null; UiCue(Cue.Click);if(HasPlacePathOrigin){EndPlacePath();return;} }
         else UiCue(Cue.Reject);
         _connectionWorld = null; RefreshGhost();
     }

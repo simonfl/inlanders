@@ -26,7 +26,7 @@ Review145 chooses one inhabited ensemble, merging routine substeps rather than c
 147. **Done** — Differentiated public cottage silhouette family with stable appearance and recognizable entrances.
 148. **Done** — Shared ground/furniture fitted to actual approaches and occupancy, replacing isolated pads.
 149. **Done** — Recompose the recommended clearing's home/work/shared ensemble at the same population/capacity and explicit materials; old layout is a development comparator.
-150. Path approaches from selected shared places using existing previews/cancel/commit, retaining context. Full review/regression/push/stop.
+150. **Done** — Path approaches from selected shared places using existing previews/cancel/commit, retaining context. Full review/regression/push/stop.
 
 Correct145 wording, visible selection and Watch return without new count. Reevaluate each outcome; no new needs or more seating controls.
 

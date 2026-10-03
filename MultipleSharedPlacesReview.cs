@@ -23,6 +23,16 @@ public partial class Game
         ClearSelection();await Choose(gap);Check(SelectedSharedPlace==line,"Visible ground between line seats missed selection");
         var oldFocus=_focus;float oldZoom=_camera.Size;await UiClick(_commonsCardWatch);await Frames();await Press(Key.H);await Frames();
         Check(SelectedSharedPlace==line && _focus==oldFocus && _camera.Size==oldZoom,"Shared Watch lost place/camera");
+        string beforePath=_world.SaveJson();var pathFocus=_focus;float pathZoom=_camera.Size;
+        await UiClick(_commonsCardPath);await Frames();Check(_pathAnchor==line.Center && _placing,"Shared path did not start at selected place");
+        await Press(Key.Escape);await Frames();Check(beforePath==_world.SaveJson() && SelectedSharedPlace==line && _focus==pathFocus && _camera.Size==pathZoom,"Shared path cancel lost world/place/camera");
+        await UiClick(_commonsCardPath);await Frames();var destination=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage).Entrance;
+        _focus=OnGround(destination.X,destination.Z);_camera.Size=20;UpdateCamera();await Frames();
+        var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));
+        Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();
+        Check(_ghostValid && _connectionRoute.Count>1,"Shared approach preview missing");await CaptureReviewBundle("shared-place-path-proposal");
+        await Click(pathPoint);await Frames();
+        Check(!_placing && SelectedSharedPlace==line && _world.Paths.Contains(line.Center) && _world.Paths.Contains(destination) && _focus==pathFocus && _camera.Size==pathZoom,"Shared approach apply/return failed");
         Check(_world.SharedPlaces.Count==2,"Adding replaced existing place");FrameMap();await Frames();await CaptureReviewBundle("two-independent-shared-places");
         var original=_world.SharedPlaces[0].Center;var second=_world.SharedPlaces[1];var secondSeats=second.Places.ToArray();ClearSelection();await Choose(original);
         Check(_commonsCard.Visible && SelectedSharedPlace?.Center==original,"Ground selection did not choose first place");string saved=_world.SaveJson();
