@@ -79,6 +79,8 @@ public sealed class TimberTree
 }
 public sealed class Cottage
 {
+    [JsonInclude] public int ExtensionFromRows { get; internal set; }
+    [JsonInclude] public int ExtensionFromPrepared { get; internal set; }
     [JsonInclude] public int PreparedRows { get; internal set; }
     [JsonInclude] public int PlotRows { get; internal set; }
     public int Depth => PlotRows>0?PlotRows:Buildings.Get(Kind).Depth;
@@ -242,6 +244,7 @@ public sealed partial class World
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id);
         if (site == null || site.Complete) return false;
+        if(site.ExtensionFromRows>0)return CancelCultivationExtension(site);
         Cell salvageCell = site.Cell;
         if (site.Kind is BuildingKind.Bridge or BuildingKind.FishingDock && site.Delivered > 0)
         {
@@ -466,7 +469,7 @@ public sealed partial class World
                 case Work.ToBuild: v.Task = Work.Building; v.Status = $"Building {Cottages.Single(c => c.Id == v.SiteId).Kind} {v.SiteId}"; break;
                 case Work.Building:
                     var build = Cottages.Single(c => c.Id == v.SiteId); build.Construction = Math.Min(1, build.Construction + dt / Buildings.Get(build.Kind).ConstructionSeconds);
-                    if (build.Complete) { if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
+                    if (build.Complete) { build.ExtensionFromRows=build.ExtensionFromPrepared=0; if (build.Kind == BuildingKind.Bridge) { foreach (var walker in People.Where(p => p.Route.Count > 0)) SetRoute(walker, walker.Destination); } build.Builder = null; History.Add($"{build.Kind} {build.Id} completed"); Finish(v); } break;
                 default: if (!TickComfort(v,dt) && !TickHauling(v) && !TickSawWork(v, dt)) TickFoodWork(v, dt); break;
             }
         }

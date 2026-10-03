@@ -124,7 +124,10 @@ public sealed partial class World
     {
         ValidateWorkplaceAssignments();
         foreach (var c in Cottages)
+        {
+            if(c.ExtensionFromRows!=0 && (c.Kind!=BuildingKind.VegetableField || c.Complete || c.ExtensionFromRows<1 || c.ExtensionFromRows>c.ExtensionFromPrepared || c.ExtensionFromPrepared>=c.PreparedRows) || c.ExtensionFromRows==0 && c.ExtensionFromPrepared!=0)throw new InvalidOperationException("Invalid field extension");
             if (c.PreparedRows!=0 && (c.Kind!=BuildingKind.VegetableField || c.PreparedRows<c.PlotRows || c.PreparedRows>8) || c.PlotRows!=0 && (c.Kind!=BuildingKind.VegetableField || c.PlotRows is <1 or >8) || c.EstablishmentPending && (!EstablishmentKind(c.Kind) || Founding is not {PlayerFounded:true,ReserveOnlyWork:false}) || c.OutputTarget < -1 || c.OutputTarget > 200 || (ProductionOutput(c.Kind) == null && (c.WorkPaused && !c.DemolitionRequested && c.Kind!=BuildingKind.Carpenter || c.OutputTarget != -1)))
                 throw new InvalidOperationException("Invalid workplace controls");
+        }
     }
 }

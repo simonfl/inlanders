@@ -50,7 +50,7 @@ public partial class Game
         MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
         MakeHomeTurn(column);MakePlacePath(column);MakeHomeAppearance(column);MakeHomeInvitation(column);MakePlaceJourneys(column);
-        _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
+        _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();CreateActors();RenderActors(0);RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()
     {
@@ -89,6 +89,7 @@ public partial class Game
         _workCardFurnish.TooltipText=site.PlannedYard?"Cancel the future yard order; keep the house. No furnishing supplies are sent before the home is occupied.":_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
         if(site.Complete && Buildings.Get(site.Kind).Beds>0)_workCardText.Text+="\n"+HomeCardOutcome(site);
         _workCardWorker.Text=Buildings.Get(site.Kind).Beds>0?"Follow resident":!site.Complete?"Follow builder":"Follow worker";
+        _workCardCancel.Text=site.ExtensionFromRows>0?"Cancel extension · keep original field":"Cancel this construction";
         _workCardCancel.Visible=!site.Complete && !site.DemolitionRequested;
         if(_reshapingPlot!=site.Id && site.Complete && (_world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Pantry))
         {

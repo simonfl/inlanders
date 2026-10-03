@@ -19,18 +19,20 @@ public partial class Game
         _turnApply=Button("Use this direction",()=>{var home=_world.Cottages.FirstOrDefault(c=>c.Id==_turnHome);if(home!=null && _world.MoveBuilding(home.Id,home.Cell,_homeTurn)){EndHomeTurn();CreateActors();RenderActors(0);RefreshSelection();}});box.AddChild(_turnApply);
         box.AddChild(Button("Cancel [Esc]",EndHomeTurn));_turnPanel.Hide();
     }
-    private void EndHomeTurn(){if(_turnHome<0)return;_turnHome=-1;_turnPanel.Hide();_turnGround?.Hide();_nextWorkCard=0;}
+    private void EndHomeTurn(){if(_turnHome<0)return;if(_turnWorld==_world && _cottages.TryGetValue(_turnHome,out var current) && GodotObject.IsInstanceValid(current.Body))current.Body.Show();_turnHome=-1;_turnPanel.Hide();_turnGround?.Hide();_nextWorkCard=0;}
     private void RenderHomeTurn()
     {
         var home=_world.Cottages.FirstOrDefault(c=>c.Id==_turnHome);
         if(home==null || _turnWorld!=_world || _selectedSite!=_turnHome || _atMainMenu || _placing || _drawer.Visible || _watching){EndHomeTurn();return;}
         _turnPanel.Show();_turnPanel.Position=new(_workCardRight?_hud.Size.X-326:16,92);_turnPanel.Size=new(310,0);
         var problem=_world.RelocationProblem(home.Id,home.Cell,_homeTurn);
-        _turnInfo.Text="Turn around the same ground anchor. Blue marks the proposed entrance. Household and furnishings stay.\n"+(problem??"Clear approach. No material cost.");
+        _turnInfo.Text="Turn around the same ground anchor. The house shows the proposal; blue marks its entrance. Household and furnishings stay.\n"+(problem??"Clear approach. No material cost.");
         _turnApply.Disabled=problem!=null || _homeTurn==home.Rotation;
         _turnGround??=new();if(_turnGround.GetParent()==null)AddChild(_turnGround);_turnGround.Show();
-        string key=$"{home.Id}/{_homeTurn}/{problem}";if(key==_turnKey)return;_turnKey=key;Clear(_turnGround);
+        if(_cottages.TryGetValue(home.Id,out var actual))actual.Body.Hide();
+        string key=$"{home.Id}/{_homeTurn}/{home.Finish}/{problem}";if(key==_turnKey)return;_turnKey=key;Clear(_turnGround);
         foreach(var c in World.Footprint(home.Cell,_homeTurn,home.Kind))GroundPatch(_turnGround,c.X,c.Z,.88f,.88f,problem==null?new("c9b56d"):new Color("bc7463"),.11f);
+        var proposal=new Node3D{Position=BuildingPosition(home.Cell,_homeTurn,home.Kind,.06f),RotationDegrees=new(0,_homeTurn*90,0)};_turnGround.AddChild(proposal);MakeBuilding(proposal,home,3);
         var door=World.Door(home.Cell,_homeTurn);GroundPatch(_turnGround,door.X,door.Z,.85f,.85f,new("75c7d0"),.12f);
     }
 }

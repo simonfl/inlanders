@@ -5,7 +5,8 @@ Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 1
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
 - Playable checkpoints since adoption: **125**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
+- Last periodic review: **checkpoint125**, [synthesis](REVIEW_CHECKPOINT_125.md), fixed cca188c. Four fresh independent roles plus a reused110visual context; partially convincing. Correct extension cancellation, then test a working clearing through130.
+- Previous periodic review: **checkpoint120**, [synthesis](REVIEW_CHECKPOINT_120.md), base2c240c3 plus narrow correction6c52f04. Four fresh independent roles and reused115visual after thread limit. Partially convincing; stop at120.
 - Previous periodic review: **checkpoint115**, [synthesis](REVIEW_CHECKPOINT_115.md), fixed12739a4, five fresh independent roles.
 - Previous periodic review: **checkpoint110**, [synthesis](REVIEW_CHECKPOINT_110.md), fixed `63a92e2`; three fresh and two reused independent roles. Partially convincing; stop for human play.
 - Previous periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
@@ -592,3 +593,9 @@ Checkpoint124: selected homes/workplaces can start a path at their actual entran
 
 
 Checkpoint125: cultivated strips now have raised earth shoulders, dark furrows and a low working edge instead of permanent floating field placards. Ground tint invalidates on changed field depth, so released/restored ground updates with editing. Same actual footprints/yields.1440 ordinary1x10-second before/after captures20261003-140134-628-river-hamlet-902d35 inspected;960 relaxed overview140207-122-cultivated-bank-relaxed-5f8d69. Both-mode extension checks pass; zero-warning build. Five playable outcomes committed; freeze for independent whole-game125 plus visual/audio before126. Furrows improve local legibility; broad scene appeal and motivation remain unproven.
+
+
+125 review complete: independent five-role synthesis selects126–130 and records source-confirmed extension cancellation food loss. All37 current suites passed before corrections (run f40347e1d4d24704b8c4d92353eb48e8); this does not close the missing lifecycle case. No extra playable count for review/fixes.
+
+
+125 corrective follow-up (no playable increment): extension cancellation now restores original rows/prepared extent and pantry, salvaging only extra delivered timber; metadata survives current saves and clears on completion. Food-bearing partially delivered save→load→cancel→validate/continue passes, plus Normal/relaxed actual crops/meals. Independent lead verified the delta read-only with no further blocker. Home turn now shows the proposed model and restores original on cancel. Native960 corrective run141649-333-river-hamlet-1f29b9 validates turn/path/appearance/save; zero-warning build. Both corrections finish existing outcomes rather than inflate count.

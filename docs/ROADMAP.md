@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Checkpoints121–130 authorized:** reshape existing home and working ground, review at125/130, then stop. See [active queue](NEXT_CHUNKS.md). Previous120 verdict remains the starting evidence, not a human playtest.
+**Checkpoint125 reviewed; continue through130:** [synthesis](REVIEW_CHECKPOINT_125.md) selects an imperfect but viable working clearing and visible home–field–shore consequences. Correct extension cancellation first; no new needs or buildings. Review130, then stop. See [active queue](NEXT_CHUNKS.md). Previous120 verdict remains the starting evidence, not a human playtest.
 
 **Checkpoint120 complete:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. [NEXT_CHUNKS](NEXT_CHUNKS.md) records how to try it and the stopping point; no automatic121–125 queue.
 

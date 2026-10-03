@@ -33,11 +33,32 @@ public sealed partial class World
         if(ExtendCultivationProblem(id,rows)!=null)return false;
         var site=Cottages.Single(c=>c.Id==id);int oldRequired=site.Required;
         foreach(var person in People.Where(p=>MoveAffects(p,site)).ToArray())Interrupt(person);
+        if(!Creative){site.ExtensionFromRows=site.Depth;site.ExtensionFromPrepared=PreparedPlotRows(site);}
         site.PlotRows=site.PreparedRows=rows;site.Planted=false;site.Growth=0;
         if(!Creative)site.Construction=(float)oldRequired/site.Required;
         RemovePaths(Footprint(site));ManagedWoodland.ExceptWith(Footprint(site));
         foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.Destination);
         History.Add($"Cultivated strip {id} extended to {rows} rows. Prepare the extra ground before sowing; stored food stays.");_retry=0;return true;
+    }
+    private bool CancelCultivationExtension(Cottage site)
+    {
+        int oldRows=site.ExtensionFromRows,oldPrepared=site.ExtensionFromPrepared;
+        int extra=site.Delivered-oldPrepared*2;
+        Cell? salvage=null;
+        if(extra>0)
+        {
+            int rows=site.PlotRows,prepared=site.PreparedRows;
+            site.PlotRows=oldRows;site.PreparedRows=oldPrepared;
+            try{salvage=Map.Land.OrderBy(c=>(c.Point-site.Entrance.Point).LengthSquared()).Cast<Cell?>().FirstOrDefault(c=>PlantingProblem(c!.Value)==null);}
+            finally{site.PlotRows=rows;site.PreparedRows=prepared;}
+            if(salvage==null)return false;
+        }
+        foreach(var person in People.Where(p=>MoveAffects(p,site)).ToArray())Interrupt(person);
+        site.PlotRows=oldRows;site.PreparedRows=oldPrepared;site.Delivered=oldPrepared*2;
+        site.Construction=1;site.ConstructionPaused=false;site.ExtensionFromRows=site.ExtensionFromPrepared=0;
+        if(salvage is Cell at){RemovePaths(new[]{at});Trees.Add(new(){Id=_nextTree++,Cell=at,Logs=extra,Material=Resource.Logs,Felled=true,Salvage=true});}
+        foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.Destination);
+        History.Add($"Cancelled extension of cultivated strip {site.Id}; original ground and stored food retained. Extra delivered timber is salvage.");_retry=0;return true;
     }
     public bool ReviseCultivation(int id,int rows)
     {

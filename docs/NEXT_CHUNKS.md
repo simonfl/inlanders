@@ -8,9 +8,19 @@ The user authorized ten more outcomes after120. This supersedes the previous sto
 122. **Done** — Turn an existing home in place with a preview of access and yard conflicts, without finding its anchor again.
 123. **Done** — Give a home its own appearance directly from its world card; retain the broader inspector for details.
 124. **Done** — Connect a selected place to another with a path in the world, retaining the origin and showing the actual route.
-125. **Done; review due** — Make cultivated ground and its working edge easier to read at village scale; evaluate the whole scene, then full review including visual/audio if presentation is substantial.
+125. **Done; reviewed** — Make cultivated ground and its working edge easier to read at village scale; evaluate the whole scene, then full review including visual/audio if presentation is substantial.
 
-126–130 remain contingent on review125. Candidate direction is a coherent home–work–shore arrangement, not five mandatory cosmetic additions. Revise/cut the queue if evidence contradicts it.
+## Review125 decision
+
+[Whole-game synthesis](REVIEW_CHECKPOINT_125.md): partially convincing. Fix extension cancellation and turn preview first, with no extra playable count. Then:
+
+126. A smaller, imperfect but viable working clearing in Normal/relaxed; keep the finished hamlet for comparison.
+127. Drag the actual far edge of an existing field to propose its extent.
+128. Preview possible food/work connections when relocating existing places.
+129. Descriptive public daily life instead of qualitative resident grades.
+130. Readable shared meal ground in place of empty target rings; full review and stop.
+
+No new needs/catalogue. The new scene is a different population/inventory situation, not a controlled equal-economy comparison. Reject the premise if understandable edits still yield no desired change.
 
 ## Evidence and limits
 
