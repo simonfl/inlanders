@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **107**.
+- Playable checkpoints since adoption: **108**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
@@ -520,3 +520,6 @@ Checkpoint106: everyday palette now offers home, cultivated ground, river landin
 
 
 Checkpoint107: public food inspection temporarily replaces place/person cards with store labels and a compact Back/Esc control; menus close the overlay. Returning restores selected-place context. Removes the large stale notice and immediate toggle feedback delay; provision-rest uses a semantic report flag. Native960 food view/open/back and unchanged state passed20261003-065531-251-household-24346b; focused crop/revision checks pass, zero-warning build. Next108 groups occasional home alterations, then109 simpler public navigation.
+
+
+Checkpoint108: home selection leads with residents/use/watching; Move, furnishing and yard changes join occasional actions under Change this home. Native960 household exchange passes065738-923-household-move-c8b9f6. Broader bank probe updated from obsolete Follow resident to actual roster: full yard previews/apply/cancel/furnish, Normal/relaxed, saves/menu and shared-place flow passes20261003-070014-940-cultivated-bank-fc309b. Prior run065904-231 reproduced known replace-target0x80070005,11 attempts414ms; village correctly stayed open. Successful retry is not a fix; cause remains unknown, diagnostics retained. Zero-warning build, simulation unchanged. Next109 reduces public navigation with all management still reachable.

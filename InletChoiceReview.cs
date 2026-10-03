@@ -17,9 +17,9 @@ public partial class Game
         await CaptureReviewBundle("inlet-choice-entry");await UiClick(_mainButtons["New hamlet"]);await Frames();
         var profile=new HamletProfile(false,true,false,true);Check(_world.PublicPlace==profile && CurrentSavePath.EndsWith(profile.SaveName),"Inlet entry or save slot wrong");
         await CaptureReviewBundle("inlet-choice-opening");
-        var home=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);ShowWorkplaceCard(home.Id);await Frames();await UiClick(_workCardYard);await Frames();
+        var home=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);ShowWorkplaceCard(home.Id);await Frames();if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();
         int side=Enumerable.Range(0,4).First(i=>_world.FurnishHomeYardProblem(home.Id,i)==null);await UiClick(_yardSides[side]);await Frames();await UiClick(_yardFurnish);await Frames();
-        Check(home.ImprovementRequested,"Inlet furnishing unavailable");await UiClick(_workCardFurnish);await Frames();
+        Check(home.ImprovementRequested,"Inlet furnishing unavailable");if(!_workCardFurnish.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardFurnish);await Frames();
         ClearSelection();var field=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);Check(_world.SetWorkplacePaused(field.Id,true),"Field pause failed");
         var destination=_world.Map.Land.First(c=>c!=field.Cell && _world.RelocationProblem(field.Id,c,field.Rotation)==null);
         Check(_world.MoveBuilding(field.Id,destination,field.Rotation),"Inlet field move rejected");_world.Validate();

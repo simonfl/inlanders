@@ -28,6 +28,7 @@ public partial class Game
         _focus=BuildingPosition(home);_camera.Size=18;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(BuildingPosition(home)+Vector3.Up*.5f));await Frames();
         Check(_workCardSite==home.Id && _householdPeople.Visible,"Selecting home does not show household");
         var residents=_world.People.Where(p=>p.HomeId==home.Id).ToArray();Check(_householdResidents.Count(b=>b.Visible)==residents.Length,"Household roster wrong");
+        Check(!_workCardMove.Visible && !_workCardYard.Visible && !_workCardFurnish.Visible,"Home alterations compete with everyday use");
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-75,"Household card overflows");string saved=_world.SaveJson();await CaptureReviewBundle("household-at-a-glance");
         await UiClick(_householdResidents[residents.Length-1]);await Frames();Check(_dailyPerson==residents[^1].Id && _dailyExpanded && _followPerson && _dailyHomeBack.Visible,"Cannot follow chosen household resident");
         await CaptureReviewBundle("chosen-household-journey");await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==home.Id && _world.SaveJson()==saved,"Household return changed simulation");

@@ -13,9 +13,9 @@ public partial class Game
         await UiClick(_mainButtons["New hamlet"]);await Frames();Check(_world.Founding?.TransformationHamlet==true && _world.Population==12 && CurrentSavePath==TransformationPath,"Hamlet entry failed");
         var domestic=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
         ShowWorkplaceCard(domestic.Id);await Frames();Check(_workCardFurnish.IsVisibleInTree(),"Direct furnishing action hidden");
-        await UiClick(_workCardFurnish);await Frames();Check(domestic.ImprovementRequested && _workCardFurnish.Text=="Cancel furnishing","Direct furnishing order failed");
+        if(!_workCardFurnish.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardFurnish);await Frames();Check(domestic.ImprovementRequested && _workCardFurnish.Text=="Cancel furnishing","Direct furnishing order failed");
         await CaptureReviewBundle("direct-domestic-order");
-        await UiClick(_workCardFurnish);await Frames();Check(!domestic.ImprovementRequested,"Direct furnishing cancellation failed");ClearSelection();
+        if(!_workCardFurnish.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardFurnish);await Frames();Check(!domestic.ImprovementRequested,"Direct furnishing cancellation failed");ClearSelection();
         SelectBuilding(domestic.Id);await Frames();Check(!_comfortInfo.Text.Contains("workshop") && _comfortInfo.Text.Contains("Shared workers"),"Home details teach obsolete workshop requirement");CloseDrawer();ClearSelection();
         await Press(Key.B);await Frames();_buildingFilter.Select(3);UpdateVillageDirectory();await Frames();Check(!_kindButtons[BuildingKind.Carpenter].IsVisibleInTree(),"Redundant workshop still offered");CloseDrawer();
         await Press(Key.G);await Frames();Check(!_foundingFinish.Disabled,"Personal ending is gated by production");

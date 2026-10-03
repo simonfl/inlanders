@@ -16,7 +16,7 @@ public partial class Game
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z-1)));await Frames();
         Check(_workCard.Visible && _workCardSite==home.Id && !_inspector.Visible,"Home click did not expose compact actions");await CaptureReviewBundle("home-world-actions");
         var initialFocus=_focus;float initialAngle=_angle,initialZoom=_camera.Size;
-        int oldSide=home.YardSide;string beforeYard=_world.SaveJson();await UiClick(_workCardYard);await Frames();
+        int oldSide=home.YardSide;string beforeYard=_world.SaveJson();if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();
         int targetSide=Enumerable.Range(1,3).Select(i=>(oldSide+i)%4).First(i=>_world.HomeYardProblem(home.Id,i)==null);
         foreach(int side in Enumerable.Range(0,4))
         {
@@ -38,20 +38,20 @@ public partial class Game
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-60,"Yard preview overlaps bottom controls");await CaptureReviewBundle("yard-ground-preview");
         await Press(Key.H);await Frames();Check(_watching && _yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Watch retained a proposal or changed simulation");
         await Press(Key.Escape);await Frames();Check(!_watching,"One Escape did not leave Watch after yard proposal");
-        await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();
+        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();
         await Press(Key.Escape);await Frames();Check(_yardPreviewSide<0 && _world.SaveJson()==beforeYard,"Preview cancellation changed world");
-        await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");
+        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[targetSide]);await Frames();await UiClick(_yardApply);await Frames();Check(home.YardSide==targetSide,"Confirmed yard-side action failed");
         Check(!home.ImprovementRequested && !home.Improved,"Ground-only confirmation ordered furnishing");
-        await UiClick(_workCardYard);await Frames();await UiClick(_yardFurnish);await Frames();
+        if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardFurnish);await Frames();
         Check(home.YardSide==targetSide && home.ImprovementRequested && !home.Improved,"Priced furnishing did not order real work");
         await CaptureReviewBundle("chosen-yard-side");
-        await UiClick(_workCardFurnish);await Frames();Check(!home.ImprovementRequested,"Combined order cannot cancel");
+        if(!_workCardFurnish.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardFurnish);await Frames();Check(!home.ImprovementRequested,"Combined order cannot cancel");
         string beforeWatch=_world.SaveJson();bool wasPaused=_paused;float wasSpeed=_speed;
         await UiClick(_workCardWatchPlace);await Frames();
         Check(_watching && !_hud.Visible && !_followPerson && _world.SaveJson()==beforeWatch && _paused==wasPaused && _speed==wasSpeed,"Watch place changed life or followed a person");
         await CaptureReviewBundle("watch-domestic-place");await Press(Key.Escape);await Frames();
         ShowWorkplaceCard(home.Id);await Frames();
-        await UiClick(_workCardWorker);await Frames();Check(_dailyCard.Visible,"Watch resident failed");ClearSelection();_focus=initialFocus;_angle=initialAngle;_camera.Size=initialZoom;UpdateCamera();
+        await UiClick(_householdResidents[0]);await Frames();Check(_dailyCard.Visible,"Watch resident failed");ClearSelection();_focus=initialFocus;_angle=initialAngle;_camera.Size=initialZoom;UpdateCamera();
         var staged=_world.Place(new(1,-9),0,BuildingKind.Cottage);Check(staged!=null,"Construction card fixture unavailable");CreateActors();RenderActors(0);
         await Click(_camera.UnprojectPosition(OnGround(1,-10)));await Frames();Check(_workCardSite==staged!.Id && _workCardCancel.Visible,"Construction click missed actions");
         await UiClick(_workCardPause);await Frames();Check(staged.ConstructionPaused,"Card staging failed");await CaptureReviewBundle("construction-world-actions");
@@ -71,9 +71,9 @@ public partial class Game
         ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Play"),"Bank return to menu/save failed: "+_notice);await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();
         await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();Check(_world.PublicPlace==new HamletProfile(true,true) && CurrentSavePath.EndsWith("cultivated-bank-relaxed.json"),"Relaxed bank slot differs");
         var relaxedHome=_world.Cottages.First(c=>c.Kind==BuildingKind.Cottage);
-        ShowWorkplaceCard(relaxedHome.Id);await Frames();await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[3]);await Frames();
+        ShowWorkplaceCard(relaxedHome.Id);await Frames();if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[3]);await Frames();
         Check(_yardFurnish.Text.Contains("free"),"Relaxed preview misstates price");await UiClick(_yardFurnish);await Frames();Check(relaxedHome.Improved && relaxedHome.YardSide==3,"Relaxed combined furnishing failed");
-        var neighbor=_world.Cottages.Single(c=>c.Cell==new Cell(1,6));ShowWorkplaceCard(neighbor.Id);await Frames();await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[1]);await Frames();
+        var neighbor=_world.Cottages.Single(c=>c.Cell==new Cell(1,6));ShowWorkplaceCard(neighbor.Id);await Frames();if(!_workCardYard.IsVisibleInTree()){await UiClick(_homeOptionsButton);await Frames();}await UiClick(_workCardYard);await Frames();await UiClick(_yardSides[1]);await Frames();
         Check(_yardFurnish.Disabled && _yardApply.Disabled && _yardPreviewInfo.Text.Contains("yard uses"),"Overlapping yard preview lacks blocker");await CaptureReviewBundle("blocked-yard-preview");await Press(Key.Escape);await Frames();ClearSelection();
         await ProbeCommonsCard();
         await ProbePublicPlaceContract();
