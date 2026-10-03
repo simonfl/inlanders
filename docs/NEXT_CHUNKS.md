@@ -1,6 +1,6 @@
-# Active work — checkpoints141–150
+# Handoff — completed checkpoints141–150
 
-The user authorized ten more after140. No new playtest feedback assumed. Two full whole-game reviews are due145/150; stop150.
+Ten playable outcomes are committed. Whole-game reviews145/150 and the147 presentation supplement are complete. Final45-suite regression and focused home-removal correction checks passed. Stop150; delivery commit/push closes this batch. No new human feedback assumed; no151 authorized.
 
 ## Design decision from the adversarial test
 
@@ -33,3 +33,9 @@ Correct145 wording, visible selection and Watch return without new count. Reeval
 ## Evidence
 
 Use existing same-start comparisons, native960/1440 control probes, ordinary-speed scene/frame evidence and current saves. Review whole public/archived/Normal/relaxed/Creative game, catalogue/needs, controls, presentation/audio and reliability. Listening/human preference remain unobserved until actually performed. Keep bounded tooling investments tied to diagnosed repeated cost or evidence gaps.
+
+## After the stop — hypotheses, not a queue
+
+[Review150](REVIEW_CHECKPOINT_150.md) retains the inhabited ensemble provisionally. A nicer starter may remove the obvious reason to change it. Next evidence should distinguish wanted authorship, contented observation, logistical interest, confusion and indifference. Try **New clearing** for the new layout/current save54; founded play remains a contrasting entry.
+
+Do not automatically add needs, furniture controls, campaign chapters or another visual-detail batch. If future work is authorized, prioritize observed player intent or bounded attribution of ordinary resident/dense outside-callback stalls. Audio/motion still require actual viewing/listening. Existing fixtures suffice; no new framework.

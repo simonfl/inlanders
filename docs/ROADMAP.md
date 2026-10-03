@@ -10,13 +10,13 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Authorized141–150:** [review140](REVIEW_CHECKPOINT_140.md) challenged the court tradeoff; the combined commons/near-field test now works without a dock. Choose personally composed inhabited landscape over a forced binary puzzle. 141 reopens continuous ground;142 supplies two/four/six-seat places; 143 supports independent local places; 144 adds gathered/linear seating and orientation; 145 quiet shared use. [Review145](REVIEW_CHECKPOINT_145.md) selects one inhabited ensemble: coherent routines, differentiated homes, integrated shared ground, recomposed clearing and path approaches, keeping actual work and meals. Full reviews145/150; stop150. [Active queue](NEXT_CHUNKS.md). No new needs/resources or compulsory growth.
+**Completed141–150:** full reviews [145](REVIEW_CHECKPOINT_145.md) and [150](REVIEW_CHECKPOINT_150.md). The combined field/shared-ground test rejected the forced binary dilemma. Shared places now support small independent arrangements and ordinary bounded visits; varied homes, blended ground, nearer cultivation and contextual paths form the retained ensemble. **Stop150** after final regression/push. [Handoff and future hypotheses](NEXT_CHUNKS.md); no automatically scheduled151 or new needs/resources/growth.
 
 **Earlier checkpoint120:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. The subsequently authorized121–130 batch is now complete.
 
 The verdict remains partially convincing. A practical landing, inland fields and woodland provide a stronger place; fewer diet/UI obligations help authorship. Whether players want to reshape an already functioning hamlet remains unproven. Public qualitative mood has been replaced by descriptive daily life. Keep founded/inhabited, inlet/frontage and Normal/relaxed comparisons; no new needs/resources/catalogue expansion to manufacture purpose.
 
-The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, repeated roofs and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
+The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, small productive extent and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
 
 ## What stays, what changes
 
@@ -76,7 +76,7 @@ Costs, outputs, field dimensions, chapter length, specific crops, new resource t
 
 ## Delivered foundation and history
 
-Current public game: provisioned player-founded farmstead and inhabited inlet comparison, each with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Nineteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
+Current public game: recommended working clearing plus player-founded and inhabited comparisons, with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Nineteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
 
 Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 interaction sampling](INTERACTION_T07.md), [F32 landscape comparison](HAMLET_F32A.md), [simulation performance](HAMLET_PERFORMANCE_F32B.md), [rearrangement](HAMLET_REARRANGEMENT_F32C.md), [connected paths](HAMLET_PATHS_F32D.md). Their tests do not establish enjoyment or historical authenticity.
 

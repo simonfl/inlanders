@@ -45,6 +45,13 @@ static class QuietSharedPlaceChecks
         OrdinaryLife();
         foreach(bool relaxed in new[]{false,true})
         {
+            var displaced=Quiet(relaxed);var seated=displaced.People.First(p=>displaced.QuietSharedPlace(p)!=null && p.Route.Count==0);
+            Check(relaxed?displaced.RemoveBuilding(seated.HomeId!.Value):displaced.RequestDemolition(seated.HomeId!.Value),"Remove visitor home");
+            Check(seated.QuietSharedCenter==null,"Removed home retained seated quiet intent");
+            displaced.Validate();
+            var displacedCopy=World.LoadJson(displaced.SaveJson());
+            for(int i=0;i<100;i++){displaced.Tick(.1f);displacedCopy.Tick(.1f);}
+            Check(displaced.SaveJson()==displacedCopy.SaveJson(),"Displaced visitor continuation");
             var w=Quiet(relaxed);var visiting=w.People.FirstOrDefault(p=>w.QuietSharedPlace(p)!=null && p.Route.Count==0);
             Check(visiting!=null,"No actual quiet visit");Check(w.ReadDailyJourney(visiting!.Id).Heading.StartsWith("Sitting together"),"Quiet reader claims home/food");
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<50;i++){w.Tick(.1f);copy.Tick(.1f);}Check(w.SaveJson()==copy.SaveJson(),"Quiet save continuation");
