@@ -640,4 +640,8 @@ Checkpoint135: public vegetable fields develop spreading faceted leaf cover from
 
 
 135 full review complete: five independent role verdicts synthesized before136. New landscape readability is retained conditionally; select a real near-home land-use choice and reduce interaction fragmentation. Narrow rendering attribution/fix adds no playable count.
-`n135 correction: attributed ground refresh in the existing trace, then cached static tint. Recurring same-scene rebuilds fell from28–35ms to11–14ms; initial rebuild remains33ms. Zero-warning build and ordinary native capture passed. No additional playable count.
+
+135 correction: attributed ground refresh in the existing trace, then cached static tint. Recurring same-scene rebuilds fell from28–35ms to11–14ms; initial rebuild remains33ms. Zero-warning build and ordinary native capture passed. No additional playable count.
+
+
+Checkpoint136: working clearing now bends the river toward the homes and rises behind them, keeping the small central court useful for cultivation or shared/domestic ground. Same eight housed people, two fields and reserves; no new start or rule meter. Native960 menu/save/household/move/path probe162003-404 passed and scene inspected. Court checks verify actual slope/water, mutually exclusive field/shared/ordered-yard claims and nearby legal landing. Placement now protects ordered/furnished yards against building over them. Six60-minute Normal/relaxed keep/near-field/landing branches retain actual food use and exact save continuation. Next137 simplifies home editing;138 revised because combined furnish already exists.

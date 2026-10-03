@@ -38,6 +38,7 @@ public sealed partial class World
         if (Blocked(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";
+        if (Cottages.SelectMany(ClaimedHomeYardPlaces).Any(footprint.Contains)) return "A furnished or ordered home yard uses this ground. Move or cancel the yard first.";
         if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
         if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotation)) || footprint.Contains(Door(c.Cell, c.Rotation))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";

@@ -3,6 +3,7 @@ static class WorkingClearingChecks
 {
     public static void Run()
     {
+        CheckCourtChoice();
         foreach(bool relaxed in new[]{false,true})foreach(string change in new[]{"keep","near-field","landing"})
         {
             void Check(bool ok,string why){if(!ok)throw new Exception(why);}
@@ -10,7 +11,7 @@ static class WorkingClearingChecks
             var f=w.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);
             if(change=="near-field")
             {
-                w.SetWorkplacePaused(f.Id,true);var at=w.Map.Land.OrderBy(c=>(c.Point-new Cell(2,1).Point).LengthSquared()).First(c=>w.RelocationProblem(f.Id,c,1)==null);
+                w.SetWorkplacePaused(f.Id,true);var at=new Cell(0,7);Check(w.RelocationProblem(f.Id,at,1)==null,"Central court accepts growing ground");
                 Check(w.MoveBuilding(f.Id,at,1),"Nearby field move");w.SetWorkplacePaused(f.Id,false);
             }
             if(change=="landing")
@@ -22,4 +23,18 @@ static class WorkingClearingChecks
             Console.WriteLine($"PASS clearing {relaxed}/{change}: 60min actual life, food {w.EdibleStored}, grown {w.Food.GrownVegetables}, hungry ticks {hungry}, exact continuation");
         }
     }
+    private static void CheckCourtChoice()
+    {
+        void Check(bool ok,string why){if(!ok)throw new Exception(why);}
+        var w=World.NewWorkingClearing();var home=w.Cottages.Single(c=>c.Cell==new Cell(-3,9));
+        Check(w.Map.Water.Contains(new(3,1)) && !w.Map.LevelGround(new[]{new Cell(0,12)}),"Court geography missing");
+        Check(w.SetCommons(new(0,7)),"Court shared ground unavailable");
+        var f=w.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);w.SetWorkplacePaused(f.Id,true);
+        Check(w.RelocationProblem(f.Id,new(0,7),1)!=null,"Field can occupy shared court");
+        w.RemoveCommons();Check(w.FurnishHomeYard(home.Id,3),"Court domestic ground unavailable");
+        Check(w.RelocationProblem(f.Id,new(0,7),1)!=null,"Field can occupy ordered domestic ground");
+        Check(w.PlacementProblem(new(5,7),1,BuildingKind.FishingDock)==null,"Court alternative lacks shore livelihood");
+        w.Validate();Console.WriteLine("PASS clearing court: actual water/slope, competing field/shared/domestic claims, nearby landing");
+    }
+
 }
