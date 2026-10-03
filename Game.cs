@@ -202,7 +202,7 @@ public partial class Game : Node3D
         else if (Ground(position) is Vector3 p)
         {
             var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-            if(site==null && _world.PublicPlace!=null && _world.Commons is {} commons && commons.Places.Append(commons.Center).Contains(new(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z)))){ShowCommonsCard();return;}
+            if(site==null && _world.PublicPlace!=null && _world.SharedPlaceAt(new(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z))) is {} commons){ShowCommonsCard(commons.Center);return;}
             if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
         }
     }
@@ -247,7 +247,7 @@ public partial class Game : Node3D
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
             if(v.Task==Work.EatingMeal && (v.Meal?.Gathering==true && _world.Gathering!=null || v.Meal?.Commons==true && _world.Commons!=null))
             {
-                var inward=(v.Meal!.Commons?_world.Commons!.Center:_world.Gathering!.Center).Point-v.Position;
+                var inward=(v.Meal!.Commons?_world.SharedPlaceAt(v.Meal.Seat)!.Center:_world.Gathering!.Center).Point-v.Position;
                 if(inward.LengthSquared()>.01f)view.Body.Rotation=new(0,MathF.Atan2(-inward.X,-inward.Y),0);
             }
             if(_world.PassengerBoat(v) is FishingBoat boat)

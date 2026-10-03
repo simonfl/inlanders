@@ -4,6 +4,8 @@ using System.Linq;
 public partial class Game
 {
     private bool _selectedCommons;
+    private Cell? _selectedCommonsCenter;
+    private SharedCommons? SelectedSharedPlace=>_world.SharedPlaces.FirstOrDefault(c=>c.Center==_selectedCommonsCenter);
     private PanelContainer _commonsCard=null!;
     private Label _commonsCardText=null!;
     private Button _commonsCardMove=null!,_commonsCardWatch=null!,_commonsCardRemove=null!;
@@ -12,27 +14,27 @@ public partial class Game
         _commonsCard=HudPanel(_hud);_commonsCard.Hide();var column=new VBoxContainer();_commonsCard.AddChild(column);
         _commonsCardText=Text("",14,true);_commonsCardText.CustomMinimumSize=new(282,0);column.AddChild(_commonsCardText);
         _commonsCardWatch=Button("Watch this place",()=>{
-            if(_world.Commons is not {} place)return;
+            if(SelectedSharedPlace is not {} place)return;
             ClearSelection();_focus=OnGround(place.Center.X,place.Center.Z);_camera.Size=14;UpdateCamera();ToggleWatch();
         });column.AddChild(_commonsCardWatch);
-        _commonsCardMove=Button("Move · preview",()=>BeginGatheringPlan(_world.Commons?.Center,true));column.AddChild(_commonsCardMove);
-        _commonsCardRemove=Button("Remove shared place",()=>{_world.RemoveCommons();ClearSelection();});column.AddChild(_commonsCardRemove);
+        _commonsCardMove=Button("Move · preview",()=>BeginGatheringPlan(SelectedSharedPlace?.Center,true));column.AddChild(_commonsCardMove);
+        _commonsCardRemove=Button("Remove shared place",()=>{if(_selectedCommonsCenter is Cell center)_world.RemoveCommons(center);ClearSelection();});column.AddChild(_commonsCardRemove);
         _commonsCardRemove.TooltipText="Remove the meal place. Carried meals remain physical and residents find another place to eat.";
         column.AddChild(Button("Close [Esc]",ClearSelection));
     }
-    private void ShowCommonsCard()
+    private void ShowCommonsCard(Cell? center=null)
     {
-        ClearSelection();CloseDrawer();_selectedCommons=true;UpdateCommonsCard();
+        ClearSelection();CloseDrawer();_selectedCommons=true;_selectedCommonsCenter=center??_world.Commons?.Center;UpdateCommonsCard();
     }
     private void UpdateCommonsCard()
     {
         if(_commonsCard==null)return;
-        bool show=_selectedCommons && _world.PublicPlace!=null && _world.Commons!=null && !_atMainMenu && !_watching && !_drawer.Visible && !_placing && !_gatherPlanning;
+        bool show=_selectedCommons && _world.PublicPlace!=null && SelectedSharedPlace!=null && !_atMainMenu && !_watching && !_drawer.Visible && !_placing && !_gatherPlanning;
         _commonsCard.Visible=show;if(!show)return;
-        var place=_world.Commons!;
+        var place=SelectedSharedPlace!;
         _commonsCard.Position=new(_hud.Size.X-322,92);_commonsCard.Size=new(306,0);
-        int eating=_world.People.Count(p=>p.Task==Work.EatingMeal && p.Meal?.Commons==true);
-        int arriving=_world.People.Count(p=>p.Meal?.Commons==true && p.Task!=Work.EatingMeal);
+        int eating=_world.People.Count(p=>p.Task==Work.EatingMeal && p.Meal?.Commons==true && place.Places.Contains(p.Meal.Seat));
+        int arriving=_world.People.Count(p=>p.Meal?.Commons==true && p.Task!=Work.EatingMeal && place.Places.Contains(p.Meal.Seat));
         _commonsCardText.Text=$"SHARED MEAL PLACE · {place.Places.Length} seats\n{eating} eating here · {arriving} on the way\n"+
             (_world.CommonsFoodNearby(place.Center)?"Food is available nearby. Neighbors bring their ordinary meals.":"No food available nearby now. Move closer to food or restore the nearby supply.")+"\nMoving or removing this place is free.";
     }

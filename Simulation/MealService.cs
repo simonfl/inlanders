@@ -61,7 +61,7 @@ public sealed partial class World
         });
     }
     private static bool MealWork(Work task) => task is Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal;
-    private bool MealSpotReserved(Cell cell) => Commons is {} commons && (commons.Center==cell || commons.Places.Contains(cell)) || Gathering is {Active:true} g && g.Seats.Values.Contains(cell) || People.Any(p=>p.Meal is {} r && (r.Reserved || r.Carrying) && r.Seat==cell);
+    private bool MealSpotReserved(Cell cell) => SharedPlaceAt(cell)!=null || Gathering is {Active:true} g && g.Seats.Values.Contains(cell) || People.Any(p=>p.Meal is {} r && (r.Reserved || r.Carrying) && r.Seat==cell);
 
     private void RetireMeal(Villager person,bool skipCurrentWindow=false)
     {
@@ -161,7 +161,7 @@ public sealed partial class World
                     case Resource.Fruit: Food.EatenFruit++; break;
                 }
                 RecordWelcomeMeal(p,r);RecordGatheringMeal(p,r);
-                if(r.Commons && Commons is {} commons)commons.FirstDiner??=p.Id;
+                if(r.Commons && SharedPlaceAt(r.Seat) is {} commons)commons.FirstDiner??=p.Id;
                 p.Carried=0; r.Carrying=false; r.Eaten=true; p.Fed=true;
                 Food.MealConsumptions.Add(new(r.Id,p.Id,Food.Time,r.Kind,r.Closed));
                 if(Founding!=null && p.Id>=InitialPopulation)Founding.Settled.Add(p.Id);

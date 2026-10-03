@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 public sealed class NeighborhoodProgress
 {
     public ArrangementTrial? Arrangement { get; set; }
-    public SharedCommons? Commons { get; set; }
+    public System.Collections.Generic.List<SharedCommons> SharedPlaces { get; set; } = new();
     public SharedGathering? Gathering { get; set; }
     public bool WorkplaceFood { get; set; }
     public bool FoodLandChallenge { get; set; }

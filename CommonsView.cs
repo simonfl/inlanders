@@ -13,14 +13,18 @@ public partial class Game
     {
         if(_commonsEntry==null)return;
         _commonsEntry.Visible=_world.CanArrangeCommons;
-        _commonsEntry.Text=_world.Commons==null?"Make a shared place":"Rearrange shared place";
+        _commonsEntry.Text=_world.Commons==null?"Make a shared place":_world.PublicPlace!=null?"Add a shared place":"Rearrange shared place";
         _commonsRemove.Visible=_world.Commons!=null;
-        string key=_world.Commons is {} c?$"{c.Center}:{_world.Cottages.Count}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join(';',c.Places)+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell)):"";
+        string key=$"{_world.Cottages.Count}:{_world.Trees.Count}:{_world.Bushes.Count}:{_world.Decorations.Count}:"+string.Join('/',_world.SharedPlaces.Select(c=>$"{c.Center}:"+string.Join(';',c.Places)))+":"+string.Join(';',_world.Bushes.Select(b=>b.Cell));
         if(key==_commonsVisualKey && _commonsView!=null && _commonsVisualWorld==_world)return;
         _commonsVisualWorld=_world;
         _commonsVisualKey=key;
         if(_commonsView==null){_commonsView=new();AddChild(_commonsView);}else Clear(_commonsView);
-        if(_world.Commons is not {} commons)return;
+        foreach(var commons in _world.SharedPlaces)MakeSharedPlaceView(commons);
+    }
+    private void MakeSharedPlaceView(SharedCommons commons)
+    {
+        if(_commonsView==null)return;
         // A single low surface gives the place a silhouette without adding an obstacle.
         if(!_commonsMats)
         {

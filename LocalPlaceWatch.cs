@@ -20,7 +20,7 @@ public partial class Game
             if(food!=null)nearby.Add(food);
         }
         var cells=nearby.SelectMany(c=>World.Footprint(c).Append(c.Entrance).Concat(_world.HomeYardPlaces(c))).ToList();
-        if(_world.Commons is {} commons && (commons.Center.Point-site.Cell.Point).LengthSquared()<=144)cells.AddRange(commons.Places);
+        foreach(var commons in _world.SharedPlaces.Where(c=>(c.Center.Point-site.Cell.Point).LengthSquared()<=144))cells.AddRange(commons.Places);
         if(cells.Count==0)cells.Add(site.Cell);
         _focus=OnGround((cells.Min(c=>c.X)+cells.Max(c=>c.X))*.5f,(cells.Min(c=>c.Z)+cells.Max(c=>c.Z))*.5f);
         _camera.Size=22;_followPerson=false;_watchOrbit=false;UpdateCamera();

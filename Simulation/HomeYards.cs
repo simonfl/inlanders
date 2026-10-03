@@ -16,12 +16,12 @@ public sealed partial class World
         :System.Array.Empty<Cell>();
     public Cell[] YardPlaces(Cottage home,int side)=>YardGround(home,side)
             .Where(c=>Map.Contains(c) && !Blocked(c) && c!=YardAccess && !Cottages.Any(s=>s.Entrance==c) &&
-                !(Commons is {} commons && (commons.Center==c || commons.Places.Contains(c)))).ToArray();
+                SharedPlaceAt(c)==null).ToArray();
     private Cell[] ClaimedHomeYardPlaces(Cottage home)=>(home.Improved || home.ImprovementRequested || home.PlannedYard)?YardGround(home,home.YardSide):System.Array.Empty<Cell>();
     private string? YardClaimProblem(Cottage home,int side)
     {
         var ground=YardGround(home,side);
-        if(Commons is {} commons && ground.Intersect(commons.Places.Append(commons.Center)).Any())return "A shared meal place uses this ground. Choose another side or move the shared place.";
+        if(SharedPlaces.Any(commons=>ground.Intersect(commons.Places.Append(commons.Center)).Any()))return "A shared meal place uses this ground. Choose another side or move the shared place.";
         return Cottages.Where(c=>c.Id!=home.Id).SelectMany(ClaimedHomeYardPlaces).Intersect(ground).Any()
             ?"Another home's furnished or ordered yard uses this ground.":null;
     }

@@ -6,7 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class FoundingProgress
 {
-    public SharedCommons? Commons { get; set; }
+    public System.Collections.Generic.List<SharedCommons> SharedPlaces { get; set; } = new();
     public bool WorkingClearing { get; set; }
     public bool RiverFrontage { get; set; }
     public bool PlayerFounded { get; set; }
