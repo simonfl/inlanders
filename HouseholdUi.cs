@@ -21,7 +21,7 @@ public partial class Game
     private void RenderHouseholdUi(Cottage home)
     {
         bool show=_world.PublicPlace!=null && home.Complete && Buildings.Get(home.Kind).Beds>0 && _yardPreviewSide<0 && _placeJourneySite!=home.Id;
-        _householdPeople.Visible=show;_householdChange.Visible=show && _world.People.Any(p=>p.HomeId==home.Id);if(!show)return;
+        _householdPeople.Visible=show;_householdChange.Visible=show && _homeOptions && _world.People.Any(p=>p.HomeId==home.Id);if(!show)return;
         var residents=_world.People.Where(p=>p.HomeId==home.Id).ToArray();
         for(int i=0;i<4;i++)
         {

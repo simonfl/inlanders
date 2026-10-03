@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **100**.
+- Playable checkpoints since adoption: **101**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint100**, [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
 - Previous periodic review95: [synthesis](REVIEW_CHECKPOINT_95.md), fixed `add7737`; four fresh independent roles.
@@ -491,3 +491,6 @@ Choose an inhabited settlement with competing land/domestic investments, world-v
 
 
 Immediate post100 strategic review: user challenged complexity before core validation. Five independent reused reviewer contexts agree the feature/review cycle has overbuilt relative to preference evidence. [Correction](STRATEGIC_REVIEW_100_CORE.md) supersedes101–105 with one bounded player observation/comparison and a decision; preserve existing code/full catalogue access, reduce unearned prominence only if warranted. No new play/tests/code or playable count; remains100. Tooling expansion deferred unless it removes an actual observation blocker.
+
+
+Checkpoint101 — October3: home cards lead with actual residents and domestic use. Optional invitations, household exchange and full details sit behind More home actions; selection resets the expansion. Capabilities retained, no simulation changes. Zero-warning build and native960 household roster/follow/return/expanded exchange/cancel/confirm pass20261003-063041-296-household-move-8b5108. Reassess: retain this reduced surface provisionally; next102 offers a small reusable build palette with full catalogue access. User resumed through110 with105/110 reviews; prior wait-for-playtest execution stop is superseded, not a claim of enjoyment.

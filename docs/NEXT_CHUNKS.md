@@ -1,6 +1,9 @@
 # Next work — make improvement a real choice
 
-Playable count **100**. [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
+Playable count **101**.
+
+October3: user authorizes ten further playable outcomes through110, with playtesting afterward. This overrides the previous wait-for-player-evidence execution stop; uncertainty remains. First batch reduces default interface burden and makes existing corrections coherent:101 home action hierarchy,102 small reusable build palette,103 place/person navigation,104 cultivation revision intent,105 everyday work-state clarity. Scope is conditional; full105 review chooses106–110. No new needs/resources/building types. Stop after110 review.
+ [Whole-game100](REVIEW_CHECKPOINT_100.md) reviewed fixed `97f9b7f`: four fresh independent roles plus a reused independent visual reviewer after thread limits. All partially convincing. **User's stop at100 is satisfied; no101 implementation started.** The sequence below is conditional future work, not an automatic authorization to continue.
 
 The small working farmstead is more coherent and direct ground drawing has real consequences. The unresolved product question is why a player would choose one improvement over another after it works. Do not answer with more buildings, needs, entry polish or prescribed campaign tasks.
 
@@ -27,3 +30,6 @@ Until actual player evidence exists, autonomous work is limited to a concrete bl
 - 100: direct four-direction ground drawing, pure cancellation, consolidated proposals and mature full-session evidence.
 
 Earlier91–95 delivered a real first productive cycle, actual-use ground wear, home/yard planning, bidirectional siting previews and equal founded/inhabited entry. See [CHECKPOINTS](CHECKPOINTS.md) for validation and [review95](REVIEW_CHECKPOINT_95.md) for that direction decision. No seasons, inheritance, genealogy, aging, succession or automatic new needs; descendants remain narrative theme.
+
+
+Checkpoint101 — October3: home cards lead with actual residents and domestic use. Optional invitations, household exchange and full details sit behind More home actions; selection resets the expansion. Capabilities retained, no simulation changes. Zero-warning build and native960 household roster/follow/return/expanded exchange/cancel/confirm pass20261003-063041-296-household-move-8b5108. Reassess: retain this reduced surface provisionally; next102 offers a small reusable build palette with full catalogue access. User resumed through110 with105/110 reviews; prior wait-for-playtest execution stop is superseded, not a claim of enjoyment.

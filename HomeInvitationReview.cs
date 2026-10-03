@@ -12,6 +12,7 @@ public partial class Game
         var home=_world.Cottages.Single(c=>c.Cell==new Cell(1,-5));int first=_world.Population;
         CloseManagementUi();_focus=BuildingPosition(home);_camera.Size=17;UpdateCamera();await Frames();
         await Click(_camera.UnprojectPosition(OnGround(home.Cell.X,home.Cell.Z)));await Frames();
+        await UiClick(_homeOptionsButton);await Frames();
         Check(_workCardSite==home.Id && _homeInvite.IsVisibleInTree() && !_homeInvite.Disabled,"Empty home invitation not accessible by world click");
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Invitation card overflows compact view");await CaptureReviewBundle("home-invitation-choice");
         await UiClick(_homeInvite);await Frames();Check(_world.Population==first+2 && _world.People.Skip(first).All(p=>p.HomeId==home.Id) && !_homeInvite.Visible,"Actual invitation failed or remained repeatable");
