@@ -119,3 +119,6 @@ Checkpoint113: Village now opens the existing resource survey with optional shor
 
 
 Checkpoint114: public river water now grades from shallow banks to deeper channel with fewer calmer ripple marks; distant water follows actual map-edge geometry rather than the old straight shore. Land/boat/placement rules unchanged. Zero-warning build, frontage1440 overview inspected131352-803-river-hamlet-cce182 and opposite inlet960 capture131425-838-across-inlet-bbbfe4. No motion/audio acceptance claimed. Next115 gives existing workable woodland distinct silhouettes and a coherent ground edge, then full presentation-inclusive review.
+
+
+Checkpoint115: existing workable trees now have mixed tall conifer and branched/light-bark silhouettes; overlapping canopy ground joins into a forest floor and clears with the real trees. No new resources/obstacles. Frontage1440 before/after8s1x captures131558-762-river-hamlet-1ade4e inspected; this is snapshots, not motion acceptance or isolated performance (another capture overlapped). Actual timber mark/cancel/collection/root clearing passed131613-218-essentials-f2337f, zero-warning build.37 current suites running; freeze for whole-game115 with visual/audio before116. Remaining outcomes are contingent on synthesis, not automatically more decoration.

@@ -84,6 +84,7 @@ public partial class Game : Node3D
     }
     private Node3D MakeTree(Vector3 at, float scale, Color leaves)
     {
+        if(_world.PublicPlace!=null)return MakeHabitantTree(at,scale);
         var tree = new Node3D { Position = at, Scale = Vector3.One * scale }; AddChild(tree);
         Cylinder(tree, new(0, 0.8f, 0), 0.18f, 1.6f, _wood, 0.11f);
         var crown = new Node3D { Position = new(0, 1.1f, 0) }; tree.AddChild(crown);

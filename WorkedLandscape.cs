@@ -40,7 +40,9 @@ public partial class Game
             var sample=((int)MathF.Round(x*2),(int)MathF.Round(z*2));if(colors.TryGetValue(sample,out var saved))return saved;
             float mottling=MathF.Sin(x*1.37f+MathF.Sin(z*.72f))*.035f+MathF.Cos(z*1.91f-x*.34f)*.02f;
             Color color=new Color("818353").Lightened(mottling);
-            float forest=Math.Clamp(1-Distance(x,z,trees)/2.8f,0,1);
+            float forest=0;
+            foreach(var t in trees){float dx=x-t.X,dz=z-t.Z;forest+=MathF.Exp(-(dx*dx+dz*dz)/7)*.62f;}
+            forest=Math.Clamp(forest,0,1); // overlapping canopies form one woodland floor; clearing opens it again.
             color=color.Lerp(new Color("555d3c").Lightened(mottling),forest*.78f);
             float domestic=Math.Clamp(1-Distance(x,z,homes,.5f)/1.7f,0,1);
             color=color.Lerp(new Color("968363").Lightened(mottling),domestic*.9f);
