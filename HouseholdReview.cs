@@ -12,10 +12,17 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="essentials")
         {
             CloseManagementUi();_fullBuild=false;ToggleDrawer(1);await Frames();string before=_world.SaveJson();
-            Check(_essentials.IsVisibleInTree() && !_buildingCategories.Visible,"Small palette not primary");Check(_drawerPages[1].GetGlobalRect().Encloses(_essentialChoices[BuildingKind.Bridge].GetGlobalRect()),"Everyday choices need scrolling");await CaptureReviewBundle("everyday-building-choices");
+            Check(_essentials.IsVisibleInTree() && !_buildingCategories.Visible,"Small palette not primary");Check(_drawerPages[1].GetGlobalRect().Encloses(_gatherTimber.GetGlobalRect()),"Everyday choices need scrolling");await CaptureReviewBundle("everyday-building-choices");
             await UiClick(_essentialChoices[BuildingKind.VegetableField]);await Frames();Check(_placing && _buildKind==BuildingKind.VegetableField,"Simple field choice failed");await Press(Key.Escape);await Frames();
             ToggleDrawer(1);await Frames();await UiClick(_buildBreadth);await Frames();Check(_buildingCategories.Visible && !_essentials.Visible,"Full catalogue inaccessible");await CaptureReviewBundle("full-catalogue-retained");
-            Check(_world.SaveJson()==before,"Palette mutated village");CloseDrawer();
+            Check(_world.SaveJson()==before,"Palette mutated village");
+            await UiClick(_buildBreadth);await Frames();await UiClick(_gatherTimber);await Frames();
+            var tree=_world.Trees.Where(t=>t.Logs>0 && _world.ClearingProblem(t.Cell)==null).OrderBy(t=>t.Cell.Point.LengthSquared()).First();
+            _focus=OnGround(tree.Cell.X,tree.Cell.Z);_camera.Size=18;UpdateCamera();await Frames();var tp=_camera.UnprojectPosition(OnGround(tree.Cell.X,tree.Cell.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=tp,GlobalPosition=tp});await Frames();
+            Check(_hint.Text.Contains("shared workers"),"Clearing wrongly asks for manual staffing");await Click(tp);await Frames();Check(tree.ClearRequested,"Timber not ordered");await Click(tp);await Frames();Check(!tree.ClearRequested,"Timber order not cancelled");
+            await Click(tp);await Press(Key.Escape);_paused=false;_speed=6;double started=_uiTime;
+            while(_uiTime-started<45 && _world.Trees.Contains(tree))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _paused=true;Check(!_world.Trees.Contains(tree),"Marked timber never collected and cleared by shared labor");await CaptureReviewBundle("timber-ground-cleared");CloseDrawer();
         }
         var home=_world.Cottages.First(c=>c.Complete && _world.People.Count(p=>p.HomeId==c.Id)>0);CloseManagementUi();ClearSelection();
         _focus=BuildingPosition(home);_camera.Size=18;UpdateCamera();await Frames();await Click(_camera.UnprojectPosition(BuildingPosition(home)+Vector3.Up*.5f));await Frames();

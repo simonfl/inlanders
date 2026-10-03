@@ -17,6 +17,7 @@ public partial class Game
         if (_world.Creative) return "Click to clear immediately · existing timber returns to the yard";
         var tree = _world.Trees.FirstOrDefault(t => t.Cell == _hover);
         if (tree?.ClearRequested == true) return "Click to cancel this order · cut timber stays cut";
+        if(_world.SharedWork)return "Click to mark · shared workers collect timber, then clear roots · click again to cancel the order";
         return _world.People.Any(p => p.Role == Role.Logger) ? "Click to mark · loggers recover timber, then remove roots" : "Click to mark · assign loggers in People [V] to do the work";
     }
     private void ClearingCross(Node3D parent, Vector3 at, Color color, float size)

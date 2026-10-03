@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **105**.
+- Playable checkpoints since adoption: **106**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint105**, [synthesis](REVIEW_CHECKPOINT_105.md), fixed `d5c5b8f`; four fresh independent roles. Partially convincing; simplify world-first surface through110, then stop.
 - Previous periodic review100: [whole-game synthesis](REVIEW_CHECKPOINT_100.md), fixed `97f9b7f`; four fresh independent roles plus a reused independent visual reviewer after thread limits. Partially convincing; authored competing improvements and visible consequences next. Stopped before101.
@@ -512,3 +512,8 @@ Checkpoint105: selected food places link directly to actual world food stores an
 
 
 Review105 completed on d5c5b8f, four fresh independent roles. Whole public/archived representative evidence and limitations in synthesis; no listening/independent live play/performance acceptance. Select106–110 interaction hierarchy reduction over newmaps/scheduling/art overhaul.37-suite run still pending here; do not backdate test completion.
+
+105 closeout: all37 current-experience suites completed exit0, run a0b0009234814a12906caea8469ec02b, assembly3f8c46c9-eabb-4a26-ad40-16a9340fa5df (artifacts/checkpoint105-current.log). Completed before106 rebuild.
+
+
+Checkpoint106: everyday palette now offers home, cultivated ground, river landing and existing timber gathering. Bridge/forager remain in the full catalogue. Shared-worker clearing guidance no longer incorrectly requires manual logger assignment. Native960 all choices fit; mark/cancel/reorder and actual shared timber collection/root clearing pass20261003-065259-799-essentials-4c3590. The fixture preserves all trees; the probe explicitly chooses one for clearing, rather than assuming an unpreserved tree exists. Zero-warning build; simulation unchanged. Next107 removes overlapping food inspection surfaces.

@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **105**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
+**Current batch: simplify the public experience through110**, explicitly authorized October3 with human playtesting afterward. Count **106**. [Whole-game105](REVIEW_CHECKPOINT_105.md) finds the direction partially convincing: physical small-village life is credible, motivation remains unproven. The prior wait-for-playtest execution gate is superseded, not its caution against accumulating systems.
 
 Choose a world-first surface over competing management panels, keeping the existing simulation: accessible timber work, temporary food inspection, grouped home changes, simpler public navigation and coherent watching/finishing. [NEXT_CHUNKS](NEXT_CHUNKS.md) owns106–110 and checks. No new scenario, scheduler, needs or building types in this batch. Full catalogue and keyboard paths remain available. Stop after110 review.
 
@@ -94,3 +94,6 @@ Checkpoints67–71 deliver larger working fields, the broader bank composition, 
 
 Checkpoints72–75 add place watching, direct ground-side choice, shared-meal world controls and the matched-inventory grouped farmstead. [Review75](REVIEW_CHECKPOINT_75.md) records the whole-game critique, reviewer-independence limits, evidence and reliability closeout. The next queue prioritizes a wanted transformation rather than another convenience batch.
 
+
+
+Checkpoint106: everyday palette now offers home, cultivated ground, river landing and existing timber gathering. Bridge/forager remain in the full catalogue. Shared-worker clearing guidance no longer incorrectly requires manual logger assignment. Native960 all choices fit; mark/cancel/reorder and actual shared timber collection/root clearing pass20261003-065259-799-essentials-4c3590. The fixture preserves all trees; the probe explicitly chooses one for clearing, rather than assuming an unpreserved tree exists. Zero-warning build; simulation unchanged. Next107 removes overlapping food inspection surfaces.
