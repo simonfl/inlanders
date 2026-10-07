@@ -44,10 +44,12 @@ public partial class Game
     }
     private void RenderPlaceJourneys()
     {
-        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && Buildings.Get(c.Kind).Beds==0) && _workCard.Visible && _yardPreviewSide<0;
+        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
-        _workCardTrips.Text=show?"Hide people & trips":"People & trips";
+        bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && Buildings.Get(c.Kind).Beds>0);
+        _workCardTrips.Text=show?"Back to place":household?"Household journeys":"People & trips";
+        _workCardTrips.TooltipText=household?"Actual trips by the people who live here. They may be working or eating elsewhere; these are not all journeys to this house.":"Inspect actual journeys related to this place.";
         if(!show){_placeJourney=null;_tripPathProposal=null;return;}
         _tripPathActions.Visible=_tripPathProposal!=null;
         if(_tripPathProposal is {} proposal)

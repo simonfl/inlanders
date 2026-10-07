@@ -10,7 +10,7 @@ Keep the inhabited-landscape hypothesis provisional. Make spatial choices tangib
 
 151. **Done** — Make path painting reroute workers once per pointer stroke sample, preserving claims and exact saves; measure long active-route edits.
 152. **Done** — Offer a path proposal from an actual workplace trip, so observing a long journey can lead directly to a chosen connection.
-153. Expose actual household journeys from homes, with the same observe/return flow and truthful relationship labels.
+153. **Done** — Expose actual household journeys from homes, with the same observe/return flow and truthful relationship labels.
 154. Let a selected shared place reveal its actual visitors and their journeys, preserving the distinction between meals and quiet visits.
 155. Let a player choose a path’s intermediate approach in the world, retaining preview/cancel and existing route legality. Full review before further implementation.
 

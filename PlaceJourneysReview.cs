@@ -31,6 +31,14 @@ public partial class Game
         Check(!_workCardWorker.Visible && !_workCardDiner.Visible,"Journey view duplicates follow controls");
         for(int i=0;i<_world.Population && (_placeJourney?.Relation!="Meal from this place" || _placeJourney.Amount==0);i++){await UiClick(_placeTripNext);await Frames();}
         Check(_placeJourney is {Relation:"Meal from this place",Amount:>0},"No real meal trip visible");
+        int householdPerson=_placeJourney!.Person;int homeId=_world.People[householdPerson].HomeId!.Value;
+        ShowWorkplaceCard(homeId);await Frames();Check(_workCardTrips.IsVisibleInTree(),"Home journeys unavailable");
+        await UiClick(_workCardTrips);await Frames();Check(!_householdPeople.Visible && _placeJourney is {Relation:"Household trip"},"Household journey not actual or stacked");
+        await CaptureReviewBundle("household-journey");var originFocus=_focus;float originZoom=_camera.Size;
+        await UiClick(_placeTripFollow);await Frames();Check(_dailyPerson>=0 && _householdOrigin==homeId,"Household follow lost origin");
+        await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==homeId && _focus==originFocus && _camera.Size==originZoom && saved==_world.SaveJson(),"Household return changed world/view");
+        ShowWorkplaceCard(field.Id);await Frames();await UiClick(_workCardTrips);await Frames();
+        for(int i=0;i<_world.Population && (_placeJourney?.Relation!="Meal from this place" || _placeJourney.Amount==0);i++){await UiClick(_placeTripNext);await Frames();}
         int person=_placeJourney!.Person;await UiClick(_placeTripFrame);await Frames();
         Check(saved==_world.SaveJson() && _placeTripLine.Points.Length>1,"Journey inspection changed world or lacks committed route");
         Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Journey card overflows compact screen");
