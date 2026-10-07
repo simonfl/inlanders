@@ -646,5 +646,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "shared-visitors",
+    "description": "Actual shared-place visitors and follow/return controls",
+    "generator": "quiet-shared-place",
+    "focusX": 0,
+    "focusZ": 5,
+    "zoom": 24
   }
 ]

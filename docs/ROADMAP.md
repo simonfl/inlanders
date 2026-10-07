@@ -10,7 +10,7 @@
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
-**Active151–160:** user authorized another ten on October7. 151 delivered batched path strokes with measured active-route savings. 152 adds actual-trip path proposals and a focused journey card. 153 exposes actual household journeys and return context. Next: shared-place visitors and chosen approaches, then review; full reviews155/160. No new human play evidence. [Active queue](NEXT_CHUNKS.md).
+**Active151–160:** user authorized another ten on October7. 151 delivered batched path strokes with measured active-route savings. 152 adds actual-trip path proposals and a focused journey card. 153 exposes actual household journeys and return context. 154 adds actual shared-place visitors with follow/return. Next: chosen path approaches, then full155 review; full reviews155/160. No new human play evidence. [Active queue](NEXT_CHUNKS.md).
 
 **Completed141–150:** full reviews [145](REVIEW_CHECKPOINT_145.md) and [150](REVIEW_CHECKPOINT_150.md). The combined field/shared-ground test rejected the forced binary dilemma. Shared places now support small independent arrangements and ordinary bounded visits; varied homes, blended ground, nearer cultivation and contextual paths form the retained ensemble. **Stop150** after final regression/push. [Handoff and future hypotheses](NEXT_CHUNKS.md); no automatically scheduled151 or new needs/resources/growth.
 

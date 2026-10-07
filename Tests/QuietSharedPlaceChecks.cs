@@ -22,7 +22,7 @@ static class QuietSharedPlaceChecks
             var w=Active(relaxed,split);var visited=new HashSet<int>();int home=0,work=0,pairs=0,quiet=0;
             for(int i=0;i<6000;i++)
             {
-                w.Tick(.1f);if(i%100==0)w.Validate();
+                w.Tick(.1f);if(i%100==0){w.Validate();foreach(var place in w.SharedPlaces){string before=w.SaveJson();var visitors=w.ReadSharedVisitors(place.Center);Check(visitors.Select(v=>v.Person).Distinct().Count()==visitors.Length,"Duplicate shared visitor");Check(visitors.All(v=>w.QuietSharedPlace(w.People[v.Person])==place || w.People[v.Person].Meal is {Commons:true} meal && place.Places.Contains(meal.Seat)),"Unrelated visitor");Check(before==w.SaveJson(),"Visitor read changed world");}}
                 foreach(var p in w.People)
                 {
                     if(w.QuietSharedPlace(p)!=null && p.Route.Count==0){visited.Add(p.Id);quiet++;}
