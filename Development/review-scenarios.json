@@ -662,5 +662,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "group-arrangement",
+    "description": "Atomic group composition through actual model preview and world selection",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]
