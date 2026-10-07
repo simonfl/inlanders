@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 public partial class Game
 {
-    private async Task ProbeGroupArrangement(bool fields=false,bool paths=false)
+    private async Task ProbeGroupArrangement(bool fields=false,bool paths=false,bool observe=false)
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
@@ -17,14 +17,23 @@ public partial class Game
         var target=_world.Map.Land.OrderBy(c=>(c.Point-homes[0].Cell.Point).LengthSquared()).First(c=>_world.PreviewGroup(ids,c,3,paths).Result!=null);
         await Point(target);Check(_groupPlan?.Result!=null && !_groupApply.Disabled && _paused,"Group proposal unavailable");
         Check(_groupPanel.GetGlobalRect().End.X<=_hud.Size.X && _groupPanel.GetGlobalRect().End.Y<_hud.Size.Y-76,"Group panel overflow");
-        Check(before==_world.SaveJson(),"Preview changed live village");await CaptureReviewBundle("home-group-proposal");
+        Check(before==_world.SaveJson(),"Preview changed live village");await UiClick(_groupFrame);await Frames();
+        var compareFocus=_focus;float compareZoom=_camera.Size;await CaptureReviewBundle("group-proposed-composition");
+        await UiClick(_groupCompare);await Frames();Check(_groupShowBefore && !_groupModels.Visible && _groupApply.Disabled && before==_world.SaveJson(),"Before view mutated or allowed hidden proposal apply");await CaptureReviewBundle("group-current-composition");
+        await UiClick(_groupCompare);await Frames();Check(!_groupShowBefore && _groupModels.Visible && _focus==compareFocus && _camera.Size==compareZoom,"Comparison changed view or proposal");
         await Press(Key.Escape);await Frames();Check(!_groupActive && before==_world.SaveJson(),"Group cancel mutated village");
         await OpenMenu(2);await Frames();await UiClick(_groupEntry);await Frames();foreach(var home in homes)await Point(home.Cell);
-        await UiClick(_groupPick);await Frames();await UiClick(_groupLeft);await Frames();if(paths){await UiClick(_groupPaths);await Frames();}await Point(target);await UiClick(_groupApply);await Frames();
+        await UiClick(_groupPick);await Frames();await UiClick(_groupLeft);await Frames();if(paths){await UiClick(_groupPaths);await Frames();}await Point(target);await UiClick(observe?_groupWatch:_groupApply);await Frames();
         Check(!_groupActive && ids.All(id=>_world.Cottages.Single(c=>c.Id==id).Rotation==(homes.Single(c=>c.Id==id).Rotation+3)%4),"Group apply lost orientation");
         if(paths)Check(carried.Select(c=>World.RotateOffset(target,c.X-homes[0].Cell.X,c.Z-homes[0].Cell.Z,3)).All(_world.Paths.Contains),"Native carried approaches missing");
         if(fields)Check(_world.Cottages.Where(c=>ids.Contains(c.Id) && c.Kind==BuildingKind.VegetableField).All(c=>!c.Planted && c.Growth==0),"Growing field did not restart");
         Check(_world.Cottages.Single(c=>c.Id==ids[0]).Cell==target,"Group anchor differs");_world.Validate();
+        if(observe)
+        {
+            Check(_watching && !_paused,"Apply and watch did not resume actual life");float time=_world.Food.Time;_speed=1;ulong deadline=Time.GetTicksMsec()+20000;
+            while(_world.Food.Time-time<8 && Time.GetTicksMsec()<deadline)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            Check(_world.Food.Time-time>=8,"No ordinary process life after arrangement");await CaptureReviewBundle("arranged-ordinary-life");await Press(Key.Escape);await Frames();Check(!_watching && _workCardSite==ids[0],$"Watch return lost origin: watching={_watching}, card={_workCardSite}, expected={ids[0]}, local={_localWatchSite}, same={_localWatchWorld==_world}");_paused=true;
+        }
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Group current save differs");await CaptureReviewBundle("home-group-applied");
         GD.Print("PASS: world group selection, actual model preview/turn, atomic cancel/apply, compact controls and current save.");
     }

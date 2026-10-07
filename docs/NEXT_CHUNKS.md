@@ -1,4 +1,4 @@
-# Active batch — checkpoints151–160
+# Completed batch — checkpoints151–160; review160 pending
 
 Authorized October7,2026. No human play feedback yet. Full whole-game reviews at155 and160, including visual/audio at160 and any substantial presentation change. Stop160.
 
@@ -22,7 +22,7 @@ These candidates are revisable after every outcome. Merge work that does not ind
 157. **Done** — Preview and apply a group of existing homes translated/turned as one arrangement, atomically.
 158. **Done** — Include cultivated ground with honest crop consequences and actual production continuation.
 159. **Done** — Choose whether eligible internal approaches move with the group; preserve unrelated ground and show conflicts.
-160. Compare before/after ensemble composition and return to actual use; full whole-game review and stop.
+160. **Done** — Compare before/after ensemble composition and return to actual use; full whole-game review and stop.
 
 No foundation-only increments; merge or change scope based on evidence. Fix clipping without a new count.
 

@@ -686,5 +686,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "group-observation",
+    "description": "Matched current/proposed composition then actual ordinary life without world rewind",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]

@@ -41,7 +41,7 @@ public partial class Game
         if(_localWatchWorld==_world && _world.Cottages.Any(c=>c.Id==_localWatchSite))
         {
             _focus=_localWatchFocus;_angle=_localWatchAngle;_camera.Size=_localWatchZoom;_followPerson=false;UpdateCamera();
-            _workCardSite=_selectedSite=_localWatchSite;_nextWorkCard=0;
+            ShowWorkplaceCard(_localWatchSite);
         }
         if(_localWatchWorld==_world && _localWatchCommons is Cell center && _world.SharedPlaces.Any(c=>c.Center==center))
         {
