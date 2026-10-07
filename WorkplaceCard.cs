@@ -116,5 +116,11 @@ public partial class Game
         _workCardMove.Text=_waitingMove==site.Id?"Cancel move":!site.WorkPaused && (World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && _world.PublicPlace!=null?"Pause & move":"Move";
         string? moveProblem=_world.PublicPlace!=null?_world.RelocationIntentProblem(site.Id):_world.RelocationProblem(site.Id);
         _workCardMove.Disabled=moveProblem!=null;_workCardMove.TooltipText=moveProblem??"Preview another location. Work pauses and resumes when you place or cancel; an already paused workplace stays paused. Growing crops need fresh sowing after moving.";
+        if(_placeJourneySite==site.Id)
+        {
+            _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant();
+            foreach(var control in new Control[]{_workCardPause,_workCardMove,_workCardDetails,_workCardSupply,_workCardWorker,_workCardDiner,_homeOptionsButton,_homeMoreButton,_placePathRow})control.Hide();
+        }
+
     }
 }

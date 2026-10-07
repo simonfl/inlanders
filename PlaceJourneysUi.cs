@@ -4,7 +4,10 @@ using System;
 using System.Linq;
 public partial class Game
 {
-    private Button _workCardTrips=null!,_placeTripNext=null!,_placeTripFollow=null!,_placeTripFrame=null!;
+    private Button _workCardTrips=null!,_placeTripNext=null!,_placeTripFollow=null!,_placeTripFrame=null!,_placeTripPath=null!;
+    private HBoxContainer _tripPathActions=null!;
+    private Button _tripPathApply=null!;
+    private (Cell Start,Cell End)? _tripPathProposal;
     private VBoxContainer _placeTripsPanel=null!;
     private Label _placeTripText=null!;
     private Line2D _placeTripLine=null!;
@@ -27,6 +30,16 @@ public partial class Game
             _focus=OnGround(x,z);_camera.Size=Math.Clamp(Math.Max(points.Max(p=>p.X)-points.Min(p=>p.X),points.Max(p=>p.Y)-points.Min(p=>p.Y))*1.6f+9,12,MaximumZoom);_followPerson=false;_watchOrbit=false;UpdateCamera();
         });row.AddChild(_placeTripFrame);
         _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person,_placeJourneySite);_followPerson=true;}});row.AddChild(_placeTripFollow);
+        _placeTripPath=Button("Preview path",()=>{
+            if(_placeJourney is not {} trip)return;
+            _tripPathProposal=(new Cell((int)MathF.Round(trip.Position.X),(int)MathF.Round(trip.Position.Y)),trip.Steps[^1]);
+        });row.AddChild(_placeTripPath);
+        _placeTripPath.TooltipText="Preview a walking path from this resident's current ground to the actual destination. No ground changes until you apply.";
+        _tripPathActions=new();_placeTripsPanel.AddChild(_tripPathActions);
+        _tripPathApply=Button("Lay this path",()=>{
+            if(_tripPathProposal is {} proposal && _world.ConnectPaths(proposal.Start,proposal.End)){_tripPathProposal=null;Notice("Walking path laid. Residents choose routes using the new ground.");}
+        });_tripPathActions.AddChild(_tripPathApply);
+        _tripPathActions.AddChild(Button("Cancel path",()=>_tripPathProposal=null));_tripPathActions.Hide();
         _placeTripLine=new(){Width=3,Antialiased=true,ZIndex=-1};_hud.AddChild(_placeTripLine);_placeTripsPanel.Hide();
     }
     private void RenderPlaceJourneys()
@@ -35,7 +48,17 @@ public partial class Game
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
         _workCardTrips.Text=show?"Hide people & trips":"People & trips";
-        if(!show){_placeJourney=null;return;}
+        if(!show){_placeJourney=null;_tripPathProposal=null;return;}
+        _tripPathActions.Visible=_tripPathProposal!=null;
+        if(_tripPathProposal is {} proposal)
+        {
+            string? problem=_world.PathConnection(proposal.Start,proposal.End,out var route);
+            _tripPathApply.Disabled=problem!=null;
+            _placeTripNext.Disabled=_placeTripFrame.Disabled=_placeTripFollow.Disabled=_placeTripPath.Disabled=true;
+            _placeTripText.Text=problem??$"Walking path · {route.Count} tiles\nFrom the observed position to the trip’s destination. Village life continues; this proposal stays in place.";
+            _placeTripLine.DefaultColor=new(problem==null?"8fd3d1":"e38673");
+            _placeTripLine.Points=route.Select(c=>_camera.UnprojectPosition(OnGround(c.X,c.Z,.25f))).ToArray();return;
+        }
         var trips=_world.ReadPlaceJourneys(_placeJourneySite);
         var next=trips.FirstOrDefault(t=>t.Person==_placeJourneyPerson);
         if(_placeJourney is {} prior && (next==null || next.Activity!=prior.Activity || next.Steps[^1]!=prior.Steps[^1]))
@@ -47,7 +70,7 @@ public partial class Game
         }
         if(_placeJourneyEnding==null)_placeJourney=next??trips.FirstOrDefault();
         _placeJourneyPerson=_placeJourney?.Person??_placeJourneyPerson;
-        _placeTripNext.Disabled=trips.Length<(_placeJourneyEnding==null?2:1);_placeTripFrame.Disabled=_placeTripFollow.Disabled=_placeJourney==null;
+        _placeTripNext.Disabled=trips.Length<(_placeJourneyEnding==null?2:1);_placeTripFrame.Disabled=_placeTripFollow.Disabled=_placeTripPath.Disabled=_placeJourney==null;
         if(_placeJourney is not {} trip){_placeTripText.Text=_placeJourneyEnding??"No trip is under way here. Let daily life continue; no journey is invented.";_placeTripLine.ClearPoints();return;}
         _placeTripText.Text=$"{trip.Name} · {trip.Relation}\n{trip.Activity}\n"+(trip.Amount>0?$"Carrying {trip.Amount} {trip.Cargo!.Value.ToString().ToLowerInvariant()}":"Hands free")+$" · {trips.Length} current trips";
         _placeTripLine.DefaultColor=new(trip.Amount>0?"edc57c":"89c7cd");
