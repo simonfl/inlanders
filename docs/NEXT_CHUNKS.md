@@ -1,6 +1,12 @@
-# Completed batch — checkpoints151–160; review160 pending
+# Handoff — completed checkpoints151–160
 
 Authorized October7,2026. No human play feedback yet. Full whole-game reviews at155 and160, including visual/audio at160 and any substantial presentation change. Stop160.
+
+## After160 — hypotheses, not an execution queue
+
+[Full review160](REVIEW_CHECKPOINT_160.md) retains the group experiment provisionally and freezes further arrangement/inspector expansion. Compare a wanted change in the clearing with founding a farmstead using the existing starts; contented watching is valid. Consider post-apply recovery without simulation rewind if reconstruction blocks experimentation. Keep a substantial river-farmstead landscape/framing alternative, not a decorative prop queue. No new needs/resources/compulsory growth. No161 in this authorization. Final47-suite regression passed on corrected02f1193; delivery closes the batch.
+
+If future implementation is authorized without play feedback, choose a discriminating experience comparison or bounded animation-stall attribution. Use existing capture tools for actual motion/audio audition before more presentation work. Do not automatically extend selection capabilities, templates or the catalogue.
 
 ## Direction
 
@@ -20,7 +26,7 @@ These candidates are revisable after every outcome. Merge work that does not ind
 
 156. **Done** — Consolidate deliberate world path proposals across entry points; remove transient path scraps and duplicate proposal state.
 157. **Done** — Preview and apply a group of existing homes translated/turned as one arrangement, atomically.
-158. **Done** — Include cultivated ground with honest crop consequences and actual production continuation.
+158. **Done** — Include cultivated ground with honest crop consequences, continued actual meals and exact saves.
 159. **Done** — Choose whether eligible internal approaches move with the group; preserve unrelated ground and show conflicts.
 160. **Done** — Compare before/after ensemble composition and return to actual use; full whole-game review and stop.
 
