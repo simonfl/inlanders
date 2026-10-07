@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--path-stroke")){try{PathStrokeChecks.Run();PathChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--clearing-ensemble")){try{WorkingClearingChecks.Ensemble();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--quiet-shared-place")){try{QuietSharedPlaceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--shared-place-layout")){try{SharedPlaceLayoutChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

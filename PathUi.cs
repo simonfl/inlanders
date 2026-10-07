@@ -19,7 +19,7 @@ public partial class Game
     private void PaintPath(Cell cell)
     {
         if (_lastPathCell == cell) return;
-        bool applied = false;
+        var cells = new System.Collections.Generic.List<Cell>();
         if (_lastPathCell is Cell previous)
         {
             int steps = System.Math.Max(System.Math.Abs(cell.X - previous.X), System.Math.Abs(cell.Z - previous.Z));
@@ -27,11 +27,12 @@ public partial class Game
             for (int i = 1; i <= steps; i++)
             {
                 var next = new Cell(previous.X + (int)System.Math.Round((cell.X - previous.X) * i / (double)steps), previous.Z + (int)System.Math.Round((cell.Z - previous.Z) * i / (double)steps));
-                if (cursor.X != next.X && cursor.Z != next.Z) applied |= _world.SetPath(new(next.X, cursor.Z), _pathTool == 1);
-                applied |= _world.SetPath(next, _pathTool == 1); cursor = next;
+                if (cursor.X != next.X && cursor.Z != next.Z) cells.Add(new(next.X, cursor.Z));
+                cells.Add(next); cursor = next;
             }
         }
-        else applied = _world.SetPath(cell, _pathTool == 1);
+        else cells.Add(cell);
+        bool applied = _world.SetPaths(cells,_pathTool==1);
         _lastPathCell = cell;
         if (applied) UiCue(Cue.Click);
         else UiCue(Cue.Reject);

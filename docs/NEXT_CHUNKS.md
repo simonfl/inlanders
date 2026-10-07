@@ -1,3 +1,27 @@
+# Active batch — checkpoints151–160
+
+Authorized October7,2026. No human play feedback yet. Full whole-game reviews at155 and160, including visual/audio at160 and any substantial presentation change. Stop160.
+
+## Direction
+
+Keep the inhabited-landscape hypothesis provisional. Make spatial choices tangible through actual journeys and reversible ground editing, without adding needs, resources or mandatory growth. Test meaningful ways to act on a resident’s journey rather than inventing prescribed improvements. Investigate performance with measurements; instrumentation alone does not count.
+
+## First five candidates
+
+151. **Done** — Make path painting reroute workers once per pointer stroke sample, preserving claims and exact saves; measure long active-route edits.
+152. Offer a path proposal from an actual workplace trip, so observing a long journey can lead directly to a chosen connection.
+153. Expose actual household journeys from homes, with the same observe/return flow and truthful relationship labels.
+154. Let a selected shared place reveal its actual visitors and their journeys, preserving the distinction between meals and quiet visits.
+155. Let a player choose a path’s intermediate approach in the world, retaining preview/cancel and existing route legality. Full review before further implementation.
+
+These candidates are revisable after every outcome. Merge work that does not independently change play; do not count tests, documentation or prerequisites as playable outcomes. The second five will follow review155’s direction; no fixed content shopping list.
+
+## Validation
+
+Current-format saves, meaningful route/claim tests, native960/1440 interactions, whole-game representative captures, bounded frame traces. No simulated success establishes enjoyment. Use the existing launcher and snapshot tools; no generalized framework. Previous batch and limitations: [review150](REVIEW_CHECKPOINT_150.md).
+
+## Prior batch
+
 # Handoff — completed checkpoints141–150
 
 Ten playable outcomes are committed. Whole-game reviews145/150 and the147 presentation supplement are complete. Final45-suite regression and focused home-removal correction checks passed. Stop150; delivery commit/push closes this batch. No new human feedback assumed; no151 authorized.

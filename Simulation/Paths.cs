@@ -9,15 +9,25 @@ public sealed partial class World
     public int PathsRevision { get; private set; }
     public string? PathProblem(Cell cell, bool remove = false) => Food.Celebrating ? "Wait until supper is over." :
         remove ? (Paths.Contains(cell) ? null : "There is no path here to remove.") : Map.Water.Contains(cell) ? "Paths need dry land; bridges already provide a crossing." : Blocked(cell) ? "Paint paths on clear land, including entrances and access points." : null;
-    public bool SetPath(Cell cell, bool present)
+    public bool SetPath(Cell cell, bool present) => SetPaths(new[]{cell},present);
+    // One pointer sample may cover many tiles. Apply geometry first, then reroute
+    // each traveler once against the final ground; never drop their work claim.
+    public bool SetPaths(IEnumerable<Cell> cells,bool present)
     {
-        if (PathProblem(cell, !present) != null) return false;
-        if(present) ManagedWoodland.Remove(cell);
-        bool changed = present ? Paths.Add(cell) : Paths.Remove(cell);
-        if (!changed) return true;
-        PathsRevision++;
-        foreach (var v in People.Where(v => v.Route.Count > 0)) SetRoute(v, v.Destination);
-        return true;
+        bool accepted=false,changed=false;
+        foreach(var cell in cells.Distinct())
+        {
+            if(PathProblem(cell,!present)!=null)continue;
+            accepted=true;
+            if(present)ManagedWoodland.Remove(cell);
+            changed|=present?Paths.Add(cell):Paths.Remove(cell);
+        }
+        if(changed)
+        {
+            PathsRevision++;
+            foreach(var v in People.Where(v=>v.Route.Count>0))SetRoute(v,v.Destination);
+        }
+        return accepted;
     }
     public string? PathConnection(Cell start, Cell end, out List<Cell> route)
     {
