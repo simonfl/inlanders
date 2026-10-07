@@ -116,13 +116,13 @@ public partial class Game : Node3D
         if (_world.Cottages.FirstOrDefault(c => c.Id == _selectedSite) is not Cottage site) return;
         foreach (var c in World.Footprint(site)) GroundPatch(_selection,c.X,c.Z,1.04f,1.04f,new("e8c688"),.035f);
     }
-    private void PlaceCottage(Cell at)
+    private void PlaceCottage(Cell at,bool pathWaypoint=false)
     {
         _hover = at;
         if(_movingSite>=0){ConfirmRelocation(at);return;}
         if(_woodlandTool>0) { _woodlandStroke=true; PaintWoodland(at); return; }
         if (_decorating) { EditDecoration(at); return; }
-        if (_pathTool == 3) { ClickPathConnection(at); return; }
+        if (_pathTool == 3) { ClickPathConnection(at,pathWaypoint); return; }
         if (_pathTool > 0) { _pathStroke = true; PaintPath(at); return; }
         if (_clearingTrees) { MarkClearing(at); return; }
         if (_plantingTrees)
@@ -189,7 +189,7 @@ public partial class Game : Node3D
             if (mouse.ButtonIndex == MouseButton.WheelUp) _camera.Size = Math.Max(12, _camera.Size - 1);
             if (mouse.ButtonIndex == MouseButton.WheelDown) _camera.Size = Math.Min(MaximumZoom, _camera.Size + 1);
             if (_watching || mouse.ButtonIndex != MouseButton.Left) return;
-            if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z))); return; }
+            if (_placing) { if (Ground(mouse.Position) is Vector3 point) PlaceCottage(new(Mathf.RoundToInt(point.X), Mathf.RoundToInt(point.Z)),mouse.ShiftPressed); return; }
             SelectAtPointer(mouse.Position);
         }
     }

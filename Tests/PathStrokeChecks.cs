@@ -17,6 +17,10 @@ static class PathStrokeChecks
         revision=batch.PathsRevision;Check(batch.SetPaths(cells,true) && batch.PathsRevision==revision,"Repeated stroke changed revision");
         Check(batch.SetPaths(cells,false),"Erase rejected");batch.Validate();
         var copy=World.LoadJson(batch.SaveJson());for(int i=0;i<100;i++){batch.Tick(.1f);copy.Tick(.1f);}Check(batch.SaveJson()==copy.SaveJson(),"Stroke continuation differs");
+        var planner=World.NewWorkingClearing();var open=planner.Map.Land.Where(c=>planner.PathProblem(c)==null).Take(3).ToArray();
+        string pure=planner.SaveJson();Check(planner.PathConnection(open,out var route)==null && planner.SaveJson()==pure,"Bend preview impure");
+        Check(!planner.ConnectPaths(new[]{open[0],open[1],new Cell(999,999)}) && planner.SaveJson()==pure,"Invalid final leg partially laid paths");
+        Check(planner.ConnectPaths(open) && open.All(planner.Paths.Contains),"Missing chosen approach");planner.Validate();
         Console.WriteLine($"PASS path stroke: {cells.Length} cells, serial {serial:F2}ms, batch {batched:F2}ms; equal final routes/claims, one revision, invalid/idempotent/erase and exact continuation.");
     }
 }

@@ -654,5 +654,13 @@
     "focusX": 0,
     "focusZ": 5,
     "zoom": 24
+  },
+  {
+    "name": "chosen-path",
+    "description": "Chosen path bends, preview/cancel/apply and current saves",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]

@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **154**.
+- Playable checkpoints since adoption: **155**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint150**, [synthesis](REVIEW_CHECKPOINT_150.md), fixeda354a0a. Five independent reused roles; partially convincing. Retain the recomposed ensemble, 150 regression complete; new151–160 batch authorized.
 - Previous periodic review: **checkpoint145**, [synthesis](REVIEW_CHECKPOINT_145.md), fixed8271689. Five independent reused roles; partially convincing. Merge routine substeps, address ensemble massing through150.
@@ -696,3 +696,5 @@ Checkpoint152: actual workplace trips offer a pure path proposal from observed g
 Checkpoint153: homes expose actual household journeys with the same frame/follow/path controls; resident buttons give way to focused journey inspection. Explicit tooltip distinguishes household affiliation from a journey to that house. Native960210413-874 passed real household route, follow, exact camera/context return and pure world, plus workplace path/arrival/save regressions. Zero-warning build. Next154 reveals actual shared-place visitors; do not fabricate demand or attendance.
 
 Checkpoint154: selected shared ground exposes actual meal/quiet visitors in an expandable compact card. Follow a named visitor and return to the same shared place/camera without changing simulation. Additional visitors remain reachable when meal arrivals overlap quiet departures. Native960210647-917 passed actual visitor buttons, follow/return, pure world and compact layout; screenshot inspected. Both-mode ten-minute active-work visitor-query checks and exact saves passed on the final zero-warning build. Next155 gives path connections chosen intermediate approaches; full review follows.
+
+Checkpoint155: connection previews accept Shift-clicked intermediate ground, with markers and final all-or-nothing commitment. Existing entrances, bridges, route legality and contextual return remain authoritative. Native960 chosen-path210923-582 passed pinned preview with unchanged world, cancellation, fresh proposal without leaked bends, real complete path and F9. Atomic invalid-final-leg test passed alongside existing path travel/claim/save checks, zero-warning build. Freeze for whole-game155 review before156; no preference claim from successful operation.

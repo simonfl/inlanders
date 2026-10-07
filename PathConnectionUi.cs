@@ -7,6 +7,8 @@ public partial class Game
 {
     private Button _connectPathsButton = null!;
     private Cell? _pathAnchor;
+    private readonly List<Cell> _pathWaypoints=new();
+    private Cell[] ConnectionStops(Cell end)=>new[]{_pathAnchor!.Value}.Concat(_pathWaypoints).Append(end).ToArray();
     private World? _connectionWorld;
     private Cell _connectionEnd;
     private Cell? _connectionStart;
@@ -25,11 +27,11 @@ public partial class Game
         if (_connectionWorld == _world && _connectionEnd == end && _connectionStart == _pathAnchor && now - _connectionTime < 250) return _connectionProblem;
         _connectionWorld = _world; _connectionEnd = end; _connectionStart = _pathAnchor; _connectionTime = now;
         _connectionRoute.Clear();
-        if (_pathAnchor is Cell start) _connectionProblem = _world.PathConnection(start, end, out _connectionRoute);
+        if (_pathAnchor is Cell start) _connectionProblem = _world.PathConnection(ConnectionStops(end), out _connectionRoute);
         else { _connectionProblem = _world.PathProblem(end); _connectionRoute.Add(end); }
         return _connectionProblem;
     }
-    private void ClickPathConnection(Cell cell)
+    private void ClickPathConnection(Cell cell,bool waypoint=false)
     {
         var end = PathEndpoint(cell);
         if (_pathAnchor is not Cell start)
@@ -37,7 +39,12 @@ public partial class Game
             if (_world.PathProblem(end) != null) { UiCue(Cue.Reject); return; }
             _pathAnchor = end; UiCue(Cue.Click);
         }
-        else if (_world.ConnectPaths(start, end)) { _pathAnchor = null; UiCue(Cue.Click);if(HasPlacePathOrigin){EndPlacePath();return;} }
+        else if(waypoint)
+        {
+            if(_world.PathConnection(ConnectionStops(end),out _)!=null){UiCue(Cue.Reject);return;}
+            if(_pathWaypoints.LastOrDefault(start)!=end)_pathWaypoints.Add(end);UiCue(Cue.Click);
+        }
+        else if (_world.ConnectPaths(ConnectionStops(end))) { _pathAnchor = null;_pathWaypoints.Clear(); UiCue(Cue.Click);if(HasPlacePathOrigin){EndPlacePath();return;} }
         else UiCue(Cue.Reject);
         _connectionWorld = null; RefreshGhost();
     }
@@ -46,6 +53,7 @@ public partial class Game
         ConnectionProblem(_hover);
         foreach (var cell in _connectionRoute)
             GroundPatch(_ghostCells,cell.X,cell.Z,.72f,.72f,new("8fd3d1"),.09f);
+        foreach(var waypoint in _pathWaypoints)GroundPatch(_ghostCells,waypoint.X,waypoint.Z,.86f,.86f,new("e2c795"),.1f);
         if (_pathAnchor is Cell start) GroundPatch(_ghostCells,start.X,start.Z,.86f,.86f,new("a4caa0"),.1f);
         if (!_ghostValid) { var end=PathEndpoint(_hover); GroundPatch(_ghostCells,end.X,end.Z,.72f,.72f,new("e38673"),.09f); }
     }

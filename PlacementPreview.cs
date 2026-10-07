@@ -182,7 +182,7 @@ public partial class Game
             }; return;
         }
         if (_decorating && _placing) { _buildDescription.Text = DecorationDescription; return; }
-        if (_pathTool == 3 && _placing) { _buildDescription.Text = "CONNECT PATHS\nClick two clear ground tiles to preview and lay a free walking route around obstacles. Buildings snap to their entrance. Existing bridges can carry the connection; water needs a bridge first. Esc cancels. Paths keep their existing travel benefit."; return; }
+        if (_pathTool == 3 && _placing) { _buildDescription.Text = "CONNECT PATHS\nClick the start, then the destination to lay a free walking route. Shift-click intermediate ground to pin bends before the final click. Buildings snap to their entrance. Existing bridges can carry the connection; water needs a bridge first. Esc cancels. Paths keep their existing travel benefit."; return; }
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {

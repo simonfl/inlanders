@@ -39,9 +39,21 @@ public sealed partial class World
         route.Add(start); route.AddRange(found);
         return null;
     }
-    public bool ConnectPaths(Cell start, Cell end)
+    public string? PathConnection(IReadOnlyList<Cell> stops,out List<Cell> route)
     {
-        if (PathConnection(start, end, out var route) != null) return false;
+        route=new();if(stops.Count<2)return "Choose a start and destination.";
+        for(int i=1;i<stops.Count;i++)
+        {
+            var problem=PathConnection(stops[i-1],stops[i],out var leg);
+            if(problem!=null){route.Clear();return problem;}
+            route.AddRange(i==1?leg:leg.Skip(1));
+        }
+        return null;
+    }
+    public bool ConnectPaths(Cell start, Cell end)=>ConnectPaths(new[]{start,end});
+    public bool ConnectPaths(IReadOnlyList<Cell> stops)
+    {
+        if (PathConnection(stops, out var route) != null) return false;
         bool changed = false;
         foreach (var cell in route)
         {

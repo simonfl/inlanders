@@ -13,7 +13,7 @@ public partial class Game
     private void TogglePaths(int tool)
     {
         _woodlandTool=0; _placing = !(_placing && _pathTool == tool); _pathTool = tool; _decorating = false;
-        _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null; _pathAnchor = null; _connectionWorld = null;
+        _clearingTrees = _plantingTrees = false; _pathStroke = false; _lastPathCell = null; _pathAnchor = null;_pathWaypoints.Clear(); _connectionWorld = null;
         ClearSelection(); RefreshGhost();
     }
     private void PaintPath(Cell cell)

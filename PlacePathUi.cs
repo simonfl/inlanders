@@ -15,7 +15,7 @@ public partial class Game
     {
         var focus=_focus;float angle=_angle,zoom=_camera.Size;
         CloseManagementUi();TogglePaths(3);_placing=true;
-        _pathOrigin=id;_pathSharedOrigin=shared;_pathOriginWorld=_world;_pathAnchor=start;_connectionWorld=null;
+        _pathWaypoints.Clear();_pathOrigin=id;_pathSharedOrigin=shared;_pathOriginWorld=_world;_pathAnchor=start;_connectionWorld=null;
         _pathReturnFocus=focus;_pathReturnAngle=angle;_pathReturnZoom=zoom;RefreshGhost();
     }
     private void BeginSharedPlacePath()
@@ -33,7 +33,7 @@ public partial class Game
     private void EndPlacePath()
     {
         int id=_pathOrigin;var shared=_pathSharedOrigin;bool same=_pathOriginWorld==_world;
-        _pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;_pathAnchor=null;_connectionWorld=null;
+        _pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;_pathAnchor=null;_pathWaypoints.Clear();_connectionWorld=null;
         _placing=false;_pathTool=0;RefreshGhost();
         if(same)
         {
