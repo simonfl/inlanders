@@ -670,5 +670,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "farmstead-group",
+    "description": "Homes and cultivated ground arranged together with actual crop consequences",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]

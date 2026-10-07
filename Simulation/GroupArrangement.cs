@@ -4,13 +4,13 @@ namespace Inlanders.Simulation;
 public sealed record GroupPlan(World? Result,string? Problem);
 public sealed partial class World
 {
-    public bool GroupEligible(Cottage site)=>PublicPlace!=null && site.Complete && !site.DemolitionRequested && Buildings.Get(site.Kind).Beds>0 && !site.ImprovementRequested;
+    public bool GroupEligible(Cottage site)=>PublicPlace!=null && site.Complete && !site.DemolitionRequested && (Buildings.Get(site.Kind).Beds>0 || site.Kind==BuildingKind.Farm || IsVegetablePlot(site.Kind)) && !site.ImprovementRequested;
     public GroupPlan PreviewGroup(int[] ids,Cell target,int turn=0)
     {
         if(PublicPlace==null || Food.Celebrating)return new(null,"Choose an ordinary village outside a gathering.");
-        if(ids.Length<2 || ids.Length>16 || ids.Distinct().Count()!=ids.Length || turn is <0 or >3)return new(null,"Choose two to sixteen different finished homes.");
+        if(ids.Length<2 || ids.Length>16 || ids.Distinct().Count()!=ids.Length || turn is <0 or >3)return new(null,"Choose two to sixteen different finished homes or fields.");
         var homes=ids.Select(id=>Cottages.FirstOrDefault(c=>c.Id==id)).ToArray();
-        if(homes.Any(c=>c==null || !GroupEligible(c)))return new(null,"Choose finished homes; finish or cancel furnishing first.");
+        if(homes.Any(c=>c==null || !GroupEligible(c)))return new(null,"Choose finished homes or fields; finish or cancel furnishing first.");
         var copy=LoadJson(SaveJson());var problem=copy.ApplyGroupGeometry(ids,target,turn);
         return problem==null?new(copy,null):new(null,problem);
     }
@@ -34,12 +34,13 @@ public sealed partial class World
         foreach(var site in selected)
         {
             if(site.Improved && (YardClaimProblem(site,site.YardSide) is {} conflict || HomeYardPlaces(site).Length!=2))return "A furnished yard needs two clear places in the new arrangement.";
+            if((site.Kind==BuildingKind.Farm || IsVegetablePlot(site.Kind)) && site.Harvest==0){site.Planted=false;site.Growth=0;}
             RemovePaths(Footprint(site));ManagedWoodland.ExceptWith(Footprint(site).Append(site.Entrance));
         }
         var after=Reachable(YardAccess,Blocked);
         if(access.Concat(selected.Select(c=>c.Entrance)).Concat(People.Select(At)).Concat(People.Where(p=>p.Route.Count>0).Select(p=>p.Destination)).Any(c=>!after.Contains(c)))return "Keep residents, resources and building entrances connected.";
         foreach(var p in People.Where(p=>p.Route.Count>0))SetRoute(p,p.Destination);
-        ReconcileHomes();_retry=0;History.Add($"Rearranged {selected.Length} homes together. Households and furnishings stay with their homes.");
+        ReconcileHomes();_retry=0;History.Add($"Rearranged {selected.Length} places together. Households and furnishings stay; growing crops restart, ripe harvest and stored goods remain.");
         Validate();ValidateMapOccupancy();return null;
     }
 }
