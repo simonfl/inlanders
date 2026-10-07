@@ -22,6 +22,7 @@ public partial class Game
         var field=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);var destination=field.Entrance;
         _focus=OnGround(destination.X,destination.Z);_camera.Size=24;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));
         Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("clearing-path-proposal");await Click(pathPoint);await Frames();
+        await UiClick(_pathProposalApply);await Frames();
         if(!_world.Paths.Contains(destination) || _placing)throw new Exception("Clearing connection did not apply");UpdateWorkedLandscape(true);await Frames();_world.Validate();await CaptureReviewBundle("clearing-path-opened");
         ShowWorkplaceCard(home.Id);await Frames();await UiClick(_homeOptionsButton);await Frames();
         var returnFocus=_focus;float returnZoom=_camera.Size,returnAngle=_angle;string beforeWatch=_world.SaveJson();

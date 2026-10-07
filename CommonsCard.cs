@@ -32,7 +32,7 @@ public partial class Game
         _commonsCardWatch=Button("Watch this place",WatchSharedPlace);column.AddChild(_commonsCardWatch);
         _commonsCardMove=Button("Arrange · preview",()=>BeginGatheringPlan(SelectedSharedPlace?.Center,true));column.AddChild(_commonsCardMove);
         _commonsCardPath=Button("Path from here",BeginSharedPlacePath);column.AddChild(_commonsCardPath);
-        _commonsCardPath.TooltipText="Preview a walking path to a home, workplace or another shared place. Click to connect; Esc returns here without changing the ground.";
+        _commonsCardPath.TooltipText="Preview a walking path to a home, workplace or another shared place. Choose the destination and Apply; Esc returns here without changing the ground.";
         _commonsCardRemove=Button("Remove shared place",()=>{if(_selectedCommonsCenter is Cell center)_world.RemoveCommons(center);ClearSelection();});column.AddChild(_commonsCardRemove);
         _commonsCardRemove.TooltipText="Remove the meal place. Carried meals remain physical and residents find another place to eat.";
         column.AddChild(Button("Close [Esc]",ClearSelection));

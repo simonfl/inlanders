@@ -16,6 +16,7 @@ public partial class Game
         if(_turnHome>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndHomeTurn();GetViewport().SetInputAsHandled();return;}
         if(HasPlacePathOrigin && (_pathOriginWorld!=_world || !_placing || _pathTool!=3)){_pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;}
         if(HasPlacePathOrigin && (input is InputEventKey{Pressed:true,Keycode:Key.Escape} || input is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Right})){EndPlacePath();GetViewport().SetInputAsHandled();return;}
+        if(HandlePathProposalInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandlePlotEdge(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleCultivationGesture(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleHouseholdMove(input)){GetViewport().SetInputAsHandled();return;}
@@ -182,7 +183,7 @@ public partial class Game
             }; return;
         }
         if (_decorating && _placing) { _buildDescription.Text = DecorationDescription; return; }
-        if (_pathTool == 3 && _placing) { _buildDescription.Text = "CONNECT PATHS\nClick the start, then the destination to lay a free walking route. Shift-click intermediate ground to pin bends before the final click. Buildings snap to their entrance. Existing bridges can carry the connection; water needs a bridge first. Esc cancels. Paths keep their existing travel benefit."; return; }
+        if (_pathTool == 3 && _placing) { _buildDescription.Text = "CONNECT PATHS\nChoose start and destination, then Apply to lay a free walking route. Shift-click intermediate ground to pin bends before the final click. Buildings snap to their entrance. Existing bridges can carry the connection; water needs a bridge first. Esc cancels. Paths keep their existing travel benefit."; return; }
         if (_pathTool > 0 && _placing) { _buildDescription.Text = "PATHS\nClick or drag on clear land to paint/remove paths for free. Villagers choose quicker routes and move 25% faster toward path tiles. Building or planting replaces paths beneath it."; return; }
         if (_clearingTrees && _placing)
         {

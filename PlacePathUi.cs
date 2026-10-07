@@ -15,7 +15,7 @@ public partial class Game
     {
         var focus=_focus;float angle=_angle,zoom=_camera.Size;
         CloseManagementUi();TogglePaths(3);_placing=true;
-        _pathWaypoints.Clear();_pathOrigin=id;_pathSharedOrigin=shared;_pathOriginWorld=_world;_pathAnchor=start;_connectionWorld=null;
+        _pathWaypoints.Clear();_pathDraftEnd=null;_pathOrigin=id;_pathSharedOrigin=shared;_pathOriginWorld=_world;_pathAnchor=start;_connectionWorld=null;
         _pathReturnFocus=focus;_pathReturnAngle=angle;_pathReturnZoom=zoom;RefreshGhost();
     }
     private void BeginSharedPlacePath()
@@ -28,12 +28,12 @@ public partial class Game
         _placePath=Button("Path from here",()=>{
             var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site==null)return;
             BeginPlacePath(site.Entrance,site.Id);
-        });_placePath.TooltipText="Preview a free walking path from this entrance to another place or clear ground. Click to connect; Esc returns without changing paths.";_placePathRow.AddChild(_placePath);
+        });_placePath.TooltipText="Preview a free walking path from this entrance to another place or clear ground. Choose the destination and Apply; Esc returns without changing paths.";_placePathRow.AddChild(_placePath);
     }
     private void EndPlacePath()
     {
         int id=_pathOrigin;var shared=_pathSharedOrigin;bool same=_pathOriginWorld==_world;
-        _pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;_pathAnchor=null;_pathWaypoints.Clear();_connectionWorld=null;
+        _pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;_pathAnchor=null;_pathWaypoints.Clear();_pathDraftEnd=null;_connectionWorld=null;
         _placing=false;_pathTool=0;RefreshGhost();
         if(same)
         {

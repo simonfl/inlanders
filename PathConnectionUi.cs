@@ -22,7 +22,7 @@ public partial class Game
     }
     private string? ConnectionProblem(Cell cell)
     {
-        var end = PathEndpoint(cell);
+        var end = _pathDraftEnd??PathEndpoint(cell);
         ulong now = Time.GetTicksMsec();
         if (_connectionWorld == _world && _connectionEnd == end && _connectionStart == _pathAnchor && now - _connectionTime < 250) return _connectionProblem;
         _connectionWorld = _world; _connectionEnd = end; _connectionStart = _pathAnchor; _connectionTime = now;
@@ -42,10 +42,9 @@ public partial class Game
         else if(waypoint)
         {
             if(_world.PathConnection(ConnectionStops(end),out _)!=null){UiCue(Cue.Reject);return;}
-            if(_pathWaypoints.LastOrDefault(start)!=end)_pathWaypoints.Add(end);UiCue(Cue.Click);
+            if(_pathWaypoints.LastOrDefault(start)!=end)_pathWaypoints.Add(end);_pathDraftEnd=null;UiCue(Cue.Click);
         }
-        else if (_world.ConnectPaths(ConnectionStops(end))) { _pathAnchor = null;_pathWaypoints.Clear(); UiCue(Cue.Click);if(HasPlacePathOrigin){EndPlacePath();return;} }
-        else UiCue(Cue.Reject);
+        else { _pathDraftEnd=end;UiCue(Cue.Click); }
         _connectionWorld = null; RefreshGhost();
     }
     private void DrawPathConnection()
@@ -55,6 +54,6 @@ public partial class Game
             GroundPatch(_ghostCells,cell.X,cell.Z,.72f,.72f,new("8fd3d1"),.09f);
         foreach(var waypoint in _pathWaypoints)GroundPatch(_ghostCells,waypoint.X,waypoint.Z,.86f,.86f,new("e2c795"),.1f);
         if (_pathAnchor is Cell start) GroundPatch(_ghostCells,start.X,start.Z,.86f,.86f,new("a4caa0"),.1f);
-        if (!_ghostValid) { var end=PathEndpoint(_hover); GroundPatch(_ghostCells,end.X,end.Z,.72f,.72f,new("e38673"),.09f); }
+        if (!_ghostValid) { var end=_pathDraftEnd??PathEndpoint(_hover); GroundPatch(_ghostCells,end.X,end.Z,.72f,.72f,new("e38673"),.09f); }
     }
 }

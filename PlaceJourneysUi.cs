@@ -5,9 +5,6 @@ using System.Linq;
 public partial class Game
 {
     private Button _workCardTrips=null!,_placeTripNext=null!,_placeTripFollow=null!,_placeTripFrame=null!,_placeTripPath=null!;
-    private HBoxContainer _tripPathActions=null!;
-    private Button _tripPathApply=null!;
-    private (Cell Start,Cell End)? _tripPathProposal;
     private VBoxContainer _placeTripsPanel=null!;
     private Label _placeTripText=null!;
     private Line2D _placeTripLine=null!;
@@ -30,16 +27,8 @@ public partial class Game
             _focus=OnGround(x,z);_camera.Size=Math.Clamp(Math.Max(points.Max(p=>p.X)-points.Min(p=>p.X),points.Max(p=>p.Y)-points.Min(p=>p.Y))*1.6f+9,12,MaximumZoom);_followPerson=false;_watchOrbit=false;UpdateCamera();
         });row.AddChild(_placeTripFrame);
         _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person,_placeJourneySite);_followPerson=true;}});row.AddChild(_placeTripFollow);
-        _placeTripPath=Button("Preview path",()=>{
-            if(_placeJourney is not {} trip)return;
-            _tripPathProposal=(new Cell((int)MathF.Round(trip.Position.X),(int)MathF.Round(trip.Position.Y)),trip.Steps[^1]);
-        });row.AddChild(_placeTripPath);
-        _placeTripPath.TooltipText="Preview a walking path from this resident's current ground to the actual destination. No ground changes until you apply.";
-        _tripPathActions=new();_placeTripsPanel.AddChild(_tripPathActions);
-        _tripPathApply=Button("Lay this path",()=>{
-            if(_tripPathProposal is {} proposal && _world.ConnectPaths(proposal.Start,proposal.End)){_tripPathProposal=null;Notice("Walking path laid. Residents choose routes using the new ground.");}
-        });_tripPathActions.AddChild(_tripPathApply);
-        _tripPathActions.AddChild(Button("Cancel path",()=>_tripPathProposal=null));_tripPathActions.Hide();
+        _placeTripPath=Button("Connect this place to destination",BeginPathFromTrip);_placeTripsPanel.AddChild(_placeTripPath);
+        _placeTripPath.TooltipText="Preview a connection from this place’s entrance to the observed destination. Choose bends in the world; apply or cancel. This is not a promise that walkers take a longer route.";
         _placeTripLine=new(){Width=3,Antialiased=true,ZIndex=-1};_hud.AddChild(_placeTripLine);_placeTripsPanel.Hide();
     }
     private void RenderPlaceJourneys()
@@ -50,17 +39,7 @@ public partial class Game
         bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && Buildings.Get(c.Kind).Beds>0);
         _workCardTrips.Text=show?"Back to place":household?"Household journeys":"People & trips";
         _workCardTrips.TooltipText=household?"Actual trips by the people who live here. They may be working or eating elsewhere; these are not all journeys to this house.":"Inspect actual journeys related to this place.";
-        if(!show){_placeJourney=null;_tripPathProposal=null;return;}
-        _tripPathActions.Visible=_tripPathProposal!=null;
-        if(_tripPathProposal is {} proposal)
-        {
-            string? problem=_world.PathConnection(proposal.Start,proposal.End,out var route);
-            _tripPathApply.Disabled=problem!=null;
-            _placeTripNext.Disabled=_placeTripFrame.Disabled=_placeTripFollow.Disabled=_placeTripPath.Disabled=true;
-            _placeTripText.Text=problem??$"Walking path · {route.Count} tiles\nFrom the observed position to the trip’s destination. Village life continues; this proposal stays in place.";
-            _placeTripLine.DefaultColor=new(problem==null?"8fd3d1":"e38673");
-            _placeTripLine.Points=route.Select(c=>_camera.UnprojectPosition(OnGround(c.X,c.Z,.25f))).ToArray();return;
-        }
+        if(!show){_placeJourney=null;return;}
         var trips=_world.ReadPlaceJourneys(_placeJourneySite);
         var next=trips.FirstOrDefault(t=>t.Person==_placeJourneyPerson);
         if(_placeJourney is {} prior && (next==null || next.Activity!=prior.Activity || next.Steps[^1]!=prior.Steps[^1]))

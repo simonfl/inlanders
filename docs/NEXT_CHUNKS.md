@@ -14,7 +14,17 @@ Keep the inhabited-landscape hypothesis provisional. Make spatial choices tangib
 154. **Done** — Let a selected shared place reveal its actual visitors and their journeys, preserving the distinction between meals and quiet visits.
 155. **Done** — Let a player choose a path’s intermediate approach in the world, retaining preview/cancel and existing route legality. Full review before further implementation.
 
-These candidates are revisable after every outcome. Merge work that does not independently change play; do not count tests, documentation or prerequisites as playable outcomes. First five complete; review155 is now due before156. The second five will follow review155’s direction; no fixed content shopping list.
+These candidates are revisable after every outcome. Merge work that does not independently change play; do not count tests, documentation or prerequisites as playable outcomes. First five complete; [review155](REVIEW_CHECKPOINT_155.md) is complete and selects the farmstead-composition experiment below.
+
+## Second five — selected after full155 review
+
+156. **Done** — Consolidate deliberate world path proposals across entry points; remove transient path scraps and duplicate proposal state.
+157. Preview and apply a group of existing homes translated/turned as one arrangement, atomically.
+158. Include cultivated ground with honest crop consequences and actual production continuation.
+159. Choose whether eligible internal approaches move with the group; preserve unrelated ground and show conflicts.
+160. Compare before/after ensemble composition and return to actual use; full whole-game review and stop.
+
+No foundation-only increments; merge or change scope based on evidence. Fix clipping without a new count.
 
 ## Validation
 

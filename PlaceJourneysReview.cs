@@ -34,24 +34,25 @@ public partial class Game
         int householdPerson=_placeJourney!.Person;int homeId=_world.People[householdPerson].HomeId!.Value;
         ShowWorkplaceCard(homeId);await Frames();Check(_workCardTrips.IsVisibleInTree(),"Home journeys unavailable");
         await UiClick(_workCardTrips);await Frames();Check(!_householdPeople.Visible && _placeJourney is {Relation:"Household trip"},"Household journey not actual or stacked");
-        await CaptureReviewBundle("household-journey");var originFocus=_focus;float originZoom=_camera.Size;
+        Check(_workCard.GetGlobalRect().End.X<=_hud.Size.X && _placeTripPath.GetGlobalRect().End.X<=_hud.Size.X,"Right household card clips controls");await CaptureReviewBundle("household-journey");var originFocus=_focus;float originZoom=_camera.Size;
         await UiClick(_placeTripFollow);await Frames();Check(_dailyPerson>=0 && _householdOrigin==homeId,"Household follow lost origin");
         await UiClick(_dailyHomeBack);await Frames();Check(_workCardSite==homeId && _focus==originFocus && _camera.Size==originZoom && saved==_world.SaveJson(),"Household return changed world/view");
         ShowWorkplaceCard(field.Id);await Frames();await UiClick(_workCardTrips);await Frames();
         for(int i=0;i<_world.Population && (_placeJourney?.Relation!="Meal from this place" || _placeJourney.Amount==0);i++){await UiClick(_placeTripNext);await Frames();}
         int person=_placeJourney!.Person;await UiClick(_placeTripFrame);await Frames();
         Check(saved==_world.SaveJson() && _placeTripLine.Points.Length>1,"Journey inspection changed world or lacks committed route");
-        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Journey card overflows compact screen");
+        Check(_workCard.GetGlobalRect().End.X<=_hud.Size.X && _placeTripPath.GetGlobalRect().End.X<=_hud.Size.X && _workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Journey card overflows compact screen");
         await CaptureReviewBundle("place-meal-under-way");
-        await UiClick(_placeTripPath);await Frames();Check(_tripPathProposal!=null && !_tripPathApply.Disabled && saved==_world.SaveJson(),"Trip path preview mutated or rejected");
-        Check(_workCard.GetGlobalRect().End.Y<_hud.Size.Y-76,"Path proposal overflows compact screen");
-        await CaptureReviewBundle("trip-path-proposal");
-        await UiClick(_tripPathActions.GetChild<Button>(1));await Frames();Check(_tripPathProposal==null && saved==_world.SaveJson(),"Trip path cancellation mutated");
-        await UiClick(_placeTripPath);await Frames();var routeProposal=_tripPathProposal!.Value;
-        Check(_world.PathConnection(routeProposal.Start,routeProposal.End,out var proposed)==null,"Proposal invalid");
-        await UiClick(_tripPathApply);await Frames();Check(_tripPathProposal==null && proposed.Where(c=>!_world.Map.Water.Contains(c)).All(_world.Paths.Contains),"Trip path not applied");
+        var endpoint=_placeJourney!.Steps[^1];await UiClick(_placeTripPath);await Frames();
+        Check(_pathAnchor==field.Entrance && _pathDraftEnd!=null && !_pathProposalApply.Disabled && saved==_world.SaveJson(),"Unified trip path preview mutated or lost durable origin");
+        await UiClick(_pathProposalFrame);await Frames();await CaptureReviewBundle("trip-world-path-proposal");
+        await Press(Key.Escape);await Frames();Check(!_placing && _workCardSite==field.Id && saved==_world.SaveJson(),"Trip path cancellation lost origin");
+        await UiClick(_workCardTrips);await Frames();await UiClick(_placeTripPath);await Frames();
+        Check(_world.PathConnection(ConnectionStops(_pathDraftEnd!.Value),out var proposed)==null,"Proposal invalid");
+        await UiClick(_pathProposalApply);await Frames();Check(!_placing && proposed.Where(c=>!_world.Map.Water.Contains(c)).All(_world.Paths.Contains),"Trip path not applied");
         _world.Validate();var restored=World.LoadJson(_world.SaveJson());Check(restored.SaveJson()==_world.SaveJson(),"Trip path save differs");
-
+        await UiClick(_workCardTrips);await Frames();
+        for(int i=0;i<_world.Population && _placeJourney?.Person!=person;i++){await UiClick(_placeTripNext);await Frames();}
         _speed=3;_paused=false;double timeout=Time.GetTicksMsec()+30000;
         while(_placeJourneyEnding==null && Time.GetTicksMsec()<timeout)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         _paused=true;Check(_placeJourneyEnding?.Contains("reached the destination")==true,"Actual arrival was not observed");

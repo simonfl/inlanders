@@ -32,7 +32,7 @@ public partial class Game
         await CaptureReviewBundle("connected-path-preview");await Press(Key.Escape);await Frames();
         Check(!_placing && before==_world.SaveJson(),"Cancelled connection mutated world");
         ToggleDrawer(1);SelectBuildSection(1);await Frames();await UiClick(_connectPathsButton,6);CloseDrawer();await Frames();
-        await Point(start,true);Check(_pathWaypoints.Count==0,"Cancelled bend leaked to next path");await Point(bend,true,true);await Point(end,true);
+        await Point(start,true);Check(_pathWaypoints.Count==0,"Cancelled bend leaked to next path");await Point(bend,true,true);await Point(end,true);await UiClick(_pathProposalApply);await Frames();
         Check(_pathAnchor==null && _world.Paths.Contains(end) && _world.Paths.Contains(bend) && !_pathStroke,"Confirmed connection failed");
         await Press(Key.Escape);SaveWorld();string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         Check(saved==_world.SaveJson(),"Connected path save mismatch");

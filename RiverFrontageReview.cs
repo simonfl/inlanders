@@ -30,6 +30,7 @@ public partial class Game
             await UiClick(_homeOptionsButton);await Frames();await UiClick(_placePath);await Frames();
             var destination=_world.Map.Land.Where(c=>c!=turnHome.Entrance && !_world.Paths.Contains(c) && _world.PathConnection(turnHome.Entrance,c,out _)==null).OrderBy(c=>(c.Point-turnHome.Entrance.Point).LengthSquared()).First();
             _focus=OnGround(destination.X,destination.Z);_camera.Size=18;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("path-from-selected-home");await Click(pathPoint);await Frames();
+        await UiClick(_pathProposalApply);await Frames();
             if(!_world.Paths.Contains(destination) || _placing || _workCardSite!=turnHome.Id)throw new Exception("Selected-place path did not apply/return");_world.Validate();await CaptureReviewBundle("home-path-connected");
             string appearanceSave=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();if(appearanceSave!=_world.SaveJson())throw new Exception("Home appearance/turn save differs");
 

@@ -31,7 +31,7 @@ public partial class Game
         var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));
         Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();
         Check(_ghostValid && _connectionRoute.Count>1,"Shared approach preview missing");await CaptureReviewBundle("shared-place-path-proposal");
-        await Click(pathPoint);await Frames();
+        await Click(pathPoint);await Frames();await UiClick(_pathProposalApply);await Frames();
         Check(!_placing && SelectedSharedPlace==line && _world.Paths.Contains(line.Center) && _world.Paths.Contains(destination) && _focus==pathFocus && _camera.Size==pathZoom,"Shared approach apply/return failed");
         Check(_world.SharedPlaces.Count==2,"Adding replaced existing place");FrameMap();await Frames();await CaptureReviewBundle("two-independent-shared-places");
         var original=_world.SharedPlaces[0].Center;var second=_world.SharedPlaces[1];var secondSeats=second.Places.ToArray();ClearSelection();await Choose(original);
