@@ -21,7 +21,7 @@ These candidates are revisable after every outcome. Merge work that does not ind
 156. **Done** — Consolidate deliberate world path proposals across entry points; remove transient path scraps and duplicate proposal state.
 157. **Done** — Preview and apply a group of existing homes translated/turned as one arrangement, atomically.
 158. **Done** — Include cultivated ground with honest crop consequences and actual production continuation.
-159. Choose whether eligible internal approaches move with the group; preserve unrelated ground and show conflicts.
+159. **Done** — Choose whether eligible internal approaches move with the group; preserve unrelated ground and show conflicts.
 160. Compare before/after ensemble composition and return to actual use; full whole-game review and stop.
 
 No foundation-only increments; merge or change scope based on evidence. Fix clipping without a new count.

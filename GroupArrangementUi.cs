@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 public partial class Game
 {
+    private bool _groupCarryPaths;
+    private Button _groupPaths=null!;
     private bool _groupActive,_groupSelecting,_groupWasPaused;
     private World? _groupWorld;
     private readonly List<int> _groupMembers=new();
@@ -23,6 +25,8 @@ public partial class Game
         var turns=new HBoxContainer();column.AddChild(turns);
         _groupLeft=Button("Turn left",()=>{_groupTurn=(_groupTurn+3)%4;RefreshGroupProposal();});turns.AddChild(_groupLeft);
         _groupRight=Button("Turn right",()=>{_groupTurn=(_groupTurn+1)%4;RefreshGroupProposal();});turns.AddChild(_groupRight);
+        _groupPaths=Button("Paths: leave in place",()=>{_groupCarryPaths=!_groupCarryPaths;RefreshGroupProposal();});column.AddChild(_groupPaths);
+        _groupPaths.TooltipText="Carry marked path tiles within the selected places’ extent. Other places’ access and outside paths stay; boundary junctions stay too. You may need to reconnect the moved group.";
         _groupApply=Button("Use this arrangement",ApplyGroupArrangement);column.AddChild(_groupApply);
         column.AddChild(Button("Cancel [Esc]",CancelGroupArrangement));_groupPanel.Hide();_groupModels=new();AddChild(_groupModels);
     }
@@ -30,7 +34,7 @@ public partial class Game
     {
         if(_world.PublicPlace==null)return;CloseManagementUi();_placing=false;RefreshGhost();CancelCameraDrag();
         _groupWasPaused=_paused;_paused=true;_pauseButton.Disabled=true;_pauseButton.Text="Paused while arranging";
-        _groupWorld=_world;_groupActive=_groupSelecting=true;_groupMembers.Clear();_groupTarget=null;_groupTurn=0;RefreshGroupProposal();
+        _groupWorld=_world;_groupActive=_groupSelecting=true;_groupMembers.Clear();_groupCarryPaths=false;_groupTarget=null;_groupTurn=0;RefreshGroupProposal();
     }
     private void CancelGroupArrangement()
     {
@@ -42,7 +46,7 @@ public partial class Game
     private void ApplyGroupArrangement()
     {
         if(_groupTarget is not Cell target || _groupSelecting)return;
-        var plan=_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn);
+        var plan=_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn,_groupCarryPaths);
         if(plan.Result==null){_groupPlan=plan;return;}
         CancelGroupArrangement();_world=plan.Result;ClearSelection();CreateActors();RenderActors(0);RebuildQueue();Notice("Places rearranged together. Growing crops restart; ripe harvest stays.");
     }
@@ -50,7 +54,16 @@ public partial class Game
     {
         foreach(var id in _groupMembers){if(_cottages.TryGetValue(id,out var view))view.Body.Show();if(_cropViews.TryGetValue(id,out var crop))crop.Body.Show();}
         Clear(_groupModels);_groupModels.Show();
-        _groupPlan=_groupTarget is Cell target && !_groupSelecting?_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn):null;
+        _groupPlan=_groupTarget is Cell target && !_groupSelecting?_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn,_groupCarryPaths):null;
+        if(_groupCarryPaths && _groupMembers.Count>=2)
+        {
+            var pivot=_world.Cottages.Single(c=>c.Id==_groupMembers[0]).Cell;
+            foreach(var at in _world.GroupPaths(_groupMembers.ToArray()))
+            {
+                GroundPatch(_groupModels,at.X,at.Z,.55f,.55f,new("c48d68"),.12f);
+                if(_groupTarget is Cell destination && _groupPlan?.Result!=null){var moved=World.RotateOffset(destination,at.X-pivot.X,at.Z-pivot.Z,_groupTurn);GroundPatch(_groupModels,moved.X,moved.Z,.6f,.6f,new("75c7d0"),.14f);}
+            }
+        }
         foreach(var id in _groupMembers)
         {
             var original=_world.Cottages.Single(c=>c.Id==id);var proposed=_groupPlan?.Result?.Cottages.Single(c=>c.Id==id);
@@ -99,9 +112,10 @@ public partial class Game
         _groupEntry.Visible=_world.PublicPlace!=null;
         if(!_groupActive)return;if(_groupWorld!=_world || _atMainMenu){CancelGroupArrangement();return;}
         _paused=true;_groupPanel.Show();_groupPanel.Position=new(_hud.Size.X-310,92);_groupPanel.Size=new(294,0);
-        _groupText.Text="ARRANGE A FARMSTEAD\n"+(_groupSelecting?$"{_groupMembers.Count} selected. Click homes or fields to add/remove. Choose at least two.\nTime is paused; no changes until Apply.":"Click ground for the first selected place’s anchor. R turns the whole group.\nHouseholds and furnishings stay. Growing crops restart; ripe harvest and stored goods stay. Existing paths stay on their ground.\n"+(_groupPlan?.Problem??"The whole arrangement fits. Moving is free."));
+        _groupText.Text="ARRANGE A FARMSTEAD\n"+(_groupSelecting?$"{_groupMembers.Count} selected. Click homes or fields to add/remove. Choose at least two.\nTime is paused; no changes until Apply.":"Click ground to move the first place; R turns the group.\nGrowing crops restart; ripe goods stay.\n"+(_groupCarryPaths?"Marked paths move; outside approaches stay.\n":"Paths stay on their ground.\n")+(_groupPlan?.Problem??"The whole arrangement fits. Moving is free."));
         _groupPick.Text=_groupSelecting?"Preview selected places":"Change selection";_groupPick.Disabled=_groupSelecting && _groupMembers.Count<2;
-        _groupLeft.Visible=_groupRight.Visible=_groupApply.Visible=!_groupSelecting;
+        _groupLeft.Visible=_groupRight.Visible=_groupApply.Visible=_groupPaths.Visible=!_groupSelecting;
+        _groupPaths.Text=_groupCarryPaths?$"Paths: carry {_world.GroupPaths(_groupMembers.ToArray()).Length} tiles":"Paths: leave in place";
         _groupApply.Disabled=_groupPlan?.Result==null || _groupTarget==_world.Cottages.FirstOrDefault(c=>c.Id==_groupMembers.FirstOrDefault(-1))?.Cell && _groupTurn==0;
     }
 }
