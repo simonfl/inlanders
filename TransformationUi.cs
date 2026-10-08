@@ -6,17 +6,22 @@ public partial class Game
     private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
     private void TransformationMenu()
     {
-        MenuPage("Make a place your own");
-        _mainColumn.AddChild(Text("Recommended first visit",18,true));
+        MenuPage("Make a home by the river");
         MenuButton("Establish life by the river",RiverLivelihoodMenu);
-        MenuButton("Tend a working clearing",WorkingClearingMenu);
-        _mainColumn.AddChild(Text("Eight neighbors, four homes and two small fields. A modest place to explore and reshape at your own pace.",15,true));
-        _mainColumn.AddChild(Text("Other beginnings",18,true));
-        MenuButton("Establish a farmstead",PlayerFoundedMenu);
-        _mainColumn.AddChild(Text("Start with open land and provisions; choose the first homes and livelihood.",15,true));
-        MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
-        _mainColumn.AddChild(Text("Start with twelve neighbors and a larger working settlement.",15,true));
+        _mainColumn.AddChild(Text("Homes and provisions are ready. Choose how your neighbors will live from the land and water.",16,true));
+        MenuButton("Tend a river settlement",()=>RiverSessionMenu(false));
+        _mainColumn.AddChild(Text("Fields and a landing already provide food. Reshape a working place, or simply enjoy its daily life.",16,true));
+        MenuButton("Earlier beginnings",EarlierBeginningsMenu);
         MenuButton("Back",ShowMainMenu);
+    }
+    private void EarlierBeginningsMenu()
+    {
+        MenuPage("Earlier beginnings");
+        _mainColumn.AddChild(Text("Other places to revisit. Each beginning and mode has its own save.",16,true));
+        MenuButton("Tend a working clearing",WorkingClearingMenu);
+        MenuButton("Establish a farmstead",PlayerFoundedMenu);
+        MenuButton("Shape an inhabited hamlet",()=>HamletMenu(true,false,true));
+        MenuButton("Back",TransformationMenu);
     }
     private void HamletMenu(bool cultivatedBank,bool groupedFarmsteads=false,bool acrossTheInlet=false)
     {

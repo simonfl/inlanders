@@ -10,7 +10,7 @@ public partial class Game
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="river-hamlet")
         {
-            ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();
+            ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();
             await UiClick(_mainButtons["Landscape: inlet · change"]);await Frames();await CaptureReviewBundle("inhabited-frontage-menu");
             await UiClick(_mainButtons["New hamlet"]);await Frames();
             if(_world.PublicPlace is not {RiverFrontage:true,PlayerFounded:false} || _world.Housed!=12)throw new Exception("Inhabited frontage entry failed");
@@ -52,7 +52,7 @@ public partial class Game
             GD.Print("PASS: land views/action/cancellation and score-free public mood inspection; person selected by fixture API.");return;
         }
         _frontageStart=false;ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();
-        await UiClick(_mainButtons["Establish a farmstead"]);await Frames();
+        await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Establish a farmstead"]);await Frames();
         await UiClick(_mainButtons["Landscape: inlet · change"]);await Frames();
         await CaptureReviewBundle("frontage-menu");
         await UiClick(_mainButtons["New farmstead"]);await Frames();

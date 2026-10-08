@@ -36,7 +36,7 @@ public partial class Game
         {
             await Press(Key.B);await Frames();await UiClick(_categoryButtons.First(b=>b.Text.TrimStart('›',' ')==BuildingCategoryNames[kind==BuildingKind.Cottage?1:2]));await Frames();_drawerPages[1].EnsureControlVisible(_kindButtons[kind]);await Frames();await UiClick(_kindButtons[kind]);CloseDrawer();_rotation=0;_focus=OnGround(1,7);_camera.Size=25;UpdateCamera();await Frames();
         }
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Establish a farmstead"]);await Frames();await UiClick(_mainButtons["New farmstead"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Establish a farmstead"]);await Frames();await UiClick(_mainButtons["New farmstead"]);await Frames();
         Check(_world.PublicPlace is {PlayerFounded:true,Relaxed:false} && _world.Cottages.Count==0,"Wrong ordinary entry");
         foreach(var cell in new[]{new Cell(-3,7),new(1,7),new(-3,11),new(1,11)})
         {await Choose(BuildingKind.Cottage);if(_world.Cottages.Count==0)await Press(Key.Y);await Frames();var point=_camera.UnprojectPosition(OnGround(cell.X,cell.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();Check(_ghostValid,"House siting failed");await Click(point);await Press(Key.Escape);await Frames();}

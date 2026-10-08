@@ -10,7 +10,7 @@ Use review160's founding-versus-revision comparison, recovery concerns and river
 164. **Done** — Apply final resident visibility once per pose; measured reset spikes removed, other stalls remain.
 165. **Done** — Differentiate long8-row field and2-row kitchen plot at equal total capacity, with enclosing off-map woods and shore margin. Full165 review including visual/audio now selects the remaining five.
 166. **Done** — Establish a livelihood on the existing river land, with homes but freely chosen food investment.
-167. Consolidate public establish/tend entry; move historical comparisons outside its primary route.
+167. **Done** — Consolidate public establish/tend entry; move historical comparisons outside its primary route.
 168. Test proportionate large-field collection against actual repeated work; no speculative cooperative-labor framework.
 169. Address a reproduced ordinary HUD cost if attribution supports a visible intervention.
 170. Replace patterned woodland and test an entrance-facing opening composition; full review and stop.
