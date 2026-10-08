@@ -39,7 +39,7 @@ public partial class Game
         }
         if(venue?.Kind==BuildingKind.SeatingGarden)
         {
-            view.RestStool.Visible=true;
+            PoseVisible(view,view.RestStool,true);
             view.Rig.Position=new(0,-.20f,0);
             view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f);
             view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
@@ -93,7 +93,7 @@ public partial class Game
     private void AnimateQuietSharedVisit(PersonView view,Villager person)
     {
         float settle=Mathf.SmoothStep(0,1,person.Timer/.7f);
-        view.Rig.Position=new(0,-.20f*settle,0);view.RestStool.Visible=false;
+        view.Rig.Position=new(0,-.20f*settle,0);PoseVisible(view,view.RestStool,false);
         view.LeftLeg.Rotation=new(Mathf.Pi/2*settle,0,-.08f);view.RightLeg.Rotation=new(Mathf.Pi/2*settle,0,.08f);
         view.Arm.Rotation=new(.75f,0,-.12f);view.LeftArm.Rotation=new(.7f,0,.12f);
         var companion=_world.QuietCompanion(person);
@@ -110,13 +110,13 @@ public partial class Game
         var home=_world.Cottages.FirstOrDefault(c=>c.Id==person.HomeId);
         if(home==null) return;
         FaceVisit(view,view.Body.Position-new Vector3(home.Cell.X,view.Body.Position.Y,home.Cell.Z));
-        view.RestStool.Visible=true;
+        PoseVisible(view,view.RestStool,true);
         view.Rig.Position=new(0,-.20f,0);
         view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
         float settle=Mathf.SmoothStep(0,1,person.Timer/.8f);
         view.Head.Rotation=new((person.Id%3==0 ? .24f : .12f)*settle,0,0);
         view.Arm.Rotation=new(.85f,0,-.12f); view.LeftArm.Rotation=new(.85f,0,.12f);
         view.Torso.Rotation=new(.06f,0,MathF.Sin(_world.Food.Time*.8f+person.Id)*.012f);
-        if(ReadableCourt){view.RestBack.Visible=true;view.Torso.Rotation=new(-.22f,0,0);view.Head.Rotation=new(.35f*settle,0,0);view.Arm.Rotation=new(.25f,0,-.20f);view.LeftArm.Rotation=new(.25f,0,.20f);view.LeftLeg.Rotation=new(.95f,0,-.08f);view.RightLeg.Rotation=new(.95f,0,.08f);}
+        if(ReadableCourt){PoseVisible(view,view.RestBack,true);view.Torso.Rotation=new(-.22f,0,0);view.Head.Rotation=new(.35f*settle,0,0);view.Arm.Rotation=new(.25f,0,-.20f);view.LeftArm.Rotation=new(.25f,0,.20f);view.LeftLeg.Rotation=new(.95f,0,-.08f);view.RightLeg.Rotation=new(.95f,0,.08f);}
     }
 }

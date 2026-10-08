@@ -7,7 +7,8 @@ Use review160's founding-versus-revision comparison, recovery concerns and river
 161. **Done** — Matched open-land clearing: same land, people, food and total building timber as the inhabited clearing, available through ordinary menus in both modes.
 162. **Done** — Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
 163. **Done** — Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
-164–165. Select from observed comparison problems and measured resident animation cost; only count a changed playable experience, never instrumentation or fixtures. Full review165 selects the remaining five.
+164. **Done** — Apply final resident visibility once per pose; measured reset spikes removed, other stalls remain.
+165.163 visual supplement finds the landscape alternative only partial. Select a substantive land-use/presentation outcome, not another inspector control. Full review165 selects the remaining five.
 166–170. TBD after independent review165; no automatic additional control batch.
 
 After each outcome reevaluate this queue and ROADMAP, update CHECKPOINTS, validate and commit. Preserve full catalogue access, no inheritance/new needs/compulsory growth. Tests establish operation, not preference. Existing captures and bounded tools first.

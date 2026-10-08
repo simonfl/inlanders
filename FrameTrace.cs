@@ -7,7 +7,7 @@ public partial class Game
 {
     private struct FrameTrace
     {
-        public double PersonMovementMs,WorkedLandMs;
+        public double PersonMovementMs,WorkedLandMs,CargoMs,PoseResetMs,PoseBodyMs;
         public int WorkedLandRebuilds;
         public double ActorSetupMs,PeopleMs,TreesMs,StockMs,BuildingsMs,SlowPersonMs;
         public int SlowPersonId,SlowPersonTask;

@@ -10,6 +10,10 @@ public partial class Game
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
             LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new(), Bow = new();
+        public readonly System.Collections.Generic.Dictionary<Node3D,bool> PoseVisibility=new();
+        public bool StagingPose;
+        public readonly Node3D[] PoseTools;
+        public PersonView(){PoseTools=new[]{Axe,Hammer,Spade,Peel,Saw,Sickle,SeedPouch};}
         public Resource Cargo;
         public int Count = -1;
         public float? PickupStarted;
@@ -87,7 +91,7 @@ public partial class Game
         if(view.Count==0 && worker.Carried>0 && _world.Food.Time-view.CargoObservedAt<=.4f) view.PickupStarted=_world.Food.Time;
         if(worker.Carried==0) view.PickupStarted=null;
         view.CargoObservedAt=_world.Food.Time;
-        view.Carry.Visible = worker.Carried > 0;
+        PoseVisible(view,view.Carry,worker.Carried > 0);
         if (view.Count == worker.Carried && view.Cargo == worker.Cargo) return;
         view.Count = worker.Carried; view.Cargo = worker.Cargo; Clear(view.Carry);
         if (worker.Carried == 0) return;
@@ -137,15 +141,34 @@ public partial class Game
         }
     }
 
-    private void AnimateVillager(PersonView view, Villager v)
+    private static void PoseVisible(PersonView view,Node3D node,bool visible)
     {
-        RefreshCargo(view, v); view.Marker.Visible = v.Id == _selectedPerson;
+        if(view.StagingPose)view.PoseVisibility[node]=visible;
+        else node.Visible=visible;
+    }
+    private void AnimateVillager(PersonView view,Villager v)
+    {
+        view.StagingPose=true;
+        try{UpdateVillagerPose(view,v);}
+        finally
+        {
+            view.StagingPose=false;
+            foreach(var pair in view.PoseVisibility)if(pair.Key.Visible!=pair.Value)pair.Key.Visible=pair.Value;
+            view.PoseVisibility.Clear();
+        }
+    }
+    private void UpdateVillagerPose(PersonView view, Villager v)
+    {
+        ulong animationMark=_traceFrames?Time.GetTicksUsec():0;
+        RefreshCargo(view, v);
+        if(_traceFrames){ulong now=Time.GetTicksUsec();_frameTrace.CargoMs+=(now-animationMark)/1000d;animationMark=now;}
+        PoseVisible(view,view.Marker,v.Id == _selectedPerson);
         view.Carry.Position=new(0,.12f,-.43f);view.Carry.Rotation=Vector3.Zero;
-        view.MealBoard.Visible=false;view.RestBack.Visible=false;
-        view.Hat.Visible=!(ReadableCourt && v.Task is Work.EatingMeal or Work.Resting);
-        view.Bow.Visible=false; view.WorkBoard.Visible=false;
-        view.RestStool.Visible=false;
-        view.ComfortCushion.Visible=v.Task==Work.Resting && v.ImprovedRest;
+        PoseVisible(view,view.MealBoard,false);PoseVisible(view,view.RestBack,false);
+        PoseVisible(view,view.Hat,!(ReadableCourt && v.Task is Work.EatingMeal or Work.Resting));
+        PoseVisible(view,view.Bow,false); PoseVisible(view,view.WorkBoard,false);
+        PoseVisible(view,view.RestStool,false);
+        PoseVisible(view,view.ComfortCushion,v.Task==Work.Resting && v.ImprovedRest);
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
         view.Rig.Position = new(0, walking ? MathF.Abs(swing) * 0.035f : 0, 0);
@@ -154,7 +177,8 @@ public partial class Game
         view.RightLeg.Rotation = -view.LeftLeg.Rotation;
         view.Arm.Rotation = new(walking ? -swing * 0.35f : 0, 0, 0);
         view.LeftArm.Rotation = -view.Arm.Rotation;
-        view.Axe.Visible = view.Hammer.Visible = view.Spade.Visible = view.Peel.Visible = view.Saw.Visible = view.Sickle.Visible = view.SeedPouch.Visible = false;
+        foreach(var tool in view.PoseTools)PoseVisible(view,tool,false);
+        if(_traceFrames)_frameTrace.PoseResetMs+=(Time.GetTicksUsec()-animationMark)/1000d;
         if(v.Task==Work.Aboard)
         {
             bool rowing=_world.PassengerBoat(v)?.Route.Count>0;
@@ -182,43 +206,43 @@ public partial class Game
         switch (v.Task)
         {
             case Work.Hunting:
-                view.Bow.Visible=true; view.LeftArm.Rotation=new(1.5f,0,-.15f); view.Arm.Rotation=new(1.1f+MathF.Sin(v.Timer*1.5f)*.12f,.4f,.4f); view.Head.Rotation=new(.05f,-.2f,0); break;
+                PoseVisible(view,view.Bow,true); view.LeftArm.Rotation=new(1.5f,0,-.15f); view.Arm.Rotation=new(1.1f+MathF.Sin(v.Timer*1.5f)*.12f,.4f,.4f); view.Head.Rotation=new(.05f,-.2f,0); break;
             case Work.Quarrying:
                 var deposit=_world.Map.StoneDeposits.FirstOrDefault(d=>d.Id==v.DepositId);
                 if(deposit!=null) FaceVisit(view,OnGround(deposit.Cell.X,deposit.Cell.Z)-view.Body.Position);
-                view.Hammer.Visible=true; AnimateAxeStroke(view,v.Timer); break;
+                PoseVisible(view,view.Hammer,true); AnimateAxeStroke(view,v.Timer); break;
             case Work.Sawing:
-                view.Saw.Visible = true; view.Arm.Rotation = new(0.8f + swing * 0.25f, 0, 0);
+                PoseVisible(view,view.Saw,true); view.Arm.Rotation = new(0.8f + swing * 0.25f, 0, 0);
                 view.Torso.Rotation = new(-0.18f, 0, 0); view.LeftArm.Rotation = new(0.9f, 0, 0); break;
             case Work.Chopping:
                 bool felling = _world.Trees.Any(t => t.Id == v.TreeId && !t.Felled);
-                view.Axe.Visible = felling;
+                PoseVisible(view,view.Axe,felling);
                 if(felling) AnimateAxeStroke(view,v.Timer);
                 else { view.Arm.Rotation = new(.65f+swing*.25f,0,0); view.Torso.Rotation=new(-.35f,0,0); }
                 break;
             case Work.Building: case Work.Demolishing: case Work.InstallingComfort:
                 if(!HasHammerWork(v)) { view.Torso.Rotation=new(-.26f,0,0); view.Arm.Rotation=view.LeftArm.Rotation=new(.7f,0,0); break; }
-                view.Hammer.Visible = view.WorkBoard.Visible = true;
+                PoseVisible(view,view.Hammer,true);PoseVisible(view,view.WorkBoard,true);
                 float beat=v.Timer%1;
                 float hammer=beat<.5f ? Mathf.SmoothStep(.03f,1.5f,beat/.5f) : beat<.7f ? Mathf.SmoothStep(1.5f,.03f,(beat-.5f)/.2f) : .03f;
                 view.Arm.Rotation=new(hammer,0,0); view.LeftArm.Rotation=new(.55f,0,.1f); view.Head.Rotation=new(.13f,0,0); break;
             case Work.Planting: case Work.Harvesting:
                 AnimateFieldWork(view,v); break;
             case Work.ClearingStump: case Work.PlantingTree:
-                view.Spade.Visible = true; view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
+                PoseVisible(view,view.Spade,true); view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;
             case Work.Foraging:
                 view.Torso.Rotation = new(-0.18f, swing * 0.12f, 0);
                 view.Arm.Rotation = new(1.05f + swing * 0.35f, 0, 0);
                 view.LeftArm.Rotation = new(1.05f - swing * 0.35f, 0, 0); break;
             case Work.Baking:
-                view.Peel.Visible = true; view.Arm.Rotation = new(0.8f + MathF.Sin(cycle * 0.5f) * 0.22f, 0, 0);
+                PoseVisible(view,view.Peel,true); view.Arm.Rotation = new(0.8f + MathF.Sin(cycle * 0.5f) * 0.22f, 0, 0);
                 view.Torso.Rotation = new(-0.1f - MathF.Sin(cycle * 0.5f) * 0.08f, 0, 0); break;
             case Work.Leisure:
                 AnimateSquareVisit(view,v); break;
             case Work.EatingMeal:
-                if(ReadableCourt){AnimateCourtMeal(view,v);view.RestStool.Visible=v.Meal?.Commons!=true || _commonsMats;break;}
-                view.RestStool.Visible=v.Meal?.Commons!=true || _commonsMats; view.Rig.Position=new(0,-.20f,0);
+                if(ReadableCourt){AnimateCourtMeal(view,v);PoseVisible(view,view.RestStool,v.Meal?.Commons!=true || _commonsMats);break;}
+                PoseVisible(view,view.RestStool,v.Meal?.Commons!=true || _commonsMats); view.Rig.Position=new(0,-.20f,0);
                 view.LeftLeg.Rotation=new(Mathf.Pi/2,0,-.08f); view.RightLeg.Rotation=new(Mathf.Pi/2,0,.08f);
                 view.Arm.Rotation=new(1.5f+(v.Meal?.Gathering==true && _world.Gathering?.Eating!=true?0:MathF.Sin(v.Timer*2)*.25f),0,-.1f); view.LeftArm.Rotation=new(.8f,0,.1f);
                 view.Head.Rotation=new(.12f,0,0); break;
@@ -233,7 +257,7 @@ public partial class Game
                 }
                 if(_world.QuietAtFurnishedHome(v))
                 {
-                    AnimateHomeRest(view,v);view.WorkBoard.Visible=true;view.Hat.Visible=false;
+                    AnimateHomeRest(view,v);PoseVisible(view,view.WorkBoard,true);PoseVisible(view,view.Hat,false);
                     view.Arm.Rotation=new(.9f+MathF.Sin(_world.Food.Time*2+v.Id)*.18f,0,-.15f);
                     break;
                 }

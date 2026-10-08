@@ -35,10 +35,10 @@ public partial class Game
         float stance=enters ? Math.Clamp(Math.Min(worker.Timer,duration-worker.Timer)/walk,0,1) : Mathf.SmoothStep(0,1,progress/.2f)*(1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f));
         bool walking=enters && (worker.Timer<walk || worker.Timer>duration-walk);
         float sweep=MathF.Sin((progress-.5f)*Mathf.Tau);
-        view.Sickle.Visible=!sowing && grain;
+        PoseVisible(view,view.Sickle,!sowing && grain);
         bool digging=ReadableCourt && sowing && progress<.55f;
-        view.Spade.Visible=digging;
-        view.SeedPouch.Visible=sowing && !digging;
+        PoseVisible(view,view.Spade,digging);
+        PoseVisible(view,view.SeedPouch,sowing && !digging);
         view.Torso.Rotation=new((grain && !sowing?-.35f:-.65f)*stance,0,0);
         view.Head.Rotation=new(.2f*stance,0,0);
         view.Arm.Rotation=grain && !sowing ? new(0,sweep*.35f*stance,0) : new(.8f*stance,0,-sweep*.25f*stance);

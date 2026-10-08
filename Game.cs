@@ -262,7 +262,10 @@ public partial class Game : Node3D
                 view.Body.Rotation=new(0,boat.Heading,0);
             }
             if(_traceFrames)_frameTrace.PersonMovementMs+=(Time.GetTicksUsec()-personTraceStart)/1000d;
-            AnimateVillager(view, v);TracePerson(v.Id,(int)v.Task,personTraceStart);
+            ulong poseStart=_traceFrames?Time.GetTicksUsec():0;double poseParts=_traceFrames?_frameTrace.CargoMs+_frameTrace.PoseResetMs:0;
+            AnimateVillager(view, v);
+            if(_traceFrames)_frameTrace.PoseBodyMs+=(Time.GetTicksUsec()-poseStart)/1000d-(_frameTrace.CargoMs+_frameTrace.PoseResetMs-poseParts);
+            TracePerson(v.Id,(int)v.Task,personTraceStart);
         }
         TraceActorPart(1);
         foreach (int id in _trees.Keys.Where(id => !_world.Trees.Any(t => t.Id == id)).ToArray())
