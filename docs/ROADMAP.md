@@ -8,7 +8,7 @@
 
 ## Current direction and next step
 
-**Active161–170:** 166 now provides the existing river landscape with homes/provisions and freely chosen livelihood; two real food approaches passed, no required recipe. 167 consolidates public entry around establish/tend with one mode choice; historical layouts move one level deeper. 168 delivers row-sized field collection at unchanged yield, retaining one worker and real walks. 169 removes the measured resource-column invalidation spike; remaining outside-callback stalls stay open. 170 connects irregular woodland to the usable woodlot at equal total timber, and opens toward home entrances. Ten outcomes complete; full170 review/regression and stop remain. authorized October8. 161 delivered a matched open-land clearing (same map, population, food and total timber; actual construction/crop work differs). 162 delivered previewed restoration of the last group arrangement without rewinding life. 163 delivers the matched-capacity larger river-farmstead alternative; visual supplement precedes further implementation. 164 removes reproduced per-frame tool visibility reset spikes; other stalls remain. 165 delivers8+2 productive rows at equal total capacity plus woodland/shore composition; full165 review pending before166. Later outcomes depend on evidence and full165 review. Stop170 after full review. [Queue](NEXT_CHUNKS.md).
+**Completed161–170:** Matched founding, bounded arrangement recovery, the river-farmstead landscape, row-sized field collection and measured actor/HUD fixes are committed. Public Play now offers **Establish life by the river** or **Tend a river settlement**, with Normal/Relaxed and earlier beginnings retained. Whole-game reviews [165](REVIEW_CHECKPOINT_165.md) and [170](REVIEW_CHECKPOINT_170.md) choose provisional retention and **stop170**. Final52-suite regression passed on the reviewed build; delivery closes the batch. No171 authorized. [Batch outcomes and future hypotheses](NEXT_CHUNKS.md).
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
@@ -22,9 +22,11 @@ The verdict remains partially convincing. A practical landing, inland fields and
 
 The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, small productive extent and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
 
-## Review165 priorities
+## Review170 direction
 
-[Full165 review](REVIEW_CHECKPOINT_165.md) chooses one coherent river livelihood experience and consolidates public entry. Retain existing recovery; freeze arbitrary tools and starts. Test actual field work, bounded HUD cost and connected woodland composition through170. No human preference or audio acceptance assumed.
+The public candidate is clearer; its central pleasure is still unproven. Test a wanted livelihood or alteration through real use, including a plausible mistake and recovery. The two tested food approaches both contain vegetables; catalogue-wide food balance and woodland-food discovery are not established. Short satisfied observation is valid. Freeze automatic start/tool/prop expansion. Do not add needs or mandatory growth to manufacture purpose.
+
+Retain the connected woodland and entrance-facing view;20 smaller trees preserve total timber but change clearance/habitat/access. Row collection changes throughput, not yield. Remaining stepped banks and broad lawn are secondary to actual motion/audio and intention evidence. Specific pose/HUD costs improved, but outside-callback stalls and historical save denial remain unresolved. See [review170](REVIEW_CHECKPOINT_170.md) for alternatives, falsifiers and conditional profiling investment.
 
 ## Review160 priorities (historical)
 

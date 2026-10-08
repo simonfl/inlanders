@@ -1,23 +1,27 @@
-# Active batch — checkpoints161–170
+# Completed batch — checkpoints161–170
 
-Authorized October8,2026. Full whole-game reviews165/170, visual/audio170 and after substantial presentation changes. Stop170. No new human play feedback assumed.
+Authorized October8,2026. Ten playable outcomes committed; whole-game reviews165/170 complete, including visual/audio. Final52-suite regression passed on the reviewed build; delivery closes the batch. Stop170; no171 authorized. No new human play feedback assumed.
 
-Use review160's founding-versus-revision comparison, recovery concerns and river-farmstead landscape alternative. Freeze arbitrary arrangement/inspection expansion. Candidate outcomes:
+This batch tested review160's founding-versus-revision comparison, recovery concerns and river-farmstead landscape alternative. Review165 refocused the second half on livelihood and coherent entry. Delivered outcomes:
 
 161. **Done** — Matched open-land clearing: same land, people, food and total building timber as the inhabited clearing, available through ordinary menus in both modes.
 162. **Done** — Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
 163. **Done** — Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
 164. **Done** — Apply final resident visibility once per pose; measured reset spikes removed, other stalls remain.
-165. **Done** — Differentiate long8-row field and2-row kitchen plot at equal total capacity, with enclosing off-map woods and shore margin. Full165 review including visual/audio now selects the remaining five.
+165. **Done** — Differentiate long8-row field and2-row kitchen plot at equal total capacity, with enclosing off-map woods and shore margin. Full165 review including visual/audio selected the livelihood-focused second half.
 166. **Done** — Establish a livelihood on the existing river land, with homes but freely chosen food investment.
 167. **Done** — Consolidate public establish/tend entry; move historical comparisons outside its primary route.
 168. **Done** — Row-sized field collection halves return trips at unchanged yield, with proportional contact time; no cooperative-labor framework.
 169. **Done** — Remove repeated resource-column visibility invalidation; measured67.5ms resource spike gone, outside-callback stalls remain.
-170. **Done** — Irregular woodland connected to20 smaller preserved trees at equal80 logs; entrance-facing opening. Full170 review/regression and stop.
+170. **Done** — Irregular woodland connected to20 smaller preserved trees at equal80 logs; entrance-facing opening. Full170 review and52-suite regression complete; stop.
 
-[Full165 synthesis](REVIEW_CHECKPOINT_165.md) is complete. These scopes remain revisable; no foundation-only increments.
+All ten outcomes are complete. Full reviews [165](REVIEW_CHECKPOINT_165.md) and [170](REVIEW_CHECKPOINT_170.md) are recorded; no foundation-only increments.
 
 After each outcome reevaluate this queue and ROADMAP, update CHECKPOINTS, validate and commit. Preserve full catalogue access, no inheritance/new needs/compulsory growth. Tests establish operation, not preference. Existing captures and bounded tools first.
+
+## After170 — hypotheses, not an execution queue
+
+[Full170 synthesis](REVIEW_CHECKPOINT_170.md) retains establish/tend and the connected river landscape provisionally. Freeze new starts, inspector tools, catalogue breadth and automatic visual-detail work. A wanted livelihood or alteration, its actual payoff and a plausible mistake/recovery are the next useful evidence. No human preference, listening or complete first-session recovery is established by current tests. Existing tools suffice; outside-callback profiling is conditional on further authorization. Stop170.
 
 ## Prior batch
 

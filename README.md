@@ -4,9 +4,9 @@ A personal Windows town-building game inspired by Outlanders, built with **Godot
 
 The public identity is **Les Habitants**: 17th-century French settlers in New France, farming and living from the land to build a better life. Descendants are a theme, with no inheritance or generational gameplay. **Inlanders remains the internal codename.** The menu, HUD and window use Les Habitants; see the [theme brief](docs/LES_HABITANTS.md) and [roadmap](docs/ROADMAP.md).
 
-![A settlement after its first village supper](docs/images/settlement.png)
+![The current river settlement, between woodland and water](docs/images/river-settlement.png)
 
-Choose **Play → New hamlet** for an inhabited12-person settlement, or **Play → Compare: cultivated bank → New hamlet** for the larger working-field layout. **Play → Compare: grouped farmsteads** offers the same buildings, productive capacity and supplies as the bank in a different arrangement. All offer a relaxed option. Arrange a place you want to live in, watch daily work and meals, and finish whenever you choose. [Current queue](docs/NEXT_CHUNKS.md).
+Choose **Play → Establish life by the river** to begin with homes and provisions, then choose how your neighbors will get food. Choose **Play → Tend a river settlement** for a place with working fields and a fishing landing. Select **Normal** or **Relaxed**, then **New settlement**. Earlier beginnings remain available from Play. [Completed batch and future hypotheses](docs/NEXT_CHUNKS.md).
 
 ## Run from a fresh clone
 
@@ -25,20 +25,20 @@ The launcher runs the Godot project directly; this repository does not contain a
 
 For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
 
-## Current game: shape an inhabited place
+## Current game: establish or tend a river settlement
 
-The compact hamlet and cultivated-bank comparison begin with12 residents, homes, food work and four planks for one modest furnishing project. The bank has larger functional fields and more cultivated ground; it is a different whole-place experiment, not an equal-productivity aesthetic comparison.
+Both river beginnings have twelve housed neighbors on the same land. Establishment leaves productive investment to you; tending starts with a long field, a small kitchen plot and a landing. Shared workers handle available jobs. Normal uses real materials and construction; Relaxed makes building free and instant while retaining work and meals without hunger penalties. There is no required building sequence or growth target.
 
-Click a home to inspect it, preview any of four yard sides, choose ground only or explicitly furnish there. Normal play uses real planks delivered and installed by shared workers; relaxed construction/furnishing is free while residents still work and eat. Furnished ground supports quiet work and nearby meals. Use **Watch this place** to stay with a yard as residents come and go. Shared meal places can be clicked on the map to watch, move or remove them. Moves are recoverable, growth is optional, and **Village** lets you finish or keep shaping the place.
+Click a home to inspect it, preview any of four yard sides, choose ground only or explicitly furnish there. Normal play uses real planks delivered and installed by shared workers; relaxed construction/furnishing is free while residents still work and eat. Furnished ground supports quiet work and nearby meals. Use **Watch this place** to stay with a yard as residents come and go. Shared meal places can be clicked on the map to watch, move or remove them. Recent group arrangements can be restored during the session without rewinding village life; growth is optional, and **Village** lets you finish or keep shaping the place.
 
-Earlier campaigns, founding projects and Free variants are archives available only with `--developer`. Their notes below describe historical experiments, not the current public progression.
+Earlier public beginnings remain under **Play → Earlier beginnings**. Older campaigns, finite founding projects and Free variants are archives available with `--developer`. Their notes below describe historical experiments, not the current public progression.
 
 ## Main menu
 
 The title illustration is independent of your save. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider. Returning to a page restores focus and scrolls it into view.
 
 - **Continue** restores the last current hamlet, paused. Archived saves require developer access.
-- **Play** offers the compact hamlet and **Compare: cultivated bank**, each with Normal and relaxed starts.
+- **Play** offers **Establish life by the river** and **Tend a river settlement**, each with a Normal/Relaxed mode choice. **Earlier beginnings** retains the clearing, open-land founding and previous hamlet layouts.
 - With `--developer`, **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
 - **Settings** controls Effects, Nature, Music and mute settings.
 - **Quit** exits the game.
@@ -47,7 +47,7 @@ Each current start has explicit **New** and, when saved, **Resume**. New asks be
 
 Earlier settlements retain `saves/neighborhood.json`; the eight-resident free court retains `saves/creative-court.json`. Legacy Creative maps retain `saves/creative.json` and `saves/creative-three-clearings.json`. No save migration is required for this prototype.
 
-In current court play, shared workers without a job wait near home where possible, remaining available for meals and work. Select a resident or home for the compact daily-life card. **Journey** expands its food explanation, **Details** opens the inspector, and **Esc** or × closes it. Blue routes show an available source, not a promised next meal; gold follows an actual claim.
+In earlier court play, shared workers without a job wait near home where possible, remaining available for meals and work. Select a resident or home for the compact daily-life card. **Journey** expands its food explanation, **Details** opens the inspector, and **Esc** or × closes it. Blue routes show an available source, not a promised next meal; gold follows an actual claim.
 
 ## Earlier campaign prototypes: five introductions and five working settlements
 
@@ -57,7 +57,7 @@ These remain available for comparison. The [current finite-first direction](docs
 
 Choose **Earlier prototypes → Campaign** on the title screen or **Goals [G]** in game. All buildings and tools remain available.
 
-**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Current saves use version 43; start fresh when an older save is rejected.
+**Orchards** cost 4 logs and share farmers with gardens and grain fields. Trees take three simulated minutes after planting to produce their first eight fruit, then retain their maturity for sixty-second repeat crops after picking. Farmers carry fruit to food storage; villagers eat it directly. Keep faster food working during establishment. Targets can hold the next batch, and clearing loses the mature trees. Start fresh when an older save is rejected; compatibility is not maintained for this prototype.
 
 1. **A place to stay:** build a forager hut, deliver 24 fresh berries, and house eight villagers.
 2. **Bread for the table:** add a farm and bakery; deliver 16 loaves. Meals do not erase progress.
