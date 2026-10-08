@@ -5,7 +5,7 @@ Authorized October8,2026. Full whole-game reviews165/170, visual/audio170 and af
 Use review160's founding-versus-revision comparison, recovery concerns and river-farmstead landscape alternative. Freeze arbitrary arrangement/inspection expansion. Candidate outcomes:
 
 161. **Done** — Matched open-land clearing: same land, people, food and total building timber as the inhabited clearing, available through ordinary menus in both modes.
-162. Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
+162. **Done** — Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
 163. Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
 164–165. Select from observed comparison problems and measured resident animation cost; only count a changed playable experience, never instrumentation or fixtures. Full review165 selects the remaining five.
 166–170. TBD after independent review165; no automatic additional control batch.

@@ -4,6 +4,18 @@ using System.Linq;
 using System.Collections.Generic;
 public partial class Game
 {
+    private GroupRecovery? _groupRecovery;
+    private World? _groupRecoveryWorld;
+    private bool _groupRecovering;
+    private Button _groupRecoverEntry=null!;
+    private GroupPlan CurrentGroupPlan()=>_groupRecovering && _groupRecovery!=null?_world.PreviewGroupRecovery(_groupRecovery):_world.PreviewGroup(_groupMembers.ToArray(),_groupTarget!.Value,_groupTurn,_groupCarryPaths);
+    private void BeginGroupRecovery()
+    {
+        if(_groupRecovery==null || _groupRecoveryWorld!=_world)return;
+        var check=_world.PreviewGroupRecovery(_groupRecovery);if(check.Result==null){Notice(check.Problem!);return;}
+        BeginGroupArrangement();_groupRecovering=true;_groupSelecting=false;
+        _groupMembers.AddRange(_groupRecovery.Applied.Select(c=>c.Id));_groupTarget=_groupRecovery.Anchor;_groupTurn=_groupRecovery.Turn;RefreshGroupProposal();
+    }
     private bool _groupCarryPaths,_groupShowBefore;
     private Button _groupCompare=null!,_groupFrame=null!,_groupWatch=null!;
     private Button _groupPaths=null!;
@@ -20,6 +32,8 @@ public partial class Game
     private void MakeGroupArrangementUi(VBoxContainer parent)
     {
         _groupEntry=Button("Arrange a farmstead group",BeginGroupArrangement);parent.AddChild(_groupEntry);
+        _groupRecoverEntry=Button("Restore last group arrangement",BeginGroupRecovery);parent.AddChild(_groupRecoverEntry);
+        _groupRecoverEntry.TooltipText="Preview the previous positions from this session. Time, food and work keep their current state. Growing crops restart. Another group move replaces this recovery; loading ends it.";
         _groupPanel=HudPanel(_hud);var column=new VBoxContainer();_groupPanel.AddChild(column);
         _groupText=Text("",14,true);_groupText.CustomMinimumSize=new(270,0);column.AddChild(_groupText);
         _groupPick=Button("Preview selected places",()=>{if(_groupSelecting){if(_groupMembers.Count<2)return;_groupSelecting=false;_groupTarget=_world.Cottages.Single(c=>c.Id==_groupMembers[0]).Cell;}else{_groupSelecting=true;_groupTarget=null;}RefreshGroupProposal();});column.AddChild(_groupPick);
@@ -41,7 +55,7 @@ public partial class Game
     {
         if(_world.PublicPlace==null)return;CloseManagementUi();_placing=false;RefreshGhost();CancelCameraDrag();
         _groupWasPaused=_paused;_paused=true;_pauseButton.Disabled=true;_pauseButton.Text="Paused while arranging";
-        _groupWorld=_world;_groupActive=_groupSelecting=true;_groupMembers.Clear();_groupCarryPaths=false;_groupTarget=null;_groupTurn=0;RefreshGroupProposal();
+        _groupRecovering=false;_groupWorld=_world;_groupActive=_groupSelecting=true;_groupMembers.Clear();_groupCarryPaths=false;_groupTarget=null;_groupTurn=0;RefreshGroupProposal();
     }
     private void CancelGroupArrangement()
     {
@@ -53,8 +67,10 @@ public partial class Game
     private void ApplyGroupArrangement(bool watch)
     {
         if(_groupTarget is not Cell target || _groupSelecting)return;
-        var plan=_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn,_groupCarryPaths);
+        var plan=CurrentGroupPlan();
         if(plan.Result==null){_groupPlan=plan;return;}
+        if(_groupRecovering){_groupRecovery=null;_groupRecoveryWorld=null;}
+        else{_groupRecovery=_world.RememberGroup(plan.Result,_groupMembers.ToArray(),_groupTurn);_groupRecoveryWorld=plan.Result;}
         CancelGroupArrangement();_world=plan.Result;ClearSelection();CreateActors();RenderActors(0);RebuildQueue();Notice("Places rearranged together. Growing crops restart; ripe harvest stays.");
         if(watch)
         {
@@ -66,7 +82,7 @@ public partial class Game
     {
         foreach(var id in _groupMembers){if(_cottages.TryGetValue(id,out var view))view.Body.Show();if(_cropViews.TryGetValue(id,out var crop))crop.Body.Show();}
         _groupShowBefore=false;Clear(_groupModels);_groupModels.Show();
-        _groupPlan=_groupTarget is Cell target && !_groupSelecting?_world.PreviewGroup(_groupMembers.ToArray(),target,_groupTurn,_groupCarryPaths):null;
+        _groupPlan=_groupTarget is Cell target && !_groupSelecting?CurrentGroupPlan():null;
         if(_groupCarryPaths && _groupMembers.Count>=2)
         {
             var pivot=_world.Cottages.Single(c=>c.Id==_groupMembers[0]).Cell;
@@ -111,11 +127,12 @@ public partial class Game
         {
             if(key.Keycode==Key.Escape){CancelGroupArrangement();return true;}
             if(key.Keycode==Key.Space)return true;
-            if(key.Keycode==Key.R && !_groupSelecting){_groupTurn=(_groupTurn+(key.ShiftPressed?3:1))%4;RefreshGroupProposal();return true;}
+            if(key.Keycode==Key.R && !_groupSelecting && !_groupRecovering){_groupTurn=(_groupTurn+(key.ShiftPressed?3:1))%4;RefreshGroupProposal();return true;}
             if(key.Keycode is Key.B or Key.V or Key.G or Key.I or Key.O or Key.H or Key.P or Key.C or Key.T or Key.U or Key.F5 or Key.F9){CancelGroupArrangement();return false;}
         }
         if(input is InputEventMouseButton{ButtonIndex:MouseButton.Left,Pressed:true} click && !PointerOverHud(click.Position))
         {
+            if(_groupRecovering)return true;
             if(Ground(click.Position) is Vector3 p)
             {
                 var cell=new Cell(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z));
@@ -133,14 +150,15 @@ public partial class Game
     }
     private void RenderGroupArrangementUi()
     {
-        _groupEntry.Visible=_world.PublicPlace!=null;
+        _groupEntry.Visible=_world.PublicPlace!=null;_groupRecoverEntry.Visible=_world.PublicPlace!=null && _groupRecovery!=null && _groupRecoveryWorld==_world;
         if(!_groupActive)return;if(_groupWorld!=_world || _atMainMenu){CancelGroupArrangement();return;}
         _paused=true;_groupPanel.Show();_groupPanel.Position=new(_hud.Size.X-310,92);_groupPanel.Size=new(294,0);
         _groupModels.Visible=!_groupShowBefore;
         if(_groupPlan?.Result!=null && !_groupSelecting)foreach(var id in _groupMembers){if(_cottages.TryGetValue(id,out var view))view.Body.Visible=_groupShowBefore;if(_cropViews.TryGetValue(id,out var crop))crop.Body.Visible=_groupShowBefore;}
-        _groupText.Text=(_groupShowBefore?"CURRENT ARRANGEMENT\n":"PROPOSED FARMSTEAD\n")+(_groupSelecting?$"{_groupMembers.Count} selected. Click homes or fields to add/remove. Choose at least two.\nTime is paused; no changes until Apply.":"Click ground to move; R turns the group.\nGrowing crops restart; ripe goods stay.\n"+(_groupCarryPaths?"Marked paths move; outside approaches stay.\n":"Paths stay on their ground.\n")+(_groupPlan?.Problem??"The whole arrangement fits. Moving is free."));
+        _groupText.Text=(_groupShowBefore?"CURRENT ARRANGEMENT\n":"PROPOSED FARMSTEAD\n")+(_groupSelecting?$"{_groupMembers.Count} selected. Click homes or fields to add/remove. Choose at least two.\nTime is paused; no changes until Apply.":(_groupRecovering?"Restore previous positions, keeping elapsed time, food and work.\nGrowing crops restart; ripe goods stay.\n":"Click ground to move; R turns the group.\nGrowing crops restart; ripe goods stay.\n")+(_groupRecovering?"Previous approaches return where still clear.\n":_groupCarryPaths?"Marked paths move; outside approaches stay.\n":"Paths stay on their ground.\n")+(_groupPlan?.Problem??"The whole arrangement fits. Moving is free."));
         _groupPick.Text=_groupSelecting?"Preview selected places":"Change selection";_groupPick.Disabled=_groupSelecting && _groupMembers.Count<2;
         _groupLeft.Visible=_groupRight.Visible=_groupApply.Visible=_groupPaths.Visible=_groupCompare.Visible=_groupFrame.Visible=_groupWatch.Visible=!_groupSelecting;
+        _groupPick.Visible=!_groupRecovering;_groupLeft.Visible=_groupRight.Visible=_groupPaths.Visible=!_groupSelecting && !_groupRecovering;
         _groupCompare.Text=_groupShowBefore?"Show proposal":"Show current";_groupCompare.Disabled=_groupPlan?.Result==null;
         _groupPaths.Text=_groupCarryPaths?$"Paths: carry {_world.GroupPaths(_groupMembers.ToArray()).Length} tiles":"Paths: leave in place";
         _groupWatch.Disabled=_groupApply.Disabled=_groupShowBefore || _groupPlan?.Result==null || _groupTarget==_world.Cottages.FirstOrDefault(c=>c.Id==_groupMembers.FirstOrDefault(-1))?.Cell && _groupTurn==0;

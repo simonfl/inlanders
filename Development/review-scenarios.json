@@ -702,5 +702,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "group-recovery",
+    "description": "Restore group geometry without restoring past simulation",
+    "generator": "working-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]

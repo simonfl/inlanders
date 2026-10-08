@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 public partial class Game
 {
-    private async Task ProbeGroupArrangement(bool fields=false,bool paths=false,bool observe=false)
+    private async Task ProbeGroupArrangement(bool fields=false,bool paths=false,bool observe=false,bool recover=false)
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
@@ -33,6 +33,13 @@ public partial class Game
             Check(_watching && !_paused,"Apply and watch did not resume actual life");float time=_world.Food.Time;_speed=1;ulong deadline=Time.GetTicksMsec()+20000;
             while(_world.Food.Time-time<8 && Time.GetTicksMsec()<deadline)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             Check(_world.Food.Time-time>=8,"No ordinary process life after arrangement");await CaptureReviewBundle("arranged-ordinary-life");await Press(Key.Escape);await Frames();Check(!_watching && _workCardSite==ids[0],$"Watch return lost origin: watching={_watching}, card={_workCardSite}, expected={ids[0]}, local={_localWatchSite}, same={_localWatchWorld==_world}");_paused=true;
+        }
+        if(recover)
+        {
+            string current=_world.SaveJson();float elapsed=_world.Food.Time;await OpenMenu(2);await Frames();await UiClick(_groupRecoverEntry);await Frames();
+            Check(_groupRecovering && _groupActive && _groupPlan?.Result!=null,"Recovery preview missing");await CaptureReviewBundle("restore-group-proposal");await Press(Key.Escape);await Frames();Check(current==_world.SaveJson(),"Cancelled recovery changed world");
+            await OpenMenu(2);await Frames();await UiClick(_groupRecoverEntry);await Frames();await UiClick(_groupApply);await Frames();
+            Check(_world.Food.Time==elapsed && ids.All(id=>_world.Cottages.Single(c=>c.Id==id).Cell==homes.Single(c=>c.Id==id).Cell),"Recovery rewound life or lost old positions");Check(_groupRecovery==null,"Recovery remained stale");await CaptureReviewBundle("restored-group");
         }
         await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Group current save differs");await CaptureReviewBundle("home-group-applied");
         GD.Print("PASS: world group selection, actual model preview/turn, atomic cancel/apply, compact controls and current save.");
