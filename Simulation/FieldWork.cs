@@ -12,5 +12,7 @@ public sealed partial class World
     public static float GrainRow(int remaining) => -1.9f + Math.Clamp(remaining-1,0,5)*.76f;
     public static float FieldWalkSeconds(Cottage field, bool sowing) => field.Kind==BuildingKind.Farm
         ? (3-(sowing?0:GrainRow(field.Harvest)))/1.5f : field.Kind==BuildingKind.VegetableField?((field.Depth+1)/2f-(sowing?0:VegetableRow(field,field.Harvest-1)))/1.5f:0;
-    public static float FieldWorkSeconds(Cottage field, bool sowing) => (sowing?4:2)+2*FieldWalkSeconds(field,sowing);
+    public static int FieldCollectionSize(Cottage field)=>field.Kind is BuildingKind.Farm or BuildingKind.VegetableField?4:2;
+    public static float FieldContactSeconds(Cottage field,bool sowing)=>sowing?4:field.Kind==BuildingKind.VegetableField?4:2;
+    public static float FieldWorkSeconds(Cottage field, bool sowing) => FieldContactSeconds(field,sowing)+2*FieldWalkSeconds(field,sowing);
 }

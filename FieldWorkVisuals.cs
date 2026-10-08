@@ -29,7 +29,7 @@ public partial class Game
         var direction=target-view.Body.Position;
         view.Body.Rotation=new(0,MathF.Atan2(-direction.X,-direction.Z),0);
         float duration=World.FieldWorkSeconds(field,sowing), walk=World.FieldWalkSeconds(field,sowing);
-        float progress=Math.Clamp((worker.Timer-walk)/(sowing?4:2),0,1);
+        float progress=Math.Clamp((worker.Timer-walk)/World.FieldContactSeconds(field,sowing),0,1);
         // Enter the bed, work, then return to the simulated entrance before pickup.
         bool enters=grain || field.Kind==BuildingKind.VegetableField;
         float stance=enters ? Math.Clamp(Math.Min(worker.Timer,duration-worker.Timer)/walk,0,1) : Mathf.SmoothStep(0,1,progress/.2f)*(1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f));

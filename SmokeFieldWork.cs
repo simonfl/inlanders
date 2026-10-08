@@ -17,7 +17,7 @@ public partial class Game
                 if(plants.Length!=expected || !plants.Any(n=>new Vector2(n.GlobalPosition.X-tip.X,n.GlobalPosition.Z-tip.Z).Length()<.2f))
                     throw new Exception("Contact is not at a rendered remaining crop, or harvest mask is wrong");
             }
-            foreach(int rotated in new[]{0,1,2,3}) foreach(var kind in new[]{BuildingKind.Farm,BuildingKind.VegetableGarden})
+            foreach(int rotated in new[]{0,1,2,3}) foreach(var kind in new[]{BuildingKind.Farm,BuildingKind.VegetableGarden,BuildingKind.VegetableField})
             {
                 var w=World.NewCreative(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
                 var at=w.Map.Land.OrderBy(c=>(c.Point-new System.Numerics.Vector2(3,0)).LengthSquared()).First(c=>w.PlacementProblem(c,rotated,kind)==null);
@@ -62,7 +62,7 @@ public partial class Game
                 int harvest=field.Harvest;
                 for(int i=0;i<400 && worker.Carried==0;i++) w.Tick(.05f);
                 await Frames();
-                int expected=kind==BuildingKind.Farm?4:2;
+                int expected=World.FieldCollectionSize(field);
                 if(worker.Carried!=expected || field.Harvest!=harvest-expected || !_people[0].Carry.Visible || _people[0].Sickle.Visible || _people[0].SeedPouch.Visible) throw new Exception("Harvest transfer/tool cleanup failed");
                 // The next load must work on a surviving plant, not empty cut rows.
                 for(int i=0;i<5000 && !(worker.Task==Work.Harvesting && worker.Timer>=World.FieldWorkSeconds(field,false)/2);i++) w.Tick(.05f);

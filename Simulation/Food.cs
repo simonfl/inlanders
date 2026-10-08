@@ -155,7 +155,7 @@ public sealed partial class World
                 Station().Planted = true; Station().Growth = 0; Finish(v); break;
             case Work.Harvesting:
                 if (v.Timer < FieldWorkSeconds(Station(),false)) break;
-                var farm = Station(); int grain = Math.Min(farm.Kind == BuildingKind.Farm ? 4 : 2, farm.Harvest); farm.Harvest -= grain;
+                var farm = Station(); int grain = Math.Min(FieldCollectionSize(farm), farm.Harvest); farm.Harvest -= grain;
                 if (farm.Harvest == 0) { farm.Planted = false; farm.Growth = 0; farm.EstablishmentPending=false; }
                 CarryFood(ProductionOutput(farm.Kind)!.Value, grain); break;
             case Work.ToGrain:
