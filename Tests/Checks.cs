@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--river-landscape")){try{RiverLandscapeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--group-recovery")){try{GroupRecoveryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--founded-clearing")){try{FoundedClearingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--group-arrangement")){try{GroupArrangementChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

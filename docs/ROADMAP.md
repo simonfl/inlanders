@@ -8,7 +8,7 @@
 
 ## Current direction and next step
 
-**Active161–170:** authorized October8. 161 delivered a matched open-land clearing (same map, population, food and total timber; actual construction/crop work differs). 162 delivered previewed restoration of the last group arrangement without rewinding life. Next163 tests the river-farmstead landscape alternative. Later outcomes depend on evidence and full165 review. Stop170 after full review. [Queue](NEXT_CHUNKS.md).
+**Active161–170:** authorized October8. 161 delivered a matched open-land clearing (same map, population, food and total timber; actual construction/crop work differs). 162 delivered previewed restoration of the last group arrangement without rewinding life. 163 delivers the matched-capacity larger river-farmstead alternative; visual supplement precedes further implementation. Next investigate measured animation cost. Later outcomes depend on evidence and full165 review. Stop170 after full review. [Queue](NEXT_CHUNKS.md).
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 

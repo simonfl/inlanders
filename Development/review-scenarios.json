@@ -710,5 +710,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "river-landscape",
+    "description": "River farmsteads matched against inhabited frontage capacity and investment",
+    "generator": "river-landscape",
+    "focusX": 0,
+    "focusZ": 2,
+    "zoom": 29
   }
 ]
