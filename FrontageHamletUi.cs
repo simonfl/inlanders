@@ -8,7 +8,7 @@ public partial class Game
         MenuPage(_riverLandscape?"River farmsteads":"An inhabited river frontage");
         MenuButton(_riverLandscape?"Layout: farmsteads · change":"Layout: scattered frontage · change",()=>{_riverLandscape=!_riverLandscape;FrontageHamletMenu();});
         MenuButton("Landscape: river frontage · change",()=>HamletMenu(true,false,true));
-        _mainColumn.AddChild(Text("Homes along the river, two inland fields and a working fishing landing. Twelve neighbors share a small outdoor place. Change a journey or a yard, or keep what you like.",17,true));
+        _mainColumn.AddChild(Text(_riverLandscape?"Twelve neighbors between woods and river. An eight-row field and two-row kitchen plot share work with a fishing landing. Equal crop capacity to the scattered frontage; different walks and harvest timing.":"Homes along the river, two inland fields and a working fishing landing. Twelve neighbors share a small outdoor place. Change a journey or a yard, or keep what you like.",17,true));
         foreach(bool relaxed in new[]{false,true})
         {
             var profile=new HamletProfile(relaxed,true,false,false,false,true,false,_riverLandscape);

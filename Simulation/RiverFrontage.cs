@@ -20,21 +20,21 @@ public sealed partial class World
         if(landscape)
         {
             w.Trees.Clear();w._nextTree=0;
-            foreach(var at in new[]{new Cell(-6,-10),new(-6,-7),new(-6,-4),new(-7,-1),new(-6,3),new(-7,6),new(-6,9),new(-5,12),new(-2,13),new(2,13)})
+            foreach(var at in new[]{new Cell(-6,-10),new(-7,-7),new(-6,-4),new(-7,-1),new(-6,3),new(-7,6),new(-6,9),new(-5,12),new(-2,13),new(2,13)})
                 w.Trees.Add(new(){Id=w._nextTree++,Cell=at,Logs=8,Preserved=true});
         }
         if(inhabited)
         {
             w.Founding.PlayerFounded=false;w.Founding.AcrossTheInlet=false;
             foreach(var person in w.People)person.Position=w.YardAccess.Point;
-            Cottage Ready(Cell at,BuildingKind kind,int turn=0)
+            Cottage Ready(Cell at,BuildingKind kind,int turn=0,int rows=0)
             {
-                var b=w.Place(at,turn,kind)??throw new InvalidOperationException($"Frontage {kind} {at}: {w.PlacementProblem(at,turn,kind)}");
+                var b=w.Place(at,turn,kind,rows)??throw new InvalidOperationException($"Frontage {kind} {at}: {w.PlacementProblem(at,turn,kind,rows)}");
                 b.Delivered=b.Required;b.Construction=1;b.EstablishmentPending=false;return b;
             }
-            foreach(var (at,turn) in landscape?new[]{(new Cell(3,-7),3),(new Cell(3,0),3),(new Cell(4,5),3),(new Cell(4,10),2),(new Cell(0,10),2),(new Cell(-3,7),0)}:new[]{(new Cell(-2,-10),1),(new Cell(3,-7),0),(new Cell(4,-2),1),(new Cell(4,4),1),(new Cell(2,9),2),(new Cell(-3,10),1)})Ready(at,BuildingKind.Cottage,turn);
-            foreach(var at in landscape?new[]{new Cell(0,-7),new Cell(0,0)}:new[]{new Cell(1,-6),new Cell(1,0)})
-            {var b=Ready(at,BuildingKind.VegetableField,1);b.Planted=true;b.Growth=.6f;}
+            foreach(var (at,turn) in landscape?new[]{(new Cell(4,-7),3),(new Cell(3,0),3),(new Cell(4,5),3),(new Cell(4,10),2),(new Cell(0,10),2),(new Cell(-3,7),0)}:new[]{(new Cell(-2,-10),1),(new Cell(3,-7),0),(new Cell(4,-2),1),(new Cell(4,4),1),(new Cell(2,9),2),(new Cell(-3,10),1)})Ready(at,BuildingKind.Cottage,turn);
+            foreach(var at in landscape?new[]{new Cell(2,-7),new Cell(0,0)}:new[]{new Cell(1,-6),new Cell(1,0)})
+            {var b=Ready(at,BuildingKind.VegetableField,1,landscape?(at.Z<0?8:2):0);b.Planted=true;b.Growth=.6f;}
             Ready(new(8,5),BuildingKind.FishingDock,1);
             if(!w.InviteNewcomers() || !w.InviteNewcomers())throw new InvalidOperationException("Frontage households refused");
             w.ReconcileHomes();foreach(var person in w.People)person.Position=w.Cottages.First(c=>c.Id==person.HomeId).Entrance.Point;
@@ -45,7 +45,7 @@ public sealed partial class World
             w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
             w.History.Clear();w.History.Add("Homes follow the river; cultivated strips reach inland toward the woodlot. Twelve neighbors share two fields, a fishing landing and outdoor ground. The landing replaces the inlet kitchen garden: four more logs invested, four fewer in the yard (eight), with the same total timber investment and72 initial food. Fields yield40 vegetables per combined crop; the river supplies actual catches instead of the garden’s8 vegetables. Keep the long frontage, shorten a journey or reshape a yard. Nothing must be built to finish.");
         }
-        if(landscape){w.Map.Name="Des terres au fleuve · River farmsteads";w.History.Clear();w.History.Add("Two cultivated strips run from the homes toward retained woodland. The landing and shared ground serve the southern homes. Same twelve neighbors, two full fields, fishing stock, food and total timber as the inhabited river frontage. Arrange a working landscape, keep the woodland edge, or choose another relation between home and land. No required change.");}
+        if(landscape){w.Map.Name="Des terres au fleuve · River farmsteads";w.History.Clear();w.History.Add("One long eight-row field and a two-row kitchen plot run from homes toward retained woodland. The landing and shared ground serve the southern homes. Same twelve neighbors, ten cultivated rows yielding40 vegetables per combined crop, fishing stock, food and total timber as the inhabited river frontage. The32/8 crop split replaces20/20; longer field walks and harvest timing differ. Arrange a working landscape, keep the woodland edge, or choose another relation between home and land. No required change.");}
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }

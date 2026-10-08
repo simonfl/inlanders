@@ -68,7 +68,7 @@ public partial class Game
         // Broad distant woodland masses frame the open settlement; these are outside playable land.
         for(int x=map.MinX-5;x<=map.MaxX+5;x+=3)for(int z=map.MinZ-5;z<=map.MaxZ+5;z+=3)
         {
-            if(z>map.MinZ+5 && x<map.MaxX-3)continue;
+            if(z>map.MinZ+5 && x<map.MaxX-3 && !(_world.PublicPlace?.RiverLandscape==true && x<map.MinX))continue;
             float distance=land.Min(c=>(c.X-x)*(c.X-x)+(c.Z-z)*(c.Z-z));
             int hash=Math.Abs(x*31+z*17);
             if(distance<12 || distance>60 || hash%5>2 || Math.Abs(x-5)<3 || map.Contains(new(x,z)) || FarmsteadWater(x,z))continue;

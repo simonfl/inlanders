@@ -7,7 +7,17 @@ public partial class Game
     private Color ContinuousGroundTint(Vector3 at)
     {
         float patch=MathF.Sin(at.X*.31f)*MathF.Cos(at.Z*.27f)*.025f;
-        if(_world.PublicPlace!=null && !_plainFarmstead)return new Color("818353").Lightened(patch);
+        if(_world.PublicPlace!=null && !_plainFarmstead)
+        {
+            var tint=new Color("818353").Lightened(patch);
+            if(_world.PublicPlace.RiverLandscape)
+            {
+                float distance=3;int cx=Mathf.RoundToInt(at.X),cz=Mathf.RoundToInt(at.Z);
+                for(int x=cx-2;x<=cx+2;x++)for(int z=cz-2;z<=cz+2;z++)if(_world.Map.Water.Contains(new(x,z)))distance=Math.Min(distance,new Vector2(at.X-x,at.Z-z).Length());
+                tint=tint.Lerp(new("8a8262"),Math.Clamp((1.65f-distance)/1.1f,0,.65f));
+            }
+            return tint;
+        }
         if(_world.Founding?.TransformationHamlet==true)
         {
             float meadow=Math.Clamp((-at.Z-1)/8,0,1);

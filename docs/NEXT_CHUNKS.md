@@ -8,7 +8,7 @@ Use review160's founding-versus-revision comparison, recovery concerns and river
 162. **Done** — Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
 163. **Done** — Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
 164. **Done** — Apply final resident visibility once per pose; measured reset spikes removed, other stalls remain.
-165.163 visual supplement finds the landscape alternative only partial. Select a substantive land-use/presentation outcome, not another inspector control. Full review165 selects the remaining five.
+165. **Done** — Differentiate long8-row field and2-row kitchen plot at equal total capacity, with enclosing off-map woods and shore margin. Full165 review including visual/audio now selects the remaining five.
 166–170. TBD after independent review165; no automatic additional control batch.
 
 After each outcome reevaluate this queue and ROADMAP, update CHECKPOINTS, validate and commit. Preserve full catalogue access, no inheritance/new needs/compulsory growth. Tests establish operation, not preference. Existing captures and bounded tools first.
