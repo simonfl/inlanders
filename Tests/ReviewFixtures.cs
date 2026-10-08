@@ -27,6 +27,7 @@ static class ReviewFixtures
             "clearing-growing"=>WorkingClearingChecks.PrepareCourtComparison("growing"),
             "clearing-shore"=>WorkingClearingChecks.PrepareCourtComparison("shore"),
             "clearing-original"=>World.NewWorkingClearing(false,true),
+            "founded-clearing"=>World.NewWorkingClearing(founded:true),
             "working-clearing"=>World.NewWorkingClearing(),
             "working-clearing-relaxed"=>World.NewWorkingClearing(true),
             "river-hamlet"=>World.NewRiverFrontage(false,true),

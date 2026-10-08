@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--founded-clearing")){try{FoundedClearingChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--group-arrangement")){try{GroupArrangementChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--path-stroke")){try{PathStrokeChecks.Run();PathChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--clearing-ensemble")){try{WorkingClearingChecks.Ensemble();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

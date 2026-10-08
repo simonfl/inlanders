@@ -694,5 +694,13 @@
     "focusX": 0,
     "focusZ": 4,
     "zoom": 24
+  },
+  {
+    "name": "founded-clearing",
+    "description": "Matched open-land clearing and ordinary menu entry",
+    "generator": "founded-clearing",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 24
   }
 ]

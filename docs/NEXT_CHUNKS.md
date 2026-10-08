@@ -1,3 +1,19 @@
+# Active batch — checkpoints161–170
+
+Authorized October8,2026. Full whole-game reviews165/170, visual/audio170 and after substantial presentation changes. Stop170. No new human play feedback assumed.
+
+Use review160's founding-versus-revision comparison, recovery concerns and river-farmstead landscape alternative. Freeze arbitrary arrangement/inspection expansion. Candidate outcomes:
+
+161. **Done** — Matched open-land clearing: same land, people, food and total building timber as the inhabited clearing, available through ordinary menus in both modes.
+162. Recover a recently applied group arrangement without rewinding elapsed village life; explicit legality and crop consequences.
+163. Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
+164–165. Select from observed comparison problems and measured resident animation cost; only count a changed playable experience, never instrumentation or fixtures. Full review165 selects the remaining five.
+166–170. TBD after independent review165; no automatic additional control batch.
+
+After each outcome reevaluate this queue and ROADMAP, update CHECKPOINTS, validate and commit. Preserve full catalogue access, no inheritance/new needs/compulsory growth. Tests establish operation, not preference. Existing captures and bounded tools first.
+
+## Prior batch
+
 # Handoff — completed checkpoints151–160
 
 Authorized October7,2026. No human play feedback yet. Full whole-game reviews at155 and160, including visual/audio at160 and any substantial presentation change. Stop160.

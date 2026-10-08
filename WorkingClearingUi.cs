@@ -2,13 +2,15 @@ using System.IO;
 using Inlanders.Simulation;
 public partial class Game
 {
+    private bool _foundClearing;
     private void WorkingClearingMenu()
     {
-        MenuPage("A working clearing");
-        _mainColumn.AddChild(Text("Four homes and two small fields, with room to bring home, land and shore together. No required change or deadline.",16,true));
+        MenuPage(_foundClearing?"Found the clearing":"A working clearing");
+        MenuButton(_foundClearing?"Beginning: open land · change":"Beginning: inhabited · change",()=>{_foundClearing=!_foundClearing;WorkingClearingMenu();});
+        _mainColumn.AddChild(Text(_foundClearing?"Same land, eight neighbors and 80 food. All building timber starts as supplies. Choose homes and a livelihood; construction and crops begin from scratch.":"Four homes and two small fields, with room to bring home, land and shore together. No required change or deadline.",16,true));
         foreach(bool relaxed in new[]{false,true})
         {
-            var profile=new HamletProfile(relaxed,true,false,false,false,true,true);string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
+            var profile=new HamletProfile(relaxed,true,false,false,_foundClearing,true,true);string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
             string label=relaxed?"relaxed clearing":"clearing";
             _mainColumn.AddChild(Text(relaxed?"Relaxed · free building, no hunger penalties":"Normal · spend materials; provide daily meals",15,true));
             var actions=new Godot.HBoxContainer();_mainColumn.AddChild(actions);

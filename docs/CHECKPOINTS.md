@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **160**.
+- Playable checkpoints since adoption: **161**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint160**, [synthesis](REVIEW_CHECKPOINT_160.md), fixed2e5ce2c. Four independently reused155 roles and a fresh visual/audio role; partially convincing. Stop further arrangement expansion; compare existing starts. Final47-suite regression passed on narrowly corrected02f1193.
 - Previous periodic review: **checkpoint155**, [synthesis](REVIEW_CHECKPOINT_155.md), fixedb679fc3. Four fresh independent roles, partial retention; consolidate path proposals and test ensemble authorship before160.
@@ -716,3 +716,5 @@ Checkpoint160: matched current/proposed farmstead views share camera framing; Ap
 160 whole-game review complete: all five independent verdicts synthesized, group experiment provisionally retained. No human preference, independent live play, continuous-motion acceptance or audition. Post-freeze02f1193 preserves existing home-arrangement tray on Watch return while retaining current world reference. Corrected native960214410/214439/214505 passed old single-home and Normal/Relaxed group flows. Final47-suite regression running; no161.
 
 160 final validation: all47 current-experience suites passed on corrected02f1193 build; run ddfcbed489614ba687ad6f83ca243f06, assembly d534fa9d-30e4-471e-a551-39a474f41fcb,430.54s summed. Native old/new Watch returns passed in Normal/Relaxed. Ten outcomes151–160 and full reviews155/160 complete; documentation closeout, commit/push and stop.
+
+Checkpoint161: ordinary clearing menu can begin on matched open land in Normal/Relaxed. Same map, eight residents,80 food and total timber; existing buildings become loose supplies, while construction and crops begin from scratch. Separate restart/save identities retain the chosen premise. Both-mode ten-minute actual establishment and exact continuation passed; native960182532-056 passed actual menu, first-choice cancellation, both-mode entry and F5/F9. Screenshot inspected; shortened menu explanation to keep choices compact. Next162 addresses post-apply recovery; no new arrangement capability ladder.

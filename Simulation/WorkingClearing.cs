@@ -3,7 +3,7 @@ using System.Linq;
 namespace Inlanders.Simulation;
 public sealed partial class World
 {
-    public static World NewWorkingClearing(bool relaxed=false,bool original=false)
+    public static World NewWorkingClearing(bool relaxed=false,bool original=false,bool founded=false)
     {
         var w=NewRiverFrontage();w.Founding!.PlayerFounded=false;w.Founding.WorkingClearing=true;w.Founding.AcrossTheInlet=false;
         // A gradual bend connects the field ground to the home shore.
@@ -36,6 +36,16 @@ public sealed partial class World
         w.Founding.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Rotation=c.Rotation,Kind=c.Kind}).ToList();
         w.Map.Name="La clairière · A working clearing";
         w.History.Clear();w.History.Add("Eight neighbors have homes beside the river. Their two working strips lead from the homes toward the woods. Open ground joins the homes, fields and river. Bring work closer, make room to share a meal, or combine them in your own arrangement. Sixteen logs, four planks and eighty food portions leave time to choose. Bring growing ground closer, extend it, make a landing, or leave this modest place as it is. No required improvement or arrivals.");
+        if(founded)
+        {
+            foreach(var person in w.People)w.Interrupt(person);
+            w._yardLogs+=w.Cottages.Sum(c=>c.Delivered);
+            w.Cottages.Clear();w.Paths.Clear();w._nextSite=1;
+            w.Founding.PlayerFounded=true;w.Founding.StartingBuildings.Clear();w.Founding.Settled.Clear();
+            foreach(var person in w.People){person.HomeId=null;person.Position=w.YardAccess.Point;}
+            w.ReconcileHomes();w.Map.Name="La clairière à fonder · Found the clearing";
+            w.History.Clear();w.History.Add("The same clearing, eight neighbors and eighty food portions. The timber invested in the four homes and two fields is here as loose supplies. Choose your own homes and livelihood. Construction and crop growth begin with your choices; no required layout or deadline.");
+        }
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
 }
