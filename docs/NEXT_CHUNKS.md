@@ -13,7 +13,7 @@ Use review160's founding-versus-revision comparison, recovery concerns and river
 167. **Done** — Consolidate public establish/tend entry; move historical comparisons outside its primary route.
 168. **Done** — Row-sized field collection halves return trips at unchanged yield, with proportional contact time; no cooperative-labor framework.
 169. **Done** — Remove repeated resource-column visibility invalidation; measured67.5ms resource spike gone, outside-callback stalls remain.
-170. Replace patterned woodland and test an entrance-facing opening composition; full review and stop.
+170. **Done** — Irregular woodland connected to20 smaller preserved trees at equal80 logs; entrance-facing opening. Full170 review/regression and stop.
 
 [Full165 synthesis](REVIEW_CHECKPOINT_165.md) is complete. These scopes remain revisable; no foundation-only increments.
 

@@ -65,8 +65,9 @@ public partial class Game
             Triangle(streamSurface,a,d,c,new("668e96"));Triangle(streamSurface,a,c,b,new("668e96"));
         }
         if(_world.Founding==null)SurfaceMesh(_landscape,streamSurface).Name="DistantStream";
+        if(_world.PublicPlace?.RiverLandscape==true)MakeRiverWoodlandContext(Corner);
         // Broad distant woodland masses frame the open settlement; these are outside playable land.
-        for(int x=map.MinX-5;x<=map.MaxX+5;x+=3)for(int z=map.MinZ-5;z<=map.MaxZ+5;z+=3)
+        for(int x=map.MinX-5;_world.PublicPlace?.RiverLandscape!=true && x<=map.MaxX+5;x+=3)for(int z=map.MinZ-5;z<=map.MaxZ+5;z+=3)
         {
             if(z>map.MinZ+5 && x<map.MaxX-3 && !(_world.PublicPlace?.RiverLandscape==true && x<map.MinX))continue;
             float distance=land.Min(c=>(c.X-x)*(c.X-x)+(c.Z-z)*(c.Z-z));

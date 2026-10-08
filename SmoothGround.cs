@@ -12,6 +12,8 @@ public partial class Game
             var tint=new Color("818353").Lightened(patch);
             if(_world.PublicPlace.RiverLandscape)
             {
+                float edge=_world.Map.MinX+6.0f+.55f*MathF.Sin(at.Z*.37f);
+                tint=tint.Lerp(new("526344"),Math.Clamp((edge-at.X)/3.5f,0,.7f));
                 float distance=3;int cx=Mathf.RoundToInt(at.X),cz=Mathf.RoundToInt(at.Z);
                 for(int x=cx-2;x<=cx+2;x++)for(int z=cz-2;z<=cz+2;z++)if(_world.Map.Water.Contains(new(x,z)))distance=Math.Min(distance,new Vector2(at.X-x,at.Z-z).Length());
                 tint=tint.Lerp(new("8a8262"),Math.Clamp((1.65f-distance)/1.1f,0,.65f));

@@ -20,8 +20,8 @@ public sealed partial class World
         if(landscape)
         {
             w.Trees.Clear();w._nextTree=0;
-            foreach(var at in new[]{new Cell(-6,-10),new(-7,-7),new(-6,-4),new(-7,-1),new(-6,3),new(-7,6),new(-6,9),new(-5,12),new(-2,13),new(2,13)})
-                w.Trees.Add(new(){Id=w._nextTree++,Cell=at,Logs=8,Preserved=true});
+            foreach(var at in new[]{new Cell(-6,-10),new(-7,-7),new(-6,-4),new(-7,-1),new(-6,3),new(-7,6),new(-6,9),new(-5,12),new(-2,13),new(2,13),new(-10,-12),new(-9,-9),new(-10,-6),new(-10,-3),new(-9,0),new(-10,3),new(-10,6),new(-9,9),new(-9,11),new(-6,13)})
+                w.Trees.Add(new(){Id=w._nextTree++,Cell=at,Logs=4,Preserved=true});
         }
         if(inhabited)
         {
