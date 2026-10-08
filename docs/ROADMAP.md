@@ -8,7 +8,7 @@
 
 ## Current direction and next step
 
-**Active161–170:** authorized October8. 161 delivered a matched open-land clearing (same map, population, food and total timber; actual construction/crop work differs). 162 delivered previewed restoration of the last group arrangement without rewinding life. 163 delivers the matched-capacity larger river-farmstead alternative; visual supplement precedes further implementation. 164 removes reproduced per-frame tool visibility reset spikes; other stalls remain. 165 delivers8+2 productive rows at equal total capacity plus woodland/shore composition; full165 review pending before166. Later outcomes depend on evidence and full165 review. Stop170 after full review. [Queue](NEXT_CHUNKS.md).
+**Active161–170:** 166 now provides the existing river landscape with homes/provisions and freely chosen livelihood; two real food approaches passed, no required recipe. 167 consolidates public entry. authorized October8. 161 delivered a matched open-land clearing (same map, population, food and total timber; actual construction/crop work differs). 162 delivered previewed restoration of the last group arrangement without rewinding life. 163 delivers the matched-capacity larger river-farmstead alternative; visual supplement precedes further implementation. 164 removes reproduced per-frame tool visibility reset spikes; other stalls remain. 165 delivers8+2 productive rows at equal total capacity plus woodland/shore composition; full165 review pending before166. Later outcomes depend on evidence and full165 review. Stop170 after full review. [Queue](NEXT_CHUNKS.md).
 
 [The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
 
@@ -22,7 +22,11 @@ The verdict remains partially convincing. A practical landing, inland fields and
 
 The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, small productive extent and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
 
-## Review160 priorities
+## Review165 priorities
+
+[Full165 review](REVIEW_CHECKPOINT_165.md) chooses one coherent river livelihood experience and consolidates public entry. Retain existing recovery; freeze arbitrary tools and starts. Test actual field work, bounded HUD cost and connected woodland composition through170. No human preference or audio acceptance assumed.
+
+## Review160 priorities (historical)
 
 Compare wanted change in the clearing with founding a useful farmstead before another capability batch. Post-application recovery is an open design issue: restoring an arrangement must not rewind elapsed food/work. A river-farmstead landscape with substantial productive strips and revised framing is the structural visual alternative to the current lawn/stepped shore; it is not an approved prop list. Preserve full catalogue access, but stop automatic generalization of group tools, templates and inspection panels.
 

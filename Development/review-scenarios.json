@@ -718,5 +718,13 @@
     "focusX": 0,
     "focusZ": 2,
     "zoom": 29
+  },
+  {
+    "name": "river-livelihood",
+    "description": "Homes and provisions beside the river; choose a livelihood",
+    "generator": "river-livelihood",
+    "focusX": 0,
+    "focusZ": 2,
+    "zoom": 29
   }
 ]

@@ -9,7 +9,13 @@ Use review160's founding-versus-revision comparison, recovery concerns and river
 163. **Done** — Playable river-farmstead landscape alternative, with productive ground and enclosing woodland at ordinary scale; compare actual capacity and investment.
 164. **Done** — Apply final resident visibility once per pose; measured reset spikes removed, other stalls remain.
 165. **Done** — Differentiate long8-row field and2-row kitchen plot at equal total capacity, with enclosing off-map woods and shore margin. Full165 review including visual/audio now selects the remaining five.
-166–170. TBD after independent review165; no automatic additional control batch.
+166. **Done** — Establish a livelihood on the existing river land, with homes but freely chosen food investment.
+167. Consolidate public establish/tend entry; move historical comparisons outside its primary route.
+168. Test proportionate large-field collection against actual repeated work; no speculative cooperative-labor framework.
+169. Address a reproduced ordinary HUD cost if attribution supports a visible intervention.
+170. Replace patterned woodland and test an entrance-facing opening composition; full review and stop.
+
+[Full165 synthesis](REVIEW_CHECKPOINT_165.md) is complete. These scopes remain revisable; no foundation-only increments.
 
 After each outcome reevaluate this queue and ROADMAP, update CHECKPOINTS, validate and commit. Preserve full catalogue access, no inheritance/new needs/compulsory growth. Tests establish operation, not preference. Existing captures and bounded tools first.
 

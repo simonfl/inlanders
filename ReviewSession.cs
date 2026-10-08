@@ -150,6 +150,7 @@ public partial class Game
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="grain-relocation")await ProbeGrainRelocation();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="oven-workyard")await ProbeOvenWorkyard();
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="landing")await ProbeLanding();
+        if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="river-livelihood"){await ProbeRiverLivelihood();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="river-landscape"){await ProbeRiverLandscape();return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="group-recovery"){await ProbeGroupArrangement(true,false,false,true);return;}
         if(_reviewRequest!.RootElement.GetProperty("scenario").GetString()=="founded-clearing"){await ProbeFoundedClearing();return;}

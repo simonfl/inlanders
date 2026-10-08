@@ -30,6 +30,7 @@ static class ReviewFixtures
             "founded-clearing"=>World.NewWorkingClearing(founded:true),
             "working-clearing"=>World.NewWorkingClearing(),
             "working-clearing-relaxed"=>World.NewWorkingClearing(true),
+            "river-livelihood"=>World.NewRiverLivelihood(),
             "river-landscape"=>World.NewRiverFrontage(false,true,true),
             "river-hamlet"=>World.NewRiverFrontage(false,true),
             "river-frontage"=>World.NewRiverFrontage(),

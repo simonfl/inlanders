@@ -8,6 +8,7 @@ public partial class Game
     {
         MenuPage("Make a place your own");
         _mainColumn.AddChild(Text("Recommended first visit",18,true));
+        MenuButton("Establish life by the river",RiverLivelihoodMenu);
         MenuButton("Tend a working clearing",WorkingClearingMenu);
         _mainColumn.AddChild(Text("Eight neighbors, four homes and two small fields. A modest place to explore and reshape at your own pace.",15,true));
         _mainColumn.AddChild(Text("Other beginnings",18,true));
