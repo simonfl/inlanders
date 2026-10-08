@@ -7,6 +7,7 @@ public partial class Game
 {
     private struct FrameTrace
     {
+        public double HudPopulationMs,HudResourcesMs,HudStatusMs,HudTopMs,HudPeopleMs,HudToolsMs,HudHintsMs,HudDetailsMs;
         public double PersonMovementMs,WorkedLandMs,CargoMs,PoseResetMs,PoseBodyMs;
         public int WorkedLandRebuilds;
         public double ActorSetupMs,PeopleMs,TreesMs,StockMs,BuildingsMs,SlowPersonMs;
@@ -54,6 +55,13 @@ public partial class Game
             case 6:_frameTrace.HudMs=elapsed;break;
             case 7:_frameTrace.AudioMs=elapsed;break;
         }
+    }
+    private ulong TraceHudPart(int part,ulong start)
+    {
+        if(!_traceFrames)return 0;
+        ulong now=Time.GetTicksUsec();double ms=(now-start)/1000d;
+        switch(part){case 5:_frameTrace.HudPopulationMs+=ms;break;case 6:_frameTrace.HudResourcesMs+=ms;break;case 7:_frameTrace.HudStatusMs+=ms;break;case 0:_frameTrace.HudTopMs+=ms;break;case 1:_frameTrace.HudPeopleMs+=ms;break;case 2:_frameTrace.HudToolsMs+=ms;break;case 3:_frameTrace.HudHintsMs+=ms;break;case 4:_frameTrace.HudDetailsMs+=ms;break;}
+        return now;
     }
     private void TraceActorPart(int part)
     {

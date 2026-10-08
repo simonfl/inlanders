@@ -228,9 +228,11 @@ public partial class Game
     }
     private void UpdateHud()
     {
+        ulong hudMark=_traceFrames?Time.GetTicksUsec():0;
         if (_hudSize != _hud.Size) LayoutHud();
         UpdatePopulationUi();
         UpdateCameraViewsUi(); UpdateVisitorUi();
+        hudMark=TraceHudPart(5,hudMark);
         _day.Text = $"Day {_world.Food.Day}"; _housing.Text = $"{_world.Housed} / {_world.Population}";
         _pauseButton.Text = _paused ? "Resume" : "Pause"; _speedButton.Text = $"{_speed}×";
         _legacyMapOptions.Visible=_world.PublicPlace==null && _world.Neighborhood==null;
@@ -241,11 +243,9 @@ public partial class Game
             label.Text = (World.EdibleKinds.Contains(resource)?_world.StoredFood(resource):resource switch { Resource.Game => _world.Food.Game, Resource.Stone => _world.Stone, Resource.Logs => _world.Stored, Resource.Planks => _world.Planks, Resource.Berries => _world.Food.Berries, Resource.Vegetables => _world.Food.Vegetables, Resource.Grain => _world.StoredGrain, Resource.Fish => _world.Food.Fish, _ => _world.Food.Bread }).ToString();
         _resourceValues[Resource.Logs].GetParent<Control>().TooltipText = $"{_world.ReservedStorage} logs reserved · {_world.Trees.Count(t => t.ClearRequested)} clearing orders · {_world.Trees.Count(t => t.NeedsPlanting && !t.ClearRequested)} trees to plant · {_world.Trees.Count(t => !t.NeedsPlanting && !t.ClearRequested && t.Growth < 1)} growing";
         _resourceValues[Resource.Planks].GetParent<Control>().TooltipText = $"{_world.ReservedPlanks} planks reserved · select a sawmill to inspect its stock target";
-        _resourceValues[Resource.Game].GetParent<Control>().Visible=_world.Map.Wildlife.Count>0 || _world.Food.HuntedGame>0 || _world.CreativeAdded(Resource.Game)>0;
-        _resourceValues[Resource.Fruit].GetParent<Control>().Visible=_world.Cottages.Any(c=>c.Kind==BuildingKind.Orchard) || _world.Food.GrownFruit>0 || _world.CreativeAdded(Resource.Fruit)>0;
-        _resourceValues[Resource.Fish].GetParent<Control>().Visible=_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0 || _world.CreativeAdded(Resource.Fish)>0;
-        _resourceValues[Resource.Stone].GetParent<Control>().Visible=_world.Map.StoneDeposits.Count>0 || _world.Stone>0;
+        hudMark=TraceHudPart(6,hudMark);
         UpdatePlaceStatus();
+        hudMark=TraceHudPart(7,hudMark);
         // Conditional resource columns can grow the panel before their visibility settles.
         // Reapply the viewport width so switching villages can shrink it again.
         _topBar.Size=new(_hud.Size.X-32,68);
@@ -258,6 +258,7 @@ public partial class Game
         _supperButton.Text = _world.Food.SupperComplete ? "Supper complete" : _world.Food.Celebrating ? "Gathering…" : $"Host supper · {_world.SupperCost} loaves";
         for (int i = 0; i < _menuButtons.Count; i++)
         { _menuButtons[i].Modulate = _drawer.Visible && _tabs.CurrentTab == i ? _cream : Colors.White; _menuButtons[i].Text = i == 2 && _world.CanCelebrate ? "Goals · Ready" : i == 2 && _world.Gardener == VisitorState.Pending ? "Goals · Visitor" : MenuNames[i]; }
+        hudMark=TraceHudPart(0,hudMark);
         foreach (var role in _counts.Keys)
         {
             int count = _world.People.Count(v => v.Role == role); _counts[role].Text = $"{RoleName(role)}s  {count}";
@@ -306,6 +307,7 @@ public partial class Game
             var p = _world.People[_selectedPerson]; UpdateHomeUi(p); UpdateHappinessUi(p); _inspect.Text = $"{p.Name.ToUpperInvariant()}\n{(p.SharedWorker?"Shared village work":RoleName(p.Role))} · {TaskName(p.Task)}\n\n{p.Status}\n\n{(p.Carried == 0 ? "Hands free" : $"Carrying {p.Carried} {p.Cargo.ToString().ToLowerInvariant()}")}";
 
         }
+        hudMark=TraceHudPart(1,hudMark);
         UpdateVillageDirectory(); UpdateServiceCoverage(); UpdateResourceSurvey();
         UpdateStorageControls();
         UpdatePantryControls();
@@ -316,6 +318,7 @@ public partial class Game
         UpdateBuildCatalog();
         UpdateCreativeStockUi();
         UpdateAreaRemoval();UpdateBushMove();UpdateGatheringPlan();UpdateTerrainUi();RenderPathProposalUi();RenderGroupArrangementUi();
+        hudMark=TraceHudPart(2,hudMark);
         _hint.Text = PlotActive?$"Cultivate 3 × {_plotRows} · {(_world.Creative?"Free":_plotRows*2+" logs")} · Z / X length · R rotate · Esc cancel":_placing ? (_woodlandTool>0 ? $"{WoodlandToolName} · click or drag · Esc finishes" : _decorating ? (_removeDecoration ? "Remove decorations · click · Esc finishes" : (_decorationKind==DecorationKind.Gateway?"Fence gateway · always open · paths pass through · R rotates · Esc finishes":$"{DecorationName(_decorationKind)} · free · R rotates · Esc finishes")) : _pathTool > 0 ? (_pathTool == 1 ? "Paint paths · drag or click · Esc finishes" : "Remove paths · drag or click · Esc finishes") : _clearingTrees ? (_world.Creative ? "Clear immediately · recover timber · Esc finishes" : "Clear trees & stumps · click to mark/cancel · Esc finishes") : _plantingTrees ? "Plant alders · click to mark · Esc finishes" : $"{BuildingName(_buildKind)} · {BuildCost(_buildKind)} · {(_buildKind == BuildingKind.Bridge ? "1 water tile" : _buildKind == BuildingKind.FishingDock ? "3 shore tiles + launch" : _buildKind == BuildingKind.SeatingGarden ? "1 tile" : _rotation%2!=0 ? $"{Buildings.Get(_buildKind).Depth} × {Buildings.Get(_buildKind).Width}" : $"{Buildings.Get(_buildKind).Width} × {Buildings.Get(_buildKind).Depth}")} · R / Shift+R rotates · Esc cancels") : "";
         if (_placing) _hint.Text += "\n" + (PointerOverHud(_pointerPosition) ? "Move the pointer onto the map to preview." : _ghostValid ? (_woodlandTool>0 ? "Click or drag to apply woodland settings" : _pathTool > 0 ? "Click or drag to edit paths" : _clearingTrees ? ClearingHint() : "Clear spot · click to place") : _placementProblem);
         if (_placing && _pathTool == 3) _hint.Text = "Connect paths · free · Esc cancels\n" + (PointerOverHud(_pointerPosition) ? "Choose two clear ground tiles or building entrances." : !_ghostValid ? _placementProblem : _pathAnchor == null ? "Click the start of the path." : "Click destination · Shift-click pins a bend · Apply commits.");
@@ -342,8 +345,10 @@ public partial class Game
         _hintPanel.Visible = _hint.Text.Length > 0 && !PlotActive;
         if (_hintPanel.Visible) LayoutPlacementHint();
         _inspector.Size = new(308, Math.Min(620, _hud.Size.Y - 184));
+        hudMark=TraceHudPart(3,hudMark);
         UpdateManagementControls();
         UpdateProductionControls(selected); UpdateContextualInspector(selected);
         UpdateCampaignUi(); UpdateEconomyUi();
+        TraceHudPart(4,hudMark);
     }
 }

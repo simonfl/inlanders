@@ -17,9 +17,22 @@ public partial class Game
     {
         RenderPublicNavigation();
         bool place=_world.PublicPlace!=null;_placeFood.Visible=place;_brand.Visible=place || _hud.Size.X>=1200;
-        // Reset every base column too, so leaving public play restores archived controls.
-        foreach(var resource in new[]{Resource.Logs,Resource.Planks,Resource.Berries,Resource.Grain,Resource.Bread,Resource.Vegetables})_resourceValues[resource].GetParent<Control>().Visible=true;
-        if(!place)return;
+        // Commit each column's final visibility once. Public play previously showed
+        // legacy columns here and immediately hid them again, invalidating layout.
+        if(!place)
+        {
+            foreach(var item in _resourceValues)
+            {
+                bool visible=item.Key switch {
+                    Resource.Game=>_world.Map.Wildlife.Count>0 || _world.Food.HuntedGame>0 || _world.CreativeAdded(Resource.Game)>0,
+                    Resource.Fruit=>_world.Cottages.Any(c=>c.Kind==BuildingKind.Orchard) || _world.Food.GrownFruit>0 || _world.CreativeAdded(Resource.Fruit)>0,
+                    Resource.Fish=>_world.Map.FishingGrounds.Count>0 || _world.Food.CaughtFish>0 || _world.CreativeAdded(Resource.Fish)>0,
+                    Resource.Stone=>_world.Map.StoneDeposits.Count>0 || _world.Stone>0,
+                    _=>true};
+                var column=item.Value.GetParent<Control>();if(column.Visible!=visible)column.Visible=visible;
+            }
+            return;
+        }
         int food=World.EdibleKinds.Sum(_world.StoredFood);_placeFoodCount.Text=food.ToString();
         _placeFood.TooltipText=$"{food} stored meal portions across the village, including reserved portions. Grain needs baking. Click for individual foods, carrying and shortages in Economy [I].";
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
@@ -30,7 +43,7 @@ public partial class Game
             bool relevant=item.Key is Resource.Logs or Resource.Planks || item.Key==output ||
                 kind==BuildingKind.Bakery && item.Key==Resource.Grain ||
                 kind is {} building && Buildings.Get(building).StoneCost>0 && item.Key==Resource.Stone;
-            item.Value.GetParent<Control>().Visible=relevant;
+            var column=item.Value.GetParent<Control>();if(column.Visible!=relevant)column.Visible=relevant;
         }
     }
 }
