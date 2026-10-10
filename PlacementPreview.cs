@@ -16,6 +16,7 @@ public partial class Game
         if(_turnHome>=0 && input is InputEventKey{Pressed:true,Keycode:Key.Escape}){EndHomeTurn();GetViewport().SetInputAsHandled();return;}
         if(HasPlacePathOrigin && (_pathOriginWorld!=_world || !_placing || _pathTool!=3)){_pathOrigin=-1;_pathSharedOrigin=null;_pathOriginWorld=null;}
         if(HasPlacePathOrigin && (input is InputEventKey{Pressed:true,Keycode:Key.Escape} || input is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Right})){EndPlacePath();GetViewport().SetInputAsHandled();return;}
+        if(HandleWoodlandCare(input)){GetViewport().SetInputAsHandled();return;}
         if(HandleGroupArrangementInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandlePathProposalInput(input)){GetViewport().SetInputAsHandled();return;}
         if(HandlePlotEdge(input)){GetViewport().SetInputAsHandled();return;}
@@ -100,6 +101,7 @@ public partial class Game
         (_yardProposal!=null && _yardProposal.Visible && _yardProposal.GetGlobalRect().HasPoint(point)) ||
         (_workCard!=null && _workCard.Visible && _workCard.GetGlobalRect().HasPoint(point)) ||
         (_dailyCard!=null && _dailyCard.Visible && _dailyCard.GetGlobalRect().HasPoint(point)) ||
+        (_carePanel!=null && _carePanel.Visible && _carePanel.GetGlobalRect().HasPoint(point)) ||
         (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||
         (_terrainPanel!=null && _terrainPanel.Visible && _terrainPanel.GetGlobalRect().HasPoint(point)) ||
         (_foodAccessPanel!=null && _foodAccessPanel.Visible && _foodAccessPanel.GetGlobalRect().HasPoint(point)) ||

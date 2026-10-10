@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **185**.
+- Playable checkpoints since adoption: **186**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint185**, [synthesis](REVIEW_CHECKPOINT_185.md), fixed5391e57. Five independent reused roles; end automatic pose sequence, enlarge acceptance to complete land interventions.
 - Previous periodic review: **checkpoint180**, [synthesis](REVIEW_CHECKPOINT_180.md), fixed6776038. Five independent reused roles; retain complementary livelihoods and select experienced production/land care. Native natural recovery passed; latest full regression175.
@@ -783,3 +783,5 @@ Checkpoint184: actual four-second tree planting now digs at the chosen ground, p
 Checkpoint185: existing rustle follows actual berry reach and planting contacts rather than unrelated real-time cadence. Per-worker/source/task tracking avoids replay on load and retains global voice/cooldown/fast-forward bounds. Native actual berry progression verifies silence before second contact and one cue on contact, alongside planting and cargo/pause/reload checks; zero-warning build. No listening/mix acceptance. Freeze185 for whole-game and presentation review before186; fifteen of thirty outcomes complete.
 
 185 whole-game review complete before186. Five independent verdicts retain work credibility but challenge checkpoint granularity; larger complete-action acceptance next. New tributary deferred against prior inlet and contrived-notch evidence. Existing-place land-care direction selected; no human play/listening or broad185 regression claim.
+
+Checkpoint186: a complete woodland-care proposal groups Keep standing, Harvest & renew and Clear for another use around a selected tree/rectangle. Pure paused preview shows selected spots, timber and habitat consequence; Apply rechecks live legality and resumes observation, Cancel restores prior pause state. Detailed one-tree tools remain secondary. Both modes and all three intentions pass real consequences/current-save continuation, rectangle selection and invalid purity. Native960 ordinary entry, preview/cancel, placed seating addition, selected timber, replanting through maturity and fed village passed. Compact overflow found by screenshot and corrected; final controls fit. One outcome includes interaction, preview, cancellation, physical result and checks. Next connect desired building ground to deliberate preparation without a new map or resource.

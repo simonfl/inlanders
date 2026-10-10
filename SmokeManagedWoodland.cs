@@ -10,7 +10,7 @@ public partial class Game
         try
         {
             async System.Threading.Tasks.Task Frames() { for(int i=0;i<5;i++) await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame); }
-            void Tool(string name) => _buildSections[1].GetChildren().OfType<Button>().Single(b=>b.Text==name).EmitSignal(BaseButton.SignalName.Pressed);
+            void Tool(string name) => _buildSections[1].FindChildren("*","Button",true,false).OfType<Button>().Single(b=>b.Text==name).EmitSignal(BaseButton.SignalName.Pressed);
             var w=World.NewCreative(); foreach(var p in w.People) w.Assign(p.Id,Role.Unassigned);
             AdoptWorld(w); _paused=true; ToggleDrawer(1); SelectBuildSection(1);
             Tool("Preserve trees");

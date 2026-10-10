@@ -10,6 +10,7 @@ static class CurrentExperienceChecks
             ("ArrivalRecovery",ArrivalRecoveryChecks.Run),
             ("ForagingSiting",ForagingSitingChecks.Run),
             ("GroveRenewal",GroveRenewalChecks.Run),
+            ("WoodlandCare",WoodlandCareChecks.Run),
             ("TimberRecovery",TimberRecoveryChecks.Run),
             ("FieldCollection",FieldCollectionChecks.Run),
             ("RiverLivelihood",RiverLivelihoodChecks.Run),

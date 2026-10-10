@@ -13,7 +13,10 @@ public partial class Game
     private string WoodlandToolName => _woodlandTool switch { 1=>"Preserve trees",2=>"Allow harvesting",3=>"Harvest & renew grove",_=>"Remove grove spots" };
     private void MakeWoodlandControls(VBoxContainer parent)
     {
-        parent.AddChild(Text("WOODLAND",12));
+        parent.AddChild(Text("WOODLAND",12));MakeWoodlandCare(parent);
+        var details=new VBoxContainer{Visible=false};
+        parent.AddChild(Button("Individual tree tools",()=>details.Visible=!details.Visible));parent.AddChild(details);
+        parent=details;
         foreach(var pair in new[]{("Preserve trees",1),("Allow harvesting",2),("Harvest & renew grove",3),("Remove grove spots",4)})
         {
             int tool=pair.Item2; var button=Button(pair.Item1,()=>BeginWoodlandTool(tool)); parent.AddChild(button);
@@ -52,6 +55,7 @@ public partial class Game
     }
     private void RenderManagedWoodland()
     {
+        if(_careActive){if(_careWorld!=_world)CancelWoodlandCare();else _carePanel.Position=new(_hud.Size.X-292,92);}
         _woodlandView??=new Node3D(); if(_woodlandView.GetParent()==null) AddChild(_woodlandView);
         _woodlandView.Visible=_placing && _woodlandTool>0;
         if(!_woodlandView.Visible) return;

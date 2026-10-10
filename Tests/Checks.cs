@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--woodland-care")){WoodlandCareChecks.Run();return;}
 if(args.Contains("--grove-renewal")){GroveRenewalChecks.Run();return;}
 if(args.Contains("--timber-recovery")){TimberRecoveryChecks.Run();return;}
 if(args.Contains("--foraging-siting")){ForagingSitingChecks.Run();return;}

@@ -49,6 +49,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--plank-storage-smoke-test")) CallDeferred(MethodName.RunPlankStorageSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--woodland-care-smoke-test")) CallDeferred(nameof(RunWoodlandCareSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--gathering-work-smoke-test")) CallDeferred(nameof(RunGatheringWorkSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--field-work-smoke-test")) CallDeferred(MethodName.RunFieldWorkSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--social-smoke-test")) CallDeferred(MethodName.RunSocialSmoke);
@@ -91,7 +92,7 @@ public partial class Game : Node3D
         }
         catch (Exception e) { Notice("Could not restart; current village kept. " + e.Message); }
     }
-    private void TogglePause() { _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
+    private void TogglePause() { if(_careActive)return; _paused = !_paused; _pauseButton.Text = _paused ? "Resume  [Space]" : "Pause  [Space]"; }
     private void UpdateCamera()
     {
         var map = _world.Map;
