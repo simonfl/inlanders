@@ -1,6 +1,11 @@
 using Inlanders.Simulation;
 static class ArrivalRecoveryChecks
 {
+    public static World Midpoint()
+    {
+        var w=World.NewRiverLivelihood();w.Place(new(8,5),1,BuildingKind.FishingDock);
+        for(int i=0;i<18000;i++)w.Tick(.1f);w.Validate();return w;
+    }
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/arrival-recovery");

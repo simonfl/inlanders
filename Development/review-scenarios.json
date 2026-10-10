@@ -726,5 +726,13 @@
     "focusX": 0,
     "focusZ": 2,
     "zoom": 29
+  },
+  {
+    "name": "natural-recovery",
+    "description": "An established river arrival with inadequate food; choose an ordinary recovery",
+    "generator": "natural-recovery",
+    "focusX": 0,
+    "focusZ": 4,
+    "zoom": 29
   }
 ]

@@ -66,7 +66,7 @@ public sealed partial class World
         if(Try(Role.Builder))return;
         // Keep a modest working reserve; shared labor must not strip the map while idle.
         int logsNeeded=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
-        if((Stored<Math.Min(24,logsNeeded) || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting)) && Try(Role.Logger))return;
+        if((Stored<Math.Min(24,logsNeeded) || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
         int plankNeed=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Planks).Sum(c=>c.Remaining(Resource.Planks))
             +Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c)));

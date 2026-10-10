@@ -40,12 +40,16 @@ public sealed partial class World
         if(managed) ManagedWoodland.Add(cell); else ManagedWoodland.Remove(cell);
         _retry=0; return true;
     }
+    private bool GroveNeedsPlanting(Cell cell)
+    {
+        var tree=Trees.FirstOrDefault(t=>t.Cell==cell);
+        return tree==null || tree.Felled && tree.Logs==0 && tree.Owner==null && !tree.ClearRequested;
+    }
     private bool ClaimGrovePlanting(Villager worker)
     {
         foreach(var cell in ManagedWoodland.OrderBy(c=>(c.Point-worker.Position).LengthSquared()).ThenBy(c=>c.X).ThenBy(c=>c.Z))
         {
-            var existing=Trees.FirstOrDefault(t=>t.Cell==cell);
-            if(existing!=null && (!existing.Felled || existing.Logs>0 || existing.Owner!=null || existing.ClearRequested)) continue;
+            if(!GroveNeedsPlanting(cell))continue;
             if(PlantingProblem(cell)!=null) continue;
             var tree=PlantTree(cell)!;
             tree.Owner=worker.Id; worker.TreeId=tree.Id;
