@@ -19,7 +19,7 @@ public partial class Game
             Tool("Allow harvesting"); PaintWoodland(tree.Cell);
             if(tree.Preserved) throw new Exception("Allow harvesting control failed");
             Tool("Preserve trees"); PaintWoodland(tree.Cell);
-            Tool("Manage grove · replant"); PaintWoodland(new(3,0)); PaintWoodland(new(6,0)); await Frames();
+            Tool("Harvest & renew grove"); PaintWoodland(new(3,0)); PaintWoodland(new(6,0)); await Frames();
             if(w.ManagedWoodland.Count!=4 || _woodlandView?.GetChildCount()!=4) throw new Exception("Grove stroke/overlay did not cover four spots");
             foreach(int width in new[]{1440,960})
             {

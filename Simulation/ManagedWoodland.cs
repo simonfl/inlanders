@@ -40,6 +40,14 @@ public sealed partial class World
         if(managed) ManagedWoodland.Add(cell); else ManagedWoodland.Remove(cell);
         _retry=0; return true;
     }
+    public bool SetHarvestGrove(Cell cell)
+    {
+        if(ManagedWoodlandProblem(cell)!=null)return false;
+        SetManagedWoodland(cell,true);
+        var tree=Trees.FirstOrDefault(t=>t.Cell==cell);
+        if(tree?.Preserved==true)SetTreePreserved(cell,false);
+        return true;
+    }
     private bool GroveNeedsPlanting(Cell cell)
     {
         var tree=Trees.FirstOrDefault(t=>t.Cell==cell);

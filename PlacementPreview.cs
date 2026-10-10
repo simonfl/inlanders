@@ -181,7 +181,7 @@ public partial class Game
             _buildDescription.Text=_woodlandTool switch {
                 1=>"PRESERVE TREES\nClick or drag. Loggers leave these trees.\nExplicit clearing takes precedence.",
                 2=>"ALLOW HARVESTING\nClick or drag over preserved trees.\nLoggers may harvest them again.",
-                3=>$"MANAGE GROVE · {_world.ManagedWoodland.Count}/{World.ManagedWoodlandLimit}\nClick or drag. Loggers replant these spots.\nBuilding and clearing replace grove spots.",
+                3=>$"HARVEST & RENEW · {_world.ManagedWoodland.Count}/{World.ManagedWoodlandLimit}\nAllow needed timber harvest and replant.\nBuilding and clearing replace grove spots.",
                 _=>"REMOVE GROVE SPOTS\nClick or drag to stop future replanting.\nCurrent trees and planting work remain."
             }; return;
         }

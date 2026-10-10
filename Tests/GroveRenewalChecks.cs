@@ -3,6 +3,13 @@ static class GroveRenewalChecks
 {
     public static void Run()
     {
+        var chosen=World.NewRiverLivelihood();var kept=chosen.Trees[0];var working=chosen.Trees[1];
+        if(!chosen.SetHarvestGrove(working.Cell) || working.Preserved || !kept.Preserved || !chosen.ManagedWoodland.Contains(working.Cell))throw new Exception("Grove intent did not release only chosen timber");
+        string before=chosen.SaveJson();
+        if(chosen.SetHarvestGrove(chosen.Cottages[0].Cell) || chosen.SaveJson()!=before)throw new Exception("Rejected grove changed land");
+        chosen.SetTreePreserved(working.Cell,true);
+        if(!working.Preserved || !chosen.ManagedWoodland.Contains(working.Cell))throw new Exception("Preserve cannot override managed harvest");
+        chosen.Validate();
         foreach(bool relaxed in new[]{false,true})
         {
             var w=World.NewRiverLivelihood(relaxed);int timber=w.Stored;

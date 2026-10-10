@@ -10,17 +10,17 @@ public partial class Game
     private Node3D? _woodlandView;
     private World? _woodlandViewWorld;
     private string _woodlandViewKey="";
-    private string WoodlandToolName => _woodlandTool switch { 1=>"Preserve trees",2=>"Allow harvesting",3=>"Manage grove",_=>"Remove grove spots" };
+    private string WoodlandToolName => _woodlandTool switch { 1=>"Preserve trees",2=>"Allow harvesting",3=>"Harvest & renew grove",_=>"Remove grove spots" };
     private void MakeWoodlandControls(VBoxContainer parent)
     {
         parent.AddChild(Text("WOODLAND",12));
-        foreach(var pair in new[]{("Preserve trees",1),("Allow harvesting",2),("Manage grove · replant",3),("Remove grove spots",4)})
+        foreach(var pair in new[]{("Preserve trees",1),("Allow harvesting",2),("Harvest & renew grove",3),("Remove grove spots",4)})
         {
             int tool=pair.Item2; var button=Button(pair.Item1,()=>BeginWoodlandTool(tool)); parent.AddChild(button);
             button.TooltipText=tool switch {
                 1=>"Click or drag over living trees. Loggers leave them standing, including stopping a cut in progress. Explicit clearing overrides preservation.",
                 2=>"Click or drag over preserved trees to let loggers harvest them again.",
-                3=>"Click or drag to mark up to 32 tree spots. Loggers replant after timber is collected; unsafe planting waits. Clearing, buildings, paths and decorations replace grove spots.",
+                3=>"Choose up to 32 tree spots. Allow harvesting here when timber is needed, then replant. Empty spots are planted now. Preserve individual trees to keep them standing. Clearing, buildings and paths replace grove spots.",
                 _=>"Click or drag to stop future replanting. Existing trees and current planting work remain."
             };
         }
@@ -35,7 +35,7 @@ public partial class Game
     private void PaintWoodland(Cell cell)
     {
         if(_lastWoodlandCell==cell) return;
-        bool Apply(Cell c) => _woodlandTool<=2 ? _world.SetTreePreserved(c,_woodlandTool==1) : _world.SetManagedWoodland(c,_woodlandTool==3);
+        bool Apply(Cell c) => _woodlandTool<=2 ? _world.SetTreePreserved(c,_woodlandTool==1) : _woodlandTool==3 ? _world.SetHarvestGrove(c) : _world.SetManagedWoodland(c,false);
         bool changed=false;
         if(_lastWoodlandCell is Cell previous)
         {

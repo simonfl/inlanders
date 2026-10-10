@@ -15,8 +15,9 @@ Start with the missing first-session evidence and deepen the existing river expe
 179. **Done** — Harvest selected timber without automatically clearing roots; recover from preserved timber shortage through the existing tool.
 180. **Done** — Managed woodland should replant ahead of the next timber shortage, then full review. Sixty-minute current-rule experiments support landing+berries, landing+berries+hunting, grain+oven and three gardens without missed meals. Do not rebalance isolated sources or count that test as a feature. Precise outcomes remain evidence-led.
 181. **Done** — Actual berry collection tied to source and work progress, through real cargo/delivery.
-182. Make sustainable harvesting a coherent existing woodland action: mark replanting and allow harvest together, retaining independent preserve/clear options.
-183–185. Evidence-led productive-life/land-care outcomes; review185 before186. No automatic pose/prop ladder.
+182. **Done** — Make sustainable harvesting a coherent existing woodland action: mark replanting and allow harvest together, retaining independent preserve/clear options.
+183. Verify and correct timber dispatch when grove planting is temporarily blocked.
+184–185. Evidence-led productive-life/land-care outcomes; review185 before186. No automatic pose/prop ladder.
 186–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
