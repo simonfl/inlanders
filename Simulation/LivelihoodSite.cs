@@ -4,6 +4,7 @@ namespace Inlanders.Simulation;
 public sealed record LivelihoodSite(string Summary,string Destination,Cell[] Route);
 public sealed partial class World
 {
+    private string NaturalSupplyText(float rate)=>$"Shared renewal up to {rate:0.#}/min · village eats {Population}/min. More buildings do not add supply.";
     public LivelihoodSite ReadRelocationLivelihood(int id,Cell at,int rotation)
     {
         if(RelocationProblem(id,at,rotation)!=null)return new("","",Array.Empty<Cell>());
@@ -20,13 +21,21 @@ public sealed partial class World
         if(kind==BuildingKind.FishingDock)
         {
             var launch=DockLaunch(at,rotation);
-            var target=Map.FishingGrounds.Select(g=>new{Ground=g,Route=FindBoatRoute(launch,g.Cell)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Ground.Id).FirstOrDefault();
-            return target==null?new("No reachable fishing water.","",Array.Empty<Cell>()):new($"Water route preview · {AvailableFish(target.Ground)} fish available now; stocks shared",target.Ground.Name,new[]{launch}.Concat(target.Route!).ToArray());
+            var reachable=Map.FishingGrounds.Select(g=>new{Ground=g,Route=FindBoatRoute(launch,g.Cell)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Ground.Id).ToArray();
+            var target=reachable.FirstOrDefault();
+            return target==null?new("No reachable fishing water.","",Array.Empty<Cell>()):new($"Water route preview · {AvailableFish(target.Ground)} fish available now; stocks shared\n"+NaturalSupplyText(reachable.Sum(x=>x.Ground.RegrowthPerSecond)*60),target.Ground.Name,new[]{launch}.Concat(target.Route!).ToArray());
         }
         if(kind==BuildingKind.ForagerHut)
         {
-            var target=Bushes.Select(b=>new{Bush=b,Route=FindPath(door,b.Access,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Bush.Id).FirstOrDefault();
-            return target==null?new("No reachable berry bushes · this hut cannot gather here.","",Array.Empty<Cell>()):new($"Possible gathering walk · {target.Route!.Count} ground steps · {target.Bush.Ripe} ripe berries now; shared supply", "Berry bushes · workers choose available fruit",new[]{door}.Concat(target.Route!).ToArray());
+            var reachable=Bushes.Select(b=>new{Bush=b,Route=FindPath(door,b.Access,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ThenBy(x=>x.Bush.Id).ToArray();
+            var target=reachable.FirstOrDefault();
+            return target==null?new("No reachable berry bushes · this hut cannot gather here.","",Array.Empty<Cell>()):new($"Possible gathering walk · {target.Route!.Count} ground steps · {target.Bush.Ripe} ripe berries now\n"+NaturalSupplyText(reachable.Length*7.5f), "Berry bushes · workers choose available fruit",new[]{door}.Concat(target.Route!).ToArray());
+        }
+        if(kind==BuildingKind.HuntingLodge)
+        {
+            var reachable=Map.Wildlife.Where(h=>(h.Cell.Point-at.Point).LengthSquared()<=64).Select(h=>new{Habitat=h,Route=FindPath(door,h.Cell,Closed)}).Where(x=>x.Route!=null).OrderBy(x=>x.Route!.Count).ToArray();
+            var target=reachable.FirstOrDefault();
+            return target==null?new("No reachable hunting ground.","",Array.Empty<Cell>()):new($"Possible hunting walk · {target.Route!.Count} ground steps\n"+NaturalSupplyText(reachable.Sum(x=>HabitatRecovery(x.Habitat))),"Shared woodland · mature trees sustain game",new[]{door}.Concat(target.Route!).ToArray());
         }
         if(kind is BuildingKind.Farm or BuildingKind.Bakery)
         {

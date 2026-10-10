@@ -29,6 +29,8 @@ static class LivelihoodSiteChecks
             Check(!gathering.Route.Any(World.Footprint(new(0,-7),turn,BuildingKind.ForagerHut).Contains),"Gathering route crosses proposed hut");
         }
         Check(riverBefore==river.SaveJson(),"Gathering preview changes world");
+        Check(river.ReadLivelihoodSite(new(0,-7),0,BuildingKind.ForagerHut).Summary.Contains("7.5/min"),"Berry renewal not based on reachable bushes");
+        Check(river.ReadLivelihoodSite(new(8,5),1,BuildingKind.FishingDock).Summary.Contains("10/min"),"Shared river renewal not summed");
         river.Bushes.Clear();Check(river.ReadLivelihoodSite(new(0,-7),0,BuildingKind.ForagerHut).Summary.Contains("No reachable"),"Missing berry source is hidden");
         Console.WriteLine("PASS: actual planned grain dependency, proposed footprint exclusion, water reachability and pure/invalid livelihood preview.");
     }

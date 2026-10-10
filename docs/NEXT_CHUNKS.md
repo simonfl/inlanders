@@ -7,7 +7,7 @@ Start with the missing first-session evidence and deepen the existing river expe
 171. **Done** — Bring the homes-ready arrival through a discoverable first food choice, ordinary placement and an actual meal, using the existing first-place surface.
 172. **Done** — Actual berry-source siting preview.
 173. **Done** — Complete a real first gathering cycle even while starting provisions are full, matching existing first-crop behavior.
-174. Make shared natural supply limits legible when siting gathering/fishing, before spending.
+174. **Done** — Make shared natural supply limits legible when siting gathering/fishing, before spending.
 175. Make declining food actionable from ordinary play and demonstrate recovery from an inadequate arrival. No new need/resource or compulsory growth by default.
 176–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
