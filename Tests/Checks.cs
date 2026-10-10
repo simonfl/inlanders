@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--new-grove")){NewGroveChecks.Run();WoodlandCareChecks.Run();return;}
 if(args.Contains("--woodland-reconsideration")){WoodlandReconsiderationChecks.Run();return;}
 if(args.Contains("--leisure-route")){LeisureRouteChecks.Run();LeisureChecks.Run();return;}
 if(args.Contains("--ground-preparation")){GroundPreparationChecks.Run();return;}
