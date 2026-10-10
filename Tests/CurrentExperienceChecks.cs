@@ -8,6 +8,7 @@ static class CurrentExperienceChecks
         var cases=new (string Name,Action Execute)[]{
             ("GatheringEstablishment",GatheringEstablishmentChecks.Run),
             ("ArrivalRecovery",ArrivalRecoveryChecks.Run),
+            ("ForagingSiting",ForagingSitingChecks.Run),
             ("FieldCollection",FieldCollectionChecks.Run),
             ("RiverLivelihood",RiverLivelihoodChecks.Run),
             ("RiverLandscape",RiverLandscapeChecks.Run),

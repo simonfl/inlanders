@@ -100,10 +100,13 @@ public sealed partial class World
     {
         if (v.Role == Role.Forager)
         {
-            var hut = FoodSite(v,BuildingKind.ForagerHut, BelowOutputTarget);
-            if (hut == null) { v.Status = ProductionWait(v); return; }
-            var bush = Bushes.Where(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)).OrderBy(b => (b.Access.Point - v.Position).LengthSquared()).FirstOrDefault();
-            if (bush == null) { v.Status = "Waiting for ripe reachable berries or another forager; a bridge may open more patches"; return; }
+            var huts=Cottages.Where(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && c.Kind==BuildingKind.ForagerHut && CanClaimWorkplace(v,c) && FreeStation(c) && BelowOutputTarget(c)).ToArray();
+            if(huts.Length==0){v.Status=ProductionWait(v);return;}
+            var berries=Bushes.Where(b=>b.Ripe>0 && b.Owner==null && Accessible(b.Access)).ToArray();
+            var trip=huts.SelectMany(h=>berries.Select(b=>new{Hut=h,Bush=b,Cost=TravelCost(At(v),b.Access)+TravelCost(b.Access,h.Entrance)}))
+                .OrderByDescending(t=>t.Hut.Priority).ThenBy(t=>t.Cost).ThenBy(t=>t.Hut.Id).ThenBy(t=>t.Bush.Id).FirstOrDefault();
+            if(trip==null){v.Status="Waiting for ripe reachable berries or another forager; a bridge may open more patches";return;}
+            var hut=trip.Hut;var bush=trip.Bush;
             v.WorkplaceId = hut.Id; v.BushId = bush.Id; bush.Owner = v.Id;
             Go(v, bush.Access, Work.ToBush, "Walking to ripe berries"); return;
         }

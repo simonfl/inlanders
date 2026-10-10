@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--foraging-siting")){ForagingSitingChecks.Run();return;}
 if(args.Contains("--livelihood-portfolios")){LivelihoodPortfolioChecks.Run();return;}
 if(args.Contains("--arrival-recovery")){ArrivalRecoveryChecks.Run();return;}
 if(args.Contains("--gathering-establishment")){GatheringEstablishmentChecks.Run();return;}

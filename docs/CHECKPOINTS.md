@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **176**.
+- Playable checkpoints since adoption: **177**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint175**, [synthesis](REVIEW_CHECKPOINT_175.md), fixed d3c87bb. Four independent reused roles; complementary livelihood comparison chosen before176. Full54-suite run pending separately.
 - Previous periodic review: **checkpoint170**, [synthesis](REVIEW_CHECKPOINT_170.md), fixed6525a95. Five independently reused roles, partially convincing and clearer public game; retain provisionally and stop170. Final52-suite regression passed on the fixed reviewed build.
@@ -759,3 +759,5 @@ Checkpoint175: ordinary public food control now signals low reserves (less than 
 175 final validation: all54 suites passed on frozen d3c87bb, run d7746049971b42b9bc0429f4bb2cd044. Separate sixty-minute combined-source comparisons support four ordinary livelihoods without hunger; no balancing change or extra count.
 
 Checkpoint176: existing land survey includes actual berry patches and its Build-in-view action becomes the selected source's relevant workplace proposal. Berry/fish/woodland/stone planning retains the camera and ordinary placement, with full catalogue still available. Native960012002 passed source-led hut proposal, field placement/first meal, household/save/Watch; survey stock/claims/purity checks passed. Corrected opening pause-notice overlap without another outcome. Zero-warning build. Next examine spatial recovery friction and actual work use; no source buffs or new inspector surface.
+
+Checkpoint177: automatic gathering chooses a complete worker→berry→hut walking trip instead of letting the oldest eligible hut dominate. Existing priorities, dedicated assignments, slots, shared claims and real delivery remain authoritative. A newer nearby hut now actually benefits from its site; active exact continuation and all six first-gathering/orchard cases passed, zero warnings. Next connect source access through the existing path tool so a spatial investment can improve that trip.
