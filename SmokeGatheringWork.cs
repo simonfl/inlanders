@@ -23,6 +23,14 @@ public partial class Game
             AdoptWorld(World.LoadJson(saved));_paused=true;await Frames();
             if(pose!=_people[picker.Id].Arm.GlobalTransform)throw new Exception("Reload changes picking");
             picker=_world.People[picker.Id];
+            _soundMuted=false;_effectsVolume=65;ApplyAudioSettings();
+            var contactTrace=new SoundTrace();_paused=false;WorkContactAudio(picker,contactTrace);int heard=_worldSoundCount;
+            while(picker.Timer<1.15f){_world.Tick(.05f);_soundTime+=.05f;WorkContactAudio(picker,contactTrace);}
+            if(_worldSoundCount!=heard)throw new Exception("Berry rustle before second contact");
+            while(picker.Timer<1.4f){_world.Tick(.05f);_soundTime+=.05f;WorkContactAudio(picker,contactTrace);}
+            if(_worldSoundCount!=heard+1)throw new Exception("Missing timed berry rustle");
+            _paused=true;
+
             for(int i=0;i<60 && picker.Carried==0;i++)_world.Tick(.05f);
             await Frames();
             if(picker.Carried!=2 || !_people[picker.Id].Carry.Visible || _people[picker.Id].Rig.Position.Length()>.1f)throw new Exception("Real picking cargo/stance transition");

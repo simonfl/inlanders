@@ -12,7 +12,7 @@ public partial class Game
     private AudioStreamPlayer _uiSound = null!, _wind = null!;
     private AudioStreamPlayer3D _bird = null!;
     private AudioListener3D _villageListener = null!;
-    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree, HammerSite; public int ChopBeat=-1,HammerBeat=-1; }
+    private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree, HammerSite; public int ChopBeat=-1,HammerBeat=-1,ContactBeat=-1; public Work? ContactWork; public int? ContactSource; }
     private readonly Dictionary<int, SoundTrace> _soundTraces = new();
     private readonly HashSet<int> _heardBuildings = new();
     private readonly Dictionary<Cue, float> _cueCooldown = new();
@@ -110,11 +110,12 @@ public partial class Game
                 continue;
             }
             trace.HammerSite=null; trace.HammerBeat=-1;
+            if(WorkContactAudio(v,trace))continue;
             if (_soundTime < trace.Next) continue;
             Cue? cue = v.Route.Count > 0 ? trace.Distance >= 0.65f ? Cue.Step : null : v.Task switch
             {
                 Work.Chopping => Cue.Drop,
-                Work.ClearingStump or Work.Planting or Work.PlantingTree or Work.Harvesting or Work.Foraging => Cue.Rustle,
+                Work.ClearingStump or Work.Planting or Work.Harvesting => Cue.Rustle,
                 Work.Sawing => Cue.Saw, Work.Baking => Cue.Bake, _ => null
             };
             if (cue == null) continue;
@@ -126,6 +127,23 @@ public partial class Game
         foreach (var site in _world.Cottages.Where(c => c.Complete))
             if (_heardBuildings.Add(site.Id)) WorldCue(Cue.Complete, OnGround(site.Cell.X,site.Cell.Z,1));
         if (_world.Food.SupperComplete && !_heardSupper) { _heardSupper = true; UiCue(Cue.Complete); }
+    }
+
+    private bool WorkContactAudio(Villager worker,SoundTrace trace)
+    {
+        if(worker.Task is not (Work.Foraging or Work.PlantingTree) || worker.Route.Count>0)
+        {trace.ContactWork=null;trace.ContactSource=null;trace.ContactBeat=-1;return false;}
+        int? source=worker.Task==Work.Foraging?worker.BushId:worker.TreeId;
+        int beat=worker.Task==Work.Foraging?(int)MathF.Floor(worker.Timer-.25f):Math.Min(2,(int)MathF.Floor(worker.Timer-.5f));
+        if(trace.ContactWork!=worker.Task || trace.ContactSource!=source || beat<trace.ContactBeat)
+        {trace.ContactWork=worker.Task;trace.ContactSource=source;trace.ContactBeat=beat;}
+        if(beat>trace.ContactBeat)
+        {
+            trace.ContactBeat=beat;
+            if(_soundTime>=trace.Next)
+            {WorldCue(Cue.Rustle,OnGround(worker.Position.X,worker.Position.Y,.4f),worker.Id);trace.Next=_soundTime+.35f;}
+        }
+        return true;
     }
 
     private void UpdateAudioListener()
