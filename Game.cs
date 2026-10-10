@@ -34,6 +34,7 @@ public partial class Game : Node3D
         GetWindow().MinSize = new(960, 640);
         GetWindow().Title = PublicIdentity.Title + " — " + PublicIdentity.Tagline;
         MakeLandscape(); MakeAudio(); MakeUi();
+        if(_reviewRequest!=null || OS.GetCmdlineUserArgs().Any(a=>a.EndsWith("smoke-test")))_pauseInBackground=false;
         _dynamic = new(); AddChild(_dynamic);
         _ghost = new(); AddChild(_ghost); _selection = new(); AddChild(_selection);
         CreateActors(); UpdateCamera(); RefreshGhost();
@@ -50,6 +51,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--ground-preparation-smoke-test")) CallDeferred(nameof(RunGroundPreparationSmoke));
+        if (OS.GetCmdlineUserArgs().Contains("--focus-safety-smoke-test")) CallDeferred(nameof(RunFocusSafetySmoke));
         if (OS.GetCmdlineUserArgs().Contains("--place-framing-smoke-test")) CallDeferred(nameof(RunPlaceFramingSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--session-view-smoke-test")) CallDeferred(nameof(RunSessionViewSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--world-picking-smoke-test")) CallDeferred(nameof(RunWorldPickingSmoke));

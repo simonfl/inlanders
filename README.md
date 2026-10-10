@@ -33,11 +33,13 @@ Click a home to inspect it, preview any of four yard sides, choose ground only o
 
 Earlier public beginnings remain under **Play → Earlier beginnings**. Older campaigns, finite founding projects and Free variants are archives available with `--developer`. Their notes below describe historical experiments, not the current public progression.
 
+Village life pauses when you switch to another app; press Space when you return. Options can disable this for deliberate background play. Unfinished pointer gestures cancel in either case.
+
 ## Main menu
 
 The title illustration is independent of your save. Use **Tab / Shift-Tab** or **Up / Down** to select, **Enter / Space** to activate, and **Esc** to go back. A gold outline marks focus; **Left / Right** adjusts a focused sound slider. Returning to a page restores focus and scrolls it into view.
 
-- **Continue** restores the last current hamlet, paused. Archived saves require developer access.
+- **Continue** restores the last current hamlet, paused, at its saved view and inspected place or resident. Archived saves require developer access.
 - **Play** offers **Establish life by the river** and **Tend a river settlement**, each with a Normal/Relaxed mode choice. **Earlier beginnings** retains the clearing, open-land founding and previous hamlet layouts.
 - With `--developer`, **Earlier prototypes** contains **Earlier settlements** (neighborhood, constrained court, inlet and meadow), **Earlier free court** (the eight-resident version), Campaign, Free play and older rule experiments. They are optional historical material, not prerequisites.
 - **Settings** controls Effects, Nature, Music and mute settings.

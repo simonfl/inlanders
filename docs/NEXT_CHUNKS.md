@@ -33,7 +33,7 @@ Start with the missing first-session evidence and deepen the existing river expe
 197. **Done** — Reconcile a planned addition with later Keep/Renew woodland choices through deliberate preparation or cancellation and actual use.
 198. **Done** — Investigate reproduced Windows save replacement denial; count only a verified player-facing reliability improvement.
 199. **Done** — Test and correct chosen-place Watch framing if it loses the actual destination/arrival; no new camera panel.
-200. Make live app switching safe: pause by default and end transient gestures while retaining committed work; allow deliberate background-running preference. Verify actual frames, resume and unchanged paused state, then final whole-game review. No editor expansion or validation-only increments. Final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
+200. **Done** — Make live app switching safe: pause by default and end transient gestures while retaining committed work; allow deliberate background-running preference. Verify actual frames, resume and unchanged paused state, then final whole-game review. No editor expansion or validation-only increments. Final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
 

@@ -212,7 +212,7 @@ public partial class Game
         _legacyMapOptions.AddChild(Button("Explore larger map", OpenLargeMap));
         _legacyMapOptions.AddChild(Button("Return to original map", OpenOriginalMap));
         _legacyMapOptions.AddChild(Text("Three clearings · 32×32 landscape. Starts or resumes a separate save. Home frames the map.", 14, true));
-        MakeAtmosphereUi(column);
+        MakeBackgroundPauseUi(column);MakeAtmosphereUi(column);
         column.AddChild(Text("SOUND", 12)); MakeAudioUi(column);
         column.AddChild(Text("CONTROLS", 12));
         column.AddChild(Text("Drag / WASD  Pan camera\nRight / middle drag  Pan while building\nWheel  Zoom\nQ / E  Orbit\nSpace  Pause / resume\nB  Build menu · T  Plant trees\nV  People · I  Economy · G  Goals · O  Options\nR  Rotate building preview\nEsc  Cancel preview / close panel\nM  Mute sound · H  Watch village", 14, true));

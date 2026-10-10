@@ -80,7 +80,7 @@ public partial class Game
     }
     public override void _Notification(int what)
     {
-        if (what == NotificationWMWindowFocusOut) { CancelCameraDrag();CancelDecorationStroke();CancelAreaRemoval();CancelBushMove();CancelGatheringPlan();CancelTerrain(); }
+        if (what == NotificationWMWindowFocusOut && _camera!=null && _pauseButton!=null) HandleFocusLoss();
         if (what == NotificationWMCloseRequest) RequestQuit();
     }
 }

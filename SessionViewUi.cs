@@ -5,7 +5,7 @@ public partial class Game
 {
     private void RememberSessionView()
     {
-        if(_camera==null || _atMainMenu)return;
+        if(_camera==null || _atMainMenu || _world.PublicPlace==null)return;
         int person=_dailyPerson>=0?_dailyPerson:_selectedPerson;
         int site=_workCardSite>=0?_workCardSite:_selectedSite;
         _world.SessionView=new(_focus.X,_focus.Y,_focus.Z,_camera.Size,_angle,person,site,_additionSelected,_selectedCommons?_selectedCommonsCenter:null);

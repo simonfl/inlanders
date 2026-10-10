@@ -26,6 +26,7 @@ public partial class Game
         _goldenHour = config.GetValue("view", "golden_hour", false).AsBool();
         _foliageMotion = config.GetValue("view", "foliage_motion", true).AsBool();
         _showWorldLabels = config.GetValue("view", "world_labels", true).AsBool();
+        _pauseInBackground=config.GetValue("view","pause_background",true).AsBool();
         _frameSync = config.GetValue("view", "frame_sync", false).AsBool();
     }
     private void SaveAtmosphere()
@@ -38,12 +39,14 @@ public partial class Game
             config.SetValue("view", "foliage_motion", _foliageMotion);
             config.SetValue("view", "world_labels", _showWorldLabels);
             config.SetValue("view", "frame_sync", _frameSync);
+            config.SetValue("view","pause_background",_pauseInBackground);
             if (config.Save(_atmospherePath) != Error.Ok) Notice("Atmosphere changed, but settings could not be saved.");
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { Notice("Atmosphere changed, but settings could not be saved."); }
     }
     private void ApplyAtmosphere()
     {
+        if(_backgroundPauseButton!=null)_backgroundPauseButton.Text=_pauseInBackground?"Pause when switching apps: on":"Pause when switching apps: off";
         DisplayServer.WindowSetVsyncMode(_frameSync?DisplayServer.VSyncMode.Enabled:DisplayServer.VSyncMode.Disabled);
         if(_frameSyncButton!=null) _frameSyncButton.Text=_frameSync?"Frame sync: on":"Frame sync: off";
         _sun.RotationDegrees = _goldenHour ? new(-36, -35, 0) : new(-52, -30, 0);
