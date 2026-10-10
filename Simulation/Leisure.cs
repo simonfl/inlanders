@@ -8,17 +8,17 @@ public sealed partial class World
     private bool ClaimLeisure(Villager v)
     {
         if (Food.Time < Math.Max(15 + v.Id % 4 * 2, v.NextLeisureTime) || v.Carried != 0) return false;
-        foreach (var square in Cottages.Where(c => c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).RecreationSlots>0)
-                     .OrderBy(c => (c.Entrance.Point - v.Position).LengthSquared()).ThenBy(c => c.Id))
+        var reserved = People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination).ToHashSet();
+        var choice=Cottages.Where(c=>c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).RecreationSlots>0 &&
+                People.Count(p=>p.LeisureSiteId==c.Id)<Buildings.Get(c.Kind).RecreationSlots)
+            .SelectMany(square=>Map.Land.Where(c=>(c.Point-square.Entrance.Point).LengthSquared()<=4 && !Blocked(c) &&
+                !MealSpotReserved(c) && !ComfortSpotReserved(c) && !reserved.Contains(c))
+                .Select(c=>new{Square=square,Cell=c,Cost=TravelCost(At(v),c)}))
+            .Where(x=>x.Cost<int.MaxValue).OrderBy(x=>x.Cost).ThenBy(x=>x.Square.Id).ThenBy(x=>x.Cell.Z).ThenBy(x=>x.Cell.X).FirstOrDefault();
+        if(choice!=null)
         {
-            if (People.Count(p => p.LeisureSiteId == square.Id) >= Buildings.Get(square.Kind).RecreationSlots) continue;
-            var reserved = People.Where(p => p.LeisureSiteId != null || p.Task is Work.ToRest or Work.Resting).Select(p => p.Destination).ToHashSet();
-            var spot = Map.Land.Where(c => (c.Point - square.Entrance.Point).LengthSquared() <= 4 && !Blocked(c) && !MealSpotReserved(c) && !ComfortSpotReserved(c) && !reserved.Contains(c))
-                .OrderBy(c => (c.Point - square.Entrance.Point).LengthSquared()).ThenBy(c => c.Z).ThenBy(c => c.X)
-                .Cast<Cell?>().FirstOrDefault(c => FindPath(At(v), c!.Value, Blocked) != null);
-            if (spot == null) continue;
-            v.LeisureSiteId = square.Id;
-            Go(v, spot.Value, Work.ToLeisure, $"Heading to {Buildings.Get(square.Kind).Name} for a break");
+            v.LeisureSiteId=choice.Square.Id;
+            Go(v,choice.Cell,Work.ToLeisure,$"Heading to {Buildings.Get(choice.Square.Kind).Name} for a break");
             return true;
         }
         return false;

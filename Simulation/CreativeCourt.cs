@@ -47,8 +47,8 @@ public sealed partial class World
         }
         if(Food.Time<p.NextQuietVisitTime || Food.Time<p.Id*3)return false;
         var seat=SharedPlaces.Where(c=>(c.Center.Point-home.Entrance.Point).LengthSquared()<=64).SelectMany(c=>c.Places)
-            .Where(Free).OrderBy(c=>(c.Point-p.Position).LengthSquared()).ThenBy(c=>c.Z).ThenBy(c=>c.X)
-            .Cast<Cell?>().FirstOrDefault(c=>FindPath(At(p),c!.Value,Blocked)!=null);
+            .Where(Free).Select(c=>new{Cell=c,Cost=TravelCost(At(p),c)}).Where(x=>x.Cost<int.MaxValue)
+            .OrderBy(x=>x.Cost).ThenBy(x=>x.Cell.Z).ThenBy(x=>x.Cell.X).Select(x=>(Cell?)x.Cell).FirstOrDefault();
         if(seat is not Cell at)return false;
         p.QuietSharedCenter=SharedPlaceAt(at)!.Center;p.QuietVisitUntil=0;
         Go(p,at,Work.Waiting,"Heading to shared ground — available for work");return true;
