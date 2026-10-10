@@ -48,4 +48,3 @@ static class PreparedAdditionChecks
         Console.WriteLine("PASS prepared addition cancellation before/after felling, no resurrection, no overwritten intention.");
     }
 }
-

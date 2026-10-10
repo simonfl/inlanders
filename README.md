@@ -21,7 +21,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Setup.ps1
 
 Setup downloads portable Godot 4.6 and .NET SDK 8.0.424 from their official distributions into `.tools`. It requires network access once. Afterwards, double-click **Play.cmd** to compile and play offline. No global Godot/.NET installation or PATH changes are required. On the original development machine the tools are already installed.
 
-The launcher runs the Godot project directly; this repository does not contain an exported standalone executable. Downloaded tools, generated build files, test artifacts, and player saves are excluded from Git.
+The launcher runs the Godot project directly; this repository does not contain an exported standalone executable. Downloaded tools, generated build files and test artifacts are excluded from Git. Normal saves and settings live in `%LOCALAPPDATA%\Inlanders\saves`, outside the checkout and its synchronization locks. Prototype saves from the old repository location are not migrated; start a new settlement. Review runs use isolated disposable directories.
 
 For development/review, `./Review.ps1 List` lists reproducible scenarios. `./Review.ps1 Inspect river` opens a paused river settlement with normal controls; **F8** captures matching image/state/settings. `./Review.ps1 Capture dense` exports a dense-village bundle and exits. Preparation, inspection and validation can run separately; see [the review tooling guide](docs/REVIEW_TOOLING_T01.md).
 

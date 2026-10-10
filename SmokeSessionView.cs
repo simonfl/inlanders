@@ -9,7 +9,9 @@ public partial class Game
         try
         {
             async System.Threading.Tasks.Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-            _creativeSavePath="artifacts/session196/creative.json";_continuePath="artifacts/session196/continue.json";MakeMainMenu();
+            string directory=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"inlanders-session-"+Guid.NewGuid());
+            UseSaveDirectory(directory);MakeMainMenu();
+            if(!LocalSaveDirectory.StartsWith(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData)) || LocalSaveDirectory.Contains("Dropbox"))throw new Exception("Default save root is not local application data");
             foreach(bool relaxed in new[]{false,true})
             {
                 EnterFromMenu(World.NewRiverFrontage(relaxed,true,true));await Frames();
@@ -27,9 +29,10 @@ public partial class Game
                 if(_world.Food.Time<29)throw new Exception("Restored settlement could not resume actual life");
                 await Capture($"artifacts/196-return-{relaxed}.png");
             }
+            for(int i=0;i<100;i++){_world.Tick(.1f);SaveWorld();if(World.LoadFile(_continuePath).SaveJson()!=_world.SaveJson() || World.LoadFile(CurrentSavePath).SaveJson()!=_world.SaveJson())throw new Exception("Repeated native save mismatch");}
+            GD.Print("PASS100 native current-format manual+Continue replacements in isolated local storage, no migration.");
             GD.Print("PASS Normal/Relaxed actual save/menu/Continue and F9 restore chosen place/resident/view, missing target safe, paused and actual resumed life.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }
 }
-

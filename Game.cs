@@ -27,7 +27,7 @@ public partial class Game : Node3D
 
     public override void _Ready()
     {
-        try { ConfigureReviewSession(); }
+        try { if(!OS.GetCmdlineUserArgs().Any(a=>a.EndsWith("smoke-test")))UseSaveDirectory(LocalSaveDirectory); ConfigureReviewSession(); }
         catch(Exception e) { SetProcess(false);SetProcessUnhandledInput(false);GD.PushError(e.ToString());GetTree().Quit(1);return; }
         GetTree().NodeAdded += RegisterWorldLabel;
         if (OS.GetCmdlineUserArgs().Any(a => a.EndsWith("smoke-test"))) _campaignPath = "artifacts/campaign-smoke.json";

@@ -34,11 +34,7 @@ public partial class Game
         _reviewDirectory=request.GetProperty("runDirectory").GetString()!;
         Directory.CreateDirectory(_reviewDirectory);
         string saves=Path.Combine(_reviewDirectory,"session");Directory.CreateDirectory(saves);
-        _savePath=Path.Combine(saves,"settlement.json");_campaignPath=Path.Combine(saves,"campaign.json");
-        _neighborhoodPath=Path.Combine(saves,"neighborhood.json");
-        _continuePath=Path.Combine(saves,"continue.json");_largeSavePath=Path.Combine(saves,"three-clearings.json");
-        _creativeSavePath=Path.Combine(saves,"creative.json");_creativeLargeSavePath=Path.Combine(saves,"creative-three-clearings.json");
-        _atmospherePath=Path.Combine(saves,"atmosphere.cfg");_audioSettingsPath=Path.Combine(saves,"audio.cfg");
+        UseSaveDirectory(saves);
     }
 
     private async void StartReviewSession()

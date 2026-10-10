@@ -31,8 +31,9 @@ Start with the missing first-session evidence and deepen the existing river expe
 195. **Done** — Verify and correct visible building/resident picking across zoom and window sizes, including actual contextual use; then full review including presentation before196.
 196. **Done** — Return to the chosen view and inspected work after saving/quitting, safely paused; include missing-target handling and actual continuation.
 197. **Done** — Reconcile a planned addition with later Keep/Renew woodland choices through deliberate preparation or cancellation and actual use.
-198. Investigate reproduced Windows save replacement denial; count only a verified player-facing reliability improvement.
-199–200. Evidence-led complete session improvements after [review195](REVIEW_CHECKPOINT_195.md); investigate actual interruptions and warmed performance. No editor expansion or validation-only increments. Final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
+198. **Done** — Investigate reproduced Windows save replacement denial; count only a verified player-facing reliability improvement.
+199. Test and correct chosen-place Watch framing if it loses the actual destination/arrival; no new camera panel.
+200. Evidence-led complete session improvement after [review195](REVIEW_CHECKPOINT_195.md); investigate actual interruptions and warmed performance. No editor expansion or validation-only increments. Final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
 
