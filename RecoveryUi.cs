@@ -41,6 +41,7 @@ public partial class Game
         bool slotSaved=false;
         try
         {
+            RememberSessionView();
             string json = _world.SaveJson();
             if (json == _lastAutosaved) return;
             _world.SaveFile(AutosavePath); slotSaved=true;RememberSettlement(); _lastAutosaved = json;
@@ -59,14 +60,14 @@ public partial class Game
             {
                 var book = ReadCampaignBook(); book.Capture(restored); _campaignBook = book;
             }
-            AdoptWorld(restored);
+            AdoptWorld(restored);RestoreSessionView();
             Notice("Recovery restored and paused. F5 keeps it as your manual save.");
         }
         catch (Exception e) { Notice("Could not restore; current village kept. " + e.Message); }
     }
     private bool SaveSession()
     {
-        SettleMoveBeforeSave();
+        RememberSessionView();SettleMoveBeforeSave();
         try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
         catch (Exception e) { GD.PrintErr($"Session settlement-slot save failure: {e}");Notice("Could not save settlement; village kept open. Try F5 again."); return false; }
         try { RememberSettlement(); return true; }

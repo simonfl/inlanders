@@ -491,7 +491,7 @@ public sealed partial class World
         Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs == InitialLogs + GrownLogs + CreativeNet(Resource.Logs), "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
         ValidateWildlife(); ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateQuarryCampaign(); ValidateWoodsCampaign(); ValidateFinaleCampaign(); ValidateDemolition(); ValidateVisitor();
-        ValidateCameraViews();
+        ValidateCameraViews();ValidateSessionView();
         ValidateManagedWoodland();ValidatePreparedAddition();
         ValidateHappiness();
         ValidateDecorations();

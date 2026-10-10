@@ -88,6 +88,7 @@ public partial class Game
         else if(world.CourtStudy is {} study){_focus=OnGround(3,3);_camera.Size=CourtZoom(29);UpdateCamera();Notice(study.Finite?"Open a place to gather. Choose Your place [G] for the brief and starting layout. Space plays village life.":"Sixteen neighbors, a place of your own. Your place [G] shows the starting layout. Space plays village life.");}
         else if(world.IsArrangementCourt){_focus=OnGround(3,3);_camera.Size=CourtZoom(29);UpdateCamera();Notice(world.Creative?"Make a place of your own: free building, moves and removal. Real meals without hunger penalties. Welcoming is optional in Goals. Press Space to play.":"Choose a resident or home to follow daily life. Try one building elsewhere; restore it from the resident card. Welcoming is optional in Goals. Press Space to play.");}
         else Notice("Settlement ready and paused. Press Space to play.");
+        RestoreSessionView();
     }
     private void MenuAttempt(Action action)
     {

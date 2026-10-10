@@ -10,7 +10,7 @@ public partial class Game
     private void Notice(string message) { _notice = message; _noticeUntil = _uiTime + 8; }
     private void SaveWorld()
     {
-        SettleMoveBeforeSave();
+        RememberSessionView();SettleMoveBeforeSave();
         try { if (_world.Campaign != null) SaveCampaign(); else _world.SaveFile(CurrentSavePath); }
         catch (Exception e) { GD.PrintErr($"Settlement slot save failure: {e}");Notice("Could not save: " + e.Message);return; }
         try { RememberSettlement(); Notice("Settlement saved. F9 restores this save."); }
@@ -33,6 +33,7 @@ public partial class Game
             _world = restored; CloseManagementUi(); _placing = false; _accumulator = 0;
             _paused = true; _pauseButton.Text = "Resume  [Space]";
             CreateActors(); RefreshGhost(); RefreshSelection(); RebuildQueue();
+            RestoreSessionView();
             Notice("Settlement restored and paused. Press Space to continue.");
             _completionAnnounced = _world.Campaign?.Complete == true || _world.Neighborhood?.Complete==true;
             try { RememberSettlement(); }

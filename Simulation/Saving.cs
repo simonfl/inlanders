@@ -9,6 +9,7 @@ namespace Inlanders.Simulation;
 public sealed class WorldSave
 {
     public PreparedAddition? PendingAddition {get;set;}
+    public SessionView? SessionView {get;set;}
     public int Version { get; set; } = 54;
     public GroundUse[] GroundUse { get; set; } = System.Array.Empty<GroundUse>();
     public FoundingProgress? Founding { get; set; }
@@ -53,7 +54,7 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            PendingAddition=PendingAddition,GroundUse=ReadGroundUse(),Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
+            SessionView=SessionView,PendingAddition=PendingAddition,GroundUse=ReadGroundUse(),Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
             Creative = Creative, Gardener = Gardener, CameraViews = CameraViews, Decorations = Decorations, TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = _yardPlanks, Stone=_stone, QuarriedStone=QuarriedStone, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History, RecentFood = RecentFood, ManagedWoodland=ManagedWoodland
         }, SaveOptions);
@@ -93,6 +94,7 @@ public sealed partial class World
         w.Paths = s.Paths;w.RestoreGroundUse(s.GroundUse);
         w.ManagedWoodland=s.ManagedWoodland ?? throw new InvalidDataException("Missing woodland settings");
         w.Gardener = s.Gardener;
+        w.SessionView=s.SessionView;
         w.CameraViews = s.CameraViews ?? throw new InvalidDataException("Missing camera views");
         w.Decorations = s.Decorations ?? throw new InvalidDataException("Missing decorations");
         w.Validate(); w.ValidateMapOccupancy(); return w;
