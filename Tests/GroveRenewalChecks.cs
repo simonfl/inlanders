@@ -10,6 +10,14 @@ static class GroveRenewalChecks
         chosen.SetTreePreserved(working.Cell,true);
         if(!working.Preserved || !chosen.ManagedWoodland.Contains(working.Cell))throw new Exception("Preserve cannot override managed harvest");
         chosen.Validate();
+        var blocked=World.NewRiverLivelihood();
+        var renewal=blocked.Map.Land.First(c=>blocked.PlantingProblem(c)==null);
+        blocked.SetManagedWoodland(renewal,true);blocked.SetTreePreserved(blocked.Trees[0].Cell,false);
+        blocked.People[0].Position=renewal.Point;blocked.Tick(.1f);
+        if(blocked.People.Any(p=>p.Task is Work.ToTree or Work.Chopping))throw new Exception("Blocked renewal caused unnecessary felling with full timber");
+        for(int i=0;i<900 && blocked.TreesPlanted==0;i++)blocked.Tick(.1f);
+        if(blocked.TreesPlanted==0 || blocked.Stored!=36)throw new Exception("Blocked renewal failed to recover with full reserves");
+        blocked.Validate();
         foreach(bool relaxed in new[]{false,true})
         {
             var w=World.NewRiverLivelihood(relaxed);int timber=w.Stored;

@@ -43,6 +43,7 @@ public sealed partial class World
     private static bool FoodRole(Role role)=>role is Role.Forager or Role.Farmer or Role.Baker or Role.Fisher or Role.Hunter;
     public bool ProvisionedLife => Founding?.ProvisionedLife==true;
     public bool FoodWorkNeeded => !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
+    private bool SharedTimberNeeded => Stored<Math.Min(24,8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs)));
     private void ClaimSharedWork(Villager person)
     {
         person.Role=Role.Unassigned;
@@ -65,8 +66,7 @@ public sealed partial class World
         if(EdibleStored<Population*3 && FoodWork())return;
         if(Try(Role.Builder))return;
         // Keep a modest working reserve; shared labor must not strip the map while idle.
-        int logsNeeded=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
-        if((Stored<Math.Min(24,logsNeeded) || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
+        if((SharedTimberNeeded || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
         int plankNeed=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Planks).Sum(c=>c.Remaining(Resource.Planks))
             +Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c)));
