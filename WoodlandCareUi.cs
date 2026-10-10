@@ -39,7 +39,7 @@ public partial class Game
         if(!_careActive)return;
         _carePanel.Position=new(_hud.Size.X-292,92);_carePanel.Size=new(276,0);Clear(_careMarks);
         foreach(var pair in _careChoices)pair.Value.SetPressedNoSignal(pair.Key==_careIntent);
-        string consequence=_careIntent switch{WoodlandIntent.Keep=>"Leave these trees standing; stop cuts before they fall.",WoodlandIntent.Renew=>"Take needed timber and replant. Empty spots are planted now.",_=>_world.Creative?"Recover timber and remove trees and roots immediately.":"Collect timber and remove roots for new uses. No regrowth."};
+        string consequence=_careIntent switch{WoodlandIntent.Keep=>"Cancel clearing; keep living trees standing. Fallen trees need renewal.",WoodlandIntent.Renew=>"Cancel clearing, take needed timber and replant. Collected timber stays collected.",_=>_world.Creative?"Recover timber and remove trees and roots immediately.":"Collect timber and remove roots for new uses. No regrowth."};
         _careText.Text=consequence+"\nDrag trees or click a spot; Apply starts work.";
         _careApply.Disabled=!_careSelected;
         if(!_careSelected)return;

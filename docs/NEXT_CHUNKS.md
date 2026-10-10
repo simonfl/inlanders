@@ -22,7 +22,8 @@ Start with the missing first-session evidence and deepen the existing river expe
 186. **Done** — Whole woodland intention proposal, pure selection/cancel, actual timber for a wanted addition and renewed growth.
 187. **Done** — Let a desired building footprint guide deliberate ground preparation, with actual clearing and ordinary placement afterward; avoid blind clearance, extra panel or automatic resource changes.
 188. **Done** — Actual walking routes determine recreation/quiet-place visits; new crossing changes actual destination.
-189–190. Complete existing-place land interventions or measured reliability outcomes, selected from evidence; no new tributary or pose ladder. Reevaluate after each complete action.
+189. **Done** — Reconsider applied clearing through the same proposal, retaining physical progress.
+190. Renew elsewhere as a bounded spaced grove on chosen bare ground; complete actual planting/maturity and review the whole game. No new map or catalogue expansion.
 191–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.

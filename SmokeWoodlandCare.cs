@@ -21,6 +21,13 @@ public partial class Game
             if(_carePanel.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Care controls overflow compact view");
             await Capture("artifacts/186-care-proposal-960.png");await Press(Key.Escape);await Frames();
             if(_careActive || !_paused || _world.SaveJson()!=original)throw new Exception("Care cancellation changed state");
+            // Reconsider an applied clear order through the same ordinary proposal.
+            _world.SetClearing(tree.Cell,true);BeginWoodlandCare();await Frames();await Click(point);
+            await UiClick(_careChoices[WoodlandIntent.Keep]);await Frames();
+            if(_careApply.Disabled || !tree.ClearRequested)throw new Exception("Reconsideration preview must remain pure and applicable");
+            await UiClick(_careApply);_paused=true;await Frames();ExitWatch();
+            if(tree.ClearRequested || !tree.Preserved || tree.Felled)throw new Exception("Keep did not cancel pending clearance");
+            _careIntent=WoodlandIntent.Renew;
             // Choose an actual wanted addition with ordinary placement, then supply it from selected woodland.
             var at=_world.Map.Land.OrderBy(c=>(c.Point-new Cell(0,7).Point).LengthSquared()).First(c=>_world.PlacementProblem(c,0,BuildingKind.SeatingGarden)==null);
             _focus=OnGround(at.X,at.Z);UpdateCamera();BeginPlacement(BuildingKind.SeatingGarden);await Frames();await Click(_camera.UnprojectPosition(OnGround(at.X,at.Z)));await Press(Key.Escape);await Frames();
