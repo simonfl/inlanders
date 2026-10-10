@@ -27,8 +27,8 @@ Start with the missing first-session evidence and deepen the existing river expe
 191. **Done** — A persistent explicit addition on wooded ground, through ordinary preparation/construction and actual use, with honest blocking and cancellation. One complete outcome.
 192. **Done** — Examine whole material-supply trips for a chosen addition; improve only a reproduced route-choice failure, including completed useful work and current saves.
 193. **Done** — Bounded matched rendering-cost investigation; count only a verified playable performance improvement.
-194. Make selected residents and proposed ground visible through occluding canopies, restoring the intact view when attention moves. Complete interaction/readability check; no permanent clearing or new panel.
-195. Select from whole-game evidence, then full review including presentation before196.
+194. **Done** — Make selected residents and proposed ground visible through occluding canopies, restoring the intact view when attention moves. Complete interaction/readability check; no permanent clearing or new panel.
+195. Verify and correct visible building/resident picking across zoom and window sizes, including actual contextual use; then full review including presentation before196.
 196–200. TBD after review195, final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.

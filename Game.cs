@@ -10,7 +10,7 @@ public partial class Game : Node3D
     private World _world = World.NewScenario();
     private Camera3D _camera = null!;
     private Node3D _dynamic = null!, _stored = null!, _ghost = null!, _selection = null!;
-    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public Label3D? Amount; public int Logs = -1, Stage = -1; public bool ObservedStanding; public float? FallStarted; }
+    private sealed class TreeView { public Node3D Top = null!, Pile = null!; public Label3D? Amount; public int Logs = -1, Stage = -1; public bool ObservedStanding; public float? FallStarted; public CanopyCutaway? Cutaway; }
     private const int LooseStockDisplayLimit=12;
     private readonly List<PersonView> _people = new();
     private readonly Dictionary<int, TreeView> _trees = new();
@@ -50,6 +50,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--ground-preparation-smoke-test")) CallDeferred(nameof(RunGroundPreparationSmoke));
+        if (OS.GetCmdlineUserArgs().Contains("--canopy-cutaway-smoke-test")) CallDeferred(nameof(RunCanopyCutawaySmoke));
         if (OS.GetCmdlineUserArgs().Contains("--static-batches-smoke-test")) CallDeferred(nameof(RunStaticBatchSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--new-grove-smoke-test")) CallDeferred(nameof(RunNewGroveSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--woodland-care-smoke-test")) CallDeferred(nameof(RunWoodlandCareSmoke));
@@ -232,7 +233,7 @@ public partial class Game : Node3D
         TracePhase(0);
         if (!_paused) { _accumulator += dt * _speed; while (_accumulator >= 0.1f) { if(_traceFrames)_frameTrace.Ticks++;_world.Tick(0.1f); _accumulator -= 0.1f; } }
         TracePhase(1); AdvanceAutosave(delta); UpdateRecoveryUi(); TracePhase(2);
-        RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); TracePhase(4);
+        RenderActors(dt); TracePhase(3); UpdateAtmosphere(); UpdateFollowing(); RenderCanopyCutaways(dt); TracePhase(4);
         RenderFoodViews(); TracePhase(5); UpdateHud(); UpdateWatchUi();RenderHamletComparison();RenderHamletEnding();RenderFirstPlaceUi();RenderHomePlotUi();RenderCultivationUi();RenderHouseholdMove(); TracePhase(6); UpdateAudio(dt); TracePhase(7); EndFrameTrace();
     }
     private void RenderActors(float dt)
