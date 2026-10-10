@@ -19,7 +19,8 @@ Start with the missing first-session evidence and deepen the existing river expe
 183. **Done** — Verify and correct timber dispatch when grove planting is temporarily blocked.
 184. **Done** — Show actual renewal as digging, placing a sapling and growing at the chosen spot.
 185. **Done** — Synchronize existing rustle with actual picking/planting contact; full185 review including presentation before186.
-186–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
+186–190. Complete existing-place land interventions, with feedback and recovery in the same outcome. Start by consolidating woodland intent and inspecting a real use sequence; no new tributary, automatic pose ladder or one-label checkpoints. Reevaluate after each complete action.
+191–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
 
