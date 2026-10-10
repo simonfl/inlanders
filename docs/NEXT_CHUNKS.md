@@ -29,7 +29,9 @@ Start with the missing first-session evidence and deepen the existing river expe
 193. **Done** — Bounded matched rendering-cost investigation; count only a verified playable performance improvement.
 194. **Done** — Make selected residents and proposed ground visible through occluding canopies, restoring the intact view when attention moves. Complete interaction/readability check; no permanent clearing or new panel.
 195. **Done** — Verify and correct visible building/resident picking across zoom and window sizes, including actual contextual use; then full review including presentation before196.
-196–200. TBD after review195, final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
+196. Return to the chosen view and inspected work after saving/quitting, safely paused; include missing-target handling and actual continuation.
+197. Reconcile a planned addition with later Keep/Renew woodland choices through deliberate preparation or cancellation and actual use.
+198–200. Evidence-led complete session improvements after [review195](REVIEW_CHECKPOINT_195.md); investigate actual interruptions and warmed performance. No editor expansion or validation-only increments. Final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
 
