@@ -1,3 +1,17 @@
+# Active batch — checkpoints171–200
+
+Authorized October9,2026: thirty playable outcomes, then stop200. Whole-project reviews175/180/185/190/195/200; visual/audio every ten and after substantial presentation changes. No human play feedback assumed. Review170's stop is superseded by this authorization; its evidence limits remain.
+
+Start with the missing first-session evidence and deepen the existing river experience. Do not preassign thirty features or count tests/docs as outcomes. Rebuild each next-five queue from the independent review.
+
+171. **Done** — Bring the homes-ready arrival through a discoverable first food choice, ordinary placement and an actual meal, using the existing first-place surface.
+172–175. Select from observed livelihood siting/supply, delayed or mistaken investment and recovery, and recognizable productive payoff. Run adverse new-arrival experiments before assigning precise scope. No new need/resource or compulsory growth by default.
+176–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
+
+After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
+
+## Earlier completed batch
+
 # Completed batch — checkpoints161–170
 
 Authorized October8,2026. Ten playable outcomes committed; whole-game reviews165/170 complete, including visual/audio. Final52-suite regression passed on the reviewed build; delivery closes the batch. Stop170; no171 authorized. No new human play feedback assumed.
