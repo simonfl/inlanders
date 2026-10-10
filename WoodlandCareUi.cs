@@ -44,7 +44,7 @@ public partial class Game
         _careApply.Disabled=!_careSelected;
         if(!_careSelected)return;
         var plan=_world.PreviewWoodlandCare(_careFirst,_careLast,_careIntent);_careApply.Disabled=plan.Problem!=null;
-        _careText.Text+=$"\n{plan.Cells.Length} tree spots · {plan.Timber} logs\n"+(plan.Problem??"Ready; drag again to revise.");
+        _careText.Text+=$"\n{plan.Cells.Length} tree spots · {plan.Timber} existing logs\n"+(plan.Problem??"Ready; drag again to revise.");
         if(_careIntent!=WoodlandIntent.Keep && plan.Cells.Any(c=>_world.HabitatLoss(c)!=""))_careText.Text+="\nFelling reduces hunting habitat.";
         foreach(var c in plan.Cells)GroundPatch(_careMarks,c.X,c.Z,.92f,.92f,plan.Problem==null?new("d6bc7a"):new("cc7967"),.07f);
     }

@@ -12,7 +12,7 @@
 
 171–180 connected ordinary first-food choice, resource siting, real source/worker trips, food-shortage recovery and sustainable timber.181–185 made gathering and planting credible, then [review185](REVIEW_CHECKPOINT_185.md) rejected an automatic pose queue.186–190 now support a whole land intention: keep woodland, harvest and renew, prepare a desired building footprint, reconsider clearing, or establish a spaced grove elsewhere. Actual routes govern subsequent shared visits.
 
-Freeze190 for the five-role whole-project review before choosing191–195. Review195 again before196–200, then full review and stop200. Human enjoyment and listening remain unobserved. [Active queue](NEXT_CHUNKS.md).
+[Full190 review](REVIEW_CHECKPOINT_190.md) retains land care but freezes editor expansion. Choose one explicit addition through preparation, construction and actual use; cancellation/blocking belong to that same outcome. Review195 again before196–200, then full review and stop200. Human enjoyment and listening remain unobserved. [Active queue](NEXT_CHUNKS.md).
 
 **Completed161–170:** Matched founding, bounded arrangement recovery, the river-farmstead landscape, row-sized field collection and measured actor/HUD fixes are committed. Public Play now offers **Establish life by the river** or **Tend a river settlement**, with Normal/Relaxed and earlier beginnings retained. Whole-game reviews [165](REVIEW_CHECKPOINT_165.md) and [170](REVIEW_CHECKPOINT_170.md) choose provisional retention and **stop170**. Final52-suite regression passed on the reviewed build; delivery closes the batch. No171 authorized. [Batch outcomes and future hypotheses](NEXT_CHUNKS.md).
 
