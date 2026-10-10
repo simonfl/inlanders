@@ -67,6 +67,7 @@ public partial class Game
             ToggleDrawer(0); _drawerPages[0].EnsureControlVisible(_allocationButtons[(role,1)]);
             Notice("Use + beside " + role + " to assign a worker.");
         }
+        else if(issue.Harvest) { ClearSelection();BeginEverydayTimber(); }
         else if(issue.Plant) { ToggleDrawer(1); ClearSelection(); if(!_placing || !_plantingTrees) ToggleTreePlanting(); }
     }
     private void UpdateEconomyUi()

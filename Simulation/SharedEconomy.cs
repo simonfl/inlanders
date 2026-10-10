@@ -30,6 +30,8 @@ public sealed partial class World
         NeedSite(BuildingKind.Quarry,Short(Resource.Stone),"Stone orders exceed available stone.");
         NeedSite(BuildingKind.Carpenter,PublicPlace==null && sites.Any(c=>c.ImprovementRequested),"Home improvements need an open workshop, planks and an accessible installation spot.");
         if(Short(Resource.Logs) && !Trees.Any(t=>t.Logs>0 || t.Growth<1 || t.NeedsPlanting))issues.Add(new("plant","Construction needs timber; mark new alders to plant.",Plant:true));
+        if(Short(Resource.Logs) && Trees.Any(t=>t.Preserved && t.Logs>0) && !Trees.Any(t=>!t.Preserved && (t.Logs>0 || t.NeedsPlanting || t.ClearRequested)))
+            issues.Add(new("timber-preserved","Timber orders exceed supplies; standing trees are preserved. Choose trees to harvest, or pause an unneeded plan.",Harvest:true));
         var bakery=sites.FirstOrDefault(c=>c.Kind==BuildingKind.Bakery && c.Complete && !c.WorkPaused);
         if(bakery!=null && StoredGrain+sites.Sum(c=>c.InputGrain)==0 && !sites.Any(c=>c.Kind==BuildingKind.Farm))
             issues.Add(new("build-Farm","The bakery has no grain supply or planned farm.",Build:BuildingKind.Farm));

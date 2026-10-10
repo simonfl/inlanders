@@ -21,7 +21,7 @@ public partial class Game
             await UiClick(_firstPlaceChoices[kind]);await Frames();Check(_placing && _buildKind==kind && !_firstPlace.Visible,"Direct first choice did not open placement");
             await Press(Key.Escape);await Frames();Check(!_placing && _firstPlace.Visible && saved==_world.SaveJson(),"Cancelled first choice changed village or lost alternatives");
         }
-        await UiClick(_firstPlaceTimber);await Frames();Check(_placing && _clearingTrees,"Opening timber action missing");await Press(Key.Escape);await Frames();Check(saved==_world.SaveJson(),"Opening timber cancel changed village");
+        await UiClick(_firstPlaceTimber);await Frames();Check(_placing && _woodlandTool==2 && !_clearingTrees,"Opening timber action missing");await Press(Key.Escape);await Frames();Check(saved==_world.SaveJson(),"Opening timber cancel changed village");
         await UiClick(_firstPlaceBrowse);await Frames();Check(_drawer.Visible && _buildingFilter.Selected==0,"Full catalogue inaccessible");await Press(Key.Escape);await Frames();
         await UiClick(_firstPlaceLook);await Frames();Check(!_firstPlace.Visible && saved==_world.SaveJson(),"Look around changed the village");await Press(Key.B);await Frames();Check(_drawer.Visible,"Dismissal blocked normal build access");await Press(Key.Escape);await Frames();
         await Press(Key.F5);await Press(Key.F9);await Frames();Check(_world.SaveJson()==saved && _world.PublicPlace!.PlayerFounded,"New entry lost save identity");

@@ -12,7 +12,8 @@ Start with the missing first-session evidence and deepen the existing river expe
 176. **Done** — Source-led planning: use the existing land survey to choose a real berry patch, fishing ground or woodland and plan its relevant workplace in that view. No new inspector.
 177. **Done** — Gathering chooses whole walking trips, making the selected hut location useful instead of oldest-site bias.
 178. **Done** — Connect paths directly to real resource access using existing world path proposals.
-179–180. Refine useful land/work relationships and identity-preserving recovery from the combined-source evidence, then review. Sixty-minute current-rule experiments support landing+berries, landing+berries+hunting, grain+oven and three gardens without missed meals. Do not rebalance isolated sources or count that test as a feature. Precise outcomes remain evidence-led.
+179. **Done** — Harvest selected timber without automatically clearing roots; recover from preserved timber shortage through the existing tool.
+180. Managed woodland should replant ahead of the next timber shortage, then full review. Sixty-minute current-rule experiments support landing+berries, landing+berries+hunting, grain+oven and three gardens without missed meals. Do not rebalance isolated sources or count that test as a feature. Precise outcomes remain evidence-led.
 181–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.

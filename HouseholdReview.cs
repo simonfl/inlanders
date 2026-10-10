@@ -19,10 +19,13 @@ public partial class Game
             await UiClick(_buildBreadth);await Frames();await UiClick(_gatherTimber);await Frames();
             var tree=_world.Trees.Where(t=>t.Logs>0 && _world.ClearingProblem(t.Cell)==null).OrderBy(t=>t.Cell.Point.LengthSquared()).First();
             _focus=OnGround(tree.Cell.X,tree.Cell.Z);_camera.Size=18;UpdateCamera();await Frames();var tp=_camera.UnprojectPosition(OnGround(tree.Cell.X,tree.Cell.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=tp,GlobalPosition=tp});await Frames();
-            Check(_hint.Text.Contains("shared workers"),"Clearing wrongly asks for manual staffing");await Click(tp);await Frames();Check(tree.ClearRequested,"Timber not ordered");await Click(tp);await Frames();Check(!tree.ClearRequested,"Timber order not cancelled");
-            await Click(tp);await Press(Key.Escape);_paused=false;_speed=6;double started=_uiTime;
-            while(_uiTime-started<45 && _world.Trees.Contains(tree))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
-            _paused=true;Check(!_world.Trees.Contains(tree),"Marked timber never collected and cleared by shared labor");await CaptureReviewBundle("timber-ground-cleared");CloseDrawer();
+            Check(_woodlandTool==2 && !_clearingTrees,"Timber choice must retain roots");await Click(tp);await Frames();Check(!tree.Preserved && !tree.ClearRequested,"Harvest did not release chosen tree");
+            await Press(Key.Escape);BeginWoodlandTool(1);await Frames();await Click(tp);await Frames();Check(tree.Preserved,"Preserve did not cancel unstarted harvest");
+            await Press(Key.Escape);BeginEverydayTimber();await Frames();await Click(tp);await Press(Key.Escape);
+            var plan=_world.Map.Land.First(c=>_world.PlacementProblem(c,0,BuildingKind.VegetableField)==null);_world.Place(plan,0,BuildingKind.VegetableField);
+            _paused=false;_speed=6;double started=_uiTime;
+            while(_uiTime-started<45 && !tree.Felled)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _paused=true;Check(tree.Felled && _world.Trees.Contains(tree) && !tree.ClearRequested,"Selected timber not harvested with roots retained");await CaptureReviewBundle("timber-harvest-roots-retained");CloseDrawer();
         }
         CloseManagementUi();string navigationState=_world.SaveJson();
         Check(_menuButtons.Where(b=>b.Visible).Count()==2,"Public navigation is not reduced");

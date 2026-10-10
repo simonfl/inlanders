@@ -327,7 +327,7 @@ public partial class Game
         if(_movingSite>=0 && _resumeMovedWork)_hint.Text+="\nWork resumes on place or cancel. Growing crops restart; ripe crops and goods stay.";
         if(_placing && !PointerOverHud(_pointerPosition))
         {
-            if(_clearingTrees) _hint.Text+="\n"+_world.HabitatLoss(_hover);
+            if(_clearingTrees || _woodlandTool==2) _hint.Text+="\n"+_world.HabitatLoss(_hover);
             else if(!_plantingTrees && !_decorating && _pathTool==0 && _woodlandTool==0 && _buildKind==BuildingKind.HuntingLodge) _hint.Text+="\n"+_world.WildlifeSurvey(_hover);
         }
         if(LivelihoodPreviewActive && _livelihoodSite is {Summary.Length:>0} livelihood)_hint.Text+="\n"+livelihood.Summary;

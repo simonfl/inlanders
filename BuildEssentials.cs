@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public partial class Game
 {
     private static readonly BuildingKind[] EverydayBuildings={BuildingKind.Cottage,BuildingKind.VegetableField,BuildingKind.FishingDock};
-    private void BeginEverydayTimber(){ToggleClearing();CloseDrawer();}
+    private void BeginEverydayTimber(){BeginWoodlandTool(2);CloseDrawer();}
     private bool _fullBuild;
     private VBoxContainer _essentials=null!;
     private Button _buildBreadth=null!,_gatherTimber=null!;
@@ -19,7 +19,7 @@ public partial class Game
         {
             var choice=kind;var b=Button("",()=>{BeginPlacement(choice);CloseDrawer();});b.CustomMinimumSize=new(0,50);b.AutowrapMode=TextServer.AutowrapMode.WordSmart;_essentials.AddChild(b);_essentialChoices[kind]=b;
         }
-        _gatherTimber=Button("Gather timber · choose trees",BeginEverydayTimber);_gatherTimber.CustomMinimumSize=new(0,50);_gatherTimber.TooltipText="Shared workers collect the marked trees' timber and clear roots. Mark again to cancel before work; cutting cannot be undone.";_essentials.AddChild(_gatherTimber);
+        _gatherTimber=Button("Harvest timber · choose trees",BeginEverydayTimber);_gatherTimber.CustomMinimumSize=new(0,50);_gatherTimber.TooltipText="Allow selected trees to supply shared timber work when needed. Stumps remain for replanting; use Clear trees & stumps [C] when you need building ground. Preserve a tree to stop a cut before it falls.";_essentials.AddChild(_gatherTimber);
     }
     private void RenderBuildEssentials()
     {

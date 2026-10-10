@@ -8,7 +8,7 @@ public sealed record EconomyStock(Resource Resource, int Stored, int Reserved, i
 {
     public int Available => Stored - Reserved;
 }
-public sealed record EconomyIssue(string Id, string Text, BuildingKind? Build = null, Role? Staff = null, bool Plant = false, int? Workplace = null);
+public sealed record EconomyIssue(string Id, string Text, BuildingKind? Build = null, Role? Staff = null, bool Plant = false, int? Workplace = null, bool Harvest = false);
 public sealed record EconomyReport(EconomyStock[] Stocks, int Meals, float NextMealSeconds, EconomyIssue[] Issues);
 
 public sealed partial class World

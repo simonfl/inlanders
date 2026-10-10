@@ -22,7 +22,7 @@ public partial class Game
             var choice=kind;var button=Button("",()=>{CloseManagementUi();BeginPlacement(choice);_noticeUntil=0;});
             button.TooltipText=BuildingDescription(kind);column.AddChild(button);_firstPlaceChoices[kind]=button;
         }
-        _firstPlaceTimber=Button("Gather timber · choose trees",BeginEverydayTimber);column.AddChild(_firstPlaceTimber);
+        _firstPlaceTimber=Button("Harvest timber · choose trees",BeginEverydayTimber);column.AddChild(_firstPlaceTimber);
         _firstPlaceDetail=Text("",13,true);column.AddChild(_firstPlaceDetail);
         _firstPlaceBrowse=Button("All building choices [B]",()=>{_fullBuild=true;ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();});column.AddChild(_firstPlaceBrowse);
         _firstPlaceLook=Button("Look around first [Esc]",()=>_firstPlaceDismissed=true);column.AddChild(_firstPlaceLook);_firstPlace.Hide();
