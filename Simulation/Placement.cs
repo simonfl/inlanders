@@ -21,32 +21,34 @@ public sealed partial class World
         return CheckPlacement(new HashSet<Cell> { cell }, new(cell.X + 1, cell.Z), tree);
     }
 
-    private string? CheckPlacement(HashSet<Cell> footprint, Cell entrance, TimberTree? reusableStump = null)
+    private string? CheckPlacement(HashSet<Cell> footprint, Cell entrance, TimberTree? reusableStump = null, IReadOnlySet<int>? clearingTrees=null)
     {
         if (Food.Celebrating) return "Wait until the village supper is over.";
+        bool Removed(TimberTree t)=>clearingTrees?.Contains(t.Id)==true;
+        bool Blocks(Cell c)=>Blocked(c) && !Trees.Any(t=>t.Cell==c && Removed(t));
         if (footprint.Any(c => !Inside(c)) || !Inside(entrance)) return "Keep the footprint and its entrance inside the buildable map.";
         if (footprint.Any(Map.Water.Contains)) return "Water needs a bridge; buildings and planting require dry land.";
         if (Decorations.Any(d => footprint.Contains(d.Cell))) return "Remove decorations from this footprint first.";
         if (footprint.Contains(Stockpile)) return "The timber yard occupies this spot.";
         if(Map.Wildlife.Any(h=>footprint.Contains(h.Cell))) return "Keep the woodland tracking clearing open.";
         if(Map.StoneDeposits.Any(d=>footprint.Contains(d.Cell) || footprint.Contains(d.Access))) return "Keep the stone outcrop and its working access clear.";
-        var tree = Trees.FirstOrDefault(t => t != reusableStump && footprint.Contains(t.Cell));
+        var tree = Trees.FirstOrDefault(t => t != reusableStump && !Removed(t) && footprint.Contains(t.Cell));
         if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
         if (Bushes.Any(b => footprint.Contains(b.Cell))) return "Berry bushes occupy this footprint.";
         var site = Cottages.FirstOrDefault(c => Footprint(c).Any(footprint.Contains));
         if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
-        if (Blocked(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
+        if (Blocks(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";
         if (Cottages.SelectMany(ClaimedHomeYardPlaces).Any(footprint.Contains)) return "A furnished or ordered home yard uses this ground. Move or cancel the yard first.";
         if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
         if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotation)) || footprint.Contains(Door(c.Cell, c.Rotation))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";
-        if (Trees.Any(t => footprint.Contains(t.Access)) || Bushes.Any(b => footprint.Contains(b.Access))) return "Workers need this spot to reach trees or berry bushes.";
+        if (Trees.Any(t => !Removed(t) && footprint.Contains(t.Access)) || Bushes.Any(b => footprint.Contains(b.Access))) return "Workers need this spot to reach trees or berry bushes.";
         var worker = People.FirstOrDefault(v => footprint.Contains(At(v)) || (v.Route.TryPeek(out var next) && footprint.Contains(next)));
         if (worker != null) return $"{worker.Name} is standing here or stepping into this footprint. Wait or choose another spot.";
-        bool Obstacle(Cell c) => Blocked(c) || footprint.Contains(c);
-        var access = Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat)).Append(YardAccess).Append(entrance);
+        bool Obstacle(Cell c) => Blocks(c) || footprint.Contains(c);
+        var access = Trees.Where(t=>!Removed(t)).Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Concat(Cottages.Select(c => c.Entrance)).Concat(People.Where(v => v.LeisureSiteId != null || v.Task is Work.ToRest or Work.Resting).Select(v => v.Destination)).Concat(People.Where(p=>p.Meal is {Reserved:true} or {Carrying:true}).Select(p=>p.Meal!.Seat)).Append(YardAccess).Append(entrance);
         access=access.Concat(SharedPlaces.SelectMany(commons=>commons.Places.Append(commons.Center)));
         if(Gathering is {Active:true} gathering)access=access.Concat(gathering.Seats.Values);
         var reached = Reachable(YardAccess, Obstacle);

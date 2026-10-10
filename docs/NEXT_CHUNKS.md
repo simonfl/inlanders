@@ -20,7 +20,7 @@ Start with the missing first-session evidence and deepen the existing river expe
 184. **Done** — Show actual renewal as digging, placing a sapling and growing at the chosen spot.
 185. **Done** — Synchronize existing rustle with actual picking/planting contact; full185 review including presentation before186.
 186. **Done** — Whole woodland intention proposal, pure selection/cancel, actual timber for a wanted addition and renewed growth.
-187. Let a desired building footprint guide deliberate ground preparation, with actual clearing and ordinary placement afterward; avoid blind clearance, extra panel or automatic resource changes.
+187. **Done** — Let a desired building footprint guide deliberate ground preparation, with actual clearing and ordinary placement afterward; avoid blind clearance, extra panel or automatic resource changes.
 188–190. Complete existing-place land interventions or measured reliability outcomes, selected from evidence; no new tributary or pose ladder. Reevaluate after each complete action.
 191–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 

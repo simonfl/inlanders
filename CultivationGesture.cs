@@ -19,7 +19,7 @@ public partial class Game
             if(_plotAnchor is Cell anchor)
             {
                 _plotAnchor=null;
-                if(!PointerOverHud(click.Position)){_hover=anchor;PlaceCottage(anchor);}else RefreshGhost();
+                if(!PointerOverHud(click.Position)){_hover=anchor;PlaceCottage(anchor,click.ShiftPressed);}else RefreshGhost();
                 return true;
             }
         }

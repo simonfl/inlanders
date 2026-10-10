@@ -10,6 +10,7 @@ public partial class Game
     private readonly List<StandardMaterial3D> _previewMaterials = new();
     private Label _buildDescription = null!;
     private Vector2 _pointerPosition;
+    private GroundPreparation? _groundPreparation;
     public override void _Input(InputEvent input)
     {
         if (_atMainMenu) { HandleMainMenuKey(input);return; }
@@ -120,13 +121,15 @@ public partial class Game
             _ghostCells = new(); _ghost.AddChild(_ghostCells); _ghostModel = new(); _ghost.AddChild(_ghostModel);
         }
         _ghost.Visible = _placing && !PointerOverHud(_pointerPosition);
+        _groundPreparation=null;
         if (!_placing) return;
         _placementProblem = PlacementProblem(_hover); _ghostValid = _placementProblem.Length == 0;
         if(_woodlandTool>0) { RefreshWoodlandGhost(); return; }
         if (_decorating) { RefreshDecorationGhost(); return; }
         if (_pathTool > 0) { RefreshPathGhost(); return; }
         if (_clearingTrees) { RefreshClearingGhost(); return; }
-        var tint = _ghostValid ? new Color("a4caa0") : new Color("e38673");
+        if(!_ghostValid && !_plantingTrees && _movingSite<0 && !(HomePlotActive && _homePlotSide>=0))_groundPreparation=_world.PreviewGroundPreparation(_hover,_rotation,_buildKind,PlacementRows);
+        var tint = _ghostValid ? new Color("a4caa0") : _groundPreparation!=null?new Color("dfbd77"):new Color("e38673");
         var moving=_movingSite>=0?_world.Cottages.FirstOrDefault(c=>c.Id==_movingSite):null;
         string key = moving!=null?RelocationModelKey(moving):_plantingTrees ? "tree" : _buildKind.ToString()+PlacementRows;
         if (_ghostModelKey != key)
@@ -160,6 +163,7 @@ public partial class Game
         }
         if(!PlotActive)marker.AddChild(new Label3D { Text = _plantingTrees ? "ACCESS" : "ENTRANCE", Position = new(0, 0.32f, 0), FontSize = 32, PixelSize = 0.01f,
             Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Modulate = _cream, OutlineSize = 4 });
+        if(_groundPreparation!=null)foreach(var c in _groundPreparation.Trees)ClearingCross(_ghostCells,OnGround(c.X,c.Z,.13f),new("dfbd77"),1.1f);
         RefreshLivelihoodPreview();RefreshHomePlotPreview();
     }
     private void PreparePreview(Node root,bool retainColors=false)

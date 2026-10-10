@@ -49,6 +49,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--plank-storage-smoke-test")) CallDeferred(MethodName.RunPlankStorageSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--ground-preparation-smoke-test")) CallDeferred(nameof(RunGroundPreparationSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--woodland-care-smoke-test")) CallDeferred(nameof(RunWoodlandCareSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--gathering-work-smoke-test")) CallDeferred(nameof(RunGatheringWorkSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--field-work-smoke-test")) CallDeferred(MethodName.RunFieldWorkSmoke);
@@ -133,6 +134,8 @@ public partial class Game : Node3D
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
+        if(pathWaypoint && !(HomePlotActive && _homePlotSide>=0) && _world.PrepareBuildingGround(at,_rotation,_buildKind,PlacementRows))
+        {UiCue(Cue.Place);Notice("Ground clearing ordered; timber is recovered and roots removed. Place the building once clear. Esc leaves these confirmed clearing orders in place.");RefreshGhost();return;}
         var site = HomePlotActive && _homePlotSide>=0?_world.PlaceHomePlot(at,_rotation,_buildKind,_homePlotSide):_world.Place(at, _rotation, _buildKind,PlacementRows); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
         if(_world.PublicPlace!=null)ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
