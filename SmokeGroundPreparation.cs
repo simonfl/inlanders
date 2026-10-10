@@ -15,17 +15,25 @@ public partial class Game
             var point=_camera.UnprojectPosition(OnGround(target.c.X,target.c.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();
             string untouched=_world.SaveJson();await Click(point);await Frames();
             if(_groundPreparation==null || _ghostValid || _world.SaveJson()!=untouched)throw new Exception("Ordinary click cleared or invalid preparation preview");
-            await Capture("artifacts/187-prepare-footprint-960.png");
+            await Capture("artifacts/191-prepare-footprint-960.png");
             foreach(bool pressed in new[]{true,false}){Input.ParseInputEvent(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=pressed,ShiftPressed=true});await Frames();}
-            if(!target.p!.Trees.All(c=>_world.Trees.Single(t=>t.Cell==c).ClearRequested) || !_placing)throw new Exception("Explicit footprint clearing failed");
+            if(!target.p!.Trees.All(c=>_world.Trees.Single(t=>t.Cell==c).ClearRequested) || _placing || _world.PendingAddition==null)throw new Exception("Explicit footprint clearing failed");
+            await Frames();if(!_additionCard.Visible || _additionCard.GetGlobalRect().End.Y>_hud.Size.Y-75 || _additionCard.GetGlobalRect().End.X>_hud.Size.X)throw new Exception($"Prepared addition card visible={_additionCard.Visible}, rect={_additionCard.GetGlobalRect()}");
+            await Capture("artifacts/191-prepared-card-960.png");
+            await Press(Key.F5);string pending=_world.SaveJson();await Press(Key.F9);await Frames();
+            if(_world.SaveJson()!=pending || _world.PendingAddition==null)throw new Exception("Saved preparation intent lost");
+            ShowPreparedAddition();await Frames();await UiClick(_additionCancel);await Frames();
+            if(_world.PendingAddition!=null || _world.Trees.Any(t=>target.p.Trees.Contains(t.Cell) && (t.ClearRequested || !t.Preserved)))throw new Exception("Native plan cancellation failed");
+            BeginPlacement(BuildingKind.SeatingGarden);_rotation=target.r;await Frames();
+            foreach(bool pressed in new[]{true,false}){Input.ParseInputEvent(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=pressed,ShiftPressed=true});await Frames();}
+            if(_world.PendingAddition==null)throw new Exception("Replanned intention missing");
             _paused=false;_speed=6;double start=_uiTime;
-            while(_uiTime-start<80 && _world.PlacementProblem(target.c,target.r,BuildingKind.SeatingGarden)!=null)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
-            _paused=true;await Frames();if(!_ghostValid)throw new Exception("Prepared footprint never legal");
-            await Click(point);await Frames();var site=_world.Cottages.Last();if(site.Kind!=BuildingKind.SeatingGarden || site.Cell!=target.c)throw new Exception("Ordinary placement after clearance failed");
-            _paused=false;start=_uiTime;while(_uiTime-start<50 && !site.Complete)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);_paused=true;
-            if(!site.Complete)throw new Exception("Cleared-ground addition never completed");
-            await Capture("artifacts/187-built-on-prepared-ground-960.png");_world.Validate();
-            GD.Print("PASS native footprint preview, ordinary-click purity, Shift clearing, real roots removal, placement and construction.");GetTree().Quit();
+            while(_uiTime-start<80 && !_world.Cottages.Any(c=>c.Cell==target.c && c.Kind==BuildingKind.SeatingGarden))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _paused=true;await Frames();var site=_world.Cottages.Single(c=>c.Cell==target.c && c.Kind==BuildingKind.SeatingGarden);
+            _paused=false;start=_uiTime;while(_uiTime-start<70 && !_world.People.Any(p=>p.LastLeisureSiteId==site.Id))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);_paused=true;
+            if(!site.Complete || !_world.People.Any(p=>p.LastLeisureSiteId==site.Id))throw new Exception("Prepared addition never completed a real visit");
+            await Capture("artifacts/191-used-on-prepared-ground-960.png");_world.Validate();
+            GD.Print("PASS native footprint preview, ordinary-click purity, explicit prepared addition, real roots removal, ordinary construction and completed resident visit.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

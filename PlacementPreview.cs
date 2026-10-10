@@ -102,6 +102,7 @@ public partial class Game
         (_yardProposal!=null && _yardProposal.Visible && _yardProposal.GetGlobalRect().HasPoint(point)) ||
         (_workCard!=null && _workCard.Visible && _workCard.GetGlobalRect().HasPoint(point)) ||
         (_dailyCard!=null && _dailyCard.Visible && _dailyCard.GetGlobalRect().HasPoint(point)) ||
+        (_additionCard!=null && _additionCard.Visible && _additionCard.GetGlobalRect().HasPoint(point)) ||
         (_carePanel!=null && _carePanel.Visible && _carePanel.GetGlobalRect().HasPoint(point)) ||
         (_areaPanel!=null && _areaPanel.Visible && _areaPanel.GetGlobalRect().HasPoint(point)) ||
         (_terrainPanel!=null && _terrainPanel.Visible && _terrainPanel.GetGlobalRect().HasPoint(point)) ||

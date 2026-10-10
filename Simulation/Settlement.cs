@@ -407,6 +407,7 @@ public sealed partial class World
         ReconcileHomes();ProcessPlannedYards();
         dt *= Neighborhood?.HungerSlowsActivity==false ? 1 : Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
+        if(retry)AdvancePreparedAddition();
         if(retry && SimulatesMeals && !Food.Celebrating)
             foreach(var person in People.Where(p=>p.Task==Work.Waiting && p.Meal is {Eaten:false,Closed:false})
                 .OrderBy(p=>p.Meal!.Due).ThenBy(p=>(p.Id-(int)(p.Meal!.Due/60)%Population+Population)%Population))
@@ -491,7 +492,7 @@ public sealed partial class World
         Check(GrownLogs >= 0, "Invalid grown timber total");
         ValidateWildlife(); ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateQuarryCampaign(); ValidateWoodsCampaign(); ValidateFinaleCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();
-        ValidateManagedWoodland();
+        ValidateManagedWoodland();ValidatePreparedAddition();
         ValidateHappiness();
         ValidateDecorations();
         ValidateLeisure();

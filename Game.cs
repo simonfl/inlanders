@@ -135,8 +135,8 @@ public partial class Game : Node3D
             else UiCue(Cue.Reject);
             RefreshGhost(); return;
         }
-        if(pathWaypoint && !(HomePlotActive && _homePlotSide>=0) && _world.PrepareBuildingGround(at,_rotation,_buildKind,PlacementRows))
-        {UiCue(Cue.Place);Notice("Ground clearing ordered; timber is recovered and roots removed. Place the building once clear. Esc leaves these confirmed clearing orders in place.");RefreshGhost();return;}
+        if(pathWaypoint && !(HomePlotActive && _homePlotSide>=0) && _world.PlanPreparedAddition(at,_rotation,_buildKind,PlacementRows))
+        {UiCue(Cue.Place);_placing=false;RefreshGhost();if(_world.PendingAddition!=null)ShowPreparedAddition();else if(_world.Cottages.FirstOrDefault(c=>c.Cell==at && c.Kind==_buildKind) is {} ready)ShowWorkplaceCard(ready.Id);return;}
         var site = HomePlotActive && _homePlotSide>=0?_world.PlaceHomePlot(at,_rotation,_buildKind,_homePlotSide):_world.Place(at, _rotation, _buildKind,PlacementRows); if (site == null) { UiCue(Cue.Reject); RefreshGhost(); return; }
         UiCue(Cue.Place);
         if(_world.PublicPlace!=null)ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); _placing = false; RefreshGhost(); RebuildQueue();
@@ -208,6 +208,7 @@ public partial class Game : Node3D
         else if (Ground(position) is Vector3 p)
         {
             var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
+            if(site==null && _world.PendingAddition is {} plan && World.Footprint(plan.Cell,plan.Rotation,plan.Kind,plan.Rows).Contains(new(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z)))){ShowPreparedAddition();return;}
             if(site==null && _world.PublicPlace!=null && SharedPlaceHit(p) is {} commons){ShowCommonsCard(commons.Center);return;}
             if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
         }

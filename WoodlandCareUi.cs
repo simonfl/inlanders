@@ -14,6 +14,7 @@ public partial class Game
     private Node3D _careMarks=null!;
     private void MakeWoodlandCare(VBoxContainer parent)
     {
+        MakePreparedAdditionUi();
         parent.AddChild(Button("Care for woodland",BeginWoodlandCare));
         _carePanel=HudPanel(_hud);var column=new VBoxContainer();_carePanel.AddChild(column);
         column.AddChild(Text("THIS WOODLAND",16));

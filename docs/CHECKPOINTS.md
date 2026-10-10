@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **190**.
+- Playable checkpoints since adoption: **191**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint190**, [synthesis](REVIEW_CHECKPOINT_190.md), fixed16d9e89. Five independent reused roles; retain complete land care, freeze editor expansion, choose a whole desired addition through actual use. Broad62-suite run pending.
 - Previous periodic review: **checkpoint185**, [synthesis](REVIEW_CHECKPOINT_185.md), fixed5391e57. Five independent reused roles; end automatic pose sequence, enlarge acceptance to complete land interventions.
@@ -796,3 +796,5 @@ Checkpoint189: the same woodland proposal can change an applied clearing order i
 Checkpoint190: renewal can establish a spaced grove on selected bare ground alongside existing selected trees. The pure proposal leaves walking space, respects existing uses/routes and the32-spot limit, and applies the existing real planting/growth work. Both modes pass eight-tree establishment through maturity and exact saved active work; all woodland intentions regressions pass. Native960 drag, nine-spot preview, compact fit, Apply/watch and actual eight-tree maturity passed; proposal image inspected, zero-warning build. Freeze for five-role whole-project190 review before191. Twenty of thirty outcomes complete.
 
 190 whole-project review complete before191. Five independent partial verdicts; chosen direction is a complete desired addition through real use, not more land-tool states. Clarify existing timber label without an outcome. Broad62-suite validation pending separately.
+
+Checkpoint191: explicit Shift placement on wooded ground now remembers one desired addition through real clearance, ordinary placement/construction and actual use. The marked footprint is selectable; its contextual card discloses construction cost/current blocker and cancels remaining clearance while retaining physical progress and living trees. Independent clearing remains available. Both modes passed saved preparation through completed resident visits; cancellation before/after felling and rejecting overwrite pass. Native960 ordinary-click purity, approved plan, F5/F9, cancellation/replan, real construction and completed visit passed; compact overflow corrected and final card inspected. Zero-warning builds. One complete outcome; no checkpoint for the supporting card/save/cancel stages.190 broad run remains separately pending.

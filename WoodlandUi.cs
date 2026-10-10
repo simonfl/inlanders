@@ -55,6 +55,7 @@ public partial class Game
     }
     private void RenderManagedWoodland()
     {
+        RenderPreparedAddition();
         if(_careActive){if(_careWorld!=_world)CancelWoodlandCare();else _carePanel.Position=new(_hud.Size.X-292,92);}
         _woodlandView??=new Node3D(); if(_woodlandView.GetParent()==null) AddChild(_woodlandView);
         _woodlandView.Visible=_placing && _woodlandTool>0;
