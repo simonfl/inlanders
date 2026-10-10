@@ -5,7 +5,9 @@ Authorized October9,2026: thirty playable outcomes, then stop200. Whole-project 
 Start with the missing first-session evidence and deepen the existing river experience. Do not preassign thirty features or count tests/docs as outcomes. Rebuild each next-five queue from the independent review.
 
 171. **Done** — Bring the homes-ready arrival through a discoverable first food choice, ordinary placement and an actual meal, using the existing first-place surface.
-172–175. Select from observed livelihood siting/supply, delayed or mistaken investment and recovery, and recognizable productive payoff. Run adverse new-arrival experiments before assigning precise scope. No new need/resource or compulsory growth by default.
+172. **Done** — Actual berry-source siting preview.
+173. Complete a real first gathering cycle even while starting provisions are full, matching existing first-crop behavior.
+174–175. Select recovery and sustained supply changes from adverse arrival results. No new need/resource or compulsory growth by default.
 176–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.

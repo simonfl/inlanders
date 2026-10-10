@@ -13,6 +13,11 @@ public partial class Game
         if(_world.PublicPlace is not {RiverLandscape:true,PlayerFounded:true} || _world.Housed!=12 || _world.Cottages.Count!=6)throw new Exception("Wrong livelihood opening");
         if(!_firstPlace.IsVisibleInTree())throw new Exception("Arrival has no first livelihood choices");
         await CaptureReviewBundle("first-livelihood-choices");
+        await UiClick(_firstPlaceChoices[BuildingKind.ForagerHut]);await Frames();
+        _focus=OnGround(0,-7);_camera.Size=22;UpdateCamera();await Frames();
+        var berryPoint=_camera.UnprojectPosition(OnGround(0,-7));Input.ParseInputEvent(new InputEventMouseMotion{Position=berryPoint,GlobalPosition=berryPoint});await Frames();
+        if(!_ghostValid)throw new Exception("Berry hut proposal refused");
+        await CaptureReviewBundle("berry-gathering-proposal");await Press(Key.Escape);await Frames();
         await UiClick(_firstPlaceChoices[BuildingKind.VegetableField]);await Frames();
         while(_rotation!=1)await Press(Key.R);
         _focus=OnGround(2,-7);_camera.Size=22;UpdateCamera();await Frames();

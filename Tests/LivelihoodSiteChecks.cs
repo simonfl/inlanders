@@ -21,6 +21,15 @@ static class LivelihoodSiteChecks
             Check(link.Destination=="Planned vegetable plot" && link.Route[^1]==garden.Entrance && !link.Route.Any(World.Footprint(new(1,8),turn,BuildingKind.Cottage).Contains),"Home-first/food-first link or rotated footprint wrong");
         }
         Check(planned==food.SaveJson(),"Home connection query mutates state");
+        var river=World.NewRiverLivelihood();string riverBefore=river.SaveJson();
+        for(int turn=0;turn<4;turn++)
+        {
+            var gathering=river.ReadLivelihoodSite(new(0,-7),turn,BuildingKind.ForagerHut);
+            Check(gathering.Route.Length>1 && river.Bushes.Any(b=>b.Access==gathering.Route[^1]),"Gathering preview does not reach real berry access");
+            Check(!gathering.Route.Any(World.Footprint(new(0,-7),turn,BuildingKind.ForagerHut).Contains),"Gathering route crosses proposed hut");
+        }
+        Check(riverBefore==river.SaveJson(),"Gathering preview changes world");
+        river.Bushes.Clear();Check(river.ReadLivelihoodSite(new(0,-7),0,BuildingKind.ForagerHut).Summary.Contains("No reachable"),"Missing berry source is hidden");
         Console.WriteLine("PASS: actual planned grain dependency, proposed footprint exclusion, water reachability and pure/invalid livelihood preview.");
     }
 }
