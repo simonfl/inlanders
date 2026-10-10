@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **196**.
+- Playable checkpoints since adoption: **197**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint195**, [synthesis](REVIEW_CHECKPOINT_195.md), fixedf38177f. Five independent reused roles; consolidate returning to and reconsidering work, no automatic editor expansion.
 - Previous periodic review: **checkpoint190**, [synthesis](REVIEW_CHECKPOINT_190.md), fixed16d9e89. Five independent reused roles; retain complete land care, freeze editor expansion, choose a whole desired addition through actual use. Full62-suite regression passed on fixed190.
@@ -813,3 +813,5 @@ Checkpoint195: world picking now tests actual visible building triangles and a z
 195 whole-game review completed before196. Five partial verdicts; return-to-work context and conflicting land intentions are concrete next outcomes. Final three evidence-led; no counting validation alone.
 
 Checkpoint196: ordinary manual/session/autosaves retain the camera and inspected place/resident/prepared addition/shared place. Continue, F9 and recovery restore safely paused without half-finished gestures; missing targets fall back to the saved view. Native Normal/Relaxed actual save/menu/Continue/F9, missing-site fallback and thirty seconds of resumed life passed; result image inspected, zero-warning build. The first native run and successful retry reproduced intermittent Windows access-denied save replacement; not concealed or resolved by this outcome. Select that concrete reliability investigation after197.
+
+Checkpoint197: a prepared addition explicitly waits when later woodland care keeps or renews trees in its footprint. Resume clearance & build deliberately reapplies ordinary legal preparation; cancellation now retains newer renewal/preservation choices instead of overriding them. Normal saved-conflict/cancel/resume tests reach completed visits; Relaxed immediate clearance/construction remains covered separately. Native960 conflicting Keep, compact actionable card, explicit resume and actual completed visit passed; final shortened card inspected, zero warnings. Next198 addresses reproduced save interference:100 identical replacements in the synchronized workspace required90 retries/9.6s versus zero retries/0.97s in local temporary storage; earlier workspace batch had an outright failure. Attribution to a specific external process remains unproved.

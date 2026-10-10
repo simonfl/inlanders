@@ -9,12 +9,13 @@ public partial class Game
     private PreparedAddition? _shownAddition;
     private World? _additionWorld;
     private bool _additionSelected;
-    private Button _additionCancel=null!;
+    private Button _additionCancel=null!,_additionResume=null!;
     private void MakePreparedAdditionUi()
     {
         _additionMarks=new();AddChild(_additionMarks);_additionCard=HudPanel(_hud);var box=new VBoxContainer();_additionCard.AddChild(box);
         _additionText=Text("",14,true);_additionText.CustomMinimumSize=new(270,0);box.AddChild(_additionText);
         box.AddChild(Button("Watch preparation",()=>{_additionSelected=false;_paused=false;ToggleWatch();}));
+        _additionResume=Button("Resume clearance & build",()=>{if(_world.ResumePreparedAddition())UiCue(Cue.Click);});box.AddChild(_additionResume);
         _additionCancel=Button("Cancel plan",()=>{if(_world.CancelPreparedAddition()){ClearSelection();UiCue(Cue.Click);}});box.AddChild(_additionCancel);
         box.AddChild(Button("Close",ClearSelection));_additionCard.Hide();
     }
@@ -40,9 +41,11 @@ public partial class Game
         _additionCard.Visible=_additionSelected && plan!=null && !_atMainMenu && !_placing && !_watching && !_drawer.Visible;
         if(!_additionCard.Visible || plan==null)return;
         _additionCard.Position=new(_hud.Size.X-306,92);_additionCard.Size=new(290,0);
+        _additionResume.Visible=_world.PreparedAdditionConflict();
+        _additionResume.Disabled=_world.PreviewGroundPreparation(plan.Cell,plan.Rotation,plan.Kind,plan.Rows)==null;
         var definition=Buildings.Get(plan.Kind);string cost=_world.Creative?"Free":$"{(plan.Rows>0?plan.Rows*2:definition.Cost)} {definition.Material.ToString().ToLowerInvariant()}"+(definition.StoneCost>0?$" + {definition.StoneCost} stone":"");
         _additionText.Text=BuildingName(plan.Kind).ToUpperInvariant()+" · PLANNED\n"+_world.PreparedAdditionStatus()+
-            "\nThen build: "+cost+". Ground must remain clear and legal.\nCancel stops remaining clearance and keeps living trees. Completed work and collected timber stay.";
+            "\nThen build: "+cost+". Ground must remain clear and legal.\nCancel keeps later woodland choices and completed work.";
         _additionCancel.Disabled=_world.Food.Celebrating;
     }
 }

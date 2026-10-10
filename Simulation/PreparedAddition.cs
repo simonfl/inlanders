@@ -16,6 +16,7 @@ public sealed partial class World
     public string PreparedAdditionStatus()
     {
         if(PendingAddition is not {} p)return "No addition is waiting for ground.";
+        if(PreparedAdditionConflict())return "Woodland care changed here: trees are now kept or renewed. This building waits for clearance.";
         int clearing=p.Clearing.Count(c=>Trees.Any(t=>t.Cell==c && t.ClearRequested));
         if(clearing>0)return $"Preparing ground: {clearing} trees or roots remain. Workers collect timber, then remove roots.";
         return PlacementProblem(p.Cell,p.Rotation,p.Kind,p.Rows) ?? "Ground ready; ordinary construction begins next.";
@@ -26,9 +27,22 @@ public sealed partial class World
         foreach(var cell in p.Clearing)
         {
             var tree=Trees.FirstOrDefault(t=>t.Cell==cell);if(tree==null)continue;
-            SetClearing(cell,false);if(!tree.Felled)SetTreePreserved(cell,true);
+            if(tree.ClearRequested){SetClearing(cell,false);if(!tree.Felled)SetTreePreserved(cell,true);}
         }
         PendingAddition=null;return true;
+    }
+    public bool PreparedAdditionConflict()
+    {
+        if(PendingAddition is not {} p)return false;
+        var ground=Footprint(p.Cell,p.Rotation,p.Kind,p.Rows).Append(Door(p.Cell,p.Rotation)).ToHashSet();
+        return Trees.Any(t=>ground.Contains(t.Cell) && !t.ClearRequested);
+    }
+    public bool ResumePreparedAddition()
+    {
+        if(PendingAddition is not {} p || !PreparedAdditionConflict())return false;
+        var preparation=PreviewGroundPreparation(p.Cell,p.Rotation,p.Kind,p.Rows);
+        if(preparation==null || !PrepareBuildingGround(p.Cell,p.Rotation,p.Kind,p.Rows))return false;
+        PendingAddition=p with {Clearing=preparation.Trees};return true;
     }
     private void AdvancePreparedAddition()
     {

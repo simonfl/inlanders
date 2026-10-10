@@ -27,12 +27,17 @@ public partial class Game
             BeginPlacement(BuildingKind.SeatingGarden);_rotation=target.r;await Frames();
             foreach(bool pressed in new[]{true,false}){Input.ParseInputEvent(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,Pressed=pressed,ShiftPressed=true});await Frames();}
             if(_world.PendingAddition==null)throw new Exception("Replanned intention missing");
+            var retained=target.p.Trees.First();if(!_world.ApplyWoodlandCare(retained,retained,WoodlandIntent.Keep))throw new Exception("Reconsidered tree failed");
+            ShowPreparedAddition();await Frames();if(!_additionResume.Visible || !_additionText.Text.Contains("Woodland care changed"))throw new Exception("Conflict not actionable");
+            if(_additionCard.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Conflict card does not fit compact view");
+            await Capture("artifacts/197-reconsidered-addition-960.png");await UiClick(_additionResume);await Frames();
+            if(_world.PreparedAdditionConflict())throw new Exception("Explicit resume did not reconcile woodland");
             _paused=false;_speed=6;double start=_uiTime;
             while(_uiTime-start<80 && !_world.Cottages.Any(c=>c.Cell==target.c && c.Kind==BuildingKind.SeatingGarden))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _paused=true;await Frames();var site=_world.Cottages.Single(c=>c.Cell==target.c && c.Kind==BuildingKind.SeatingGarden);
             _paused=false;start=_uiTime;while(_uiTime-start<70 && !_world.People.Any(p=>p.LastLeisureSiteId==site.Id))await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);_paused=true;
             if(!site.Complete || !_world.People.Any(p=>p.LastLeisureSiteId==site.Id))throw new Exception("Prepared addition never completed a real visit");
-            await Capture("artifacts/191-used-on-prepared-ground-960.png");_world.Validate();
+            await Capture("artifacts/197-reconsidered-used-960.png");_world.Validate();
             GD.Print("PASS native footprint preview, ordinary-click purity, explicit prepared addition, real roots removal, ordinary construction and completed resident visit.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
