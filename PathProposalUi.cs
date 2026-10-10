@@ -52,7 +52,7 @@ public partial class Game
         bool show=_placing && _pathTool==3 && !_atMainMenu && !_drawer.Visible;_pathProposalPanel.Visible=show;if(!show)return;
         _pathProposalPanel.Position=new(_hud.Size.X-306,92);_pathProposalPanel.Size=new(290,0);
         string? problem=_pathAnchor==null?null:ConnectionProblem(_hover);
-        _pathProposalText.Text="CONNECT PLACES\n"+(_pathAnchor==null?"Click an entrance or clear ground to begin.":_pathDraftEnd==null?"Click a destination. Shift-click intermediate ground to add bends.":"Destination chosen. Click to revise; Shift-click to add a bend.\n"+(problem??"Apply when the approach looks right."));
+        _pathProposalText.Text="CONNECT PLACES\n"+(_pathAnchor==null?"Click a place, resource or clear ground to begin.":_pathDraftEnd==null?"Click a destination. Shift-click intermediate ground to add bends.":"Destination chosen. Click to revise; Shift-click to add a bend.\n"+(problem??"Apply when the approach looks right."));
         _pathProposalApply.Disabled=_pathDraftEnd==null || problem!=null;_pathProposalUndo.Disabled=_pathWaypoints.Count==0;_pathProposalFrame.Disabled=_pathAnchor==null;
     }
 }

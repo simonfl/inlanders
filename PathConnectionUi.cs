@@ -17,8 +17,12 @@ public partial class Game
     private List<Cell> _connectionRoute = new();
     private Cell PathEndpoint(Cell cell)
     {
-        var site = _world.Cottages.FirstOrDefault(c => c.Complete && World.Footprint(c).Contains(cell));
-        return site?.Entrance ?? SharedPlaceHit(OnGround(cell.X,cell.Z))?.Center ?? cell;
+        var site = _world.Cottages.FirstOrDefault(c => !c.DemolitionRequested && World.Footprint(c).Contains(cell));
+        return site?.Entrance ?? SharedPlaceHit(OnGround(cell.X,cell.Z))?.Center
+            ?? _world.Bushes.FirstOrDefault(b=>b.Cell==cell)?.Access
+            ?? _world.Trees.FirstOrDefault(t=>t.Cell==cell)?.Access
+            ?? _world.Map.StoneDeposits.FirstOrDefault(d=>d.Cell==cell)?.Access
+            ?? (cell==_world.Stockpile?_world.YardAccess:cell);
     }
     private string? ConnectionProblem(Cell cell)
     {

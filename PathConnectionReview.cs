@@ -37,6 +37,12 @@ public partial class Game
         await Press(Key.Escape);SaveWorld();string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         Check(saved==_world.SaveJson(),"Connected path save mismatch");
         await Press(Key.P);Check(_placing && _pathTool==1,"Path brush no longer opens");await Press(Key.Escape);
+        var berry=_world.Bushes.First();before=_world.SaveJson();
+        BeginPlacePath(start,home.Id);await Frames();await Point(berry.Cell,true);await Frames();
+        Check(_pathDraftEnd==berry.Access && !_pathProposalApply.Disabled && before==_world.SaveJson(),"Berry connection does not use actual picking access");
+        await CaptureReviewBundle("resource-access-proposal");await UiClick(_pathProposalApply);await Frames();
+        Check(_world.Paths.Contains(berry.Access) && !_world.Paths.Contains(berry.Cell),"Resource path covers food source or misses access");
+        SaveWorld();saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Resource path restore differs");
         GD.Print("PASS: connection button, building entrance snap, route preview, unchanged cancellation, held pointer confirmation, F9 and original brush.");
     }
 }

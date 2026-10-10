@@ -11,7 +11,7 @@ Start with the missing first-session evidence and deepen the existing river expe
 175. **Done** — Make declining food actionable from ordinary play and demonstrate recovery from an inadequate arrival. No new need/resource or compulsory growth by default.
 176. **Done** — Source-led planning: use the existing land survey to choose a real berry patch, fishing ground or woodland and plan its relevant workplace in that view. No new inspector.
 177. **Done** — Gathering chooses whole walking trips, making the selected hut location useful instead of oldest-site bias.
-178. Connect paths directly to real resource access using existing world path proposals.
+178. **Done** — Connect paths directly to real resource access using existing world path proposals.
 179–180. Refine useful land/work relationships and identity-preserving recovery from the combined-source evidence, then review. Sixty-minute current-rule experiments support landing+berries, landing+berries+hunting, grain+oven and three gardens without missed meals. Do not rebalance isolated sources or count that test as a feature. Precise outcomes remain evidence-led.
 181–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
