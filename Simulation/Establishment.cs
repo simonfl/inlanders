@@ -1,7 +1,7 @@
 namespace Inlanders.Simulation;
 public sealed partial class World
 {
-    private static bool EstablishmentKind(BuildingKind kind)=>kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.Bakery or BuildingKind.FishingDock;
+    private static bool EstablishmentKind(BuildingKind kind)=>kind is BuildingKind.Farm or BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.Bakery or BuildingKind.FishingDock or BuildingKind.ForagerHut or BuildingKind.HuntingLodge or BuildingKind.Orchard;
     // Finish the real first crop/batch/trip, including collecting every baked loaf.
     // Completed cycles remain completed across relocation and save/load.
     public bool EstablishmentWork(Cottage site)=>site.EstablishmentPending ||

@@ -1,4 +1,6 @@
 using Inlanders.Simulation;
+if(args.Contains("--gathering-establishment")){GatheringEstablishmentChecks.Run();return;}
+if(args.Contains("--arrival-experiments")){ArrivalExperiments.Run();return;}
 if(args.Contains("--field-collection")){try{FieldCollectionChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--river-livelihood")){try{RiverLivelihoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--river-landscape")){try{RiverLandscapeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

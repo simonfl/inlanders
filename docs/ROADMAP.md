@@ -8,7 +8,7 @@
 
 ## Current direction and next step
 
-**Active171–200:** authorized October9. 171 completes the ordinary first-food flow;172 adds real berry-source siting. Long arrival experiments now expose reserve-hidden shortfalls. Continue review170’s first-session gap: choosing a livelihood through real placement, food use and recovery. Select later chunks from evidence and reviews175/180/185/190/195/200. Stop200; no automatic feature shopping list. [Active queue](NEXT_CHUNKS.md).
+**Active171–200:** authorized October9. 171 completes the ordinary first-food flow;172 adds real berry-source siting. 173 brings new gathering/orchard work through a real first cycle. Long arrival experiments expose reserve-hidden shortfalls;174–175 target natural supply and recovery. Continue review170’s first-session gap: choosing a livelihood through real placement, food use and recovery. Select later chunks from evidence and reviews175/180/185/190/195/200. Stop200; no automatic feature shopping list. [Active queue](NEXT_CHUNKS.md).
 
 **Completed161–170:** Matched founding, bounded arrangement recovery, the river-farmstead landscape, row-sized field collection and measured actor/HUD fixes are committed. Public Play now offers **Establish life by the river** or **Tend a river settlement**, with Normal/Relaxed and earlier beginnings retained. Whole-game reviews [165](REVIEW_CHECKPOINT_165.md) and [170](REVIEW_CHECKPOINT_170.md) choose provisional retention and **stop170**. Final52-suite regression passed on the reviewed build; delivery closes the batch. No171 authorized. [Batch outcomes and future hypotheses](NEXT_CHUNKS.md).
 

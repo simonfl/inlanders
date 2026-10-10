@@ -179,7 +179,12 @@ public sealed partial class World
                 {
                     ChangeGrainAt(farmId,v.Carried);RecordFoodDelivery(Resource.Grain,v.Carried);v.Carried=0;Finish(v);break;
                 }
-                if(!v.FoodTransfer) RecordFoodDelivery(v.Cargo, v.Carried);
+                if(!v.FoodTransfer)
+                {
+                    RecordFoodDelivery(v.Cargo, v.Carried);
+                    if(v.Carried>0 && v.WorkplaceId is int sourceId && Cottages.FirstOrDefault(c=>c.Id==sourceId) is {Kind:BuildingKind.ForagerHut or BuildingKind.HuntingLodge} gathering)
+                        gathering.EstablishmentPending=false;
+                }
                 if(v.FoodDestinationId is int pantry)
                 {
                     ChangeFoodAt(pantry,v.Cargo,v.Carried); v.Carried=0; Finish(v); break;
