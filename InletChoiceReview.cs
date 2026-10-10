@@ -23,7 +23,7 @@ public partial class Game
         ClearSelection();var field=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);Check(_world.SetWorkplacePaused(field.Id,true),"Field pause failed");
         var destination=_world.Map.Land.First(c=>c!=field.Cell && _world.RelocationProblem(field.Id,c,field.Rotation)==null);
         Check(_world.MoveBuilding(field.Id,destination,field.Rotation),"Inlet field move rejected");_world.Validate();
-        string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Inlet save continuation differs");
+        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Inlet save continuation differs");
         Reset();await Frames();Check(_world.PublicPlace==profile && _world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField).Cell==new Cell(1,-5),"Inlet restart lost layout");
         ReturnToMainMenu();await Frames();Check(_atMainMenu,"Return to menu failed: inspect atomic-save diagnostics; do not treat as missing controls.");await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();
         Check(_world.PublicPlace==profile with {Relaxed=true},"Inlet relaxed mode lost layout");await ProbePublicPlaceContract();

@@ -59,7 +59,7 @@ public partial class Game
         {
             ClearSelection();await OpenMenu(2);await Frames();await UiClick(_foundingFinish);await Frames();Check(_world.Founding!.Finished && _hamletEnding.Visible,"Contented finish inaccessible");await CaptureReviewBundle("finished-for-now");
             await UiClick(_endingWatch);await Frames();Check(_watching && !_paused && _speed==1,"Finished village cannot be watched");await Press(Key.Escape);await Frames();await UiClick(_endingShape);await Frames();_paused=true;Check(!_world.Founding.Finished,"Finished village cannot reopen");
-            string current=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(_world.SaveJson()==current,"Quiet visit save/load differs");await CaptureReviewBundle("reopened-village");
+            await Press(Key.F5);string current=_world.SaveJson();await Press(Key.F9);await Frames();Check(_world.SaveJson()==current,"Quiet visit save/load differs");await CaptureReviewBundle("reopened-village");
         }
         GD.Print("PASS: actual home selection, all household residents, chosen resident/current journey and pure return at compact size.");
     }

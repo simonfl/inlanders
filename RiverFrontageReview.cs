@@ -32,7 +32,7 @@ public partial class Game
             _focus=OnGround(destination.X,destination.Z);_camera.Size=18;UpdateCamera();await Frames();var pathPoint=_camera.UnprojectPosition(OnGround(destination.X,destination.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=pathPoint,GlobalPosition=pathPoint});await Frames();await CaptureReviewBundle("path-from-selected-home");await Click(pathPoint);await Frames();
         await UiClick(_pathProposalApply);await Frames();
             if(!_world.Paths.Contains(destination) || _placing || _workCardSite!=turnHome.Id)throw new Exception("Selected-place path did not apply/return");_world.Validate();await CaptureReviewBundle("home-path-connected");
-            string appearanceSave=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();if(appearanceSave!=_world.SaveJson())throw new Exception("Home appearance/turn save differs");
+            await Press(Key.F5);string appearanceSave=_world.SaveJson();await Press(Key.F9);await Frames();if(appearanceSave!=_world.SaveJson())throw new Exception("Home appearance/turn save differs");
 
             CloseManagementUi();_paused=true;var origin=_focus;float zoom=_camera.Size;string before=_world.SaveJson();
             await OpenMenu(2);await Frames();await UiClick(_landSurvey);await Frames();
@@ -57,7 +57,7 @@ public partial class Game
         await CaptureReviewBundle("frontage-menu");
         await UiClick(_mainButtons["New farmstead"]);await Frames();
         if(_world.PublicPlace?.RiverFrontage!=true)throw new Exception("Frontage menu opened wrong world");
-        string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();
+        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();
         if(_world.SaveJson()!=saved || _world.PublicPlace?.RiverFrontage!=true)throw new Exception("Frontage save identity lost");
         await ProbePlayerFounded();
         GD.Print("PASS: actual river-frontage menu, exact save identity, ordinary home/garden construction, meals and rest.");

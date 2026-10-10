@@ -1,8 +1,8 @@
-# Active batch — checkpoints171–200
+# Completed batch — checkpoints171–200
 
 Authorized October9,2026: thirty playable outcomes, then stop200. Whole-project reviews175/180/185/190/195/200; visual/audio every ten and after substantial presentation changes. No human play feedback assumed. Review170's stop is superseded by this authorization; its evidence limits remain.
 
-Start with the missing first-session evidence and deepen the existing river experience. Do not preassign thirty features or count tests/docs as outcomes. Rebuild each next-five queue from the independent review.
+All thirty outcomes and reviews175/180/185/190/195/200 are complete. [Final200 synthesis](REVIEW_CHECKPOINT_200.md) retains the public experience provisionally and stops implementation. All64 final current-experience suites passed; no201 is authorized. Further play evidence should distinguish wanted alteration/contented observation from confusion or indifference, using existing starts and modes. Do not automatically extend the catalogue, editor, poses or maps.
 
 171. **Done** — Bring the homes-ready arrival through a discoverable first food choice, ordinary placement and an actual meal, using the existing first-place surface.
 172. **Done** — Actual berry-source siting preview.

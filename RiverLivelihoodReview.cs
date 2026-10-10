@@ -31,7 +31,7 @@ public partial class Game
         while(_uiTime-start<75 && _world.Food.EatenVegetables==0)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
         _paused=true;if(!field.Complete || _world.Food.EatenVegetables==0)throw new Exception("Ordinary first food never fed a neighbor");
         await CaptureReviewBundle("chosen-food-in-use");
-        await ProbeHousehold();string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();if(saved!=_world.SaveJson())throw new Exception("Livelihood save differs");
+        await ProbeHousehold();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();if(saved!=_world.SaveJson())throw new Exception("Livelihood save differs");
         await Press(Key.H);await Frames();await CaptureReviewBundle("river-livelihood-watch");await Press(Key.Escape);await Frames();if(_watching)throw new Exception("Watch exit failed");
         ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await CaptureReviewBundle("public-river-beginnings");await UiClick(_mainButtons["Establish life by the river"]);await Frames();
         await UiClick(_mainButtons["Mode: Normal · change"]);await Frames();await CaptureReviewBundle("river-relaxed-menu");await UiClick(_mainButtons["New settlement"]);await Frames();

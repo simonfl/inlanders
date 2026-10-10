@@ -20,7 +20,7 @@ public partial class Game
         await Press(Key.B);await Frames();_buildingFilter.Select(3);UpdateVillageDirectory();await Frames();Check(!_kindButtons[BuildingKind.Carpenter].IsVisibleInTree(),"Redundant workshop still offered");CloseDrawer();
         await Press(Key.G);await Frames();Check(!_foundingFinish.Disabled,"Personal ending is gated by production");
         await UiClick(_foundingFinish);await Frames();Check(_world.Founding!.Finished && _paused && _hamletEnding.Visible && !_drawer.Visible,"Personal finish failed");await CaptureReviewBundle("personal-ending-world");
-        string ended=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(ended==_world.SaveJson(),"Finished state lost on reload");
+        await Press(Key.F5);string ended=_world.SaveJson();await Press(Key.F9);await Frames();Check(ended==_world.SaveJson(),"Finished state lost on reload");
         await Press(Key.G);await Frames();await CaptureReviewBundle("hamlet-personal-ending");
         CloseDrawer();await Frames();await UiClick(_endingWatch);await Frames();Check(_watching && !_paused && _speed==1,"Finished watch failed");ExitWatch();_paused=true;
         await Press(Key.G);await Frames();await UiClick(_foundingContinue);await Frames();_paused=true;Check(!_world.Founding!.Finished,"Reopen failed");
@@ -44,7 +44,7 @@ public partial class Game
         await Click(_camera.UnprojectPosition(OnGround(0,-9)));await Frames();
         Check(garden.Cell==new Cell(0,-9) && !garden.Planted && garden.WorkPaused,"Garden move/replant failed");
         await CaptureReviewBundle("garden-replant");await UiClick(_productionPause);await Frames();Check(!garden.WorkPaused,"Garden resume failed");CloseDrawer();ClearSelection();
-        string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Hamlet save failed");
+        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Hamlet save failed");
         ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Continue"),"Hamlet return to menu/save failed: "+_notice);await UiClick(_mainButtons["Continue"]);await Frames();Check(saved==_world.SaveJson(),"Hamlet Continue differs");
         Reset();await Frames();Check(_world.Founding?.TransformationHamlet==true,"Hamlet restart lost map");
         ShowMainMenu();await Frames();await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();

@@ -65,7 +65,7 @@ public partial class Game
         Check(_courtStartingLayout!.Visible && _hamletComparePanel.Visible && unchanged==_world.SaveJson(),"Opening comparison mutated the village");
         Check(_world.Founding!.StartingBuildings.Single(b=>b.Id==plot.Id).Cell==new Cell(5,6),"Move rewrote opening");Check(_courtStartingLayout.GetChildCount()==42,"Comparison omitted new placement or retained unchanged outlines");await CaptureReviewBundle("opening-versus-current");
         await Press(Key.Escape);await Frames();Check(!_courtStartingLayout.Visible && !_hamletComparePanel.Visible,"Comparison escape failed");
-        string saved=_world.SaveJson();await Press(Key.F5);await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Bank save differs");
+        await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();Check(saved==_world.SaveJson(),"Bank save differs");
         Reset();await Frames();Check(_world.PublicPlace==new HamletProfile(false,true),"Bank restart changed place");
         ReturnToMainMenu();await Frames();Check(_atMainMenu && _mainButtons.ContainsKey("Play"),"Bank return to menu/save failed: "+_notice);await UiClick(_mainButtons["Play"]);await Frames();await UiClick(_mainButtons["Earlier beginnings"]);await Frames();await UiClick(_mainButtons["Shape an inhabited hamlet"]);await Frames();await UiClick(_mainButtons["Other starting layouts"]);await Frames();await UiClick(_mainButtons["Compare: cultivated bank"]);await Frames();
         await UiClick(_mainButtons["New relaxed hamlet"]);await Frames();Check(_world.PublicPlace==new HamletProfile(true,true) && CurrentSavePath.EndsWith("cultivated-bank-relaxed.json"),"Relaxed bank slot differs");
