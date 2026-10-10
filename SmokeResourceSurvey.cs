@@ -61,10 +61,10 @@ public partial class Game
                 BeginPlacement(BuildingKind.Cottage); await Frames(); Check(!_surveying && _placing,"Placement retained survey picking");
                 await Press(Key.U); await Frames();
             }
-            AdoptWorld(new World()); _paused=true; await Frames();
+            var empty=new World();empty.Bushes.Clear();AdoptWorld(empty); _paused=true; await Frames();
             Check(!_surveying && !_sourceMarkers.Visible,"World switch retained survey");
             await Press(Key.U); await Frames();
-            Check(_sourceButtons.Count==0 && _sourceInfo.Text.Contains("No fish grounds"),"Empty map retains stale sources");
+            Check(_sourceButtons.Count==0 && _sourceInfo.Text.Contains("No berry patches"),"Empty map retains stale sources");
             GD.Print("PASS: map source picking, current details/workplace links, 960/1440 layouts, label preference, unchanged saves/nodes, placement/Watch/Esc and empty-map reset.");
         }
         finally { if(_showWorldLabels!=labels) ToggleWorldLabels(); GetWindow().Size=size; AdoptWorld(previous); _paused=true; }

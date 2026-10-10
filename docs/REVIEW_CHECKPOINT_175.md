@@ -39,3 +39,9 @@ Fail the premise if alternatives converge on the same fields, differ only in del
 ## Tooling decision
 
 Accept a bounded extension of arrival experiments: investment, source delivery, first warning/miss, corrective action and sustained recovery; actual work/travel where useful. Existing tests/fixtures/launcher suffice. Beneficiaries: lead and all reviewers every balance iteration. Cost estimated a few hours plus small upkeep; validate by distinguishing renewable limits from travel/labor and changing a design decision. Add a reopenable low-supply fixture using existing launcher, no new framework. Defer a universal balance dashboard and further callback timers; native/engine outside-callback profiling remains conditional. Instrumentation alone earns no playable outcome.
+
+## Subsequent validation and discriminating comparison
+
+Frozen175 full54-suite regression passed, run d7746049971b42b9bc0429f4bb2cd044. This result applies to the frozen175 assembly, not subsequent176 edits.
+
+A separate sixty-minute ordinary-rule comparison after synthesis found four viable Normal arrangements with no hungry ticks: landing+berries (12logs,52food left,304berries/396fish); landing+berries+hunting (18logs,48left,234berries/296fish/172game); grain+oven (12logs,52left,704bread); three gardens (12logs,47left,704vegetables). Total resident walking-time samples14460/14459/11755/13206s, workplace-associated time5240/5789/2940/2893s; these are not isolated commute measures. No new mechanics were used. This rejects the feared mandatory8+2-field recipe, without proving equal balance or preference. Keep complementary options; no blanket food buffs. Saved exploratory snapshots in artifacts/livelihood-probe, durable runner --livelihood-portfolios. Tests earn no checkpoint.

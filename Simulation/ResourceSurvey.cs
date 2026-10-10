@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
-public enum SourceKind { Stone, Fish, Woodland }
+public enum SourceKind { Stone, Fish, Woodland, Berries }
 public readonly record struct SourceKey(SourceKind Kind,int Id);
 public sealed record ResourceSource(SourceKey Key,Cell Cell,string Name);
 public sealed record ResourceSurvey(ResourceSource Source,string Detail,string WorkplaceHeading,int[] Workplaces);
@@ -14,7 +14,8 @@ public sealed partial class World
     public IEnumerable<ResourceSource> ResourceSources() =>
         Map.StoneDeposits.Select(d=>new ResourceSource(new(SourceKind.Stone,d.Id),d.Cell,$"Stone outcrop {d.Id}"))
         .Concat(Map.FishingGrounds.Select(h=>new ResourceSource(new(SourceKind.Fish,h.Id),h.Cell,h.Name)))
-        .Concat(Map.Wildlife.Select(h=>new ResourceSource(new(SourceKind.Woodland,h.Id),h.Cell,WoodsName(h))));
+        .Concat(Map.Wildlife.Select(h=>new ResourceSource(new(SourceKind.Woodland,h.Id),h.Cell,WoodsName(h))))
+        .Concat(Bushes.Select(b=>new ResourceSource(new(SourceKind.Berries,b.Id),b.Cell,$"Berry patch {b.Id}")));
 
     public ResourceSurvey? ReadResourceSurvey(SourceKey key)
     {
@@ -24,6 +25,10 @@ public sealed partial class World
         int[] Sites(Func<Cottage,bool> eligible) => Cottages.Where(c=>!c.DemolitionRequested && eligible(c)).OrderBy(c=>c.Id).Select(c=>c.Id).ToArray();
         switch(key.Kind)
         {
+            case SourceKind.Berries:
+                var bush=Bushes.Single(b=>b.Id==key.Id);int claimed=bush.Owner==null?0:Math.Min(2,bush.Ripe);
+                return new(source,$"{At(bush.Cell)}\n\n{bush.Ripe-claimed} berries available · {claimed} being picked\n{bush.Ripe}/8 ripe berries · renewal up to7.5/minute.\nShared by all huts. A worker must reach the picking spot, gather and carry fruit back.\nPicking access ({bush.Access.X}, {bush.Access.Z}): {(Accessible(bush.Access)?"reachable from the yard":"no route from the yard")}",
+                    "HUTS WITH A WALKING ROUTE",Sites(c=>c.Kind==BuildingKind.ForagerHut && FindPath(c.Entrance,bush.Access,Blocked)!=null));
             case SourceKind.Stone:
                 var d=Map.StoneDeposits.Single(s=>s.Id==key.Id);
                 return new(source,$"{At(d.Cell)}\n\n{AvailableDeposit(d)} stone available · {d.Remaining-AvailableDeposit(d)} reserved\n{d.Remaining} remaining of {d.Capacity} initial stone\n"+

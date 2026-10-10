@@ -13,7 +13,9 @@ public partial class Game
         if(_world.PublicPlace is not {RiverLandscape:true,PlayerFounded:true} || _world.Housed!=12 || _world.Cottages.Count!=6)throw new Exception("Wrong livelihood opening");
         if(!_firstPlace.IsVisibleInTree())throw new Exception("Arrival has no first livelihood choices");
         await CaptureReviewBundle("first-livelihood-choices");
-        await UiClick(_firstPlaceChoices[BuildingKind.ForagerHut]);await Frames();
+        await Press(Key.U);await Frames();var berrySource=_world.ResourceSources().Single(s=>s.Key.Kind==SourceKind.Berries);
+        SelectResourceSource(berrySource.Key,true);await Frames();_inspectionScroll.EnsureControlVisible(_surveyBuildHere);await Frames();
+        await UiClick(_surveyBuildHere);await Frames();if(!_placing || _buildKind!=BuildingKind.ForagerHut || _surveying)throw new Exception("Source-led berry planning failed");
         _focus=OnGround(0,-7);_camera.Size=22;UpdateCamera();await Frames();
         var berryPoint=_camera.UnprojectPosition(OnGround(0,-7));Input.ParseInputEvent(new InputEventMouseMotion{Position=berryPoint,GlobalPosition=berryPoint});await Frames();
         if(!_ghostValid)throw new Exception("Berry hut proposal refused");

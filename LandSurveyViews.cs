@@ -16,7 +16,9 @@ public partial class Game
         _landSurveyViews.AddChild(Text("Look at the shore, open ground or existing trees. These are views, not suggested building sites or soil ratings.",14,true));
         _surveyBuildHere=Button("Build in this view",()=>
         {
+            BuildingKind? sourceKind=_selectedSource?.Kind switch {SourceKind.Berries=>BuildingKind.ForagerHut,SourceKind.Fish=>BuildingKind.FishingDock,SourceKind.Woodland=>BuildingKind.HuntingLodge,SourceKind.Stone=>BuildingKind.Quarry,_=>null};
             _surveyOriginWorld=null;StopResourceSurvey();CloseManagementUi();
+            if(sourceKind is {} building){BeginPlacement(building);return;}
             _fullBuild=false;ToggleDrawer(1);SelectBuildSection(0);UpdateVillageDirectory();
         });_landSurveyViews.AddChild(_surveyBuildHere);
         _surveyBuildHere.TooltipText="Keep this camera view and choose a home, growing ground, landing or timber work. Nothing is placed until you choose ground.";

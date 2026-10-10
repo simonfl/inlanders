@@ -5,7 +5,7 @@ public static class ResourceSurveyChecks
     static void Check(bool ok,string why) { if(!ok) throw new Exception(why); }
     public static void Run()
     {
-        Check(!new World().ResourceSources().Any(),"Original map invented source opportunities");
+        Check(new World().ResourceSources().All(s=>s.Key.Kind==SourceKind.Berries),"Original map invented source opportunities");
         var w=World.NewCreative(true);
         var quarry=w.Place(new(-9,2),false,BuildingKind.Quarry)!;
         Check(quarry!=null,"Survey quarry rejected");
@@ -28,7 +28,7 @@ public static class ResourceSurveyChecks
         Check(before!=w.ReadResourceSurvey(woodland)!.Detail,"Tree loss did not change survey");
         var lake=World.NewLakeMap(); var dock=lake.Place(new(3,5),true,BuildingKind.FishingDock)!;
         Check(dock!=null,"Survey dock rejected");
-        foreach(var source in lake.ResourceSources())
+        foreach(var source in lake.ResourceSources().Where(s=>s.Key.Kind==SourceKind.Fish))
         {
             var fish=lake.ReadResourceSurvey(source.Key)!;
             Check(fish.Workplaces.Contains(dock!.Id) && fish.Detail.Contains("Recovery") && fish.WorkplaceHeading.Contains("WATER ROUTE"),"Connected planned dock missing");
@@ -38,6 +38,9 @@ public static class ResourceSurveyChecks
         var barrier=World.NewLargeMap();
         for(int z=-16;z<=15;z++) barrier.Map.Water.Add(new(7,z));
         Check(barrier.ReadResourceSurvey(new(SourceKind.Stone,1))!.Detail.Contains("no route from the yard"),"Unreachable source claimed access");
+        var arrival=World.NewRiverLivelihood();var berries=arrival.ResourceSources().Single(s=>s.Key.Kind==SourceKind.Berries);string unchanged=arrival.SaveJson();
+        var berryReport=arrival.ReadResourceSurvey(berries.Key)!;Check(berryReport.Detail.Contains("7.5/minute") && berryReport.Workplaces.Length==0,"Berry source not available before building");
+        Check(unchanged==arrival.SaveJson(),"Berry source query mutates world");
         Console.WriteLine("PASS: source stock/claims, related workplaces, planned docks, removal, habitat change, inaccessible stone and read-only survey.");
     }
 }

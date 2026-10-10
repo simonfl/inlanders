@@ -115,7 +115,8 @@ public partial class Game
         if(_uiTime<_nextSourceRefresh) return;
         _nextSourceRefresh=_uiTime+.5f;
         _sourceReport=_selectedSource is SourceKey key?_world.ReadResourceSurvey(key):null;
-        _sourceInfo.Text=_sourceReport==null ? _sourceList.Count==0?"No fish grounds, stone outcrops or wildlife habitats on this map. These sources are authored per map.":"Click a source marker, or choose one above. Stock belongs to the source; delivery to storage takes worker time.":$"{_sourceReport.Source.Name.ToUpperInvariant()}\n{_sourceReport.Detail}";
+        _surveyBuildHere.Text=_selectedSource?.Kind switch {SourceKind.Berries=>"Plan a berry hut here",SourceKind.Fish=>"Plan a landing on this shore",SourceKind.Woodland=>"Plan a hunting lodge here",SourceKind.Stone=>"Plan a stone camp here",_=>"Build in this view"};
+        _sourceInfo.Text=_sourceReport==null ? _sourceList.Count==0?"No berry patches, fish grounds, stone outcrops or wildlife habitats on this map. These sources are authored per map.":"Click a source marker, or choose one above. Stock belongs to the source; delivery to storage takes worker time.":$"{_sourceReport.Source.Name.ToUpperInvariant()}\n{_sourceReport.Detail}";
         var ids=_sourceReport?.Workplaces ?? System.Array.Empty<int>();
         _sourceWorkplaceHeading.Text=_sourceReport==null?"":_sourceReport.WorkplaceHeading+(ids.Length==0?"\nNone qualify for this source.":"");
         foreach(int id in _sourceWorkplaceLinks.Keys.Where(id=>!ids.Contains(id)).ToArray())
