@@ -79,7 +79,7 @@ public sealed partial class World
             if(FindPath(At(worker),home.Entrance,Blocked)==null) continue;
             if(home.ImprovementPlanks<ComfortCost(home))
             {
-                if(!TryMaterialSource(home.Entrance,Resource.Planks,1,out int? source)) continue;
+                if(!TryMaterialSource(home.Entrance,Resource.Planks,1,out int? source,At(worker))) continue;
                 worker.Reserved=Math.Min(2,Math.Min(ComfortCost(home)-home.ImprovementPlanks,AvailableMaterialAt(source,Resource.Planks)));
                 worker.Cargo=Resource.Planks;worker.StorageId=source;worker.ComfortHomeId=home.Id;worker.WorkplaceId=workshop?.Id;
                 Go(worker,StorageAccess(source),Work.ToComfortPlanks,"Collecting planks for home improvement");return;

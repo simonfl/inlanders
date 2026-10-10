@@ -382,7 +382,7 @@ public sealed partial class World
             foreach(var material in new[]{site.Material,Resource.Stone})
             {
             int? source = null;
-            if (!TryMaterialSource(site.Entrance, material, 1, out source)) continue;
+            if (!TryMaterialSource(site.Entrance, material, 1, out source,At(v))) continue;
             int amount = Math.Min(2, Math.Min(site.Remaining(material), AvailableMaterialAt(source,material)));
             if (amount <= 0) continue;
             v.SiteId = site.Id; v.Reserved = amount; site.ReserveMaterial(material,amount);

@@ -52,12 +52,12 @@ public sealed partial class World
         var path = FindPath(from, to, Blocked);
         return path == null ? int.MaxValue : path.Sum(c => Paths.Contains(c) ? 4 : 5);
     }
-    private bool TryLogSource(Cell work,int minimum,out int? source) => TryMaterialSource(work,Resource.Logs,minimum,out source);
-    private bool TryMaterialSource(Cell work,Resource material,int minimum,out int? source)
+    private bool TryLogSource(Cell work,int minimum,out int? source,Cell? from=null) => TryMaterialSource(work,Resource.Logs,minimum,out source,from);
+    private bool TryMaterialSource(Cell work,Resource material,int minimum,out int? source,Cell? from=null)
     {
-        foreach (var id in MaterialStores(material).Where(id => AvailableMaterialAt(id,material) >= minimum).OrderBy(id => TravelCost(work, StorageAccess(id))))
+        foreach (var id in MaterialStores(material).Where(id => AvailableMaterialAt(id,material) >= minimum).OrderBy(id => (long)TravelCost(StorageAccess(id),work)+(from is {} start?TravelCost(start,StorageAccess(id)):0)))
         {
-            if (TravelCost(work, StorageAccess(id)) == int.MaxValue) continue;
+            if (TravelCost(StorageAccess(id),work) == int.MaxValue || from is {} start && TravelCost(start,StorageAccess(id))==int.MaxValue) continue;
             source = id; return true;
         }
         source = null; return false;

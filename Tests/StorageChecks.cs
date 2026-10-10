@@ -69,6 +69,7 @@ public static class StorageChecks
         Until(w,()=>pile.StoredLogs>=6 && !Hauling(w),"Local refill failed");
         w.Assign(1,Role.Unassigned);
         var cottage=w.Place(new(6,0))!;
+        w.People[2].Position=pile.Entrance.Point; // Nearby pickup and delivery both favor this pile.
         w.Assign(2,Role.Builder);
         Until(w,()=>w.People[2].Task==Work.ToMaterials,"Builder did not claim materials");
         Check(w.People[2].StorageId==pile.Id,"Builder did not use nearer stockpile");
@@ -79,7 +80,7 @@ public static class StorageChecks
         var mill=w.Place(new(3,-3),false,BuildingKind.Sawmill)!;
         w.Assign(1,Role.Hauler);
         Until(w,()=>mill.Complete && pile.StoredLogs>=2,"Mill fixture not supplied");
-        w.Assign(2,Role.Unassigned); w.Assign(3,Role.Sawyer);
+        w.Assign(2,Role.Unassigned); w.People[3].Position=pile.Entrance.Point;w.Assign(3,Role.Sawyer);
         Until(w,()=>w.People[3].Task==Work.ToSawLogs,"Sawyer did not fetch logs");
         Check(w.People[3].StorageId==pile.Id,"Sawyer skipped local logs");
         var savedMill=w.SaveJson(); var clone=World.LoadJson(savedMill);

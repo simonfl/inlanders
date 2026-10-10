@@ -33,7 +33,7 @@ public sealed partial class World
         else if (mill.InputLogs > 0) Go(v, mill.Entrance, Work.ToSawmill, "Resuming a sawmill batch");
         else
         {
-            TryLogSource(mill.Entrance, 2, out int? source);
+            TryLogSource(mill.Entrance, 2, out int? source,At(v));
             v.Reserved = 2; v.Cargo = Resource.Logs; v.StorageId = source;
             Go(v, StorageAccess(source), Work.ToSawLogs, "Fetching 2 reserved logs for the sawmill");
         }

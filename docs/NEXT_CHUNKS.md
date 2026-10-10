@@ -25,8 +25,9 @@ Start with the missing first-session evidence and deepen the existing river expe
 189. **Done** — Reconsider applied clearing through the same proposal, retaining physical progress.
 190. **Done** — Renew elsewhere as a bounded spaced grove on chosen bare ground; complete actual planting/maturity and review the whole game. No new map or catalogue expansion.
 191. **Done** — A persistent explicit addition on wooded ground, through ordinary preparation/construction and actual use, with honest blocking and cancellation. One complete outcome.
-192. Examine whole material-supply trips for a chosen addition; improve only a reproduced route-choice failure, including completed useful work and current saves.
-193–195. Select from the191 experience and measured whole-game gaps; no automatic editor expansion. Review195 before196.
+192. **Done** — Examine whole material-supply trips for a chosen addition; improve only a reproduced route-choice failure, including completed useful work and current saves.
+193. Bounded matched rendering-cost investigation; count only a verified playable performance improvement.
+194–195. Select from complete player actions or reproduced whole-game gaps; no automatic editor expansion. Review195 before196.
 196–200. TBD after review195, final review and stop200. Full catalogue remains; no inheritance, seasons or migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.

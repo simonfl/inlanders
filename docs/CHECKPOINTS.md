@@ -3,9 +3,9 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **191**.
+- Playable checkpoints since adoption: **192**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint190**, [synthesis](REVIEW_CHECKPOINT_190.md), fixed16d9e89. Five independent reused roles; retain complete land care, freeze editor expansion, choose a whole desired addition through actual use. Broad62-suite run pending.
+- Last periodic review: **checkpoint190**, [synthesis](REVIEW_CHECKPOINT_190.md), fixed16d9e89. Five independent reused roles; retain complete land care, freeze editor expansion, choose a whole desired addition through actual use. Full62-suite regression passed on fixed190.
 - Previous periodic review: **checkpoint185**, [synthesis](REVIEW_CHECKPOINT_185.md), fixed5391e57. Five independent reused roles; end automatic pose sequence, enlarge acceptance to complete land interventions.
 - Previous periodic review: **checkpoint180**, [synthesis](REVIEW_CHECKPOINT_180.md), fixed6776038. Five independent reused roles; retain complementary livelihoods and select experienced production/land care. Native natural recovery passed; latest full regression175.
 - Previous periodic review: **checkpoint175**, [synthesis](REVIEW_CHECKPOINT_175.md), fixed d3c87bb. Four independent reused roles; complementary livelihood comparison chosen before176. Full54-suite run pending separately.
@@ -798,3 +798,7 @@ Checkpoint190: renewal can establish a spaced grove on selected bare ground alon
 190 whole-project review complete before191. Five independent partial verdicts; chosen direction is a complete desired addition through real use, not more land-tool states. Clarify existing timber label without an outcome. Broad62-suite validation pending separately.
 
 Checkpoint191: explicit Shift placement on wooded ground now remembers one desired addition through real clearance, ordinary placement/construction and actual use. The marked footprint is selectable; its contextual card discloses construction cost/current blocker and cancels remaining clearance while retaining physical progress and living trees. Independent clearing remains available. Both modes passed saved preparation through completed resident visits; cancellation before/after felling and rejecting overwrite pass. Native960 ordinary-click purity, approved plan, F5/F9, cancellation/replan, real construction and completed visit passed; compact overflow corrected and final card inspected. Zero-warning builds. One complete outcome; no checkpoint for the supporting card/save/cancel stages.190 broad run remains separately pending.
+
+190 full regression completed: all62 current-experience suites passed on fixed16d9e89 assembly092d3210-5e58-4326-a9b2-4dfc192a4e68. This excludes191+ changes.
+
+Checkpoint192: material pickups now minimize the whole worker→store→destination trip for construction, sawmill batches and home improvements. Reproduced a builder leaving available adjacent timber for a longer trip; corrected route supplies an addition through completed construction and a real visit, with exact active save. Existing local-stock tests now explicitly position the worker near the local pickup they intend to exercise; all storage fill/drain/reservations/cancellation/processing and home-comfort checks pass. Zero-warning build. No new material/UI. Next investigate scene rendering cost with a bounded matched experiment; do not count instrumentation or an unsuccessful optimization.
