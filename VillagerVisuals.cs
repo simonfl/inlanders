@@ -232,9 +232,7 @@ public partial class Game
                 PoseVisible(view,view.Spade,true); view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;
             case Work.Foraging:
-                view.Torso.Rotation = new(-0.18f, swing * 0.12f, 0);
-                view.Arm.Rotation = new(1.05f + swing * 0.35f, 0, 0);
-                view.LeftArm.Rotation = new(1.05f - swing * 0.35f, 0, 0); break;
+                AnimateBerryPicking(view,v); break;
             case Work.Baking:
                 PoseVisible(view,view.Peel,true); view.Arm.Rotation = new(0.8f + MathF.Sin(cycle * 0.5f) * 0.22f, 0, 0);
                 view.Torso.Rotation = new(-0.1f - MathF.Sin(cycle * 0.5f) * 0.08f, 0, 0); break;

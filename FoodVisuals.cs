@@ -67,8 +67,8 @@ public partial class Game
             Mesh(body, new SphereMesh { Radius = 0.45f, Height = 0.75f, RadialSegments = 7, Rings = 4 }, new(0, 0.3f, 0), new("496d48"));
             for (int i = 0; i < bush.Ripe; i++)
             {
-                float angle = i * Mathf.Tau / 8;
-                Mesh(body, new SphereMesh { Radius = 0.07f, Height = 0.14f, RadialSegments = 5, Rings = 3 }, new(MathF.Cos(angle) * 0.34f, 0.47f, MathF.Sin(angle) * 0.34f), new("b85877"));
+                
+                Mesh(body, new SphereMesh { Radius = 0.07f, Height = 0.14f, RadialSegments = 5, Rings = 3 }, BerryPosition(i), new("b85877"));
             }
             _bushViews[bush.Id] = (body, bush.Ripe);
         }

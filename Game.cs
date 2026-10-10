@@ -49,6 +49,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--plank-storage-smoke-test")) CallDeferred(MethodName.RunPlankStorageSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--gathering-work-smoke-test")) CallDeferred(nameof(RunGatheringWorkSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--field-work-smoke-test")) CallDeferred(MethodName.RunFieldWorkSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--social-smoke-test")) CallDeferred(MethodName.RunSocialSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--wildlife-smoke-test")) CallDeferred(MethodName.RunWildlifeSmoke);
