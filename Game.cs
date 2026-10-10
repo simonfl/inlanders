@@ -50,6 +50,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--logging-smoke-test")) CallDeferred(MethodName.RunLoggingSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--handoff-smoke-test")) CallDeferred(MethodName.RunHandoffSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--ground-preparation-smoke-test")) CallDeferred(nameof(RunGroundPreparationSmoke));
+        if (OS.GetCmdlineUserArgs().Contains("--world-picking-smoke-test")) CallDeferred(nameof(RunWorldPickingSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--canopy-cutaway-smoke-test")) CallDeferred(nameof(RunCanopyCutawaySmoke));
         if (OS.GetCmdlineUserArgs().Contains("--static-batches-smoke-test")) CallDeferred(nameof(RunStaticBatchSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--new-grove-smoke-test")) CallDeferred(nameof(RunNewGroveSmoke));
@@ -205,16 +206,21 @@ public partial class Game : Node3D
     {
         if(_yardPreviewSide>=0){PickYardGround(position);return;}
         if(PickResourceSource(position)) return;
-        var closest = _people.Select((v, i) => (Index: i, Distance: _camera.UnprojectPosition(PresentedPerson(i) + Vector3.Up * 0.6f).DistanceTo(position))).OrderBy(v => v.Distance).First();
-        if (closest.Distance < 25) { if(_world.IsArrangementCourt || _world.Founding!=null)ShowDailyLife(closest.Index);else SelectPerson(closest.Index); }
-        else if (Ground(position) is Vector3 p)
+        void Choose(Cottage site)
+        {var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id);if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id);}
+        var hit=PickVisibleWorld(position);
+        if(hit.Person>=0){if(_world.IsArrangementCourt || _world.Founding!=null)ShowDailyLife(hit.Person);else SelectPerson(hit.Person);return;}
+        if(hit.Site!=null){Choose(hit.Site);return;}
+        if(Ground(position) is Vector3 p)
         {
-            var site = _world.Cottages.FirstOrDefault(c => World.Footprint(c).Contains(new(Mathf.RoundToInt(p.X), Mathf.RoundToInt(p.Z))));
-            if(site==null && _world.PendingAddition is {} plan && World.Footprint(plan.Cell,plan.Rotation,plan.Kind,plan.Rows).Contains(new(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z)))){ShowPreparedAddition();return;}
+            var cell=new Cell(Mathf.RoundToInt(p.X),Mathf.RoundToInt(p.Z));
+            var site=_world.Cottages.FirstOrDefault(c=>World.Footprint(c).Contains(cell));
+            if(site==null && _world.PendingAddition is {} plan && World.Footprint(plan.Cell,plan.Rotation,plan.Kind,plan.Rows).Contains(cell)){ShowPreparedAddition();return;}
             if(site==null && _world.PublicPlace!=null && SharedPlaceHit(p) is {} commons){ShowCommonsCard(commons.Center);return;}
-            if (site != null) { var resident=_world.People.FirstOrDefault(p=>p.HomeId==site.Id); if(_world.IsArrangementCourt && resident!=null)ShowDailyLife(resident.Id);else if(UsesWorkCard(site))ShowWorkplaceCard(site.Id);else SelectBuilding(site.Id); } else { _dailyPerson=-1;ClearSelection(); }
+            if(site!=null)Choose(site);else{_dailyPerson=-1;ClearSelection();}
         }
     }
+
     public override void _Process(double delta)
     {
         if (_atMainMenu) { UpdateMainMenuFocus();RenderActors(0); RenderFoodViews(); UpdateAudio(Math.Min((float)delta, 0.1f)); return; }
