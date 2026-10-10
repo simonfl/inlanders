@@ -5,12 +5,12 @@ using Resource=Inlanders.Simulation.Resource;
 public partial class Game
 {
     private VBoxContainer _placeFood=null!;
-    private Label _placeFoodCount=null!;
+    private Label _placeFoodCount=null!,_placeFoodTitle=null!;
     private void MakePlaceStatus(HBoxContainer top)
     {
         _placeFood=new(){CustomMinimumSize=new(72,0),SizeFlagsHorizontal=Control.SizeFlags.ExpandFill,MouseFilter=Control.MouseFilterEnum.Stop,MouseDefaultCursorShape=Control.CursorShape.PointingHand};
         _placeFood.AddThemeConstantOverride("separation",0);top.AddChild(_placeFood);
-        var title=Text("FOOD",11);title.Modulate=new("a8bcb0");_placeFood.AddChild(title);_placeFoodCount=Text("",20);_placeFood.AddChild(_placeFoodCount);
+        _placeFoodTitle=Text("FOOD",11);_placeFoodTitle.Modulate=new("a8bcb0");_placeFood.AddChild(_placeFoodTitle);_placeFoodCount=Text("",20);_placeFood.AddChild(_placeFoodCount);
         _placeFood.GuiInput+=input=>{if(input is InputEventMouseButton{ButtonIndex:MouseButton.Left,Pressed:true}){OpenEconomy();_placeFood.AcceptEvent();}};
     }
     private void UpdatePlaceStatus()
@@ -34,7 +34,11 @@ public partial class Game
             return;
         }
         int food=World.EdibleKinds.Sum(_world.StoredFood);_placeFoodCount.Text=food.ToString();
+        bool low=_world.SimulatesMeals && food<_world.Population*2;
+        _placeFoodTitle.Text=low?"FOOD · LOW":"FOOD";
+        _placeFoodCount.Modulate=low?new("ffd39b"):Colors.White;
         _placeFood.TooltipText=$"{food} stored meal portions across the village, including reserved portions. Grain needs baking. Click for individual foods, carrying and shortages in Economy [I].";
+        if(low)_placeFood.TooltipText="Less than two stored portions per resident. Click to inspect existing production, meal access or compare another food source. This is a reserve warning, not a forecast.\n"+_placeFood.TooltipText;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
         BuildingKind? kind=_placing && !_plantingTrees && !_clearingTrees && _pathTool==0 && !_decorating && _woodlandTool==0?_buildKind:site?.Kind;
         var output=kind is {} k?World.ProductionOutput(k):null;

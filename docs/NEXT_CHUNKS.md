@@ -8,7 +8,7 @@ Start with the missing first-session evidence and deepen the existing river expe
 172. **Done** — Actual berry-source siting preview.
 173. **Done** — Complete a real first gathering cycle even while starting provisions are full, matching existing first-crop behavior.
 174. **Done** — Make shared natural supply limits legible when siting gathering/fishing, before spending.
-175. Make declining food actionable from ordinary play and demonstrate recovery from an inadequate arrival. No new need/resource or compulsory growth by default.
+175. **Done** — Make declining food actionable from ordinary play and demonstrate recovery from an inadequate arrival. No new need/resource or compulsory growth by default.
 176–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
