@@ -28,7 +28,19 @@ public partial class Game
             if(picker.Carried!=2 || !_people[picker.Id].Carry.Visible || _people[picker.Id].Rig.Position.Length()>.1f)throw new Exception("Real picking cargo/stance transition");
             for(int i=0;i<2500 && !_world.FoundingHasNewFood;i++)_world.Tick(.05f);
             if(!_world.FoundingHasNewFood)throw new Exception("Picking never delivered");
-            _world.Validate();GD.Print("PASS berry contact, real cargo/delivery, pause/reload and stance cleanup.");GetTree().Quit();
+            var grove=World.NewRiverLivelihood();var spot=grove.Map.Land.First(c=>grove.PlantingProblem(c)==null);grove.SetHarvestGrove(spot);
+            Villager? planter=null;
+            for(int i=0;i<3000;i++){grove.Tick(.05f);planter=grove.People.FirstOrDefault(p=>p.Task==Work.PlantingTree && p.Timer>=2.45f && p.Timer<=2.55f);if(planter!=null)break;}
+            if(planter==null)throw new Exception("No real planting");
+            AdoptWorld(grove);_paused=true;await Frames();var plantedView=_people[planter.Id];
+            if(!plantedView.Sapling.Visible || plantedView.Spade.Visible || plantedView.Sapling.GlobalPosition.DistanceTo(OnGround(spot.X,spot.Z,.06f))>.02f)throw new Exception("Sapling misses chosen ground");
+            _focus=OnGround(spot.X,spot.Z);_camera.Size=13;UpdateCamera();await Frames();await Capture("artifacts/184-tree-planting.png");
+            var plantPose=plantedView.Sapling.GlobalTransform;await Frames();if(plantPose!=plantedView.Sapling.GlobalTransform)throw new Exception("Paused sapling moves");
+            string plantSave=grove.SaveJson();AdoptWorld(World.LoadJson(plantSave));_paused=true;await Frames();
+            if(plantPose!=_people[planter.Id].Sapling.GlobalTransform)throw new Exception("Reload shifts planting");
+            for(int i=0;i<50;i++)_world.Tick(.05f);await Frames();
+            if(_world.TreesPlanted==0 || _people[planter.Id].Sapling.Visible || !_trees[_world.Trees.Single(t=>t.Cell==spot).Id].Top.Visible)throw new Exception("Planting failed to become growing tree");
+            _world.Validate();GD.Print("PASS berry contact/cargo/delivery and chosen-ground sapling contact/growth, pause/reload and stance cleanup.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

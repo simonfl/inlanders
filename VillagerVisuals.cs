@@ -9,11 +9,11 @@ public partial class Game
     private sealed class PersonView
     {
         public Node3D Body = new(), Rig = new(), Torso = new(), Head = new(), Arm = new(), LeftArm = new(),
-            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new(), Bow = new();
+            LeftLeg = new(), RightLeg = new(), Carry = new(), Marker = null!, Axe = new(), AxeEdge = new(), Hammer = new(), WorkBoard = new(), Spade = new(), Peel = new(), Saw = new(), Sickle = new(), SeedPouch = new(), RestStool = new(), Bow = new(), Sapling = new();
         public readonly System.Collections.Generic.Dictionary<Node3D,bool> PoseVisibility=new();
         public bool StagingPose;
         public readonly Node3D[] PoseTools;
-        public PersonView(){PoseTools=new[]{Axe,Hammer,Spade,Peel,Saw,Sickle,SeedPouch};}
+        public PersonView(){PoseTools=new[]{Axe,Hammer,Spade,Peel,Saw,Sickle,SeedPouch,Sapling};}
         public Resource Cargo;
         public int Count = -1;
         public float? PickupStarted;
@@ -64,6 +64,10 @@ public partial class Game
         foreach(float x in new[]{-.28f,.28f}) Box(v.WorkBoard,new(x,.22f,-.6f),new(.08f,.44f,.17f),_wood);
         Box(v.Spade, new(0, 0.1f, -0.43f), new(0.21f, 0.05f, 0.25f), new("89938a"));
         Box(v.Peel, new(0, 0.1f, -0.48f), new(0.32f, 0.04f, 0.34f), new("cba36d"));
+        v.LeftArm.AddChild(v.Sapling);v.Sapling.Position=new(0,-.36f,0);
+        Cylinder(v.Sapling,new(0,.12f,0),.025f,.32f,_wood);
+        Cylinder(v.Sapling,new(0,.26f,0),.13f,.3f,new("6d8750"),.01f);
+        v.Sapling.Visible=false;
         v.Arm.AddChild(v.Saw); v.Saw.Position = new(0, -0.32f, 0);
         Box(v.Saw, new(0, 0, -0.3f), new(0.04f, 0.18f, 0.6f), new("a3aaa4"));
         Box(v.Saw, new(0, 0, 0.02f), new(0.09f, 0.22f, 0.14f), _wood);
@@ -228,7 +232,8 @@ public partial class Game
                 view.Arm.Rotation=new(hammer,0,0); view.LeftArm.Rotation=new(.55f,0,.1f); view.Head.Rotation=new(.13f,0,0); break;
             case Work.Planting: case Work.Harvesting:
                 AnimateFieldWork(view,v); break;
-            case Work.ClearingStump: case Work.PlantingTree:
+            case Work.PlantingTree: AnimateTreePlanting(view,v); break;
+            case Work.ClearingStump:
                 PoseVisible(view,view.Spade,true); view.Torso.Rotation = new(-0.4f - swing * 0.12f, 0, 0);
                 view.Arm.Rotation = new(0.6f + swing * 0.35f, 0, 0); view.LeftArm.Rotation = new(0.5f, 0, 0); break;
             case Work.Foraging:

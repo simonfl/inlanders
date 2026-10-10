@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **183**.
+- Playable checkpoints since adoption: **184**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint180**, [synthesis](REVIEW_CHECKPOINT_180.md), fixed6776038. Five independent reused roles; retain complementary livelihoods and select experienced production/land care. Native natural recovery passed; latest full regression175.
 - Previous periodic review: **checkpoint175**, [synthesis](REVIEW_CHECKPOINT_175.md), fixed d3c87bb. Four independent reused roles; complementary livelihood comparison chosen before176. Full54-suite run pending separately.
@@ -776,3 +776,5 @@ Checkpoint181: berry picking reaches actual remaining fruit in two task-timed co
 Checkpoint182: existing grove action now expresses harvest-and-renew in one stroke, releasing preservation only on selected valid trees and scheduling real replanting. Independent Preserve remains an override; invalid designation is pure. Normal/Relaxed proactive checks and native grove drag/overlay/preservation/growth/save at960/1440 passed. Description updated to disclose harvest permission; no new mode. Next verify blocked renewal cannot provoke unrelated felling.
 
 Checkpoint183: reproduced a blocked renewal spot causing unrelated felling with36stored logs. Shared loggers now check actual reserve demand after explicit clearing/planting attempts, so an occupied grove waits instead of stripping other trees. Reproduction fails before and passes after; planting recovers, reserves stay36, both-mode proactive renewal and real shortage harvest pass. Zero-warning build. Next show the chosen renewal through actual planting work and subsequent growth.
+
+Checkpoint184: actual four-second tree planting now digs at the chosen ground, places a held sapling, then resolves to the simulation’s growing tree. Timer-driven pose pauses/reloads exactly; no invented growth or timber. Native berry regression and planting contact/tool transition/visible growth passed, image inspected, zero-warning build. Next synchronize existing gathering/planting rustles with contact before five-role185 review.

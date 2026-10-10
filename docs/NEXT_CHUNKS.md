@@ -17,8 +17,8 @@ Start with the missing first-session evidence and deepen the existing river expe
 181. **Done** — Actual berry collection tied to source and work progress, through real cargo/delivery.
 182. **Done** — Make sustainable harvesting a coherent existing woodland action: mark replanting and allow harvest together, retaining independent preserve/clear options.
 183. **Done** — Verify and correct timber dispatch when grove planting is temporarily blocked.
-184. Show actual renewal as digging, placing a sapling and growing at the chosen spot.
-185. Evidence-led productive-life/land-care outcomes; review185 before186. No automatic pose/prop ladder.
+184. **Done** — Show actual renewal as digging, placing a sapling and growing at the chosen spot.
+185. Synchronize existing rustle with actual picking/planting contact; full185 review including presentation before186.
 186–200. TBD after scheduled reviews; each outcome must change play. Existing catalogue and earlier starts remain accessible. No inheritance, seasons or save migrations.
 
 After every outcome update this queue, ROADMAP and CHECKPOINTS, validate and commit. Review fixed commits independently; scripted success is not enjoyment. Push completed review batches and stop at200.
