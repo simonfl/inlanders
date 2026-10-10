@@ -10,7 +10,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        bool HasColor(Node node,Color color) => node is MeshInstance3D mesh && mesh.MaterialOverride is StandardMaterial3D material && material.AlbedoColor.IsEqualApprox(color) || node.GetChildren().Any(c=>HasColor(c,color));
+        bool HasColor(Node node,Color color) => node is MeshInstance3D mesh && mesh.MaterialOverride is StandardMaterial3D material && (material.AlbedoColor.IsEqualApprox(color) || material.VertexColorUseAsAlbedo && Enumerable.Range(0,mesh.Mesh.GetSurfaceCount()).Any(i=>mesh.Mesh.SurfaceGetArrays(i)[(int)Godot.Mesh.ArrayType.Color].AsColorArray().Any(c=>(c*material.AlbedoColor).IsEqualApprox(color)))) || node.GetChildren().Any(c=>HasColor(c,color));
         _goldenHour=false;ApplyAtmosphere();_showWorldLabels=false;ApplyWorldLabels();
         for(int rotation=0;rotation<4;rotation++)
         {

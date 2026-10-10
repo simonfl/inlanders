@@ -87,6 +87,8 @@ public partial class Game
         v.Torso.AddChild(v.Carry); v.Carry.Position = new(0, 0.12f, -0.43f);
         MakeDailyFurniture(v);
         v.Marker = Cylinder(v.Body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
+        // Batch only within rigid pieces; animated joints and visibility-controlled parts stay separate.
+        foreach(var piece in new[]{v.Hat,v.LeftLeg,v.RightLeg,v.Axe,v.Hammer,v.Spade,v.Peel,v.Saw,v.Sickle,v.Bow,v.Sapling,v.WorkBoard})BatchStaticGeometry(piece);
         return v;
     }
 

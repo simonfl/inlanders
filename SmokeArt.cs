@@ -22,6 +22,7 @@ public partial class Game
                 for (int i = 0; i < 4; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             }
             _paused = true; _world = World.NewCreative();
+            foreach(var tree in _world.Trees.ToArray())_world.SetClearing(tree.Cell,true); // Isolated building sheet needs clear ground.
             Cottage Place(Cell at, BuildingKind kind) => _world.Place(at, false, kind) ?? throw new Exception($"Art scene placement: {kind} {at}: {_world.PlacementProblem(at, false, kind)}");
             Place(new(0, 0), BuildingKind.Cottage);
             var bakery = Place(new(4, 0), BuildingKind.Bakery);
