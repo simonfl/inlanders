@@ -22,13 +22,24 @@ public partial class Game
         _localWatchFocus=_focus;_localWatchAngle=_angle;_localWatchZoom=_camera.Size;
         var nearby=_world.Cottages.Where(c=>c.Complete && (c.Cell.Point-site.Cell.Point).LengthSquared()<=64).ToList();
         // Include the nearest actual food workplace when homes stand apart from their fields.
-        if(!nearby.Any(c=>_world.IsWorkplaceFoodStore(c)))
+        if(Buildings.Get(site.Kind).Beds>0 && !nearby.Any(c=>_world.IsWorkplaceFoodStore(c)))
         {
             var food=_world.Cottages.Where(c=>c.Complete && _world.IsWorkplaceFoodStore(c)).OrderBy(c=>(c.Cell.Point-site.Cell.Point).LengthSquared()).FirstOrDefault();
             if(food!=null)nearby.Add(food);
         }
         var cells=nearby.SelectMany(c=>World.Footprint(c).Append(c.Entrance).Concat(_world.HomeYardPlaces(c))).ToList();
         foreach(var commons in _world.SharedPlaces.Where(c=>(c.Center.Point-site.Cell.Point).LengthSquared()<=144))cells.AddRange(commons.Places);
+        if(Buildings.Get(site.Kind).RecreationSlots>0)
+        {
+            // A visit belongs to this destination and its final approach, not an unrelated food field.
+            cells=World.Footprint(site).Append(site.Entrance).ToList();
+            foreach(var visitor in _world.People.Where(p=>p.LeisureSiteId==site.Id))
+            {
+                cells.Add(visitor.Destination);cells.AddRange(visitor.Route.TakeLast(6));
+                var at=new Cell((int)System.MathF.Round(visitor.Position.X),(int)System.MathF.Round(visitor.Position.Y));
+                if((at.Point-site.Cell.Point).LengthSquared()<=36)cells.Add(at);
+            }
+        }
         if(cells.Count==0)cells.Add(site.Cell);
         _focus=OnGround((cells.Min(c=>c.X)+cells.Max(c=>c.X))*.5f,(cells.Min(c=>c.Z)+cells.Max(c=>c.Z))*.5f);
         _camera.Size=22;_followPerson=false;_watchOrbit=false;UpdateCamera();
