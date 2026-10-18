@@ -59,6 +59,7 @@ public partial class Game
         _homeMoreButton=Button("Household & details",()=>{_homeMore=!_homeMore;_nextWorkCard=0;});column.AddChild(_homeMoreButton);
         _householdChange.Reparent(column);_workCardDetails.Reparent(column);
         MakeHomeInvitation(column);MakePlaceJourneys(column);
+        column.MoveChild(_workCardTrips,_workCardWatchPlace.GetIndex()+1);column.MoveChild(_placeTripsPanel,_workCardTrips.GetIndex()+1);
         _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();CreateActors();RenderActors(0);RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
     }
     private void RenderWorkplaceCard()
@@ -137,7 +138,7 @@ public partial class Game
         if(_placeJourneySite==site.Id)
         {
             _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant();
-            foreach(var control in new Control[]{_workCardPause,_workCardMove,_workCardDetails,_workCardSupply,_workCardWorker,_workCardDiner,_homeOptionsButton,_homeMoreButton,_placePathRow})control.Hide();
+            foreach(var control in new Control[]{_workCardPause,_workCardMove,_workCardDetails,_workCardSupply,_workCardWorker,_workCardDiner,_homeOptionsButton,_homeMoreButton,_placePathRow,_workOptionsButton,_supplyReturn,_constructionSupply,_constructionPriority,_workCardInput,_workCardCancel,_workCardFurnish})control.Hide();
         }
 
     }

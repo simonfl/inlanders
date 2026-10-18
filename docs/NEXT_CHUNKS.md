@@ -14,7 +14,7 @@ Start with the existing choose-work → actual work → useful place loop. 201 m
 207. **Done** — Supply inspection/planning retains the original project and camera; cancellation or explicit return restores it, without rewinding work. Native ordinary field placement and real bread recovery pass.
 208. **Done** — Reachable supply producers ordered by readiness and actual route to the consumer; concrete49→18 walk counterexample and native source/return pass.
 209. **Done** — Bulk ground submission: identical geometry/colors, paired16.213→2.483ms submission cost. Scene-wide timings remain mixed; no general stutter claim.
-210. **Next** — Correct observation versus alteration hierarchy and coherent journey return, based on independent206 presentation review; final five-role whole-game review and stop210.
+210. **Done** — Observation sits beside Watch; trip framing/following returns to original place/view. Compact/wide native checks pass. Freeze for final five-role whole-game review, then stop210; no211 authorized.
 
 ## Prior authorization (historical)
 

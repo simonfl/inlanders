@@ -11,9 +11,28 @@ public partial class Game
     private int _placeJourneySite=-1,_placeJourneyPerson=-1;
     private PlaceJourney? _placeJourney;
     private string? _placeJourneyEnding;
+    private World? _tripReturnWorld;
+    private int _tripReturnSite=-1;
+    private Vector3 _tripReturnFocus;
+    private float _tripReturnZoom,_tripReturnAngle;
+    private void TogglePlaceJourneys()
+    {
+        if(_placeJourneySite==_workCardSite)
+        {
+            if(_tripReturnWorld==_world && _tripReturnSite==_workCardSite)
+            {_focus=_tripReturnFocus;_camera.Size=_tripReturnZoom;_angle=_tripReturnAngle;_followPerson=false;UpdateCamera();}
+            _placeJourneySite=-1;
+        }
+        else
+        {
+            _tripReturnWorld=_world;_tripReturnSite=_workCardSite;_tripReturnFocus=_focus;_tripReturnZoom=_camera.Size;_tripReturnAngle=_angle;
+            _placeJourneySite=_workCardSite;_workOptions=false;
+        }
+        _placeJourneyPerson=-1;_placeJourney=null;_placeJourneyEnding=null;_nextWorkCard=0;_workCardScroll.ScrollVertical=0;
+    }
     private void MakePlaceJourneys(VBoxContainer column)
     {
-        _workCardTrips=Button("People & trips",()=>{_placeJourneySite=_placeJourneySite==_workCardSite?-1:_workCardSite;_placeJourneyPerson=-1;_placeJourney=null;_placeJourneyEnding=null;_nextWorkCard=0;});column.AddChild(_workCardTrips);
+        _workCardTrips=Button("People & trips",TogglePlaceJourneys);column.AddChild(_workCardTrips);
         _placeTripsPanel=new();column.AddChild(_placeTripsPanel);_placeTripText=Text("",14,true);_placeTripsPanel.AddChild(_placeTripText);
         var row=new HBoxContainer();_placeTripsPanel.AddChild(row);
         _placeTripNext=Button("Next trip",()=>{
@@ -26,18 +45,20 @@ public partial class Game
             float x=(points.Min(p=>p.X)+points.Max(p=>p.X))/2,z=(points.Min(p=>p.Y)+points.Max(p=>p.Y))/2;
             _focus=OnGround(x,z);_camera.Size=Math.Clamp(Math.Max(points.Max(p=>p.X)-points.Min(p=>p.X),points.Max(p=>p.Y)-points.Min(p=>p.Y))*1.6f+9,12,MaximumZoom);_followPerson=false;_watchOrbit=false;UpdateCamera();
         });row.AddChild(_placeTripFrame);
-        _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person,_placeJourneySite);_followPerson=true;}});row.AddChild(_placeTripFollow);
+        _placeTripFollow=Button("Follow",()=>{if(_placeJourney is {} trip){ShowDailyLife(trip.Person,_placeJourneySite);
+            if(_tripReturnWorld==_world && _tripReturnSite==_placeJourneySite){_dailyReturnFocus=_tripReturnFocus;_dailyReturnZoom=_tripReturnZoom;_dailyReturnAngle=_tripReturnAngle;}
+            _followPerson=true;}});row.AddChild(_placeTripFollow);
         _placeTripPath=Button("Connect this place to destination",BeginPathFromTrip);_placeTripsPanel.AddChild(_placeTripPath);
         _placeTripPath.TooltipText="Preview a connection from this place’s entrance to the observed destination. Choose bends in the world; apply or cancel. This is not a promise that walkers take a longer route.";
         _placeTripLine=new(){Width=3,Antialiased=true,ZIndex=-1};_hud.AddChild(_placeTripLine);_placeTripsPanel.Hide();
     }
     private void RenderPlaceJourneys()
     {
-        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (!SmallWorkplace(c) || _workOptions) && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
+        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (!SmallWorkplace(c) || !_workOptions) && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
         bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && c.Complete && Buildings.Get(c.Kind).Beds>0);
-        _workCardTrips.Text=show?"Back to place":household?"Household journeys":"People & trips";
+        _workCardTrips.Text=show?"Back to "+BuildingName(_world.Cottages.First(c=>c.Id==_workCardSite).Kind).ToLowerInvariant():household?"Household journeys":"People & trips";
         _workCardTrips.TooltipText=household?"Actual trips by the people who live here. They may be working or eating elsewhere; these are not all journeys to this house.":"Inspect actual journeys related to this place.";
         if(!show){_placeJourney=null;return;}
         var trips=_world.ReadPlaceJourneys(_placeJourneySite);

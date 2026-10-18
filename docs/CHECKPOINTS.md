@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **209**.
+- Playable checkpoints since adoption: **210**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint205**, [synthesis](REVIEW_CHECKPOINT_205.md), fixed452716e. Four independent whole-game roles; smaller place-first workplace surface and continuous recovery. All67 fixed205 suites passed; presentation supplement206.
 - Previous periodic review: **checkpoint200**, [synthesis](REVIEW_CHECKPOINT_200.md), fixedf557092. Five independent reused roles; retain complete public sessions provisionally and stop200. Final64-suite regression passed.
@@ -851,3 +851,7 @@ Checkpoint207: supply actions retain the original project and camera. Cancelling
 Checkpoint208: supply actions select reachable producers by readiness and actual route to the consumer, with honest paused/unfinished fallback. Reproduced older field(0,-7),49 walking cost, versus new field(-3,1),18; active/paused and pure-read checks pass. Labels now say Inspect or Plan according to the actual action. Native actual source selection and return pass alongside field placement/resume and eaten bread; zero-warning full build. Next measure and reduce worked-ground rebuild stalls.
 
 Checkpoint209: worked-ground surfaces submit their identical geometry/color arrays in bulk, removing per-vertex Godot calls and repeated neighbor-array allocation. Native20 alternating paired comparisons after4 warmups:12264 vertices, old submission median16.213ms versus bulk2.483ms; exact vertex/normal/color arrays. Before/after public scenes inspected, zero-warning build. Serial60s scene results are mixed: warmed baseline median14.8115/p9520.656/max63.759ms, first bulk14.0825/26.107/81.974, final26.826/43.533/133.999. Ground rebuild medians24.996→18.7025→39.209ms also vary with runs. Therefore retain the isolated verified submission improvement, NOT a general frame-rate/stutter claim. Evidence runs205245-419,205453-804,205825-456 and artifacts/209-native.log. Final210 corrects observation hierarchy, then full review and stop.
+
+Checkpoint210: People & trips sits beside Watch in ordinary place cards, separate from Change this place. The journey view has one named place-return action; framing or following a real trip returns to the original place/camera. Native960/1440 actual bread trip, frame/back, follow/back, management expansion, Watch/return, source recovery and eaten bread passed; images inspected, zero-warning build. Ten authorized outcomes complete; freeze210 for five-role whole-project review, then stop.
+
+Supporting tooling, no checkpoint: dense fixture waits at most60 simulated seconds only when its exact authored footprint is transiently occupied. Two fresh generations complete archived finale at2582s and produce identical32-resident/30-building dense states at2827.7s. No silent relocation or save migration. This closes review205’s dense-generation gap.

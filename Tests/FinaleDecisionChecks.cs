@@ -17,6 +17,7 @@ static class FinaleDecisionChecks
             Console.WriteLine($"Finale grain {at.Actual} facing {at.Rotation}; displacement {at.DisplacementSquared}");
             return w.Place(at.Actual,at.Rotation,kind)!;
         }
+        for(int wait=0;wait<600 && w.PlacementProblem(c,r,kind)?.Contains("standing here or stepping")==true;wait++)w.Tick(.1f);
         return w.Place(c,r,kind)??throw new Exception($"Cannot place {kind} at {c}: {w.PlacementProblem(c,r,kind)}");
     }
     internal static void Grow(World w,int target)
