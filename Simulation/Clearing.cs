@@ -30,7 +30,7 @@ public sealed partial class World
     private bool ClaimClearing(Villager v)
     {
         var tree = Trees.Where(t => t.ClearRequested && t.Owner == null && Accessible(t.Access))
-            .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
+            .OrderBy(t => t.Logs>0?TimberTripCost(v,t):TravelCost(At(v),t.Access)).ThenBy(t => t.Id).FirstOrDefault();
         if (tree == null) return false;
         tree.Owner = v.Id; v.TreeId = tree.Id;
         Go(v, tree.Access, tree.Logs > 0 ? Work.ToTree : Work.ToClearStump,

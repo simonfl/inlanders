@@ -5,8 +5,9 @@ Authorized October 18, 2026: ten more playable outcomes, then stop at 210. Revie
 Start with the existing choose-work → actual work → useful place loop. 201 makes unfinished work understandable and actionable from its ordinary card. Subsequent outcomes must address a concrete experience or a discriminating design comparison, not fill a ten-item feature quota. Keep the catalogue and public beginnings stable pending evidence; no new needs, inheritance, seasons or save migrations. Reevaluate after every outcome; the second half is selected after review 205.
 
 201. **Done** — Understand and resolve an unfinished addition's actual material/work delay from its ordinary card, including supply action and deliberate construction priority.
-202. **In progress** — Forestry work follows actual walking journeys and delivery access; demonstrate a counterexample and real timber delivery.
-203–205. **Candidate scope** — Useful work and recovery in the current settlement, selected from observed behavior/source-backed reproductions. Merge supporting changes into complete outcomes.
+202. **Done** — Forestry work follows actual walking journeys and delivery access; demonstrate a counterexample and real timber delivery.
+203. **In progress** — Cultivation responds to actual local work access, with priority, crop collection and saves retained.
+204–205. **Candidate scope** — Useful work and recovery in the current settlement, selected from observed behavior/source-backed reproductions. Merge supporting changes into complete outcomes.
 206–210. **After review 205** — Evidence-led; final whole-game review and stop.
 
 ## Prior authorization (historical)

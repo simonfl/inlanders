@@ -62,6 +62,13 @@ public sealed partial class World
         }
         source = null; return false;
     }
+    private long TimberTripCost(Villager worker,TimberTree tree)
+    {
+        int outward=TravelCost(At(worker),tree.Access);
+        int inward=MaterialStores(tree.Material).Where(id=>FreeMaterialSpace(id,tree.Material)>=System.Math.Min(2,tree.Logs))
+            .Select(id=>TravelCost(tree.Access,StorageAccess(id))).DefaultIfEmpty(int.MaxValue).Min();
+        return (long)outward+inward;
+    }
     private void ReturnTimber(Villager v)
     {
         // Retargeting releases this worker's old capacity reservation before choosing a destination.

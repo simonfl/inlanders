@@ -55,7 +55,7 @@ public sealed partial class World
     }
     private bool ClaimGrovePlanting(Villager worker)
     {
-        foreach(var cell in ManagedWoodland.OrderBy(c=>(c.Point-worker.Position).LengthSquared()).ThenBy(c=>c.X).ThenBy(c=>c.Z))
+        foreach(var cell in ManagedWoodland.OrderBy(c=>TravelCost(At(worker),new Cell(c.X+1,c.Z))).ThenBy(c=>c.X).ThenBy(c=>c.Z))
         {
             if(!GroveNeedsPlanting(cell))continue;
             if(PlantingProblem(cell)!=null) continue;

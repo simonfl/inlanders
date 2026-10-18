@@ -355,7 +355,7 @@ public sealed partial class World
         {
             if (ClaimClearing(v)) return;
             var planting = Trees.Where(t => t.NeedsPlanting && t.Owner == null && Accessible(t.Access))
-                .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
+                .OrderBy(t => TravelCost(At(v),t.Access)).ThenBy(t => t.Id).FirstOrDefault();
             if (planting != null)
             {
                 planting.Owner = v.Id; v.TreeId = planting.Id;
@@ -364,7 +364,7 @@ public sealed partial class World
             if(ClaimGrovePlanting(v)) return;
             if(v.SharedWorker && !SharedTimberNeeded){v.Status="Timber reserve ready — renewal waits for clear access";return;}
             var tree = Trees.Where(t => !t.Preserved && t.Logs > 0 && t.Owner == null && Accessible(t.Access))
-                .OrderBy(t => Vector2.DistanceSquared(v.Position, t.Access.Point)).ThenBy(t => t.Id).FirstOrDefault();
+                .OrderBy(t => TimberTripCost(v,t)).ThenBy(t => t.Id).FirstOrDefault();
             if (tree == null) { v.Status = Trees.Any(t => !t.Preserved && (t.Logs > 0 || t.NeedsPlanting || t.ClearRequested)) ? "Waiting — timber work claimed or across water; build a bridge" : Trees.Any(t => !t.Preserved && t.Growth < 1) ? "Waiting for saplings to grow" : Trees.Any(t=>t.Preserved) ? "Preserved trees stay standing — allow harvesting or mark new planting" : "No timber — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
             Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
