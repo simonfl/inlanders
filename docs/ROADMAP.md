@@ -8,7 +8,7 @@
 
 ## Current direction and next step
 
-**206 delivered:** everyday workplaces foreground current life, immediate recovery and Watch. Secondary management is under Change this place, and cards remain within the viewport. Native recovered bakery, expansion/trips and Watch/return pass at960. Next preserve the original project while following supply; no new management surface.
+**206 delivered:** everyday workplaces foreground current life, immediate recovery and Watch. Secondary management is under Change this place, and cards remain within the viewport. Native recovered bakery, expansion/trips and Watch/return pass at960. 207 now retains original project/view through supply inspection, ordinary placement and cancellation; actual bread recovery passes. Next correct supplier relevance. Independent206 visual review selects observation/alteration hierarchy for210; measured ground rebuild cost selects bounded209 investigation.
 
 **Review205 decision:** four independent whole-game partial verdicts. [Synthesis](REVIEW_CHECKPOINT_205.md) selects a smaller place-first workplace surface and continuous supply recovery, comparing observation/composition with management-rich defaults. Full catalogue and physical consequences remain. Recovered compact card overlap is concrete; human motivation, audio and sustained appeal remain unproved. Final two outcomes remain evidence-led, not an automatic feature list.
 

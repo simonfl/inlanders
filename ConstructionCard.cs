@@ -17,6 +17,7 @@ public partial class Game
     }
     private void OpenMaterialSupply(Inlanders.Simulation.Resource material)
     {
+        RememberSupplyOrigin();
         if(material==Inlanders.Simulation.Resource.Logs){BeginEverydayTimber();return;}
         var kind=material switch{Inlanders.Simulation.Resource.Grain=>BuildingKind.Farm,Inlanders.Simulation.Resource.Planks=>BuildingKind.Sawmill,_=>BuildingKind.Quarry};
         var producer=_world.Cottages.Where(c=>c.Kind==kind && !c.DemolitionRequested).OrderByDescending(c=>c.Complete).ThenBy(c=>c.WorkPaused).FirstOrDefault();

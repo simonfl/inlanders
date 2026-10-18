@@ -185,7 +185,7 @@ public partial class Game : Node3D
             if(PlotActive && key.Keycode is Key.Z or Key.X){ChangePlotRows(key.Keycode==Key.Z?-1:1);return;}
             if(key.Keycode==Key.Y && HomePlotActive){CycleHomePlot();return;}
             if (key.Keycode == Key.R && _placing && !_plantingTrees && !_clearingTrees && _pathTool == 0 && _woodlandTool == 0) { _rotation = (_rotation + (key.ShiftPressed?3:1)) % (_decorating && _decorationKind!=DecorationKind.Gateway?2:4); RefreshGhost(); }
-            if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
+            if (key.Keycode == Key.Escape) { if (_placing) { _placing = false; RefreshGhost(); ReturnToSupplyOrigin(); } else if (_drawer.Visible) CloseDrawer(); else ClearSelection(); }
             if (key.Keycode == Key.I) ToggleDrawer(4);
             if (key.Keycode == Key.B) ToggleDrawer(1);
             if (key.Keycode == Key.V) ToggleDrawer(0);
@@ -210,6 +210,7 @@ public partial class Game : Node3D
     }
     private void SelectAtPointer(Vector2 position)
     {
+        ForgetSupplyOrigin();
         if(_yardPreviewSide>=0){PickYardGround(position);return;}
         if(PickResourceSource(position)) return;
         void Choose(Cottage site)
