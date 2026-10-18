@@ -33,7 +33,7 @@ public partial class Game
     }
     private void RenderPlaceJourneys()
     {
-        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
+        _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (!SmallWorkplace(c) || _workOptions) && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
         bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && c.Complete && Buildings.Get(c.Kind).Beds>0);

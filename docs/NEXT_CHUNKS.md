@@ -10,8 +10,8 @@ Start with the existing choose-work → actual work → useful place loop. 201 m
 204. **Done** — Recover missing bakery/sawmill input from its existing workplace card through actual production.
 205. **Done** — Dedicating the current worker and releasing dedicated staffing should preserve committed work/delivery, including a fisher at sea. Then full fixed-build review.
 [Whole-game review205](REVIEW_CHECKPOINT_205.md) completed: four partial verdicts. Choose a smaller place-first surface, retain physical consequences, and test recovery continuity.
-206. **Next** — Smaller ordinary workplace card: current outcome, relevant intervention, Watch; occasional controls remain deliberately available. Include recovered compact states.
-207. Follow supply and return to the original project through cancellation/placement and actual use.
+206. **Done** — Smaller ordinary workplace card with state, relevant recovery and Watch; secondary changes are explicit, and long cards scroll within the window. Recovered bakery native flow passes.
+207. **Next** — Follow supply and return to the original project through cancellation/placement and actual use.
 208. Correct supplier navigation only after reproducing its irrelevant-source choice; use actual relationship/access.
 209–210. Select from ordinary-control recovery and matched performance evidence; final full review and stop210. No validation-only increments.
 

@@ -4,6 +4,11 @@ using System.Linq;
 public partial class Game
 {
     private PanelContainer _workCard=null!;
+    private ScrollContainer _workCardScroll=null!;
+    private VBoxContainer _workCardColumn=null!;
+    private Button _workOptionsButton=null!;
+    private bool _workOptions;
+    private bool SmallWorkplace(Cottage site)=>_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds==0;
     private Label _workCardText=null!;
     private Button _workCardPause=null!,_workCardMove=null!,_workCardDetails=null!,_workCardWorker=null!,_workCardDiner=null!,_workCardCancel=null!;
     private Button _workCardFurnish=null!,_workCardYard=null!,_workCardWatchPlace=null!;
@@ -20,13 +25,15 @@ public partial class Game
     private Villager? CardDiner()=>_world.People.FirstOrDefault(p=>p.Meal is { } m && (m.Reserved || m.Carrying) && m.SourceId==_workCardSite);
     private void ShowWorkplaceCard(int id)
     {
-        ClearSelection();CloseDrawer();_homeOptions=false;_homeMore=false;_workCardSite=_selectedSite=id;_workCardWorld=_world;_nextWorkCard=0;
+        ClearSelection();CloseDrawer();_workOptions=false;_homeOptions=false;_homeMore=false;_workCardSite=_selectedSite=id;_workCardWorld=_world;_nextWorkCard=0;
         var site=_world.Cottages.First(c=>c.Id==id);
         _workCardRight=_camera.UnprojectPosition(BuildingPosition(site)).X<_hud.Size.X/2;RefreshSelection();
     }
     private void MakeWorkplaceCard()
     {
-        _workCard=HudPanel(_hud);var column=new VBoxContainer();_workCard.AddChild(column);
+        _workCard=HudPanel(_hud);
+        _workCardScroll=new(){HorizontalScrollMode=ScrollContainer.ScrollMode.Disabled,VerticalScrollMode=ScrollContainer.ScrollMode.Auto};_workCard.AddChild(_workCardScroll);
+        var column=_workCardColumn=new VBoxContainer{SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};_workCardScroll.AddChild(column);
         _workCardText=Text("",14,true);_workCardText.CustomMinimumSize=new(306,0);column.AddChild(_workCardText);MakeHouseholdUi(column);
         var people=new HBoxContainer();column.AddChild(people);
         void Watch(Villager? person){if(person==null)return;int origin=_workCardSite;_workCardSite=-1;ShowDailyLife(person.Id,origin);_followPerson=true;}
@@ -34,6 +41,7 @@ public partial class Game
         _workCardWatchPlace=Button("Watch this part of the village",WatchLocalPlace);column.AddChild(_workCardWatchPlace);
         _workCardWatchPlace.TooltipText="See this place with nearby homes, working ground and shared space. Actual life continues at your chosen speed. H or Esc returns to this place and your previous view.";
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
+        _workOptionsButton=Button("Change this workplace",()=>{_workOptions=!_workOptions;_placeJourneySite=-1;_nextWorkCard=0;_workCardScroll.ScrollVertical=0;});column.AddChild(_workOptionsButton);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
         _workCardMove=Button("Move",ChooseMoveIntent);actions.AddChild(_workCardMove);
@@ -64,8 +72,9 @@ public partial class Game
         {_workCard.Hide();RenderPlotRevision(site);return;}
         bool show=_turnHome<0 && !(_showFoodMap && _world.PublicPlace!=null) && _householdFrom<0 && site!=null && _selectedSite==site.Id && !_atMainMenu && !_placing && !_watching && !_drawer.Visible && !_inspector.Visible;
         _workCard.Visible=show;if(!show || site==null){StopYardPreview();EndPlotRevision();return;}
-        _workCard.Size=new(330,0);
-        _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
+        _workCardScroll.CustomMinimumSize=new(306,Mathf.Min(_workCardColumn.GetCombinedMinimumSize().Y,Mathf.Max(100,_hud.Size.Y-210)));
+        _workCard.Size=new(350,0);
+        _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-366:Mathf.Min(16,_hud.Size.X-350)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
         RenderWorkplaceInputCard(site);RenderConstructionCard(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
@@ -118,6 +127,13 @@ public partial class Game
         _workCardMove.Text=_waitingMove==site.Id?"Cancel move":!site.WorkPaused && (World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && _world.PublicPlace!=null?"Pause & move":"Move";
         string? moveProblem=_world.PublicPlace!=null?_world.RelocationIntentProblem(site.Id):_world.RelocationProblem(site.Id);
         _workCardMove.Disabled=moveProblem!=null;_workCardMove.TooltipText=moveProblem??"Preview another location. Work pauses and resumes when you place or cancel; an already paused workplace stays paused. Growing crops need fresh sowing after moving.";
+        bool simple=SmallWorkplace(site);
+        _workOptionsButton.Visible=simple;_workOptionsButton.Text=_workOptions?"Back to everyday life":"Change this place";
+        if(simple && !_workOptions)
+        {
+            _workCardPause.Visible=site.WorkPaused;
+            foreach(var control in new Control[]{_workCardMove,_workCardDetails,_workCardSupply,_placePathRow,_reshapePlot})control.Hide();
+        }
         if(_placeJourneySite==site.Id)
         {
             _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant();

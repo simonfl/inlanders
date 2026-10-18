@@ -19,6 +19,11 @@ public partial class Game
     }
     private async Task UiClick(Button button,int heldFrames=0)
     {
+        if(_workCardScroll!=null && _workCardScroll.IsAncestorOf(button))
+        {
+            if(!button.IsVisibleInTree() && _workOptionsButton.Visible && !_workOptions)await UiClick(_workOptionsButton);
+            for(int frame=0;frame<4;frame++){_workCardScroll.EnsureControlVisible(button);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
+        }
         if(_inspectorSecondary!=null && _inspectorSecondary.IsAncestorOf(button) && !_inspectorSecondary.Visible) await UiClick(_inspectorDetails);
         if(_mainScroll!=null && _mainScroll.IsAncestorOf(button))
         {

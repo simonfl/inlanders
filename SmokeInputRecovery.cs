@@ -20,7 +20,19 @@ public partial class Game
             await UiClick(_workCardPause);if(field.WorkPaused)throw new Exception("Source did not resume");
             for(int i=0;i<6000 && _world.Food.EatenBread==0;i++)_world.Tick(.1f);
             if(_world.Food.EatenBread==0)throw new Exception("Recovered chain did not feed anyone");_world.Validate();
-            ShowWorkplaceCard(oven.Id);await Frames();await Capture("artifacts/204-bakery-recovered.png");
+            ShowWorkplaceCard(oven.Id);await Frames();
+            if(_workCardMove.Visible || _workCardDetails.Visible || _workCardSupply.Visible || _workCardTrips.Visible)throw new Exception("Occasional actions crowd everyday life");
+            if(_workCard.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Recovered card overflow");
+            await Capture("artifacts/206-bakery-everyday.png");
+            await UiClick(_workOptionsButton);await Frames();
+            if(!_workCardMove.Visible || !_workCardDetails.Visible || !_workCardTrips.Visible)throw new Exception("Expanded actions missing");
+            await UiClick(_workCardTrips);await Frames();
+            if(_placeJourneySite!=oven.Id)throw new Exception("Expanded trip control inaccessible");
+            if(_workCard.GetGlobalRect().End.Y>_hud.Size.Y-75)throw new Exception("Expanded card overflow");
+            await Capture("artifacts/206-bakery-changes.png");
+            await UiClick(_workOptionsButton);await Frames();await UiClick(_workCardWatchPlace);await Frames();
+            if(!_watching)throw new Exception("Place-first Watch unavailable");await Press(Key.Escape);await Frames();
+            if(_workCardSite!=oven.Id || _workOptions)throw new Exception("Watch return lost simple place");
             GD.Print("PASS ordinary bakery ingredient action, new field planning, existing paused-field inspection/resume, actual grain→bread→eaten meal.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
