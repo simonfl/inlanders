@@ -8,6 +8,9 @@
 
 ## Current direction and next step
 
+**Review205 decision:** four independent whole-game partial verdicts. [Synthesis](REVIEW_CHECKPOINT_205.md) selects a smaller place-first workplace surface and continuous supply recovery, comparing observation/composition with management-rich defaults. Full catalogue and physical consequences remain. Recovered compact card overlap is concrete; human motivation, audio and sustained appeal remain unproved. Final two outcomes remain evidence-led, not an automatic feature list.
+
+
 **Active 201–210, authorized October 18, 2026:** continue the existing public settlement experience, with full reviews at 205/210 and stop at 210. The prior stop below is historical. 201 delivers actionable construction delays and existing priority from the ordinary card. Next evaluate forestry walking choices; select later work from concrete evidence rather than automatic catalogue/editor expansion. Review 200's uncertainty about player motivation remains. See [active queue](NEXT_CHUNKS.md).
 
 
