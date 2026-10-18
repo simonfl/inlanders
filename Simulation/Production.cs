@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Inlanders.Simulation;
 
-public sealed record WorkplaceReport(string State, string Detail, Cell? Source = null, int? SourceBuilding = null, bool RestingForFood = false);
+public sealed record WorkplaceReport(string State, string Detail, Cell? Source = null, int? SourceBuilding = null, bool RestingForFood = false, Resource? MissingInput = null);
 
 public sealed partial class World
 {
@@ -104,9 +104,9 @@ public sealed partial class World
         var role = Buildings.Get(site.Kind).Worker;
         if (role != null && !People.Any(p => (p.SharedWorker || p.Role == role) && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
         if (site.Kind == BuildingKind.Bakery && !remaining && !TryGrainSource(site.Entrance,site.Entrance,out _))
-            return new("Missing grain", LocalGrainSupply?"Needs 2 grain at a reachable farm store or central pantry. Harvest and deliver grain first.":"Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess);
+            return new("Missing grain", LocalGrainSupply?"Needs 2 grain at a reachable farm store or central pantry. Harvest and deliver grain first.":"Needs 2 unreserved grain in the pantry. Growing or carried grain is not available yet.", YardAccess, MissingInput:Resource.Grain);
         if (site.Kind == BuildingKind.Sawmill && !remaining && !TryLogSource(site.Entrance, 2, out _))
-            return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess);
+            return new("Missing logs", "Needs 2 unreserved logs at a reachable store.", YardAccess, MissingInput:Resource.Logs);
         if (site.Kind == BuildingKind.ForagerHut && !Bushes.Any(b => b.Ripe > 0 && b.Owner == null && Accessible(b.Access)))
             return new("Waiting for berries", "Berries are regrowing, claimed, or beyond reach. Inspect foragers and the map.");
         if(site.Kind==BuildingKind.HuntingLodge) return new(HuntingGrounds(site.Cell).Any(h=>AvailableGame(h)>0)?"Waiting for a hunter":"Habitat recovering or claimed",WildlifeSurvey(site.Cell)+"\nPause hunting to restore stock; retain or regrow mature trees to restore capacity.");

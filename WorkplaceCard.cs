@@ -45,7 +45,7 @@ public partial class Game
         _workCardMove.Reparent(arrangement);_workCardYard.Reparent(arrangement);
         foreach(var control in new[]{_workCardMove,_workCardYard})control.SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;
         _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
-        MakeConstructionCard(column);MakePlotRevision(column);
+        MakeWorkplaceInputCard(column);MakeConstructionCard(column);MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_homeMore=false;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
         MakeHomeTurn(column);MakePlacePath(column);MakeHomeAppearance(column);
         _homeMoreButton=Button("Household & details",()=>{_homeMore=!_homeMore;_nextWorkCard=0;});column.AddChild(_homeMoreButton);
@@ -68,7 +68,7 @@ public partial class Game
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
-        RenderConstructionCard(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
+        RenderWorkplaceInputCard(site);RenderConstructionCard(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
         bool publicHome=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _turnHomeButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeOptionsButton.Visible=publicHome && _yardPreviewSide<0;_homeOptionsButton.Text=_homeOptions?"Back to household life":"Change this home";
@@ -82,6 +82,8 @@ public partial class Game
         _workCardSupply.Visible=_world.PublicPlace!=null && site.Complete && _reshapingPlot<0 && (_world.IsWorkplaceFoodStore(site) || site.Kind is BuildingKind.Farm or BuildingKind.Pantry);
         _workCardSupply.Text=_showFoodMap?"Hide food stores":"Show food stores";
         if(site.Complete && _world.PublicPlace!=null && _world.ReadWorkplace(site).RestingForFood)detail=$"Food work is resting\n{_world.EdibleStored} portions stored for {_world.Population} neighbors. Shared workers return as supplies fall.";
+        if(site.Complete && _world.ReadWorkplace(site).MissingInput is {} input)
+            detail=input==Inlanders.Simulation.Resource.Grain?"Waiting for grain\nGrow and deliver grain from a grain field.":"Waiting for timber\nHarvest and deliver logs to a store.";
         if(site.Kind==BuildingKind.VegetableField)detail+=$"\n3 × {site.Depth} tiles · {World.VegetableYield(site)} vegetables/crop";
         if(_reshapingPlot==site.Id)detail="Choose how much ground to cultivate.";
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);
@@ -101,7 +103,7 @@ public partial class Game
         if(_reshapingPlot!=site.Id && site.Complete && (_world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Pantry))
         {
             int available=World.EdibleKinds.Sum(k=>_world.FoodAvailableAt(site.Id,k));
-            _workCardText.Text+=$"\n\n{available} meal portions available here\n"+(diner!=null?diner.Name+" is collecting or carrying a meal.":"No meal collection in progress.");
+            _workCardText.Text+=_world.ReadWorkplace(site).MissingInput!=null?$"\n{available} meal portions available here":$"\n\n{available} meal portions available here\n"+(diner!=null?diner.Name+" is collecting or carrying a meal.":"No meal collection in progress.");
         }
         _workCardDiner.Visible=Buildings.Get(site.Kind).Beds==0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);
         _workCardWatchPlace.Visible= _world.PublicPlace!=null && site.Complete && _yardPreviewSide<0 && _reshapingPlot!=site.Id && _placeJourneySite!=site.Id;
