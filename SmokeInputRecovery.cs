@@ -67,6 +67,19 @@ public partial class Game
             await UiClick(_workCardInput);await Frames();
             if(_workCardSite!=nearby.Id)throw new Exception("UI inspected an older distant source");
             await UiClick(_supplyReturn);await Frames();if(_workCardSite!=consumer.Id)throw new Exception("Relevant-source return failed");
+            foreach(bool relaxed in new[]{false,true})
+            {
+                AdoptWorld(World.NewRiverLivelihood(relaxed));_paused=true;CloseManagementUi();
+                var squareCell=_world.Map.Land.OrderBy(c=>c.Point.LengthSquared()).First(c=>_world.PlacementProblem(c,0,BuildingKind.Square)==null);
+                var square=_world.Place(squareCell,0,BuildingKind.Square)!;
+                for(int tick=0;tick<2000 && !square.Complete;tick++)_world.Tick(.1f);
+                if(!square.Complete)throw new Exception("Square fixture did not complete");
+                ShowWorkplaceCard(square.Id);await Frames();
+                await UiClick(_workOptionsButton);await Frames();await UiClick(_workCardDetails);await Frames();if(!_inspectorSecondary.Visible)await UiClick(_inspectorDetails);await Frames();
+                if(!_inspectorManual.IsVisibleInTree() || _inspectorManual.Text.Contains("supper",StringComparison.OrdinalIgnoreCase) || _inspectorManual.Text.Contains("Goals") || _inspectorManual.Text.Contains("Creative") || !_inspectorManual.Text.Contains("visits"))throw new Exception($"Square guidance ({relaxed}): visible={_inspectorManual.IsVisibleInTree()}, text={_inspectorManual.Text}");
+                _inspectionScroll.EnsureControlVisible(_inspectorManual);await Frames();await Capture($"artifacts/210-square-guidance-{relaxed}.png");
+            }
+            GD.Print("PASS Normal/Relaxed public square Details → Details & policies describes actual visits without archived supper instructions.");
             GD.Print("PASS ordinary bakery ingredient action, new field planning, existing paused-field inspection/resume, actual grain→bread→eaten meal.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}

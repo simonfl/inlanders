@@ -1,12 +1,14 @@
-# Active batch — checkpoints 201–210
+# Completed batch — checkpoints 201–210
 
 Authorized October 18, 2026: ten more playable outcomes, then stop at 210. Reviews at 205 and 210 assess the entire game; include visual/audio at 210 and after substantial presentation changes. This supersedes the prior stop, not its evidence limits. No human play feedback is assumed.
 
-Start with the existing choose-work → actual work → useful place loop. 201 makes unfinished work understandable and actionable from its ordinary card. Subsequent outcomes must address a concrete experience or a discriminating design comparison, not fill a ten-item feature quota. Keep the catalogue and public beginnings stable pending evidence; no new needs, inheritance, seasons or save migrations. Reevaluate after every outcome; the second half is selected after review 205.
+All ten playable outcomes and full reviews205/210 are complete. [Final synthesis](REVIEW_CHECKPOINT_210.md) retains the public experience provisionally, freezes automatic catalogue/inspector/prop expansion, and stops210. No211 is authorized. The next comparison concerns player-chosen intention and noticed payoff in existing establish/tend starts; no human enjoyment or listening claim.
+
+The batch focused on the existing choose-work → actual work → useful place loop. Review205 selected a smaller everyday surface and continuous recovery. The catalogue and public beginnings remain stable; no new needs, inheritance, seasons or save migrations were added. Future work requires a new authorization and evidence-led scope.
 
 201. **Done** — Understand and resolve an unfinished addition's actual material/work delay from its ordinary card, including supply action and deliberate construction priority.
 202. **Done** — Forestry work follows actual walking journeys and delivery access; demonstrate a counterexample and real timber delivery.
-203. **Done** — Cultivation responds to actual local work access, with priority, crop collection and saves retained.
+203. **Done** — Cultivation follows actual local access, retaining ripe-crop precedence and exact saves; completed construction priority no longer biases production.
 204. **Done** — Recover missing bakery/sawmill input from its existing workplace card through actual production.
 205. **Done** — Dedicating the current worker and releasing dedicated staffing should preserve committed work/delivery, including a fisher at sea. Then full fixed-build review.
 [Whole-game review205](REVIEW_CHECKPOINT_205.md) completed: four partial verdicts. Choose a smaller place-first surface, retain physical consequences, and test recovery continuity.
@@ -14,7 +16,7 @@ Start with the existing choose-work → actual work → useful place loop. 201 m
 207. **Done** — Supply inspection/planning retains the original project and camera; cancellation or explicit return restores it, without rewinding work. Native ordinary field placement and real bread recovery pass.
 208. **Done** — Reachable supply producers ordered by readiness and actual route to the consumer; concrete49→18 walk counterexample and native source/return pass.
 209. **Done** — Bulk ground submission: identical geometry/colors, paired16.213→2.483ms submission cost. Scene-wide timings remain mixed; no general stutter claim.
-210. **Done** — Observation sits beside Watch; trip framing/following returns to original place/view. Compact/wide native checks pass. Freeze for final five-role whole-game review, then stop210; no211 authorized.
+210. **Done** — Observation sits beside Watch; trip framing/following returns to original place/view. Compact/wide native checks pass. Final five-role whole-game review complete; stop210, no211 authorized.
 
 ## Prior authorization (historical)
 
