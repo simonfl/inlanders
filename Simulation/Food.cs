@@ -95,7 +95,7 @@ public sealed partial class World
     private bool FreeStation(Cottage c) => People.Count(v => v.WorkplaceId == c.Id) < Buildings.Get(c.Kind).Slots;
     private Cottage? FoodSite(Villager person,BuildingKind kind, Func<Cottage, bool> condition) =>
         Cottages.Where(c => c.Complete && !c.WorkPaused && c.Kind == kind && CanClaimWorkplace(person,c) && FreeStation(c) && condition(c))
-            .OrderByDescending(c => c.Priority).ThenBy(c => c.Id).FirstOrDefault();
+            .OrderBy(c=>TravelCost(At(person),c.Entrance)).ThenBy(c => c.Id).FirstOrDefault();
     private void ClaimFoodWork(Villager v)
     {
         if (v.Role == Role.Forager)
@@ -104,7 +104,7 @@ public sealed partial class World
             if(huts.Length==0){v.Status=ProductionWait(v);return;}
             var berries=Bushes.Where(b=>b.Ripe>0 && b.Owner==null && Accessible(b.Access)).ToArray();
             var trip=huts.SelectMany(h=>berries.Select(b=>new{Hut=h,Bush=b,Cost=TravelCost(At(v),b.Access)+TravelCost(b.Access,h.Entrance)}))
-                .OrderByDescending(t=>t.Hut.Priority).ThenBy(t=>t.Cost).ThenBy(t=>t.Hut.Id).ThenBy(t=>t.Bush.Id).FirstOrDefault();
+                .OrderBy(t=>t.Cost).ThenBy(t=>t.Hut.Id).ThenBy(t=>t.Bush.Id).FirstOrDefault();
             if(trip==null){v.Status="Waiting for ripe reachable berries or another forager; a bridge may open more patches";return;}
             var hut=trip.Hut;var bush=trip.Bush;
             v.WorkplaceId = hut.Id; v.BushId = bush.Id; bush.Owner = v.Id;
@@ -112,7 +112,7 @@ public sealed partial class World
         }
         if (v.Role == Role.Farmer)
         {
-            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && CanClaimWorkplace(v,c) && FreeStation(c)).OrderByDescending(c => c.Priority).ThenBy(c => c.Id);
+            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && CanClaimWorkplace(v,c) && FreeStation(c)).OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
             var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && !c.OrchardMature && BelowOutputTarget(c));
             if (farm == null) { v.Status = ProductionWait(v); return; }
             v.WorkplaceId = farm.Id;

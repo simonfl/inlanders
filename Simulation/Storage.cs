@@ -87,7 +87,7 @@ public sealed partial class World
     private void ClaimHauling(Villager v)
     {
         var depots = Cottages.Where(c => c.Kind == BuildingKind.Stockpile && c.Complete && !c.DemolitionRequested)
-            .OrderByDescending(c => c.Priority).ThenBy(c => c.Id).ToArray();
+            .OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id).ToArray();
         foreach (var depot in depots)
         {
             var material=depot.StorageMaterial;
