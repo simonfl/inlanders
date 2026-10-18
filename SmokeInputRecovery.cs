@@ -45,6 +45,16 @@ public partial class Game
             await UiClick(_workOptionsButton);await Frames();await UiClick(_workCardWatchPlace);await Frames();
             if(!_watching)throw new Exception("Place-first Watch unavailable");await Press(Key.Escape);await Frames();
             if(_workCardSite!=oven.Id || _workOptions)throw new Exception("Watch return lost simple place");
+            AdoptWorld(World.NewRiverLivelihood(true));_paused=true;CloseManagementUi();
+            var consumer=_world.Place(new(0,0),0,BuildingKind.Bakery)!;
+            var older=_world.Place(new(0,-7),0,BuildingKind.Farm)!;
+            var nearbyCell=_world.Map.Land.Where(c=>_world.PlacementProblem(c,0,BuildingKind.Farm)==null).OrderBy(c=>(c.Point-consumer.Entrance.Point).LengthSquared()).First();
+            var nearby=_world.Place(nearbyCell,0,BuildingKind.Farm)!;
+            ShowWorkplaceCard(consumer.Id);await Frames();
+            if(_workCardInput.Text!="Inspect grain field")throw new Exception("Supply label conceals its actual action");
+            await UiClick(_workCardInput);await Frames();
+            if(_workCardSite!=nearby.Id)throw new Exception("UI inspected an older distant source");
+            await UiClick(_supplyReturn);await Frames();if(_workCardSite!=consumer.Id)throw new Exception("Relevant-source return failed");
             GD.Print("PASS ordinary bakery ingredient action, new field planning, existing paused-field inspection/resume, actual grain→bread→eaten meal.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}

@@ -41,3 +41,5 @@ Falsify the reduced surface if needed actions become hard to find or recovery re
 
 ## Presentation supplement after206
 Independent read-only visual/UI review of fixed ce9d264 retains the smaller card provisionally: recovered960 bakery overlap is corrected and everyday life has clearer hierarchy. It finds People & trips incorrectly grouped under Change this place, plus competing Back labels in expanded journeys. Select a coherent observation/return correction for210, not another management panel. Forest/river/cultivation composition remains stronger than archived sparse boards; repetitive silhouettes and broad flat ground remain hypotheses. Evidence:206 everyday/expanded stills,204 comparison,205 public Watch and archived river stills and source. No live play, motion viewing or listening. Full five-role review remains210.
+
+Final regression update: all67 suites completed successfully on the fixed205 assembly/run above.206–208 are separately validated; no claim that the205 run covers later changes.

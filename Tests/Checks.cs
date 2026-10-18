@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--supply-producer")){SupplyProducerChecks.Run();return;}
 if(args.Contains("--staffing-continuity")){StaffingContinuityChecks.Run();SharedWorkChecks.Run();return;}
 if(args.Contains("--cultivation-journeys")){CultivationJourneyChecks.Run();return;}
 if(args.Contains("--timber-journeys")){TimberJourneyChecks.Run();return;}

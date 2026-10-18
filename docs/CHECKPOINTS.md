@@ -3,9 +3,10 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **200**.
+- Playable checkpoints since adoption: **208**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
-- Last periodic review: **checkpoint200**, [synthesis](REVIEW_CHECKPOINT_200.md), fixedf557092. Five independent reused roles; retain complete public sessions provisionally and stop200. Final64-suite regression passed.
+- Last periodic review: **checkpoint205**, [synthesis](REVIEW_CHECKPOINT_205.md), fixed452716e. Four independent whole-game roles; smaller place-first workplace surface and continuous recovery. All67 fixed205 suites passed; presentation supplement206.
+- Previous periodic review: **checkpoint200**, [synthesis](REVIEW_CHECKPOINT_200.md), fixedf557092. Five independent reused roles; retain complete public sessions provisionally and stop200. Final64-suite regression passed.
 - Previous periodic review: **checkpoint195**, [synthesis](REVIEW_CHECKPOINT_195.md), fixedf38177f. Five independent reused roles; consolidate returning to and reconsidering work, no automatic editor expansion.
 - Previous periodic review: **checkpoint190**, [synthesis](REVIEW_CHECKPOINT_190.md), fixed16d9e89. Five independent reused roles; retain complete land care, freeze editor expansion, choose a whole desired addition through actual use. Full62-suite regression passed on fixed190.
 - Previous periodic review: **checkpoint185**, [synthesis](REVIEW_CHECKPOINT_185.md), fixed5391e57. Five independent reused roles; end automatic pose sequence, enlarge acceptance to complete land interventions.
@@ -844,3 +845,7 @@ Checkpoint 205: dedicating a shared worker already in the same profession preser
 Checkpoint206: completed public workplaces now open with current state, immediate recovery and Watch. Change this place exposes occasional management; homes retain their existing hierarchy. Scroll-bounded cards correct recovered bakery overflow. Native960 actual expansion/trips, return to everyday view and Watch/return passed, both images inspected, zero-warning game build. Fixed205 regression continues against its separate unchanged test assembly. Dense fixture occupancy correction is supporting tooling pending validation, not a playable outcome. Next preserve supply-recovery context.
 
 Checkpoint207: supply actions retain the original project and camera. Cancelling source planning returns there; new or existing source cards offer an explicit return without rewinding village life. Manual world selection/menu changes discard the transient context; no save schema or navigation stack. Native960 actual field placement, cancelled planning, paused existing-source inspection/return/resume and real grain→bread→meal pass, image inspected, zero-warning build. Independent206 presentation supplement selects observation hierarchy for210. Next reproduce and correct supplier relevance.
+
+205 final broad validation: all67 current-experience suites passed, run2bd566b3be73415eb32d37f4ec9a9b60, fixed205 assembly b7c9fe3a-5d76-41f6-84fd-487725b824d6. This excludes206–208; separate native recovery and focused208 checks cover those changes. Build/native work overlapped parts of this correctness run, so its duration is not a matched performance comparison.
+
+Checkpoint208: supply actions select reachable producers by readiness and actual route to the consumer, with honest paused/unfinished fallback. Reproduced older field(0,-7),49 walking cost, versus new field(-3,1),18; active/paused and pure-read checks pass. Labels now say Inspect or Plan according to the actual action. Native actual source selection and return pass alongside field placement/resume and eaten bread; zero-warning full build. Next measure and reduce worked-ground rebuild stalls.

@@ -16,7 +16,7 @@ public partial class Game
     {
         var input=site.Complete && _placeJourneySite!=site.Id?_world.ReadWorkplace(site).MissingInput:null;
         _workCardInput.Visible=input!=null;
-        _workCardInput.Text=input==Inlanders.Simulation.Resource.Grain?"Inspect or plan a grain field":"Choose timber to harvest";
+        _workCardInput.Text=input is {} material?SupplyAction(site,material):"";
         _workCardInput.TooltipText=input==Inlanders.Simulation.Resource.Grain?"Grain fields supply the oven. Inspect an existing field, including a paused or unfinished one, or choose where to build the first. Vegetables do not supply grain.":"Select real timber to harvest; preserved trees remain until you choose them.";
     }
 }

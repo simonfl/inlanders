@@ -12,8 +12,8 @@ Start with the existing choose-work → actual work → useful place loop. 201 m
 [Whole-game review205](REVIEW_CHECKPOINT_205.md) completed: four partial verdicts. Choose a smaller place-first surface, retain physical consequences, and test recovery continuity.
 206. **Done** — Smaller ordinary workplace card with state, relevant recovery and Watch; secondary changes are explicit, and long cards scroll within the window. Recovered bakery native flow passes.
 207. **Done** — Supply inspection/planning retains the original project and camera; cancellation or explicit return restores it, without rewinding work. Native ordinary field placement and real bread recovery pass.
-208. **Next** — Correct supplier navigation only after reproducing its irrelevant-source choice; use actual relationship/access.
-209. Investigate measured worked-ground rebuild stalls with matched serial captures; count only a verified playable improvement.
+208. **Done** — Reachable supply producers ordered by readiness and actual route to the consumer; concrete49→18 walk counterexample and native source/return pass.
+209. **Next** — Investigate measured worked-ground rebuild stalls with matched serial captures; count only a verified playable improvement.
 210. Correct observation versus alteration hierarchy and coherent journey return, based on independent206 presentation review; final five-role whole-game review and stop210.
 
 ## Prior authorization (historical)

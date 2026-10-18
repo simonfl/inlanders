@@ -19,10 +19,16 @@ public partial class Game
     {
         RememberSupplyOrigin();
         if(material==Inlanders.Simulation.Resource.Logs){BeginEverydayTimber();return;}
-        var kind=material switch{Inlanders.Simulation.Resource.Grain=>BuildingKind.Farm,Inlanders.Simulation.Resource.Planks=>BuildingKind.Sawmill,_=>BuildingKind.Quarry};
-        var producer=_world.Cottages.Where(c=>c.Kind==kind && !c.DemolitionRequested).OrderByDescending(c=>c.Complete).ThenBy(c=>c.WorkPaused).FirstOrDefault();
+        var kind=World.SupplyProducerKind(material);if(kind==null)return;
+        var producer=_world.ReadSupplyProducer(_workCardSite,material);
         if(producer!=null){_focus=BuildingPosition(producer);UpdateCamera();ShowWorkplaceCard(producer.Id);}
-        else {BeginPlacement(kind);CloseDrawer();}
+        else {BeginPlacement(kind.Value);CloseDrawer();}
+    }
+    private string SupplyAction(Cottage site,Inlanders.Simulation.Resource material)
+    {
+        if(material==Inlanders.Simulation.Resource.Logs)return "Choose timber to harvest";
+        string name=material==Inlanders.Simulation.Resource.Grain?"grain field":material==Inlanders.Simulation.Resource.Planks?"sawmill":"quarry";
+        return (_world.ReadSupplyProducer(site.Id,material)!=null?"Inspect ":"Plan a ")+name;
     }
     private void RenderConstructionCard(Cottage site)
     {
@@ -30,6 +36,6 @@ public partial class Game
         _constructionPriority.Visible=show;_constructionPriority.Text=site.Priority==2?"Build first · on":"Build first";
         _constructionPriority.Disabled=_world.Food.Celebrating;
         var missing=show?_world.ReadConstruction(site).Missing:null;_constructionSupply.Visible=missing!=null;
-        _constructionSupply.Text=missing switch {Inlanders.Simulation.Resource.Logs=>"Choose timber to harvest",Inlanders.Simulation.Resource.Planks=>"Inspect or plan a sawmill",_=>"Inspect or plan a quarry"};
+        _constructionSupply.Text=missing is {} material?SupplyAction(site,material):"";
     }
 }
