@@ -8,6 +8,9 @@
 
 ## Current direction and next step
 
+**Active 201–210, authorized October 18, 2026:** continue the existing public settlement experience, with full reviews at 205/210 and stop at 210. The prior stop below is historical. 201 delivers actionable construction delays and existing priority from the ordinary card. Next evaluate forestry walking choices; select later work from concrete evidence rather than automatic catalogue/editor expansion. Review 200's uncertainty about player motivation remains. See [active queue](NEXT_CHUNKS.md).
+
+
 **Completed171–200:** authorized October9; all thirty outcomes implemented. The public candidate is a freely chosen livelihood and an inhabited riverside place worth shaping. Complementary hour-long food portfolios work without hunger; do not add needs, food buffs or compulsory growth to manufacture decisions.
 
 171–180 connected ordinary first-food choice, resource siting, real source/worker trips, food-shortage recovery and sustainable timber.181–185 made gathering and planting credible, then [review185](REVIEW_CHECKPOINT_185.md) rejected an automatic pose queue.186–190 now support a whole land intention: keep woodland, harvest and renew, prepare a desired building footprint, reconsider clearing, or establish a spaced grove elsewhere. Actual routes govern subsequent shared visits.

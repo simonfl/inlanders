@@ -45,7 +45,7 @@ public partial class Game
         _workCardMove.Reparent(arrangement);_workCardYard.Reparent(arrangement);
         foreach(var control in new[]{_workCardMove,_workCardYard})control.SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;
         _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
-        MakePlotRevision(column);
+        MakeConstructionCard(column);MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_homeMore=false;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
         MakeHomeTurn(column);MakePlacePath(column);MakeHomeAppearance(column);
         _homeMoreButton=Button("Household & details",()=>{_homeMore=!_homeMore;_nextWorkCard=0;});column.AddChild(_homeMoreButton);
@@ -68,14 +68,14 @@ public partial class Game
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-346:Mathf.Min(16,_hud.Size.X-330)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
-        RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
+        RenderConstructionCard(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
         bool publicHome=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _turnHomeButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeOptionsButton.Visible=publicHome && _yardPreviewSide<0;_homeOptionsButton.Text=_homeOptions?"Back to household life":"Change this home";
         _homeMoreButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeMoreButton.Text=_homeMore?"Fewer options":"Household & details";
         string detail;
-        if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials · {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+(site.ConstructionPaused?"Construction paused; supplies stay here.":"Shared workers build when supplies are available.");
+        if(!site.Complete)detail=$"{site.Delivered}/{site.Required} materials · {site.Construction:P0} built"+(site.RequiredStone>0?$"\n{site.DeliveredStone}/{site.RequiredStone} stone":"")+"\n"+_world.ReadConstruction(site).Detail;
         else if(Buildings.Get(site.Kind).Beds>0)detail=$"{_world.People.Count(p=>p.HomeId==site.Id)}/{Buildings.Get(site.Kind).Beds} neighbors live here";
         else if(Buildings.Get(site.Kind).RecreationSlots>0)detail=$"{_world.People.Count(p=>p.LeisureSiteId==site.Id)} neighbors visiting\nA place for ordinary breaks.";
         else {var report=_world.ReadWorkplace(site);detail=report.State+"\n"+(worker!=null?worker.Name+": "+worker.Status:report.Detail.Split('\n')[0]);}
@@ -95,7 +95,7 @@ public partial class Game
         _workCardFurnish.Disabled=_yardPreviewSide>=0 || !site.ImprovementRequested && !site.PlannedYard && _world.ImprovementProblem(site.Id)!=null;
         _workCardFurnish.TooltipText=site.PlannedYard?"Cancel the future yard order; keep the house. No furnishing supplies are sent before the home is occupied.":_world.ImprovementProblem(site.Id)??"Shared workers deliver planks and furnish the chosen ground beside this home.";
         if(site.Complete && Buildings.Get(site.Kind).Beds>0 && !_homeOptions)_workCardText.Text+="\n"+HomeCardOutcome(site);
-        _workCardWorker.Text=Buildings.Get(site.Kind).Beds>0?"Follow resident":!site.Complete?"Follow builder":"Follow worker";
+        _workCardWorker.Text=!site.Complete?"Follow builder":Buildings.Get(site.Kind).Beds>0?"Follow resident":"Follow worker";
         _workCardCancel.Text=site.ExtensionFromRows>0?"Cancel extension · keep original field":"Cancel this construction";
         _workCardCancel.Visible=!site.Complete && !site.DemolitionRequested;
         if(_reshapingPlot!=site.Id && site.Complete && (_world.IsWorkplaceFoodStore(site) || site.Kind==BuildingKind.Pantry))
@@ -112,7 +112,7 @@ public partial class Game
         _workCardPause.Visible=_reshapingPlot!=site.Id && (!site.Complete || World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter);
         _workCardPause.Text=(site.Complete?site.WorkPaused:site.ConstructionPaused)?"Resume":"Pause";_workCardPause.Disabled=site.DemolitionRequested || _world.Food.Celebrating || _waitingMove==site.Id;
         _workCardMove.Visible=(!publicHome || _homeOptions) && _reshapingPlot!=site.Id && site.Complete && _yardPreviewSide<0;
-        _workCardWorker.Visible=_yardPreviewSide<0 && (_world.PublicPlace==null || _placeJourneySite==site.Id);_workCardDetails.Visible=_reshapingPlot!=site.Id && _yardPreviewSide<0 && (!publicHome || _homeOptions && _homeMore);
+        _workCardWorker.Visible=_yardPreviewSide<0 && (_world.PublicPlace==null || !site.Complete || _placeJourneySite==site.Id);_workCardDetails.Visible=_reshapingPlot!=site.Id && _yardPreviewSide<0 && (!publicHome || _homeOptions && _homeMore);
         _workCardMove.Text=_waitingMove==site.Id?"Cancel move":!site.WorkPaused && (World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && _world.PublicPlace!=null?"Pause & move":"Move";
         string? moveProblem=_world.PublicPlace!=null?_world.RelocationIntentProblem(site.Id):_world.RelocationProblem(site.Id);
         _workCardMove.Disabled=moveProblem!=null;_workCardMove.TooltipText=moveProblem??"Preview another location. Work pauses and resumes when you place or cancel; an already paused workplace stays paused. Growing crops need fresh sowing after moving.";

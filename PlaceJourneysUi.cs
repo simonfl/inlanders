@@ -36,7 +36,7 @@ public partial class Game
         _workCardTrips.Visible=_reshapingPlot<0 && _world.PublicPlace!=null && _world.Cottages.Any(c=>c.Id==_workCardSite && (Buildings.Get(c.Kind).Beds==0 || !_homeOptions)) && _workCard.Visible && _yardPreviewSide<0;
         bool show=_workCardTrips.Visible && _placeJourneySite==_workCardSite;
         _placeTripsPanel.Visible=show;_placeTripLine.Visible=show;
-        bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && Buildings.Get(c.Kind).Beds>0);
+        bool household=_world.Cottages.Any(c=>c.Id==_workCardSite && c.Complete && Buildings.Get(c.Kind).Beds>0);
         _workCardTrips.Text=show?"Back to place":household?"Household journeys":"People & trips";
         _workCardTrips.TooltipText=household?"Actual trips by the people who live here. They may be working or eating elsewhere; these are not all journeys to this house.":"Inspect actual journeys related to this place.";
         if(!show){_placeJourney=null;return;}

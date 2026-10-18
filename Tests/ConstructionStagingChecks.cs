@@ -9,7 +9,9 @@ static class ConstructionStagingChecks
             var w=World.NewTransformationHamlet();var p=ReviewPlacement.Find(w,BuildingKind.Cottage,new(4,3),(c,r)=>true,"staging")!;
             var site=w.Place(p.Actual,p.Rotation,BuildingKind.Cottage)!;
             if(phase!=Work.Waiting){int ticks=0;while(!w.People.Any(v=>v.SiteId==site.Id && v.Task==phase) && ticks++<3000)w.Tick(.1f);Check(ticks<3000,"Did not reach "+phase);}
-            Check(w.SetConstructionPaused(site.Id,true),"Pause rejected");int delivered=site.Delivered;float progress=site.Construction;
+            Check(w.ReadConstruction(site).Missing==null,"Available material reported missing");
+            Check(w.SetConstructionPaused(site.Id,true),"Pause rejected");
+            Check(w.ReadConstruction(site).Detail.Contains("paused"),"Pause hidden");int delivered=site.Delivered;float progress=site.Construction;
             Check(site.Incoming==0 && site.Builder==null,"Reservations retained");
             var otherPlan=ReviewPlacement.Find(w,BuildingKind.VegetableGarden,new(0,-9),(c,r)=>true,"other project")!;var other=w.Place(otherPlan.Actual,otherPlan.Rotation,BuildingKind.VegetableGarden)!;
             var copy=World.LoadJson(w.SaveJson());
