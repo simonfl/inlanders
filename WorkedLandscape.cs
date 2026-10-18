@@ -12,6 +12,13 @@ public partial class Game
     private string _workedKey="",_workedBaseKey="";
     private readonly Dictionary<(int,int),Color> _workedBaseColors=new();
     private float _nextWorkedLand;
+    private static readonly Cell[] GroundUseSteps={new(1,0),new(0,1)};
+    private static ArrayMesh MakeWorkedSurfaceMesh(Vector3[] vertices,Vector3[] normals,Color[] tints)
+    {
+        using var arrays=new Godot.Collections.Array();arrays.Resize((int)Godot.Mesh.ArrayType.Max);
+        arrays[(int)Godot.Mesh.ArrayType.Vertex]=vertices;arrays[(int)Godot.Mesh.ArrayType.Normal]=normals;arrays[(int)Godot.Mesh.ArrayType.Color]=tints;
+        var mesh=new ArrayMesh();mesh.AddSurfaceFromArrays(Godot.Mesh.PrimitiveType.Triangles,arrays);return mesh;
+    }
     private void UpdateWorkedLandscape(bool force=false)
     {
         if(!force && _uiTime<_nextWorkedLand)return;_nextWorkedLand=_uiTime+1;
@@ -74,7 +81,7 @@ public partial class Game
                     float radius=.26f+Math.Min(visits,24)*.009f;
                     float distance=MathF.Sqrt((x-ix)*(x-ix)+(z-iz)*(z-iz));
                     // Adjacent visited ground forms a continuous worn lane, not bright dots.
-                    foreach(var step in new[]{new Cell(1,0),new Cell(0,1)})
+                    foreach(var step in GroundUseSteps)
                     {
                         if(!wear.TryGetValue(new(ix+step.X,iz+step.Z),out int other))continue;
                         float t=Math.Clamp((x-ix)*step.X+(z-iz)*step.Z,0,1);
@@ -89,11 +96,15 @@ public partial class Game
             }
             colors[sample]=color;return color;
         }
-        using var surface=new SurfaceTool();surface.Begin(Godot.Mesh.PrimitiveType.Triangles);
+        // Transfer the surface in bulk instead of crossing into Godot for each
+        // vertex/color/normal on every foot-wear update. Geometry and tint are unchanged.
+        int vertexCount=_world.Map.Land.Count()*24,index=0;
+        var vertices=new Vector3[vertexCount];var normals=new Vector3[vertexCount];var tints=new Color[vertexCount];
         void Tri(Vector3 a,Vector3 b,Vector3 c)
         {
-            surface.SetNormal((b-a).Cross(c-a).Normalized());
-            foreach(var at in new[]{a,c,b}){surface.SetColor(Tint(at.X,at.Z));surface.AddVertex(at);}
+            var normal=(b-a).Cross(c-a).Normalized();
+            void Vertex(Vector3 at){vertices[index]=at;normals[index]=normal;tints[index]=Tint(at.X,at.Z);index++;}
+            Vertex(a);Vertex(c);Vertex(b);
         }
         foreach(var cell in _world.Map.Land)for(int z=0;z<2;z++)for(int x=0;x<2;x++)
         {
@@ -101,7 +112,8 @@ public partial class Game
             var a=OnGround(left,back,.014f);var b=OnGround(left+.5f,back,.014f);var c=OnGround(left+.5f,back+.5f,.014f);var d=OnGround(left,back+.5f,.014f);
             Tri(a,d,c);Tri(a,c,b);
         }
-        SurfaceMesh(_workedLand,surface).Name="LandUseSurface";
+        var mesh=MakeWorkedSurfaceMesh(vertices,normals,tints);
+        _workedLand.AddChild(new MeshInstance3D{Name="LandUseSurface",Mesh=mesh,MaterialOverride=new StandardMaterial3D{VertexColorUseAsAlbedo=true,Roughness=1}});
         MakeWoodlandMargin(_workedLand,trees);
         MakeOpenMeadow(_workedLand,trees);
         if(_traceFrames){_frameTrace.WorkedLandMs+=(Time.GetTicksUsec()-traceStart)/1000d;_frameTrace.WorkedLandRebuilds++;}

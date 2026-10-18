@@ -3,7 +3,7 @@
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **208**.
+- Playable checkpoints since adoption: **209**.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.
 - Last periodic review: **checkpoint205**, [synthesis](REVIEW_CHECKPOINT_205.md), fixed452716e. Four independent whole-game roles; smaller place-first workplace surface and continuous recovery. All67 fixed205 suites passed; presentation supplement206.
 - Previous periodic review: **checkpoint200**, [synthesis](REVIEW_CHECKPOINT_200.md), fixedf557092. Five independent reused roles; retain complete public sessions provisionally and stop200. Final64-suite regression passed.
@@ -849,3 +849,5 @@ Checkpoint207: supply actions retain the original project and camera. Cancelling
 205 final broad validation: all67 current-experience suites passed, run2bd566b3be73415eb32d37f4ec9a9b60, fixed205 assembly b7c9fe3a-5d76-41f6-84fd-487725b824d6. This excludes206–208; separate native recovery and focused208 checks cover those changes. Build/native work overlapped parts of this correctness run, so its duration is not a matched performance comparison.
 
 Checkpoint208: supply actions select reachable producers by readiness and actual route to the consumer, with honest paused/unfinished fallback. Reproduced older field(0,-7),49 walking cost, versus new field(-3,1),18; active/paused and pure-read checks pass. Labels now say Inspect or Plan according to the actual action. Native actual source selection and return pass alongside field placement/resume and eaten bread; zero-warning full build. Next measure and reduce worked-ground rebuild stalls.
+
+Checkpoint209: worked-ground surfaces submit their identical geometry/color arrays in bulk, removing per-vertex Godot calls and repeated neighbor-array allocation. Native20 alternating paired comparisons after4 warmups:12264 vertices, old submission median16.213ms versus bulk2.483ms; exact vertex/normal/color arrays. Before/after public scenes inspected, zero-warning build. Serial60s scene results are mixed: warmed baseline median14.8115/p9520.656/max63.759ms, first bulk14.0825/26.107/81.974, final26.826/43.533/133.999. Ground rebuild medians24.996→18.7025→39.209ms also vary with runs. Therefore retain the isolated verified submission improvement, NOT a general frame-rate/stutter claim. Evidence runs205245-419,205453-804,205825-456 and artifacts/209-native.log. Final210 corrects observation hierarchy, then full review and stop.
