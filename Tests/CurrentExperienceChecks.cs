@@ -6,6 +6,9 @@ static class CurrentExperienceChecks
     {
         Directory.CreateDirectory("artifacts/current-experience");
         var cases=new (string Name,Action Execute)[]{
+            ("TimberJourney",TimberJourneyChecks.Run),
+            ("CultivationJourney",CultivationJourneyChecks.Run),
+            ("StaffingContinuity",StaffingContinuityChecks.Run),
             ("GatheringEstablishment",GatheringEstablishmentChecks.Run),
             ("ArrivalRecovery",ArrivalRecoveryChecks.Run),
             ("ForagingSiting",ForagingSitingChecks.Run),

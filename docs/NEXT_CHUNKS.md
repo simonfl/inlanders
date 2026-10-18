@@ -8,7 +8,7 @@ Start with the existing choose-work → actual work → useful place loop. 201 m
 202. **Done** — Forestry work follows actual walking journeys and delivery access; demonstrate a counterexample and real timber delivery.
 203. **Done** — Cultivation responds to actual local work access, with priority, crop collection and saves retained.
 204. **Done** — Recover missing bakery/sawmill input from its existing workplace card through actual production.
-205. **In progress** — Dedicating the current worker and releasing dedicated staffing should preserve committed work/delivery, including a fisher at sea. Then full fixed-build review.
+205. **Done** — Dedicating the current worker and releasing dedicated staffing should preserve committed work/delivery, including a fisher at sea. Then full fixed-build review.
 206–210. **After review 205** — Evidence-led; final whole-game review and stop.
 
 ## Prior authorization (historical)

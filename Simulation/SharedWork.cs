@@ -25,14 +25,20 @@ public sealed partial class World
         if(DedicateWorkerProblem(siteId)!=null)return false;
         var person=SharedStaffCandidate(siteId)!;
         var role=Buildings.Get(Cottages.Single(c=>c.Id==siteId).Kind).Worker!.Value;
-        Assign(person.Id,role);return SetWorkplaceAssignment(person.Id,siteId);
+        // Keeping a worker already in this profession changes future staffing only.
+        // In particular, do not recall a boat or return a half-finished delivery.
+        if(person.Role!=role)Assign(person.Id,role);
+        else person.SharedWorker=false;
+        return SetWorkplaceAssignment(person.Id,siteId);
     }
     public bool ReleaseDedicatedWorker(int siteId)
     {
         if(!SharedWork || Food.Celebrating)return false;
         var person=People.LastOrDefault(p=>p.AssignedWorkplaceId==siteId);
         if(person==null)return false;
-        Assign(person.Id,Role.Unassigned);return true;
+        person.AssignedWorkplaceId=null;person.SharedWorker=true;
+        History.Add(person.Name+": returns to shared work after the current job and delivery.");
+        _retry=0;return true;
     }
     public static World NewSharedWorkExperiment()
     {

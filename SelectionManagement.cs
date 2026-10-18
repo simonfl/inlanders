@@ -93,9 +93,9 @@ public partial class Game
                 string? problem=_world.DedicateWorkerProblem(site.Id);
                 var sharedCandidate=_world.SharedStaffCandidate(site.Id);
                 _staffPlus.Disabled=problem!=null;
-                _staffPlus.TooltipText=problem??$"Dedicate {sharedCandidate!.Name} to this workplace. Carried goods return safely before the next job.";
+                _staffPlus.TooltipText=problem??$"Dedicate {sharedCandidate!.Name} to this workplace. Work already in this profession continues; changing profession returns carried goods safely.";
                 _staffMinus.Disabled=_world.Food.Celebrating || _world.AssignedWorkers(site.Id)==0;
-                _staffMinus.TooltipText="Release a worker dedicated here into the shared pool. Carried goods return safely.";
+                _staffMinus.TooltipText="Release a worker dedicated here into the shared pool after the current job and delivery.";
             } else if(_world.SharedWork) _workplaceStaff.Text=$"{active} visiting · shared hauling\nShared workers deliver between stores. Use storage targets to request supplies.";
         }
         foreach(var p in _world.People) {
