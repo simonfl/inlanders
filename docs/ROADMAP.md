@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint246:** Edible workplace cards show fresh portions that producer delivered during the recent food window. History records producer identity, independent of storage destination; transfers remain excluded. Both-mode real fishing, zero local reserve/distribution, contribution totals, pure queries and exact saves pass; native restoration/control regression and zero-warning build pass. Next preview crossing benefits and fishing-route costs; source-labelled evidence will inform the simplified restoration comparison.
+
 **Checkpoint245:** Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
 
 **Checkpoint244:** Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.

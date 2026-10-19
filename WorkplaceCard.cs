@@ -106,6 +106,8 @@ public partial class Game
         if(_reshapingPlot==site.Id)detail="Choose how much ground to cultivate.";
         if(site.PlannedYard)detail+="\n"+_world.PlannedYardSummary(site);
         _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant()+"\n"+detail;
+        if(site.Complete && World.ProductionOutput(site.Kind) is {} output && World.EdibleKinds.Contains(output))
+            _workCardText.Text+=$"\n{_world.WorkplaceFoodDelivered(site.Id)} fresh portions delivered in last {System.Math.Min(_world.Food.Time,World.FoodFlowWindow):0}s · crops arrive in batches.";
         _workCardYard.Visible=(!publicHome || _homeOptions) && _yardPreviewSide<0 && _world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _workCardYard.Text="Arrange yard";
         _workCardYard.Disabled=site.ImprovementRequested || site.DemolitionRequested;

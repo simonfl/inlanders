@@ -105,6 +105,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 245. **Done** — Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
 
+246. **Done** — Edible workplace cards show fresh portions that producer delivered during the recent food window. History records producer identity, independent of storage destination; transfers remain excluded. Both-mode real fishing, zero local reserve/distribution, contribution totals, pure queries and exact saves pass; native restoration/control regression and zero-warning build pass. Next preview crossing benefits and fishing-route costs; source-labelled evidence will inform the simplified restoration comparison.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

@@ -185,7 +185,7 @@ public sealed partial class World
                 }
                 if(!v.FoodTransfer)
                 {
-                    RecordFoodDelivery(v.Cargo, v.Carried);
+                    RecordFoodDelivery(v.Cargo, v.Carried,v.WorkplaceId);
                     if(v.Carried>0 && v.WorkplaceId is int sourceId && Cottages.FirstOrDefault(c=>c.Id==sourceId) is {Kind:BuildingKind.ForagerHut or BuildingKind.HuntingLodge} gathering)
                         gathering.EstablishmentPending=false;
                 }
