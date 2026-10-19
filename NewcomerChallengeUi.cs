@@ -11,7 +11,7 @@ public partial class Game
     private void ChallengeMenu()
     {
         MenuPage("A place for newcomers");
-        _mainColumn.AddChild(Text("Four neighbors seek a home here. Choose a livelihood, prepare homes, then invite them. Help the larger village feed itself. Different food sources and arrangements can work.",17,true));
+        _mainColumn.AddChild(Text("Four neighbors seek a home beside a crowded inlet. A small kitchen garden is not enough for the larger village. Expand toward the northern meadow, improve a crossing, or rearrange the home bank. Choose your own food sources.",17,true));
         MenuButton(_challengeRelaxed?"Mode: Relaxed · change":"Mode: Normal · change",()=>{_challengeRelaxed=!_challengeRelaxed;ChallengeMenu();});
         _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":"Real building materials, shared labor and recoverable food shortages. No deadline until you choose to invite.",14,true));
         var profile=new HamletProfile(_challengeRelaxed,Newcomers:true);
@@ -35,7 +35,7 @@ public partial class Game
         var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
         _goalTitle.Text="A PLACE FOR NEWCOMERS";
-        string progress=c.InvitedAt==null?$"Prepare for four neighbors\nSpare beds: {Math.Min(4,_world.SpareBeds)}/4\nFresh food delivered: {Math.Min(16,_world.ChallengeDeliveries)}/16\nFood ready: {Math.Min(32,_world.EdibleStored)}/32\n\nChoose your own food sources and home arrangement. Starting provisions do not count as production.":!c.Arrived?$"Four neighbors are on their way\nArrival in {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0} seconds. Keep homes accessible and food available.":
+        string progress=c.InvitedAt==null?$"Prepare for four neighbors\nSpare beds: {Math.Min(4,_world.SpareBeds)}/4\nFresh food delivered: {Math.Min(16,_world.ChallengeDeliveries)}/16\nFood ready: {Math.Min(32,_world.EdibleStored)}/32\n\nThe south bank is crowded. Use the northern meadow or reshape the home bank. Starting provisions do not count as production.":!c.Arrived?$"Four neighbors are on their way\nArrival in {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0} seconds. Keep homes accessible and food available.":
             $"Help the newcomers settle\nResidents housed: {_world.Housed}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh food since arrival: {Math.Min(32,_world.ChallengeDeliveries)}/32\n\nOrdinary meals count automatically. Food deliveries and completed meals keep their progress.";
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";

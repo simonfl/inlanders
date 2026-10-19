@@ -1,5 +1,5 @@
 using Inlanders.Simulation;
-if(args.Contains("--newcomer-challenge")){NewcomerChallengeChecks.Run();return;}
+if(args.Contains("--newcomer-challenge")){try{NewcomerChallengeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--automatic-work")){AutomaticWorkChecks.Run();return;}
 if(args.Contains("--supply-producer")){SupplyProducerChecks.Run();return;}
 if(args.Contains("--staffing-continuity")){StaffingContinuityChecks.Run();SharedWorkChecks.Run();return;}

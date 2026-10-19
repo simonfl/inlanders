@@ -16,10 +16,15 @@ public sealed partial class World
     public NewcomerChallenge? Challenge=>Founding?.Challenge;
     public static World NewNewcomerChallenge(bool relaxed=false)
     {
-        var w=NewRiverLivelihood();w.Founding!.Challenge=new();
+        var w=NewTransformationHamlet(false,true,false,true);
+        foreach(var person in w.People)w.Interrupt(person);
+        foreach(var field in w.Cottages.Where(b=>b.Kind==BuildingKind.VegetableField).ToArray())w.Cottages.Remove(field);
+        w.Founding!.Challenge=new();
+        w.Founding.StartingBuildings=w.Cottages.Select(b=>new StartingBuilding{Id=b.Id,Cell=b.Cell,Rotation=b.Rotation,Kind=b.Kind}).ToList();
         w.Map.Name="Une place pour les nouveaux · A place for newcomers";
-        w._yardLogs-=12;w.InitialLogs-=12;
-        w.History.Clear();w.History.Add("Four neighbors seek a home here. Establish food, prepare four beds, then invite them. They arrive thirty seconds after your invitation. Help them settle through ordinary meals; choose your own homes, food sources and paths.");
+        w._yardLogs=18;w.InitialLogs=w.SawnLogs+w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(b=>b.Delivered)+w._yardLogs;
+        w.Food.InitialBerries=w.Food.Berries=48;
+        w.History.Clear();w.History.Add("Four neighbors seek a home here. The south bank is crowded; a small kitchen garden cannot feed an enlarged village alone. Open northern ground, shorten the journey across the inlet, or make more room beside the existing homes. Prepare four beds and food, then invite them. They arrive thirty seconds after your invitation. Help them settle through ordinary meals; choose your own homes, food sources and paths.");
         w.Validate();return relaxed?RelaxedHamletFrom(w):w;
     }
     public int ChallengeDeliveries=>Challenge is {Arrived:true} c?Math.Max(0,DeliveredEdible-c.DeliveryBaseline):DeliveredEdible;
