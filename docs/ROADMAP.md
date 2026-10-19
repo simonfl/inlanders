@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint243:** Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.
+
 **Checkpoint242:** Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.
 
 **Checkpoint241:** The main FOOD count and low-reserve warning now use reachable provisions; the tooltip distinguishes total and closed/disconnected stock. Native Normal/Relaxed checks show12 usable out of60, then rebuild real crossings and verify recovered availability; existing restoration controls/save/continue pass. Zero-warning build and inspected compact still. Full five-role review240 selects a fair near-home versus distant salvage experiment before expansion; all ten outcomes232–241 complete. Validation closeout completed: all84 distinct current-experience suites pass across preserved/resumed runs; zero-warning build and native public-HUD sample. See review240 for corrected test assumptions and limitations. No242 authorized.

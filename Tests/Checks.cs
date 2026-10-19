@@ -6,6 +6,7 @@ if(args.Contains("--construction-budget")){ConstructionBudgetChecks.Run();return
 if(args.Contains("--crop-orders")){CropOrderChecks.Run();return;}
 if(args.Contains("--blocked-sample")){var w=Inlanders.Simulation.World.LoadFile("artifacts/restoration/False-island-island-open.json");var watch=System.Diagnostics.Stopwatch.StartNew();for(int i=0;i<100;i++)w.Tick(.1f);w.Validate();w.SaveFile("artifacts/blocked-sample.json");Console.WriteLine($"PASS blocked sample100 ticks: {watch.Elapsed.TotalSeconds:0.00}s");return;}
 if(args.Contains("--flood-island")){try{FloodIslandChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--restoration-livelihood")){try{RestorationLivelihoodChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-status")){try{ChallengeStatusChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--grain-reserve")){try{GrainReserveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--food-finish")){try{FoodFinishChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

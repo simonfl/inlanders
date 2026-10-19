@@ -87,6 +87,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 242. **Done** — Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.
 
+243. **Done** — Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

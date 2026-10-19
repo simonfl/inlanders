@@ -26,5 +26,15 @@ public sealed partial class World
     }
     public int RestorationFed=>Challenge?.Meals.Count(p=>p.Key<12 && p.Value>=2)??0;
     public string? RestorationProblem()=>ChallengeHoused<12?$"{12-ChallengeHoused} neighbors need reachable homes."+(People.Any(p=>!p.Fed)?" Some also need meals now; choose which recovery to prioritize.":""):People.Any(p=>!p.Fed)?"Restore meals for residents who missed one.":RestorationFed<12?"Let all twelve residents eat two ordinary meals during recovery.":ReachableEdibleStored<24?"Keep 24 reachable edible portions ready for the next two village meals.":null;
-    public string RestorationStatus=>Challenge?.Complete==true?"Restoration complete":ChallengeHoused<12?$"Rebuild · {ChallengeHoused}/12 housed":People.Any(p=>!p.Fed)?"Recovery · meals needed":RestorationFed<12?$"Recovery · {RestorationFed}/12 fed twice":$"Provisions · {Math.Min(24,ReachableEdibleStored)}/24";
+    public string? RestorationFoodWarning
+    {
+        get
+        {
+            int missed=People.Count(p=>!p.Fed);
+            if(missed>0)return $"{missed} missed meals";
+            var flow=ReadFoodFlow();
+            return flow.Seconds>=60 && flow.Delivered<flow.Required && ReachableEdibleStored<Population*2?"food running low":null;
+        }
+    }
+    public string RestorationStatus=>Challenge?.Complete==true?"Restoration complete":RestorationFoodWarning is {} warning?$"{ChallengeHoused}/12 housed · {warning}":ChallengeHoused<12?$"Rebuild · {ChallengeHoused}/12 housed":RestorationFed<12?$"Recovery · {RestorationFed}/12 fed twice":$"Provisions · {Math.Min(24,ReachableEdibleStored)}/24";
 }
