@@ -28,6 +28,12 @@ public sealed partial class World
         w.Validate();return relaxed?RelaxedHamletFrom(w):w;
     }
     public int ChallengeDeliveries=>Challenge is {Arrived:true} c?Math.Max(0,DeliveredEdible-c.DeliveryBaseline):DeliveredEdible;
+    public int ChallengeHoused=>People.Count(p=>p.HomeId is int id && Cottages.Any(b=>b.Id==id && IsHome(b) && Accessible(b.Entrance)));
+    public string? ChallengeSettlingProblem()=>Challenge is not {Arrived:true}?"Wait for the newcomers to arrive.":
+        ChallengeHoused<Population?"Some residents need an accessible finished home.":
+        People.FirstOrDefault(p=>!p.Fed) is {} hungry?hungry.Name+" missed a meal. Restore their food access.":
+        ChallengeNeighborsFed<4?"Let each newcomer collect and eat two ordinary meals.":
+        ChallengeDeliveries<32?"Deliver 32 fresh portions after arrival. Starting stores do not count.":null;
     public int ChallengeNeighborsFed=>Challenge?.Meals.Count(p=>p.Value>=2)??0;
     public string? ChallengeInvitationProblem()=>Challenge is not {} c?"No newcomer challenge.":c.InvitedAt!=null?"The invitation is already sent.":
         SpareBeds<4?"Finish four spare beds for the newcomers.":DeliveredEdible<16?"Deliver 16 locally produced food portions; starting provisions do not count.":
@@ -50,7 +56,7 @@ public sealed partial class World
                 if(person.HomeId is int id && Accessible(Cottages.Single(b=>b.Id==id).Entrance))Go(person,Cottages.Single(b=>b.Id==id).Entrance,Work.ToArrival,"Walking to a new home");
             _retry=0;History.Add("Four neighbors arrived. Help them settle into their homes and ordinary meals.");
         }
-        if(c.Arrived && Housed==Population && ChallengeNeighborsFed==4 && ChallengeDeliveries>=32 && People.All(p=>p.Fed))
+        if(c.Arrived && ChallengeSettlingProblem()==null)
         {c.Complete=true;History.Add("The newcomers have settled: homes, two meals each and 32 fresh food deliveries since arrival. This challenge is complete.");}
     }
     private void RecordChallengeMeal(Villager person)
@@ -62,7 +68,7 @@ public sealed partial class World
         if(Challenge is not {} c)return;
         if(PublicPlace==null || Population!=(c.Arrived?16:12) || c.InvitedAt is float at && (!float.IsFinite(at) || at<0 || at>Food.Time) ||
             c.Arrived && c.InvitedAt==null || c.DeliveryBaseline<0 || c.DeliveryBaseline>DeliveredEdible || c.Meals==null ||
-            c.Meals.Any(p=>p.Key<12 || p.Key>=Population || p.Value is <1 or >2) || c.Complete && (!c.Arrived || ChallengeNeighborsFed!=4) || c.Continuing && !c.Complete)
+            c.Meals.Any(p=>p.Key<12 || p.Key>=Population || p.Value is <1 or >2) || c.Complete && (!c.Arrived || ChallengeNeighborsFed!=4 || ChallengeDeliveries<32) || c.Continuing && !c.Complete)
             throw new InvalidOperationException("Invalid newcomer challenge");
     }
 }

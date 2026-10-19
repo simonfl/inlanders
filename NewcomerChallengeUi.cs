@@ -2,6 +2,7 @@ using Godot;
 using Inlanders.Simulation;
 using System;
 using System.IO;
+using System.Linq;
 public partial class Game
 {
     private VBoxContainer _challengeGoals=null!;
@@ -24,7 +25,7 @@ public partial class Game
     private void MakeChallengeUi(VBoxContainer column)
     {
         _challengeGoals=new();column.AddChild(_challengeGoals);
-        _challengeProgress=Text("",16,true);_challengeGoals.AddChild(_challengeProgress);
+        _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
         _challengeGoals.AddChild(Button("Choose buildings",()=>{ToggleDrawer(1);SelectBuildSection(0);}));
         _challengeContinue=Button("Challenge complete · continue building",()=>{_world.Challenge!.Continuing=true;SaveWorld();CloseDrawer();_paused=false;});_challengeGoals.AddChild(_challengeContinue);
@@ -35,8 +36,9 @@ public partial class Game
         var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
         _goalTitle.Text="A PLACE FOR NEWCOMERS";
-        string progress=c.InvitedAt==null?$"Prepare for four neighbors\nSpare beds: {Math.Min(4,_world.SpareBeds)}/4\nFresh food delivered: {Math.Min(16,_world.ChallengeDeliveries)}/16\nFood ready: {Math.Min(32,_world.EdibleStored)}/32\n\nThe south bank is crowded. Use the northern meadow or reshape the home bank. Starting provisions do not count as production.":!c.Arrived?$"Four neighbors are on their way\nArrival in {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0} seconds. Keep homes accessible and food available.":
-            $"Help the newcomers settle\nResidents housed: {_world.Housed}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh food since arrival: {Math.Min(32,_world.ChallengeDeliveries)}/32\n\nOrdinary meals count automatically. Food deliveries and completed meals keep their progress.";
+        string contract="Goal: welcome four neighbors into reachable homes, let each eat two meals, and deliver 32 fresh portions after arrival. Everyone must be fed when you finish.\n";
+        string progress=c.InvitedAt==null?$"PREPARE\nSpare beds {Math.Min(4,_world.SpareBeds)}/4 · fresh food {Math.Min(16,_world.ChallengeDeliveries)}/16\nStored food {Math.Min(32,_world.EdibleStored)}/32\n\n{contract}\nInvite when ready; they arrive 30 seconds later. Choose any food sources and layout.":!c.Arrived?$"ON THEIR WAY · {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0}s\n\n{contract}":
+            $"SETTLING IN\nReachable homes: {_world.ChallengeHoused}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh deliveries: {Math.Min(32,_world.ChallengeDeliveries)}/32\nEveryone fed: {_world.People.Count(p=>p.Fed)}/16\n\n{_world.ChallengeSettlingProblem()??"Ready to finish."}\nMeals and deliveries keep their progress.";
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";
         _challengeContinue.Visible=c.Complete;_challengeLeave.Visible=c.Complete;
