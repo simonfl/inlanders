@@ -7,6 +7,7 @@ public partial class Game
 {
     private VBoxContainer _challengeGoals=null!;
     private Label _challengeProgress=null!;
+    private Button _challengeAccess=null!;
     private Button _challengeInvite=null!,_challengeContinue=null!,_challengeLeave=null!;
     private bool _challengeRelaxed,_challengeRepair;
     private void ChallengeMenu()
@@ -26,6 +27,10 @@ public partial class Game
     private void MakeChallengeUi(VBoxContainer column)
     {
         _challengeGoals=new();column.AddChild(_challengeGoals);
+        _challengeAccess=Button("Inspect a cut-off field",()=>{
+            var field=_world.Cottages.FirstOrDefault(b=>b.Kind==BuildingKind.VegetableField && _world.ReadWorkplace(b).MissingAccess);
+            if(field==null)return;_noticeUntil=0;CloseDrawer();_focus=OnGround(field.Cell.X,field.Cell.Z);UpdateCamera();ShowWorkplaceCard(field.Id);
+        });_challengeGoals.AddChild(_challengeAccess);
         _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
         _challengeGoals.AddChild(Button("Choose buildings",()=>{ToggleDrawer(1);SelectBuildSection(0);}));
@@ -36,8 +41,9 @@ public partial class Game
     {
         var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
+        _challengeAccess.Visible=c.Repair && !c.Complete && _world.Cottages.Any(b=>b.Kind==BuildingKind.VegetableField && _world.ReadWorkplace(b).MissingAccess);
         _goalTitle.Text=c.Repair?"THE FAR-BANK FIELDS":"A PLACE FOR NEWCOMERS";
-        string contract=(c.Repair?"The northern fields are cut off. Reconnect or replace their food supply.\n\n":"")+"Goal: welcome four neighbors into reachable homes, let each eat two meals, and deliver 32 fresh portions after arrival. Everyone must be fed when you finish.\n";
+        string contract="Goal: four newcomers need reachable homes and two meals each. Deliver 32 fresh portions after arrival. Everyone must be fed when you finish.\n";
         string progress=c.InvitedAt==null?$"PREPARE\nSpare beds {Math.Min(4,_world.SpareBeds)}/4 · fresh food {Math.Min(16,_world.ChallengeDeliveries)}/16\nStored food {Math.Min(32,_world.EdibleStored)}/32\n\n{contract}\nInvite when ready; they arrive 30 seconds later. Choose any food sources and layout.":!c.Arrived?$"ON THEIR WAY · {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0}s\n\n{contract}":
             $"SETTLING IN\nReachable homes: {_world.ChallengeHoused}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh deliveries: {Math.Min(32,_world.ChallengeDeliveries)}/32\nEveryone fed: {_world.People.Count(p=>p.Fed)}/16\n\n{_world.ChallengeSettlingProblem()??"Ready to finish."}\nMeals and deliveries keep their progress.";
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave.":progress;

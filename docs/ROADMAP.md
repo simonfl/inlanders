@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 218:** Cut-off fields are directly inspectable from the challenge; crossing and pause/move actions precede optional controls and fit960. Native ordinary move cancellation and crossing placement restore actual construction, access and field food delivery. Build passes; screenshots inspected. Next consolidate free-play setup and allow optional growth after success; deeper challenge remains unproven.
+
 **Checkpoint 217:** Optional far-bank repair situation has two cut-off existing fields, a real crossing or relocation choice and separate saves. Bridge/move complete in Normal192/263s and Relaxed173/249s; untouched60s control retains inaccessible crops, not a long-run failure proof. Fixed unreachable-farmer crash. Native entry/save passes. This is a short repair variation, not a proven harder level; next make recovery directly actionable and demonstrate restored production through UI.
 
 **Checkpoint 216:** The full success contract and invitation now precede generic tools; settling names actual blockers and checks assigned reachable homes. Native compact-window entry/completion passes. Comparison: homes alone fail by1200s; one field and a farther field finish at367/333s without missed meals, two fields at267s. Retain as introduction; next test a repair situation rather than pretend distance alone supplies challenge.

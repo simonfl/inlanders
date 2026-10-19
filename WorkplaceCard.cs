@@ -6,8 +6,9 @@ public partial class Game
     private PanelContainer _workCard=null!;
     private ScrollContainer _workCardScroll=null!;
     private VBoxContainer _workCardColumn=null!;
-    private Button _workOptionsButton=null!;
+    private Button _workOptionsButton=null!,_workCardCrossing=null!;
     private bool _workOptions;
+    private int _crossingOrder,_workActionsOrder;
     private bool SmallWorkplace(Cottage site)=>_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds==0;
     private Label _workCardText=null!;
     private Button _workCardPause=null!,_workCardMove=null!,_workCardDetails=null!,_workCardWorker=null!,_workCardDiner=null!,_workCardCancel=null!;
@@ -42,6 +43,13 @@ public partial class Game
         _workCardWatchPlace.TooltipText="See this place with nearby homes, working ground and shared space. Actual life continues at your chosen speed. H or Esc returns to this place and your previous view.";
         _workCardDiner=Button("Follow meal",()=>Watch(CardDiner()));people.AddChild(_workCardDiner);
         _workOptionsButton=Button("Change this workplace",()=>{_workOptions=!_workOptions;_placeJourneySite=-1;_nextWorkCard=0;_workCardScroll.ScrollVertical=0;});column.AddChild(_workOptionsButton);
+        _workCardCrossing=Button("Plan a crossing",()=>{
+            var site=_world.Cottages.FirstOrDefault(b=>b.Id==_workCardSite);if(site==null)return;
+            var crossing=_world.Map.Water.SelectMany(c=>Enumerable.Range(0,4).Select(r=>new{c,r})).OrderBy(p=>(p.c.Point-site.Entrance.Point).LengthSquared()).FirstOrDefault(p=>_world.PlacementProblem(p.c,p.r,BuildingKind.Bridge)==null);
+            if(crossing==null){Notice("No clear one-tile crossing. Move the workplace or clear both banks first.");return;}
+            CloseManagementUi();BeginPlacement(BuildingKind.Bridge);_rotation=crossing.r;_focus=OnGround(crossing.c.X,crossing.c.Z);UpdateCamera();
+            Notice("Choose a crossing with two clear banks. Nothing is built until you place it. R turns; Esc cancels.");
+        });column.AddChild(_workCardCrossing);
         var actions=new HBoxContainer();column.AddChild(actions);
         _workCardPause=Button("Pause",()=>{var site=_world.Cottages.FirstOrDefault(c=>c.Id==_workCardSite);if(site!=null){if(site.Complete)_world.SetWorkplacePaused(site.Id,!site.WorkPaused);else _world.SetConstructionPaused(site.Id,!site.ConstructionPaused);}_nextWorkCard=0;});actions.AddChild(_workCardPause);
         _workCardMove=Button("Move",ChooseMoveIntent);actions.AddChild(_workCardMove);
@@ -60,7 +68,7 @@ public partial class Game
         _householdChange.Reparent(column);_workCardDetails.Reparent(column);
         MakeHomeInvitation(column);MakePlaceJourneys(column);
         column.MoveChild(_workCardTrips,_workCardWatchPlace.GetIndex()+1);column.MoveChild(_placeTripsPanel,_workCardTrips.GetIndex()+1);
-        _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();CreateActors();RenderActors(0);RebuildQueue();}});column.AddChild(_workCardCancel);_workCard.Hide();
+        _workCardCancel=Button("Cancel this construction",()=>{if(_world.Cancel(_workCardSite)){ClearSelection();CreateActors();RenderActors(0);RebuildQueue();}});column.AddChild(_workCardCancel);_crossingOrder=_workCardCrossing.GetIndex();_workActionsOrder=_workCardMove.GetParent().GetIndex();_workCard.Hide();
     }
     private void RenderWorkplaceCard()
     {
@@ -128,17 +136,22 @@ public partial class Game
         _workCardMove.Text=_waitingMove==site.Id?"Cancel move":!site.WorkPaused && (World.ProductionOutput(site.Kind)!=null || site.Kind==BuildingKind.Carpenter) && _world.PublicPlace!=null?"Pause & move":"Move";
         string? moveProblem=_world.PublicPlace!=null?_world.RelocationIntentProblem(site.Id):_world.RelocationProblem(site.Id);
         _workCardMove.Disabled=moveProblem!=null;_workCardMove.TooltipText=moveProblem??"Preview another location. Work pauses and resumes when you place or cancel; an already paused workplace stays paused. Growing crops need fresh sowing after moving.";
+        bool disconnected=site.Complete && _world.ReadWorkplace(site).MissingAccess;
+        _workCardCrossing.Visible=disconnected;
+        _workCardColumn.MoveChild(_workCardCrossing,disconnected?1:_crossingOrder);
+        _workCardColumn.MoveChild(_workCardMove.GetParent(),disconnected?2:_workActionsOrder);
         bool simple=SmallWorkplace(site);
         _workOptionsButton.Visible=simple;_workOptionsButton.Text=_workOptions?"Back to everyday life":"Change this place";
         if(simple && !_workOptions)
         {
             _workCardPause.Visible=site.WorkPaused;
             foreach(var control in new Control[]{_workCardMove,_workCardDetails,_workCardSupply,_placePathRow,_reshapePlot})control.Hide();
+            _workCardMove.Visible=disconnected;
         }
         if(_placeJourneySite==site.Id)
         {
             _workCardText.Text=BuildingName(site.Kind).ToUpperInvariant();
-            foreach(var control in new Control[]{_workCardPause,_workCardMove,_workCardDetails,_workCardSupply,_workCardWorker,_workCardDiner,_homeOptionsButton,_homeMoreButton,_placePathRow,_workOptionsButton,_supplyReturn,_constructionSupply,_constructionPriority,_workCardInput,_workCardCancel,_workCardFurnish})control.Hide();
+            foreach(var control in new Control[]{_workCardCrossing,_workCardPause,_workCardMove,_workCardDetails,_workCardSupply,_workCardWorker,_workCardDiner,_homeOptionsButton,_homeMoreButton,_placePathRow,_workOptionsButton,_supplyReturn,_constructionSupply,_constructionPriority,_workCardInput,_workCardCancel,_workCardFurnish})control.Hide();
         }
 
     }
