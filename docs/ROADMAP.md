@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint244:** Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.
+
 **Checkpoint243:** Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.
 
 **Checkpoint242:** Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.

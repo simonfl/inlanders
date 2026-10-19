@@ -16,7 +16,7 @@ public partial class Game
     private void CycleHomePlot(){_homePlotSide=(_homePlotSide+2)%5-1;RefreshGhost();}
     private void RenderHomePlotUi()
     {
-        _homePlotPanel.Visible=HomePlotActive && !_drawer.Visible && !_atMainMenu;if(!_homePlotPanel.Visible)return;
+        _homePlotPanel.Visible=HomePlotActive && _homePlotSide>=0 && !_drawer.Visible && !_atMainMenu;if(!_homePlotPanel.Visible)return;
         _homePlotPanel.Position=new(16,92);_homePlotPanel.Size=new(290,0);
         _homePlotChoice.Text=_homePlotSide<0?"House only · add yard [Y]":"Yard: "+World.YardSideName(_homePlotSide)+" [Y]";
         _homePlotInfo.Text=_homePlotSide<0?"A yard is optional. Preview it now or furnish later from the home.":

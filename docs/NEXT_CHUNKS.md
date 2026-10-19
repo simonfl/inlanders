@@ -2,7 +2,19 @@
 
 Ten outcomes authorized October19; full five-role review250 before251, then stop. Start by removing the redundant food-priority switch, compare near-home livelihood with distant salvage, and simplify operational decisions. Later outcomes depend on evidence; do not fill the batch with decoration or new management knobs.
 
-Current:242 removes Food-first/Balanced while retaining automatic urgent-food protection. Next: compare actual home-bank fishing with salvage, then implement the most useful missing decision/recovery support. No claim of fun from scripted success.
+242–243 done: one automatic-work contract; food trouble remains visible beside incomplete housing.
+
+Next outcomes, revisable from evidence:
+-244: ordinary housing foregrounds function; yard preview is explicit opt-in.
+-245: Economy opens with usable food, current delivery and recovery actions before reserve tuning.
+-246: show fresh deliveries from each workplace, so the player can distinguish useful production from transferred stock.
+-247: preview what a crossing reconnects, and any fishing water it cuts off.
+-248: simplify the artificial two-channel restoration if the same-start comparison supports it; preserve evidence of the former layout.
+-249: make both salvage and home-bank livelihoods discoverable through existing world planning controls.
+-250: close a concrete planning gap exposed by the comparison, then freeze for all five whole-game reviewers.
+-251: selected only from that synthesis; stop afterward.
+
+The first Normal comparisons show fishing and gathering both viable on the home bank, with earlier source activity and fewer logs than two-crossing salvage. All complete around128–130s, suggesting the two-meal objective rather than production is the completion floor. Do not interpret this as balanced strategic depth.
 
 # Completed batch — checkpoints232–241
 
@@ -88,6 +100,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 242. **Done** — Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.
 
 243. **Done** — Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.
+
+244. **Done** — Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.
 
 ## Completed batch — checkpoints 211–220
 

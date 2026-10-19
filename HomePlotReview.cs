@@ -9,7 +9,7 @@ public partial class Game
     {
         void Check(bool ok,string why){if(!ok)throw new Exception(why);}
         async Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        CloseManagementUi();ClearSelection();await Frames();string before=_world.SaveJson();await UiClick(_firstPlaceChoices[BuildingKind.Cottage]);await Frames();await Press(Key.Y);await Frames();
+        CloseManagementUi();ClearSelection();await Frames();string before=_world.SaveJson();await UiClick(_firstPlaceChoices[BuildingKind.Cottage]);await Frames();Check(!_homePlotPanel.Visible,"Ordinary housing opens yard styling");await Press(Key.Y);await Frames();
         Check(_homePlotSide==0 && _homePlotPanel.Visible,"Home-and-yard option inaccessible");
         _rotation=0;_focus=OnGround(1,8);_camera.Size=20;UpdateCamera();await Frames();
         var point=_camera.UnprojectPosition(OnGround(1,8));Input.ParseInputEvent(new InputEventMouseMotion{Position=point,GlobalPosition=point});await Frames();
