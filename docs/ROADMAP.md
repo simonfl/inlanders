@@ -10,11 +10,13 @@
 
 ## Current direction and next step
 
+**October19 priority correction — gameplay before player-controlled decoration.** Prioritize meaningful choices, resource/labor tradeoffs, distinct objectives and recoverable mistakes. Functional placement of fields, homes, docks, storage, paths and bridges remains gameplay when it changes access, transport or production. Freeze expansion of cosmetic placement, roof/plaster choices, furnishing/yard styling, ornamental landscaping and group-composition tools. Existing optional controls need no wholesale removal. New France remains the setting; automatic visual detail and readable work/crop/access feedback support gameplay without becoming additional player chores. This direction supersedes older art/composition priorities below.
+
 [Review230](REVIEW_CHECKPOINT_230.md): five independent partially-convincing verdicts. Automatic work, proactive reserves, grouped buildings and woodland renewal address real player feedback. Keep a short newcomer introduction and experimental non-growing restoration; cut the overlapping far-bank variation from primary selection.231 delivered two direct choices with map previews and Normal/Relaxed; native flows pass. This authorization is complete and stopped231.
 
 **Core question:** does changing an inhabited landscape produce understandable choices and satisfying visible benefits? The island branches demonstrate viable preplanned layouts, not discovered second decisions. No longer quotas, extra mandatory needs or new buildings to manufacture depth. Keep the broader catalogue optional.
 
-**Next evidence-led sequence, conditional on authorization:** reproduce blocked-world performance; compare land-bound crops against free field relocation; compare one coherent flood/river-farmstead scene against the geometric channels; observe self-directed recovery and reconsider the whole loop if it remains a checklist followed by waiting. A small restoration-commission game or household-scale farmstead is a valid alternative to a longer campaign.
+**Next evidence-led sequence, conditional on authorization:** first compare salvaging disconnected productive land with establishing replacement food nearby. Make material commitments, labor, access and available alternatives differ in understandable ways; do not merely penalize moving fields or extend waiting. Require two viable plans, a recoverable mistake and a reason to reconsider after seeing consequences. Address clarity and reproduced player-facing performance alongside that experiment. Defer aesthetic flood recomposition until it supports a demonstrated gameplay need. Observe self-directed recovery before more chapters; a smaller restoration or farmstead game remains a valid redesign.
 
 **Tooling:** repair current-suite coverage/prerequisite discovery and add compact intervention/consequence timelines using existing runners. Obtain actual motion/listening evidence with existing capture tools. See review230 for costs, beneficiaries, validation and limitations. Tooling alone does not count as playable progress.
 
@@ -105,7 +107,7 @@ Measured ordinary resident-animation and dense outside-callback stalls remain un
 
 ## New France art direction — F40
 
-**Make the setting unmistakable in the village itself.** The user explicitly prioritizes a stronger New France aesthetic. [F40 — New France art direction](NEW_FRANCE_ART_DIRECTION.md) turns the provisional F34 palette into concrete work:
+**Deferred presentation track, updated October19.** Preserve the New France identity; gameplay now takes priority over aesthetic expansion, especially player-controlled decoration. Earlier art priorities below are a reference backlog, not the next execution queue. [F40 — New France art direction](NEW_FRANCE_ART_DIRECTION.md) turns the provisional F34 palette into concrete work:
 
 | Priority | Item |
 | --- | --- |
@@ -119,11 +121,11 @@ Review100 advances the connected farmstead into an asymmetric river-facing lands
 
 ## Feature priorities after the first situation
 
-These are candidates, not a shopping list. Reevaluate after seeing the themed slice. All existing feature IDs retain their history; F34 retains the initial theme-integration history; F40 is the active art-direction track. Review 90 prioritizes connected farmstead composition over additional standalone assets; the following expansion candidates stay behind that comparison.
+These are conditional candidates, not an execution queue. The October19 gameplay-first direction supersedes review90's composition-first ordering. F34/F40 retain their historical IDs; aesthetic expansion is deferred while existing production, access and resource choices are evaluated.
 
 | Priority | Candidate | Decision it should add / smallest scope |
 | --- | --- | --- |
-| Alongside next comparison | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
+| Deferred; functional readability only when needed | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
 | Delivered, evaluate | **F34c — cultivated ground** | Real 3 × 5 grain fields with walking/work, compact gardens retained. Whether grain deserves its larger footprint remains an open design question. |
 | Conditional | **F34d — milling and bread** | A mill or combined milling/baking treatment may give grain a recognizable, geographically meaningful chain. Test siting/labor payoff; do not add flour plus another mandatory wait solely for historical completeness. The farm/bakery chain already exists; compare its value under current rules. |
 | Later | **F26/F34e — pasture or river exchange** | Livestock could compete for cleared land/feed; a landing could carry actual goods. Prototype one only when it differs from gardens or land hauling. Animal breeding, full trade markets and fleets are not implied. |

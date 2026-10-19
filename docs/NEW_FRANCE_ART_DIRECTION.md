@@ -1,6 +1,6 @@
 # F40 — a recognizable New France village
 
-User priority: lean much harder into New France aesthetics. Make this a visible art-direction programme alongside the next gameplay work, not an indefinite polish backlog. Extend [F34's reference palette](REFERENCE_PALETTE_F34A.md) and [the thematic brief](LES_HABITANTS.md).
+**Priority update, October19:** preserve New France as the setting, but gameplay now takes precedence. This document is a deferred art reference, not an active parallel programme. Freeze expansion of player-controlled decoration, cosmetic choices, furnishing/yard styling and composition tools. Functional visibility of work, crops, access and recovery can accompany gameplay changes; authored atmosphere should not add player chores. Earlier proposals below do not override this direction. See [roadmap](ROADMAP.md).
 
 ## The scene we want
 

@@ -6,12 +6,16 @@ Primary challenges are now two directly named choices: newcomer introduction and
 
 ## Next candidates — requires authorization
 
-1. Reproduce and attribute blocked-restoration performance in actual1x/3x play; fix only a measured problem.
-2. Compare land-bound crop recovery versus current free field relocation, without taxing general rearrangement.
-3. Compare coherent flood geography and visible household recovery with the current geometric scene. Consider world survey only if needed for orientation.
-4. Observe ordinary player decisions and visible satisfaction before adding chapters, needs or buildings; be willing to reduce the game to restoration commissions or a smaller farmstead.
+**October19 user direction:** gameplay first, particularly over decoration the player arranges. No new playable batch is authorized by this priority change.
 
-Supporting tooling: current-suite registry/prerequisites and compact decision timelines; actual audiovisual sample with existing tools. These do not count as playable outcomes. Next full review240, contingent on authorization.
+1. Compare **salvage versus restart** in the existing restoration: reconnect productive land or establish food on accessible ground. Use existing materials, labor, routes and crops. Seek different commitments and subsequent options, not cosmetic differences or longer timers.
+2. Make consequences and recovery legible: food versus housing pressure, reachable supply and useful deliveries. Keep previews/cancellation and practical moves; avoid prescribing one solution.
+3. Observe a self-directed choice and a recoverable mistake before extending the campaign. If it remains two homes plus food followed by waiting, redesign the loop or reduce scope.
+4. Investigate blocked-state performance only when short actual1x/3x play reproduces a player-facing problem; resolve it alongside the gameplay experiment.
+
+**Frozen:** new decoration objects, cosmetic building variants, furnishing/yard composition, ornamental landscaping and general-purpose group-arrangement controls. Keep existing optional tools; no removal project. Functional forestry, cultivation, paths, bridges and building siting remain core gameplay. Authored scenery and ambient life are lower priority; visuals that communicate work/access/problems remain useful.
+
+Supporting tooling: compact intervention/shortage/delivery/recovery timelines and current-suite prerequisites using existing runners. These do not count as playable outcomes. Full review240 remains conditional on further authorization. See [priority synthesis](GAMEPLAY_PRIORITY_231.md).
 
 ## Completed outcomes — historical notes
 

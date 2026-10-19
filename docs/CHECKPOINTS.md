@@ -2,6 +2,8 @@
 
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
+October19 strategic priority review: [gameplay over player-controlled decoration](GAMEPLAY_PRIORITY_231.md). Five independent read-only roles; gameplay choices first, cosmetic/arrangement expansion frozen. Source fixed `bdcc0f4`; no new playable outcome or implementation batch. Count231; periodic review240 unchanged.
+
 - Outcome **211**: Public village work is automatic: ordinary profession/dedication controls are hidden; existing fixed assignments can return to the shared pool without interrupting committed work. Normal/Relaxed at-sea catch, delivery, meal and exact saved continuation checks passed; zero-warning build. Native UI review follows with the complete slice.
 - Completed authorization: ten outcomes211–220; full reviews215/220 complete. The batch stopped220; subsequent human playtest feedback authorized targeted outcome221, not a further batch.
 - Outcome **212**: Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
