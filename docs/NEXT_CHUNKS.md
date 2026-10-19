@@ -1,3 +1,9 @@
+# Active batch — checkpoints242–251
+
+Ten outcomes authorized October19; full five-role review250 before251, then stop. Start by removing the redundant food-priority switch, compare near-home livelihood with distant salvage, and simplify operational decisions. Later outcomes depend on evidence; do not fill the batch with decoration or new management knobs.
+
+Current:242 removes Food-first/Balanced while retaining automatic urgent-food protection. Next: compare actual home-bank fishing with salvage, then implement the most useful missing decision/recovery support. No claim of fun from scripted success.
+
 # Completed batch — checkpoints232–241
 
 Ten outcomes232–241 complete; [full five-role review240](REVIEW_CHECKPOINT_240.md) completed before241. The main FOOD counter and warning now reflect reachable supplies, with total/stranded amounts in its tooltip. Native real reconnection passes in Normal and Relaxed. All84 distinct current-experience suites pass across preserved/resumed runs; zero-warning build and final public-HUD timing sample complete. Stop241. No242 authorized.
@@ -78,6 +84,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 240. **Done** — During scarce food, farmers favor ready edible crops over nearer grain; stocked villages retain nearest-crop selection. Reproduced the wrong choice with a controlled validated fixture; both modes now deliver actual vegetables and save exactly. Native restoration, work controls, newcomer/archive/free-play and follow/save/continue checks pass; zero-warning build. Supporting current-experience registry now includes recent mechanics and observation-before-status prerequisites. Nine outcomes232–240 complete; freeze for full five-role review before selecting241. Adaptive island versus single-field control comparison and broad regression run on the frozen build.
 
 241. **Done** — The main FOOD count and low-reserve warning now use reachable provisions; the tooltip distinguishes total and closed/disconnected stock. Native Normal/Relaxed checks show12 usable out of60, then rebuild real crossings and verify recovered availability; existing restoration controls/save/continue pass. Zero-warning build and inspected compact still. Full five-role review240 selects a fair near-home versus distant salvage experiment before expansion; all ten outcomes232–241 complete. Remaining broad validation is closeout, not another playable checkpoint.
+
+242. **Done** — Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.
 
 ## Completed batch — checkpoints 211–220
 

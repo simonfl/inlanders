@@ -36,13 +36,11 @@ public partial class Game
             if(!_hint.Text.Contains("new +") || !_hint.Text.Contains("queued"))throw new Exception("Construction budget absent from placement");
             await Capture("artifacts/restoration/construction-budget-960.png");_placing=false;RefreshGhost();
             ToggleDrawer(0);UpdateHud();for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
-            _drawerPages[0].EnsureControlVisible(_foodFirst);await UiClick(_foodFirst);
-            if(_world.Founding?.FoodFirst!=true)throw new Exception("Food focus UI failed");
             CloseDrawer();var crop=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);ShowWorkplaceCard(crop.Id);
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _workCardScroll.EnsureControlVisible(_cropOrder);await UiClick(_cropOrder);
             if(!crop.HarvestThenPause || crop.WorkPaused || !_workCardMove.Disabled)throw new Exception("Crop order/land-bound move UI failed");
-            if(!SaveSession() || !World.LoadFile(CurrentSavePath).Founding!.FoodFirst || !World.LoadFile(CurrentSavePath).Cottages.Single(c=>c.Id==crop.Id).HarvestThenPause)throw new Exception("Work orders not saved");
+            if(!SaveSession() || !World.LoadFile(CurrentSavePath).Cottages.Single(c=>c.Id==crop.Id).HarvestThenPause)throw new Exception("Work orders not saved");
             if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Restoration!=true)throw new Exception("Restoration save");
             AdoptWorld(World.LoadFile("artifacts/restoration/False-bridge-complete.json"));ToggleDrawer(2);UpdateHud();
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
@@ -66,7 +64,7 @@ public partial class Game
                 if(!second || supply.ReachableEdibleStored!=supply.EdibleStored || _placeFoodCount.Text!=supply.EdibleStored.ToString() || _placeFoodTitle.Text!="FOOD")throw new Exception("Reconnected food HUD failed");
                 GD.Print($"PASS native reachable-food count/warning and real crossing recovery relaxed={relaxed}");
             }
-            GD.Print("PASS native food-first and crop orders, land-bound move rejection, restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();
+            GD.Print("PASS native automatic work and crop orders, land-bound move rejection, restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

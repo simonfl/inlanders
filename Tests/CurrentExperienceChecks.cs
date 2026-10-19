@@ -12,7 +12,6 @@ static class CurrentExperienceChecks
             ("FoodFinish",FoodFinishChecks.Run),
             ("GrainReserve",GrainReserveChecks.Run),
             ("CropOrders",CropOrderChecks.Run),
-            ("WorkFocus",WorkFocusChecks.Run),
             ("ConstructionBudget",ConstructionBudgetChecks.Run),
             ("DisconnectedDemolition",DisconnectedDemolitionChecks.Run),
             ("ReachableFood",ReachableFoodChecks.Run),

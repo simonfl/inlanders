@@ -156,7 +156,7 @@ public partial class Game
                 _allocationButtons[(role, change)] = b; row.AddChild(b);
             }
         }
-        _staffing = Text("", 13, true); column.AddChild(_staffing);MakeWorkFocus(column);
+        _staffing = Text("", 13, true); column.AddChild(_staffing);
         _automaticWork=Button("Return everyone to automatic work",()=>_world.UseAutomaticVillageWork());column.AddChild(_automaticWork);
         MakeArrivalControls(column);
         column.AddChild(Text("VILLAGERS · SELECT TO INSPECT", 12)); MakeRosterFilter(column);
@@ -273,7 +273,6 @@ public partial class Game
             _allocationButtons[(role, 1)].TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {role}. Carried goods return first.";
         }
         _staffing.Text = $"{(_world.SharedWork?_world.People.Count(v=>v.SharedWorker):_world.People.Count(v => v.Role == Role.Unassigned))} {(_world.SharedWork?"shared workers":"unassigned")} · {_world.People.Count(v => v.Task == Work.Waiting)} idle"+(_world.PublicPlace!=null?"":$"\nVillage happiness: {_world.VillageHappiness}/100")+$"\nHomes: {_world.ResidentsWithHomes}/{_world.Population}"+(_world.PublicPlace!=null?"":$" · recently rested: {_world.ResidentsRested}/{_world.Population}");
-        UpdateWorkFocus();
         if(_world.PublicPlace!=null)_staffing.Text="AUTOMATIC VILLAGE WORK\nResidents take needed jobs across the village. No profession assignment is needed. Meals and breaks continue.\n"+_world.WorkforceSummary();
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
