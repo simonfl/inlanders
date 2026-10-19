@@ -1,5 +1,7 @@
 # Les Habitants — roadmap
 
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next230, then240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. This policy change adds no implementation authorization.
+
 **A home for generations.** A settlement game about 17th-century French settlers in New France, in the region now called Quebec: farming, making a living from the land, establishing homes and improving everyday life.
 
 **Descendants are a theme, not a system.** No inheritance, genealogy, aging, succession, generational handoffs or legacy scores. The player builds a better village for the people living there; writing and the enduring place carry the longer-term aspiration.

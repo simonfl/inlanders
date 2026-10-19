@@ -1,5 +1,7 @@
 # Targeted playtest follow-up — checkpoint221
 
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next230, then240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. This policy change adds no implementation authorization.
+
 221. **Done** — Timber reserve raised from8 (24 maximum with orders) to32 logs plus unfinished, unpaused construction. Enough for two cottages, a standard vegetable field and a dock (30 logs). Logs tooltip and workforce explain the target and resumption. Actual automatic harvesting, stop, construction/replenishment and exact-save simulation checks pass; automatic-work regression and native Normal/Relaxed controls/target checks pass; zero-warning build. Plank/stone and food policy follow-up recorded, not implemented.
 
 ## Completed batch — checkpoints 211–220
