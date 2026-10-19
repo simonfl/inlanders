@@ -50,7 +50,14 @@ public partial class Game
             await Capture("artifacts/219-free-play-menu.png");
             await UiClick(_mainButtons["Food setup: choose your own · change"]);await Frames();await UiClick(_mainButtons["New settlement"]);await Frames();
             if(_world.Challenge!=null || _world.PublicPlace is not {RiverLandscape:true,PlayerFounded:false})throw new Exception("Prepared food setup identity");
-            GD.Print("PASS consolidated free-play setup; ordinary inspect, direct pause/move cancel, crossing preview/place and actual construction plus restored field delivery (accelerated model ticks); native repair situation selection and separate save; native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
+            AdoptWorld(World.LoadFile("artifacts/220-invited.json"));_paused=true;if(!_drawer.Visible || _tabs.CurrentTab!=2)ToggleDrawer(2);await Frames();
+            if(_menuButtons[2].Text!="Neighbors on their way")throw new Exception("Invitation status hidden");
+            for(int i=0;i<400 && !_world.Challenge!.Arrived;i++){_world.Tick(.1f);if(i%50==0)await Frames();}UpdateHud();await Frames();
+            if(!_challengeSawArrival || !_challengeWatch.IsVisibleInTree() || !_menuButtons[2].Text.StartsWith("Settling"))throw new Exception("Arrival not exposed");
+            await Capture("artifacts/220-arrival-960.png");int person=ChallengePerson()!.Id;
+            await UiClick(_challengeWatch);await Frames();if(_dailyPerson!=person || !_followPerson || !_dailyCard.IsVisibleInTree())throw new Exception("Challenge person link failed");
+            await Capture("artifacts/220-newcomer-960.png");GetWindow().Size=new(1440,900);await Frames();await Capture("artifacts/220-newcomer-1440.png");
+            GD.Print("PASS live arrival status and actual resident follow at960/1440; consolidated free-play setup; ordinary inspect, direct pause/move cancel, crossing preview/place and actual construction plus restored field delivery (accelerated model ticks); native repair situation selection and separate save; native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

@@ -1,13 +1,16 @@
 using Godot;
 using Inlanders.Simulation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 public partial class Game
 {
     private VBoxContainer _challengeGoals=null!;
     private Label _challengeProgress=null!;
-    private Button _challengeAccess=null!;
+    private Button _challengeAccess=null!,_challengeWatch=null!;
+    private World? _challengeObservedWorld;
+    private bool _challengeSawArrival,_challengeSawCompletion;
     private Button _challengeInvite=null!,_challengeContinue=null!,_challengeLeave=null!;
     private bool _challengeRelaxed,_challengeRepair;
     private void ChallengeMenu()
@@ -24,6 +27,9 @@ public partial class Game
         MenuButton("New challenge",()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this challenge?",Start,ChallengeMenu);else Start();});
         MenuButton("Back",ShowMainMenu);
     }
+    private Villager? ChallengePerson()=>_world.People.FirstOrDefault(p=>!p.Fed) ??
+        _world.People.FirstOrDefault(p=>p.Id is >=12 and <16 && (_world.Challenge?.Meals.GetValueOrDefault(p.Id)??0)<2) ??
+        _world.People.FirstOrDefault(p=>p.Id==12);
     private void MakeChallengeUi(VBoxContainer column)
     {
         _challengeGoals=new();column.AddChild(_challengeGoals);
@@ -31,6 +37,7 @@ public partial class Game
             var field=_world.Cottages.FirstOrDefault(b=>b.Kind==BuildingKind.VegetableField && _world.ReadWorkplace(b).MissingAccess);
             if(field==null)return;_noticeUntil=0;CloseDrawer();_focus=OnGround(field.Cell.X,field.Cell.Z);UpdateCamera();ShowWorkplaceCard(field.Id);
         });_challengeGoals.AddChild(_challengeAccess);
+        _challengeWatch=Button("Find newcomers",()=>{var person=ChallengePerson();if(person==null)return;_noticeUntil=0;ShowDailyLife(person.Id);_followPerson=true;});_challengeGoals.AddChild(_challengeWatch);
         _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
         _challengeGoals.AddChild(Button("Choose buildings",()=>{ToggleDrawer(1);SelectBuildSection(0);}));
@@ -40,6 +47,15 @@ public partial class Game
     private void UpdateChallengeUi()
     {
         var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
+        if(_challengeObservedWorld!=_world){_challengeObservedWorld=_world;_challengeSawArrival=c.Arrived;_challengeSawCompletion=c.Complete;}
+        else
+        {
+            if(c.Arrived && !_challengeSawArrival)Notice("Jeanne, Pierre, Marguerite and Louis have arrived. Challenge [G] can take you to them.");
+            if(c.Complete && !_challengeSawCompletion)Notice("The newcomers have settled. Challenge complete — keep building or save and leave through Challenge [G].");
+            _challengeSawArrival=c.Arrived;_challengeSawCompletion=c.Complete;
+        }
+        _challengeWatch.Visible=c.Arrived && !c.Continuing;
+        if(ChallengePerson() is {} person)_challengeWatch.Text="Find "+person.Name+(person.Fed?c.Complete?" · settled":" · settling in":" · missed a meal");
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
         _challengeAccess.Visible=c.Repair && !c.Complete && _world.Cottages.Any(b=>b.Kind==BuildingKind.VegetableField && _world.ReadWorkplace(b).MissingAccess);
         _goalTitle.Text=c.Repair?"THE FAR-BANK FIELDS":"A PLACE FOR NEWCOMERS";
@@ -49,7 +65,7 @@ public partial class Game
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave. After continuing, use People to welcome more neighbors when you choose.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";
         _challengeContinue.Visible=c.Complete && !c.Continuing;_challengeLeave.Visible=c.Complete;
-        _menuButtons[2].Text=c.Complete?"Challenge · complete":c.Arrived?"Challenge · settling":"Challenge";
+        _menuButtons[2].Text=c.Complete?"Challenge · complete":c.Arrived?$"Settling · {_world.ChallengeNeighborsFed}/4":c.InvitedAt!=null?"Neighbors on their way":_world.ChallengeInvitationProblem()==null?"Ready to invite four":"Challenge";
         _menuButtons[2].TooltipText="Your objective and progress [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Challenge";
     }
