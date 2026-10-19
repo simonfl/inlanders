@@ -22,7 +22,10 @@ static class FloodRecoveryChecks
             }
             for(int i=0;i<6000;i++)
             {
-                w.Tick(.1f);if(w.Challenge!.Complete && completed==null){completed=w.Food.Time;w.SaveFile($"artifacts/restoration/{relaxed}-{choice}-complete.json");}
+                w.Tick(.1f);
+                if(choice=="bridge" && w.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Cell==new Cell(5,0) && c.Complete) && !w.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Cell==new Cell(0,-7)))
+                    if(w.Place(new(0,-7),0,BuildingKind.Bridge)==null)throw new Exception("Second crossing refused");
+                if(w.Challenge!.Complete && completed==null){completed=w.Food.Time;w.SaveFile($"artifacts/restoration/{relaxed}-{choice}-complete.json");}
                 if(i==1199)w.SaveFile($"artifacts/restoration/{relaxed}-{choice}-120s.json");
             }
             if(w.Challenge!.Complete!=(choice!="nothing") || w.Population!=12)throw new Exception($"Unexpected restoration {relaxed}/{choice}: {w.RestorationProblem()}");

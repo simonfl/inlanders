@@ -23,6 +23,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 
 228. **Done** — After the flood is a public non-growing restoration challenge: twelve residents, eight beds, cut-off fields and24 food. Restore reachable homes, two actual meals each, current meal service and24 remaining food; separate save/restart/continuation. Both-mode crossing and relocation win at123–142 simulated seconds and remain fully fed at600s; equal-horizon no-intervention controls retain8 housed and empty food, with missed meals. Native entry/recovery/save/completed continuation passes; inspected screenshot caught and corrected newcomer copy; final build passes. Short prototype, not proven campaign depth. Next compare an intermediate-island decision rather than longer quotas.
 
+229. **Done** — Flood restoration now has two channels: opening an island enables cultivation there or a second crossing to old fields. Normal second decisions occur47s after start, or141s after a90s delayed start; Relaxed construction is instant. Six both-mode crossing/island/delayed-island branches finish121–198s and retain12 housed/fed at360s, with exact save continuation. Native entry/current completion and inspected whole scene pass. Compact comparison JSON and first-island snapshots record timing/evidence. Still short, scripted and not proof of enjoyment. Next make scenario geography/purpose legible before starting, then full230 review.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
