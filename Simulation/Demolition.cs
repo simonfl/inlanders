@@ -29,7 +29,7 @@ public sealed partial class World
     }
     private bool ClaimDemolition(Villager v)
     {
-        var site = Cottages.Where(c => c.DemolitionRequested && c.Builder == null).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).FirstOrDefault();
+        var site = Cottages.Where(c => c.DemolitionRequested && c.Builder == null && TravelCost(At(v),c.Entrance)!=int.MaxValue).OrderByDescending(c => c.Priority).ThenBy(c => c.Id).FirstOrDefault();
         if (site == null) return false;
         site.Builder = v.Id; v.SiteId = site.Id;
         Go(v, site.Entrance, Work.ToDemolish, $"Walking to dismantle {site.Kind} {site.Id}"); return true;

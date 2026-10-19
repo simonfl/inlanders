@@ -83,9 +83,10 @@ public sealed partial class World
 
     public WorkplaceReport ReadWorkplace(Cottage site)
     {
+        if(site.DemolitionRequested && !Accessible(site.Entrance))return new("Demolition needs access", "The order waits safely. Reconnect this site to recover its goods and materials, or cancel demolition in Details.",site.Entrance,site.Id,MissingAccess:true);
         if (site.DemolitionRequested) return new("Demolition ordered", "Production stopped; builders recover goods, dismantle the building and haul its timber.");
         if (!site.Complete) return new("Under construction", "Builders must finish this workplace first.");
-        if(!Accessible(site.Entrance))return new("No walking route", "Residents cannot reach this workplace. Build a crossing, or pause and move it onto reachable ground.",site.Entrance,site.Id,MissingAccess:true);
+        if(!Accessible(site.Entrance))return new("No walking route", HasLandBoundHarvest(site)?"Ripe crops remain here. Reconnect access to harvest them, or establish new food supply elsewhere.":"Residents cannot reach this workplace. Build a crossing, or pause and move it onto reachable ground.",site.Entrance,site.Id,MissingAccess:true);
         var workers = People.Where(p => p.WorkplaceId == site.Id).ToArray();
         if (Food.Celebrating) return new("Village supper", "Work resumes after everyone gathers.");
         if (site.WorkPaused && site.Kind==BuildingKind.FishingDock) return new(workers.Length>0 ? "Recalling boat" : "Paused", "No new trips. A fisher at sea returns before changing jobs or leaving the dock.");

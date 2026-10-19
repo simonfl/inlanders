@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--disconnected-demolition")){DisconnectedDemolitionChecks.Run();return;}
 if(args.Contains("--construction-budget")){ConstructionBudgetChecks.Run();return;}
 if(args.Contains("--work-focus")){WorkFocusChecks.Run();return;}
 if(args.Contains("--crop-orders")){CropOrderChecks.Run();return;}
