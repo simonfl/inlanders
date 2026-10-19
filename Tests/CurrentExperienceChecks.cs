@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 static class CurrentExperienceChecks
 {
-    public static void Run()
+    public static void Run(string? from=null)
     {
         Directory.CreateDirectory("artifacts/current-experience");
         var cases=new (string Name,Action Execute)[]{
@@ -91,9 +91,15 @@ static class CurrentExperienceChecks
             ("FoodAccess",FoodAccessChecks.Run),
             ("ConstructionStaging",ConstructionStagingChecks.Run),
         };
+        if(from!=null)
+        {
+            int start=Array.FindIndex(cases,c=>c.Name==from);
+            if(start<0)throw new ArgumentException("Unknown current-experience starting suite: "+from);
+            cases=cases[start..];
+        }
         var rows=new List<object>();string status="running",runId=Guid.NewGuid().ToString("N");var startedUtc=DateTime.UtcNow;
         void Report()=>File.WriteAllText("artifacts/current-experience/report.json",JsonSerializer.Serialize(new {
-            runId,startedUtc,status,expectedSuites=cases.Length,finishedSuites=rows.Count,
+            runId,startedUtc,status,selectedFrom=from,expectedSuites=cases.Length,finishedSuites=rows.Count,
             assembly=typeof(CurrentExperienceChecks).Assembly.ManifestModule.ModuleVersionId,
             prerequisite="ChallengeObservation generates220-arrived for ChallengeStatus; RiverFarmstead generates snapshots used by HomeWaiting and ProductionRecovery",suites=rows
         },new JsonSerializerOptions{WriteIndented=true}));

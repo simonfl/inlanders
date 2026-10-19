@@ -33,12 +33,12 @@ public partial class Game
             }
             return;
         }
-        int food=World.EdibleKinds.Sum(_world.StoredFood);_placeFoodCount.Text=food.ToString();
+        int food=_world.ReachableEdibleStored,total=_world.EdibleStored;_placeFoodCount.Text=food.ToString();
         bool low=_world.SimulatesMeals && food<_world.Population*2;
         _placeFoodTitle.Text=low?"FOOD · LOW":"FOOD";
         _placeFoodCount.Modulate=low?new("ffd39b"):Colors.White;
-        _placeFood.TooltipText=$"{food} stored meal portions across the village, including reserved portions. Grain needs baking. Click for individual foods, carrying and shortages in Economy [I].";
-        if(low)_placeFood.TooltipText="Less than two stored portions per resident. Click to inspect existing production, meal access or compare another food source. This is a reserve warning, not a forecast.\n"+_placeFood.TooltipText;
+        _placeFood.TooltipText=$"{food} reachable meal portions, including reserved portions. {total} stored in total; {total-food} in closed or disconnected stores. Grain needs baking. Click for individual foods, carrying and shortages in Economy [I].";
+        if(low)_placeFood.TooltipText="Less than two reachable portions per resident. Click to inspect existing production, meal access or compare another food source. This is a reserve warning, not a forecast.\n"+_placeFood.TooltipText;
         var site=_world.Cottages.FirstOrDefault(c=>c.Id==_selectedSite);
         BuildingKind? kind=_placing && !_plantingTrees && !_clearingTrees && _pathTool==0 && !_decorating && _woodlandTool==0?_buildKind:site?.Kind;
         var output=kind is {} k?World.ProductionOutput(k):null;

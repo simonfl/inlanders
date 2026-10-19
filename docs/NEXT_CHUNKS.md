@@ -1,10 +1,18 @@
-# Active batch — checkpoints232–241
+# Completed batch — checkpoints232–241
 
-October19 authorization: ten gameplay-focused outcomes, full five-role review240 before selecting241, then stop. Nine outcomes232–240 committed. Freeze240 for whole-game review; one authorized outcome remains and must follow the synthesis.
+Ten outcomes232–241 complete; [full five-role review240](REVIEW_CHECKPOINT_240.md) completed before241. The main FOOD counter and warning now reflect reachable supplies, with total/stranded amounts in its tooltip. Native real reconnection passes in Normal and Relaxed. Stop241; remaining regression closeout is not another outcome. No242 authorized.
 
-Delivered: land-bound ripe harvest and corrected channel barrier; measured blocked-work performance; harvest-then-pause; food-first work focus; independent housing/food recovery and supply feedback; material commitment previews; disconnected demolition and hauling recovery; reachable food reserves; urgent edible harvest preference. No decorative expansion.
+Delivered: land-bound ripe harvest and corrected channel barrier; measured blocked-work performance; harvest-then-pause; provisional food-first focus; independent recovery actions and supply feedback; material commitment previews; safe disconnected demolition/hauling; reachable reserves; urgent edible harvest preference. No decorative expansion.
 
-Pending evidence: current-experience regression and adaptive two-field island recovery versus single-field control. The old one-field success relied on the channel bypass; the corrected one-field Normal branch did not meet the objective in360s. Do not claim all routes are balanced or that fun is proven. Review existing controls as critically as new ones.
+## Next queue — conditional on further authorization
+
+1. **Fair restoration decision.** Compare near-home fishing/gathering/cultivation with distant established salvage. Account for6-log bridge unlocking40 ripe portions versus10-log empty plots. Do not claim balance from solvability. Judge Normal and Relaxed independently.
+2. **Simplify the operational interface.** Prefer removing the narrow Food-first toggle unless it earns its place in the comparison. Combine food/housing trouble using existing recovery actions; de-emphasize unsolicited yard styling during house placement. No additional priority modes or dashboards.
+3. **Observe choice and reconsideration.** Start from the ordinary menu without a placement recipe. What did the player think was wrong, why choose this plan, what changed their mind, and which visible benefit mattered? If it is place-and-wait or one route dominates, redesign the landscape/problem or test smaller household/farmstead scale.
+
+Freeze new chapters, compulsory needs, catalogue expansion and decorative controls. Existing physical work, area forestry, practical placement and optional continuation remain. Broader chains must earn a distinct role before scenario obligations.
+
+Supporting tooling: report lifecycle/provenance first; then source-labelled deliveries/material commitments and event-linked stills if they reduce review uncertainty. No generalized replay framework and no playable count for tooling. Next periodic review250 only with further authorization.
 
 # Completed batch — checkpoints222–231
 
@@ -12,7 +20,7 @@ Primary challenges are now two directly named choices: newcomer introduction and
 
 [Full review230](REVIEW_CHECKPOINT_230.md) completed before231 on fixed153c67f. Next periodic review240 only if authorized.
 
-## Next candidates — requires authorization
+## Superseded pre240 candidates — historical
 
 **October19 user direction:** gameplay first, particularly over decoration the player arranges. No new playable batch is authorized by this priority change.
 
@@ -23,7 +31,7 @@ Primary challenges are now two directly named choices: newcomer introduction and
 
 **Frozen:** new decoration objects, cosmetic building variants, furnishing/yard composition, ornamental landscaping and general-purpose group-arrangement controls. Keep existing optional tools; no removal project. Functional forestry, cultivation, paths, bridges and building siting remain core gameplay. Authored scenery and ambient life are lower priority; visuals that communicate work/access/problems remain useful.
 
-Supporting tooling: compact intervention/shortage/delivery/recovery timelines and current-suite prerequisites using existing runners. These do not count as playable outcomes. Full review240 remains conditional on further authorization. See [priority synthesis](GAMEPLAY_PRIORITY_231.md).
+Supporting tooling: compact intervention/shortage/delivery/recovery timelines and current-suite prerequisites using existing runners. These do not count as playable outcomes. Review240 subsequently completed; current queue above supersedes this historical plan. See [priority synthesis](GAMEPLAY_PRIORITY_231.md).
 
 ## Completed outcomes — historical notes
 
@@ -68,6 +76,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 239. **Done** — Food reserves and public challenge readiness now count reachable open stores rather than stranded stock. Economy distinguishes reachable and total food. A synthetic stranded-food case reproduced another unreachable-route exception in pantry hauling; haulers now validate both access and worker route before reserving a shipment. Both modes build real crossings, restore food availability and retain exact saves; zero-warning build. Next protect ready edible harvests during shortages, then freeze240 for the whole-game review.
 
 240. **Done** — During scarce food, farmers favor ready edible crops over nearer grain; stocked villages retain nearest-crop selection. Reproduced the wrong choice with a controlled validated fixture; both modes now deliver actual vegetables and save exactly. Native restoration, work controls, newcomer/archive/free-play and follow/save/continue checks pass; zero-warning build. Supporting current-experience registry now includes recent mechanics and observation-before-status prerequisites. Nine outcomes232–240 complete; freeze for full five-role review before selecting241. Adaptive island versus single-field control comparison and broad regression run on the frozen build.
+
+241. **Done** — The main FOOD count and low-reserve warning now use reachable provisions; the tooltip distinguishes total and closed/disconnected stock. Native Normal/Relaxed checks show12 usable out of60, then rebuild real crossings and verify recovered availability; existing restoration controls/save/continue pass. Zero-warning build and inspected compact still. Full five-role review240 selects a fair near-home versus distant salvage experiment before expansion; all ten outcomes232–241 complete. Remaining broad validation is closeout, not another playable checkpoint.
 
 ## Completed batch — checkpoints 211–220
 

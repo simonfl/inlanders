@@ -1,14 +1,26 @@
 using Inlanders.Simulation;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Security.Cryptography;
+using System.Text;
 static class FloodIslandChecks
 {
     public static void Run()
     {
         Directory.CreateDirectory("artifacts/restoration");var results=new List<object>();
+        string status="running",runId=Guid.NewGuid().ToString("N");var startedUtc=DateTime.UtcNow;
+        void Report()=>File.WriteAllText("artifacts/restoration/island-comparison.json",JsonSerializer.Serialize(new {
+            runId,startedUtc,status,assembly=typeof(FloodIslandChecks).Assembly.ManifestModule.ModuleVersionId,
+            scenario="World.NewRestorationChallenge; corrected channel; 40 land-bound ripe portions",horizon=450,
+            branches=new[]{"bridge","single-island","adaptive-island"},results
+        },new JsonSerializerOptions{WriteIndented=true}));
+        Report();
+        try
+        {
         foreach(bool relaxed in new[]{false,true})foreach(string choice in new[]{"bridge","single-island","adaptive-island"})
         {
             var watch=Stopwatch.StartNew();var w=World.NewRestorationChallenge(relaxed);
+            string startHash=Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(w.SaveJson())));
             bool begun=false,second=false,expanded=false;float? expansion=null;float? intervention=null,complete=null,firstDelivery=null,firstMissedMeal=null;
             var old=w.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);
             var before=w.SaveJson();
@@ -47,11 +59,16 @@ static class FloodIslandChecks
             if(choice!="bridge" && w.Cottages.Where(c=>c.Kind==BuildingKind.VegetableField && c.Cell.Z==-9).Sum(c=>c.Harvest)!=40)throw new Exception("Island strategy collected disconnected crops");
             w.SaveFile($"artifacts/restoration/{relaxed}-{choice}-end.json");
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<20;i++){w.Tick(.1f);copy.Tick(.1f);}if(w.SaveJson()!=copy.SaveJson())throw new Exception("Island continuation differs");w.Validate();
-            results.Add(new{relaxed,choice,intervention,expansion,firstDelivery,firstMissedMeal,complete,fields=w.Cottages.Count(c=>c.Kind==BuildingKind.VegetableField),salvageRemaining=w.Cottages.Where(c=>c.Kind==BuildingKind.VegetableField && c.Cell.Z==-9).Sum(c=>c.Harvest),horizon=450,population=w.Population,housed=w.ChallengeHoused,fed=w.People.Count(p=>p.Fed),food=w.EdibleStored,wallSeconds=watch.Elapsed.TotalSeconds});
+            results.Add(new{relaxed,choice,startHash,intervention,expansion,firstDelivery,firstMissedMeal,complete,fields=w.Cottages.Count(c=>c.Kind==BuildingKind.VegetableField),salvageRemaining=w.Cottages.Where(c=>c.Kind==BuildingKind.VegetableField && c.Cell.Z==-9).Sum(c=>c.Harvest),horizon=450,population=w.Population,housed=w.ChallengeHoused,fed=w.People.Count(p=>p.Fed),food=w.EdibleStored,wallSeconds=watch.Elapsed.TotalSeconds});
             Console.WriteLine(JsonSerializer.Serialize(results.Last()));
-            File.WriteAllText("artifacts/restoration/island-comparison.json",JsonSerializer.Serialize(results,new JsonSerializerOptions{WriteIndented=true}));
-            if((choice!="single-island" && complete==null) || !second || w.Population!=12 || choice=="adaptive-island" && !expanded)throw new Exception($"Island choice failed {relaxed}/{choice}: {w.RestorationProblem()}");
+            Report();
+            // Free construction makes the single field sufficient in Relaxed.
+            // An adaptive policy should not invent an intervention after recovery.
+            if((choice!="single-island" && complete==null) || !second || w.Population!=12 || !relaxed && choice=="adaptive-island" && !expanded)throw new Exception($"Island choice failed {relaxed}/{choice}: {w.RestorationProblem()}");
         }
-        File.WriteAllText("artifacts/restoration/island-comparison.json",JsonSerializer.Serialize(results,new JsonSerializerOptions{WriteIndented=true}));
+            status="completed";
+        }
+        catch{status="failed";throw;}
+        finally{Report();}
     }
 }

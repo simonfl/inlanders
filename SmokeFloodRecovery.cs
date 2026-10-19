@@ -3,6 +3,7 @@ using Inlanders.Simulation;
 using System;
 using System.IO;
 using System.Linq;
+using Resource=Inlanders.Simulation.Resource;
 public partial class Game
 {
     private async void RunFloodRecoverySmoke()
@@ -47,6 +48,24 @@ public partial class Game
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _drawerPages[2].EnsureControlVisible(_challengeContinue);
             await UiClick(_challengeContinue);if(!_world.Challenge!.Continuing)throw new Exception("Restoration continue failed");
+            foreach(bool relaxed in new[]{false,true})
+            {
+                var supply=World.NewRestorationChallenge(relaxed);supply.Food.InitialBerries=supply.Food.Berries=12;
+                foreach(var field in supply.Cottages.Where(c=>c.Kind==BuildingKind.VegetableField)){field.PantryFood[Array.IndexOf(World.EdibleKinds,Resource.Vegetables)]=24;supply.Food.GrownVegetables+=24;}
+                supply.Validate();AdoptWorld(supply);CloseDrawer();_paused=true;UpdateHud();
+                if(_placeFoodCount.Text!="12" || _placeFoodTitle.Text!="FOOD · LOW" || !_placeFood.TooltipText.Contains("60 stored in total; 48"))throw new Exception("Stranded food masks HUD warning");
+                await Capture($"artifacts/restoration/reachable-food-{relaxed}.png");
+                supply.ApplyWoodlandCare(new(-10,3),new(-5,13),WoodlandIntent.Renew,false);supply.Place(new(5,0),0,BuildingKind.Bridge);bool second=false;
+                for(int i=0;i<3000 && !(second && supply.Cottages.Count(c=>c.Kind==BuildingKind.Bridge && c.Complete)==2);i++)
+                {
+                    if(!second && supply.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Complete)){if(supply.Place(new(0,-7),0,BuildingKind.Bridge)==null)throw new Exception("HUD reconnection refused");second=true;}
+                    supply.Tick(.1f);
+                    if(i%100==0)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                }
+                supply.Validate();UpdateHud();
+                if(!second || supply.ReachableEdibleStored!=supply.EdibleStored || _placeFoodCount.Text!=supply.EdibleStored.ToString() || _placeFoodTitle.Text!="FOOD")throw new Exception("Reconnected food HUD failed");
+                GD.Print($"PASS native reachable-food count/warning and real crossing recovery relaxed={relaxed}");
+            }
             GD.Print("PASS native food-first and crop orders, land-bound move rejection, restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}

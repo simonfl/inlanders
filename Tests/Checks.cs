@@ -91,7 +91,7 @@ if(args.Contains("--food-livelihood")){try{FoodLivelihoodChecks.Run();}catch(Exc
 if(args.Contains("--home-yards")){try{HomeYardChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--normal-commons")){try{NormalCommonsChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--provisioned-life")){try{ProvisionedLifeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
-if(args.Contains("--current-experience")){try{CurrentExperienceChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
+if(args.Contains("--current-experience")){try{int from=Array.IndexOf(args,"--from");CurrentExperienceChecks.Run(from<0?null:args[from+1]);}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--land-regression")){try{TerrainChecks.Run();DemolitionChecks.Run();RiverChecks.Run();FinaleCampaignChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--working-village")){try{WorkingVillageChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--production-recovery")){try{ProductionRecoveryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
