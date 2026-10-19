@@ -96,7 +96,7 @@ public partial class Game
         foreach(var stock in _economyReport.Stocks) {
             _economyStocks[stock.Resource].Text=$"{stock.Resource.ToString().ToUpperInvariant()} · {stock.Available} available\n{stock.Stored} stored · {stock.Reserved} reserved\n{stock.Carried} carried · {stock.AtWorkplaces} at workplaces"+
                 (stock.ConstructionNeed>0?$"\n{stock.ConstructionNeed} needed for unshipped construction":"");
-            _resourceValues[stock.Resource].GetParent<Control>().TooltipText=$"{stock.Available} available · {stock.Reserved} reserved · {stock.Carried} carried. Click for Economy [I].";
+            _resourceValues[stock.Resource].GetParent<Control>().TooltipText=(stock.Resource==Resource.Logs && _world.SharedWork?_world.TimberReserveSummary+"\n":"")+$"{stock.Available} available · {stock.Reserved} reserved · {stock.Carried} carried. Click for Economy [I].";
         }
         UpdateStorageDirectory();
         foreach(var p in _world.People) {

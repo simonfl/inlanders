@@ -60,7 +60,13 @@ public sealed partial class World
     private static bool FoodRole(Role role)=>role is Role.Forager or Role.Farmer or Role.Baker or Role.Fisher or Role.Hunter;
     public bool ProvisionedLife => Founding?.ProvisionedLife==true;
     public bool FoodWorkNeeded => Challenge is {Arrived:true,Complete:false} && ChallengeDeliveries<32 || !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
-    private bool SharedTimberNeeded => Stored<Math.Min(24,8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs)));
+    public const int TimberReserve = 32;
+    // Keep one small expansion ready, in addition to unfinished orders. Committed logging
+    // and deliveries finish normally, so the stock can briefly exceed this target.
+    public int TimberStockTarget => TimberReserve+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
+    private bool SharedTimberNeeded => Stored<TimberStockTarget;
+    public string TimberReserveSummary => $"Timber: {Stored}/{TimberStockTarget} logs stored · {TimberReserve} in reserve, plus unfinished construction. " +
+        (SharedTimberNeeded?"Harvesting is needed; workers need permitted, reachable trees and time between other jobs.":"Reserve ready. Harvesting resumes as logs are used; committed deliveries finish.");
     // Development-only observations of the actual dispatch path; never saved or used to choose work.
     public bool TraceSharedWork { get; set; }
     public System.Collections.Generic.Dictionary<int,string[]> WorkDecisions { get; }=new();
@@ -69,7 +75,7 @@ public sealed partial class World
         int available=People.Count(p=>p.Task==Work.Waiting);
         int personal=People.Count(p=>p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure or Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal);
         return $"{Population-available-personal} working or travelling · {personal} eating or resting · {available} available\n"+
-            (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
+            (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\n"+TimberReserveSummary+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
     }
     private void ClaimSharedWork(Villager person)
     {
@@ -96,7 +102,7 @@ public sealed partial class World
         }
         if(EdibleStored<Population*3 && FoodWork())return;
         if(Try(Role.Builder))return;
-        // Keep a modest working reserve; shared labor must not strip the map while idle.
+        // Replenish the working reserve and planned construction; do not harvest indefinitely.
         if((SharedTimberNeeded || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
         int plankNeed=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Planks).Sum(c=>c.Remaining(Resource.Planks))

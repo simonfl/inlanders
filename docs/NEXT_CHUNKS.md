@@ -1,6 +1,10 @@
-# Completed batch — checkpoints 211–220
+# Targeted playtest follow-up — checkpoint221
 
-Completed October18,2026: all ten playable outcomes and reviews215/220. Stop220; no221 authorized. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
+221. **Done** — Timber reserve raised from8 (24 maximum with orders) to32 logs plus unfinished, unpaused construction. Enough for two cottages, a standard vegetable field and a dock (30 logs). Logs tooltip and workforce explain the target and resumption. Actual automatic harvesting, stop, construction/replenishment and exact-save simulation checks pass; automatic-work regression and native Normal/Relaxed controls/target checks pass; zero-warning build. Plank/stone and food policy follow-up recorded, not implemented.
+
+## Completed batch — checkpoints 211–220
+
+Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
 
 Original authorization, October 18, 2026: “do 10 rounds.” Deliver ten committed playable outcomes, full-game reviews at 215 and 220, visual/audio at 220 and after substantial presentation changes; stop after 220. This supersedes the previous stop. Follow the completed-playtest challenge direction and adjust scope after every outcome.
 
@@ -15,6 +19,10 @@ Original authorization, October 18, 2026: “do 10 rounds.” Deliver ten commit
 218. **Done** — Cut-off fields are directly inspectable from the challenge; crossing and pause/move actions precede optional controls and fit960. Native ordinary move cancellation and crossing placement restore actual construction, access and field food delivery. Build passes; screenshots inspected. Next consolidate free-play setup and allow optional growth after success; deeper challenge remains unproven.
 219. **Done** — Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
 220. **Done** — Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
+
+## Reserve follow-up from playtest
+
+Timber now targets32 logs plus queued construction after the player found8 insufficient. Review the rest as one understandable stock policy: propose24 planks and24 stone plus queued construction/improvements. Current automatic baselines are8 planks and6 stone; a lodge costs12 planks and a hall8 planks +12 stone. Resolve the sawmill's separate12-plank default cap with automatic demand, including existing current-format saves and deliberate player limits; no migrations. Food already targets four edible portions per resident (priority below three); retain provisionally, expose current/target and assess actual meal service rather than inflate every food type. Grain is an input, not edible reserve: inspect bakery throughput before choosing a separate grain buffer. Validate production, stopping, resumed work, queues and manual limits. These proposals are not implemented by the timber-only change.
 
 ## Conditional next scope — requires further authorization
 

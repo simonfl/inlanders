@@ -8,7 +8,9 @@
 
 ## Current direction and next step
 
-**Stopped at220: ten outcomes211–220 and full reviews215/220 are complete.** [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. No221 or further batch is authorized.
+**Checkpoint221: targeted timber follow-up complete.** The prior ten outcomes211–220 and full reviews215/220 are complete. [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. The targeted timber-reserve fix responds to human playtest feedback; no further batch is authorized.
+
+**Immediate playtest finding:** automatic reserves must support building ahead of need. Timber now targets32 plus queued construction instead of8 (capped24 with orders); compare24 planks/24 stone next, reconcile workplace caps, and expose targets. Food already scales at four portions per resident; retain pending consumption/meal-service evidence. See [reserve follow-up](NEXT_CHUNKS.md).
 
 **Next design bet: restore an inhabited settlement without requiring population growth.** Keep the newcomer challenge as the introduction/control. Compare a restoration commission with two linked land/access/material decisions, genuinely different viable arrangements and a recoverable mistake. Reject a single obvious bridge followed by waiting as a later chapter. Do not lengthen quotas, restore service assessments or add buildings/needs to manufacture duration.
 
@@ -19,6 +21,8 @@
 **Evidence before expansion:** ordinary play of the current introduction; comparable no/minimal-intervention and delayed-repair branches; meaningful post-start choices and recognizable outcomes. Extend existing fixture provenance/timelines only to support that comparison. [Conditional next scope](NEXT_CHUNKS.md) records bounded clarity findings and tooling; no automatic five-feature queue.
 
 ## Earlier direction notes — historical
+
+**Checkpoint221:** Timber reserve raised from8 (24 maximum with orders) to32 logs plus unfinished, unpaused construction. Enough for two cottages, a standard vegetable field and a dock (30 logs). Logs tooltip and workforce explain the target and resumption. Actual automatic harvesting, stop, construction/replenishment and exact-save simulation checks pass; automatic-work regression and native Normal/Relaxed controls/target checks pass; zero-warning build. Plank/stone and food policy follow-up recorded, not implemented.
 
 **Checkpoint 220:** Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
 

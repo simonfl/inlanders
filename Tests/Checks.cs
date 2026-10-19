@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--timber-reserve")){try{TimberReserveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-observation")){try{ChallengeObservationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-continuation")){try{ChallengeContinuationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--repair-challenge")){try{RepairChallengeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

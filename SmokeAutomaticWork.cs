@@ -12,6 +12,7 @@ public partial class Game
             {
                 AdoptWorld(World.NewRiverFrontage(relaxed,true,true));_paused=true;GetWindow().Size=new(960,640);
                 ToggleDrawer(0);UpdateHud();await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_staffing.Text.Contains("32 in reserve") || !_resourceValues[Inlanders.Simulation.Resource.Logs].GetParent<Control>().TooltipText.Contains("32 in reserve"))throw new Exception("Timber reserve explanation missing");
                 if(_professionControls.Visible || !_staffing.Text.Contains("Food reserves sufficient"))throw new Exception("Public staffing surface wrong");
                 _world.Assign(0,Role.Fisher);UpdateHud();await UiClick(_automaticWork);
                 if(_world.People.Any(p=>!p.SharedWorker))throw new Exception("Automatic return failed");
