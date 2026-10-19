@@ -1,6 +1,6 @@
 # Completed batch — checkpoints232–241
 
-Ten outcomes232–241 complete; [full five-role review240](REVIEW_CHECKPOINT_240.md) completed before241. The main FOOD counter and warning now reflect reachable supplies, with total/stranded amounts in its tooltip. Native real reconnection passes in Normal and Relaxed. Stop241; remaining regression closeout is not another outcome. No242 authorized.
+Ten outcomes232–241 complete; [full five-role review240](REVIEW_CHECKPOINT_240.md) completed before241. The main FOOD counter and warning now reflect reachable supplies, with total/stranded amounts in its tooltip. Native real reconnection passes in Normal and Relaxed. All84 distinct current-experience suites pass across preserved/resumed runs; zero-warning build and final public-HUD timing sample complete. Stop241. No242 authorized.
 
 Delivered: land-bound ripe harvest and corrected channel barrier; measured blocked-work performance; harvest-then-pause; provisional food-first focus; independent recovery actions and supply feedback; material commitment previews; safe disconnected demolition/hauling; reachable reserves; urgent edible harvest preference. No decorative expansion.
 

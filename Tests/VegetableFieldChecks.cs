@@ -17,7 +17,9 @@ static class VegetableFieldChecks
             if(rotation==0)w.SaveFile("artifacts/vegetable-field/ripe.json");
             Until(w,()=>w.People.Any(p=>p.WorkplaceId==field.Id && p.Task==Work.Harvesting),"No field harvest work");
             var twin=World.LoadJson(w.SaveJson());for(int i=0;i<120;i++){w.Tick(.1f);twin.Tick(.1f);w.Validate();twin.Validate();}Check(w.SaveJson()==twin.SaveJson(),"Active harvest diverged on reload");
-            Check(w.SetWorkplacePaused(field.Id,true),"Field pause rejected");
+            if(field.Harvest>0)Check(w.RelocationIntentProblem(field.Id)?.Contains("Ripe crops")==true,"Ripe field was movable");
+            Check(w.SetHarvestThenPause(field.Id,true),"Final field crop order rejected");
+            Until(w,()=>field.WorkPaused && field.Harvest==0,"Final field crop not collected before move");
             var other=w.Map.Land.First(c=>c!=field.Cell && w.RelocationProblem(field.Id,c,rotation)==null);
             Check(w.MoveBuilding(field.Id,other,rotation),"Field relocation rejected");w.Validate();
             Check(w.SetWorkplacePaused(field.Id,false),"Field resume rejected");

@@ -51,3 +51,24 @@ Pending at synthesis; fresh results appended afterward:
 - Relaxed bridge completes142.3s with44food at450s. Single-field and adaptive-policy branches both complete128.0s with32food; the adaptive policy correctly never expands. Initial broad run stopped after15 passing suites because the comparison incorrectly required an expansion in Relaxed. Corrected the assertion to require that intervention only in Normal; no gameplay numbers changed to satisfy the experiment. Original report/log preserved as240-prefix-report.json and240-current.log; resume starts explicitly at FloodIsland and records selected scope.
 
 - Post-review241: zero-warning game/test build; native restoration probe passes both modes with12 reachable/60total provisions, low HUD warning, then actual rebuilt crossings and recovered count. Existing controls/save/Continue pass. Compact still inspected. No new simulation behavior in241; changes are HUD correctness, probe and comparison/reporting tooling.
+
+
+### Regression corrections during closeout
+
+No further simulation changes were needed for these failures:
+
+- Woodland reconsideration checked only the final growth value. The tree had matured, been harvested again, and reached its second planted cycle. The check now observes maturity during the run while retaining actual work, conservation and exact continuation.
+- Cultivation and vegetable-field checks attempted to relocate ripe crops. They now assert rejection, finish the actual crop through harvest-then-pause, then verify relocation/rotation. This exercises the new rule rather than bypassing it.
+- Grain relocation's400s setup timeout expired with a legitimately later grain crop44% grown after edible crops took priority. Its phase setup now permits600s, retaining actual crop, relocation, resumed production and exact-save assertions. This does not establish that grain is strategically worthwhile.
+- Removed the obsolete `--flood-recovery` relocation-based comparison; `--flood-island` is the corrected experiment. Historical timings remain historical.
+
+The current-experience runner can resume explicitly with `--from SuiteName`; reports identify the selected scope. Preserved preceding reports retain their failures and passing prefixes. This saved repeated execution of long already-passing scenarios; no pass is inferred merely from a prior failed run's existence. Island reports now replace stale output at startup and include run ID, assembly identity, starting-state hashes and running/completed/failed lifecycle. Completed lifecycle is exercised; the failure-report path is source-reviewed, not fault-injection tested.
+
+
+### Final validation — stopped241
+
+All **84 distinct current-experience suites pass across preserved prefixes and explicit resumed runs**. This was not one uninterrupted pass. Passing counts:15 +11 +23 +12 +8 +15; final run `6682297a819b4e97bceaa6afd81c70f4` completed all15 selected suites. The original failures and subsequent corrections are recorded above. Local `artifacts/241-validation-summary.json` lists each report/run ID; final game/test build has zero warnings/errors. Simulation source did not change during validation closeout.
+
+Final public-HUD sample `20261019-141454-210-river-livelihood-d0b06a` uses the corrected Normal restoration bridge-end snapshot:12 residents,11 buildings,5.0 simulated seconds over1.67 wall seconds at3x.84 frames including startup: HUD top p950.664/max0.905ms, status p951.410/max2.261ms; process p9535.461ms, wall p9540.231/max166.803ms. No obvious HUD bottleneck in this short stocked village; this is neither a matched regression benchmark nor dense sustained performance. The earlier dense fixture is archived play and does not display this public counter, so it cannot validate241's HUD cost. No listening or ordinary human-play claim.
+
+All ten outcomes232–241 are complete. Stop241. Review250 is conditional on a later authorized batch; the next design experiment remains fair near-home livelihood versus distant salvage, with permission to redesign or reduce scope.

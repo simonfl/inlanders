@@ -13,7 +13,14 @@ static class CultivationChecks
             for(int i=0;i<15000 && f.Harvest==0;i++){w.Tick(.1f);w.Validate();}
             Check(f.Harvest==rows*4,"Actual crop differs from chosen ground");
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);w.Validate();copy.Validate();}Check(w.SaveJson()==copy.SaveJson(),"Plot continuation diverged");
-            Check(w.SetWorkplacePaused(f.Id,true),"Pause failed");
+            if(f.Harvest>0)Check(w.RelocationIntentProblem(f.Id)?.Contains("Ripe crops")==true,"Ripe crop should stay on its land");
+            if(f.Planted || f.Harvest>0)
+            {
+                Check(w.SetHarvestThenPause(f.Id,true),"Final crop order failed");
+                for(int i=0;i<15000 && !f.WorkPaused;i++)w.Tick(.1f);
+                Check(f.WorkPaused && f.Harvest==0,"Final crop did not finish before relocation");
+            }
+            else Check(w.SetWorkplacePaused(f.Id,true),"Pause failed");
             for(int turn=0;turn<4;turn++)
             {
                 var dest=w.Map.Land.First(c=>w.RelocationProblem(f.Id,c,turn)==null);string saved=w.SaveJson();Check(w.RelocationProblem(f.Id,dest,turn)==null && w.SaveJson()==saved,"Move query impure");Check(w.MoveBuilding(f.Id,dest,turn),"Sized field move failed");w.Validate();Check(World.Footprint(f).Count()==rows*3,"Rotation changed cultivated ground");

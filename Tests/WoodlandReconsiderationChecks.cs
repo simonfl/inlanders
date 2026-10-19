@@ -14,8 +14,11 @@ static class WoodlandReconsiderationChecks
             if(fallen && (w.ApplyWoodlandCare(t.Cell,t.Cell,WoodlandIntent.Keep) || w.SaveJson()!=before))throw new Exception("Keep resurrects fallen tree");
             if(!w.ApplyWoodlandCare(t.Cell,t.Cell,intent) || t.ClearRequested || t.Logs!=remaining)throw new Exception("Reconsideration rewound wood or retained clearing");
             var copy=World.LoadJson(w.SaveJson());for(int i=0;i<100;i++){w.Tick(.1f);copy.Tick(.1f);}if(w.SaveJson()!=copy.SaveJson())throw new Exception("Reconsidered save differs");
-            for(int i=0;i<2500;i++)w.Tick(.1f);
-            if(fallen? t.Growth<1 || w.TreesPlanted==0:t.Felled || !t.Preserved)throw new Exception("Changed land intention did not complete");w.Validate();
+            // Renewal may harvest the mature replacement and start another crop.
+            // Assert the intended lifecycle occurred, not an incidental final phase.
+            bool renewedMature=t.Growth>=1 && w.TreesPlanted>0;
+            for(int i=0;i<2500;i++){w.Tick(.1f);renewedMature|=t.Growth>=1 && w.TreesPlanted>0;}
+            if(fallen? !renewedMature:t.Felled || !t.Preserved)throw new Exception($"Changed land intention did not complete: fallen={fallen}, growth={t.Growth}, felled={t.Felled}, needsPlanting={t.NeedsPlanting}, planted={w.TreesPlanted}, logs={t.Logs}, owner={t.Owner}, time={w.Food.Time}");w.Validate();
             Console.WriteLine($"PASS reconsider clearing fallen={fallen}: pure preview, real-progress preservation, exact save, retained tree or mature renewal.");
         }
     }
