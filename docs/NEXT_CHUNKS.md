@@ -1,20 +1,19 @@
-# Active batch — checkpoints242–251
+# Stopped batch — checkpoints242–247
 
-Ten outcomes authorized October19; full five-role review250 before251, then stop. Start by removing the redundant food-priority switch, compare near-home livelihood with distant salvage, and simplify operational decisions. Later outcomes depend on evidence; do not fill the batch with decoration or new management knobs.
+User requested stopping after the next playable chunk; checkpoint247 is complete. Six outcomes from the original ten-outcome242–251 batch shipped. Stop here; remaining candidates require resumption. Full five-role review remains due250, before251.
 
-242–243 done: one automatic-work contract; food trouble remains visible beside incomplete housing.
+Delivered242–247: one automatic-work policy, combined housing/food warning, opt-in yard preview, food-first Economy layout, actual workplace delivery contributions, and crossing consequences before construction. Focused simulation checks, native Normal/Relaxed recovery controls and zero-warning builds pass. No new human playtest or listening verdict.
 
-Next outcomes, revisable from evidence:
--244: ordinary housing foregrounds function; yard preview is explicit opt-in.
--245: Economy opens with usable food, current delivery and recovery actions before reserve tuning.
--246: show fresh deliveries from each workplace, so the player can distinguish useful production from transferred stock.
--247: preview what a crossing reconnects, and any fishing water it cuts off.
--248: simplify the artificial two-channel restoration if the same-start comparison supports it; preserve evidence of the former layout.
--249: make both salvage and home-bank livelihoods discoverable through existing world planning controls.
--250: close a concrete planning gap exposed by the comparison, then freeze for all five whole-game reviewers.
--251: selected only from that synthesis; stop afterward.
+## Next candidates, only if resumed
 
-The first Normal comparisons show fishing and gathering both viable on the home bank, with earlier source activity and fewer logs than two-crossing salvage. All complete around128–130s, suggesting the two-meal objective rather than production is the completion floor. Do not interpret this as balanced strategic depth.
+-248: simplify the artificial two-channel restoration based on the same-start comparison; preserve the old layout’s evidence. Test one crossing to distant established fields against home-bank livelihoods. Do not add taxes or inflate yields to force balance.
+-249: make salvage and home-bank livelihoods discoverable through existing world planning controls.
+-250: include gathering/hunting/orchards in home-placement food-walk previews, which currently omit them; then freeze for all five whole-game reviewers.
+-251: select only from that synthesis.
+
+All six same-start600s livelihood branches completed and retained twelve fed residents. Normal fishing/gathering begin earlier and cost fewer logs than two-crossing salvage, but all finish around128–130s: the two-meal objective appears to set the completion floor. This is not evidence of strategic depth or enjoyment. Baseline salvage activity measures first crop pickup, whereas fishing/gathering measure deliveries; use producer-labelled deliveries for a fairer next comparison. The northern ripe crop count at the horizon includes regrowth, not just uncollected starting food.
+
+Preserved local evidence: `artifacts/restoration-livelihood/two-channel-baseline.json`, `artifacts/243-livelihood.log`; final native probe `artifacts/247-flood.log`, compact crossing still `artifacts/restoration/crossing-consequences-960.png`. Artifacts are local and ignored by Git. The first247 native attempt could not replace its temporary save under the sandbox; rerunning with authorized native access passed. Do not treat that environment failure as a successful run.
 
 # Completed batch — checkpoints232–241
 
@@ -106,6 +105,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 245. **Done** — Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
 
 246. **Done** — Edible workplace cards show fresh portions that producer delivered during the recent food window. History records producer identity, independent of storage destination; transfers remain excluded. Both-mode real fishing, zero local reserve/distribution, contribution totals, pure queries and exact saves pass; native restoration/control regression and zero-warning build pass. Next preview crossing benefits and fishing-route costs; source-labelled evidence will inform the simplified restoration comparison.
+
+247. **Done** — Bridge placement previews newly accessible land, workplaces, beds, ripe crops and stored food, plus any fishing routes it blocks. Pure-preview checks agree with actual reconnection, boat-route loss and cancellation recovery. Native compact placement and Normal/Relaxed restoration controls pass; screenshot inspected and zero-warning build. User requested stopping after this playable chunk: stop247; map simplification remains proposed.
 
 ## Completed batch — checkpoints 211–220
 

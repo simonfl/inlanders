@@ -15,6 +15,8 @@ public sealed partial class World
     public LivelihoodSite ReadLivelihoodSite(Cell at,int rotation,BuildingKind kind,int rows=0)
     {
         if(PlacementProblem(at,rotation,kind,rows)!=null)return new("","",Array.Empty<Cell>());
+        if(kind==BuildingKind.Bridge && ReadBridgeOpportunity(at,rotation) is {} bridge)
+            return new(bridge.Summary,"Crossing consequences",new[]{Door(at,rotation),at,FarBank(at,rotation)});
         Cell door=kind==BuildingKind.FishingDock?DockEntrance(at,rotation):Door(at,rotation);
         var footprint=Footprint(at,rotation,kind,rows).ToHashSet();
         bool Closed(Cell c)=>Blocked(c)||footprint.Contains(c);

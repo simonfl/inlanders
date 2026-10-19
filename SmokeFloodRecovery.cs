@@ -40,11 +40,16 @@ public partial class Game
             RenderHomePlotUi();if(_homePlotPanel.Visible)throw new Exception("Ordinary housing prompts unsolicited yard styling");
             if(!_hint.Text.Contains("new +") || !_hint.Text.Contains("queued"))throw new Exception("Construction budget absent from placement");
             await Capture("artifacts/restoration/construction-budget-960.png");_placing=false;RefreshGhost();
+            BeginPlacement(BuildingKind.Bridge);CloseDrawer();_rotation=0;_hover=new(5,0);_pointerPosition=_camera.UnprojectPosition(OnGround(5,0));RefreshGhost();UpdateHud();
+            if(!_ghostValid || !_hint.Text.Contains("reconnects"))throw new Exception("Crossing consequences absent from placement");
+            await Capture("artifacts/restoration/crossing-consequences-960.png");_placing=false;RefreshGhost();
             ToggleDrawer(0);UpdateHud();for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             CloseDrawer();var crop=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);ShowWorkplaceCard(crop.Id);
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _workCardScroll.EnsureControlVisible(_cropOrder);await UiClick(_cropOrder);
             if(!crop.HarvestThenPause || crop.WorkPaused || !_workCardMove.Disabled)throw new Exception("Crop order/land-bound move UI failed");
+            if(!_workCardText.Text.Contains("fresh portions delivered"))throw new Exception("Producer contribution missing from workplace card");
+            await Capture("artifacts/restoration/workplace-contribution-960.png");
             if(!SaveSession() || !World.LoadFile(CurrentSavePath).Cottages.Single(c=>c.Id==crop.Id).HarvestThenPause)throw new Exception("Work orders not saved");
             if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Restoration!=true)throw new Exception("Restoration save");
             AdoptWorld(World.LoadFile("artifacts/restoration/False-bridge-complete.json"));ToggleDrawer(2);UpdateHud();

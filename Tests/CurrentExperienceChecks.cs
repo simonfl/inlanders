@@ -8,6 +8,7 @@ static class CurrentExperienceChecks
         var cases=new (string Name,Action Execute)[]{
             ("AutomaticWork",AutomaticWorkChecks.Run),
             ("FoodSources",FoodSourceChecks.Run),
+            ("BridgeOpportunity",BridgeOpportunityChecks.Run),
             ("TimberReserve",TimberReserveChecks.Run),
             ("MaterialReserve",MaterialReserveChecks.Run),
             ("FoodFinish",FoodFinishChecks.Run),

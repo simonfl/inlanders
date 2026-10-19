@@ -10,6 +10,10 @@
 
 ## Current direction and next step
 
+**Stopped at247 by user request.** Six outcomes242–247 completed; do not begin248 until resumed. Next proposed direction is a simpler one-crossing restoration comparison and discoverable home-bank food choices, not decorative expansion. Review250 remains due if work resumes. See [active queue](NEXT_CHUNKS.md).
+
+**Checkpoint247:** Bridge placement previews newly accessible land, workplaces, beds, ripe crops and stored food, plus any fishing routes it blocks. Pure-preview checks agree with actual reconnection, boat-route loss and cancellation recovery. Native compact placement and Normal/Relaxed restoration controls pass; screenshot inspected and zero-warning build. User requested stopping after this playable chunk: stop247; map simplification remains proposed.
+
 **Checkpoint246:** Edible workplace cards show fresh portions that producer delivered during the recent food window. History records producer identity, independent of storage destination; transfers remain excluded. Both-mode real fishing, zero local reserve/distribution, contribution totals, pure queries and exact saves pass; native restoration/control regression and zero-warning build pass. Next preview crossing benefits and fishing-route costs; source-labelled evidence will inform the simplified restoration comparison.
 
 **Checkpoint245:** Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
