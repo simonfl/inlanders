@@ -103,6 +103,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 244. **Done** — Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.
 
+245. **Done** — Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

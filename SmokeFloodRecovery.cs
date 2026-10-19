@@ -58,6 +58,9 @@ public partial class Game
                 supply.Validate();AdoptWorld(supply);CloseDrawer();_paused=true;UpdateHud();
                 if(_placeFoodCount.Text!="12" || _placeFoodTitle.Text!="FOOD · LOW" || !_placeFood.TooltipText.Contains("60 stored in total; 48"))throw new Exception("Stranded food masks HUD warning");
                 await Capture($"artifacts/restoration/reachable-food-{relaxed}.png");
+                OpenEconomy();UpdateHud();for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_mealAttention.Visible || !_economyFood.Text.Contains("12 reachable food") || _foodFlow.GetGlobalRect().End.Y>GetWindow().Size.Y-80 || _reserves.GetGlobalRect().Position.Y<_foodFlow.GetGlobalRect().Position.Y)throw new Exception("Economy hides meal service or usable food behind reserve controls");
+                await Capture($"artifacts/restoration/economy-essentials-{relaxed}.png");CloseDrawer();
                 supply.ApplyWoodlandCare(new(-10,3),new(-5,13),WoodlandIntent.Renew,false);supply.Place(new(5,0),0,BuildingKind.Bridge);bool second=false;
                 for(int i=0;i<3000 && !(second && supply.Cottages.Count(c=>c.Kind==BuildingKind.Bridge && c.Complete)==2);i++)
                 {

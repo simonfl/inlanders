@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint245:** Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
+
 **Checkpoint244:** Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.
 
 **Checkpoint243:** Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.

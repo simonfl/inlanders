@@ -19,25 +19,23 @@ public partial class Game
     }
     private void MakeEconomyMenu(VBoxContainer column)
     {
-        MakeReserveUi(column);
-        _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey); column.AddChild(_surveyToggle);
-        _foodMapToggle=Button("Show food in the world",ToggleFoodMap);column.AddChild(_foodMapToggle);
+        _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey);
+        _foodMapToggle=Button("Show food in the world",ToggleFoodMap);
         _foodMapToggle.TooltipText="Available food stays at its store. Claimed portions already belong to meals or shipments; incoming is still travelling. An empty store alone does not establish a production shortage.";
         column.AddChild(Text("FOOD RESERVE",12));
         _economyFood=Text("",15,true); column.AddChild(_economyFood);
+        _foodFlow=Text("",14,true);column.AddChild(_foodFlow);
         _mealAttention=Button("Inspect meal service",OpenMealCoverage); column.AddChild(_mealAttention);
         _foodWorkplaceLink=Button("Inspect existing food workplaces",()=>OpenFoodBuildings(2));column.AddChild(_foodWorkplaceLink);
         _foodExpansionLink=Button("Compare food buildings to add",()=>OpenFoodBuildings(0));column.AddChild(_foodExpansionLink);
-        column.AddChild(Text("Low food? Check workplace activity, inputs and limits before adding capacity. Food in storage but missed meals? Inspect a resident's pickup and journey. A pantry moves food; it does not produce it.",13,true));
-        column.AddChild(Text("RECENT FOOD FLOW",12));
-        _foodFlow = Text("",14,true); column.AddChild(_foodFlow);
-        MakeBreadReserveUi(column);
+        column.AddChild(_foodMapToggle);
         column.AddChild(Text("NEEDS ATTENTION",12)); _economySummary=Text("",14,true); column.AddChild(_economySummary);
         for(int i=0;i<12;i++) {
             int index=i; var button=Button("",()=>ActOnEconomyIssue(index));
             button.AutowrapMode=TextServer.AutowrapMode.WordSmart; button.Alignment=HorizontalAlignment.Left;
             button.AddThemeFontSizeOverride("font_size",14); column.AddChild(button); _economyIssues.Add(button);
         }
+        MakeReserveUi(column);MakeBreadReserveUi(column);column.AddChild(_surveyToggle);
         MakeSupplyControls(column);
         column.AddChild(Text("INVENTORY",12));
         column.AddChild(Text("Available = stored minus reserved. Carried goods and workplace buffers are not in storage yet. Unshipped construction demand excludes deliveries already on the way.",14,true));
@@ -77,16 +75,17 @@ public partial class Game
         UpdateBreadReserveUi();
         UpdateReserveUi();
         int mealAttention=_world.People.Count(_world.NeedsMealAttention);
-        _mealAttention.Visible=!_world.Creative;
+        _mealAttention.Visible=_world.SimulatesMeals;
         _mealAttention.Text=mealAttention>0?$"Inspect {mealAttention} residents · hungry / recent missed meals":"Inspect meal service · no recent misses";
         var flow = _world.ReadFoodFlow();
-        _foodFlow.Text = flow.Seconds < 1 ? "Collecting history as village time passes." :
+        _foodFlow.TooltipText = flow.Seconds < 1 ? "Collecting history as village time passes." :
             $"Last {flow.Seconds:0}s of village time{(flow.Seconds < World.FoodFlowWindow ? " · partial window" : "")}\n" +
             $"Producer deliveries: {flow.Delivered}\n{flow.Berries} berries · {flow.Vegetables} vegetables · {flow.Bread} bread · {flow.Fish} fish · {flow.Game} game · {flow.Fruit} fruit\n" +
             $"Portions eaten: {flow.Eaten} · closed/skipped demand: {flow.Required}\n" +
             (flow.Seconds >= 60 ? $"Delivered {flow.Delivered * 60f / flow.Seconds:0.0} / minute · current meal demand {(_world.SimulatesMeals ? _world.Population : 0)} / minute\n" : "Rates appear after one minute.\n") +
             "Counts first producer deliveries; transfers are not new supply. Eating and deadlines occur at different times. Excludes supper and trades.";
-        _economyFood.Text = !_world.SimulatesMeals ? "Creative · food needs disabled" : $"{_world.EdibleStored} food portions stored\n{_world.Population} portions requested per minute\n{mealAttention} residents hungry or with recent misses";
+        _foodFlow.Text=flow.Seconds<60?"Observing supply · crops arrive in batches.":$"Last {flow.Seconds:0}s: {flow.Delivered} food delivered / {flow.Required} meals needed.\n"+(flow.Delivered<flow.Required?"Deliveries trail demand; check crops, access and work.":"Recent deliveries cover demand; watch the next crop.");
+        _economyFood.Text = !_world.SimulatesMeals ? "Creative · food needs disabled" : $"{_world.ReachableEdibleStored} reachable food · {_world.EdibleStored} stored in total\n{_world.Population} portions requested per minute\n{mealAttention} residents hungry or with recent misses";
         _economyFood.TooltipText="Stored food must still be collected and eaten. Grain is not edible.\n"+(_world.Creative?"Missing meals do not slow work or lower mood in free arrangement.":_world.ReadMealAssessment().Summary+"\n"+_world.LastMealSummary);
         int count=_economyReport.Issues.Length;
         _menuButtons[4].Text=count==0?"Economy":$"Economy · {count}";
