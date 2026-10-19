@@ -26,6 +26,7 @@ public partial class Game
         }
         else
         {
+            foreach(var button in _challengeGoals.GetChildren().OfType<Button>())rows.Add(("challenge:"+button.Text,button));
             rows.Add(("overview",_goalsOverview));rows.Add(("phase:"+GoalsVersion,_riverAction));
             foreach(var button in _neighborhoodGoals.GetChildren().OfType<Button>())rows.Add(("neighborhood:"+button.Text,button));
             foreach(var (key,item) in _goalItems)

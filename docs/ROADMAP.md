@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 214:** Complete newcomer challenge is playable: prepare, invite, actual arrivals/homes/two meals and fresh deliveries, explicit success and continued building. Normal/Relaxed simulations finish at291/241 simulated seconds; native entry/save/Continue/completion pass. This remains a short baseline, not a proven substantial challenge; 215 changes the spatial situation before review.
+
 **Checkpoint 213:** Ordinary timber now opens area renewal of existing trees; planting bare ground is explicit. Cancel/apply retain the supplied project and view. Pure selection and all six Normal/Relaxed woodland intent checks pass; native area action and return pass. Next: complete the newcomer challenge.
 
 **Checkpoint 212:** Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.

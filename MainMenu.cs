@@ -59,7 +59,8 @@ public partial class Game
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
-        MenuButton("Play", TransformationMenu);
+        MenuButton("Play challenge", ChallengeMenu);
+        MenuButton("Free play", TransformationMenu);
         if(DeveloperPlaces)
             MenuButton("Earlier prototypes", ComparisonMenu);
         MenuButton("Settings", MainSettings);

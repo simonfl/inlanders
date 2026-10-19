@@ -160,7 +160,7 @@ public sealed partial class World
                     case Resource.Game: Food.EatenGame++; break;
                     case Resource.Fruit: Food.EatenFruit++; break;
                 }
-                RecordWelcomeMeal(p,r);RecordGatheringMeal(p,r);
+                RecordWelcomeMeal(p,r);RecordGatheringMeal(p,r);RecordChallengeMeal(p);
                 if(r.Commons && SharedPlaceAt(r.Seat) is {} commons)commons.FirstDiner??=p.Id;
                 p.Carried=0; r.Carrying=false; r.Eaten=true; p.Fed=true;
                 Food.MealConsumptions.Add(new(r.Id,p.Id,Food.Time,r.Kind,r.Closed));

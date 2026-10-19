@@ -30,7 +30,7 @@ public partial class Game
     private void RenderFirstPlaceUi()
     {
         if(_firstPlaceWorld!=_world){_firstPlaceWorld=_world;_firstPlaceDismissed=false;}
-        _firstPlace.Visible=!_showFoodMap && _world.PublicPlace?.PlayerFounded==true && !_world.Founding!.Finished && (_world.Cottages.Count==0 || FirstLivelihoodArrival) && !_firstPlaceDismissed && !_atMainMenu && !_watching && !_placing && !_careActive && !_drawer.Visible && !_inspector.Visible && _selectedSite<0 && _selectedPerson<0;
+        _firstPlace.Visible=_world.Challenge==null && !_showFoodMap && _world.PublicPlace?.PlayerFounded==true && !_world.Founding!.Finished && (_world.Cottages.Count==0 || FirstLivelihoodArrival) && !_firstPlaceDismissed && !_atMainMenu && !_watching && !_placing && !_careActive && !_drawer.Visible && !_inspector.Visible && _selectedSite<0 && _selectedPerson<0;
         if(!_firstPlace.Visible)return;
         if(!_placing && _uiTime<_noticeUntil)_hintPanel.Hide();
         _firstPlace.Position=new(16,92);_firstPlace.Size=new(300,0);

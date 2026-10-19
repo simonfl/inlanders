@@ -109,6 +109,7 @@ public partial class Game
     }
     private void UpdateCampaignUi()
     {
+        _challengeGoals.Visible=_world.Challenge!=null;
         var campaign = _world.Campaign;
         if(_world.Founding!=null){UpdateFoundingUi();return;}
         _foundingGoals.Hide();_foundingHallGoals.Hide();

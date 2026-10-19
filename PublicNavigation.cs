@@ -11,7 +11,7 @@ public partial class Game
         foreach(int index in new[]{0,4,3})
         {
             int page=index;var b=Button(index==4?"Supplies":MenuNames[index],()=>ToggleDrawer(page));b.AddThemeFontSizeOverride("font_size",14);b.SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;
-            b.TooltipText=index switch{0=>"People and advanced staffing [V]",4=>"Detailed supplies and work [I]",_=>"Save, load, sound and controls [O]"};_villageLinks[index]=b;_villageTools.AddChild(b);
+            b.TooltipText=index switch{0=>"Residents and current work [V]",4=>"Detailed supplies and work [I]",_=>"Save, load, sound and controls [O]"};_villageLinks[index]=b;_villageTools.AddChild(b);
         }
         MakeGroupArrangementUi(column);
         _landSurvey=Button("Look over the land",ToggleResourceSurvey);column.AddChild(_landSurvey);

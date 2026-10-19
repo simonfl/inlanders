@@ -23,7 +23,7 @@ public partial class Game
     }
     private void MakeFoundingUi(VBoxContainer column)
     {
-        MakePublicNavigation(column);
+        MakePublicNavigation(column);MakeChallengeUi(column);
         _foundingGoals=new();column.AddChild(_foundingGoals);
         _foundingGoals.AddChild(Button("Build homes and workplaces",()=>{if(!_drawer.Visible || _tabs.CurrentTab!=1)ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(_world.Founding?.WorkingVillage==true?0:_world.Founding?.RiverFarmstead==true && !_world.FoundingHasNewFood?2:1);UpdateVillageDirectory();}));
         _foundingCommons=Button("Make a shared place",()=>BeginGatheringPlan(_world.PublicPlace!=null?null:_world.Commons?.Center,true));_foundingGoals.AddChild(_foundingCommons);
@@ -78,6 +78,6 @@ public partial class Game
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Your village";
         if(f.TransformationHamlet && f.Finished){_foundingGoals.MoveChild(_hamletWatch,0);_foundingGoals.MoveChild(_foundingContinue,1);_foundingGoals.MoveChild(_foundingLeave,2);}
         else {_foundingGoals.MoveChild(_hamletWatch,_foundingGoals.GetChildCount()-1);_foundingGoals.MoveChild(_foundingContinue,_foundingGoals.GetChildCount()-1);_foundingGoals.MoveChild(_foundingLeave,_foundingGoals.GetChildCount()-1);}
-        UpdateFoundingHallUi();
+        UpdateFoundingHallUi();UpdateChallengeUi();
     }
 }

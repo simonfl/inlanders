@@ -17,6 +17,7 @@ public partial class Game
         {
             if (!_world.InviteNewcomers()) { Notice(_world.InvitationProblem() ?? "Invitation unavailable."); return; }
             RenderActors(0); UpdateHud();
+            if(_world.Challenge!=null){Notice("Four neighbors are on their way. Open Challenge [G] for progress.");return;}
             if(_world.Neighborhood!=null){Notice($"{_world.NeighborhoodArrivals} neighbors are on their way. Prepare homes and food; they will arrive even if you are not ready.");return;}
             Notice($"{_world.People[^2].Name} and {_world.People[^1].Name} have arrived at the timber yard. Choose their jobs in People.");
         });
@@ -58,6 +59,7 @@ public partial class Game
             _inviteButton.TooltipText=$"One commitment: {_world.NeighborhoodArrivalWord} shared workers arrive after 90 seconds. Insufficient housing or food does not cancel their arrival.";
         }
         if(_world.Founding!=null){_arrivalInfo.Text=$"{_world.Population} neighbors · {_world.Beds} beds\n"+(problem??"Ready for two neighbors. Watch food service as the village grows.");_inviteButton.TooltipText="Two shared workers join now. Spare beds and current meal service are required; no stock quota.";}
+        if(_world.Challenge!=null){_inviteButton.Text="Invite four neighbors";_arrivalInfo.Text=_world.ChallengeInvitationProblem()??"Four beds and provisions are ready. Invite the newcomers when you choose.";}
         _housing.GetParent<Control>().TooltipText = $"{_world.Housed} housed of {_world.Population} neighbors · {_world.Beds} beds · {_world.SpareBeds} spare";
     }
 }

@@ -66,6 +66,7 @@ public partial class Game : Node3D
         if (OS.GetCmdlineUserArgs().Contains("--survey-smoke-test")) CallDeferred(MethodName.RunSurveySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--pantry-smoke-test")) CallDeferred(MethodName.RunPantrySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--worked-surface-smoke-test")) CallDeferred(nameof(RunWorkedSurfaceSmoke));
+        if (OS.GetCmdlineUserArgs().Contains("--newcomer-smoke-test")) CallDeferred(nameof(RunNewcomerSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--automatic-work-smoke-test")) CallDeferred(nameof(RunAutomaticWorkSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--input-recovery-smoke-test")) CallDeferred(MethodName.RunInputRecoverySmoke);
         if (OS.GetCmdlineUserArgs().Contains("--construction-card-smoke-test")) CallDeferred(MethodName.RunConstructionCardSmoke);

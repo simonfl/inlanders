@@ -404,7 +404,7 @@ public sealed partial class World
         AdvanceVisitor();
         AdvanceWoodland(dt);
         foreach(var habitat in Map.FishingGrounds) habitat.Advance(dt);
-        ReconcileHomes();ProcessPlannedYards();
+        ReconcileHomes();ProcessPlannedYards();AdvanceNewcomerChallenge();
         dt *= Neighborhood?.HungerSlowsActivity==false ? 1 : Food.WorkEfficiency;
         _retry -= dt; bool retry = _retry <= 0; if (retry) _retry = 0.5f;
         if(retry)AdvancePreparedAddition();

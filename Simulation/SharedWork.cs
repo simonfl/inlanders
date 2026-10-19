@@ -59,7 +59,7 @@ public sealed partial class World
     }
     private static bool FoodRole(Role role)=>role is Role.Forager or Role.Farmer or Role.Baker or Role.Fisher or Role.Hunter;
     public bool ProvisionedLife => Founding?.ProvisionedLife==true;
-    public bool FoodWorkNeeded => !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
+    public bool FoodWorkNeeded => Challenge is {Arrived:true,Complete:false} && ChallengeDeliveries<32 || !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
     private bool SharedTimberNeeded => Stored<Math.Min(24,8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs)));
     // Development-only observations of the actual dispatch path; never saved or used to choose work.
     public bool TraceSharedWork { get; set; }
