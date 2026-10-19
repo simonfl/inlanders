@@ -6,6 +6,22 @@ static class CurrentExperienceChecks
     {
         Directory.CreateDirectory("artifacts/current-experience");
         var cases=new (string Name,Action Execute)[]{
+            ("AutomaticWork",AutomaticWorkChecks.Run),
+            ("TimberReserve",TimberReserveChecks.Run),
+            ("MaterialReserve",MaterialReserveChecks.Run),
+            ("FoodFinish",FoodFinishChecks.Run),
+            ("GrainReserve",GrainReserveChecks.Run),
+            ("CropOrders",CropOrderChecks.Run),
+            ("WorkFocus",WorkFocusChecks.Run),
+            ("ConstructionBudget",ConstructionBudgetChecks.Run),
+            ("DisconnectedDemolition",DisconnectedDemolitionChecks.Run),
+            ("ReachableFood",ReachableFoodChecks.Run),
+            ("UrgentHarvest",UrgentHarvestChecks.Run),
+            ("NewcomerChallenge",NewcomerChallengeChecks.Run),
+            ("ChallengeContinuation",ChallengeContinuationChecks.Run),
+            ("ChallengeObservation",ChallengeObservationChecks.Run),
+            ("ChallengeStatus",ChallengeStatusChecks.Run),
+            ("FloodIsland",FloodIslandChecks.Run),
             ("SupplyProducer",SupplyProducerChecks.Run),
             ("TimberJourney",TimberJourneyChecks.Run),
             ("CultivationJourney",CultivationJourneyChecks.Run),
@@ -79,7 +95,7 @@ static class CurrentExperienceChecks
         void Report()=>File.WriteAllText("artifacts/current-experience/report.json",JsonSerializer.Serialize(new {
             runId,startedUtc,status,expectedSuites=cases.Length,finishedSuites=rows.Count,
             assembly=typeof(CurrentExperienceChecks).Assembly.ManifestModule.ModuleVersionId,
-            prerequisite="RiverFarmstead generates snapshots used by HomeWaiting and ProductionRecovery",suites=rows
+            prerequisite="ChallengeObservation generates220-arrived for ChallengeStatus; RiverFarmstead generates snapshots used by HomeWaiting and ProductionRecovery",suites=rows
         },new JsonSerializerOptions{WriteIndented=true}));
         Report();
         try

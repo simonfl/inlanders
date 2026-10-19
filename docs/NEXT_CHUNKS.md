@@ -1,6 +1,10 @@
 # Active batch — checkpoints232–241
 
-Authorized October19: ten gameplay-focused outcomes, full five-role review240 before selecting241, then stop.232 tests land-bound ripe crops and salvage versus newly established island cultivation. Reassess subsequent outcomes from evidence; no decorative expansion.
+October19 authorization: ten gameplay-focused outcomes, full five-role review240 before selecting241, then stop. Nine outcomes232–240 committed. Freeze240 for whole-game review; one authorized outcome remains and must follow the synthesis.
+
+Delivered: land-bound ripe harvest and corrected channel barrier; measured blocked-work performance; harvest-then-pause; food-first work focus; independent housing/food recovery and supply feedback; material commitment previews; disconnected demolition and hauling recovery; reachable food reserves; urgent edible harvest preference. No decorative expansion.
+
+Pending evidence: current-experience regression and adaptive two-field island recovery versus single-field control. The old one-field success relied on the channel bypass; the corrected one-field Normal branch did not meet the objective in360s. Do not claim all routes are balanced or that fun is proven. Review existing controls as critically as new ones.
 
 # Completed batch — checkpoints222–231
 
@@ -62,6 +66,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 238. **Done** — Reproduced an unreachable-work exception when ordering demolition of a cut-off field. Demolition now waits for a real worker route, explains missing access and remains cancellable; rebuilding both crossings lets builders recover crops/materials and finish removal. Actual wait/cancel/reconnect/recovery and exact-save checks pass; zero-warning build. Next prevent inaccessible food stores from falsely satisfying the working reserve or restoration goal.
 
 239. **Done** — Food reserves and public challenge readiness now count reachable open stores rather than stranded stock. Economy distinguishes reachable and total food. A synthetic stranded-food case reproduced another unreachable-route exception in pantry hauling; haulers now validate both access and worker route before reserving a shipment. Both modes build real crossings, restore food availability and retain exact saves; zero-warning build. Next protect ready edible harvests during shortages, then freeze240 for the whole-game review.
+
+240. **Done** — During scarce food, farmers favor ready edible crops over nearer grain; stocked villages retain nearest-crop selection. Reproduced the wrong choice with a controlled validated fixture; both modes now deliver actual vegetables and save exactly. Native restoration, work controls, newcomer/archive/free-play and follow/save/continue checks pass; zero-warning build. Supporting current-experience registry now includes recent mechanics and observation-before-status prerequisites. Nine outcomes232–240 complete; freeze for full five-role review before selecting241. Adaptive island versus single-field control comparison and broad regression run on the frozen build.
 
 ## Completed batch — checkpoints 211–220
 

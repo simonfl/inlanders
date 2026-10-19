@@ -112,7 +112,8 @@ public sealed partial class World
         }
         if (v.Role == Role.Farmer)
         {
-            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && TravelCost(At(v),c.Entrance)!=int.MaxValue && CanClaimWorkplace(v,c) && FreeStation(c)).OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
+            bool urgentFood=ProvisionedLife && ReachableEdibleStored<Population*2;
+            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && TravelCost(At(v),c.Entrance)!=int.MaxValue && CanClaimWorkplace(v,c) && FreeStation(c)).OrderByDescending(c=>urgentFood && (IsVegetablePlot(c.Kind) || c.Kind==BuildingKind.Orchard)).ThenBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
             var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && !c.OrchardMature && BelowOutputTarget(c) && (!ProvisionedLife || !v.SharedWorker || FoodWorkNeeded || EstablishmentWork(c)));
             if (farm == null) { v.Status = ProductionWait(v); return; }
             v.WorkplaceId = farm.Id;

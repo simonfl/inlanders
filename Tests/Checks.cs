@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--urgent-harvest")){UrgentHarvestChecks.Run();return;}
 if(args.Contains("--reachable-food")){ReachableFoodChecks.Run();return;}
 if(args.Contains("--disconnected-demolition")){DisconnectedDemolitionChecks.Run();return;}
 if(args.Contains("--construction-budget")){ConstructionBudgetChecks.Run();return;}
