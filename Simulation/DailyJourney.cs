@@ -22,10 +22,10 @@ public sealed partial class World
             eaten+"A quiet visit between village jobs; meals and new work take priority.",p.Route.ToArray(),true,p.Route.Count>0,"Show route");
         if(Founding!=null && (p.Task!=Work.Waiting || p.Route.Count>0 || AvailableAtHome(p)))
         {
-            bool home=p.Task is Work.ToRest or Work.Resting || p.Task==Work.Waiting;
+            bool home=p.Task is Work.ToRest or Work.Resting or Work.ToArrival || p.Task==Work.Waiting;
             int? place=home?p.HomeId:p.Route.Count>0?Cottages.FirstOrDefault(c=>c.Entrance==p.Destination)?.Id:p.LeisureSiteId??p.SiteId??p.WorkplaceId??p.StorageId;
             if(place!=null && !Cottages.Any(c=>c.Id==place))place=null;
-            string activityHeading=home?(p.Task==Work.Resting?"Resting at home":p.Route.Count>0?"On the way home":"At home · available for work"):
+            string activityHeading=home?(p.Task==Work.ToArrival?"Arriving at a new home":p.Task==Work.Resting?"Resting at home":p.Route.Count>0?"On the way home":"At home · available for work"):
                 p.Task is Work.ToLeisure or Work.Leisure?"Taking a break":p.Route.Count>0?"On the way to work":"Working here";
             
             return new(p.Id,place,activityHeading,eaten+p.Status+". "+(p.Route.Count>0?$"{p.Route.Count} steps remaining on the current journey. ":"")+

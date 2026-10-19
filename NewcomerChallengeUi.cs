@@ -19,7 +19,7 @@ public partial class Game
         MenuButton(_challengeRepair?"Situation: cut-off fields · change":"Situation: first settlement · change",()=>{_challengeRepair=!_challengeRepair;ChallengeMenu();});
         _mainColumn.AddChild(Text(_challengeRepair?"Two existing fields are cut off by a river channel. Reconnect them, move cultivation onto the crowded home bank, or build a different food supply. Prepare homes and invite four newcomers when ready.":"Four neighbors seek a home beside a crowded inlet. A small kitchen garden is not enough for the larger village. Expand toward the northern meadow, improve a crossing, or rearrange the home bank. Choose your own food sources.",17,true));
         MenuButton(_challengeRelaxed?"Mode: Relaxed · change":"Mode: Normal · change",()=>{_challengeRelaxed=!_challengeRelaxed;ChallengeMenu();});
-        _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":"Real building materials, shared labor and recoverable food shortages. No deadline until you choose to invite.",14,true));
+        _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":"Real building materials, shared labor and recoverable food shortages. No deadline. Invitation starts a 30-second arrival journey.",14,true));
         var profile=new HamletProfile(_challengeRelaxed,Newcomers:true,Repair:_challengeRepair);
         string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
         if(File.Exists(path))MenuButton("Resume challenge",()=>MenuAttempt(()=>{EnterFromMenu(World.LoadFile(path));ToggleDrawer(2);}));

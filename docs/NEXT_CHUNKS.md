@@ -1,6 +1,8 @@
-# Active batch — checkpoints 211–220
+# Completed batch — checkpoints 211–220
 
-Authorized October 18, 2026: “do 10 rounds.” Deliver ten committed playable outcomes, full-game reviews at 215 and 220, visual/audio at 220 and after substantial presentation changes; stop after 220. This supersedes the previous stop. Follow the completed-playtest challenge direction and adjust scope after every outcome.
+Completed October18,2026: all ten playable outcomes and reviews215/220. Stop220; no221 authorized. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
+
+Original authorization, October 18, 2026: “do 10 rounds.” Deliver ten committed playable outcomes, full-game reviews at 215 and 220, visual/audio at 220 and after substantial presentation changes; stop after 220. This supersedes the previous stop. Follow the completed-playtest challenge direction and adjust scope after every outcome.
 
 211. **Done** — Public village work is automatic: ordinary profession/dedication controls are hidden; existing fixed assignments can return to the shared pool without interrupting committed work. Normal/Relaxed at-sea catch, delivery, meal and exact saved continuation checks passed; zero-warning build. Native UI review follows with the complete slice.
 212. **Done** — Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
@@ -13,6 +15,16 @@ Authorized October 18, 2026: “do 10 rounds.” Deliver ten committed playable 
 218. **Done** — Cut-off fields are directly inspectable from the challenge; crossing and pause/move actions precede optional controls and fit960. Native ordinary move cancellation and crossing placement restore actual construction, access and field food delivery. Build passes; screenshots inspected. Next consolidate free-play setup and allow optional growth after success; deeper challenge remains unproven.
 219. **Done** — Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
 220. **Done** — Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
+
+## Conditional next scope — requires further authorization
+
+The current newcomer challenge stays an introduction. The repair variation is not accepted as a deeper second chapter. Preserve the full catalogue and explicit user exclusions; no quota-padding, automatic new needs or return to archived service bureaucracy.
+
+1. **Observe the complete introduction through ordinary controls.** Record what the player intends, meaningful decisions, confusing inactivity, invitation reasoning and whether following a newcomer is rewarding. A short satisfying introduction is valid. Fix demonstrated goal-recovery gaps within that experience: collapsed progress can hide the remaining delivery/home/meal condition; target actions should match the real blocker. Reproduce the inferred inaccessible-bed/retained-assignment case before changing home rules. Tests or observation alone do not count as playable outcomes.
+2. **Compare a non-growing restoration commission.** An inhabited place has two linked practical constraints. Reconnection, relocation or another livelihood should use land/materials differently and produce visibly different functioning villages. Include equal-horizon no/minimal-intervention controls and delayed recovery from one plausible mistake. Reject the experiment if one obvious initial placement solves everything or further play is only waiting. Exact commission, geography and completion expression remain TBD; no mandatory building recipe.
+3. **Compare the inhabited scene, not another prop batch.** Hold people, food capacity, inventory and camera constant while comparing the current layout with a coherent river farmstead: domestic approaches, cultivation, woodland and a working bank. Observe one useful edit, actual use and recognizable arrival-to-home life at960/1440 and two orientations. Align the menu after selecting the scene. Sound and motion require an actual normal-speed audiovisual sample and listening.
+
+Supporting tooling, not separate feature counts: extend Review.ps1's existing dependency/provenance handling for challenge fixtures, save first-obstruction states and compact intervention/resource timelines. Validate clean/reused runs and a second reviewer's ability to understand the comparison without solver source. Defer a general framework, telemetry platform, save migrations or architecture rewrite.
 
 ## Earlier direction and historical authorizations
 

@@ -8,6 +8,18 @@
 
 ## Current direction and next step
 
+**Stopped at220: ten outcomes211–220 and full reviews215/220 are complete.** [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. No221 or further batch is authorized.
+
+**Next design bet: restore an inhabited settlement without requiring population growth.** Keep the newcomer challenge as the introduction/control. Compare a restoration commission with two linked land/access/material decisions, genuinely different viable arrangements and a recoverable mistake. Reject a single obvious bridge followed by waiting as a later chapter. Do not lengthen quotas, restore service assessments or add buildings/needs to manufacture duration.
+
+**Keep what the human feedback supports:** catalogue categories and area grove renewal; automatic labor removes the confusing public staffing distinction. Preserve physical work/meals, useful routes, free arrangement/recovery and explicit completion. Broader economy, optional comfort and the warm miniature visual language remain provisional. The review's main question is meaningful agency and visible benefit, not feature count.
+
+**Presentation is a whole-scene question.** Compare the current scene with coherent domestic/cultivated ground, woodland margin and working shore at equal capacity. Make arrival and home use identifiable in the world; align menu art after selecting that scene. Obtain actual normal-speed motion and listening evidence before more props, models or soundtrack work.
+
+**Evidence before expansion:** ordinary play of the current introduction; comparable no/minimal-intervention and delayed-repair branches; meaningful post-start choices and recognizable outcomes. Extend existing fixture provenance/timelines only to support that comparison. [Conditional next scope](NEXT_CHUNKS.md) records bounded clarity findings and tooling; no automatic five-feature queue.
+
+## Earlier direction notes — historical
+
 **Checkpoint 220:** Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
 
 **Checkpoint 219:** Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
@@ -60,7 +72,7 @@ The verdict remains partially convincing. A practical landing, inland fields and
 
 The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, small productive extent and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
 
-## Review170 direction
+## Review170 direction — historical
 
 The public candidate is clearer; its central pleasure is still unproven. Test a wanted livelihood or alteration through real use, including a plausible mistake and recovery. The two tested food approaches both contain vegetables; catalogue-wide food balance and woodland-food discovery are not established. Short satisfied observation is valid. Freeze automatic start/tool/prop expansion. Do not add needs or mandatory growth to manufacture purpose.
 
