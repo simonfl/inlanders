@@ -57,6 +57,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 236. **Done** — Restoration exposes independent housing and food-supply actions, plus recent deliveries versus meal demand so an undersized livelihood can be recognized. Compacted progress and reduced unnecessary opening actions; hungry residents remain directly inspectable. Native960 food/housing navigation, work focus, crop order and save/continue pass; image inspected. Next show construction commitments before placing another order, supporting deliberate food-versus-expansion investment.
 
+237. **Done** — Building and field placement now previews new material cost against queued orders and reachable unreserved supplies, including the additional shortfall. This informs investment without blocking plans. Tests cover real competing home/bridge orders, pause/cancel, claimed deliveries, plot size and Relaxed; native960 placement budget and restoration/work controls pass. Next make abandoning a disconnected workplace safely recoverable instead of letting demolition claim an impossible route.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

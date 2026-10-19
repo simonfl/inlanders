@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--construction-budget")){ConstructionBudgetChecks.Run();return;}
 if(args.Contains("--work-focus")){WorkFocusChecks.Run();return;}
 if(args.Contains("--crop-orders")){CropOrderChecks.Run();return;}
 if(args.Contains("--blocked-sample")){var w=Inlanders.Simulation.World.LoadFile("artifacts/restoration/False-island-island-open.json");var watch=System.Diagnostics.Stopwatch.StartNew();for(int i=0;i<100;i++)w.Tick(.1f);w.Validate();w.SaveFile("artifacts/blocked-sample.json");Console.WriteLine($"PASS blocked sample100 ticks: {watch.Elapsed.TotalSeconds:0.00}s");return;}

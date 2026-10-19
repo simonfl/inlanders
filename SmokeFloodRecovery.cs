@@ -31,6 +31,9 @@ public partial class Game
             await UiClick(_recoveryFood);if(_tabs.CurrentTab!=1)throw new Exception("Food recovery action failed");
             ToggleDrawer(2);UpdateHud();for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             await UiClick(_challengeRecover);if(_tabs.CurrentTab!=1)throw new Exception("Housing recovery did not open catalogue");
+            BeginPlacement(BuildingKind.Cottage);CloseDrawer();UpdateHud();
+            if(!_hint.Text.Contains("new +") || !_hint.Text.Contains("queued"))throw new Exception("Construction budget absent from placement");
+            await Capture("artifacts/restoration/construction-budget-960.png");_placing=false;RefreshGhost();
             ToggleDrawer(0);UpdateHud();for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _drawerPages[0].EnsureControlVisible(_foodFirst);await UiClick(_foodFirst);
             if(_world.Founding?.FoodFirst!=true)throw new Exception("Food focus UI failed");

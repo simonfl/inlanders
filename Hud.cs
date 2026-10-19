@@ -340,6 +340,8 @@ public partial class Game
             if(_clearingTrees || _woodlandTool==2) _hint.Text+="\n"+_world.HabitatLoss(_hover);
             else if(!_plantingTrees && !_decorating && _pathTool==0 && _woodlandTool==0 && _buildKind==BuildingKind.HuntingLodge) _hint.Text+="\n"+_world.WildlifeSurvey(_hover);
         }
+        if(_placing && _world.PublicPlace!=null && !_world.Creative && _movingSite<0 && !_decorating && !_plantingTrees && !_clearingTrees && _woodlandTool==0 && _pathTool==0)
+            _hint.Text+="\n"+_world.ConstructionBudgetText(_buildKind,PlotActive?_plotRows:0);
         if(LivelihoodPreviewActive && _livelihoodSite is {Summary.Length:>0} livelihood)_hint.Text+="\n"+livelihood.Summary;
         if(_surveying) _hint.Text="Survey resources · click a marker or choose a source · U / Esc finishes";
         UpdatePeopleKeyboard();
