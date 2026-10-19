@@ -1,8 +1,20 @@
+# Current proposed scope — human feedback after 210
+
+The user has now playtested: individual tree permission is tedious, Harvest & renew grove was enjoyable but hidden, and the two public starts appear identical. They share the same map and homes. [Immediate strategic synthesis](PLAYTEST_REVIEW_210.md) replaces the request to replay these as distinct experiences. Checkpoint count remains **210**; this is planning, not another implementation batch.
+
+1. **Primary renewable woodland action.** Route ordinary timber/onboarding/shortage actions through one area selection, explicitly in Renew mode. Renew existing trees/stumps; make additional bare-ground planting deliberate. Preserve the original project/view through cancel and completion. Show real selected capacity and consequences; do not silently truncate large selections. Verify actual delivery and renewal, then observe one wanted addition without coaching.
+2. **One public river settlement.** Collapse the peer establish/tend entries into one place with an optional prepared food supply. Describe the same-map setup difference plainly; keep Normal/Relaxed separate. No save migration.
+3. **A genuinely different place, only after the above.** Prototype a different spatial/livelihood decision, potentially reusing archived geography without archived assessment chores. Exact map/objectives TBD. Different scenery alone is insufficient if the same opening and later choices solve it.
+
+No automatic catalogue, needs, inspector or prop expansion. Reuse current tooling; add only a focused area-renewal recovery probe/session note alongside the relevant implementation. The synthesis records alternatives and falsifiers rather than presuming these choices establish whole-game fun.
+
+## Historical completed authorization
+
 # Completed batch — checkpoints 201–210
 
-Authorized October 18, 2026: ten more playable outcomes, then stop at 210. Reviews at 205 and 210 assess the entire game; include visual/audio at 210 and after substantial presentation changes. This supersedes the prior stop, not its evidence limits. No human play feedback is assumed.
+Authorized October 18, 2026: ten more playable outcomes, then stop at 210. Reviews at 205 and 210 assess the entire game; include visual/audio at 210 and after substantial presentation changes. This superseded the prior stop, not its evidence limits. No human play feedback was available during that batch; subsequent feedback is recorded above.
 
-All ten playable outcomes and full reviews205/210 are complete. [Final synthesis](REVIEW_CHECKPOINT_210.md) retains the public experience provisionally, freezes automatic catalogue/inspector/prop expansion, and stops210. No211 is authorized. The next comparison concerns player-chosen intention and noticed payoff in existing establish/tend starts; no human enjoyment or listening claim.
+All ten playable outcomes and full reviews205/210 are complete. [Final synthesis](REVIEW_CHECKPOINT_210.md) retains the public experience provisionally, freezes automatic catalogue/inspector/prop expansion, and stops210. No211 is authorized. Its proposed establish/tend comparison is superseded by the subsequent human-feedback synthesis above; listening remains unobserved.
 
 The batch focused on the existing choose-work → actual work → useful place loop. Review205 selected a smaller everyday surface and continuous recovery. The catalogue and public beginnings remain stable; no new needs, inheritance, seasons or save migrations were added. Future work requires a new authorization and evidence-led scope.
 
