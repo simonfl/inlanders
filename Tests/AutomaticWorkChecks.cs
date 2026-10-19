@@ -15,6 +15,14 @@ static class AutomaticWorkChecks
         if(dock.Boat?.FisherId==null)throw new Exception("Fixed fisher could not claim dock");
         w.UseAutomaticVillageWork();
         if(w.People.Any(p=>!p.SharedWorker))throw new Exception("Automatic pool not restored");
+        var area=World.NewRiverLivelihood();
+        var first=new Cell(-10,-12);var last=new Cell(-5,13);
+        var plan=area.PreviewWoodlandCare(first,last,WoodlandIntent.Renew,false);
+        if(plan.Problem!=null || plan.Cells.Any(c=>!area.Trees.Any(t=>t.Cell==c)))throw new Exception("Ordinary rectangle adds empty land");
+        var initial=area.SaveJson();area.PreviewWoodlandCare(first,last,WoodlandIntent.Renew,false);
+        if(initial!=area.SaveJson() || !area.ApplyWoodlandCare(first,last,WoodlandIntent.Renew,false))throw new Exception("Area preview/apply failed");
+        if(!area.ManagedWoodland.SetEquals(plan.Cells))throw new Exception("Area changed wrong grove");
+        area.Validate();
         w.Validate();Console.WriteLine("PASS stocked dock rests; trace explains reserve gate without changing simulation; fixed fisher status/dispatch agree; automatic restore retains trip.");
     }
 }

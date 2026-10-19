@@ -5,12 +5,12 @@ public enum WoodlandIntent { Keep, Renew, Clear }
 public sealed record WoodlandCarePlan(Cell[] Cells,int Timber,int MatureTrees,string? Problem);
 public sealed partial class World
 {
-    public WoodlandCarePlan PreviewWoodlandCare(Cell first,Cell last,WoodlandIntent intent)
+    public WoodlandCarePlan PreviewWoodlandCare(Cell first,Cell last,WoodlandIntent intent,bool plantBareGround=true)
     {
         bool InsideArea(Cell c)=>c.X>=Math.Min(first.X,last.X) && c.X<=Math.Max(first.X,last.X) && c.Z>=Math.Min(first.Z,last.Z) && c.Z<=Math.Max(first.Z,last.Z);
         var trees=Trees.Where(t=>!t.Salvage && InsideArea(t.Cell)).OrderBy(t=>t.Id).ToArray();
         var cells=trees.Select(t=>t.Cell).ToArray();
-        if(intent==WoodlandIntent.Renew)
+        if(intent==WoodlandIntent.Renew && plantBareGround)
         {
             if(first==last && cells.Length==0)cells=new[]{first};
             else if(first!=last)
@@ -35,9 +35,9 @@ public sealed partial class World
         if(intent==WoodlandIntent.Renew && ManagedWoodland.Union(cells).Count()>ManagedWoodlandLimit)problem=$"Choose fewer spots: a village can renew {ManagedWoodlandLimit}.";
         return new(cells,trees.Sum(t=>t.Logs),trees.Count(t=>!t.Felled && !t.NeedsPlanting && t.Growth>=1),problem);
     }
-    public bool ApplyWoodlandCare(Cell first,Cell last,WoodlandIntent intent)
+    public bool ApplyWoodlandCare(Cell first,Cell last,WoodlandIntent intent,bool plantBareGround=true)
     {
-        var plan=PreviewWoodlandCare(first,last,intent);if(plan.Problem!=null)return false;
+        var plan=PreviewWoodlandCare(first,last,intent,plantBareGround);if(plan.Problem!=null)return false;
         foreach(var cell in plan.Cells)
         {
             if(intent!=WoodlandIntent.Clear && Trees.Any(t=>t.Cell==cell && t.ClearRequested))SetClearing(cell,false);

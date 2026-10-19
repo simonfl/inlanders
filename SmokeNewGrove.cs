@@ -10,7 +10,7 @@ public partial class Game
         {
             async System.Threading.Tasks.Task Frames(){for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
             AdoptWorld(World.NewRiverFrontage(false,true,true));_paused=true;CloseManagementUi();GetWindow().Size=new(960,640);
-            _focus=OnGround(-6,2);_camera.Size=20;UpdateCamera();BeginWoodlandCare();await Frames();
+            _focus=OnGround(-6,2);_camera.Size=20;UpdateCamera();BeginWoodlandCare();_carePlant.ButtonPressed=true;await Frames();
             var a=_camera.UnprojectPosition(OnGround(-8,0));var b=_camera.UnprojectPosition(OnGround(-4,4));string before=_world.SaveJson();
             Input.ParseInputEvent(new InputEventMouseButton{Position=a,GlobalPosition=a,ButtonIndex=MouseButton.Left,Pressed=true});await Frames();
             Input.ParseInputEvent(new InputEventMouseMotion{Position=b,GlobalPosition=b,ButtonMask=MouseButtonMask.Left});await Frames();

@@ -22,7 +22,7 @@ public partial class Game
             var choice=kind;var button=Button("",()=>{CloseManagementUi();BeginPlacement(choice);_noticeUntil=0;});
             button.TooltipText=BuildingDescription(kind);column.AddChild(button);_firstPlaceChoices[kind]=button;
         }
-        _firstPlaceTimber=Button("Harvest timber · choose trees",BeginEverydayTimber);column.AddChild(_firstPlaceTimber);
+        _firstPlaceTimber=Button("Harvest & renew · choose area",BeginEverydayTimber);column.AddChild(_firstPlaceTimber);
         _firstPlaceDetail=Text("",13,true);column.AddChild(_firstPlaceDetail);
         _firstPlaceBrowse=Button("All building choices [B]",()=>{_fullBuild=true;ToggleDrawer(1);SelectBuildSection(0);_buildingFilter.Select(0);UpdateVillageDirectory();});column.AddChild(_firstPlaceBrowse);
         _firstPlaceLook=Button("Look around first [Esc]",()=>_firstPlaceDismissed=true);column.AddChild(_firstPlaceLook);_firstPlace.Hide();
@@ -30,7 +30,7 @@ public partial class Game
     private void RenderFirstPlaceUi()
     {
         if(_firstPlaceWorld!=_world){_firstPlaceWorld=_world;_firstPlaceDismissed=false;}
-        _firstPlace.Visible=!_showFoodMap && _world.PublicPlace?.PlayerFounded==true && !_world.Founding!.Finished && (_world.Cottages.Count==0 || FirstLivelihoodArrival) && !_firstPlaceDismissed && !_atMainMenu && !_watching && !_placing && !_drawer.Visible && !_inspector.Visible && _selectedSite<0 && _selectedPerson<0;
+        _firstPlace.Visible=!_showFoodMap && _world.PublicPlace?.PlayerFounded==true && !_world.Founding!.Finished && (_world.Cottages.Count==0 || FirstLivelihoodArrival) && !_firstPlaceDismissed && !_atMainMenu && !_watching && !_placing && !_careActive && !_drawer.Visible && !_inspector.Visible && _selectedSite<0 && _selectedPerson<0;
         if(!_firstPlace.Visible)return;
         if(!_placing && _uiTime<_noticeUntil)_hintPanel.Hide();
         _firstPlace.Position=new(16,92);_firstPlace.Size=new(300,0);

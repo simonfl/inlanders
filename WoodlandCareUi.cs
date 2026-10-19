@@ -10,6 +10,8 @@ public partial class Game
     private PanelContainer _carePanel=null!;
     private Label _careText=null!;
     private Button _careApply=null!;
+    private CheckBox _carePlant=null!;
+    private bool _careReturn;
     private readonly System.Collections.Generic.Dictionary<WoodlandIntent,Button> _careChoices=new();
     private Node3D _careMarks=null!;
     private void MakeWoodlandCare(VBoxContainer parent)
@@ -20,13 +22,19 @@ public partial class Game
         column.AddChild(Text("THIS WOODLAND",16));
         foreach(var choice in new[]{(WoodlandIntent.Keep,"Keep standing"),(WoodlandIntent.Renew,"Harvest & renew"),(WoodlandIntent.Clear,"Clear for another use")})
         {var intent=choice.Item1;var button=Button(choice.Item2,()=>{_careIntent=intent;RefreshWoodlandCare();});button.ToggleMode=true;_careChoices[intent]=button;column.AddChild(button);}
+        _carePlant=new CheckBox{Text="Plant empty ground too"};column.AddChild(_carePlant);
+        _carePlant.Toggled+=_=>RefreshWoodlandCare();
         _careText=Text("",13,true);_careText.CustomMinimumSize=new(250,0);column.AddChild(_careText);
         _careApply=Button("Apply & watch",ApplyWoodlandCare);column.AddChild(_careApply);
         column.AddChild(Button("Cancel [Esc]",CancelWoodlandCare));_carePanel.Hide();_careMarks=new();AddChild(_careMarks);
     }
     private void BeginWoodlandCare()
     {
-        CloseManagementUi();_placing=false;RefreshGhost();CancelCameraDrag();
+        var origin=(_supplyReturnWorld,_supplyOrigin,_supplyFocus,_supplyAngle,_supplyZoom);
+        bool returning=SupplyOrigin!=null;
+        CloseManagementUi();
+        if(returning)(_supplyReturnWorld,_supplyOrigin,_supplyFocus,_supplyAngle,_supplyZoom)=origin;
+        _careReturn=returning;_careIntent=WoodlandIntent.Renew;_carePlant.SetPressedNoSignal(false);_placing=false;RefreshGhost();CancelCameraDrag();
         _careActive=true;_careWorld=_world;_careWasPaused=_paused;_paused=true;_pauseButton.Disabled=true;
         _careSelected=_careDragging=false;_carePanel.Show();RefreshWoodlandCare();
     }
@@ -34,17 +42,20 @@ public partial class Game
     {
         if(!_careActive)return;_careActive=_careDragging=false;_carePanel.Hide();Clear(_careMarks);
         _paused=_careWasPaused;_pauseButton.Disabled=false;
+        bool returning=_careReturn;_careReturn=false;if(returning)ReturnToSupplyOrigin();
     }
     private void RefreshWoodlandCare()
     {
         if(!_careActive)return;
         _carePanel.Position=new(_hud.Size.X-292,92);_carePanel.Size=new(276,0);Clear(_careMarks);
         foreach(var pair in _careChoices)pair.Value.SetPressedNoSignal(pair.Key==_careIntent);
+        _carePlant.Visible=_careIntent==WoodlandIntent.Renew;
+        _careApply.Text=_careReturn?"Apply & return to project":"Apply & watch";
         string consequence=_careIntent switch{WoodlandIntent.Keep=>"Cancel clearing; keep living trees standing. Fallen trees need renewal.",WoodlandIntent.Renew=>"Cancel clearing, take needed timber and replant. Collected timber stays collected.",_=>_world.Creative?"Recover timber and remove trees and roots immediately.":"Collect timber and remove roots for new uses. No regrowth."};
-        _careText.Text=consequence+(_careIntent==WoodlandIntent.Renew?"\nDrag to renew trees and plant spaced bare ground.":"\nDrag trees or click a spot; Apply starts work.");
+        _careText.Text=consequence+(_careIntent==WoodlandIntent.Renew?(_carePlant.ButtonPressed?"\nDrag to renew trees and plant spaced bare ground.":"\nDrag a rectangle over trees to harvest and replant. Empty ground stays open."):"\nDrag trees or click a spot; Apply starts work.");
         _careApply.Disabled=!_careSelected;
         if(!_careSelected)return;
-        var plan=_world.PreviewWoodlandCare(_careFirst,_careLast,_careIntent);_careApply.Disabled=plan.Problem!=null;
+        var plan=_world.PreviewWoodlandCare(_careFirst,_careLast,_careIntent,_carePlant.ButtonPressed);_careApply.Disabled=plan.Problem!=null;
         _careText.Text+=$"\n{plan.Cells.Length} tree spots · {plan.Timber} existing logs\n"+(plan.Problem??"Ready; drag again to revise.");
         if(_careIntent!=WoodlandIntent.Keep && plan.Cells.Any(c=>_world.HabitatLoss(c)!=""))_careText.Text+="\nFelling reduces hunting habitat.";
         foreach(var c in plan.Cells)GroundPatch(_careMarks,c.X,c.Z,.92f,.92f,plan.Problem==null?new("d6bc7a"):new("cc7967"),.07f);
@@ -52,8 +63,9 @@ public partial class Game
     private void ApplyWoodlandCare()
     {
         if(!_careActive || !_careSelected || _careWorld!=_world)return;
-        if(!_world.ApplyWoodlandCare(_careFirst,_careLast,_careIntent)){RefreshWoodlandCare();return;}
-        CancelWoodlandCare();_paused=false;ToggleWatch();UiCue(Cue.Place);
+        if(!_world.ApplyWoodlandCare(_careFirst,_careLast,_careIntent,_carePlant.ButtonPressed)){RefreshWoodlandCare();return;}
+        bool returning=_careReturn;CancelWoodlandCare();
+        if(!returning){_paused=false;ToggleWatch();}UiCue(Cue.Place);
     }
     private bool HandleWoodlandCare(InputEvent input)
     {

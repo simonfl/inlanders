@@ -21,7 +21,7 @@ public partial class Game
             _focus=OnGround(tree.Cell.X,tree.Cell.Z);_camera.Size=18;UpdateCamera();await Frames();var tp=_camera.UnprojectPosition(OnGround(tree.Cell.X,tree.Cell.Z));Input.ParseInputEvent(new InputEventMouseMotion{Position=tp,GlobalPosition=tp});await Frames();
             Check(_woodlandTool==2 && !_clearingTrees,"Timber choice must retain roots");await Click(tp);await Frames();Check(!tree.Preserved && !tree.ClearRequested,"Harvest did not release chosen tree");
             await Press(Key.Escape);BeginWoodlandTool(1);await Frames();await Click(tp);await Frames();Check(tree.Preserved,"Preserve did not cancel unstarted harvest");
-            await Press(Key.Escape);BeginEverydayTimber();await Frames();await Click(tp);await Press(Key.Escape);
+            await Press(Key.Escape);BeginWoodlandTool(2);await Frames();await Click(tp);await Press(Key.Escape);
             var plan=_world.Map.Land.First(c=>_world.PlacementProblem(c,0,BuildingKind.VegetableField)==null);_world.Place(plan,0,BuildingKind.VegetableField);
             _paused=false;_speed=6;double started=_uiTime;
             while(_uiTime-started<45 && !tree.Felled)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);

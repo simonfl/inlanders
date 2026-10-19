@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 213:** Ordinary timber now opens area renewal of existing trees; planting bare ground is explicit. Cancel/apply retain the supplied project and view. Pure selection and all six Normal/Relaxed woodland intent checks pass; native area action and return pass. Next: complete the newcomer challenge.
+
 **Checkpoint 212:** Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
 
 **Active 211–220 batch:** authorized October 18. 211 delivers one automatic public workforce without interrupting current jobs. Next: explain genuine inactivity, then area timber and the newcomer challenge; review the whole game at 215 before choosing the remaining scope. No claim of human acceptance.

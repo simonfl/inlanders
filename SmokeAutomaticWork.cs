@@ -20,6 +20,17 @@ public partial class Game
                 for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
                 await Capture($"artifacts/212-food-rest-{relaxed}.png");
             }
+            AdoptWorld(World.NewRiverLivelihood());_paused=true;
+            var project=_world.Place(new(0,0),0,BuildingKind.Cottage)!;ShowWorkplaceCard(project.Id);RememberSupplyOrigin();
+            var originalFocus=_focus;BeginEverydayTimber();
+            if(!_careActive || _careIntent!=WoodlandIntent.Renew || _carePlant.ButtonPressed)throw new Exception("Default area timber wrong");
+            CancelWoodlandCare();if(_workCardSite!=project.Id || _focus!=originalFocus)throw new Exception("Area cancel lost origin");
+            RememberSupplyOrigin();BeginEverydayTimber();
+            _careFirst=new(-10,-12);_careLast=new(-5,13);_careSelected=true;RefreshWoodlandCare();
+            for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            await Capture("artifacts/213-timber-area.png");await UiClick(_careApply);
+            if(_careActive || _workCardSite!=project.Id || _world.ManagedWoodland.Count==0 || _watching)throw new Exception("Area apply lost project");
+            GD.Print("PASS area harvest-and-renew proposal, pure cancel, actual apply and project return.");
             GD.Print("PASS public automatic staffing, return action, resident controls and stocked dock in Normal/Relaxed at960.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
