@@ -51,6 +51,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 233. **Done** — Blocked-field job searches now reuse reachability only during one worker claim, then discard it before world geometry can change. Same100-tick state is byte-identical; model time3.43 to0.63s, matched native1x simulation p95 160.3 to6.6ms and frame p95 181 to39.5ms. No persistent cache/invalidation framework. Six-route comparison rerunning; next allow harvesting a final crop before pausing production.
 
+234. **Done** — Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

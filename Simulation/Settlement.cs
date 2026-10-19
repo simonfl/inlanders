@@ -116,6 +116,7 @@ public sealed class Cottage
     public FishingBoat? Boat { get; set; }
     public BuildingKind Kind { get; init; }
     [JsonInclude]    public bool Planted { get; internal set; }
+    public bool HarvestThenPause {get;set;}
     [JsonInclude]    public bool OrchardMature { get; internal set; }
     [JsonInclude]    public float Growth { get; internal set; }
     [JsonInclude]    public int Harvest { get; internal set; }

@@ -61,7 +61,7 @@ public partial class Game
         _workCardMove.Reparent(arrangement);_workCardYard.Reparent(arrangement);
         foreach(var control in new[]{_workCardMove,_workCardYard})control.SizeFlagsHorizontal=Control.SizeFlags.ExpandFill;
         _workCardSupply=Button("Show food stores",ToggleFoodMap);column.AddChild(_workCardSupply);
-        MakeSupplyReturn(column);MakeWorkplaceInputCard(column);MakeConstructionCard(column);MakePlotRevision(column);
+        MakeSupplyReturn(column);MakeWorkplaceInputCard(column);MakeConstructionCard(column);MakeCropOrder(column);MakePlotRevision(column);
         _homeOptionsButton=Button("Change this home",()=>{_homeOptions=!_homeOptions;_homeMore=false;_nextWorkCard=0;});column.AddChild(_homeOptionsButton);
         MakeHomeTurn(column);MakePlacePath(column);MakeHomeAppearance(column);
         _homeMoreButton=Button("Household & details",()=>{_homeMore=!_homeMore;_nextWorkCard=0;});column.AddChild(_homeMoreButton);
@@ -86,7 +86,7 @@ public partial class Game
         _workCard.Position=new(Mathf.Max(0,_workCardRight?_hud.Size.X-366:Mathf.Min(16,_hud.Size.X-350)),92);
         if(_uiTime<_nextWorkCard)return;_nextWorkCard=_uiTime+.3f;
         var worker=CardWorker();var diner=CardDiner();
-        RenderSupplyReturn(site);RenderWorkplaceInputCard(site);RenderConstructionCard(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
+        RenderSupplyReturn(site);RenderWorkplaceInputCard(site);RenderConstructionCard(site);RenderCropOrder(site);RenderPlotRevision(site);RenderHouseholdUi(site);RenderHomeAppearance(site);RenderPlacePath(site);
         bool publicHome=_world.PublicPlace!=null && site.Complete && Buildings.Get(site.Kind).Beds>0;
         _turnHomeButton.Visible=publicHome && _homeOptions && _yardPreviewSide<0;
         _homeOptionsButton.Visible=publicHome && _yardPreviewSide<0;_homeOptionsButton.Text=_homeOptions?"Back to household life":"Change this home";

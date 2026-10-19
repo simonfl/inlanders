@@ -19,8 +19,16 @@ public sealed partial class World
         var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && (ProductionOutput(c.Kind) != null || c.Kind==BuildingKind.Carpenter));
         if (site == null || Food.Celebrating) return false;
         site.WorkPaused = paused;
+        if(!paused)site.HarvestThenPause=false;
         if(paused && site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId is int fisher) Interrupt(People[fisher]);
         _retry = 0; return true;
+    }
+    public bool SetHarvestThenPause(int id,bool enabled)
+    {
+        var site=Cottages.FirstOrDefault(c=>c.Id==id && c.Complete && !c.DemolitionRequested && (c.Kind==BuildingKind.Farm || IsVegetablePlot(c.Kind)));
+        if(site==null || Food.Celebrating || enabled && !site.Planted && site.Harvest==0)return false;
+        site.HarvestThenPause=enabled;site.WorkPaused=false;_retry=0;
+        History.Add($"Field {id}: "+(enabled?"finish this crop, then pause before sowing again.":"continuous cultivation resumed."));return true;
     }
     public bool SetOutputTarget(int id, int target)
     {
@@ -81,6 +89,7 @@ public sealed partial class World
         var workers = People.Where(p => p.WorkplaceId == site.Id).ToArray();
         if (Food.Celebrating) return new("Village supper", "Work resumes after everyone gathers.");
         if (site.WorkPaused && site.Kind==BuildingKind.FishingDock) return new(workers.Length>0 ? "Recalling boat" : "Paused", "No new trips. A fisher at sea returns before changing jobs or leaving the dock.");
+        if(site.HarvestThenPause && site.WorkPaused)return new("Harvest finished", "Crop collected; deliveries finish normally. Resume cropping or move this empty field.");
         if (site.WorkPaused) return new(workers.Length > 0 ? "Pausing · finishing work" : "Paused", "No new jobs. Current work and deliveries finish; planted crops keep growing. Resume to collect any remaining output.");
         if(site.Kind==BuildingKind.FishingDock && site.Boat?.FisherId is int fisher)
             return new(People[fisher].Status, $"{People[fisher].Name} · {site.Boat.Fish} fish aboard · {site.Boat.ReservedCatch} catch reserved. Fish count as pantry supply only after delivery.");
@@ -106,7 +115,7 @@ public sealed partial class World
         if(site.Kind==BuildingKind.Carpenter) return new("Waiting for home orders",$"{Cottages.Count(c=>c.ImprovementRequested && !c.DemolitionRequested)} pending. Order improvements on occupied homes and supply planks. "+(SharedWork?"Shared workers take the carpentry work automatically.":"Assign a carpenter to begin work."));
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
         if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Automatic farmers can work elsewhere. Mature trees stay for repeat harvests.");
-        if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
+        if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe."+(site.HarvestThenPause?" Then cultivation pauses before another sowing.":""));
         if(ProvisionedLife && !remaining && !FoodWorkNeeded && !EstablishmentWork(site) && Buildings.Get(site.Kind).Worker is Role foodRole && FoodRole(foodRole) && !People.Any(p=>!p.SharedWorker && p.Role==foodRole && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id)))
             return new("Provisions ready", $"Enough food stored: {EdibleStored} portions for {Population} residents. No fisher or farmer assignment is needed; automatic food work resumes below {Population*4} portions or when someone needs a meal.", RestingForFood:true);
         if(ProvisionedLife && !remaining && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone)

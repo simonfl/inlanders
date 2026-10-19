@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint234:** Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.
+
 **Checkpoint233:** Blocked-field job searches now reuse reachability only during one worker claim, then discard it before world geometry can change. Same100-tick state is byte-identical; model time3.43 to0.63s, matched native1x simulation p95 160.3 to6.6ms and frame p95 181 to39.5ms. No persistent cache/invalidation framework. Six-route comparison rerunning; next allow harvesting a final crop before pausing production.
 
 **Checkpoint232:** Ripe field crops now stay on their land, including group moves. Flood restoration begins with40 recoverable portions; island cultivation is a new paid plot. Corrected a two-cell bypass around the second channel. Normal bridge branch completes130s; native island-open state validates and runs, but measured1x simulation p95 is160ms and a long comparison was stopped. Full six-branch comparison remains pending. Next fix this reproduced blocked-state slowdown before further mechanics.
