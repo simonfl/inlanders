@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--flood-recovery")){try{FloodRecoveryChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-status")){try{ChallengeStatusChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--grain-reserve")){try{GrainReserveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--food-finish")){try{FoodFinishChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

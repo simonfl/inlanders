@@ -1,6 +1,6 @@
 # Active batch — checkpoints222–231
 
-Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-role review at230 before choosing231, then stop231. Start with coherent material reserves and player-visible supply recovery; use evidence to choose subsequent challenge improvements. This supersedes earlier stop/conditional authorization notes below.
+Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-role review at230 before choosing231, then stop231. Material reserve and challenge recovery outcomes222–227 are committed.228 tests non-growing flood restoration.229 will test a two-channel geography with an intermediate island decision;230 will make scenario selection visually understandable before the full review. Choose231 from that synthesis, then stop. This supersedes earlier stop/conditional authorization notes below.
 
 
 # Targeted playtest follow-up — checkpoint221
@@ -20,6 +20,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 226. **Done** — Automatic grain production now buffers at least one crop or two bread portions per resident; explicit caps remain available and recoverable. Economy shows grain as an oven ingredient and links its supply. Actual farm stops at six grain without an oven, then real bread is baked after adding one; cap switching and exact save pass; zero-warning final build. Next surface the actual challenge blocker and route its recovery action.
 
 227. **Done** — Challenge status now names the actual remaining housing, meal or fresh-delivery blocker; recovery opens housing choices, the affected resident or food production. Invite/recovery controls precede long progress text. Synthetic hidden-delivery/housing cases pass; native compact entry, save/Continue, crossing recovery, real food delivery and resident follow at960/1440 pass. Next compare a non-growing restoration commission; no deeper-campaign claim yet.
+
+228. **Done** — After the flood is a public non-growing restoration challenge: twelve residents, eight beds, cut-off fields and24 food. Restore reachable homes, two actual meals each, current meal service and24 remaining food; separate save/restart/continuation. Both-mode crossing and relocation win at123–142 simulated seconds and remain fully fed at600s; equal-horizon no-intervention controls retain8 housed and empty food, with missed meals. Native entry/recovery/save/completed continuation passes; inspected screenshot caught and corrected newcomer copy; final build passes. Short prototype, not proven campaign depth. Next compare an intermediate-island decision rather than longer quotas.
 
 ## Completed batch — checkpoints 211–220
 

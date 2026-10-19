@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 public sealed class NewcomerChallenge
 {
     public bool Repair {get;set;}
+    public bool Restoration {get;set;}
     public float? InvitedAt {get;set;}
     public bool Arrived {get;set;}
     public bool Complete {get;set;}
@@ -46,7 +47,7 @@ public sealed partial class World
         ChallengeNeighborsFed<4?"Let each newcomer collect and eat two ordinary meals.":
         ChallengeDeliveries<32?"Deliver 32 fresh portions after arrival. Starting stores do not count.":null;
     public int ChallengeNeighborsFed=>Challenge?.Meals.Count(p=>p.Value>=2)??0;
-    public string? ChallengeInvitationProblem()=>Challenge is not {} c?"No newcomer challenge.":c.InvitedAt!=null?"The invitation is already sent.":
+    public string? ChallengeInvitationProblem()=>Challenge is {Restoration:true}?"Restore this village first; growth is optional after continuing.":Challenge is not {} c?"No newcomer challenge.":c.InvitedAt!=null?"The invitation is already sent.":
         SpareBeds<4?"Finish four spare beds for the newcomers.":DeliveredEdible<16?"Deliver 16 locally produced food portions; starting provisions do not count.":
         EdibleStored<32?"Keep 32 food portions ready for the larger village.":People.Any(p=>!p.Fed)?"Restore meals for current residents before inviting more.":
         ArrivalSpots().Length<2?"Clear the arrival path beside the yard.":null;
@@ -58,6 +59,7 @@ public sealed partial class World
     private void AdvanceNewcomerChallenge()
     {
         if(Challenge is not {} c || c.Complete)return;
+        if(c.Restoration){if(RestorationProblem()==null){c.Complete=true;History.Add("The village is restored: twelve residents housed and fed, with food for two more meals. Keep building when you choose.");}return;}
         if(c.InvitedAt is float at && !c.Arrived && Food.Time>=at+30)
         {
             var names=new[]{"Jeanne","Pierre","Marguerite","Louis"};
@@ -72,11 +74,17 @@ public sealed partial class World
     }
     private void RecordChallengeMeal(Villager person)
     {
+        if(Challenge is {Restoration:true,Complete:false} restore && person.Id<12){restore.Meals[person.Id]=Math.Min(2,restore.Meals.GetValueOrDefault(person.Id)+1);return;}
         if(Challenge is {Arrived:true,Complete:false} c && person.Id>=12)c.Meals[person.Id]=Math.Min(2,c.Meals.GetValueOrDefault(person.Id)+1);
     }
     private void ValidateNewcomerChallenge()
     {
         if(Challenge is not {} c)return;
+        if(c.Restoration)
+        {
+            if(PublicPlace==null || !c.Repair || c.InvitedAt!=null || c.Arrived || (c.Continuing?Population<12:Population!=12) || c.Meals==null || c.Meals.Any(p=>p.Key is <0 or >=12 || p.Value is <1 or >2) || c.Complete && RestorationFed!=12 || c.Continuing && !c.Complete)throw new InvalidOperationException("Invalid restoration challenge");
+            return;
+        }
         if(PublicPlace==null || (c.Continuing?Population<16:Population!=(c.Arrived?16:12)) || c.InvitedAt is float at && (!float.IsFinite(at) || at<0 || at>Food.Time) ||
             c.Arrived && c.InvitedAt==null || c.DeliveryBaseline<0 || c.DeliveryBaseline>DeliveredEdible || c.Meals==null ||
             c.Meals.Any(p=>p.Key<12 || p.Key>=16 || p.Value is <1 or >2) || c.Complete && (!c.Arrived || ChallengeNeighborsFed!=4 || ChallengeDeliveries<32) || c.Continuing && !c.Complete)

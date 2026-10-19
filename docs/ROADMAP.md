@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint228:** After the flood is a public non-growing restoration challenge: twelve residents, eight beds, cut-off fields and24 food. Restore reachable homes, two actual meals each, current meal service and24 remaining food; separate save/restart/continuation. Both-mode crossing and relocation win at123–142 simulated seconds and remain fully fed at600s; equal-horizon no-intervention controls retain8 housed and empty food, with missed meals. Native entry/recovery/save/completed continuation passes; inspected screenshot caught and corrected newcomer copy; final build passes. Short prototype, not proven campaign depth. Next compare an intermediate-island decision rather than longer quotas.
+
 **Checkpoint227:** Challenge status now names the actual remaining housing, meal or fresh-delivery blocker; recovery opens housing choices, the affected resident or food production. Invite/recovery controls precede long progress text. Synthetic hidden-delivery/housing cases pass; native compact entry, save/Continue, crossing recovery, real food delivery and resident follow at960/1440 pass. Next compare a non-growing restoration commission; no deeper-campaign claim yet.
 
 **Checkpoint226:** Automatic grain production now buffers at least one crop or two bread portions per resident; explicit caps remain available and recoverable. Economy shows grain as an oven ingredient and links its supply. Actual farm stops at six grain without an oven, then real bread is baked after adding one; cap switching and exact save pass; zero-warning final build. Next surface the actual challenge blocker and route its recovery action.

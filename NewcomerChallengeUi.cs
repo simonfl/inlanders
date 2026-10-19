@@ -12,15 +12,15 @@ public partial class Game
     private World? _challengeObservedWorld;
     private bool _challengeSawArrival,_challengeSawCompletion;
     private Button _challengeInvite=null!,_challengeContinue=null!,_challengeLeave=null!;
-    private bool _challengeRelaxed,_challengeRepair;
+    private bool _challengeRelaxed,_challengeRepair,_challengeRestoration;
     private void ChallengeMenu()
     {
-        MenuPage(_challengeRepair?"The far-bank fields":"A place for newcomers");
-        MenuButton(_challengeRepair?"Situation: cut-off fields · change":"Situation: first settlement · change",()=>{_challengeRepair=!_challengeRepair;ChallengeMenu();});
-        _mainColumn.AddChild(Text(_challengeRepair?"Two existing fields are cut off by a river channel. Reconnect them, move cultivation onto the crowded home bank, or build a different food supply. Prepare homes and invite four newcomers when ready.":"Four neighbors seek a home beside a crowded inlet. A small kitchen garden is not enough for the larger village. Expand toward the northern meadow, improve a crossing, or rearrange the home bank. Choose your own food sources.",17,true));
+        MenuPage(_challengeRestoration?"After the flood":_challengeRepair?"The far-bank fields":"A place for newcomers");
+        MenuButton(_challengeRestoration?"Situation: restore the village · change":_challengeRepair?"Situation: cut-off fields · change":"Situation: first settlement · change",()=>{if(_challengeRestoration){_challengeRestoration=false;_challengeRepair=false;}else if(_challengeRepair)_challengeRestoration=true;else _challengeRepair=true;ChallengeMenu();});
+        _mainColumn.AddChild(Text(_challengeRestoration?"A flood took two homes and cut off working fields. Twelve residents remain. Rebuild homes and recover a food supply through crossings, relocation or another livelihood. No newcomers or mandatory building recipe.":_challengeRepair?"Two existing fields are cut off by a river channel. Reconnect them, move cultivation onto the crowded home bank, or build a different food supply. Prepare homes and invite four newcomers when ready.":"Four neighbors seek a home beside a crowded inlet. A small kitchen garden is not enough for the larger village. Expand toward the northern meadow, improve a crossing, or rearrange the home bank. Choose your own food sources.",17,true));
         MenuButton(_challengeRelaxed?"Mode: Relaxed · change":"Mode: Normal · change",()=>{_challengeRelaxed=!_challengeRelaxed;ChallengeMenu();});
-        _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":"Real building materials, shared labor and recoverable food shortages. No deadline. Invitation starts a 30-second arrival journey.",14,true));
-        var profile=new HamletProfile(_challengeRelaxed,Newcomers:true,Repair:_challengeRepair);
+        _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":_challengeRestoration?"Real materials and meals; shortages are recoverable. Two meals of provisions, eight beds for twelve people. No deadline.":"Real building materials, shared labor and recoverable food shortages. No deadline. Invitation starts a 30-second arrival journey.",14,true));
+        var profile=new HamletProfile(_challengeRelaxed,Newcomers:true,Repair:_challengeRepair,Restoration:_challengeRestoration);
         string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
         if(File.Exists(path))MenuButton("Resume challenge",()=>MenuAttempt(()=>{EnterFromMenu(World.LoadFile(path));ToggleDrawer(2);}));
         void Start()=>MenuAttempt(()=>{var w=profile.Create();w.SaveFile(path);EnterFromMenu(w);ToggleDrawer(2);});
@@ -29,7 +29,7 @@ public partial class Game
     }
     private Villager? ChallengePerson()=>_world.People.FirstOrDefault(_world.ChallengeNeedsHome) ?? _world.People.FirstOrDefault(p=>!p.Fed) ??
         _world.People.FirstOrDefault(p=>p.Id is >=12 and <16 && (_world.Challenge?.Meals.GetValueOrDefault(p.Id)??0)<2) ??
-        _world.People.FirstOrDefault(p=>p.Id==12);
+        (_world.Challenge?.Restoration==true?_world.People.FirstOrDefault(p=>(_world.Challenge.Meals.GetValueOrDefault(p.Id))<2)??_world.People.FirstOrDefault():_world.People.FirstOrDefault(p=>p.Id==12));
     private void MakeChallengeUi(VBoxContainer column)
     {
         _challengeGoals=new();column.AddChild(_challengeGoals);
@@ -45,8 +45,8 @@ public partial class Game
         _challengeContinue=Button("Challenge complete · continue building",()=>{_world.Challenge!.Continuing=true;SaveWorld();CloseDrawer();_paused=false;});_challengeGoals.AddChild(_challengeContinue);
         _challengeLeave=Button("Save and leave",ReturnToMainMenu);_challengeGoals.AddChild(_challengeLeave);_challengeGoals.Hide();
     }
-    private bool ChallengeHousingFirst=>_world.Challenge is {InvitedAt:null} && _world.SpareBeds<4;
-    private bool ChallengePersonFirst=>_world.Challenge is {Arrived:true} && (_world.ChallengeHoused<_world.Population || _world.People.Any(p=>!p.Fed) || _world.ChallengeNeighborsFed<4);
+    private bool ChallengeHousingFirst=>_world.Challenge is {Restoration:true} ? _world.ChallengeHoused<12 : _world.Challenge is {InvitedAt:null} && _world.SpareBeds<4;
+    private bool ChallengePersonFirst=>_world.Challenge is {Restoration:true} ? _world.People.Any(p=>!p.Fed) || _world.RestorationFed<12 : _world.Challenge is {Arrived:true} && (_world.ChallengeHoused<_world.Population || _world.People.Any(p=>!p.Fed) || _world.ChallengeNeighborsFed<4);
     private void RecoverChallenge()
     {
         if(ChallengeHousingFirst){ToggleDrawer(1);_buildingFilter.Select(BuildingCategory(BuildingKind.Cottage));SelectBuildSection(0);return;}
@@ -56,6 +56,7 @@ public partial class Game
     private void UpdateChallengeUi()
     {
         var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
+        if(c.Restoration){UpdateRestorationUi();return;}
         if(_challengeObservedWorld!=_world){_challengeObservedWorld=_world;_challengeSawArrival=c.Arrived;_challengeSawCompletion=c.Complete;}
         else
         {
@@ -75,6 +76,7 @@ public partial class Game
             $"SETTLING IN\nReachable homes: {_world.ChallengeHoused}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh deliveries: {Math.Min(32,_world.ChallengeDeliveries)}/32\nEveryone fed: {_world.People.Count(p=>p.Fed)}/16\n\n{_world.ChallengeSettlingProblem()??"Ready to finish."}\nMeals and deliveries keep their progress.";
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave. After continuing, use People to welcome more neighbors when you choose.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";
+        _challengeContinue.Text="Challenge complete · continue building";
         _challengeContinue.Visible=c.Complete && !c.Continuing;_challengeLeave.Visible=c.Complete;
         _menuButtons[2].Text=_world.ChallengeStatus;
         _menuButtons[2].TooltipText="Your objective and progress [G]";
