@@ -25,6 +25,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 
 229. **Done** — Flood restoration now has two channels: opening an island enables cultivation there or a second crossing to old fields. Normal second decisions occur47s after start, or141s after a90s delayed start; Relaxed construction is instant. Six both-mode crossing/island/delayed-island branches finish121–198s and retain12 housed/fed at360s, with exact save continuation. Native entry/current completion and inspected whole scene pass. Compact comparison JSON and first-island snapshots record timing/evidence. Still short, scripted and not proof of enjoyment. Next make scenario geography/purpose legible before starting, then full230 review.
 
+230. **Done** — Challenge selection shows an actual starting-map preview, homes/food/logs and distinct introduction/repair/restoration purpose. Preview remains separate from the play world and disappears outside the menu. Native960/1440 preview, entry, housing action, separate save and completed continuation pass; stills inspected and background bleed corrected; final build passes. Nine authorized outcomes222–230 complete: freeze this build for all five independent whole-game reviewers before231.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

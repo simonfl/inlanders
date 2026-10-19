@@ -21,6 +21,7 @@ public partial class Game
         MenuButton(_challengeRelaxed?"Mode: Relaxed · change":"Mode: Normal · change",()=>{_challengeRelaxed=!_challengeRelaxed;ChallengeMenu();});
         _mainColumn.AddChild(Text(_challengeRelaxed?"Free construction; real work and meals, with no hunger penalty.":_challengeRestoration?"Real materials and meals; shortages are recoverable. Two meals of provisions, eight beds for twelve people. No deadline.":"Real building materials, shared labor and recoverable food shortages. No deadline. Invitation starts a 30-second arrival journey.",14,true));
         var profile=new HamletProfile(_challengeRelaxed,Newcomers:true,Repair:_challengeRepair,Restoration:_challengeRestoration);
+        ShowChallengeMap(profile);
         string path=Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,profile.SaveName);
         if(File.Exists(path))MenuButton("Resume challenge",()=>MenuAttempt(()=>{EnterFromMenu(World.LoadFile(path));ToggleDrawer(2);}));
         void Start()=>MenuAttempt(()=>{var w=profile.Create();w.SaveFile(path);EnterFromMenu(w);ToggleDrawer(2);});

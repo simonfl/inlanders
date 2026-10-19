@@ -33,12 +33,13 @@ public partial class Game
     private void LayoutMainMenu()
     {
         _mainPanel.Position = new(40, 40); _mainPanel.Size = new(400, Math.Max(400, _mainMenu.Size.Y - 80));
-        LayoutMenuArt();
+        LayoutMenuArt();LayoutChallengeMap();
         var focus=GetViewport().GuiGetFocusOwner();
         if(_atMainMenu && focus!=null && _mainColumn.IsAncestorOf(focus))RevealMenuFocusAfterLayout(focus,_menuPageRevision);
     }
     private void MenuPage(string title)
     {
+        _challengeMapPanel?.Hide();
         _menuControls.Clear();_menuBack=null;_menuPageTitle=title;
         int revision=++_menuPageRevision;Callable.From(()=>FocusMenuPage(revision)).CallDeferred();
         foreach (var child in _mainColumn.GetChildren()) { _mainColumn.RemoveChild(child); child.QueueFree(); }

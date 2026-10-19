@@ -13,7 +13,12 @@ public partial class Game
             _creativeSavePath=Path.Combine(dir,"creative.json");_continuePath=Path.Combine(dir,"continue.json");
             GetWindow().Size=new(960,640);MakeMainMenu();
             await UiClick(_mainButtons["Play challenge"]);await UiClick(_mainButtons["Situation: first settlement · change"]);await UiClick(_mainButtons["Situation: cut-off fields · change"]);
+            if(_challengeMapPanel?.IsVisibleInTree()!=true || !_challengeMapSummary.Text.Contains("8 beds"))throw new Exception("Scenario map/start conditions missing");
+            await Capture("artifacts/restoration/menu-960.png");
+            GetWindow().Size=new(1440,900);for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            await Capture("artifacts/restoration/menu-1440.png");GetWindow().Size=new(960,640);
             await UiClick(_mainButtons["New challenge"]);
+            if(_challengeMapPanel.IsVisibleInTree())throw new Exception("Menu map leaked into play");
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             if(_world.Challenge?.Restoration!=true || _challengeInvite.Visible || !CurrentSavePath.Contains("restoration-challenge") || !_challengeProgress.Text.Contains("No new arrivals"))throw new Exception("Restoration entry unclear");
             _paused=true;await Capture("artifacts/restoration/entry-960.png");
