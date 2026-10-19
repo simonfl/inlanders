@@ -7,7 +7,12 @@ Authorized October 18, 2026: “do 10 rounds.” Deliver ten committed playable 
 213. **Done** — Ordinary timber now opens area renewal of existing trees; planting bare ground is explicit. Cancel/apply retain the supplied project and view. Pure selection and all six Normal/Relaxed woodland intent checks pass; native area action and return pass. Next: complete the newcomer challenge.
 214. **Done** — Complete newcomer challenge is playable: prepare, invite, actual arrivals/homes/two meals and fresh deliveries, explicit success and continued building. Normal/Relaxed simulations finish at291/241 simulated seconds; native entry/save/Continue/completion pass. This remains a short baseline, not a proven substantial challenge; 215 changes the spatial situation before review.
 215. **Done** — Challenge now uses a crowded inlet with retained kitchen garden, northern growing ground and an optional crossing. North-bank fields/homes and compact-bank fishing/cultivation both complete in Normal/Relaxed with real work and exact saves; 197–259 simulated seconds. Native inlet entry/completion pass. This is still brief and not evidence of sustained challenge; pause for the full-game review before216.
-216–220. Select after review 215. Candidate needs: meaningful spatial tradeoffs, invitation/arrival clarity, completion and continuation, challenge/free-play entry, balance and recovery. Do not count tests/foundations alone or stretch a single outcome into multiple checkpoints.
+[Review215](REVIEW_CHECKPOINT_215.md): all five partially convincing. Keep challenge-led direction; current slice is only a short introduction. Positive building-grouping feedback likely concerns catalogue categories, not proven spatial-group preference.
+216. Selected — coherent objective/invitation flow: full success contract, actual remaining blockers, priority over generic free-play tools. Prepare minimum/poor-arrangement comparisons alongside it.
+217. Selected direction — implement the practical challenge change chosen by minimum/repair comparison; no larger waiting quota or validation-only count.
+218. Selected direction — resolve a demonstrated recovery obstruction through ordinary actions and actual restored use.
+219. Selected direction — coherent challenge versus secondary free-play entry and continued village life after success.
+220. Select the largest remaining observed playable weakness, then whole-game review with visual/audio; stop after220.
 
 ## Earlier direction and historical authorizations
 

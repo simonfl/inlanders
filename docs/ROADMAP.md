@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Review215:** [whole-game synthesis](REVIEW_CHECKPOINT_215.md) retains the challenge-led correction but rejects claiming sustained challenge from a 197–259 simulated-second solver. Prioritize one complete objective flow and a minimum-intervention/repair comparison; deepen or replace the situation rather than raise quotas. Catalogue grouping is liked; spatial group manipulation remains unproven. Scope216–220 is evidence-led.
+
 **Checkpoint 215:** Challenge now uses a crowded inlet with retained kitchen garden, northern growing ground and an optional crossing. North-bank fields/homes and compact-bank fishing/cultivation both complete in Normal/Relaxed with real work and exact saves; 197–259 simulated seconds. Native inlet entry/completion pass. This is still brief and not evidence of sustained challenge; pause for the full-game review before216.
 
 **Checkpoint 214:** Complete newcomer challenge is playable: prepare, invite, actual arrivals/homes/two meals and fresh deliveries, explicit success and continued building. Normal/Relaxed simulations finish at291/241 simulated seconds; native entry/save/Continue/completion pass. This remains a short baseline, not a proven substantial challenge; 215 changes the spatial situation before review.
