@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 212:** Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
+
 **Active 211–220 batch:** authorized October 18. 211 delivers one automatic public workforce without interrupting current jobs. Next: explain genuine inactivity, then area timber and the newcomer challenge; review the whole game at 215 before choosing the remaining scope. No claim of human acceptance.
 
 **Completed-playtest decision (October 18): challenges become the primary game.** The user liked building grouping and grove renewal, but found the job/shared-worker distinction confusing and free tending pointless without a goal. [Strategic synthesis](CHALLENGE_REVIEW_210.md) replaces the previous free-play-first direction: prototype one meaningful newcomer-settlement challenge, with automatic useful work, visible outcomes and freedom in how to solve it. Keep free play secondary. Fishing may intentionally rest when food reserves suffice; manual assignment is not required to activate the dock, and the actual idle cause remains unverified. Keep the liked tools, simplify public staffing, and make blocked work versus sufficient reserves clear. Do not restore archived service assessments or add needs to manufacture challenge.

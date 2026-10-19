@@ -3,7 +3,7 @@
 Authorized October 18, 2026: “do 10 rounds.” Deliver ten committed playable outcomes, full-game reviews at 215 and 220, visual/audio at 220 and after substantial presentation changes; stop after 220. This supersedes the previous stop. Follow the completed-playtest challenge direction and adjust scope after every outcome.
 
 211. **Done** — Public village work is automatic: ordinary profession/dedication controls are hidden; existing fixed assignments can return to the shared pool without interrupting committed work. Normal/Relaxed at-sea catch, delivery, meal and exact saved continuation checks passed; zero-warning build. Native UI review follows with the complete slice.
-212. Proposed — truthful food/workforce inactivity and blocker reporting, using actual dispatch evidence.
+212. **Done** — Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
 213. Proposed — area harvest-and-renew as ordinary timber supply, preserving project context.
 214. Proposed — complete newcomer challenge: purpose, preparation, arrival and actual settlement.
 215. Proposed — choose and recover different food/layout strategies within the challenge; whole-game review before further work.

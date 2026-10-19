@@ -61,21 +61,35 @@ public sealed partial class World
     public bool ProvisionedLife => Founding?.ProvisionedLife==true;
     public bool FoodWorkNeeded => !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
     private bool SharedTimberNeeded => Stored<Math.Min(24,8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs)));
+    // Development-only observations of the actual dispatch path; never saved or used to choose work.
+    public bool TraceSharedWork { get; set; }
+    public System.Collections.Generic.Dictionary<int,string[]> WorkDecisions { get; }=new();
+    public string WorkforceSummary()
+    {
+        int available=People.Count(p=>p.Task==Work.Waiting);
+        int personal=People.Count(p=>p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure or Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal);
+        return $"{Population-available-personal} working or travelling · {personal} eating or resting · {available} available\n"+
+            (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
+    }
     private void ClaimSharedWork(Villager person)
     {
+        var decisions=TraceSharedWork?new System.Collections.Generic.List<string>():null;
+        if(decisions!=null)WorkDecisions[person.Id]=System.Array.Empty<string>();
+        void Record(string reason){if(decisions!=null){decisions.Add(reason);WorkDecisions[person.Id]=decisions.ToArray();}}
         person.Role=Role.Unassigned;
         int capacity=Math.Max(1,(Population+2)/3);
         bool Try(Role role)
         {
-            if(People.Count(p=>p.Id!=person.Id && p.Role==role)>=capacity)return false;
+            if(People.Count(p=>p.Id!=person.Id && p.Role==role)>=capacity){Record(role+": profession capacity claimed");return false;}
             person.Role=role;ClaimProfessionWork(person);
-            if(person.Task!=Work.Waiting)return true;
+            if(person.Task!=Work.Waiting){Record(role+": "+person.Status);return true;}
+            Record(role+": "+person.Status);
             person.Role=Role.Unassigned;return false;
         }
         bool FoodWork()
         {
-            if(!FoodWorkNeeded && !Cottages.Any(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && EstablishmentWork(c)))return false;
-            if(People.Count(p=>FoodRole(p.Role))>=Math.Max(1,(Population+1)/2))return false;
+            if(!FoodWorkNeeded && !Cottages.Any(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && EstablishmentWork(c))){Record("Food: reserve sufficient");return false;}
+            if(People.Count(p=>FoodRole(p.Role))>=Math.Max(1,(Population+1)/2)){Record("Food: worker capacity claimed");return false;}
             foreach(var role in new[]{Role.Baker,Role.Forager,Role.Farmer,Role.Fisher,Role.Hunter}
                 .OrderBy(r=>People.Count(p=>p.Role==r)))if(Try(role))return true;
             return false;
