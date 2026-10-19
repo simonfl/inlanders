@@ -28,6 +28,8 @@ public partial class Game
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             if(_world.Challenge?.Restoration!=true || _challengeInvite.Visible || !CurrentSavePath.Contains("restoration-challenge") || !_challengeProgress.Text.Contains("No new arrivals"))throw new Exception("Restoration entry unclear");
             _paused=true;await Capture("artifacts/restoration/entry-960.png");
+            await UiClick(_recoveryFood);if(_tabs.CurrentTab!=1)throw new Exception("Food recovery action failed");
+            ToggleDrawer(2);UpdateHud();for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             await UiClick(_challengeRecover);if(_tabs.CurrentTab!=1)throw new Exception("Housing recovery did not open catalogue");
             ToggleDrawer(0);UpdateHud();for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _drawerPages[0].EnsureControlVisible(_foodFirst);await UiClick(_foodFirst);

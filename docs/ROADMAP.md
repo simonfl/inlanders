@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint236:** Restoration exposes independent housing and food-supply actions, plus recent deliveries versus meal demand so an undersized livelihood can be recognized. Compacted progress and reduced unnecessary opening actions; hungry residents remain directly inspectable. Native960 food/housing navigation, work focus, crop order and save/continue pass; image inspected. Next show construction commitments before placing another order, supporting deliberate food-versus-expansion investment.
+
 **Checkpoint235:** Players can prioritize food reserves over starting expansion jobs while automatic labor, urgent meal protection and existing commitments remain intact. Normal/Relaxed scheduling, actual harvest delivery, no-interruption toggles and exact saves pass. Native People control and crop-order UI/save pass at960, alongside restoration entry/continue. Next expose food and housing as independent recovery choices instead of always prescribing housing first.
 
 **Checkpoint234:** Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.

@@ -8,7 +8,7 @@ public partial class Game
 {
     private VBoxContainer _challengeGoals=null!;
     private Label _challengeProgress=null!;
-    private Button _challengeAccess=null!,_challengeWatch=null!,_challengeRecover=null!;
+    private Button _challengeAccess=null!,_challengeWatch=null!,_challengeRecover=null!,_recoveryFood=null!;
     private World? _challengeObservedWorld;
     private bool _challengeSawArrival,_challengeSawCompletion;
     private Button _challengeInvite=null!,_challengeContinue=null!,_challengeLeave=null!;
@@ -43,6 +43,7 @@ public partial class Game
         _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
         _challengeRecover=Button("",RecoverChallenge);_challengeGoals.AddChild(_challengeRecover);
+        _recoveryFood=Button("Choose food supply",()=>OpenFoodBuildings(0));_challengeGoals.AddChild(_recoveryFood);_challengeGoals.MoveChild(_recoveryFood,0);
         _challengeGoals.MoveChild(_challengeInvite,0);_challengeGoals.MoveChild(_challengeRecover,1);
         _challengeContinue=Button("Challenge complete · continue building",()=>{_world.Challenge!.Continuing=true;SaveWorld();CloseDrawer();_paused=false;});_challengeGoals.AddChild(_challengeContinue);
         _challengeLeave=Button("Save and leave",ReturnToMainMenu);_challengeGoals.AddChild(_challengeLeave);_challengeGoals.Hide();
@@ -57,7 +58,7 @@ public partial class Game
     }
     private void UpdateChallengeUi()
     {
-        var c=_world.Challenge;_challengeGoals.Visible=c!=null;if(c==null)return;
+        var c=_world.Challenge;_recoveryFood.Visible=c is {Restoration:true,Complete:false};_challengeGoals.Visible=c!=null;if(c==null)return;
         if(c.Restoration){UpdateRestorationUi();return;}
         if(_challengeObservedWorld!=_world){_challengeObservedWorld=_world;_challengeSawArrival=c.Arrived;_challengeSawCompletion=c.Complete;}
         else

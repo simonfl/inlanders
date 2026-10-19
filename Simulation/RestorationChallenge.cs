@@ -20,7 +20,11 @@ public sealed partial class World
         w.History.Clear();w.History.Add("The flood took two cottages and cut off the northern fields. Twelve neighbors remain, with eight beds and two meals of provisions. Rebuild homes and restore food for the people already here. A near crossing opens an island for cultivation or homes. Cross the second channel to recover the northern fields, establish new cultivation on opened ground, or choose another livelihood on the home bank. No new arrivals are required.");
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
+    public string RecoverySupplySummary
+    {
+        get{var flow=ReadFoodFlow();return $"Last {flow.Seconds:0}s: {flow.Delivered} food delivered / {flow.Required} meals needed. "+(flow.Seconds<60?"Still observing production; crops arrive in batches.":flow.Delivered<flow.Required?"Supply is falling behind. Expand or reconnect production; inspect access and paused work.":"Recent deliveries cover demand. Keep watching through the next crop.");}
+    }
     public int RestorationFed=>Challenge?.Meals.Count(p=>p.Key<12 && p.Value>=2)??0;
-    public string? RestorationProblem()=>ChallengeHoused<12?"Four displaced neighbors need reachable homes.":People.Any(p=>!p.Fed)?"Restore meals for residents who missed one.":RestorationFed<12?"Let all twelve residents eat two ordinary meals during recovery.":EdibleStored<24?"Keep 24 edible portions ready for the next two village meals.":null;
+    public string? RestorationProblem()=>ChallengeHoused<12?$"{12-ChallengeHoused} neighbors need reachable homes."+(People.Any(p=>!p.Fed)?" Some also need meals now; choose which recovery to prioritize.":""):People.Any(p=>!p.Fed)?"Restore meals for residents who missed one.":RestorationFed<12?"Let all twelve residents eat two ordinary meals during recovery.":EdibleStored<24?"Keep 24 edible portions ready for the next two village meals.":null;
     public string RestorationStatus=>Challenge?.Complete==true?"Restoration complete":ChallengeHoused<12?$"Rebuild · {ChallengeHoused}/12 housed":People.Any(p=>!p.Fed)?"Recovery · meals needed":RestorationFed<12?$"Recovery · {RestorationFed}/12 fed twice":$"Provisions · {Math.Min(24,EdibleStored)}/24";
 }
