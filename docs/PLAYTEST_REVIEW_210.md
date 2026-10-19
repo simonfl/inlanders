@@ -1,5 +1,7 @@
 # Playtest feedback after checkpoint 210
 
+**Later same-session update:** the completed playtest found free tending pointless without objectives and staffing confusing. [The challenge review](CHALLENGE_REVIEW_210.md) supersedes this document's primary direction and ordering; the woodland and same-map findings remain valid.
+
 October 18, 2026. Immediate strategic review of fixed `b873c5e8ff52cdfdc77505e41f46ae363f0b5a5a`, prompted by the first human feedback after the batch. This is a design/documentation outcome, not checkpoint 211. No gameplay changes or new batch are included.
 
 ## Human evidence

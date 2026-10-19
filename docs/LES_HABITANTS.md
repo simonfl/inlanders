@@ -16,6 +16,8 @@ F13 seasons remains removed. The setting is not authorization for a seasonal sim
 
 ## The experience to test
 
+**Current primary contract, following the completed October 18 playtest:** authored settlement challenges supply a clear purpose, with freedom in layouts and livelihood choices. Building groups and renewable woodland help solve them; residents take needed work automatically. Free tending remains a secondary mode and continuation after success. [The checkpoint-210 challenge synthesis](CHALLENGE_REVIEW_210.md) selects one small newcomer scenario before further content. Growth can be that scenario's explicit premise without becoming a universal requirement. Prior open-ended experiments below remain useful ingredients, not the primary invitation.
+
 Read the land → establish cultivation and complementary food → connect homes and useful work → adjust an imperfect arrangement → improve the village or finish when satisfied.
 
 Farming should be visible and worthwhile. Fishing, foraging and woodland use can support a different mix without becoming compulsory stages. Do not impose a farmer quota, prohibit existing food sources, or globally nerf berries merely to force the story. Author a situation whose initial supply and useful ground actually leave a livelihood decision to make. Growth remains an option, not proof that a settlement is successful.

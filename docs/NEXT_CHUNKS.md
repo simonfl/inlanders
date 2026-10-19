@@ -1,3 +1,15 @@
+# Next direction — one complete challenge, automatic work
+
+The completed playtest changes the primary contract: the user liked building grouping and grove renewal, but found staffing confusing and play pointless without goals. [Full strategic synthesis](CHALLENGE_REVIEW_210.md) supersedes the earlier tidy-up-first queue below. No gameplay changes in this review; checkpoint remains **210**. No new ten-chunk batch is implied.
+
+1. **Resolve the labor contract while enabling the challenge.** Use a bounded dispatch trace to distinguish reserve-driven rest from blocked runnable work, including the reported fishing case. Ordinary public residents take needed work automatically; profession/dedication controls are not required building activation. Show actual current activity and causes of waiting. Preserve breaks and demand limits. Bring renewable area selection into ordinary timber supply with explicit intent and project return. Diagnostic foundations alone do not count as a playable outcome.
+2. **Build one end-to-end newcomer challenge.** A small arriving group needs reachable homes and continuing food. Use geography to create real siting/rearrangement choices; retain building groups and alternative food sources. Define transparent completion from actual arrivals, housing and supply/use before implementation. Normal and Relaxed share the visible purpose. No compulsory venue, production recipe, hidden service window or deadline by default. Demonstrate two viable arrangements and a recoverable mistake; tune real choices rather than lengthening waiting. Exact balance and duration TBD.
+3. **Present and evaluate the complete experience.** Challenge is the primary entry; free play is secondary, with the duplicate river starts consolidated as setup options. Show clear success and Continue building. Obtain internal whole-slice evidence before another human test. If it is just a tutorial/checklist or unexplained waiting, redesign it before adding another level. Self-supporting arrival and spatial repair are documented alternatives.
+
+Count committed playable outcomes honestly; tests/documentation do not advance checkpoints. Continue five-outcome whole-game review cadence when implementation resumes. No new needs, inheritance, seasons, compulsory universal growth or save migrations. No automatic catalogue or prop expansion.
+
+## Earlier proposal, superseded by completed playtest
+
 # Current proposed scope — human feedback after 210
 
 The user has now playtested: individual tree permission is tedious, Harvest & renew grove was enjoyable but hidden, and the two public starts appear identical. They share the same map and homes. [Immediate strategic synthesis](PLAYTEST_REVIEW_210.md) replaces the request to replay these as distinct experiences. Checkpoint count remains **210**; this is planning, not another implementation batch.
