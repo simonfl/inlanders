@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint227:** Challenge status now names the actual remaining housing, meal or fresh-delivery blocker; recovery opens housing choices, the affected resident or food production. Invite/recovery controls precede long progress text. Synthetic hidden-delivery/housing cases pass; native compact entry, save/Continue, crossing recovery, real food delivery and resident follow at960/1440 pass. Next compare a non-growing restoration commission; no deeper-campaign claim yet.
+
 **Checkpoint226:** Automatic grain production now buffers at least one crop or two bread portions per resident; explicit caps remain available and recoverable. Economy shows grain as an oven ingredient and links its supply. Actual farm stops at six grain without an oven, then real bread is baked after adding one; cap switching and exact save pass; zero-warning final build. Next surface the actual challenge blocker and route its recovery action.
 
 **Checkpoint225:** Ripe crops and in-progress bread now finish above the food reserve without opening replacement crops/batches. Corrected dispatch and workplace eligibility gates; Normal/Relaxed actual crop collection and exact save continuation pass, zero-warning build. Reserve supply navigation also now inspects an existing mill (native verified) rather than always offering another. Next bound grain as an ingredient and expose its purpose.

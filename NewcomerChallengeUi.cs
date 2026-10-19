@@ -8,7 +8,7 @@ public partial class Game
 {
     private VBoxContainer _challengeGoals=null!;
     private Label _challengeProgress=null!;
-    private Button _challengeAccess=null!,_challengeWatch=null!;
+    private Button _challengeAccess=null!,_challengeWatch=null!,_challengeRecover=null!;
     private World? _challengeObservedWorld;
     private bool _challengeSawArrival,_challengeSawCompletion;
     private Button _challengeInvite=null!,_challengeContinue=null!,_challengeLeave=null!;
@@ -27,7 +27,7 @@ public partial class Game
         MenuButton("New challenge",()=>{if(File.Exists(path))ConfirmMenu("Begin again?","Replace this challenge?",Start,ChallengeMenu);else Start();});
         MenuButton("Back",ShowMainMenu);
     }
-    private Villager? ChallengePerson()=>_world.People.FirstOrDefault(p=>!p.Fed) ??
+    private Villager? ChallengePerson()=>_world.People.FirstOrDefault(_world.ChallengeNeedsHome) ?? _world.People.FirstOrDefault(p=>!p.Fed) ??
         _world.People.FirstOrDefault(p=>p.Id is >=12 and <16 && (_world.Challenge?.Meals.GetValueOrDefault(p.Id)??0)<2) ??
         _world.People.FirstOrDefault(p=>p.Id==12);
     private void MakeChallengeUi(VBoxContainer column)
@@ -40,9 +40,18 @@ public partial class Game
         _challengeWatch=Button("Find newcomers",()=>{var person=ChallengePerson();if(person==null)return;_noticeUntil=0;ShowDailyLife(person.Id);_followPerson=true;});_challengeGoals.AddChild(_challengeWatch);
         _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
-        _challengeGoals.AddChild(Button("Choose buildings",()=>{ToggleDrawer(1);SelectBuildSection(0);}));
+        _challengeRecover=Button("",RecoverChallenge);_challengeGoals.AddChild(_challengeRecover);
+        _challengeGoals.MoveChild(_challengeInvite,0);_challengeGoals.MoveChild(_challengeRecover,1);
         _challengeContinue=Button("Challenge complete · continue building",()=>{_world.Challenge!.Continuing=true;SaveWorld();CloseDrawer();_paused=false;});_challengeGoals.AddChild(_challengeContinue);
         _challengeLeave=Button("Save and leave",ReturnToMainMenu);_challengeGoals.AddChild(_challengeLeave);_challengeGoals.Hide();
+    }
+    private bool ChallengeHousingFirst=>_world.Challenge is {InvitedAt:null} && _world.SpareBeds<4;
+    private bool ChallengePersonFirst=>_world.Challenge is {Arrived:true} && (_world.ChallengeHoused<_world.Population || _world.People.Any(p=>!p.Fed) || _world.ChallengeNeighborsFed<4);
+    private void RecoverChallenge()
+    {
+        if(ChallengeHousingFirst){ToggleDrawer(1);_buildingFilter.Select(BuildingCategory(BuildingKind.Cottage));SelectBuildSection(0);return;}
+        if(ChallengePersonFirst && ChallengePerson() is {} person){ShowDailyLife(person.Id);_followPerson=true;return;}
+        OpenFoodBuildings(_world.Cottages.Any(b=>World.ProductionOutput(b.Kind) is {} r && World.EdibleKinds.Contains(r))?2:0);
     }
     private void UpdateChallengeUi()
     {
@@ -54,6 +63,8 @@ public partial class Game
             if(c.Complete && !_challengeSawCompletion)Notice("The newcomers have settled. Challenge complete — keep building or save and leave through Challenge [G].");
             _challengeSawArrival=c.Arrived;_challengeSawCompletion=c.Complete;
         }
+        _challengeRecover.Visible=!c.Complete && (c.InvitedAt==null || c.Arrived);
+        _challengeRecover.Text=ChallengeHousingFirst?"Choose homes for four neighbors":ChallengePersonFirst && ChallengePerson() is {} next?"Inspect "+next.Name+(_world.ChallengeNeedsHome(next)?" · needs a reachable home":!next.Fed?" · missed a meal":" · settling in"):"Inspect food production";
         _challengeWatch.Visible=c.Arrived && !c.Continuing;
         if(ChallengePerson() is {} person)_challengeWatch.Text="Find "+person.Name+(person.Fed?c.Complete?" · settled":" · settling in":" · missed a meal");
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
@@ -65,7 +76,7 @@ public partial class Game
         _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave. After continuing, use People to welcome more neighbors when you choose.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";
         _challengeContinue.Visible=c.Complete && !c.Continuing;_challengeLeave.Visible=c.Complete;
-        _menuButtons[2].Text=c.Complete?"Challenge · complete":c.Arrived?$"Settling · {_world.ChallengeNeighborsFed}/4":c.InvitedAt!=null?"Neighbors on their way":_world.ChallengeInvitationProblem()==null?"Ready to invite four":"Challenge";
+        _menuButtons[2].Text=_world.ChallengeStatus;
         _menuButtons[2].TooltipText="Your objective and progress [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Challenge";
     }

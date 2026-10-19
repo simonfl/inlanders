@@ -19,6 +19,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 
 226. **Done** — Automatic grain production now buffers at least one crop or two bread portions per resident; explicit caps remain available and recoverable. Economy shows grain as an oven ingredient and links its supply. Actual farm stops at six grain without an oven, then real bread is baked after adding one; cap switching and exact save pass; zero-warning final build. Next surface the actual challenge blocker and route its recovery action.
 
+227. **Done** — Challenge status now names the actual remaining housing, meal or fresh-delivery blocker; recovery opens housing choices, the affected resident or food production. Invite/recovery controls precede long progress text. Synthetic hidden-delivery/housing cases pass; native compact entry, save/Continue, crossing recovery, real food delivery and resident follow at960/1440 pass. Next compare a non-growing restoration commission; no deeper-campaign claim yet.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

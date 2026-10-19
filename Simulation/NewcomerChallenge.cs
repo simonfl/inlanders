@@ -36,7 +36,10 @@ public sealed partial class World
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
     public int ChallengeDeliveries=>Challenge is {Arrived:true} c?Math.Max(0,DeliveredEdible-c.DeliveryBaseline):DeliveredEdible;
-    public int ChallengeHoused=>People.Count(p=>p.HomeId is int id && Cottages.Any(b=>b.Id==id && IsHome(b) && Accessible(b.Entrance)));
+    public bool ChallengeNeedsHome(Villager person)=>person.HomeId is not int id || !Cottages.Any(b=>b.Id==id && IsHome(b) && Accessible(b.Entrance));
+    public int ChallengeHoused=>People.Count(p=>!ChallengeNeedsHome(p));
+    public string ChallengeStatus=>Challenge is not {} c?"Challenge":c.Complete?"Challenge · complete":c.InvitedAt==null?(ChallengeInvitationProblem()==null?"Ready to invite four":"Challenge · preparing"):!c.Arrived?"Neighbors on their way":
+        ChallengeHoused<Population?$"Homes · {ChallengeHoused}/{Population}":People.Any(p=>!p.Fed)?"Meals need attention":ChallengeNeighborsFed<4?$"Settling · {ChallengeNeighborsFed}/4":ChallengeDeliveries<32?$"Fresh food · {ChallengeDeliveries}/32":"Settling";
     public string? ChallengeSettlingProblem()=>Challenge is not {Arrived:true}?"Wait for the newcomers to arrive.":
         ChallengeHoused<Population?"Some residents need an accessible finished home.":
         People.FirstOrDefault(p=>!p.Fed) is {} hungry?hungry.Name+" missed a meal. Restore their food access.":
