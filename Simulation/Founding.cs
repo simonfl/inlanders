@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class FoundingProgress
 {
+    public bool FoodFirst {get;set;}
     public NewcomerChallenge? Challenge {get;set;}
     public System.Collections.Generic.List<SharedCommons> SharedPlaces { get; set; } = new();
     public bool RiverLandscape { get; set; }

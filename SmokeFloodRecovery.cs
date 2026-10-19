@@ -29,12 +29,20 @@ public partial class Game
             if(_world.Challenge?.Restoration!=true || _challengeInvite.Visible || !CurrentSavePath.Contains("restoration-challenge") || !_challengeProgress.Text.Contains("No new arrivals"))throw new Exception("Restoration entry unclear");
             _paused=true;await Capture("artifacts/restoration/entry-960.png");
             await UiClick(_challengeRecover);if(_tabs.CurrentTab!=1)throw new Exception("Housing recovery did not open catalogue");
+            ToggleDrawer(0);UpdateHud();for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _drawerPages[0].EnsureControlVisible(_foodFirst);await UiClick(_foodFirst);
+            if(_world.Founding?.FoodFirst!=true)throw new Exception("Food focus UI failed");
+            CloseDrawer();var crop=_world.Cottages.First(c=>c.Kind==BuildingKind.VegetableField);ShowWorkplaceCard(crop.Id);
+            for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            _workCardScroll.EnsureControlVisible(_cropOrder);await UiClick(_cropOrder);
+            if(!crop.HarvestThenPause || crop.WorkPaused || !_workCardMove.Disabled)throw new Exception("Crop order/land-bound move UI failed");
+            if(!SaveSession() || !World.LoadFile(CurrentSavePath).Founding!.FoodFirst || !World.LoadFile(CurrentSavePath).Cottages.Single(c=>c.Id==crop.Id).HarvestThenPause)throw new Exception("Work orders not saved");
             if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Restoration!=true)throw new Exception("Restoration save");
             AdoptWorld(World.LoadFile("artifacts/restoration/False-bridge-complete.json"));ToggleDrawer(2);UpdateHud();
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _drawerPages[2].EnsureControlVisible(_challengeContinue);
             await UiClick(_challengeContinue);if(!_world.Challenge!.Continuing)throw new Exception("Restoration continue failed");
-            GD.Print("PASS native restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();
+            GD.Print("PASS native food-first and crop orders, land-bound move rejection, restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

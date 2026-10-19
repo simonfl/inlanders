@@ -59,6 +59,12 @@ public sealed partial class World
     }
     private static bool FoodRole(Role role)=>role is Role.Forager or Role.Farmer or Role.Baker or Role.Fisher or Role.Hunter;
     public bool ProvisionedLife => Founding?.ProvisionedLife==true;
+    public bool SetFoodFirst(bool enabled)
+    {
+        if(PublicPlace==null || Founding==null || Food.Celebrating)return false;
+        Founding.FoodFirst=enabled;_retry=0;
+        History.Add(enabled?"Food first: available workers replenish meals before expansion. Current jobs finish.":"Balanced work: urgent meals still come first; expansion can proceed before the full food reserve.");return true;
+    }
     public bool FoodWorkNeeded => Challenge is {Arrived:true,Complete:false} && ChallengeDeliveries<32 || !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
     public const int TimberReserve = 32;
     // Keep one small expansion ready, in addition to unfinished orders. Committed logging
@@ -114,7 +120,7 @@ public sealed partial class World
             }
             return false;
         }
-        if(EdibleStored<Population*3 && FoodWork())return;
+        if((EdibleStored<Population*3 || Founding?.FoodFirst==true) && FoodWork())return;
         if(Try(Role.Builder))return;
         // Replenish the working reserve and planned construction; do not harvest indefinitely.
         if((SharedTimberNeeded || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;

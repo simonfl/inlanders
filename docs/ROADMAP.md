@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint235:** Players can prioritize food reserves over starting expansion jobs while automatic labor, urgent meal protection and existing commitments remain intact. Normal/Relaxed scheduling, actual harvest delivery, no-interruption toggles and exact saves pass. Native People control and crop-order UI/save pass at960, alongside restoration entry/continue. Next expose food and housing as independent recovery choices instead of always prescribing housing first.
+
 **Checkpoint234:** Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.
 
 **Checkpoint233:** Blocked-field job searches now reuse reachability only during one worker claim, then discard it before world geometry can change. Same100-tick state is byte-identical; model time3.43 to0.63s, matched native1x simulation p95 160.3 to6.6ms and frame p95 181 to39.5ms. No persistent cache/invalidation framework. Six-route comparison rerunning; next allow harvesting a final crop before pausing production.

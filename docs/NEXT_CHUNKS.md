@@ -53,6 +53,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 234. **Done** — Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.
 
+235. **Done** — Players can prioritize food reserves over starting expansion jobs while automatic labor, urgent meal protection and existing commitments remain intact. Normal/Relaxed scheduling, actual harvest delivery, no-interruption toggles and exact saves pass. Native People control and crop-order UI/save pass at960, alongside restoration entry/continue. Next expose food and housing as independent recovery choices instead of always prescribing housing first.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
