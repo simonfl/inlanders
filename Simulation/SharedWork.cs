@@ -77,6 +77,7 @@ public sealed partial class World
         return $"{Population-available-personal} working or travelling · {personal} eating or resting · {available} available\n"+
             (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\n"+TimberReserveSummary+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
     }
+    private bool FinishFoodWork(Cottage site)=>site.Complete && !site.WorkPaused && !site.DemolitionRequested && (site.Harvest>0 || site.InputGrain>0 || site.OutputBread>0);
     private void ClaimSharedWork(Villager person)
     {
         var decisions=TraceSharedWork?new System.Collections.Generic.List<string>():null;
@@ -94,10 +95,14 @@ public sealed partial class World
         }
         bool FoodWork()
         {
-            if(!FoodWorkNeeded && !Cottages.Any(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && EstablishmentWork(c))){Record("Food: reserve sufficient");return false;}
+            if(!FoodWorkNeeded && !Cottages.Any(c=>c.Complete && !c.WorkPaused && !c.DemolitionRequested && (EstablishmentWork(c) || FinishFoodWork(c)))){Record("Food: reserve sufficient");return false;}
             if(People.Count(p=>FoodRole(p.Role))>=Math.Max(1,(Population+1)/2)){Record("Food: worker capacity claimed");return false;}
             foreach(var role in new[]{Role.Baker,Role.Forager,Role.Farmer,Role.Fisher,Role.Hunter}
-                .OrderBy(r=>People.Count(p=>p.Role==r)))if(Try(role))return true;
+                .OrderBy(r=>People.Count(p=>p.Role==r)))
+            {
+                if(!FoodWorkNeeded && !Cottages.Any(c=>Buildings.Get(c.Kind).Worker==role && c.Complete && !c.WorkPaused && !c.DemolitionRequested && (EstablishmentWork(c) || FinishFoodWork(c))))continue;
+                if(Try(role))return true;
+            }
             return false;
         }
         if(EdibleStored<Population*3 && FoodWork())return;

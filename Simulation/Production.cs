@@ -107,7 +107,7 @@ public sealed partial class World
         bool remaining = site.Harvest > 0 || site.InputGrain > 0 || site.OutputBread > 0 || site.InputLogs > 0 || site.OutputPlanks > 0;
         if(site.Kind==BuildingKind.Orchard && !remaining && site.Planted)return new(site.OrchardMature?"Fruit growing":"Trees establishing",$"{site.Growth:P0} · about {(1-site.Growth)*(site.OrchardMature?60:180):0}s until ripe. Automatic farmers can work elsewhere. Mature trees stay for repeat harvests.");
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
-        if(ProvisionedLife && !FoodWorkNeeded && !EstablishmentWork(site) && Buildings.Get(site.Kind).Worker is Role foodRole && FoodRole(foodRole) && !People.Any(p=>!p.SharedWorker && p.Role==foodRole && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id)))
+        if(ProvisionedLife && !remaining && !FoodWorkNeeded && !EstablishmentWork(site) && Buildings.Get(site.Kind).Worker is Role foodRole && FoodRole(foodRole) && !People.Any(p=>!p.SharedWorker && p.Role==foodRole && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id)))
             return new("Provisions ready", $"Enough food stored: {EdibleStored} portions for {Population} residents. No fisher or farmer assignment is needed; automatic food work resumes below {Population*4} portions or when someone needs a meal.", RestingForFood:true);
         if(ProvisionedLife && !remaining && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone)
         {

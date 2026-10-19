@@ -15,6 +15,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 
 224. **Done** — Ordinary sawmill/quarry cards now distinguish full village reserves from an explicit manual cap and offer direct return to automatic demand. Native cap explanation and actual recovery action pass alongside Normal/Relaxed reserve/supply checks. Next finish committed food crops/batches without starting needless replacements.
 
+225. **Done** — Ripe crops and in-progress bread now finish above the food reserve without opening replacement crops/batches. Corrected dispatch and workplace eligibility gates; Normal/Relaxed actual crop collection and exact save continuation pass, zero-warning build. Reserve supply navigation also now inspects an existing mill (native verified) rather than always offering another. Next bound grain as an ingredient and expose its purpose.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

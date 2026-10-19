@@ -35,7 +35,10 @@ public partial class Game
             if(_world.ReadWorkplace(mill).State!="Manual stock cap" || !_workCardAutoTarget.Visible)throw new Exception("Manual cap not actionable");
             await UiClick(_workCardAutoTarget);
             if(!mill.AutomaticOutputTarget || _world.EffectiveOutputTarget(mill)!=24)throw new Exception("Automatic target recovery failed");
-            GD.Print("PASS ordinary workplace card restores automatic material target.");
+            ToggleDrawer(4);UpdateHud();await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            await UiClick(_reserveButtons[Inlanders.Simulation.Resource.Planks]);
+            if(_workCardSite!=mill.Id || _placing)throw new Exception("Economy failed to inspect existing mill");
+            GD.Print("PASS ordinary workplace card restores automatic material target; Economy inspects existing mill.");
             AdoptWorld(World.NewRiverLivelihood());_paused=true;
             var project=_world.Place(new(0,0),0,BuildingKind.Cottage)!;ShowWorkplaceCard(project.Id);RememberSupplyOrigin();
             var originalFocus=_focus;BeginEverydayTimber();

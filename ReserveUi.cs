@@ -1,6 +1,7 @@
 using Godot;
 using Inlanders.Simulation;
 using System.Collections.Generic;
+using System.Linq;
 using Resource=Inlanders.Simulation.Resource;
 public partial class Game
 {
@@ -15,11 +16,18 @@ public partial class Game
         foreach(var material in new[]{Resource.Logs,Resource.Planks,Resource.Stone})
         {
             var item=material;
-            var button=Button("",()=>OpenMaterialSupply(item));
+            var button=Button("",()=>OpenReserveSupply(item));
             button.AutowrapMode=TextServer.AutowrapMode.WordSmart;
             _reserveButtons[item]=button;_reserves.AddChild(button);
         }
         _reserves.AddChild(Text("Material targets include queued construction. Stock is not necessarily unreserved or nearby. Select a material to inspect its supply; current jobs finish even when the target is reached.",13,true));
+    }
+    private void OpenReserveSupply(Resource material)
+    {
+        var kind=World.SupplyProducerKind(material);
+        var existing=_world.Cottages.Where(c=>c.Kind==kind && !c.DemolitionRequested).OrderByDescending(c=>c.Complete).ThenBy(c=>c.WorkPaused).ThenBy(c=>c.Id).FirstOrDefault();
+        if(existing!=null){_focus=BuildingPosition(existing);UpdateCamera();ShowWorkplaceCard(existing.Id);return;}
+        ClearSelection();OpenMaterialSupply(material);
     }
     private void UpdateReserveUi()
     {

@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--food-finish")){try{FoodFinishChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--material-reserves")){try{MaterialReserveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--timber-reserve")){try{TimberReserveChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-observation")){try{ChallengeObservationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

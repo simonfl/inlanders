@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint225:** Ripe crops and in-progress bread now finish above the food reserve without opening replacement crops/batches. Corrected dispatch and workplace eligibility gates; Normal/Relaxed actual crop collection and exact save continuation pass, zero-warning build. Reserve supply navigation also now inspects an existing mill (native verified) rather than always offering another. Next bound grain as an ingredient and expose its purpose.
+
 **Checkpoint224:** Ordinary sawmill/quarry cards now distinguish full village reserves from an explicit manual cap and offer direct return to automatic demand. Native cap explanation and actual recovery action pass alongside Normal/Relaxed reserve/supply checks. Next finish committed food crops/batches without starting needless replacements.
 
 **Checkpoint223:** Economy opens with automatic food/log/plank/stone targets and direct material supply actions. Material rows distinguish stored and committed stock and explain queue demand/manual caps. Native Normal/Relaxed960 overview and actual first-sawmill planning pass; inspected first-screen capture and zero-warning build. Next make workplace reserve rest and manual-cap recovery truthful in the ordinary card.

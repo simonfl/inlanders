@@ -113,14 +113,14 @@ public sealed partial class World
         if (v.Role == Role.Farmer)
         {
             var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && TravelCost(At(v),c.Entrance)!=int.MaxValue && CanClaimWorkplace(v,c) && FreeStation(c)).OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
-            var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && !c.OrchardMature && BelowOutputTarget(c));
+            var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && !c.OrchardMature && BelowOutputTarget(c) && (!ProvisionedLife || !v.SharedWorker || FoodWorkNeeded || EstablishmentWork(c)));
             if (farm == null) { v.Status = ProductionWait(v); return; }
             v.WorkplaceId = farm.Id;
             string crop = ProductionOutput(farm.Kind)!.Value.ToString().ToLowerInvariant();
             Go(v, farm.Entrance, Work.ToFarm, farm.Harvest > 0 ? $"Walking to harvest {crop}" : $"Walking to sow {crop}"); return;
         }
         var bakery = FoodSite(v,BuildingKind.Bakery, c => c.OutputBread > 0) ?? FoodSite(v,BuildingKind.Bakery, c => c.InputGrain > 0)
-            ?? FoodSite(v,BuildingKind.Bakery, c => BelowOutputTarget(c) && TryGrainSource(At(v),c.Entrance,out _));
+            ?? FoodSite(v,BuildingKind.Bakery, c => BelowOutputTarget(c) && (!ProvisionedLife || !v.SharedWorker || FoodWorkNeeded || EstablishmentWork(c)) && TryGrainSource(At(v),c.Entrance,out _));
         if (bakery == null)
         {
             v.Status = ProductionWait(v); return;
