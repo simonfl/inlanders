@@ -4,7 +4,7 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
-    private bool Accessible(Cell cell) => Map.Water.Count == 0 || FindPath(YardAccess, cell, Blocked) != null;
+    private bool Accessible(Cell cell) => Map.Water.Count == 0 || (_jobReachable!=null?_jobReachable.Contains(cell):FindPath(YardAccess, cell, Blocked) != null);
     public Cell BridgeEntrance(Cell cell, int rotated) => Accessible(Door(cell, rotated)) ? Door(cell, rotated) : FarBank(cell, rotated);
     public static Cell FarBank(Cell cell, int rotated) => RotateOffset(cell, 0, -1, rotated);
     public string? BridgeProblem(Cell cell, int rotated)

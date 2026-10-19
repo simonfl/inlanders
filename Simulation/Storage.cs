@@ -49,6 +49,7 @@ public sealed partial class World
     }
     private int TravelCost(Cell from, Cell to)
     {
+        if(_jobReachable!=null && _jobReachable.Contains(from)!=_jobReachable.Contains(to))return int.MaxValue;
         var path = FindPath(from, to, Blocked);
         return path == null ? int.MaxValue : path.Sum(c => Paths.Contains(c) ? 4 : 5);
     }

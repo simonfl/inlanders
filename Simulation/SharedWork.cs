@@ -78,7 +78,16 @@ public sealed partial class World
             (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\n"+TimberReserveSummary+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
     }
     private bool FinishFoodWork(Cottage site)=>site.Complete && !site.WorkPaused && !site.DemolitionRequested && (site.Harvest>0 || site.InputGrain>0 || site.OutputBread>0);
+    // Geometry cannot change while choosing one job. Discard after the claim so
+    // construction, clearing, moves and loaded worlds need no cache invalidation.
+    private System.Collections.Generic.HashSet<Cell>? _jobReachable;
     private void ClaimSharedWork(Villager person)
+    {
+        var previous=_jobReachable;
+        _jobReachable=Map.Water.Count>0?Reachable(YardAccess,Blocked):null;
+        try{ClaimSharedWorkCore(person);}finally{_jobReachable=previous;}
+    }
+    private void ClaimSharedWorkCore(Villager person)
     {
         var decisions=TraceSharedWork?new System.Collections.Generic.List<string>():null;
         if(decisions!=null)WorkDecisions[person.Id]=System.Array.Empty<string>();

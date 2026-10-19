@@ -49,6 +49,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 232. **Done** — Ripe field crops now stay on their land, including group moves. Flood restoration begins with40 recoverable portions; island cultivation is a new paid plot. Corrected a two-cell bypass around the second channel. Normal bridge branch completes130s; native island-open state validates and runs, but measured1x simulation p95 is160ms and a long comparison was stopped. Full six-branch comparison remains pending. Next fix this reproduced blocked-state slowdown before further mechanics.
 
+233. **Done** — Blocked-field job searches now reuse reachability only during one worker claim, then discard it before world geometry can change. Same100-tick state is byte-identical; model time3.43 to0.63s, matched native1x simulation p95 160.3 to6.6ms and frame p95 181 to39.5ms. No persistent cache/invalidation framework. Six-route comparison rerunning; next allow harvesting a final crop before pausing production.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).
