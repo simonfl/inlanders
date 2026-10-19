@@ -11,6 +11,8 @@ Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-
 
 222. **Done** — Automatic plank/stone reserves now keep24 plus queued construction/improvements; automatic workplace limits follow demand and explicit manual caps remain recoverable. Fixed stranded sawmill output at the target. Actual plank stocking, lodge construction/refill, cap switching, queued/paused stone demand and exact saved continuation pass; zero-warning build. Next expose reserves and supply actions together.
 
+223. **Done** — Economy opens with automatic food/log/plank/stone targets and direct material supply actions. Material rows distinguish stored and committed stock and explain queue demand/manual caps. Native Normal/Relaxed960 overview and actual first-sawmill planning pass; inspected first-screen capture and zero-warning build. Next make workplace reserve rest and manual-cap recovery truthful in the ordinary card.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

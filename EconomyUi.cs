@@ -19,6 +19,7 @@ public partial class Game
     }
     private void MakeEconomyMenu(VBoxContainer column)
     {
+        MakeReserveUi(column);
         _surveyToggle=Button("Survey map resources [U]",ToggleResourceSurvey); column.AddChild(_surveyToggle);
         _foodMapToggle=Button("Show food in the world",ToggleFoodMap);column.AddChild(_foodMapToggle);
         _foodMapToggle.TooltipText="Available food stays at its store. Claimed portions already belong to meals or shipments; incoming is still travelling. An empty store alone does not establish a production shortage.";
@@ -74,6 +75,7 @@ public partial class Game
     {
         _economyReport=_world.ReadEconomy();
         UpdateBreadReserveUi();
+        UpdateReserveUi();
         int mealAttention=_world.People.Count(_world.NeedsMealAttention);
         _mealAttention.Visible=!_world.Creative;
         _mealAttention.Text=mealAttention>0?$"Inspect {mealAttention} residents · hungry / recent missed meals":"Inspect meal service · no recent misses";

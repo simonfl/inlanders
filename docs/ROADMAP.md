@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint223:** Economy opens with automatic food/log/plank/stone targets and direct material supply actions. Material rows distinguish stored and committed stock and explain queue demand/manual caps. Native Normal/Relaxed960 overview and actual first-sawmill planning pass; inspected first-screen capture and zero-warning build. Next make workplace reserve rest and manual-cap recovery truthful in the ordinary card.
+
 **Checkpoint222:** Automatic plank/stone reserves now keep24 plus queued construction/improvements; automatic workplace limits follow demand and explicit manual caps remain recoverable. Fixed stranded sawmill output at the target. Actual plank stocking, lodge construction/refill, cap switching, queued/paused stone demand and exact saved continuation pass; zero-warning build. Next expose reserves and supply actions together.
 
 **Checkpoint221: targeted timber follow-up complete.** The prior ten outcomes211–220 and full reviews215/220 are complete. [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. The targeted timber-reserve fix responds to human playtest feedback; the subsequent ten-chunk authorization covers222–231.

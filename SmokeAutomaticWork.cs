@@ -17,6 +17,12 @@ public partial class Game
                 _world.Assign(0,Role.Fisher);UpdateHud();await UiClick(_automaticWork);
                 if(_world.People.Any(p=>!p.SharedWorker))throw new Exception("Automatic return failed");
                 SelectPerson(0);UpdateHud();if(_jobChoice.Visible || _assignButton.Visible || _assignmentChoice.Visible)throw new Exception("Public role controls visible");
+                ToggleDrawer(4);UpdateHud();await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_reserves.Visible || !_reserveFood.Text.Contains("four per resident") || !_reserveButtons[Inlanders.Simulation.Resource.Planks].Text.Contains("/24"))throw new Exception("Reserve overview missing");
+                await Capture($"artifacts/223-reserves-{relaxed}.png");
+                await UiClick(_reserveButtons[Inlanders.Simulation.Resource.Planks]);
+                if(!_placing || _buildKind!=BuildingKind.Sawmill)throw new Exception("Reserve supply route did not plan first mill");
+                _placing=false;ClearSelection();CloseDrawer();
                 var dock=_world.Cottages.Single(c=>c.Kind==BuildingKind.FishingDock);ShowWorkplaceCard(dock.Id);UpdateHud();
                 for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
                 await Capture($"artifacts/212-food-rest-{relaxed}.png");
