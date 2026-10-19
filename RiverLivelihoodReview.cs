@@ -8,7 +8,7 @@ public partial class Game
     private async Task ProbeRiverLivelihood()
     {
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        _riverRelaxed=false;ShowMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await UiClick(_mainButtons["Establish life by the river"]);await Frames();await CaptureReviewBundle("river-livelihood-menu");
+        _riverRelaxed=false;ShowMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await CaptureReviewBundle("river-livelihood-menu");
         await UiClick(_mainButtons["New settlement"]);await Frames();
         if(_world.PublicPlace is not {RiverLandscape:true,PlayerFounded:true} || _world.Housed!=12 || _world.Cottages.Count!=6)throw new Exception("Wrong livelihood opening");
         if(!_firstPlace.IsVisibleInTree())throw new Exception("Arrival has no first livelihood choices");
@@ -33,7 +33,7 @@ public partial class Game
         await CaptureReviewBundle("chosen-food-in-use");
         await ProbeHousehold();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();if(saved!=_world.SaveJson())throw new Exception("Livelihood save differs");
         await Press(Key.H);await Frames();await CaptureReviewBundle("river-livelihood-watch");await Press(Key.Escape);await Frames();if(_watching)throw new Exception("Watch exit failed");
-        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await CaptureReviewBundle("public-river-beginnings");await UiClick(_mainButtons["Establish life by the river"]);await Frames();
+        ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await CaptureReviewBundle("public-river-beginnings");
         await UiClick(_mainButtons["Mode: Normal · change"]);await Frames();await CaptureReviewBundle("river-relaxed-menu");await UiClick(_mainButtons["New settlement"]);await Frames();
         if(_world.PublicPlace is not {Relaxed:true,RiverLandscape:true,PlayerFounded:true})throw new Exception("Wrong relaxed start");
         GD.Print("PASS river livelihood ordinary menu, homes, current save and Watch.");

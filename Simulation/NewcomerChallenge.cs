@@ -74,9 +74,9 @@ public sealed partial class World
     private void ValidateNewcomerChallenge()
     {
         if(Challenge is not {} c)return;
-        if(PublicPlace==null || Population!=(c.Arrived?16:12) || c.InvitedAt is float at && (!float.IsFinite(at) || at<0 || at>Food.Time) ||
+        if(PublicPlace==null || (c.Continuing?Population<16:Population!=(c.Arrived?16:12)) || c.InvitedAt is float at && (!float.IsFinite(at) || at<0 || at>Food.Time) ||
             c.Arrived && c.InvitedAt==null || c.DeliveryBaseline<0 || c.DeliveryBaseline>DeliveredEdible || c.Meals==null ||
-            c.Meals.Any(p=>p.Key<12 || p.Key>=Population || p.Value is <1 or >2) || c.Complete && (!c.Arrived || ChallengeNeighborsFed!=4 || ChallengeDeliveries<32) || c.Continuing && !c.Complete)
+            c.Meals.Any(p=>p.Key<12 || p.Key>=16 || p.Value is <1 or >2) || c.Complete && (!c.Arrived || ChallengeNeighborsFed!=4 || ChallengeDeliveries<32) || c.Continuing && !c.Complete)
             throw new InvalidOperationException("Invalid newcomer challenge");
     }
 }

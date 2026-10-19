@@ -4,16 +4,7 @@ public partial class Game
 {
     private string TransformationPath=>TransformationSavePath(_world.Creative);
     private string TransformationSavePath(bool relaxed)=>Path.Combine(Path.GetDirectoryName(_creativeSavePath)!,new HamletProfile(relaxed).SaveName);
-    private void TransformationMenu()
-    {
-        MenuPage("Make a home by the river");
-        MenuButton("Establish life by the river",RiverLivelihoodMenu);
-        _mainColumn.AddChild(Text("Homes and provisions are ready. Choose how your neighbors will live from the land and water.",16,true));
-        MenuButton("Tend a river settlement",()=>RiverSessionMenu(false));
-        _mainColumn.AddChild(Text("Fields and a landing already provide food. Reshape a working place, or simply enjoy its daily life.",16,true));
-        MenuButton("Earlier beginnings",EarlierBeginningsMenu);
-        MenuButton("Back",ShowMainMenu);
-    }
+    private void TransformationMenu()=>RiverSessionMenu(true);
     private void EarlierBeginningsMenu()
     {
         MenuPage("Earlier beginnings");

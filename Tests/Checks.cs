@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--challenge-continuation")){try{ChallengeContinuationChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--repair-challenge")){try{RepairChallengeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--challenge-comparison")){try{ChallengeComparisonChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}
 if(args.Contains("--newcomer-challenge")){try{NewcomerChallengeChecks.Run();}catch(Exception e){Console.Error.WriteLine(e);Environment.ExitCode=1;}return;}

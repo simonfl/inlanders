@@ -46,9 +46,9 @@ public partial class Game
         string contract="Goal: four newcomers need reachable homes and two meals each. Deliver 32 fresh portions after arrival. Everyone must be fed when you finish.\n";
         string progress=c.InvitedAt==null?$"PREPARE\nSpare beds {Math.Min(4,_world.SpareBeds)}/4 · fresh food {Math.Min(16,_world.ChallengeDeliveries)}/16\nStored food {Math.Min(32,_world.EdibleStored)}/32\n\n{contract}\nInvite when ready; they arrive 30 seconds later. Choose any food sources and layout.":!c.Arrived?$"ON THEIR WAY · {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0}s\n\n{contract}":
             $"SETTLING IN\nReachable homes: {_world.ChallengeHoused}/16\nNewcomers with two meals: {_world.ChallengeNeighborsFed}/4\nFresh deliveries: {Math.Min(32,_world.ChallengeDeliveries)}/32\nEveryone fed: {_world.People.Count(p=>p.Fed)}/16\n\n{_world.ChallengeSettlingProblem()??"Ready to finish."}\nMeals and deliveries keep their progress.";
-        _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave.":progress;
+        _challengeProgress.Text=c.Complete?"CHALLENGE COMPLETE\nFour newcomers have homes and two meals each. Your village delivered 32 fresh portions after their arrival.\nStay and build, or save this village and leave. After continuing, use People to welcome more neighbors when you choose.":progress;
         _challengeInvite.Visible=c.InvitedAt==null;_challengeInvite.Disabled=_world.ChallengeInvitationProblem()!=null;_challengeInvite.TooltipText=_world.ChallengeInvitationProblem()??"They arrive 30 seconds after you invite them.";
-        _challengeContinue.Visible=c.Complete;_challengeLeave.Visible=c.Complete;
+        _challengeContinue.Visible=c.Complete && !c.Continuing;_challengeLeave.Visible=c.Complete;
         _menuButtons[2].Text=c.Complete?"Challenge · complete":c.Arrived?"Challenge · settling":"Challenge";
         _menuButtons[2].TooltipText="Your objective and progress [G]";
         if(_tabs.CurrentTab==2)_drawerTitle.Text="Challenge";

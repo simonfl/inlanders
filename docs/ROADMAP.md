@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 219:** Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
+
 **Checkpoint 218:** Cut-off fields are directly inspectable from the challenge; crossing and pause/move actions precede optional controls and fit960. Native ordinary move cancellation and crossing placement restore actual construction, access and field food delivery. Build passes; screenshots inspected. Next consolidate free-play setup and allow optional growth after success; deeper challenge remains unproven.
 
 **Checkpoint 217:** Optional far-bank repair situation has two cut-off existing fields, a real crossing or relocation choice and separate saves. Bridge/move complete in Normal192/263s and Relaxed173/249s; untouched60s control retains inaccessible crops, not a long-run failure proof. Fixed unreachable-farmer crash. Native entry/save passes. This is a short repair variation, not a proven harder level; next make recovery directly actionable and demonstrate restored production through UI.

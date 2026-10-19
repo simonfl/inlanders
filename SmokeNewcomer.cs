@@ -45,7 +45,12 @@ public partial class Game
             for(int i=0;i<2400 && _world.FoodAvailableAt(field.Id,Inlanders.Simulation.Resource.Vegetables)==0;i++){_world.Tick(.1f);if(i%100==0)await Frames();}
             if(!bridge.Complete || _world.ReadWorkplace(field).MissingAccess || _world.FoodAvailableAt(field.Id,Inlanders.Simulation.Resource.Vegetables)==0)throw new Exception("Crossing did not restore real food delivery");
             RenderActors(0);ShowWorkplaceCard(field.Id);await Frames();await Capture("artifacts/218-restored-field.png");_world.Validate();
-            GD.Print("PASS ordinary inspect, direct pause/move cancel, crossing preview/place and actual construction plus restored field delivery (accelerated model ticks); native repair situation selection and separate save; native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
+            ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();
+            if(!_mainButtons.ContainsKey("Food setup: choose your own · change") || _mainButtons.ContainsKey("Tend a river settlement"))throw new Exception("Duplicate free-play starts");
+            await Capture("artifacts/219-free-play-menu.png");
+            await UiClick(_mainButtons["Food setup: choose your own · change"]);await Frames();await UiClick(_mainButtons["New settlement"]);await Frames();
+            if(_world.Challenge!=null || _world.PublicPlace is not {RiverLandscape:true,PlayerFounded:false})throw new Exception("Prepared food setup identity");
+            GD.Print("PASS consolidated free-play setup; ordinary inspect, direct pause/move cancel, crossing preview/place and actual construction plus restored field delivery (accelerated model ticks); native repair situation selection and separate save; native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

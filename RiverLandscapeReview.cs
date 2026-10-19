@@ -6,7 +6,7 @@ public partial class Game
     private async Task ProbeRiverLandscape()
     {
         async Task Frames(){for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
-        ShowMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await CaptureReviewBundle("public-river-beginnings");await UiClick(_mainButtons["Tend a river settlement"]);await Frames();
+        ShowMainMenu();await Frames();await UiClick(_mainButtons["Free play"]);await Frames();await CaptureReviewBundle("public-river-beginnings");await UiClick(_mainButtons["Food setup: choose your own · change"]);await Frames();
         await CaptureReviewBundle("river-farmsteads-menu");await UiClick(_mainButtons["New settlement"]);await Frames();
         if(_world.PublicPlace?.RiverLandscape!=true || _world.Housed!=12)throw new Exception("Wrong landscape identity");
         await ProbeHousehold();await Press(Key.F5);string saved=_world.SaveJson();await Press(Key.F9);await Frames();if(saved!=_world.SaveJson())throw new Exception("Landscape save differs");
