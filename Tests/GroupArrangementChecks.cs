@@ -28,6 +28,7 @@ static class GroupArrangementChecks
         {
             var w=World.NewWorkingClearing(relaxed);var field=w.Cottages.Single(c=>c.Kind==BuildingKind.VegetableField && c.Cell==new Cell(-1,-1));
             if(ripe){for(int i=0;i<6000 && field.Harvest==0;i++)w.Tick(.1f);Check(field.Harvest>0,"No actual ripe crop");}
+            if(ripe){string unchanged=w.SaveJson();var pair=new[]{w.Cottages.First(c=>c.Kind==BuildingKind.Cottage).Id,field.Id};Check(!w.GroupEligible(field) && w.PreviewGroup(pair,new(0,0)).Result==null && unchanged==w.SaveJson(),"Group moved land-bound harvest");continue;}
             int[] ids={w.Cottages.Single(c=>c.Cell==new Cell(-3,5)).Id,field.Id};string before=w.SaveJson();var (_,plan)=Find(w,ids,0);var moved=plan.Result!;var next=moved.Cottages.Single(c=>c.Id==field.Id);
             Check(w.SaveJson()==before,"Farmstead preview mutated source");Check(next.Harvest==field.Harvest,"Ripe harvest lost");if(!ripe)Check(!next.Planted && next.Growth==0,"Growing crop retained after relocation");
             Check(next.WorkPaused==field.WorkPaused && next.OutputTarget==field.OutputTarget,"Field settings changed");

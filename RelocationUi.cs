@@ -23,7 +23,7 @@ public partial class Game
         if(_world.RelocationProblem(site.Id) is string problem){Notice(problem);return;}
         bool card=_workCardSite==site.Id;CloseManagementUi();BeginPlacement(site.Kind);_moveFromCard=card;
         _movingSite=site.Id;_moveWorld=_world;_rotation=site.Rotation;_hover=site.Cell;_nextMoveRefresh=0;_moveCheck=null;
-        RefreshGhost();Notice(site.Kind==BuildingKind.Farm || World.IsVegetablePlot(site.Kind)?"Choose new ground. Growing crops restart; ripe crops and stored goods stay. R rotates; Esc cancels.":"Choose a destination. R rotates; Escape or right-click cancels.");
+        RefreshGhost();Notice(site.Kind==BuildingKind.Farm || World.IsVegetablePlot(site.Kind)?"Choose new ground. Growing crops restart; ripe crops must be harvested first. R rotates; Esc cancels.":"Choose a destination. R rotates; Escape or right-click cancels.");
     }
     private string MovePreviewProblem(Cell cell)
     {

@@ -5,6 +5,7 @@ namespace Inlanders.Simulation;
 
 public sealed partial class World
 {
+    public bool HasLandBoundHarvest(Cottage site)=>PublicPlace!=null && (site.Kind==BuildingKind.Farm || IsVegetablePlot(site.Kind)) && site.Harvest>0;
     public string? RelocationProblem(int id)=>RelocationProblem(id,false);
     public string? RelocationIntentProblem(int id)=>RelocationProblem(id,true);
     private string? RelocationProblem(int id,bool intent)
@@ -21,6 +22,7 @@ public sealed partial class World
         }
         if(!Creative && IsArrangementCourt && Neighborhood!.Arrangement!.BuildingId is int trial && trial!=id)return "Restore the current trial before trying another building.";
         if(site==null || !site.Complete || site.DemolitionRequested)return "Choose a finished building that is not being demolished.";
+        if(HasLandBoundHarvest(site))return "Ripe crops stay on this land. Harvest them before moving, or establish a new field elsewhere.";
         if(Food.Celebrating)return "Wait until supper finishes.";
         if(!intent && site.Boat?.FisherId!=null)return "Pause the dock and wait for its fisher to return before moving it.";
         return null;

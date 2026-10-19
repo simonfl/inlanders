@@ -4,7 +4,7 @@ namespace Inlanders.Simulation;
 public sealed record GroupPlan(World? Result,string? Problem);
 public sealed partial class World
 {
-    public bool GroupEligible(Cottage site)=>PublicPlace!=null && site.Complete && !site.DemolitionRequested && (Buildings.Get(site.Kind).Beds>0 || site.Kind==BuildingKind.Farm || IsVegetablePlot(site.Kind)) && !site.ImprovementRequested;
+    public bool GroupEligible(Cottage site)=>PublicPlace!=null && !HasLandBoundHarvest(site) && site.Complete && !site.DemolitionRequested && (Buildings.Get(site.Kind).Beds>0 || site.Kind==BuildingKind.Farm || IsVegetablePlot(site.Kind)) && !site.ImprovementRequested;
     public Cell[] GroupPaths(int[] ids)
     {
         var sites=Cottages.Where(c=>ids.Contains(c.Id)).ToArray();if(sites.Length<2)return Array.Empty<Cell>();

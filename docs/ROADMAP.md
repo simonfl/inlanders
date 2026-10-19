@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. Ten outcomes222–231 and review230 complete; stopped231. No further implementation authorized.
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. Ten outcomes222–231 and review230 complete; stopped231. October19 authorizes232–241, with full review240 and stop241.
 
 **A home for generations.** A settlement game about 17th-century French settlers in New France, in the region now called Quebec: farming, making a living from the land, establishing homes and improving everyday life.
 
@@ -9,6 +9,8 @@
 **Inlanders remains the internal codename:** repository, files, project, namespaces, assemblies, scripts, identifiers retain the internal name. Les Habitants is now the public menu/HUD/window identity.
 
 ## Current direction and next step
+
+**Checkpoint232:** Ripe field crops now stay on their land, including group moves. Flood restoration begins with40 recoverable portions; island cultivation is a new paid plot. Corrected a two-cell bypass around the second channel. Normal bridge branch completes130s; native island-open state validates and runs, but measured1x simulation p95 is160ms and a long comparison was stopped. Full six-branch comparison remains pending. Next fix this reproduced blocked-state slowdown before further mechanics.
 
 **October19 priority correction — gameplay before player-controlled decoration.** Prioritize meaningful choices, resource/labor tradeoffs, distinct objectives and recoverable mistakes. Functional placement of fields, homes, docks, storage, paths and bridges remains gameplay when it changes access, transport or production. Freeze expansion of cosmetic placement, roof/plaster choices, furnishing/yard styling, ornamental landscaping and group-composition tools. Existing optional controls need no wholesale removal. New France remains the setting; automatic visual detail and readable work/crop/access feedback support gameplay without becoming additional player chores. This direction supersedes older art/composition priorities below.
 

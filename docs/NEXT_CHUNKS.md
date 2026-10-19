@@ -1,3 +1,7 @@
+# Active batch — checkpoints232–241
+
+Authorized October19: ten gameplay-focused outcomes, full five-role review240 before selecting241, then stop.232 tests land-bound ripe crops and salvage versus newly established island cultivation. Reassess subsequent outcomes from evidence; no decorative expansion.
+
 # Completed batch — checkpoints222–231
 
 Primary challenges are now two directly named choices: newcomer introduction and After the flood, with actual map/start conditions and Normal/Relaxed. The redundant far-bank newcomer variation moves to developer comparisons; current saves continue normally. Native compact/wide selection, mode toggle, restoration entry/save/continue, newcomer completion, archive recovery and free-play flows pass; zero-warning build and inspected960 menu. Ten outcomes222–231 complete; stop. Review230 selects deeper restoration decisions, coherent landscape storytelling and measured blocked-state performance before content expansion.
@@ -42,6 +46,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 229. **Done** — Flood restoration now has two channels: opening an island enables cultivation there or a second crossing to old fields. Normal second decisions occur47s after start, or141s after a90s delayed start; Relaxed construction is instant. Six both-mode crossing/island/delayed-island branches finish121–198s and retain12 housed/fed at360s, with exact save continuation. Native entry/current completion and inspected whole scene pass. Compact comparison JSON and first-island snapshots record timing/evidence. Still short, scripted and not proof of enjoyment. Next make scenario geography/purpose legible before starting, then full230 review.
 
 230. **Done** — Challenge selection shows an actual starting-map preview, homes/food/logs and distinct introduction/repair/restoration purpose. Preview remains separate from the play world and disappears outside the menu. Native960/1440 preview, entry, housing action, separate save and completed continuation pass; stills inspected and background bleed corrected; final build passes. Nine authorized outcomes222–230 complete: freeze this build for all five independent whole-game reviewers before231.
+
+232. **Done** — Ripe field crops now stay on their land, including group moves. Flood restoration begins with40 recoverable portions; island cultivation is a new paid plot. Corrected a two-cell bypass around the second channel. Normal bridge branch completes130s; native island-open state validates and runs, but measured1x simulation p95 is160ms and a long comparison was stopped. Full six-branch comparison remains pending. Next fix this reproduced blocked-state slowdown before further mechanics.
 
 ## Completed batch — checkpoints 211–220
 

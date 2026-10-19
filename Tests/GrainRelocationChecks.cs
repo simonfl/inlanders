@@ -11,6 +11,7 @@ static class GrainRelocationChecks
             var field=w.Place(new(-3,-5),0,BuildingKind.Farm)!;
             for(int i=0;i<4000 && !(field.Complete && (ripe?field.Harvest>0:field.Planted && field.Growth>0 && field.Harvest==0));i++)w.Tick(.1f);
             Check(field.Complete && (ripe?field.Harvest>0:field.Planted && field.Growth>0),"Required real crop phase absent");
+            if(ripe){string unchanged=w.SaveJson();Check(w.RelocationIntentProblem(field.Id)?.Contains("Ripe crops")==true && !w.MoveBuilding(field.Id,new(0,-9),1) && w.SaveJson()==unchanged,"Ripe land-bound crop moved or rejection mutated state");w.Validate();continue;}
             w.SaveFile($"artifacts/grain-relocation/{relaxed}-{ripe}-before.json");
             Check(w.RelocationProblem(field.Id)!=null && w.RelocationIntentProblem(field.Id)==null,"Intent unavailable or unpaused grain field directly movable");
             Check(w.SetWorkplacePaused(field.Id,true),"Pause failed");

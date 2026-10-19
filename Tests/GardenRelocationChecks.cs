@@ -8,6 +8,7 @@ static class GardenRelocationChecks
         {
             var w=World.NewTransformationHamlet(relaxed);var garden=w.Cottages.Single(c=>c.Cell==new Cell(1,3));
             if(ripe){for(int i=0;i<1200 && garden.Harvest==0;i++)w.Tick(.1f);Check(garden.Harvest>0,"No ripe crop to retain");}
+            if(ripe){string unchanged=w.SaveJson();Check(w.RelocationIntentProblem(garden.Id)?.Contains("Ripe crops")==true && !w.MoveBuilding(garden.Id,new(0,-9),1) && w.SaveJson()==unchanged,"Ripe land-bound crop moved or rejection mutated state");w.Validate();continue;}
             Check(w.RelocationProblem(garden.Id)!=null,"Working garden moved without pausing");
             Check(w.SetWorkplacePaused(garden.Id,true),"Garden pause rejected");
             int crop=garden.Harvest,food=w.EdibleStored;float growth=garden.Growth;string paused=w.SaveJson();
