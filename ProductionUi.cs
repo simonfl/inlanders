@@ -40,14 +40,14 @@ public partial class Game
         void Change(int delta)
         {
             var site = _world.Cottages.FirstOrDefault(c => c.Id == _selectedSite);
-            if (site != null) _world.SetOutputTarget(site.Id, System.Math.Clamp((site.OutputTarget < 0 ? 0 : site.OutputTarget) + delta, 0, 200));
+            if (site != null) _world.SetOutputTarget(site.Id, System.Math.Clamp((_world.EffectiveOutputTarget(site) < 0 ? 0 : _world.EffectiveOutputTarget(site)) + delta, 0, 200));
         }
         _outputTargetLess = Button("− 4 target", () => Change(-4)); _outputTargetMore = Button("+ 4 target", () => Change(4));
         _outputTargetLess.SizeFlagsHorizontal = _outputTargetMore.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         row.AddChild(_outputTargetLess); row.AddChild(_outputTargetMore);
         _outputTargetUnlimited = Button("No workplace cap", () => _world.SetOutputTarget(_selectedSite, -1)); _productionTargetControls.AddChild(_outputTargetUnlimited);
         _productionAutomatic=Button("Use automatic village target",()=>_world.UseAutomaticOutputTarget(_selectedSite));_productionTargetControls.AddChild(_productionAutomatic);
-        _productionTargetControls.AddChild(Text("Automatic material targets keep 24 in reserve plus queued demand. Manual targets cap this workplace; automatic workers still stop at village demand. Targets use village-wide stock + committed production. New crops/batches may exceed the target by one batch. Existing crops and output are still collected. Other workplaces keep their own targets.", 13, true));
+        _productionTargetControls.AddChild(Text("Automatic material targets keep 24 plus queued demand; grain keeps at least one crop, enough for two bread portions per resident. Manual targets cap this workplace; automatic workers still stop at village demand. Targets use village-wide stock + committed production. New crops/batches may exceed the target by one batch. Existing crops and output are still collected. Other workplaces keep their own targets.", 13, true));
     }
     private void UpdateProductionControls(Cottage? site)
     {
@@ -71,14 +71,14 @@ public partial class Game
         _productionPause.TooltipText = "Current work and deliveries finish. Crops keep growing. Worker roles do not change.";
         Resource output = World.ProductionOutput(site.Kind)!.Value;
         int target=_world.EffectiveOutputTarget(site);
-        bool automatic=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone && site.AutomaticOutputTarget;
-        _productionAutomatic.Visible=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone;
+        bool automatic=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone or Resource.Grain && site.AutomaticOutputTarget;
+        _productionAutomatic.Visible=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone or Resource.Grain;
         _productionAutomatic.Disabled=automatic || _world.Food.Celebrating || site.DemolitionRequested;
         _productionTargetToggle.Text = $"{output} target · {(automatic ? $"Automatic {target}" : target < 0 ? "No workplace cap" : target.ToString())} {(_productionTargetControls.Visible ? "▴" : "▾")}";
         _productionTargetInfo.Text = $"{output} target: {(automatic ? $"Automatic {target}" : target < 0 ? "No workplace cap" : target.ToString())}\n{_world.ProductionCommitted(output)} stored or committed village-wide";
         _productionPause.Disabled = _outputTargetMore.Disabled = _outputTargetUnlimited.Disabled = _world.Food.Celebrating || site.DemolitionRequested;
-        _outputTargetLess.Disabled = _world.Food.Celebrating || site.DemolitionRequested || site.OutputTarget <= 0;
-        _outputTargetMore.Disabled |= site.OutputTarget >= 200;
-        _outputTargetUnlimited.Disabled |= site.OutputTarget < 0;
+        _outputTargetLess.Disabled = _world.Food.Celebrating || site.DemolitionRequested || target <= 0;
+        _outputTargetMore.Disabled |= target >= 200;
+        _outputTargetUnlimited.Disabled |= !automatic && site.OutputTarget < 0;
     }
 }

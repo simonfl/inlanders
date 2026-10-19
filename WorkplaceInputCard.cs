@@ -15,7 +15,7 @@ public partial class Game
     }
     private void RenderWorkplaceInputCard(Cottage site)
     {
-        _workCardAutoTarget.Visible=_world.ProvisionedLife && site.Complete && !site.DemolitionRequested && !site.AutomaticOutputTarget && World.ProductionOutput(site.Kind) is Inlanders.Simulation.Resource.Planks or Inlanders.Simulation.Resource.Stone;
+        _workCardAutoTarget.Visible=_world.ProvisionedLife && site.Complete && !site.DemolitionRequested && !site.AutomaticOutputTarget && World.ProductionOutput(site.Kind) is Inlanders.Simulation.Resource.Planks or Inlanders.Simulation.Resource.Stone or Inlanders.Simulation.Resource.Grain;
         _workCardAutoTarget.Disabled=_world.Food.Celebrating;
         var input=site.Complete && _placeJourneySite!=site.Id?_world.ReadWorkplace(site).MissingInput:null;
         _workCardInput.Visible=input!=null;

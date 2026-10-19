@@ -3,6 +3,7 @@ using System.Linq;
 namespace Inlanders.Simulation;
 public sealed partial class World
 {
+    public int GrainReserveTarget => Math.Max(6,(Population*2+BreadPerGrain-1)/BreadPerGrain);
     public int MaterialStockTarget(Resource resource)
     {
         if(resource==Resource.Logs)return TimberStockTarget;

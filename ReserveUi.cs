@@ -13,7 +13,7 @@ public partial class Game
         _reserves=new();column.AddChild(_reserves);
         _reserves.AddChild(Text("AUTOMATIC RESERVES",12));
         _reserveFood=Text("",14,true);_reserves.AddChild(_reserveFood);
-        foreach(var material in new[]{Resource.Logs,Resource.Planks,Resource.Stone})
+        foreach(var material in new[]{Resource.Logs,Resource.Planks,Resource.Stone,Resource.Grain})
         {
             var item=material;
             var button=Button("",()=>OpenReserveSupply(item));
@@ -35,9 +35,9 @@ public partial class Game
         _reserveFood.Text=$"Food: {_world.EdibleStored}/{_world.Population*4} portions stored · four per resident. Priority below {_world.Population*3}. Grain is an oven ingredient, not a meal.";
         foreach(var (material,button) in _reserveButtons)
         {
-            int stored=material==Resource.Logs?_world.Stored:material==Resource.Planks?_world.Planks:_world.Stone;
-            button.Text=$"{material}: {stored}/{_world.MaterialStockTarget(material)} stored · inspect supply";
-            button.TooltipText=$"{_world.ProductionCommitted(material)} stored or committed. "+(material==Resource.Logs?"32 logs in reserve plus construction. Harvest & renew permits selected trees.":"24 in reserve plus construction and applicable improvements. Manual workplace caps can stop production earlier.");
+            int stored=material==Resource.Logs?_world.Stored:material==Resource.Planks?_world.Planks:material==Resource.Grain?_world.StoredGrain:_world.Stone;
+            button.Text=$"{material}: {stored}/{(material==Resource.Grain?_world.GrainReserveTarget:_world.MaterialStockTarget(material))} stored · inspect supply";
+            button.TooltipText=material==Resource.Grain?$"Ingredient buffer: one crop minimum, or two bread portions per resident. Each grain makes {_world.BreadPerGrain} bread. A bakery must process it; grain cannot feed residents directly.":$"{_world.ProductionCommitted(material)} stored or committed. "+(material==Resource.Logs?"32 logs in reserve plus construction. Harvest & renew permits selected trees.":"24 in reserve plus construction and applicable improvements. Manual workplace caps can stop production earlier.");
         }
     }
 }

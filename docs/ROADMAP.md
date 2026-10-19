@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint226:** Automatic grain production now buffers at least one crop or two bread portions per resident; explicit caps remain available and recoverable. Economy shows grain as an oven ingredient and links its supply. Actual farm stops at six grain without an oven, then real bread is baked after adding one; cap switching and exact save pass; zero-warning final build. Next surface the actual challenge blocker and route its recovery action.
+
 **Checkpoint225:** Ripe crops and in-progress bread now finish above the food reserve without opening replacement crops/batches. Corrected dispatch and workplace eligibility gates; Normal/Relaxed actual crop collection and exact save continuation pass, zero-warning build. Reserve supply navigation also now inspects an existing mill (native verified) rather than always offering another. Next bound grain as an ingredient and expose its purpose.
 
 **Checkpoint224:** Ordinary sawmill/quarry cards now distinguish full village reserves from an explicit manual cap and offer direct return to automatic demand. Native cap explanation and actual recovery action pass alongside Normal/Relaxed reserve/supply checks. Next finish committed food crops/batches without starting needless replacements.

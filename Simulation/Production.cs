@@ -49,8 +49,8 @@ public sealed partial class World
             _ => Stored + cargo
         };
     }
-    public int EffectiveOutputTarget(Cottage site) => ProvisionedLife && site.AutomaticOutputTarget && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone
-        ? MaterialStockTarget(ProductionOutput(site.Kind)!.Value) : site.OutputTarget;
+    public int EffectiveOutputTarget(Cottage site) => ProvisionedLife && site.AutomaticOutputTarget && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone or Resource.Grain
+        ? ProductionOutput(site.Kind)==Resource.Grain?GrainReserveTarget:MaterialStockTarget(ProductionOutput(site.Kind)!.Value) : site.OutputTarget;
     public bool UseAutomaticOutputTarget(int id)
     {
         var site=Cottages.FirstOrDefault(c=>c.Id==id && c.Complete && ProductionOutput(c.Kind)!=null && !c.DemolitionRequested);
