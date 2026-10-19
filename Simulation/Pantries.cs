@@ -13,6 +13,7 @@ public sealed partial class World
     public int FoodAt(int? id,Resource kind) => id is int n ? Pantry(n).PantryFood[Array.IndexOf(EdibleKinds,kind)] : CentralFood(kind);
     public int StoredFood(Resource kind) => CentralFood(kind)+Cottages.Sum(c=>c.PantryFood[Array.IndexOf(EdibleKinds,kind)]);
     public int EdibleStored => EdibleKinds.Sum(StoredFood);
+    public int ReachableEdibleStored=>FoodStores().Select(id=>new{Id=id,Amount=EdibleKinds.Sum(kind=>FoodAt(id,kind))}).Where(s=>s.Amount>0 && Accessible(FoodAccess(s.Id))).Sum(s=>s.Amount);
     public int FoodReservedAt(int? id,Resource kind) => People.Count(p=>p.Meal is {Reserved:true} r && r.SourceId==id && r.Kind==kind)+
         People.Where(p=>p.Task==Work.ToFoodPickup && p.FoodSourceId==id && p.Cargo==kind).Sum(p=>p.PantryReserved);
     public int FoodAvailableAt(int? id,Resource kind) => FoodAt(id,kind)-FoodReservedAt(id,kind);
@@ -47,7 +48,7 @@ public sealed partial class World
         if(ClaimWelcomeDelivery(person))return true;
         int waiting=People.Count(p=>p.Meal is {Reserved:false,Carrying:false,Eaten:false,Closed:false});
         int surplus=Math.Max(0,EdibleKinds.Sum(k=>FoodAvailableAt(null,k))-waiting);
-        foreach(var pantry in Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused).OrderByDescending(c=>c.Priority).ThenBy(c=>c.Id))
+        foreach(var pantry in Cottages.Where(c=>c.Kind==BuildingKind.Pantry && c.Complete && !c.DemolitionRequested && !c.WorkPaused && Accessible(c.Entrance) && TravelCost(At(person),c.Entrance)!=int.MaxValue).OrderByDescending(c=>c.Priority).ThenBy(c=>c.Id))
         {
             int need=Math.Min(PantrySpace(pantry.Id),pantry.PantryTarget-pantry.PantryFood.Sum()-FoodIncoming(pantry.Id));
             if(need<=0)continue;
@@ -59,7 +60,7 @@ public sealed partial class World
             person.FoodSourceId=null; person.FoodDestinationId=pantry.Id; person.FoodTransfer=true;
             Go(person,YardAccess,Work.ToFoodPickup,$"Collecting {person.PantryReserved} {person.Cargo} for pantry {pantry.Id}"); return true;
         }
-        foreach(var pantry in Cottages.Where(c=>IsFoodStore(c) && c.Complete && !c.DemolitionRequested && c.Id!=Neighborhood?.VenueId).OrderBy(c=>TravelCost(At(person),c.Entrance)))
+        foreach(var pantry in Cottages.Where(c=>IsFoodStore(c) && c.Complete && !c.DemolitionRequested && c.Id!=Neighborhood?.VenueId && Accessible(c.Entrance) && TravelCost(At(person),c.Entrance)!=int.MaxValue).OrderBy(c=>TravelCost(At(person),c.Entrance)))
         {
             int spare=EdibleKinds.Sum(k=>FoodAvailableAt(pantry.Id,k))-(IsWorkplaceFoodStore(pantry)?pantry.LocalFoodReserve:pantry.PantryTarget);
             if(spare<=0) continue;

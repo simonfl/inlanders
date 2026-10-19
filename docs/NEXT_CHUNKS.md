@@ -61,6 +61,8 @@ Supporting tooling: compact intervention/shortage/delivery/recovery timelines an
 
 238. **Done** — Reproduced an unreachable-work exception when ordering demolition of a cut-off field. Demolition now waits for a real worker route, explains missing access and remains cancellable; rebuilding both crossings lets builders recover crops/materials and finish removal. Actual wait/cancel/reconnect/recovery and exact-save checks pass; zero-warning build. Next prevent inaccessible food stores from falsely satisfying the working reserve or restoration goal.
 
+239. **Done** — Food reserves and public challenge readiness now count reachable open stores rather than stranded stock. Economy distinguishes reachable and total food. A synthetic stranded-food case reproduced another unreachable-route exception in pantry hauling; haulers now validate both access and worker route before reserving a shipment. Both modes build real crossings, restore food availability and retain exact saves; zero-warning build. Next protect ready edible harvests during shortages, then freeze240 for the whole-game review.
+
 ## Completed batch — checkpoints 211–220
 
 Completed October18,2026: all ten playable outcomes and reviews215/220. The ten-outcome batch stopped at220; a subsequent targeted timber-reserve fix is authorized by playtest feedback. [Full220 synthesis](REVIEW_CHECKPOINT_220.md).

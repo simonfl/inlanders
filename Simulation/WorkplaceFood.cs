@@ -34,7 +34,7 @@ public sealed partial class World
             if(surplus<=0)continue;
             var kind=EdibleKinds.OrderByDescending(k=>FoodAvailableAt(source.Id,k)).First();
             int amount=System.Math.Min(4,System.Math.Min(need,System.Math.Min(surplus,FoodAvailableAt(source.Id,kind))));
-            if(amount<=0 || !Accessible(source.Entrance))continue;
+            if(amount<=0 || !Accessible(source.Entrance) || TravelCost(At(person),source.Entrance)==int.MaxValue)continue;
             person.Cargo=kind;person.PantryReserved=amount;person.FoodSourceId=source.Id;
             person.FoodDestinationId=destination.Id;person.FoodTransfer=true;
             Go(person,source.Entrance,Work.ToFoodPickup,$"Collecting {amount} {kind} at {FoodStoreName(source.Id)} for pantry {destination.Id}");return true;

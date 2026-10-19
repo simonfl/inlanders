@@ -32,7 +32,7 @@ public partial class Game
     private void UpdateReserveUi()
     {
         _reserves.Visible=_world.ProvisionedLife;if(!_reserves.Visible)return;
-        _reserveFood.Text=$"Food: {_world.EdibleStored}/{_world.Population*4} portions stored · four per resident. Priority below {_world.Population*3}. Grain is an oven ingredient, not a meal.";
+        _reserveFood.Text=$"Food: {_world.ReachableEdibleStored}/{_world.Population*4} portions reachable ({_world.EdibleStored} total stored) · four per resident. Priority below {_world.Population*3}. Grain is an oven ingredient, not a meal.";
         foreach(var (material,button) in _reserveButtons)
         {
             int stored=material==Resource.Logs?_world.Stored:material==Resource.Planks?_world.Planks:material==Resource.Grain?_world.StoredGrain:_world.Stone;

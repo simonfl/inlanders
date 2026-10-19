@@ -49,7 +49,7 @@ public sealed partial class World
     public int ChallengeNeighborsFed=>Challenge?.Meals.Count(p=>p.Value>=2)??0;
     public string? ChallengeInvitationProblem()=>Challenge is {Restoration:true}?"Restore this village first; growth is optional after continuing.":Challenge is not {} c?"No newcomer challenge.":c.InvitedAt!=null?"The invitation is already sent.":
         SpareBeds<4?"Finish four spare beds for the newcomers.":DeliveredEdible<16?"Deliver 16 locally produced food portions; starting provisions do not count.":
-        EdibleStored<32?"Keep 32 food portions ready for the larger village.":People.Any(p=>!p.Fed)?"Restore meals for current residents before inviting more.":
+        ReachableEdibleStored<32?"Keep 32 reachable food portions ready for the larger village.":People.Any(p=>!p.Fed)?"Restore meals for current residents before inviting more.":
         ArrivalSpots().Length<2?"Clear the arrival path beside the yard.":null;
     public bool InviteChallengeNeighbors()
     {

@@ -10,6 +10,8 @@
 
 ## Current direction and next step
 
+**Checkpoint239:** Food reserves and public challenge readiness now count reachable open stores rather than stranded stock. Economy distinguishes reachable and total food. A synthetic stranded-food case reproduced another unreachable-route exception in pantry hauling; haulers now validate both access and worker route before reserving a shipment. Both modes build real crossings, restore food availability and retain exact saves; zero-warning build. Next protect ready edible harvests during shortages, then freeze240 for the whole-game review.
+
 **Checkpoint238:** Reproduced an unreachable-work exception when ordering demolition of a cut-off field. Demolition now waits for a real worker route, explains missing access and remains cancellable; rebuilding both crossings lets builders recover crops/materials and finish removal. Actual wait/cancel/reconnect/recovery and exact-save checks pass; zero-warning build. Next prevent inaccessible food stores from falsely satisfying the working reserve or restoration goal.
 
 **Checkpoint237:** Building and field placement now previews new material cost against queued orders and reachable unreserved supplies, including the additional shortfall. This informs investment without blocking plans. Tests cover real competing home/bridge orders, pause/cancel, claimed deliveries, plot size and Relaxed; native960 placement budget and restoration/work controls pass. Next make abandoning a disconnected workplace safely recoverable instead of letting demolition claim an impossible route.

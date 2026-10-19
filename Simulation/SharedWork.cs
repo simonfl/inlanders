@@ -65,7 +65,7 @@ public sealed partial class World
         Founding.FoodFirst=enabled;_retry=0;
         History.Add(enabled?"Food first: available workers replenish meals before expansion. Current jobs finish.":"Balanced work: urgent meals still come first; expansion can proceed before the full food reserve.");return true;
     }
-    public bool FoodWorkNeeded => Challenge is {Arrived:true,Complete:false} && ChallengeDeliveries<32 || !ProvisionedLife || EdibleStored<Population*4 || People.Any(p=>!p.Fed);
+    public bool FoodWorkNeeded => Challenge is {Arrived:true,Complete:false} && ChallengeDeliveries<32 || !ProvisionedLife || ReachableEdibleStored<Population*4 || People.Any(p=>!p.Fed);
     public const int TimberReserve = 32;
     // Keep one small expansion ready, in addition to unfinished orders. Committed logging
     // and deliveries finish normally, so the stock can briefly exceed this target.
@@ -81,7 +81,7 @@ public sealed partial class World
         int available=People.Count(p=>p.Task==Work.Waiting);
         int personal=People.Count(p=>p.Task is Work.ToRest or Work.Resting or Work.ToLeisure or Work.Leisure or Work.ToMealSupply or Work.ToMealSeat or Work.EatingMeal or Work.ReturnMeal);
         return $"{Population-available-personal} working or travelling · {personal} eating or resting · {available} available\n"+
-            (!FoodWorkNeeded?$"Food reserves sufficient: {EdibleStored} portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\n"+TimberReserveSummary+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
+            (!FoodWorkNeeded?$"Food reserves sufficient: {ReachableEdibleStored} reachable portions. Food work resumes below {Population*4} or when someone needs a meal.":"Food production is needed. Residents take reachable work with free positions and supplies.")+"\n"+TimberReserveSummary+"\nInspect an unfinished plan or workplace for its current progress or blocker.";
     }
     private bool FinishFoodWork(Cottage site)=>site.Complete && !site.WorkPaused && !site.DemolitionRequested && (site.Harvest>0 || site.InputGrain>0 || site.OutputBread>0);
     // Geometry cannot change while choosing one job. Discard after the claim so
@@ -120,7 +120,7 @@ public sealed partial class World
             }
             return false;
         }
-        if((EdibleStored<Population*3 || Founding?.FoodFirst==true) && FoodWork())return;
+        if((ReachableEdibleStored<Population*3 || Founding?.FoodFirst==true) && FoodWork())return;
         if(Try(Role.Builder))return;
         // Replenish the working reserve and planned construction; do not harvest indefinitely.
         if((SharedTimberNeeded || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
