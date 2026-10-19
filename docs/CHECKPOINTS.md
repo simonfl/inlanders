@@ -2,8 +2,10 @@
 
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.
 
+- Latest outcome **211**: Public village work is automatic: ordinary profession/dedication controls are hidden; existing fixed assignments can return to the shared pool without interrupting committed work. Normal/Relaxed at-sea catch, delivery, meal and exact saved continuation checks passed; zero-warning build. Native UI review follows with the complete slice.
+- Active authorization: ten outcomes 211–220; reviews at 215/220, then stop.
 - Baseline: `b3a232344ad6cb0a16bc567b5afb515a38dbfb1e` — F07d1 route screen and reviewer proposal.
-- Playable checkpoints since adoption: **210**.
+- Playable checkpoints since adoption: **211**.
 - Latest immediate strategic update: [completed-playtest challenge decision](CHALLENGE_REVIEW_210.md), fixed `c3f6f71`, October 18, 2026. Five independent reused disciplinary contexts; challenge-led public direction replaces free tending as primary, automatic labor needs one clear contract. Fishing clarification source-checked; exact idle cause unverified. Documentation only; count stays 210.
 - Immediate strategic review after human playtest: [feedback synthesis](PLAYTEST_REVIEW_210.md), fixed `b873c5e`, October 18, 2026. Five independent roles; area renewal becomes the proposed ordinary timber action, duplicate river beginnings consolidate into one place/setup choice. Documentation only; count stays 210. No new gameplay or listening run.
 - Latest thematic direction review: **checkpoint 36**, [Les Habitants synthesis](THEME_REVIEW_36.md), fixed `e3f575f`. Two fresh and three reused independent roles; source and prior evidence only, no new play/listening. Roadmap refocus, no playable increment; periodic reviews 40, 45 and 50 have since completed.

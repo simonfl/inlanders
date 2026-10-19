@@ -139,13 +139,16 @@ public partial class Game
         _hintPanel = HudPanel(_hud); _hint = Text("", 14, true); _hintPanel.AddChild(_hint); _hintPanel.MouseFilter = Control.MouseFilterEnum.Ignore;
         _drawer.Hide(); _inspector.Hide(); _hintPanel.Hide(); LayoutHud(); MakeWatchUi();MakeTrackedGoal();
     }
+    private VBoxContainer _professionControls=null!;
+    private Button _automaticWork=null!;
     private void MakePeopleMenu(VBoxContainer column)
     {
         MakeServiceCoverage(column);
-        column.AddChild(Text("WORK ASSIGNMENTS", 12));
+        _professionControls=new();column.AddChild(_professionControls);
+        _professionControls.AddChild(Text("WORK ASSIGNMENTS", 12));
         foreach (var role in Enum.GetValues<Role>().Where(r => r != Role.Unassigned))
         {
-            var row = new HBoxContainer(); column.AddChild(row); _counts[role] = Text(""); _counts[role].SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; row.AddChild(_counts[role]);
+            var row = new HBoxContainer(); _professionControls.AddChild(row); _counts[role] = Text(""); _counts[role].SizeFlagsHorizontal = Control.SizeFlags.ExpandFill; row.AddChild(_counts[role]);
             foreach (int change in new[] { -1, 1 })
             {
                 var b = Button(change < 0 ? "−" : "+", () => _world.AdjustWorkers(role, change), 34);
@@ -154,6 +157,7 @@ public partial class Game
             }
         }
         _staffing = Text("", 13, true); column.AddChild(_staffing);
+        _automaticWork=Button("Return everyone to automatic work",()=>_world.UseAutomaticVillageWork());column.AddChild(_automaticWork);
         MakeArrivalControls(column);
         column.AddChild(Text("VILLAGERS · SELECT TO INSPECT", 12)); MakeRosterFilter(column);
         var roster = new GridContainer { Columns = 2 }; column.AddChild(roster);
@@ -259,6 +263,8 @@ public partial class Game
         for (int i = 0; i < _menuButtons.Count; i++)
         { _menuButtons[i].Modulate = _drawer.Visible && _tabs.CurrentTab == i ? _cream : Colors.White; _menuButtons[i].Text = i == 2 && _world.CanCelebrate ? "Goals · Ready" : i == 2 && _world.Gardener == VisitorState.Pending ? "Goals · Visitor" : MenuNames[i]; }
         hudMark=TraceHudPart(0,hudMark);
+        _professionControls.Visible=_world.PublicPlace==null;
+        _automaticWork.Visible=_world.PublicPlace!=null && _world.People.Any(p=>!p.SharedWorker);
         foreach (var role in _counts.Keys)
         {
             int count = _world.People.Count(v => v.Role == role); _counts[role].Text = $"{RoleName(role)}s  {count}";
@@ -267,6 +273,7 @@ public partial class Game
             _allocationButtons[(role, 1)].TooltipText = candidate == null ? "Everyone already has this role." : $"Assign {candidate.Name} ({candidate.Role}) as {role}. Carried goods return first.";
         }
         _staffing.Text = $"{(_world.SharedWork?_world.People.Count(v=>v.SharedWorker):_world.People.Count(v => v.Role == Role.Unassigned))} {(_world.SharedWork?"shared workers":"unassigned")} · {_world.People.Count(v => v.Task == Work.Waiting)} idle"+(_world.PublicPlace!=null?"":$"\nVillage happiness: {_world.VillageHappiness}/100")+$"\nHomes: {_world.ResidentsWithHomes}/{_world.Population}"+(_world.PublicPlace!=null?"":$" · recently rested: {_world.ResidentsRested}/{_world.Population}");
+        if(_world.PublicPlace!=null)_staffing.Text="AUTOMATIC VILLAGE WORK\nResidents take needed jobs across the village. No profession assignment is needed. Meals and breaks continue.\n"+_staffing.Text;
         _buildButton.Text = _placing ? "Cancel preview [Esc]" : $"Place {BuildingName(_buildKind).ToLowerInvariant()}";
         _buildButton.Disabled = _plantTreeButton.Disabled = _clearTreeButton.Disabled = _world.Food.Celebrating;
         _clearTreeButton.TooltipText = _world.Creative ? "Click a tree or stump to remove it immediately. Existing timber returns to the yard." : "Click to mark logger work; click again to cancel. Timber is recovered, then roots are removed.";

@@ -6,6 +6,17 @@ namespace Inlanders.Simulation;
 public sealed partial class World
 {
     public bool SharedWork { get; private set; }
+    public void UseAutomaticVillageWork()
+    {
+        if(!SharedWork)return;
+        foreach(var person in People)
+        {
+            person.AssignedWorkplaceId=null;person.SharedWorker=true;
+            if(person.Task==Work.Waiting)person.Role=Role.Unassigned;
+        }
+        _retry=0;
+    }
+
     public Villager? SharedStaffCandidate(int siteId)=>People.Where(p=>p.SharedWorker)
         .OrderByDescending(p=>p.WorkplaceId==siteId).ThenByDescending(p=>p.Task==Work.Waiting).ThenBy(p=>p.Id).FirstOrDefault();
     public string? DedicateWorkerProblem(int siteId)

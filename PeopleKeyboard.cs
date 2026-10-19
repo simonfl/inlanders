@@ -88,7 +88,7 @@ public partial class Game
             if(_peopleKeyboardPerson<0 && id>=0 && _world.People.Any(p=>p.Id==id))
             {
                 _peopleLastPerson=id;_peopleKeyboardPerson=id;SelectPerson(id);_peopleBackButton.Show();UpdateHud();
-                FocusPeopleControl(_jobChoice.Disabled?_peopleBackButton:_jobChoice);
+                FocusPeopleControl(!_jobChoice.IsVisibleInTree() || _jobChoice.Disabled?_peopleBackButton:_jobChoice);
             }
             else if(focus==_peopleBackButton)OpenPeopleKeyboard();
             else if(focus==_assignButton && !_assignButton.Disabled && _selectedPerson==_peopleKeyboardPerson)
@@ -102,6 +102,7 @@ public partial class Game
     }
     private string PeopleKeyboardHint()
     {
+        if(_peopleKeyboardPerson>=0 && _world.PublicPlace!=null)return "Residents take needed work automatically. Esc returns to residents · V closes";
         if(_peopleKeyboardPerson>=0)return "←→ choose role / workplace · Tab to Apply · Enter confirms\nEsc returns to residents · V closes";
         var focus=GetViewport().GuiGetFocusOwner();int id=_roster.FindIndex(b=>b==focus);
         return (id>=0?$"{_world.People[id].Name} · {_world.People[id].Role} · {_world.People[id].Status}\n":"←→ filter residents · ")+"Tab / ↑↓ select · Enter inspect · Esc close";

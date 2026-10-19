@@ -58,6 +58,7 @@ public partial class Game
     }
     private void UpdateManagementControls()
     {
+        _jobChoice.Visible=_assignButton.Visible=_world.PublicPlace==null;
         UpdateWorkplaceAssignmentControls();
         UpdateWelcomeControls();UpdateGatheringControls();
         if (_selectedPerson >= 0) {
@@ -86,7 +87,7 @@ public partial class Game
             _staffMinus.TooltipText = "Unassign one worker from this role across the village; they may be working elsewhere.";
             _staffPlus.Text=_world.SharedWork?"Dedicate worker":"+ Role";
             _staffMinus.Text=_world.SharedWork?"Release to shared":"− Role";
-            _staffPlus.Visible=_staffMinus.Visible=!_world.SharedWork || World.SupportsWorkplaceAssignment(job);
+            _staffPlus.Visible=_staffMinus.Visible=_world.PublicPlace==null && (!_world.SharedWork || World.SupportsWorkplaceAssignment(job));
             if(_world.SharedWork && World.SupportsWorkplaceAssignment(job)) {
                 int shared=_world.People.Count(p=>p.SharedWorker);
                 _workplaceStaff.Text=$"{_world.AssignedWorkers(site.Id)}/{capacity} dedicated · {active} working now\n{shared} shared workers village-wide fill available slots. Dedicated workers wait here when production cannot run.";
@@ -98,6 +99,7 @@ public partial class Game
                 _staffMinus.TooltipText="Release a worker dedicated here into the shared pool after the current job and delivery.";
             } else if(_world.SharedWork) _workplaceStaff.Text=$"{active} visiting · shared hauling\nShared workers deliver between stores. Use storage targets to request supplies.";
         }
+        if(_world.PublicPlace!=null && site!=null)_workplaceStaff.Text="Residents take work here automatically. No assigned profession is needed.\n"+_world.ReadWorkplace(site).Detail;
         foreach(var p in _world.People) {
             var button=_workerLinks[p.Id];
             button.Visible=site!=null && (p.AssignedWorkplaceId==site.Id || p.WorkplaceId==site.Id || p.SiteId==site.Id || p.StorageId==site.Id || p.HaulTargetId==site.Id || p.FoodDestinationId==site.Id || p.FoodSourceId==site.Id);

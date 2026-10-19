@@ -28,7 +28,7 @@ public partial class Game
     private void UpdateWorkplaceAssignmentControls()
     {
         if(_selectedPerson<0){_assignmentPerson=-1;return;}
-        var person=_world.People[_selectedPerson];bool supported=World.SupportsWorkplaceAssignment(person.Role);
+        var person=_world.People[_selectedPerson];bool supported=_world.PublicPlace==null && World.SupportsWorkplaceAssignment(person.Role);
         var sites=_world.Cottages.Where(c=>c.Complete && !c.DemolitionRequested && Buildings.Get(c.Kind).Worker==person.Role && Buildings.Get(c.Kind).Slots>0).OrderBy(c=>c.Id).ToArray();
         int actual=person.AssignedWorkplaceId??0;
         bool reset=_assignmentWorld!=_world || _assignmentPerson!=person.Id || _assignmentRole!=(int)person.Role || _assignmentActual!=actual;

@@ -1,3 +1,16 @@
+# Active batch — checkpoints 211–220
+
+Authorized October 18, 2026: “do 10 rounds.” Deliver ten committed playable outcomes, full-game reviews at 215 and 220, visual/audio at 220 and after substantial presentation changes; stop after 220. This supersedes the previous stop. Follow the completed-playtest challenge direction and adjust scope after every outcome.
+
+211. **Done** — Public village work is automatic: ordinary profession/dedication controls are hidden; existing fixed assignments can return to the shared pool without interrupting committed work. Normal/Relaxed at-sea catch, delivery, meal and exact saved continuation checks passed; zero-warning build. Native UI review follows with the complete slice.
+212. Proposed — truthful food/workforce inactivity and blocker reporting, using actual dispatch evidence.
+213. Proposed — area harvest-and-renew as ordinary timber supply, preserving project context.
+214. Proposed — complete newcomer challenge: purpose, preparation, arrival and actual settlement.
+215. Proposed — choose and recover different food/layout strategies within the challenge; whole-game review before further work.
+216–220. Select after review 215. Candidate needs: meaningful spatial tradeoffs, invitation/arrival clarity, completion and continuation, challenge/free-play entry, balance and recovery. Do not count tests/foundations alone or stretch a single outcome into multiple checkpoints.
+
+## Earlier direction and historical authorizations
+
 # Next direction — one complete challenge, automatic work
 
 The completed playtest changes the primary contract: the user liked building grouping and grove renewal, but found staffing confusing and play pointless without goals. [Full strategic synthesis](CHALLENGE_REVIEW_210.md) supersedes the earlier tidy-up-first queue below. No gameplay changes in this review; checkpoint remains **210**. No new ten-chunk batch is implied.
