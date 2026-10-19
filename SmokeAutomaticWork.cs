@@ -27,6 +27,15 @@ public partial class Game
                 for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
                 await Capture($"artifacts/212-food-rest-{relaxed}.png");
             }
+            AdoptWorld(World.NewRiverFrontage(true,true,true));_paused=true;
+            var millAt=_world.Map.Land.First(c=>_world.PlacementProblem(c,0,BuildingKind.Sawmill)==null);
+            var mill=_world.Place(millAt,0,BuildingKind.Sawmill)!;_world.SetOutputTarget(mill.Id,0);
+            ShowWorkplaceCard(mill.Id);UpdateHud();RenderWorkplaceCard();
+            for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            if(_world.ReadWorkplace(mill).State!="Manual stock cap" || !_workCardAutoTarget.Visible)throw new Exception("Manual cap not actionable");
+            await UiClick(_workCardAutoTarget);
+            if(!mill.AutomaticOutputTarget || _world.EffectiveOutputTarget(mill)!=24)throw new Exception("Automatic target recovery failed");
+            GD.Print("PASS ordinary workplace card restores automatic material target.");
             AdoptWorld(World.NewRiverLivelihood());_paused=true;
             var project=_world.Place(new(0,0),0,BuildingKind.Cottage)!;ShowWorkplaceCard(project.Id);RememberSupplyOrigin();
             var originalFocus=_focus;BeginEverydayTimber();

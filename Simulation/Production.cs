@@ -109,6 +109,12 @@ public sealed partial class World
         if (!remaining && site.Planted) return new("Growing", $"Crop {site.Growth:P0}. A farmer returns when ripe.");
         if(ProvisionedLife && !FoodWorkNeeded && !EstablishmentWork(site) && Buildings.Get(site.Kind).Worker is Role foodRole && FoodRole(foodRole) && !People.Any(p=>!p.SharedWorker && p.Role==foodRole && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id)))
             return new("Provisions ready", $"Enough food stored: {EdibleStored} portions for {Population} residents. No fisher or farmer assignment is needed; automatic food work resumes below {Population*4} portions or when someone needs a meal.", RestingForFood:true);
+        if(ProvisionedLife && !remaining && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone)
+        {
+            var material=ProductionOutput(site.Kind)!.Value;
+            if(!site.AutomaticOutputTarget && !BelowOutputTarget(site))return new("Manual stock cap",$"This workplace stops at {site.OutputTarget} {material.ToString().ToLowerInvariant()}. Village target is {MaterialStockTarget(material)}; use the automatic target to follow queued demand.");
+            if(ProductionCommitted(material)>=MaterialStockTarget(material))return new("Reserve ready",$"{ProductionCommitted(material)}/{MaterialStockTarget(material)} {material.ToString().ToLowerInvariant()} stored or committed. Automatic workers resume as materials are used or new orders are placed.");
+        }
         if (!remaining && !BelowOutputTarget(site)) return new("Target met", "Stored goods and committed production cover this workplace's target. New work resumes when they fall below it.");
         var role = Buildings.Get(site.Kind).Worker;
         if (role != null && !People.Any(p => (p.SharedWorker || p.Role == role) && (p.AssignedWorkplaceId==null || p.AssignedWorkplaceId==site.Id))) return new("No staff", $"Assign a {role.ToString()!.ToLowerInvariant()} in People. Workers assigned elsewhere do not take jobs here.");
