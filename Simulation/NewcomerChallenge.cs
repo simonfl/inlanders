@@ -4,6 +4,7 @@ using System.Linq;
 namespace Inlanders.Simulation;
 public sealed class NewcomerChallenge
 {
+    public bool Repair {get;set;}
     public float? InvitedAt {get;set;}
     public bool Arrived {get;set;}
     public bool Complete {get;set;}
@@ -14,18 +15,25 @@ public sealed class NewcomerChallenge
 public sealed partial class World
 {
     public NewcomerChallenge? Challenge=>Founding?.Challenge;
-    public static World NewNewcomerChallenge(bool relaxed=false)
+    public static World NewNewcomerChallenge(bool relaxed=false,bool repair=false)
     {
         var w=NewTransformationHamlet(false,true,false,true);
         foreach(var person in w.People)w.Interrupt(person);
-        foreach(var field in w.Cottages.Where(b=>b.Kind==BuildingKind.VegetableField).ToArray())w.Cottages.Remove(field);
-        w.Founding!.Challenge=new();
+        if(!repair)foreach(var field in w.Cottages.Where(b=>b.Kind==BuildingKind.VegetableField).ToArray())w.Cottages.Remove(field);
+        w.Founding!.Challenge=new(){Repair=repair};
+        if(repair)
+        {
+            for(int x=-10;x<=-5;x++)w.Map.Water.Add(new(x,0));
+            w.Paths.RemoveWhere(w.Map.Water.Contains);
+            Array.Clear(w.Map.Heights);
+        }
         w.Founding.StartingBuildings=w.Cottages.Select(b=>new StartingBuilding{Id=b.Id,Cell=b.Cell,Rotation=b.Rotation,Kind=b.Kind}).ToList();
         w.Map.Name="Une place pour les nouveaux · A place for newcomers";
         w._yardLogs=18;w.InitialLogs=w.SawnLogs+w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(b=>b.Delivered)+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=48;
         w.History.Clear();w.History.Add("Four neighbors seek a home here. The south bank is crowded; a small kitchen garden cannot feed an enlarged village alone. Open northern ground, shorten the journey across the inlet, or make more room beside the existing homes. Prepare four beds and food, then invite them. They arrive thirty seconds after your invitation. Help them settle through ordinary meals; choose your own homes, food sources and paths.");
-        w.Validate();return relaxed?RelaxedHamletFrom(w):w;
+        if(repair){w.Map.Name="Les champs de l’autre rive · The far-bank fields";w.History.Clear();w.History.Add("The northern fields have been cut off by the river. Twelve residents still have a kitchen garden and provisions, but four newcomers need a lasting food supply. Reconnect the fields with a crossing, move cultivation onto the home bank, or choose another livelihood. No prescribed building is required. Invite the neighbors only when you are ready.");}
+        w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }
     public int ChallengeDeliveries=>Challenge is {Arrived:true} c?Math.Max(0,DeliveredEdible-c.DeliveryBaseline):DeliveredEdible;
     public int ChallengeHoused=>People.Count(p=>p.HomeId is int id && Cottages.Any(b=>b.Id==id && IsHome(b) && Accessible(b.Entrance)));

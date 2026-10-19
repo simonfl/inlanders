@@ -24,7 +24,12 @@ public partial class Game
             _drawerPages[2].EnsureControlVisible(_challengeContinue);await Frames();await Capture("artifacts/216-challenge-complete.png");
             await UiClick(_challengeContinue);await Frames();if(!_world.Challenge!.Continuing || _drawer.Visible)throw new Exception("Continue building failed");
             if(!SaveSession())throw new Exception("Completed challenge save failed");
-            GD.Print("PASS native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
+            ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play challenge"]);await Frames();
+            await UiClick(_mainButtons["Situation: first settlement · change"]);await Frames();await UiClick(_mainButtons["New challenge"]);await Frames();
+            if(_world.Challenge?.Repair!=true || !CurrentSavePath.Contains("far-bank-challenge"))throw new Exception("Repair situation identity");
+            await Capture("artifacts/217-repair-brief.png");
+            if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Repair!=true)throw new Exception("Repair save");
+            GD.Print("PASS native repair situation selection and separate save; native new challenge brief, disabled early invitation, save/Continue identity, completed outcome card and continue building at960. Completion fixture uses actual simulation, not UI playthrough.");GetTree().Quit();
         }
         catch(Exception e){GD.PrintErr(e);GetTree().Quit(1);}
     }

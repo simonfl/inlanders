@@ -112,7 +112,7 @@ public sealed partial class World
         }
         if (v.Role == Role.Farmer)
         {
-            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && CanClaimWorkplace(v,c) && FreeStation(c)).OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
+            var fields = Cottages.Where(c => c.Complete && !c.WorkPaused && IsField(c) && TravelCost(At(v),c.Entrance)!=int.MaxValue && CanClaimWorkplace(v,c) && FreeStation(c)).OrderBy(c=>TravelCost(At(v),c.Entrance)).ThenBy(c => c.Id);
             var farm = fields.FirstOrDefault(c => c.Harvest > 0) ?? fields.FirstOrDefault(c => !c.Planted && !c.OrchardMature && BelowOutputTarget(c));
             if (farm == null) { v.Status = ProductionWait(v); return; }
             v.WorkplaceId = farm.Id;

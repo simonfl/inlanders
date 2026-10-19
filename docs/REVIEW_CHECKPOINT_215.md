@@ -34,7 +34,7 @@ Retain the public visual language provisionally; no catalogue-wide art or render
 
 Source inspection, supplied human feedback, `artifacts/215-challenge-brief.png`, `215-challenge-complete.png`, `213-timber-area.png`, `212-food-rest-False.png`, and an archived dense still informed review. Native215 log passes menu/new brief, early invitation rejection, save/Continue identity, completed outcome display and continuation at960. Completion is adopted from an actual simulation fixture; it is not an uncoached native playthrough.
 
-Focused checks cover two layouts in two modes, real construction/arrival/meals/delivery, invitation save continuation and completed-state identity. The full68-suite current-experience regression is running on the fixed215 assembly; final result will be recorded separately. No reviewer launched UI, built, listened, watched continuous motion or independently measured performance. Full catalogue discovery, campaign pacing, human challenge enjoyment and ordinary recovery remain unobserved.
+Focused checks cover two layouts in two modes, real construction/arrival/meals/delivery, invitation save continuation and completed-state identity. The full68-suite current-experience regression subsequently completed with all68 passing on the fixed215 assembly (run dee49df29e304c0ebaa96f982debb28d; module3d70792f-a073-40a3-8516-d807304ca5a5; artifacts/215-current-experience-report.json). This completion was recorded during217, not backdated as review-time evidence. No reviewer launched UI, built, listened, watched continuous motion or independently measured performance. Full catalogue discovery, campaign pacing, human challenge enjoyment and ordinary recovery remain unobserved.
 
 ## Next scope and tooling
 

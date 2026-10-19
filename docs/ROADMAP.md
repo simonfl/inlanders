@@ -8,6 +8,8 @@
 
 ## Current direction and next step
 
+**Checkpoint 217:** Optional far-bank repair situation has two cut-off existing fields, a real crossing or relocation choice and separate saves. Bridge/move complete in Normal192/263s and Relaxed173/249s; untouched60s control retains inaccessible crops, not a long-run failure proof. Fixed unreachable-farmer crash. Native entry/save passes. This is a short repair variation, not a proven harder level; next make recovery directly actionable and demonstrate restored production through UI.
+
 **Checkpoint 216:** The full success contract and invitation now precede generic tools; settling names actual blockers and checks assigned reachable homes. Native compact-window entry/completion passes. Comparison: homes alone fail by1200s; one field and a farther field finish at367/333s without missed meals, two fields at267s. Retain as introduction; next test a repair situation rather than pretend distance alone supplies challenge.
 
 **Review215:** [whole-game synthesis](REVIEW_CHECKPOINT_215.md) retains the challenge-led correction but rejects claiming sustained challenge from a 197–259 simulated-second solver. Prioritize one complete objective flow and a minimum-intervention/repair comparison; deepen or replace the situation rather than raise quotas. Catalogue grouping is liked; spatial group manipulation remains unproven. Scope216–220 is evidence-led.

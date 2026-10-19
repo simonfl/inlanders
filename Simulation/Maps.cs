@@ -90,9 +90,11 @@ public sealed partial class World
         }
         if (!Map.Contains(Stockpile) || Map.Water.Contains(Stockpile)) throw new InvalidDataException("Yard outside dry land");
         var reached = Reachable(YardAccess, Blocked);
-        // Resources may wait on the far bank; existing villagers and building entrances must remain usable.
+        // The repair opening deliberately strands its two original fields. Only those unchanged
+        // authored fields may be disconnected; residents, moved fields and other sites remain protected.
+        // Resources may also wait on the far bank.
         if (Trees.Select(t => t.Access).Concat(Bushes.Select(b => b.Access)).Concat(Map.StoneDeposits.Select(d=>d.Access)).Concat(Map.Wildlife.Select(h=>h.Cell)).Any(c => Blocked(c) || (Map.Water.Count == 0 && !reached.Contains(c))) ||
-            Cottages.Select(c => c.Entrance).Concat(People.Select(At)).Concat(MeetingSpots).Any(c => !reached.Contains(c)))
+            Cottages.Where(c=>!(Challenge?.Repair==true && c.Kind==BuildingKind.VegetableField && Founding!.StartingBuildings.Any(b=>b.Id==c.Id && b.Cell==c.Cell && b.Rotation==c.Rotation))).Select(c => c.Entrance).Concat(People.Select(At)).Concat(MeetingSpots).Any(c => !reached.Contains(c)))
             throw new InvalidDataException("Map cuts off village access");
     }
 }
