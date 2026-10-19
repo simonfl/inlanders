@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next230, then240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. This policy change adds no implementation authorization.
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next230, then240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. Subsequently authorized: ten outcomes222–231, review230, then stop231.
 
 **A home for generations.** A settlement game about 17th-century French settlers in New France, in the region now called Quebec: farming, making a living from the land, establishing homes and improving everyday life.
 
@@ -10,7 +10,9 @@
 
 ## Current direction and next step
 
-**Checkpoint221: targeted timber follow-up complete.** The prior ten outcomes211–220 and full reviews215/220 are complete. [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. The targeted timber-reserve fix responds to human playtest feedback; no further batch is authorized.
+**Checkpoint222:** Automatic plank/stone reserves now keep24 plus queued construction/improvements; automatic workplace limits follow demand and explicit manual caps remain recoverable. Fixed stranded sawmill output at the target. Actual plank stocking, lodge construction/refill, cap switching, queued/paused stone demand and exact saved continuation pass; zero-warning build. Next expose reserves and supply actions together.
+
+**Checkpoint221: targeted timber follow-up complete.** The prior ten outcomes211–220 and full reviews215/220 are complete. [Review220 synthesis](REVIEW_CHECKPOINT_220.md) returns five partially convincing verdicts. The public game has clearer purpose, automatic work, renewable area timber, a newcomer introduction, a short repair variation and one secondary free-play settlement with optional prepared food. These are not evidence of a finished or deep campaign. The targeted timber-reserve fix responds to human playtest feedback; the subsequent ten-chunk authorization covers222–231.
 
 **Immediate playtest finding:** automatic reserves must support building ahead of need. Timber now targets32 plus queued construction instead of8 (capped24 with orders); compare24 planks/24 stone next, reconcile workplace caps, and expose targets. Food already scales at four portions per resident; retain pending consumption/meal-service evidence. See [reserve follow-up](NEXT_CHUNKS.md).
 

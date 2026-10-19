@@ -26,7 +26,7 @@ public sealed partial class World
     {
         var site = Cottages.FirstOrDefault(c => c.Id == id && c.Complete && !c.DemolitionRequested && ProductionOutput(c.Kind) != null);
         if (site == null || Food.Celebrating || target < -1 || target > 200) return false;
-        site.OutputTarget = target; _retry = 0; return true;
+        site.OutputTarget = target; site.AutomaticOutputTarget=false; _retry = 0; return true;
     }
     // Count committed batches/crops as well as stock, so workers cannot all spend the same headroom.
     public int ProductionCommitted(Resource resource)
@@ -49,7 +49,15 @@ public sealed partial class World
             _ => Stored + cargo
         };
     }
-    private bool BelowOutputTarget(Cottage site) => site.OutputTarget < 0 || ProductionOutput(site.Kind) is Resource output && ProductionCommitted(output) < site.OutputTarget;
+    public int EffectiveOutputTarget(Cottage site) => ProvisionedLife && site.AutomaticOutputTarget && ProductionOutput(site.Kind) is Resource.Planks or Resource.Stone
+        ? MaterialStockTarget(ProductionOutput(site.Kind)!.Value) : site.OutputTarget;
+    public bool UseAutomaticOutputTarget(int id)
+    {
+        var site=Cottages.FirstOrDefault(c=>c.Id==id && c.Complete && ProductionOutput(c.Kind)!=null && !c.DemolitionRequested);
+        if(site==null || Food.Celebrating)return false;
+        site.AutomaticOutputTarget=true;_retry=0;return true;
+    }
+    private bool BelowOutputTarget(Cottage site) => EffectiveOutputTarget(site) < 0 || ProductionOutput(site.Kind) is Resource output && ProductionCommitted(output) < EffectiveOutputTarget(site);
     private string ProductionWait(Villager person)
     {
         var role=person.Role;

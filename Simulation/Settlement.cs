@@ -107,6 +107,7 @@ public sealed class Cottage
     [JsonInclude] public bool ConstructionPaused { get; internal set; }
     [JsonInclude] public bool WorkPaused { get; internal set; }
     [JsonInclude] public int OutputTarget { get; internal set; } = -1;
+    public bool AutomaticOutputTarget { get; set; } = true;
     public int Id { get; init; }
     [JsonInclude] public Cell Cell { get; internal set; }
     [JsonInclude] public int Rotation { get; internal set; }

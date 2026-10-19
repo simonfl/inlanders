@@ -105,11 +105,8 @@ public sealed partial class World
         // Replenish the working reserve and planned construction; do not harvest indefinitely.
         if((SharedTimberNeeded || Trees.Any(t=>t.ClearRequested || t.NeedsPlanting) || ManagedWoodland.Any(GroveNeedsPlanting)) && Try(Role.Logger))return;
         if(ClaimWelcomeDelivery(person)){person.Role=Role.Hauler;return;}
-        int plankNeed=8+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Planks).Sum(c=>c.Remaining(Resource.Planks))
-            +Cottages.Where(c=>c.ImprovementRequested).Sum(c=>Math.Max(0,ComfortCost(c)-c.ImprovementPlanks-ComfortIncoming(c)));
-        int stoneNeed=6+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused).Sum(c=>c.Remaining(Resource.Stone));
-        if(Try(Role.Carpenter) || ((!ProvisionedLife || PendingPlanks<plankNeed) && Try(Role.Sawyer)) ||
-            ((!ProvisionedLife || ProductionCommitted(Resource.Stone)<stoneNeed) && Try(Role.Quarrier)) || Try(Role.Hauler) || FoodWork())return;
+        if(Try(Role.Carpenter) || ((!ProvisionedLife || PendingPlanks<MaterialStockTarget(Resource.Planks) || Cottages.Any(c=>c.Kind==BuildingKind.Sawmill && !c.WorkPaused && (c.InputLogs>0 || c.OutputPlanks>0))) && Try(Role.Sawyer)) ||
+            ((!ProvisionedLife || ProductionCommitted(Resource.Stone)<MaterialStockTarget(Resource.Stone)) && Try(Role.Quarrier)) || Try(Role.Hauler) || FoodWork())return;
         person.Status="Shared worker — waiting for available work";
         WaitNearHome(person);
     }

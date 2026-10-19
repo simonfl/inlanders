@@ -7,6 +7,7 @@ public partial class Game
 {
     private VBoxContainer _productionControls = null!;
     private VBoxContainer _productionTargetControls = null!;
+    private Button _productionAutomatic=null!;
     private Button _productionTargetToggle = null!;
     private int _productionTargetSite = -1;
     private Label _productionState = null!, _productionTargetInfo = null!;
@@ -44,8 +45,9 @@ public partial class Game
         _outputTargetLess = Button("− 4 target", () => Change(-4)); _outputTargetMore = Button("+ 4 target", () => Change(4));
         _outputTargetLess.SizeFlagsHorizontal = _outputTargetMore.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         row.AddChild(_outputTargetLess); row.AddChild(_outputTargetMore);
-        _outputTargetUnlimited = Button("No limit", () => _world.SetOutputTarget(_selectedSite, -1)); _productionTargetControls.AddChild(_outputTargetUnlimited);
-        _productionTargetControls.AddChild(Text("Targets use village-wide stock + committed production. New crops/batches may exceed the target by one batch. Existing crops and output are still collected. Other workplaces keep their own targets.", 13, true));
+        _outputTargetUnlimited = Button("No workplace cap", () => _world.SetOutputTarget(_selectedSite, -1)); _productionTargetControls.AddChild(_outputTargetUnlimited);
+        _productionAutomatic=Button("Use automatic village target",()=>_world.UseAutomaticOutputTarget(_selectedSite));_productionTargetControls.AddChild(_productionAutomatic);
+        _productionTargetControls.AddChild(Text("Automatic material targets keep 24 in reserve plus queued demand. Manual targets cap this workplace; automatic workers still stop at village demand. Targets use village-wide stock + committed production. New crops/batches may exceed the target by one batch. Existing crops and output are still collected. Other workplaces keep their own targets.", 13, true));
     }
     private void UpdateProductionControls(Cottage? site)
     {
@@ -68,8 +70,12 @@ public partial class Game
         }
         _productionPause.TooltipText = "Current work and deliveries finish. Crops keep growing. Worker roles do not change.";
         Resource output = World.ProductionOutput(site.Kind)!.Value;
-        _productionTargetToggle.Text = $"{output} target · {(site.OutputTarget < 0 ? "No limit" : site.OutputTarget.ToString())} {(_productionTargetControls.Visible ? "▴" : "▾")}";
-        _productionTargetInfo.Text = $"{output} target: {(site.OutputTarget < 0 ? "No limit" : site.OutputTarget.ToString())}\n{_world.ProductionCommitted(output)} stored or committed village-wide";
+        int target=_world.EffectiveOutputTarget(site);
+        bool automatic=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone && site.AutomaticOutputTarget;
+        _productionAutomatic.Visible=_world.ProvisionedLife && output is Resource.Planks or Resource.Stone;
+        _productionAutomatic.Disabled=automatic || _world.Food.Celebrating || site.DemolitionRequested;
+        _productionTargetToggle.Text = $"{output} target · {(automatic ? $"Automatic {target}" : target < 0 ? "No workplace cap" : target.ToString())} {(_productionTargetControls.Visible ? "▴" : "▾")}";
+        _productionTargetInfo.Text = $"{output} target: {(automatic ? $"Automatic {target}" : target < 0 ? "No workplace cap" : target.ToString())}\n{_world.ProductionCommitted(output)} stored or committed village-wide";
         _productionPause.Disabled = _outputTargetMore.Disabled = _outputTargetUnlimited.Disabled = _world.Food.Celebrating || site.DemolitionRequested;
         _outputTargetLess.Disabled = _world.Food.Celebrating || site.DemolitionRequested || site.OutputTarget <= 0;
         _outputTargetMore.Disabled |= site.OutputTarget >= 200;
