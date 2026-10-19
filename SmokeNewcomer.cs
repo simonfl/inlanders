@@ -25,8 +25,8 @@ public partial class Game
             _drawerPages[2].EnsureControlVisible(_challengeContinue);await Frames();await Capture("artifacts/216-challenge-complete.png");
             await UiClick(_challengeContinue);await Frames();if(!_world.Challenge!.Continuing || _drawer.Visible)throw new Exception("Continue building failed");
             if(!SaveSession())throw new Exception("Completed challenge save failed");
-            ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Play challenge"]);await Frames();
-            await UiClick(_mainButtons["Situation: first settlement · change"]);await Frames();await UiClick(_mainButtons["New challenge"]);await Frames();
+            ReturnToMainMenu();await Frames();await UiClick(_mainButtons["Earlier prototypes"]);await Frames();
+            await UiClick(_mainButtons["Far-bank newcomer comparison"]);await Frames();await UiClick(_mainButtons["New challenge"]);await Frames();
             if(_world.Challenge?.Repair!=true || !CurrentSavePath.Contains("far-bank-challenge"))throw new Exception("Repair situation identity");
             await Capture("artifacts/217-repair-brief.png");
             if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Repair!=true)throw new Exception("Repair save");

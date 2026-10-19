@@ -1,11 +1,23 @@
-# Active batch — checkpoints222–231
+# Completed batch — checkpoints222–231
 
-Authorized October18,2026: “do 10 chunks.” Ten playable outcomes; full five-role review at230 before choosing231, then stop231. Material reserve and challenge recovery outcomes222–227 are committed.228 tests non-growing flood restoration.229 will test a two-channel geography with an intermediate island decision;230 will make scenario selection visually understandable before the full review. Choose231 from that synthesis, then stop. This supersedes earlier stop/conditional authorization notes below.
+Primary challenges are now two directly named choices: newcomer introduction and After the flood, with actual map/start conditions and Normal/Relaxed. The redundant far-bank newcomer variation moves to developer comparisons; current saves continue normally. Native compact/wide selection, mode toggle, restoration entry/save/continue, newcomer completion, archive recovery and free-play flows pass; zero-warning build and inspected960 menu. Ten outcomes222–231 complete; stop. Review230 selects deeper restoration decisions, coherent landscape storytelling and measured blocked-state performance before content expansion.
 
+[Full review230](REVIEW_CHECKPOINT_230.md) completed before231 on fixed153c67f. Next periodic review240 only if authorized.
+
+## Next candidates — requires authorization
+
+1. Reproduce and attribute blocked-restoration performance in actual1x/3x play; fix only a measured problem.
+2. Compare land-bound crop recovery versus current free field relocation, without taxing general rearrangement.
+3. Compare coherent flood geography and visible household recovery with the current geometric scene. Consider world survey only if needed for orientation.
+4. Observe ordinary player decisions and visible satisfaction before adding chapters, needs or buildings; be willing to reduce the game to restoration commissions or a smaller farmstead.
+
+Supporting tooling: current-suite registry/prerequisites and compact decision timelines; actual audiovisual sample with existing tools. These do not count as playable outcomes. Next full review240, contingent on authorization.
+
+## Completed outcomes — historical notes
 
 # Targeted playtest follow-up — checkpoint221
 
-**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next230, then240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. This policy change adds no implementation authorization.
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. This policy change adds no implementation authorization.
 
 221. **Done** — Timber reserve raised from8 (24 maximum with orders) to32 logs plus unfinished, unpaused construction. Enough for two cottages, a standard vegetable field and a dock (30 logs). Logs tooltip and workforce explain the target and resumption. Actual automatic harvesting, stop, construction/replenishment and exact-save simulation checks pass; automatic-work regression and native Normal/Relaxed controls/target checks pass; zero-warning build. Plank/stone and food policy follow-up recorded, not implemented.
 
@@ -45,19 +57,9 @@ Original authorization, October 18, 2026: “do 10 rounds.” Deliver ten commit
 219. **Done** — Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
 220. **Done** — Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
 
-## Reserve follow-up from playtest
+## Reserve follow-up — delivered222–226
 
-Timber now targets32 logs plus queued construction after the player found8 insufficient. Review the rest as one understandable stock policy: propose24 planks and24 stone plus queued construction/improvements. Current automatic baselines are8 planks and6 stone; a lodge costs12 planks and a hall8 planks +12 stone. Resolve the sawmill's separate12-plank default cap with automatic demand, including existing current-format saves and deliberate player limits; no migrations. Food already targets four edible portions per resident (priority below three); retain provisionally, expose current/target and assess actual meal service rather than inflate every food type. Grain is an input, not edible reserve: inspect bakery throughput before choosing a separate grain buffer. Validate production, stopping, resumed work, queues and manual limits. These proposals are not implemented by the timber-only change.
-
-## Conditional next scope — requires further authorization
-
-The current newcomer challenge stays an introduction. The repair variation is not accepted as a deeper second chapter. Preserve the full catalogue and explicit user exclusions; no quota-padding, automatic new needs or return to archived service bureaucracy.
-
-1. **Observe the complete introduction through ordinary controls.** Record what the player intends, meaningful decisions, confusing inactivity, invitation reasoning and whether following a newcomer is rewarding. A short satisfying introduction is valid. Fix demonstrated goal-recovery gaps within that experience: collapsed progress can hide the remaining delivery/home/meal condition; target actions should match the real blocker. Reproduce the inferred inaccessible-bed/retained-assignment case before changing home rules. Tests or observation alone do not count as playable outcomes.
-2. **Compare a non-growing restoration commission.** An inhabited place has two linked practical constraints. Reconnection, relocation or another livelihood should use land/materials differently and produce visibly different functioning villages. Include equal-horizon no/minimal-intervention controls and delayed recovery from one plausible mistake. Reject the experiment if one obvious initial placement solves everything or further play is only waiting. Exact commission, geography and completion expression remain TBD; no mandatory building recipe.
-3. **Compare the inhabited scene, not another prop batch.** Hold people, food capacity, inventory and camera constant while comparing the current layout with a coherent river farmstead: domestic approaches, cultivation, woodland and a working bank. Observe one useful edit, actual use and recognizable arrival-to-home life at960/1440 and two orientations. Align the menu after selecting the scene. Sound and motion require an actual normal-speed audiovisual sample and listening.
-
-Supporting tooling, not separate feature counts: extend Review.ps1's existing dependency/provenance handling for challenge fixtures, save first-obstruction states and compact intervention/resource timelines. Validate clean/reused runs and a second reviewer's ability to understand the comparison without solver source. Defer a general framework, telemetry platform, save migrations or architecture rewrite.
+Logs32 plus orders; planks/stone24 plus orders; food four portions per resident; grain ingredient buffer; visible targets and manual-cap recovery. Committed crops/bread finish rather than being abandoned at reserve. See ledger and review230 for bounded evidence and remaining balance questions.
 
 ## Earlier direction and historical authorizations
 

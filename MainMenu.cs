@@ -60,7 +60,7 @@ public partial class Game
         CloseManagementUi(); RefreshGhost(); _hud.Hide(); _mainMenu.Show();
         MenuPage(PublicIdentity.Tagline);
         MenuButton("Continue", ContinueFromMenu).Disabled = !File.Exists(_continuePath);
-        MenuButton("Play challenge", ChallengeMenu);
+        MenuButton("Play challenge", ()=>{_challengeRepair=false;_challengeRestoration=false;ChallengeMenu();});
         MenuButton("Free play", TransformationMenu);
         if(DeveloperPlaces)
             MenuButton("Earlier prototypes", ComparisonMenu);
@@ -105,6 +105,7 @@ public partial class Game
     private void ComparisonMenu()
     {
         MenuPage("Developer · archived experiments");
+        MenuButton("Far-bank newcomer comparison",()=>{_challengeRepair=true;_challengeRestoration=false;ChallengeMenu();});
         MenuButton("Earlier farmstead",RiverFarmsteadMenu);
         MenuButton("Free arrangement",()=>CourtStartMenu(false));
         MenuButton("Found a village · A home by the water",FoundingMenu);

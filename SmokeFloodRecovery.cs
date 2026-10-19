@@ -12,7 +12,13 @@ public partial class Game
             string dir=Path.Combine(Path.GetTempPath(),"inlanders-restoration-"+Guid.NewGuid());Directory.CreateDirectory(dir);
             _creativeSavePath=Path.Combine(dir,"creative.json");_continuePath=Path.Combine(dir,"continue.json");
             GetWindow().Size=new(960,640);MakeMainMenu();
-            await UiClick(_mainButtons["Play challenge"]);await UiClick(_mainButtons["Situation: first settlement · change"]);await UiClick(_mainButtons["Situation: cut-off fields · change"]);
+            await UiClick(_mainButtons["Play challenge"]);if(!_mainButtons["A place for newcomers · introduction"].Disabled || _mainButtons.ContainsKey("Far-bank newcomer comparison"))throw new Exception("Primary challenge choices unclear");
+            await UiClick(_mainButtons["After the flood · restoration"]);
+            for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            if(_mainButtons["New challenge"].GetGlobalRect().End.Y>GetWindow().Size.Y-40)throw new Exception("Start below compact menu fold");
+            await UiClick(_mainButtons["Mode: Normal · change"]);
+            if(!_challengeRelaxed || !_challengeRestoration)throw new Exception("Relaxed selection lost situation");
+            await UiClick(_mainButtons["Mode: Relaxed · change"]);
             if(_challengeMapPanel?.IsVisibleInTree()!=true || !_challengeMapSummary.Text.Contains("8 beds"))throw new Exception("Scenario map/start conditions missing");
             await Capture("artifacts/restoration/menu-960.png");
             GetWindow().Size=new(1440,900);for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
