@@ -1,6 +1,6 @@
 # Development process reset
 
-Adopted November 8, 2026 under the user's instruction to reconsider the whole process. This supersedes checkpoint batch planning and the every-ten review cadence. Implementation is stopped at 249. The existing game is the baseline for future experiments.
+Adopted November 8, 2026 under the user's instruction to reconsider the whole process. This supersedes checkpoint batch planning and the every-ten review cadence. The existing game at 249 is the baseline for bounded experiments.
 
 ## Diagnosis
 
@@ -46,4 +46,4 @@ ROADMAP.md records the chosen experience and deferred bets. NEXT_CHUNKS.md holds
 
 ## Current decision
 
-Hold implementation. The bridge dilemma from review249 is a candidate, with the risk that blocking boats feels contrived. A smaller household or working grove is a candidate for testing whether visible useful work and personal payoff provide the missing satisfaction. Choose the next experience hypothesis before commissioning either. This process change authorizes planning and records the stop. The next playable experiment awaits resumption.
+The user resumed work until their input is needed. Prepare one smaller household experiment, A first home, against the existing After the flood baseline. Test useful orders and visible household payoff. Keep the bridge dilemma deferred. Independent ordinary-control evaluation precedes owner play; hold further implementation for a keep, revise or drop decision. See NEXT_CHUNKS.md for the experiment card and evidence.

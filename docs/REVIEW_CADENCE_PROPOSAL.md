@@ -1,6 +1,6 @@
 # Current process — November 8 reset
 
-[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. NEXT_CHUNKS.md records the active question and stop point. Full reviews occur at substantial direction decisions and production gates.
 
 ---
 

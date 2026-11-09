@@ -1,3 +1,7 @@
+# Provisional household experiment — November 8
+
+Outcome **250** delivers A first home as a bounded comparison, not a promoted direction. Four named residents, explicit grove work, one home and fresh household meals; separate save/resume identity. Gathering and gardening simulation routes, cancelled planning, no-order control and exact save continuation pass. Independent ordinary-control evaluation was attempted but blocked at desktop window-state retrieval; no interaction, motion or audio evidence was obtained. See [experiment evidence and stop gate](FIRST_HOME_EXPERIMENT.md). Hold further implementation for owner play. The count records delivery only.
+
 # Process reset — November 8
 
 Playable count remains 249. The user authorized replacing the development process. [New workflow](DEVELOPMENT_PROCESS.md) supersedes numeric batch targets and the every-ten review schedule. The ledger below is delivery history. Five independent process follow-ups used the fixed 249 evidence. No new gameplay was implemented.

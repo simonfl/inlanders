@@ -9,6 +9,7 @@ public sealed partial class World
 
     public string? InvitationProblem()
     {
+        if(Founding?.FirstHome!=null)return "This story follows Marie, Louis, Jeanne and Pierre.";
         if(Challenge is {Continuing:false})return ChallengeInvitationProblem();
         if(Founding!=null)return FoundingInvitationProblem();
         if(Neighborhood!=null)return NeighborhoodInvitationProblem(Neighborhood.CommittedAt!=null?null:NeighborhoodLanding());

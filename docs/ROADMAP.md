@@ -1,6 +1,6 @@
 # Current process — November 8 reset
 
-[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. The 249 game is the baseline. A first home is the single active challenger: four named residents, a useful forestry order, a new home and actual household meals. Obtain direct play evidence and decide keep, revise or drop before expanding. The bridge dilemma stays deferred. Full reviews occur at substantial direction decisions and production gates.
 
 ---
 
@@ -15,6 +15,8 @@
 **Inlanders remains the internal codename:** repository, files, project, namespaces, assemblies, scripts, identifiers retain the internal name. Les Habitants is now the public menu/HUD/window identity.
 
 ## Current direction and next step
+
+**Bounded household experiment.** Compare A first home with After the flood. Test whether initiating useful work and seeing its household payoff gives the owner a reason to care. Preserve the existing game as a baseline, freeze new systems and chapters, and stop for owner play after an independent ordinary-control evaluation. A functioning simulation is only the handoff gate; it does not promote this design. The active experiment card is in NEXT_CHUNKS.md. Mechanical checks and native still capture pass; independent ordinary-control play is blocked by desktop tooling. Owner play is the next gate, not another implementation chunk. Evidence is in FIRST_HOME_EXPERIMENT.md. The checkpoint notes below are historical evidence, not an implementation queue.
 
 **Checkpoint 249.** The restoration panel opens a focused fish and berry survey, with direct landing and hut planning. Inspecting the cut-off fields opens the existing crossing action. Native compact controls exercised both livelihoods and a reversible bridge plan alongside save, completion and both-mode reconnection. Zero-warning build. Implementation stopped here at user request. The [five-role strategic review and research](STRATEGIC_REVIEW_249.md) concluded that a working simulation has outpaced evidence of a rewarding loop. If work resumes, first compare this fixed build with a single compact river dilemma where a bridge opens productive land but cuts a working boat route. Use short uncoached play to decide whether a consequential choice and visible human payoff deserve another iteration. The [queue](NEXT_CHUNKS.md) is held at that decision.
 

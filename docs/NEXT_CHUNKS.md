@@ -1,12 +1,28 @@
-# Current process — November 8 reset
+# Active experiment — a useful order becomes a home
 
-[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+The user authorized work until human input is needed. One household challenger compares with After the flood at249.
+
+Hypothesis. Four named residents, player-chosen forestry and livelihood, and visible household use make useful work feel worth initiating and watching.
+
+Competing explanation. A story may still amount to ordering buildings and waiting. The bridge dilemma tests strategic tradeoffs but may miss the pleasure of grove renewal.
+
+Scope. One normal-mode scene, four residents, an existing host cottage and provisions, player-ordered timber, one new home, actual food production and ordinary meals. Reuse existing presentation and individual follow controls. One development session before reassessing scope.
+
+Acceptance. Real production, a no-forestry control, reversible planning and exact saves. Independent evaluator uses ordinary UI without a placement recipe. Then offer a 10–15 minute owner comparison. Observe what felt worth starting, whether the visible result mattered and desire to do the next thing. Allow one clarity revision. An understood yet empty experience rejects the care hypothesis.
+
+Status: mechanically verified, ordinary-control evaluation blocked by desktop tooling. The independent evaluator launched the game but both window-state tools hung before any action. No playtest pass is claimed. See [the experiment record](FIRST_HOME_EXPERIMENT.md). Hold expansion; owner entry/control check and experience comparison are now the missing evidence.
 
 ---
 
-# Stopped at checkpoint 249
+# Current process — November 8 reset
 
-The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. The [strategic review and research](STRATEGIC_REVIEW_249.md) are complete on the fixed 249 build. Implementation remains stopped.
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. The 249 game is the baseline. A first home is the single active challenger. Obtain direct play evidence and decide keep, revise or drop before expanding. The bridge dilemma stays deferred. Full reviews occur at substantial direction decisions and production gates.
+
+---
+
+# Historical stop at checkpoint 249
+
+The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. The [strategic review and research](STRATEGIC_REVIEW_249.md) are complete on the fixed 249 build. That stop preceded the bounded household experiment above.
 
 **249 done.** The restoration panel opens a focused fish and berry survey, with direct landing and hut planning. Inspecting the cut-off fields opens the existing crossing action. Native compact controls exercised both livelihoods and a reversible bridge plan alongside save, completion and both-mode reconnection. Zero-warning build.
 

@@ -66,7 +66,7 @@ public sealed partial class World
         if (s.Map == null) throw new InvalidDataException("Save is missing map layout");
         var map = s.Map ?? new MapLayout(); map.Validate();
         if (s.Campaign != null && ((s.Campaign.Level < 1 || s.Campaign.Level > CampaignLevels.Length) || s.Campaign.Dismissed == null)) throw new InvalidDataException("Invalid campaign state");
-        if (s.People == null || s.People.Count < InitialPopulation || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,s.People.Count)) ||
+        if (s.People == null || s.People.Count < (s.Founding?.FirstHome != null ? 4 : InitialPopulation) || !s.People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0,s.People.Count)) ||
             s.Trees == null || s.Buildings == null || s.Bushes == null || s.Bushes.Count == 0 || s.Food == null || s.MeetingSpots == null || s.History == null)
             throw new InvalidDataException("Save is missing settlement data");
         if (s.Bushes.Select(b => b.Id).Distinct().Count() != s.Bushes.Count || s.Trees.Select(t => t.Id).Distinct().Count() != s.Trees.Count || s.Buildings.Select(c => c.Id).Distinct().Count() != s.Buildings.Count ||
