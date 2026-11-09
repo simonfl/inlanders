@@ -1,6 +1,6 @@
 # Stopped at checkpoint 249
 
-The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. Freeze this build for the strategic review.
+The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. The [strategic review and research](STRATEGIC_REVIEW_249.md) are complete on the fixed 249 build. Implementation remains stopped.
 
 **249 done.** The restoration panel opens a focused fish and berry survey, with direct landing and hut planning. Inspecting the cut-off fields opens the existing crossing action. Native compact controls exercised both livelihoods and a reversible bridge plan alongside save, completion and both-mode reconnection. Zero-warning build.
 
@@ -10,9 +10,11 @@ The November 8 batch delivered 248–249. The user requested a stop after 249 an
 
 Delivered242–247: one automatic-work policy, combined housing/food warning, opt-in yard preview, food-first Economy layout, actual workplace delivery contributions, and crossing consequences before construction. Focused simulation checks, native Normal/Relaxed recovery controls and zero-warning builds pass. No new human playtest or listening verdict.
 
-## Queue held for strategic review
+## First experiment if work resumes
 
-The previously proposed home placement preview change is deferred. The strategic review will decide what to test if work resumes. The regular review remains due at 250.
+Compare fixed 249 against one compact river dilemma. A crossing opens useful land and interrupts a productive boat route. Keeping the route forces a different home-bank plan. Show a named household using the result and food arriving from the chosen plan. Verify both layouts and a recoverable mistake, then compare short uncoached sessions before choosing further development. If the choice still leads to place and wait, test a four-to-six-person farmstead commission or stop.
+
+Use existing Review.ps1 fixtures and focused native and model checks to prepare the builds. Human preference and observed decisions determine which loop to keep. The previously proposed placement-preview work and further breadth remain deferred. Review 250 remains due at the next committed playable outcome.
 
 All six same-start600s livelihood branches completed and retained twelve fed residents. Normal fishing/gathering begin earlier and cost fewer logs than two-crossing salvage, but all finish around128–130s: the two-meal objective appears to set the completion floor. This is not evidence of strategic depth or enjoyment. Baseline salvage activity measures first crop pickup, whereas fishing/gathering measure deliveries; use producer-labelled deliveries for a fairer next comparison. The northern ripe crop count at the horizon includes regrowth, not just uncollected starting food.
 
