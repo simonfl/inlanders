@@ -43,6 +43,7 @@ static class ReviewFixtures
             "cultivated-bank-relaxed"=>World.NewTransformationHamlet(true,true),
             "transformation-relaxed"=>World.NewTransformationHamlet(true),
             "transformation"=>World.NewTransformationHamlet(),
+            "crossing-recovery"=>World.NewCrossingRecovery(),
             "working-village"=>World.NewWorkingVillage(),
             "creative-court"=>World.NewCreativeCourt(),
             "creative-court-expanded"=>World.CreativeCourtFrom(CourtChecks.Expanded()),

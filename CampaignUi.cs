@@ -111,6 +111,7 @@ public partial class Game
     {
         _firstHomeGoals.Visible = _world.Founding?.FirstHome != null;
         _firstHomePinned.Visible = false;
+        UpdateCrossingRecoveryUi();
         _goalTitle.Show();
         _challengeGoals.Visible=_world.Challenge!=null;
         var campaign = _world.Campaign;

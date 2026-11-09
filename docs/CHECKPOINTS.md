@@ -1,3 +1,7 @@
+# Recovery scenario — November 9
+
+Outcome **253**: The broken crossing. Four residents already housed; reconnect ripe crops or grow food nearby. World labels, two costed choices, direct crossing repair and clear access/delivery/4-person meal objectives. Repair uses no new food workplace; local route leaves old field stranded; physical harvest crossing, cancellation, delayed hunger recovery and exact saves verified. Native scripted controls and independent still/source review recorded; ordinary input/motion/audio remain unverified. [Experiment record](CROSSING_RECOVERY_EXPERIMENT.md). Hold for owner play.
+
 # Return-play experiment — November 9
 
 Outcome **252**: cleaned household objective cards and A lean landing, a separate four-person opening with twelve food portions, ten logs and new inlet/berry layout. Three food routes finish; a300s delayed branch reaches4/4 hungry then recovers through actual fishing and meals. Both baseline routes and exact saves pass. Independent native-still/source review supports compact presentation; ordinary input, motion and audio remain unverified. See [experiment record](LEAN_LANDING_EXPERIMENT.md). Stop for owner return play.

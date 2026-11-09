@@ -46,4 +46,4 @@ ROADMAP.md records the chosen experience and deferred bets. NEXT_CHUNKS.md holds
 
 ## Current decision
 
-The owner found clear first-home objectives and progression satisfying, and valued dwindling provisions. Keep that structure provisionally and test a second situation, A lean landing, using existing recoverable hunger. Stop for owner return play after the authorized UI cleanup and bounded situation. Keep the bridge dilemma and broader expansion deferred. Desktop input tooling remains blocked; distinguish native scripted/still evidence from independent interaction. See NEXT_CHUNKS.md and LEAN_LANDING_EXPERIMENT.md.
+The owner values clear progression and helping villagers, but found A lean landing insufficiently different. Test The broken crossing: recovery of existing food access with residents already housed, versus nearby new production. Deliver the bounded recovery scenario and hold for owner play. Keep broader expansion deferred. Desktop input tooling remains blocked; distinguish native scripted/still evidence from independent interaction. See NEXT_CHUNKS.md and CROSSING_RECOVERY_EXPERIMENT.md.

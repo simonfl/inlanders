@@ -10,7 +10,8 @@ public sealed partial class World
         if(site==null || portions<0 || portions>PantryCapacity)return false;
         site.LocalFoodReserve=portions;_retry=0;return true;
     }
-    public bool HasWorkplaceFood=>Founding!=null || Neighborhood?.WorkplaceFood==true;
+    // Recovery uses the surviving village store: food must be carried back across the route.
+    public bool HasWorkplaceFood=>Founding!=null && Founding.FirstHome?.Recovery!=true || Neighborhood?.WorkplaceFood==true;
     // All existing edible producers share one local-output rule in the selected workflow.
     public bool IsWorkplaceFoodStore(Cottage site)=>HasWorkplaceFood && site.Kind is BuildingKind.ForagerHut or BuildingKind.VegetableField or BuildingKind.VegetableGarden or BuildingKind.Bakery or BuildingKind.Orchard or BuildingKind.FishingDock or BuildingKind.HuntingLodge;
     public static World NewWorkplaceFoodExperiment()

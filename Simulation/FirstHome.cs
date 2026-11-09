@@ -7,9 +7,10 @@ namespace Inlanders.Simulation;
 public sealed class FirstHomeProgress
 {
     public bool LeanLanding { get; set; }
+    public bool Recovery { get; set; }
     public int? NewHomeId { get; set; }
     public HashSet<int> Served { get; set; } = new();
-    public bool Complete => Served.Contains(2) && Served.Contains(3);
+    public bool Complete => Served.Contains(2) && Served.Contains(3) && (!Recovery || Served.Contains(0) && Served.Contains(1));
 }
 
 public sealed record FirstHomeObjectives(string Home, string Food, string Meals, string Hint, string Action, int? Site, int Done);
@@ -19,6 +20,7 @@ public sealed partial class World
     public FirstHomeObjectives ReadFirstHomeObjectives()
     {
         var story = Founding!.FirstHome!;
+        if (story.Recovery) return ReadCrossingRecoveryObjectives();
         var homes = Cottages.Where(c => c.Kind == BuildingKind.Cottage && !c.DemolitionRequested &&
             !Founding.StartingBuildings.Any(s => s.Id == c.Id)).ToArray();
         bool housed = People.Where(p => p.Id >= 2).All(p => homes.Any(c => c.Id == p.HomeId && IsHome(c) && Accessible(c.Entrance)));
@@ -98,7 +100,7 @@ public sealed partial class World
 
     private void AdvanceFirstHome()
     {
-        if (Founding?.FirstHome is not { NewHomeId: null } story) return;
+        if (Founding?.FirstHome is not { NewHomeId: null, Recovery: false } story) return;
         var home = Cottages.FirstOrDefault(site => IsHome(site) &&
             !Founding.StartingBuildings.Any(start => start.Id == site.Id) &&
             People.Any(person => person.Id >= 2 && person.HomeId == site.Id));
@@ -115,8 +117,8 @@ public sealed partial class World
 
     private void RecordFirstHomeMeal(Villager person, MealRequest meal)
     {
-        if (Founding?.FirstHome is not {} story || person.Id < 2 || person.HomeId is not int homeId ||
-            Founding.StartingBuildings.Any(start => start.Id == homeId) ||
+        if (Founding?.FirstHome is not {} story || !story.Recovery && person.Id < 2 || person.HomeId is not int homeId ||
+            !story.Recovery && Founding.StartingBuildings.Any(start => start.Id == homeId) ||
             !Cottages.Any(home => home.Id == homeId && IsHome(home) && Accessible(home.Entrance)))
             return;
         // Only berries exist in the opening stores. Other foods remain fresh produce after hauling.
@@ -131,7 +133,7 @@ public sealed partial class World
     {
         if (Founding?.FirstHome is not {} story) return;
         if (Population != 4 || Creative || Challenge != null || !Founding.TransformationHamlet ||
-            story.Served == null || story.Served.Any(id => id is not (2 or 3)) ||
+            story.Recovery && story.LeanLanding || story.Served == null || story.Served.Any(id => story.Recovery ? id is <0 or >3 : id is not (2 or 3)) ||
             story.NewHomeId is int id && (id < 1 || id >= _nextSite))
             throw new InvalidOperationException("Invalid first-home commission");
     }

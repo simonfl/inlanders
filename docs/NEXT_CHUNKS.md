@@ -1,3 +1,13 @@
+# Active experiment — recover existing food access
+
+The owner liked helping villagers meet a visible need, but found252 too similar to251. Keep clear objectives and recoverable food pressure; reject changed layout/reserves as sufficient level differentiation. Authorized: The broken crossing, with all four residents already housed, an existing ripe field cut off, and repair versus local cultivation.
+
+Distinct actions: repair6logs requires a little forestry and unlocks20ripe portions; garden4logs starts immediately but must grow. Opening4logs/8food. No housing objective, no new arrivals, no required new food building on the repair route. Track access, actual fresh delivery and4/4 residents eating fresh food. Mark the stranded field and crossing in the world; repair action orders the fixed known site.
+
+Verify untouched shortage, repair without new food workplace, local cultivation while old field remains stranded, cancellation and delayed recovery, exact saves. Independent read-only design check accepted this minimum contrast. Delivered253. The frozen-build native comparison and evaluator accept the opening, alternatives and final focused repair guidance for owner play. Scripted checks verify actual crop cargo crossing and both distinct route outcomes, including delayed recovery and exact saves. Ordinary desktop-control limitations remain explicit. Stop for owner play; see CROSSING_RECOVERY_EXPERIMENT.md.
+
+---
+
 # Active return-play experiment — clear goals under food pressure
 
 November9 owner reaction to251: much better; clear progression and moving forward felt good. The owner also valued dwindling initial food and wants some lurking danger. Keep the objective structure provisionally. Authorized next: clean its visual hierarchy and try one different situation, A lean landing.

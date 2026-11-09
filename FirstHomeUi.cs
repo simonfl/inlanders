@@ -22,6 +22,7 @@ public partial class Game
         MenuPage("Household stories");
         MenuButton("A first home", () => FirstHomeMenu(false));
         MenuButton("A lean landing · short provisions", () => FirstHomeMenu(true));
+        MenuButton("The broken crossing · recovery", CrossingRecoveryMenu);
         MenuButton("Back", ShowMainMenu);
     }
 
@@ -58,7 +59,7 @@ public partial class Game
 
     private void RenderHouseholdCard(HouseholdCard card, FirstHomeObjectives goal)
     {
-        card.Title.Text = _world.Founding!.FirstHome!.LeanLanding ? "A lean landing" : "A home for Jeanne & Pierre";
+        card.Title.Text = _world.Founding!.FirstHome!.Recovery ? "The broken crossing" : _world.Founding.FirstHome.LeanLanding ? "A lean landing" : "A home for Jeanne & Pierre";
         card.Count.Text = goal.Done == 3 ? "ALL OBJECTIVES COMPLETE" : $"OBJECTIVES · {goal.Done} OF 3 COMPLETE";
         bool lean = _world.Founding.FirstHome.LeanLanding;
         card.Home.Text = lean ? goal.Food : goal.Home; card.Food.Text = lean ? goal.Home : goal.Food; card.Meals.Text = goal.Meals;
@@ -87,6 +88,7 @@ public partial class Game
             _firstHomeFoodChoices.AddChild(button);
         }
         _firstHomeFoodChoices.Hide();
+        MakeRecoveryUi();
         _firstHomeTools = Button("Village tools ▸", () => _firstHomeToolsOpen = !_firstHomeToolsOpen);
         _firstHomeGoals.AddChild(_firstHomeTools);
         _firstHomePinned = HudPanel(_hud);
@@ -104,6 +106,7 @@ public partial class Game
         switch (goal.Action)
         {
             case "home": CloseManagementUi(); BeginPlacement(BuildingKind.Cottage); break;
+            case "recover": OpenRecoveryChoices(); break;
             case "grove": BeginWoodlandCare(); break;
             case "food":
                 _firstHomeToolsOpen = false;
@@ -111,7 +114,7 @@ public partial class Game
                 else _firstHomeFoodChoices.Visible = !_firstHomeFoodChoices.Visible;
                 break;
             case "inspect": if (goal.Site is int id) SelectBuilding(id); break;
-            case "watch": ShowDailyLife(_world.Founding!.FirstHome!.Served.Contains(2) ? 3 : 2); _followPerson = true; break;
+            case "watch": ShowDailyLife(_world.People.FirstOrDefault(p=>(_world.Founding!.FirstHome!.Recovery || p.Id>=2) && !_world.Founding!.FirstHome!.Served.Contains(p.Id))?.Id ?? 2); _followPerson = true; break;
             case "done": ReturnToMainMenu(); break;
         }
     }
@@ -122,7 +125,7 @@ public partial class Game
         _firstHomeGoals.Visible = story != null;
         _firstHomePinned.Visible = story != null && !_atMainMenu && !_watching && !(_drawer.Visible && _tabs.CurrentTab == 2);
         if (story == null) return;
-        if (_firstHomeObserved != _world) _firstHomeToolsOpen = false;
+        if (_firstHomeObserved != _world) { _firstHomeToolsOpen = false; _recoveryChoices.Hide(); }
         _firstHomeTools.Text = _firstHomeToolsOpen ? "Village tools ▾" : "Village tools ▸";
         _foundingGoals.Hide();
         _foundingHallGoals.Hide();
@@ -139,19 +142,20 @@ public partial class Game
         _firstHomePinned.Position = new(_drawer.Visible ? (_inspector.Visible ? 344 : _hud.Size.X - 300) : 16, 92);
         _firstHomePinned.Size = new(284, 0);
         string action = _paused && goal.Action is "inspect" or "watch" ? "Resume village life" : goal.Action switch {
-            "home" => "Build their cottage", "grove" => "Work a grove", "food" => "Choose a food source",
+            "home" => "Build their cottage", "grove" => "Work a grove", "food" => "Choose a food source", "recover" => "Choose a recovery plan",
             "inspect" => "Inspect current work", "watch" => "Follow the next diner", _ => "Save and leave" };
         if (goal.Action == "food" && _firstHomeFoodChoices.Visible) action = "Hide food choices";
+        if (goal.Action == "recover" && _recoveryChoices.Visible) action = "Hide recovery plans";
         _firstHomeAction.Text = _firstHomePinnedAction.Text = action;
         if (goal.Action != "food") _firstHomeFoodChoices.Hide();
-        bool choosingFood = _firstHomeFoodChoices.Visible;
+        bool choosingFood = _firstHomeFoodChoices.Visible || _recoveryChoices.Visible;
         _firstHomeCard.Hint.Visible = _firstHomeCard.Supply.Visible = _firstHomeTools.Visible = !choosingFood;
         if (_firstHomeObserved == _world)
         {
             if (_firstHomeNoticed != story.NewHomeId && story.NewHomeId != null)
                 Notice("Cottage ready. Objectives [G] shows the next step and your progress.");
             if (_firstHomeMeals != story.Served.Count && story.Served.Count > 0)
-                Notice(story.Complete ? "All objectives complete. Jeanne and Pierre have a home and fresh meals." : $"Fresh meals: {story.Served.Count}/2 residents. See Objectives [G].");
+                Notice(story.Complete ? "All objectives complete. Your neighbors have fresh food again." : $"Fresh meals: {story.Served.Count}/{(story.Recovery?4:2)} residents. See Objectives [G].");
         }
         _firstHomeObserved = _world;
         _firstHomeNoticed = story.NewHomeId;

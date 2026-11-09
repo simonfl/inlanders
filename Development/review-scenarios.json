@@ -1,5 +1,13 @@
 [
   {
+    "name": "crossing-recovery",
+    "description": "Four housed neighbors recovering a cut-off ripe field or choosing local food",
+    "generator": "crossing-recovery",
+    "focusX": -1,
+    "focusZ": -3,
+    "zoom": 26
+  },
+  {
     "name": "transformation",
     "description": "Twelve-person hamlet with competing home ground, preserved woodlot and remote gardens",
     "generator": "transformation",

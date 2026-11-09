@@ -1,3 +1,7 @@
+# November 9 — recovery must change the task
+
+Owner feedback retained clear progress and helping villagers, but rejected252 as sufficiently different from251. Outcome253 tests The broken crossing: all four residents housed, an existing ripe field cut off, repair6logs versus new localgarden4logs, and actual harvest transport to the village store. Goals are access, delivery and4/4 fed; no new-home step. Both routes and delayed recovery pass. Stop for owner play; do not equate altered reserves/layout with a new level. [Evidence and limitations](CROSSING_RECOVERY_EXPERIMENT.md).
+
 # November 9 — keep clear progress; test recoverable food pressure
 
 The owner found251 understandable and satisfying, and liked dwindling food. Keep the objective structure provisionally. Outcome252 cleans its hierarchy and introduces one return-play situation, A lean landing: fewer provisions, a small log stock, an inlet and food-first guidance, with the same three objectives. Use existing hunger and recovery; no new needs or punitive survival system. Prompt and delayed scripted routes work, but owner play must establish whether pressure changes choices and remains enjoyable. Hold expansion at this test. [Evidence and limitations](LEAN_LANDING_EXPERIMENT.md).

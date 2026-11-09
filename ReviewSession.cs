@@ -78,6 +78,20 @@ public partial class Game
                     throw new Exception("Household food choices did not open through the action button");
             }
             await CaptureReviewBundle();
+            if(request.TryGetProperty("recoveryPlans",out var recoveryPlans) && recoveryPlans.GetBoolean())
+            {
+                if(_world.Founding?.FirstHome?.Recovery!=true || _world.ReadFirstHomeObjectives().Action!="recover")throw new Exception("Recovery-plan capture requires an undecided recovery opening");
+                _firstHomePinnedAction.EmitSignal(Godot.Button.SignalName.Pressed);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_recoveryChoices.IsVisibleInTree())throw new Exception("Recovery choices did not open");
+                await CaptureReviewBundle("recovery-plans");
+                _recoveryChoices.GetChild<Godot.Button>(1).EmitSignal(Godot.Button.SignalName.Pressed);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_world.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Cell==World.RecoveryCrossing) || _world.ReadFirstHomeObjectives().Action!="grove")throw new Exception("Repair action failed to order the fixed crossing or explain timber shortage");
+                await CaptureReviewBundle("repair-ordered");
+            }
             if(request.TryGetProperty("observeSeconds",out var observe) && observe.GetSingle()>0)
             {
                 float start=_world.Food.Time;double wallStart=_reviewTimer.Elapsed.TotalSeconds;
