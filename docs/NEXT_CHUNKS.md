@@ -1,17 +1,18 @@
-# Active batch — checkpoints 248–257
+# Stopped at checkpoint 249
 
-Ten outcomes authorized November 8. Full five-role review at 250 before implementing 251. Stop at 257.
+The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. Freeze this build for the strategic review.
 
-**248 done.** After the Flood now has one crossing to the two ripe northern fields. The bridge preview agrees with actual restored access to both fields and 40 harvestable portions. Both-mode native reconnection and reachable food, blocked demolition recovery, food-source attribution and exact saves pass. The six-branch comparison is running with producer-labelled deliveries.
+**249 done.** The restoration panel opens a focused fish and berry survey, with direct landing and hut planning. Inspecting the cut-off fields opens the existing crossing action. Native compact controls exercised both livelihoods and a reversible bridge plan alongside save, completion and both-mode reconnection. Zero-warning build.
+
+**248 done.** After the Flood now has one crossing to the two ripe northern fields. The bridge preview agrees with actual restored access to both fields and 40 harvestable portions. Both-mode native reconnection and reachable food, blocked demolition recovery, food-source attribution and exact saves pass. All six scripted branches completed by 140 simulated seconds and retained twelve fed residents at 600 seconds. In Normal, first attributed deliveries were 60s for salvage, 70s for fishing and 64s for gathering. Completion clustered at 127–129s.
 
 ## Previous batch — checkpoints 242–247
 
 Delivered242–247: one automatic-work policy, combined housing/food warning, opt-in yard preview, food-first Economy layout, actual workplace delivery contributions, and crossing consequences before construction. Focused simulation checks, native Normal/Relaxed recovery controls and zero-warning builds pass. No new human playtest or listening verdict.
 
-## Next candidates
--249: make salvage and home-bank livelihoods discoverable through existing world planning controls.
--250: include gathering/hunting/orchards in home-placement food-walk previews, which currently omit them; then freeze for all five whole-game reviewers.
--251–257: select from the synthesis, favoring gameplay changes that test whether recovery creates meaningful choices.
+## Queue held for strategic review
+
+The previously proposed home placement preview change is deferred. The strategic review will decide what to test if work resumes. The regular review remains due at 250.
 
 All six same-start600s livelihood branches completed and retained twelve fed residents. Normal fishing/gathering begin earlier and cost fewer logs than two-crossing salvage, but all finish around128–130s: the two-meal objective appears to set the completion floor. This is not evidence of strategic depth or enjoyment. Baseline salvage activity measures first crop pickup, whereas fishing/gathering measure deliveries; use producer-labelled deliveries for a fairer next comparison. The northern ripe crop count at the horizon includes regrowth, not just uncollected starting food.
 

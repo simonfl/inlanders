@@ -5,14 +5,14 @@ using System.Linq;
 
 public partial class Game
 {
-    private bool _surveying;
+    private bool _surveying, _surveyFoodOnly;
     private SourceKey? _selectedSource;
     private SourceKey? _lastSurveySource;
     private ResourceSurvey? _sourceReport;
     private Button _surveyToggle=null!;
     private Button _surveyBack=null!;
     private VBoxContainer _surveyDetails=null!, _sourceWorkplaces=null!;
-    private Label _sourceInfo=null!, _sourceWorkplaceHeading=null!;
+    private Label _sourceInfo=null!, _sourceWorkplaceHeading=null!, _surveyTitle=null!;
     private OptionButton _sourceChoice=null!;
     private Control _sourceMarkers=null!;
     private readonly Dictionary<SourceKey,Button> _sourceButtons=new();
@@ -27,7 +27,8 @@ public partial class Game
         _sourceMarkers=new Control { MouseFilter=Control.MouseFilterEnum.Ignore }; _hud.AddChild(_sourceMarkers);
         _sourceMarkers.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); _sourceMarkers.Hide();
         _surveyDetails=new VBoxContainer(); _surveyDetails.AddThemeConstantOverride("separation",10); inspection.AddChild(_surveyDetails);
-        _surveyDetails.AddChild(Text("RESOURCE SURVEY",16));
+        _surveyTitle=Text("RESOURCE SURVEY",16);
+        _surveyDetails.AddChild(_surveyTitle);
         MakeLandSurveyViews(_surveyDetails);
         _sourceChoice=DirectoryFilter(_surveyDetails,"Choose a source here, or click its marker on the map.");
         _sourceChoice.ItemSelected+=i=> { if(i>0 && i<=_sourceList.Count) SelectResourceSource(_sourceList[(int)i-1].Key,true); };
@@ -40,18 +41,26 @@ public partial class Game
     private void ToggleResourceSurvey()
     {
         if(_surveying) { StopResourceSurvey(); return; }
+        StartResourceSurvey();
+    }
+    private void StartResourceSurvey(bool foodOnly=false)
+    {
+        if(_surveying) StopResourceSurvey();
         ExitWatch(); _placing=false; _pathStroke=false; _woodlandStroke=false; _showSupplyRoutes=false; RefreshGhost(); ClearSelection();
+        _surveyFoodOnly=foodOnly;
+        _surveyTitle.Text=foodOnly?"FISH AND BERRY PATCHES":"RESOURCE SURVEY";
         RememberSurveyView();_surveying=true; _sourceMarkers.Show();
         RefreshSurveySources(true);
         ShowInspector(); _nextSourceRefresh=0; UpdateResourceSurvey();
     }
     private void RefreshSurveySources(bool force=false)
     {
-        var sources=_world.ResourceSources().ToArray();
+        var sources=_world.ResourceSources()
+            .Where(source=>!_surveyFoodOnly || source.Key.Kind is SourceKind.Fish or SourceKind.Berries).ToArray();
         if(!force && sources.SequenceEqual(_sourceList))return;
         foreach(var button in _sourceButtons.Values) { _sourceMarkers.RemoveChild(button); button.QueueFree(); } _sourceButtons.Clear();
         _sourceList.Clear(); _sourceList.AddRange(sources);
-        _sourceChoice.Clear(); _sourceChoice.AddItem("Choose a map source");
+        _sourceChoice.Clear(); _sourceChoice.AddItem(_surveyFoodOnly?"Choose fish or berries":"Choose a map source");
         foreach(var source in _sourceList)
         {
             _sourceChoice.AddItem(source.Name); var key=source.Key;

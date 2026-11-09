@@ -33,7 +33,32 @@ public partial class Game
             _world.People[0].Fed=false;UpdateHud();
             if(!_menuButtons[2].Text.Contains("8/12 housed") || !_menuButtons[2].Text.Contains("missed meals"))throw new Exception("Housing conceals missed meals");
             _world.People[0].Fed=true;UpdateHud();
-            await UiClick(_recoveryFood);if(_tabs.CurrentTab!=1)throw new Exception("Food recovery action failed");
+            int originalBuildings=_world.Cottages.Count;
+            await UiClick(_recoveryFood);
+            if(!_surveying || !_surveyDetails.IsVisibleInTree() || _sourceList.Any(s=>s.Key.Kind is not (SourceKind.Berries or SourceKind.Fish)))
+                throw new Exception("Food recovery did not open the food map");
+            foreach(var (kind,building) in new[]{(SourceKind.Berries,BuildingKind.ForagerHut),(SourceKind.Fish,BuildingKind.FishingDock)})
+            {
+                if(!_surveying)StartResourceSurvey(foodOnly:true);
+                int index=_sourceList.FindIndex(s=>s.Key.Kind==kind);
+                if(index<0)throw new Exception($"Missing food source {kind}");
+                _sourceChoice.EmitSignal(OptionButton.SignalName.ItemSelected,index+1);
+                for(int i=0;i<6;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_surveyBuildHere.IsVisibleInTree())throw new Exception("Food source planning action hidden");
+                await UiClick(_surveyBuildHere);
+                if(!_placing || _buildKind!=building || _world.Cottages.Count!=originalBuildings)
+                    throw new Exception($"Food survey did not start a reversible {building} plan");
+                _placing=false;RefreshGhost();
+            }
+            ToggleDrawer(2);UpdateHud();for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            await UiClick(_challengeAccess);
+            for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+            if(!_workCardCrossing.IsVisibleInTree() || !_workCardText.Text.Contains("No walking route"))
+                throw new Exception($"Cut-off field does not expose crossing planning: {_workCardText.Text}");
+            await UiClick(_workCardCrossing);
+            if(!_placing || _buildKind!=BuildingKind.Bridge || _world.Cottages.Count!=originalBuildings)
+                throw new Exception("Cut-off field did not start a reversible bridge plan");
+            await Press(Key.Escape);
             ToggleDrawer(2);UpdateHud();for(int i=0;i<4;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             await UiClick(_challengeRecover);if(_tabs.CurrentTab!=1)throw new Exception("Housing recovery did not open catalogue");
             BeginPlacement(BuildingKind.Cottage);CloseDrawer();UpdateHud();

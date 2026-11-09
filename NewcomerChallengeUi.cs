@@ -43,7 +43,10 @@ public partial class Game
         _challengeProgress=Text("",14,true);_challengeGoals.AddChild(_challengeProgress);
         _challengeInvite=Button("Invite four neighbors",()=>{if(_world.InviteChallengeNeighbors()){SaveWorld();UpdateHud();}else Notice(_world.ChallengeInvitationProblem()??"Not ready.");});_challengeGoals.AddChild(_challengeInvite);
         _challengeRecover=Button("",RecoverChallenge);_challengeGoals.AddChild(_challengeRecover);
-        _recoveryFood=Button("Choose food supply",()=>OpenFoodBuildings(0));_challengeGoals.AddChild(_recoveryFood);_challengeGoals.MoveChild(_recoveryFood,0);
+        _recoveryFood=Button("Find fish and berry patches",()=>{
+            CloseDrawer();
+            StartResourceSurvey(foodOnly:true);
+        });_challengeGoals.AddChild(_recoveryFood);_challengeGoals.MoveChild(_recoveryFood,0);
         _challengeGoals.MoveChild(_challengeInvite,0);_challengeGoals.MoveChild(_challengeRecover,1);
         _challengeContinue=Button("Challenge complete · continue building",()=>{_world.Challenge!.Continuing=true;SaveWorld();CloseDrawer();_paused=false;});_challengeGoals.AddChild(_challengeContinue);
         _challengeLeave=Button("Save and leave",ReturnToMainMenu);_challengeGoals.AddChild(_challengeLeave);_challengeGoals.Hide();
@@ -73,6 +76,7 @@ public partial class Game
         if(ChallengePerson() is {} person)_challengeWatch.Text="Find "+person.Name+(person.Fed?c.Complete?" · settled":" · settling in":" · missed a meal");
         _foundingGoals.Hide();_foundingHallGoals.Hide();_objective.Hide();_goalArrival.Hide();
         _challengeAccess.Visible=c.Repair && !c.Complete && _world.Cottages.Any(b=>b.Kind==BuildingKind.VegetableField && _world.ReadWorkplace(b).MissingAccess);
+        _challengeAccess.Text="Inspect a cut-off field";
         _goalTitle.Text=c.Repair?"THE FAR-BANK FIELDS":"A PLACE FOR NEWCOMERS";
         string contract="Goal: four newcomers need reachable homes and two meals each. Deliver 32 fresh portions after arrival. Everyone must be fed when you finish.\n";
         string progress=c.InvitedAt==null?$"PREPARE\nSpare beds {Math.Min(4,_world.SpareBeds)}/4 · fresh food {Math.Min(16,_world.ChallengeDeliveries)}/16\nReachable food {Math.Min(32,_world.ReachableEdibleStored)}/32\n\n{contract}\nInvite when ready; they arrive 30 seconds later. Choose any food sources and layout.":!c.Arrived?$"ON THEIR WAY · {Math.Max(0,30-(_world.Food.Time-c.InvitedAt.Value)):0}s\n\n{contract}":
