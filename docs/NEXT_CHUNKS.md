@@ -1,3 +1,14 @@
+# Authorized presentation work — villagers
+
+November 9: the owner requested a focused people appearance/animation pass. Test whether distinct clothing/headwear silhouettes and grounded locomotion make the residents easier to recognize and more pleasant to watch. Keep the existing tool/contact poses and all gameplay rules.
+
+Scope: muted layered garments, linen sleeves/aprons, three headwear families, modest face/hair variation, articulated knees, distance-driven gait and smooth travel heading. Inspect the normal four-person and twelve-person villages plus a clearly labeled close character lineup. Verify actual work contacts, cargo, sitting, pause, speed and presentation-only state changes. One independent read-only visual evaluator; frame sequences are distinct from an ordinary continuous playthrough.
+
+The longer scenario still awaits owner play. No campaign/economy chunk is selected.
+
+Delivered 256. Final lineup and normal four/twelve-person captures independently reviewed; distance gait, pause, social/rest poses and work-contact checks pass. See VILLAGERS_256.md for exact evidence and limitations. Stop here for ordinary play; no further character or gameplay expansion selected.
+
+---
 # Authorized presentation work — music and village sound
 
 November 9: the owner cannot play for a few hours and explicitly requested nicer music and effects. Improve this presentation layer while the longer-level gameplay question stays on hold. Scope: original acoustic-inspired arrangements, varied material sounds, subtle shoreline ambience, and a restrained native mix at 1x/6x. Preserve independent controls, pause behavior and gameplay rules.

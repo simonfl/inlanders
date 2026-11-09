@@ -1,3 +1,9 @@
+# November 9 — villagers with clearer silhouettes and grounded poses
+
+The owner authorized a focused appearance/animation pass. Outcome 256 adds layered clothing, linen head coverings/wool caps/felt hats, restrained face/hair variation, articulated knees, distance-driven walking and smooth travel turning. Existing tool contacts and gameplay remain intact. The final linen palette is darker so sunlight preserves more of its shape. [Evidence and limitations](VILLAGERS_256.md).
+
+Keep this bounded. Check the people in ordinary play before adding more costume families, facial acting or a larger animation system. Normal-zoom identity comes from headwear and garment groups; tiny faces are close-up detail. The longer campaign scenario still awaits owner feedback.
+
 # November 9 — acoustic music and everyday sound
 
 The owner authorized presentation work while waiting to play the longer level. Outcome 255 replaces the simple soundtrack with three original acoustic-inspired stereo arrangements, adds material/step variants and subtle water ambience, and gives completion feedback space in busy villages. Preserve the existing volume/mute controls and quiet intervals. [Implementation, preview and evidence](AUDIO_REFRESH_255.md).

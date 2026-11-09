@@ -42,6 +42,7 @@ public partial class Game : Node3D
         if (_reviewRequest != null) CallDeferred(nameof(StartReviewSession));
         if (OS.GetCmdlineUserArgs().Contains("--smoke-test")) CallDeferred(MethodName.RunSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--audio-smoke-test")) CallDeferred(MethodName.RunAudioSmoke);
+        if (OS.GetCmdlineUserArgs().Contains("--villager-presentation-smoke-test")) CallDeferred(nameof(RunVillagerPresentationSmoke));
         if (OS.GetCmdlineUserArgs().Contains("--hud-smoke-test")) CallDeferred(MethodName.RunHudSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--home-smoke-test")) CallDeferred(MethodName.RunHomeSmoke);
         if (OS.GetCmdlineUserArgs().Contains("--fishing-smoke-test")) CallDeferred(MethodName.RunFishingSmoke);
@@ -268,9 +269,22 @@ public partial class Game : Node3D
             ulong personTraceStart=_traceFrames?Time.GetTicksUsec():0;
             var view = _people[v.Id]; var target = OnGround(v.Position.X, v.Position.Y);
             var movement = target - view.Body.Position; movement.Y = 0;
-            if (movement.Length() > 0.025f) view.Body.Rotation = new(0, MathF.Atan2(-movement.X, -movement.Z), 0);
+            var previous=view.Body.Position;
+            if (movement.Length() > 0.025f)
+            {
+                float heading=MathF.Atan2(-movement.X,-movement.Z);
+                view.Body.Rotation=new(0,_paused||dt==0?heading:Mathf.LerpAngle(view.Body.Rotation.Y,heading,1-MathF.Exp(-dt*12*_speed)),0);
+            }
             view.Body.Position = _paused ? target : view.Body.Position.Lerp(target, Math.Min(1, dt * 18 * _speed));
             view.Body.Position = OnGround(view.Body.Position.X, view.Body.Position.Z);
+            if(!_paused && dt>0)
+            {
+                bool onFoot=v.Route.Count>0 && v.Task!=Work.Aboard;
+                var travelled=view.Body.Position-previous;travelled.Y=0;
+                // Spawn/load and large teleports don't become a burst of walking.
+                if(onFoot && travelled.LengthSquared()<4)view.GaitPhase=(view.GaitPhase+travelled.Length()*Mathf.Tau/1.05f)%Mathf.Tau;
+                view.WalkBlend=Mathf.MoveToward(view.WalkBlend,onFoot?1:0,dt*8);
+            }
             if(v.Task==Work.EatingMeal && (v.Meal?.Gathering==true && _world.Gathering!=null || v.Meal?.Commons==true && _world.Commons!=null))
             {
                 var shared=v.Meal!.Commons?_world.SharedPlaceAt(v.Meal.Seat):null;

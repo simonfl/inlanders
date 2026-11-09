@@ -1,3 +1,7 @@
+# Villager presentation pass — November 9
+
+Outcome **256**: varied layered garments/headwear, simple faces/hair, articulated knees, travel-driven gait and smooth walking turns. Seated feet fall beneath knees. Native lineup/pose and actual-world 1x/6x samples, pose/pause checks, simulation independence and existing work-contact regressions verify the focused change. Independent visual review distinguishes silhouette/pose evidence from continuous playback and human preference. [Evidence](VILLAGERS_256.md). The longer-level gameplay test remains pending.
+
 # Acoustic presentation pass — November 9
 
 Outcome **255**: three original stereo string/woodwind arrangements, four variants of everyday work and bird sounds, softer footsteps/UI, reserved building-completion feedback, quieter wind and water ambience that fades inland. Native music/mute/settings/pause checks and 1x/6x actual game-mixer captures verify playback, bounds and unchanged simulation. Dry old/new previews and a comparison page are available locally. Independent source/PCM review remains distinct from listening; subjective quality is unverified. [Evidence and preview instructions](AUDIO_REFRESH_255.md). Hold for listening and the pending longer-level playtest.

@@ -19,20 +19,23 @@ public partial class Game
         public float? PickupStarted;
         public float CargoObservedAt=-1;
         public Node3D ComfortCushion=new(), MealBoard=new(), RestBack=new(), Hat=new();
+        public Node3D LeftKnee=new(){Name="LeftKnee"}, RightKnee=new(){Name="RightKnee"};
+        public float GaitPhase, WalkBlend;
     }
 
     private PersonView MakeVillager(int id)
     {
         var v = new PersonView();
         v.Body.AddChild(v.Rig); v.Rig.AddChild(v.Torso); v.Torso.Position = new(0, 0.43f, 0);
-        var shirts = new[] { "bf714d", "5c8390", "a19358", "7c6c92", "7a9161", "bd8a68", "af6971", "588c83" };
-        Cylinder(v.Torso, new(0, 0.21f, 0), 0.26f, 0.48f, new(shirts[id % shirts.Length]), 0.21f);
+        var shirts = new[] { "82664d", "536d79", "8a5145", "617059", "a17d50", "647e7a", "7a6067", "73674f" };
+        var skin=new Color(new[]{"ddb28d","c99572","ebc6a0","bb8967"}[id%4]);
+        var cloth=new Color(shirts[id%shirts.Length]);
+        MakeVillagerClothes(v,id,cloth);
         v.Torso.AddChild(v.Head); v.Head.Position = new(0, 0.58f, 0);
-        Mesh(v.Head, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, Vector3.Zero, new("e7bd8e"));
+        Mesh(v.Head, new SphereMesh { Radius = 0.20f, Height = 0.4f, RadialSegments = 8, Rings = 4 }, Vector3.Zero, skin);
+        v.Hat.Name="Headwear";
         v.Head.AddChild(v.Hat);
-        Cylinder(v.Hat, new(0, 0.19f, 0), 0.30f, 0.07f, new("dbc28c"));
-        Cylinder(v.Hat, new(0, 0.26f, 0), 0.19f, 0.15f, new("dbc28c"), 0.15f);
-        Cylinder(v.Hat,new(0,.22f,0),.188f,.055f,new(shirts[id%shirts.Length]),.18f);
+        MakeVillagerFace(v,id,skin,cloth);
         v.Body.AddChild(v.RestStool); v.RestStool.Visible=false;
         v.RestStool.AddChild(v.ComfortCushion);
         Box(v.ComfortCushion,new(0,.29f,0),new(.40f,.10f,.35f),new("ad704e"));
@@ -40,16 +43,23 @@ public partial class Game
         Cylinder(v.RestStool,new(0,.23f,0),.22f,.06f,_wood);
         foreach(float x in new[]{-.13f,.13f}) foreach(float z in new[]{-.12f,.12f})
             Box(v.RestStool,new(x,.10f,z),new(.045f,.20f,.045f),_wood);
-        foreach (var (leg, x) in new[] { (v.LeftLeg, -0.13f), (v.RightLeg, 0.13f) })
+        foreach (var (leg, knee, x) in new[] { (v.LeftLeg,v.LeftKnee, -0.13f), (v.RightLeg,v.RightKnee, 0.13f) })
         {
             v.Rig.AddChild(leg); leg.Position = new(x, 0.4f, 0);
-            Box(leg, new(0, -0.18f, 0), new(0.16f, 0.36f, 0.18f), new("494d45"));
-            Box(leg, new(0, -0.35f, -0.05f), new(0.18f, 0.10f, 0.27f), new("614c3b"));
+            Box(leg, new(0, -0.09f, 0), new(0.17f, 0.20f, 0.19f), new("57574c"));
+            leg.AddChild(knee);knee.Position=new(0,-.18f,0);
+            Box(knee, new(0, -0.07f, 0), new(0.14f, 0.17f, 0.16f), new("c0ad88"));
+            Box(knee, new(0, -0.17f, -0.05f), new(0.18f, 0.10f, 0.27f), new("514135"));
         }
         foreach (var (arm, x) in new[] { (v.LeftArm, -0.28f), (v.Arm, 0.28f) })
         {
             v.Torso.AddChild(arm); arm.Position = new(x, 0.36f, 0);
-            Box(arm, new(0, -0.17f, 0), new(0.13f, 0.4f, 0.14f), new("e7bd8e"));
+            var sleeve=new Node3D();arm.AddChild(sleeve);
+            Box(sleeve,new(0,-.10f,0),new(.16f,.23f,.17f),id%4==3?cloth:new("c5b99f"));
+            Box(sleeve,new(0,-.22f,0),new(.165f,.045f,.175f),new("c2b294"));
+            Box(sleeve,new(0,-.29f,0),new(.12f,.13f,.13f),skin);
+            Box(sleeve,new(0,-.36f,-.01f),new(.14f,.10f,.15f),skin);
+            BatchStaticGeometry(sleeve);
         }
         foreach (var tool in new[] { v.Axe, v.Hammer, v.Spade, v.Peel })
         {
@@ -88,7 +98,7 @@ public partial class Game
         MakeDailyFurniture(v);
         v.Marker = Cylinder(v.Body, new(0, 0.02f, 0), 0.36f, 0.02f, new("efd49c"));
         // Batch only within rigid pieces; animated joints and visibility-controlled parts stay separate.
-        foreach(var piece in new[]{v.Hat,v.LeftLeg,v.RightLeg,v.Axe,v.Hammer,v.Spade,v.Peel,v.Saw,v.Sickle,v.Bow,v.Sapling,v.WorkBoard})BatchStaticGeometry(piece);
+        foreach(var piece in new[]{v.Head,v.Hat,v.LeftLeg,v.RightLeg,v.LeftKnee,v.RightKnee,v.Axe,v.Hammer,v.Spade,v.Peel,v.Saw,v.Sickle,v.Bow,v.Sapling,v.WorkBoard})BatchStaticGeometry(piece);
         return v;
     }
 
@@ -155,7 +165,7 @@ public partial class Game
     private void AnimateVillager(PersonView view,Villager v)
     {
         view.StagingPose=true;
-        try{UpdateVillagerPose(view,v);}
+        try{UpdateVillagerPose(view,v);FinishVillagerLegs(view);}
         finally
         {
             view.StagingPose=false;
@@ -177,12 +187,17 @@ public partial class Game
         PoseVisible(view,view.ComfortCushion,v.Task==Work.Resting && v.ImprovedRest);
         bool walking = v.Route.Count > 0;
         float cycle = _clock * 8 + v.Id * 1.7f, swing = MathF.Sin(cycle);
-        view.Rig.Position = new(0, walking ? MathF.Abs(swing) * 0.035f : 0, 0);
+        float gait=MathF.Sin(view.GaitPhase+v.Id*1.7f),stride=walking?view.WalkBlend:0;
+        view.LeftKnee.Rotation=view.RightKnee.Rotation=Vector3.Zero;
+        view.Rig.Position = new(0,-MathF.Abs(gait)*.025f*stride,0);
         view.Torso.Rotation = Vector3.Zero; view.Head.Rotation = Vector3.Zero;
-        view.LeftLeg.Rotation = new(walking ? swing * 0.55f : 0, 0, 0);
+        view.LeftLeg.Rotation = new(gait*.46f*stride, 0, 0);
         view.RightLeg.Rotation = -view.LeftLeg.Rotation;
-        view.Arm.Rotation = new(walking ? -swing * 0.35f : 0, 0, 0);
+        view.LeftKnee.Rotation=new(-Math.Max(0,-gait)*.75f*stride,0,0);
+        view.RightKnee.Rotation=new(-Math.Max(0,gait)*.75f*stride,0,0);
+        view.Arm.Rotation = new(-gait*.30f*stride, 0, -.04f*stride);
         view.LeftArm.Rotation = -view.Arm.Rotation;
+        if(walking){view.Torso.Rotation=new(-.025f*stride,gait*.035f*stride,gait*.02f*stride);view.Head.Rotation=new(.025f*stride,-gait*.025f*stride,0);}
         foreach(var tool in view.PoseTools)PoseVisible(view,tool,false);
         if(_traceFrames)_frameTrace.PoseResetMs+=(Time.GetTicksUsec()-animationMark)/1000d;
         if(v.Task==Work.Aboard)
