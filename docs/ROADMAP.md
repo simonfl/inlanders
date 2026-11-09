@@ -10,7 +10,7 @@
 
 ## Current direction and next step
 
-**Stopped at247 by user request.** Six outcomes242–247 completed; do not begin248 until resumed. Next proposed direction is a simpler one-crossing restoration comparison and discoverable home-bank food choices, not decorative expansion. Review250 remains due if work resumes. See [active queue](NEXT_CHUNKS.md).
+**Checkpoint 248.** After the Flood now has one crossing to the two ripe northern fields. The bridge preview agrees with actual restored access to both fields and 40 harvestable portions. Both-mode native reconnection and reachable food, blocked demolition recovery, food-source attribution and exact saves pass. The six-branch comparison is running with producer-labelled deliveries. Next expose the existing recovery alternatives through the map. Full review at 250, then select 251–257 from the synthesis. See the [active queue](NEXT_CHUNKS.md).
 
 **Checkpoint247:** Bridge placement previews newly accessible land, workplaces, beds, ripe crops and stored food, plus any fishing routes it blocks. Pure-preview checks agree with actual reconnection, boat-route loss and cancellation recovery. Native compact placement and Normal/Relaxed restoration controls pass; screenshot inspected and zero-warning build. User requested stopping after this playable chunk: stop247; map simplification remains proposed.
 

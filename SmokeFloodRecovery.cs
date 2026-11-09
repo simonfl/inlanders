@@ -52,7 +52,7 @@ public partial class Game
             await Capture("artifacts/restoration/workplace-contribution-960.png");
             if(!SaveSession() || !World.LoadFile(CurrentSavePath).Cottages.Single(c=>c.Id==crop.Id).HarvestThenPause)throw new Exception("Work orders not saved");
             if(!SaveSession() || World.LoadFile(CurrentSavePath).Challenge?.Restoration!=true)throw new Exception("Restoration save");
-            AdoptWorld(World.LoadFile("artifacts/restoration/False-bridge-complete.json"));ToggleDrawer(2);UpdateHud();
+            AdoptWorld(World.LoadFile("artifacts/restoration-livelihood/False-salvage-complete.json"));ToggleDrawer(2);UpdateHud();
             for(int i=0;i<8;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
             _drawerPages[2].EnsureControlVisible(_challengeContinue);
             await UiClick(_challengeContinue);if(!_world.Challenge!.Continuing)throw new Exception("Restoration continue failed");
@@ -66,15 +66,14 @@ public partial class Game
                 OpenEconomy();UpdateHud();for(int i=0;i<5;i++)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
                 if(!_mealAttention.Visible || !_economyFood.Text.Contains("12 reachable food") || _foodFlow.GetGlobalRect().End.Y>GetWindow().Size.Y-80 || _reserves.GetGlobalRect().Position.Y<_foodFlow.GetGlobalRect().Position.Y)throw new Exception("Economy hides meal service or usable food behind reserve controls");
                 await Capture($"artifacts/restoration/economy-essentials-{relaxed}.png");CloseDrawer();
-                supply.ApplyWoodlandCare(new(-10,3),new(-5,13),WoodlandIntent.Renew,false);supply.Place(new(5,0),0,BuildingKind.Bridge);bool second=false;
-                for(int i=0;i<3000 && !(second && supply.Cottages.Count(c=>c.Kind==BuildingKind.Bridge && c.Complete)==2);i++)
+                supply.ApplyWoodlandCare(new(-10,3),new(-5,13),WoodlandIntent.Renew,false);supply.Place(new(5,0),0,BuildingKind.Bridge);
+                for(int i=0;i<3000 && !supply.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Complete);i++)
                 {
-                    if(!second && supply.Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Complete)){if(supply.Place(new(0,-7),0,BuildingKind.Bridge)==null)throw new Exception("HUD reconnection refused");second=true;}
                     supply.Tick(.1f);
                     if(i%100==0)await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
                 }
                 supply.Validate();UpdateHud();
-                if(!second || supply.ReachableEdibleStored!=supply.EdibleStored || _placeFoodCount.Text!=supply.EdibleStored.ToString() || _placeFoodTitle.Text!="FOOD")throw new Exception("Reconnected food HUD failed");
+                if(supply.ReachableEdibleStored!=supply.EdibleStored || _placeFoodCount.Text!=supply.EdibleStored.ToString() || _placeFoodTitle.Text!="FOOD")throw new Exception("Reconnected food HUD failed");
                 GD.Print($"PASS native reachable-food count/warning and real crossing recovery relaxed={relaxed}");
             }
             GD.Print("PASS native automatic work and crop orders, land-bound move rejection, restoration entry, purpose, housing action, separate save and actual simulated completion/continue.");GetTree().Quit();

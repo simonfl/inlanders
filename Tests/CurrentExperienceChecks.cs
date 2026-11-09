@@ -22,7 +22,7 @@ static class CurrentExperienceChecks
             ("ChallengeContinuation",ChallengeContinuationChecks.Run),
             ("ChallengeObservation",ChallengeObservationChecks.Run),
             ("ChallengeStatus",ChallengeStatusChecks.Run),
-            ("FloodIsland",FloodIslandChecks.Run),
+            ("RestorationLivelihood",RestorationLivelihoodChecks.Run),
             ("SupplyProducer",SupplyProducerChecks.Run),
             ("TimberJourney",TimberJourneyChecks.Run),
             ("CultivationJourney",CultivationJourneyChecks.Run),

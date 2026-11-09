@@ -1,15 +1,17 @@
-# Stopped batch — checkpoints242–247
+# Active batch — checkpoints 248–257
 
-User requested stopping after the next playable chunk; checkpoint247 is complete. Six outcomes from the original ten-outcome242–251 batch shipped. Stop here; remaining candidates require resumption. Full five-role review remains due250, before251.
+Ten outcomes authorized November 8. Full five-role review at 250 before implementing 251. Stop at 257.
+
+**248 done.** After the Flood now has one crossing to the two ripe northern fields. The bridge preview agrees with actual restored access to both fields and 40 harvestable portions. Both-mode native reconnection and reachable food, blocked demolition recovery, food-source attribution and exact saves pass. The six-branch comparison is running with producer-labelled deliveries.
+
+## Previous batch — checkpoints 242–247
 
 Delivered242–247: one automatic-work policy, combined housing/food warning, opt-in yard preview, food-first Economy layout, actual workplace delivery contributions, and crossing consequences before construction. Focused simulation checks, native Normal/Relaxed recovery controls and zero-warning builds pass. No new human playtest or listening verdict.
 
-## Next candidates, only if resumed
-
--248: simplify the artificial two-channel restoration based on the same-start comparison; preserve the old layout’s evidence. Test one crossing to distant established fields against home-bank livelihoods. Do not add taxes or inflate yields to force balance.
+## Next candidates
 -249: make salvage and home-bank livelihoods discoverable through existing world planning controls.
 -250: include gathering/hunting/orchards in home-placement food-walk previews, which currently omit them; then freeze for all five whole-game reviewers.
--251: select only from that synthesis.
+-251–257: select from the synthesis, favoring gameplay changes that test whether recovery creates meaningful choices.
 
 All six same-start600s livelihood branches completed and retained twelve fed residents. Normal fishing/gathering begin earlier and cost fewer logs than two-crossing salvage, but all finish around128–130s: the two-meal objective appears to set the completion floor. This is not evidence of strategic depth or enjoyment. Baseline salvage activity measures first crop pickup, whereas fishing/gathering measure deliveries; use producer-labelled deliveries for a fairer next comparison. The northern ripe crop count at the horizon includes regrowth, not just uncollected starting food.
 
