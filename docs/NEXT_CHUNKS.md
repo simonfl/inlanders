@@ -10,7 +10,7 @@ Scope. One normal-mode scene, four residents, an existing host cottage and provi
 
 Acceptance. Real production, a no-forestry control, reversible planning and exact saves. Independent evaluator uses ordinary UI without a placement recipe. Then offer a 10–15 minute owner comparison. Observe what felt worth starting, whether the visible result mattered and desire to do the next thing. Allow one clarity revision. An understood yet empty experience rejects the care hypothesis.
 
-Status: mechanically verified, ordinary-control evaluation blocked by desktop tooling. The independent evaluator launched the game but both window-state tools hung before any action. No playtest pass is claimed. See [the experiment record](FIRST_HOME_EXPERIMENT.md). Hold expansion; owner entry/control check and experience comparison are now the missing evidence.
+November 9 owner feedback: the opening had overwhelming competing buttons and the objective/progress remained unclear. The owner requested fixes. Delivered the one focused clarity revision (251): three visible objectives, actual timber/construction/meal progress, one contextual action, and secondary tools collapsed. Cancellation/completion guidance checks and three independently inspected native compact captures pass. Return for owner play; the clarity revision is now used. This is a clarity revision of the same experiment, not evidence to expand it. Ordinary desktop interaction remains unverified because prior tools hung. See [the experiment record](FIRST_HOME_EXPERIMENT.md).
 
 ---
 

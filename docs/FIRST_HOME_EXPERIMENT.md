@@ -27,3 +27,13 @@ Builder native capture on final DLL `41045507A7F46A851ACA47389682E1A9E1B4BE83D13
 ## Decision gate
 
 Offer the owner roughly five minutes in A first home and five in After the flood, without a placement recipe. Ask what felt worth doing and what they wanted to try next. Keep, revise or drop based on that reaction. A clear yet empty experience is evidence against this hypothesis; a specific clarity obstacle earns one focused revision. Do not build more chapters or systems while the answer is pending.
+
+## November 9 — owner feedback and focused clarity revision
+
+The owner found the many equally prominent actions overwhelming, then said the objective and progress remained unclear. This is direct owner feedback about usability, not acceptance or rejection of the underlying care hypothesis.
+
+Outcome 251 applies the single allowed clarity revision. A persistent compact checklist shows cottage planning/material delivery/construction, food production, and fresh meals for 0/2 through 2/2 residents. One contextual action handles the next step; when paused during automatic work it offers Resume village life. Food choices open on request and secondary People/Supplies/Options/survey/arrangement tools are collapsed behind Village tools. Cancelling a cottage restores the build prompt. Completed production does not expire with the rolling food-history window. Other scenes hide the household card.
+
+Validation: both livelihood routes and exact saves pass, with added checks for initial guidance, cancellation recovery, timber blocker, completed 3/3 objectives and query purity. Native 960px captures show opening, Timber 0/6 and completion states. Independent read-only evaluator accepted their readability and reduced action overload for owner retry. Capture build SHA256: 93303A232D856346E44B9C4742623EE2B1904B697456B5D112B81978FDE76869. Evidence directories under artifacts/review/runs: 20261109-135225-811-river-243fe9, 20261109-135252-320-river-fd6a94, 20261109-135300-602-river-290bae. Reviewer caught stale milestone notices; final copy now points to Objectives and actual meal progress.
+
+Limitations: independent review inspected scripted native stills and matching source, not ordinary clicks, motion, audio, food-choice drawer or narrower layouts. Known hanging desktop tools were not retried. Final notice-only copy was rebuilt rather than recaptured. This supports clarity, not enjoyment. Return to the owner to try the revised opening; do not add systems or another unobserved polish batch.

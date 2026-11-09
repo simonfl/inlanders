@@ -20,7 +20,7 @@ public partial class Game
     {
         bool small=_world.PublicPlace!=null;
         foreach(int i in new[]{0,3,4})_menuButtons[i].Visible=!small;
-        _villageTools.Visible=small;_landSurvey.Visible=small;
+        _villageTools.Visible=small && (_world.Founding?.FirstHome==null || _firstHomeToolsOpen);_landSurvey.Visible=_villageTools.Visible;
         if(small)_menuButtons[2].TooltipText="Watch or finish this village; People, Supplies and Options are here [G].";
     }
 }

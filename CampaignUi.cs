@@ -110,6 +110,7 @@ public partial class Game
     private void UpdateCampaignUi()
     {
         _firstHomeGoals.Visible = _world.Founding?.FirstHome != null;
+        _firstHomePinned.Visible = false;
         _challengeGoals.Visible=_world.Challenge!=null;
         var campaign = _world.Campaign;
         if(_world.Founding!=null){UpdateFoundingUi();return;}

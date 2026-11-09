@@ -150,7 +150,7 @@ public partial class Game
     }
     private void RenderGroupArrangementUi()
     {
-        _groupEntry.Visible=_world.PublicPlace!=null;_groupRecoverEntry.Visible=_world.PublicPlace!=null && _groupRecovery!=null && _groupRecoveryWorld==_world;
+        _groupEntry.Visible=_world.PublicPlace!=null && (_world.Founding?.FirstHome==null || _firstHomeToolsOpen);_groupRecoverEntry.Visible=_groupEntry.Visible && _groupRecovery!=null && _groupRecoveryWorld==_world;
         if(!_groupActive)return;if(_groupWorld!=_world || _atMainMenu){CancelGroupArrangement();return;}
         _paused=true;_groupPanel.Show();_groupPanel.Position=new(_hud.Size.X-310,92);_groupPanel.Size=new(294,0);
         _groupModels.Visible=!_groupShowBefore;

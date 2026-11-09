@@ -1,3 +1,7 @@
+# Owner-driven clarity revision — November 9
+
+Outcome **251**: First-home objectives now remain visible with real construction/material and meal progress, a contextual next action, and collapsed secondary tools. Initial/cancelled/timber-blocked/completed guidance and exact saves pass. Three native compact stills independently reviewed; ordinary interactions remain unverified. This consumes the bounded experiment's focused clarity revision. Return for owner play; no expansion authorized by this evidence. See [experiment record](FIRST_HOME_EXPERIMENT.md).
+
 # Provisional household experiment — November 8
 
 Outcome **250** delivers A first home as a bounded comparison, not a promoted direction. Four named residents, explicit grove work, one home and fresh household meals; separate save/resume identity. Gathering and gardening simulation routes, cancelled planning, no-order control and exact save continuation pass. Independent ordinary-control evaluation was attempted but blocked at desktop window-state retrieval; no interaction, motion or audio evidence was obtained. See [experiment evidence and stop gate](FIRST_HOME_EXPERIMENT.md). Hold further implementation for owner play. The count records delivery only.

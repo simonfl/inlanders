@@ -11,8 +11,43 @@ public sealed class FirstHomeProgress
     public bool Complete => Served.Contains(2) && Served.Contains(3);
 }
 
+public sealed record FirstHomeObjectives(string Home, string Food, string Meals, string Hint, string Action, int? Site, int Done);
+
 public sealed partial class World
 {
+    public FirstHomeObjectives ReadFirstHomeObjectives()
+    {
+        var story = Founding!.FirstHome!;
+        var homes = Cottages.Where(c => c.Kind == BuildingKind.Cottage && !c.DemolitionRequested &&
+            !Founding.StartingBuildings.Any(s => s.Id == c.Id)).ToArray();
+        bool housed = People.Where(p => p.Id >= 2).All(p => homes.Any(c => c.Id == p.HomeId && IsHome(c) && Accessible(c.Entrance)));
+        var home = homes.OrderByDescending(c => c.Complete).FirstOrDefault();
+        var foods = Cottages.Where(c => !c.DemolitionRequested && ProductionOutput(c.Kind) is {} k && EdibleKinds.Contains(k)).ToArray();
+        var food = foods.OrderByDescending(c => WorkplaceFoodDelivered(c.Id)).ThenByDescending(c => c.Complete).FirstOrDefault();
+        bool produced = DeliveredEdible > 0;
+        if (story.Complete) { housed = true; produced = true; }
+        string Stage(Cottage? c) => c == null ? "Not planned" : !Accessible(c.Entrance) ? "No route" :
+            c.ConstructionPaused && !c.Complete ? "Construction paused" : c.Complete ? "Ready" :
+            !c.MaterialsReady ? $"Timber {c.Delivered}/{c.Required}" : $"Building {c.Construction:P0}";
+        string hint; string action; int? site = null;
+        var pending = !housed ? home : !produced ? food : null;
+        if (story.Complete) { hint = "They have a home and have both eaten fresh food. You can keep playing."; action = "done"; }
+        else if (!housed && home == null) { hint = "Choose a spot for their cottage. The villagers do the building."; action = "home"; }
+        else if (housed && food == null) { hint = "Choose one food source. Villagers work it automatically."; action = "food"; }
+        else if (pending != null && (!Accessible(pending.Entrance) || pending.ConstructionPaused || pending.WorkPaused))
+        { hint = "Inspect the blocked or paused building to resume progress."; action = "inspect"; site = pending.Id; }
+        else if (pending is { Complete: false, MaterialsReady: false } && Available < pending.Remaining(Resource.Logs) &&
+            !Trees.Any(t => !t.Preserved && t.Logs > 0 && Accessible(t.Access)))
+        { hint = "Waiting for timber. Mark a grove to harvest and renew."; action = "grove"; }
+        else if (pending != null)
+        { hint = pending.Complete ? ReadWorkplace(pending).State + ". " + ReadWorkplace(pending).Detail : "Villagers collect the timber and build automatically."; action = "inspect"; site = pending.Id; }
+        else { hint = "Jeanne and Pierre eat automatically when hungry. Starting provisions do not count as fresh food."; action = "watch"; }
+        return new(housed ? "✓ Cottage ready" : "○ Cottage · " + Stage(home),
+            produced ? "✓ Food produced" : "○ Food source · " + Stage(food),
+            $"{(story.Complete ? "✓" : "○")} Fresh meals · {story.Served.Count}/2 residents",
+            hint, action, site, (housed ? 1 : 0) + (produced ? 1 : 0) + (story.Complete ? 1 : 0));
+    }
+
     public static World NewFirstHome()
     {
         var world = NewRiverFarmstead();

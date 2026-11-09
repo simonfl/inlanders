@@ -1,3 +1,7 @@
+# November 9 — clearer objectives before more features
+
+Owner feedback identified competing buttons and unclear progress. Outcome251 addresses that with a persistent three-part checklist, live construction and meal progress, one next action, and secondary tools behind Village tools. The independent visual review accepts the compact presentation for owner retry; it is not evidence that the core loop is rewarding. The single clarity revision is now used. Hold expansion and ask whether the revised experience is understandable and worth continuing. See [experiment evidence](FIRST_HOME_EXPERIMENT.md).
+
 # Current process — November 8 reset
 
 [Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. The 249 game is the baseline. A first home is the single active challenger: four named residents, a useful forestry order, a new home and actual household meals. Obtain direct play evidence and decide keep, revise or drop before expanding. The bridge dilemma stays deferred. Full reviews occur at substantial direction decisions and production gates.
