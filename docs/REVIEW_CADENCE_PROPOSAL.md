@@ -1,3 +1,9 @@
+# Current process — November 8 reset
+
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+
+---
+
 # Periodic review team
 
 Accepted by the user on September 12, 2026; changed on October 18, 2026 to a full review every ten playable checkpoints. This is the repository's checkpoint-based review policy. Track progress in [the checkpoint ledger](CHECKPOINTS.md); this is not a time-based scheduled task.

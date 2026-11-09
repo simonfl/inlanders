@@ -1,3 +1,7 @@
+# Process reset — November 8
+
+Playable count remains 249. The user authorized replacing the development process. [New workflow](DEVELOPMENT_PROCESS.md) supersedes numeric batch targets and the every-ten review schedule. The ledger below is delivery history. Five independent process follow-ups used the fixed 249 evidence. No new gameplay was implemented.
+
 # Playable checkpoint ledger
 
 Policy: [periodic review team](REVIEW_CADENCE_PROPOSAL.md), accepted September 12, 2026.

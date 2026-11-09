@@ -1,3 +1,9 @@
+# Current process — November 8 reset
+
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+
+---
+
 # Stopped at checkpoint 249
 
 The November 8 batch delivered 248–249. The user requested a stop after 249 and an immediate assessment of the game direction and agentic development process. The [strategic review and research](STRATEGIC_REVIEW_249.md) are complete on the fixed 249 build. Implementation remains stopped.

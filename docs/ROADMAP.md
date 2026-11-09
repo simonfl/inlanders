@@ -1,3 +1,9 @@
+# Current process — November 8 reset
+
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. Implementation is stopped at 249. Keep one bounded experience experiment, obtain direct play evidence, and decide keep, revise or drop before expanding. The bridge dilemma is a candidate alongside a smaller household or grove experience. Select the intended pleasure first. Full reviews occur at substantial direction decisions and production gates.
+
+---
+
 # Les Habitants — roadmap
 
 **Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. Ten outcomes222–231 and review230 complete; stopped231. October19 authorizes232–241, with full review240 and stop241.
