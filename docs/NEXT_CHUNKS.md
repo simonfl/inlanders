@@ -1,3 +1,17 @@
+# Active experiment — Before the river closes
+
+The owner accepted the recovery scenario as distinct but found every level tutorial-sized. Build one longer scenario to test whether preparing an established village for more people sustains the clear purpose of helping villagers.
+
+Recover food for four housed residents. Two announced boats add four people at minute 8 (with 24 portions) and four at minute 16 (without food). The river closes at minute 24. House and feed all twelve, then maintain a one-meal reserve and healthy residents for four minutes while locally produced food covers meals eaten across the trial. Crops arrive in batches; a momentarily low rolling production rate must not reset healthy progress.
+
+The competing explanation is that this remains a short construction recipe stretched by a clock. Ready villages can advance each event after demonstrating future housing, two meals in reserve, and three minutes of sufficient production. Compare staged preparation, opening-only recovery, and immediate full preparation with early advancement. Longer elapsed time alone is not acceptance evidence.
+
+Stop after delivering this bounded scenario for owner play. Ask whether arrivals changed decisions, whether food pressure remained understandable, and where preparation became waiting. Do not add seasons, further needs or more chapters before resolving this pacing question. Evidence and the provisional decision belong in RIVER_CLOSING_EXPERIMENT.md.
+
+Delivered 254. Final scripted timings: staged expansion 1,727s; ready-early expansion 889s; opening-only control remains incomplete at 1,565s. Exact arrival/trial saves and prior household scenarios pass. Four compact native states inspected. Stop for owner play; no next implementation chunk is selected.
+
+---
+
 # Active experiment — recover existing food access
 
 The owner liked helping villagers meet a visible need, but found252 too similar to251. Keep clear objectives and recoverable food pressure; reject changed layout/reserves as sufficient level differentiation. Authorized: The broken crossing, with all four residents already housed, an existing ripe field cut off, and repair versus local cultivation.

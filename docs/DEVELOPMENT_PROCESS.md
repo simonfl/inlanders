@@ -46,4 +46,4 @@ ROADMAP.md records the chosen experience and deferred bets. NEXT_CHUNKS.md holds
 
 ## Current decision
 
-The owner values clear progression and helping villagers, but found A lean landing insufficiently different. Test The broken crossing: recovery of existing food access with residents already housed, versus nearby new production. Deliver the bounded recovery scenario and hold for owner play. Keep broader expansion deferred. Desktop input tooling remains blocked; distinguish native scripted/still evidence from independent interaction. See NEXT_CHUNKS.md and CROSSING_RECOVERY_EXPERIMENT.md.
+The owner found The broken crossing distinct but too short, and authorized Before the river closes. Outcome 254 tests preparation for a village growing from four to twelve, with visible deadlines, recoverable shortages and a self-sufficiency trial. Ready players can advance events to expose rather than hide idle time. Deliver this one longer scenario and hold for owner play. Scripted completion and compact captures establish functionality, not sustained enjoyment or difficulty. See NEXT_CHUNKS.md and RIVER_CLOSING_EXPERIMENT.md.

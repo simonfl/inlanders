@@ -1,3 +1,9 @@
+# November 9 — test a longer village-building arc
+
+The owner found recovery distinct but tutorial-sized. Outcome 254 adds **Before the river closes**: recover food for four residents, prepare housing and production for two announced arrivals, then prove the twelve-person village can feed itself. The default successful script lasts about 29 simulated minutes; a fully prepared village can advance events and finishes in about 15. Neither timing establishes engaging play.
+
+Keep this as one provisional experiment. Real pressure comes from population growth; closure is the final assessment, not a weather system. Hold more chapters, seasons and needs until owner play resolves whether this creates useful preparation and adaptation or merely a longer construction checklist. [Experiment, evidence and limits](RIVER_CLOSING_EXPERIMENT.md).
+
 # November 9 — recovery must change the task
 
 Owner feedback retained clear progress and helping villagers, but rejected252 as sufficiently different from251. Outcome253 tests The broken crossing: all four residents housed, an existing ripe field cut off, repair6logs versus new localgarden4logs, and actual harvest transport to the village store. Goals are access, delivery and4/4 fed; no new-home step. Both routes and delayed recovery pass. Stop for owner play; do not equate altered reserves/layout with a new level. [Evidence and limitations](CROSSING_RECOVERY_EXPERIMENT.md).

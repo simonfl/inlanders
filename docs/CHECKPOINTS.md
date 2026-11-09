@@ -1,3 +1,7 @@
+# Longer scenario experiment — November 9
+
+Outcome **254**: Before the river closes. Four residents grow to twelve through two announced boats; prepare homes and food, then sustain a four-minute self-sufficiency trial. Prepared villages can advance events. Opening-only control fails; staged and early expansion finish at 1,727s and 889s. Arrival and mid-trial exact saves, food conservation, compact native captures, and existing household/recovery regressions pass; zero-warning build. Independent still/source evaluation is distinct from ordinary interaction, motion/audio and owner enjoyment, which remain unverified. [Experiment record](RIVER_CLOSING_EXPERIMENT.md). Hold for owner play.
+
 # Recovery scenario — November 9
 
 Outcome **253**: The broken crossing. Four residents already housed; reconnect ripe crops or grow food nearby. World labels, two costed choices, direct crossing repair and clear access/delivery/4-person meal objectives. Repair uses no new food workplace; local route leaves old field stranded; physical harvest crossing, cancellation, delayed hunger recovery and exact saves verified. Native scripted controls and independent still/source review recorded; ordinary input/motion/audio remain unverified. [Experiment record](CROSSING_RECOVERY_EXPERIMENT.md). Hold for owner play.

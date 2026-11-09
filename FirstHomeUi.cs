@@ -16,6 +16,7 @@ public partial class Game
     private World? _firstHomeObserved;
     private int? _firstHomeNoticed;
     private int _firstHomeMeals;
+    private int _riverBoatsObserved; private bool _riverClosedObserved;
 
     private void FirstHomeMenu()
     {
@@ -23,6 +24,7 @@ public partial class Game
         MenuButton("A first home", () => FirstHomeMenu(false));
         MenuButton("A lean landing · short provisions", () => FirstHomeMenu(true));
         MenuButton("The broken crossing · recovery", CrossingRecoveryMenu);
+        MenuButton("Before the river closes · longer scenario", RiverClosingMenu);
         MenuButton("Back", ShowMainMenu);
     }
 
@@ -59,7 +61,7 @@ public partial class Game
 
     private void RenderHouseholdCard(HouseholdCard card, FirstHomeObjectives goal)
     {
-        card.Title.Text = _world.Founding!.FirstHome!.Recovery ? "The broken crossing" : _world.Founding.FirstHome.LeanLanding ? "A lean landing" : "A home for Jeanne & Pierre";
+        card.Title.Text = _world.Founding!.FirstHome!.RiverClosing!=null ? "Before the river closes" : _world.Founding.FirstHome.Recovery ? "The broken crossing" : _world.Founding.FirstHome.LeanLanding ? "A lean landing" : "A home for Jeanne & Pierre";
         card.Count.Text = goal.Done == 3 ? "ALL OBJECTIVES COMPLETE" : $"OBJECTIVES · {goal.Done} OF 3 COMPLETE";
         bool lean = _world.Founding.FirstHome.LeanLanding;
         card.Home.Text = lean ? goal.Food : goal.Home; card.Food.Text = lean ? goal.Home : goal.Food; card.Meals.Text = goal.Meals;
@@ -107,6 +109,7 @@ public partial class Game
         {
             case "home": CloseManagementUi(); BeginPlacement(BuildingKind.Cottage); break;
             case "recover": OpenRecoveryChoices(); break;
+            case "advance": if(_world.AdvanceRiverSchedule() && _paused)TogglePause(); break;
             case "grove": BeginWoodlandCare(); break;
             case "food":
                 _firstHomeToolsOpen = false;
@@ -142,8 +145,8 @@ public partial class Game
         _firstHomePinned.Position = new(_drawer.Visible ? (_inspector.Visible ? 344 : _hud.Size.X - 300) : 16, 92);
         _firstHomePinned.Size = new(284, 0);
         string action = _paused && goal.Action is "inspect" or "watch" ? "Resume village life" : goal.Action switch {
-            "home" => "Build their cottage", "grove" => "Work a grove", "food" => "Choose a food source", "recover" => "Choose a recovery plan",
-            "inspect" => "Inspect current work", "watch" => "Follow the next diner", _ => "Save and leave" };
+            "home" => _world.Founding!.FirstHome!.RiverClosing!=null?"Prepare another cottage":"Build their cottage", "grove" => "Work a grove", "food" => "Choose a food source", "recover" => "Choose a recovery plan",
+            "advance" => _world.Founding!.FirstHome!.RiverClosing!.Boats<2?"Welcome next boat now":"End supply season now", "inspect" => "Inspect current work", "watch" => "Follow the next diner", _ => "Save and leave" };
         if (goal.Action == "food" && _firstHomeFoodChoices.Visible) action = "Hide food choices";
         if (goal.Action == "recover" && _recoveryChoices.Visible) action = "Hide recovery plans";
         _firstHomeAction.Text = _firstHomePinnedAction.Text = action;
@@ -155,7 +158,13 @@ public partial class Game
             if (_firstHomeNoticed != story.NewHomeId && story.NewHomeId != null)
                 Notice("Cottage ready. Objectives [G] shows the next step and your progress.");
             if (_firstHomeMeals != story.Served.Count && story.Served.Count > 0)
-                Notice(story.Complete ? "All objectives complete. Your neighbors have fresh food again." : $"Fresh meals: {story.Served.Count}/{(story.Recovery?4:2)} residents. See Objectives [G].");
+                Notice(story.Complete ? "All objectives complete. Your neighbors have fresh food again." : $"Fresh meals: {story.Served.Count}/{(story.RiverClosing!=null?_world.Population:story.Recovery?4:2)} residents. See Objectives [G].");
+        }
+        if(story.RiverClosing is {} river)
+        {
+            if(_firstHomeObserved==_world && river.Boats!=_riverBoatsObserved) Notice(river.Boats==1?"Four neighbors arrived with 24 food. Prepare for four more." : "Four more neighbors arrived without food. All twelve now depend on the village.");
+            if(_firstHomeObserved==_world && river.Closed && !_riverClosedObserved) Notice("The river is closed. The self-sufficiency trial has begun.");
+            _riverBoatsObserved=river.Boats;_riverClosedObserved=river.Closed;
         }
         _firstHomeObserved = _world;
         _firstHomeNoticed = story.NewHomeId;

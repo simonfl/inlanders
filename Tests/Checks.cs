@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--river-closing")){RiverClosingChecks.Run();return;}
 if(args.Contains("--crossing-recovery")){CrossingRecoveryChecks.Run();return;}
 if(args.Contains("--lean-landing")){LeanLandingChecks.Run();return;}
 if(args.Contains("--first-home")){FirstHomeChecks.Run();return;}
