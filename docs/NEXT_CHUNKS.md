@@ -1,3 +1,12 @@
+# Authorized presentation work — music and village sound
+
+November 9: the owner cannot play for a few hours and explicitly requested nicer music and effects. Improve this presentation layer while the longer-level gameplay question stays on hold. Scope: original acoustic-inspired arrangements, varied material sounds, subtle shoreline ambience, and a restrained native mix at 1x/6x. Preserve independent controls, pause behavior and gameplay rules.
+
+Use the existing audio renderer/export and smoke checks, with a focused independent audio evaluator. Provide dry before/after music and effects plus actual game-mixer excerpts. Source and numeric checks cannot establish that the result sounds pleasing; leave aesthetic acceptance for listening. No new campaign or economy work is selected.
+
+Delivered 255. Three stereo arrangements, varied effects and proximity-based water ambience are integrated. Native controls/transport and 1x/6x mixer checks pass; independent source/PCM review accepts provisional delivery, not listening quality. See AUDIO_REFRESH_255.md and the local artifacts/audio-refresh/index.html comparison. Stop for later listening; the longer-level gameplay question remains pending.
+
+---
 # Active experiment — Before the river closes
 
 The owner accepted the recovery scenario as distinct but found every level tutorial-sized. Build one longer scenario to test whether preparing an established village for more people sustains the clear purpose of helping villagers.

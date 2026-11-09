@@ -8,8 +8,12 @@ public partial class Game
 {
     private const string EffectsBus = "Village effects", AmbienceBus = "Village ambience";
     private readonly Dictionary<Cue, AudioStreamWav> _sounds = new();
+    private readonly Dictionary<Cue, AudioStreamWav[]> _soundVariants = new();
+    private int _soundVariantIndex;
     private readonly List<AudioStreamPlayer3D> _voices = new();
     private AudioStreamPlayer _uiSound = null!, _wind = null!;
+    private AudioStreamPlayer _river = null!;
+    private float _riverGain, _riverTarget, _nextShoreCheck;
     private AudioStreamPlayer3D _bird = null!;
     private AudioListener3D _villageListener = null!;
     private sealed class SoundTrace { public System.Numerics.Vector2 Position; public float Distance, Next; public int Cargo; public int? ChopTree, HammerSite; public int ChopBeat=-1,HammerBeat=-1,ContactBeat=-1; public Work? ContactWork; public int? ContactSource; }
@@ -34,21 +38,25 @@ public partial class Game
             AudioServer.AddBus(); AudioServer.SetBusName(AudioServer.BusCount - 1, name);
         }
         foreach (var cue in Enum.GetValues<Cue>()) _sounds[cue] = Synthesize(cue);
+        foreach(var cue in new[]{Cue.Step,Cue.Chop,Cue.Hammer,Cue.Rustle,Cue.Drop,Cue.Saw,Cue.Bird})
+            _soundVariants[cue]=new[]{_sounds[cue],Synthesize(cue,1),Synthesize(cue,2),Synthesize(cue,3)};
         for (int i = 0; i < 6; i++)
         {
             var voice = new AudioStreamPlayer3D { Bus = EffectsBus, UnitSize = 25, MaxDistance = 80, VolumeDb = -8, MaxPolyphony = 1 };
             AddChild(voice); _voices.Add(voice);
         }
         _uiSound = new AudioStreamPlayer { Bus = EffectsBus, VolumeDb = -8 }; AddChild(_uiSound);
-        _wind = new AudioStreamPlayer { Bus = AmbienceBus, Stream = _sounds[Cue.Wind], VolumeDb = -6 }; AddChild(_wind);
+        _wind = new AudioStreamPlayer { Bus = AmbienceBus, Stream = _sounds[Cue.Wind], VolumeDb = -12 }; AddChild(_wind);
+        _river = new AudioStreamPlayer { Bus=AmbienceBus, Stream=_sounds[Cue.River], VolumeDb=-80 };AddChild(_river);
         _bird = new AudioStreamPlayer3D { Bus = AmbienceBus, Stream = _sounds[Cue.Bird], UnitSize = 25, MaxDistance = 90, VolumeDb = -12 };
-        AddChild(_bird); MakeMusic(); ReadAudioSettings(); ApplyAudioSettings(); _wind.Play();
+        AddChild(_bird); MakeMusic(); ReadAudioSettings(); ApplyAudioSettings(); _wind.Play();_river.Play();
     }
 
     private void ResetWorldAudio()
     {
         foreach (var voice in _voices) voice.Stop();
         _soundTraces.Clear(); _heardBuildings.Clear(); _cueCooldown.Clear();
+        _nextShoreCheck=0;_soundVariantIndex=0;
         foreach (var v in _world.People) _soundTraces[v.Id] = new SoundTrace { Position = v.Position, Cargo = v.Carried, Next = _soundTime + v.Id * 0.07f };
         foreach (var c in _world.Cottages.Where(c => c.Complete)) _heardBuildings.Add(c.Id);
         _heardSupper = _world.Food.SupperComplete;
@@ -56,26 +64,33 @@ public partial class Game
     private void UiCue(Cue cue)
     {
         if (_uiSound == null || _soundMuted || _effectsVolume == 0) return;
+        _uiSound.VolumeDb=cue==Cue.Click?-17:-10;
         _uiSound.Stream = _sounds[cue]; _uiSound.Play();
     }
     private void WorldCue(Cue cue, Vector3 position, int variation = 0)
     {
         if (_paused || _soundMuted || _effectsVolume == 0 || _cueCooldown.GetValueOrDefault(cue) > _soundTime) return;
-        var voice = _voices.FirstOrDefault(p => !p.Playing);
+        // Keep a voice available for a completed building instead of losing it to footsteps.
+        var voice = cue==Cue.Complete?_voices[^1]:_voices.Take(_voices.Count-1).FirstOrDefault(p => !p.Playing);
         if (voice == null) return;
-        voice.Position = position; voice.Stream = _sounds[cue]; voice.PitchScale = 0.96f + variation % 5 * 0.02f;
-        voice.Play(); _worldSoundCount++; _cueCooldown[cue] = _soundTime + 0.12f;
+        int take=(_soundVariantIndex++ + Math.Abs(variation))%4;
+        voice.Position = position; voice.Stream = _soundVariants.TryGetValue(cue,out var variants)?variants[take]:_sounds[cue];
+        voice.PitchScale = cue==Cue.Complete?1:.98f+take*.013f;
+        voice.VolumeDb=cue switch {Cue.Step=>-17,Cue.Rustle or Cue.Saw=>-14,Cue.Complete=>-7,_=>-10};
+        voice.Play(); _worldSoundCount++;
+        _cueCooldown[cue] = _soundTime + (cue==Cue.Step?.24f:cue==Cue.Saw?.65f:cue is Cue.Chop or Cue.Hammer?.23f:.12f);
     }
     private void UpdateAudio(float dt)
     {
         UpdateAudioListener();
         _soundTime += dt;
+        UpdateShoreAmbience(dt);
         if (_audioSettingsDirty && _soundTime >= _audioSettingsWriteAt) SaveAudioSettings();
         if (_soundTime >= _nextBird)
         {
-            _nextBird = _soundTime + 9 + (_nextBird % 5);
+            _nextBird = _soundTime + 13 + 7*Math.Abs(MathF.Sin(_soundTime*.37f));
             if (!_soundMuted && _ambienceVolume > 0)
-            { _bird.Position = OnGround(MathF.Sin(_soundTime)*8,-7,2); _bird.PitchScale = 0.95f + 0.1f * MathF.Sin(_soundTime); _bird.Play(); }
+            { _bird.Position = OnGround(_focus.X+MathF.Sin(_soundTime)*12,_focus.Z-7,2); _bird.Stream=_soundVariants[Cue.Bird][(int)_soundTime%4];_bird.PitchScale = 0.98f + 0.04f * MathF.Sin(_soundTime); _bird.Play(); }
         }
         if (_paused) { foreach (var voice in _voices) voice.Stop(); return; }
         foreach (var v in _world.People)
@@ -127,6 +142,24 @@ public partial class Game
         foreach (var site in _world.Cottages.Where(c => c.Complete))
             if (_heardBuildings.Add(site.Id)) WorldCue(Cue.Complete, OnGround(site.Cell.X,site.Cell.Z,1));
         if (_world.Food.SupperComplete && !_heardSupper) { _heardSupper = true; UiCue(Cue.Complete); }
+    }
+
+    private void UpdateShoreAmbience(float dt)
+    {
+        if(_soundTime>=_nextShoreCheck)
+        {
+            _nextShoreCheck=_soundTime+.25f;
+            float distanceSquared=float.MaxValue;
+            foreach(var cell in _world.Map.Water)
+            {
+                float x=cell.X-_focus.X,z=cell.Z-_focus.Z;
+                distanceSquared=Math.Min(distanceSquared,x*x+z*z);
+            }
+            float proximity=Math.Clamp(1-MathF.Sqrt(distanceSquared)/18,0,1);
+            _riverTarget=proximity*proximity;
+        }
+        _riverGain+=(_riverTarget-_riverGain)*(1-MathF.Exp(-Math.Max(0,dt)*2));
+        _river.VolumeDb=-9+Mathf.LinearToDb(Math.Max(.0001f,_riverGain));
     }
 
     private bool WorkContactAudio(Villager worker,SoundTrace trace)

@@ -23,13 +23,13 @@ public partial class Game
             if(stream.SaveToWav($"{directory}/theme-{i}.wav")!=Error.Ok)throw new Exception("Theme export failed");
             html.Append($"<article><h2>{MusicThemeNames[i]}</h2><audio controls preload='none' src='theme-{i}.wav'></audio></article>");
             var next=_musicThemes[(i+1)%_musicThemes.Length].Data;
-            var combined=new byte[data.Length+(int)(MusicQuietIntervals[i]*22050*2)+next.Length];
+            var combined=new byte[data.Length+(int)(MusicQuietIntervals[i]*22050*4)+next.Length];
             Buffer.BlockCopy(data,0,combined,0,data.Length);Buffer.BlockCopy(next,0,combined,combined.Length-next.Length,next.Length);
-            using var transition=new AudioStreamWav {Format=AudioStreamWav.FormatEnum.Format16Bits,MixRate=22050,Data=combined};
+            using var transition=new AudioStreamWav {Format=AudioStreamWav.FormatEnum.Format16Bits,MixRate=22050,Stereo=true,Data=combined};
             if(transition.SaveToWav($"{directory}/transition-{i}.wav")!=Error.Ok)throw new Exception("Transition export failed");
             GD.Print($"MUSIC {MusicThemeNames[i]}: {data.Length} PCM bytes, peak {peak}/32767, next gap {MusicQuietIntervals[i]} seconds.");
         }
-        if(_musicThemes.Length!=3 || bytes>13_000_000)throw new Exception("Music stream budget exceeded");
+        if(_musicThemes.Length!=3 || bytes>26_000_000)throw new Exception("Music stream budget exceeded");
         html.Append("<h2>Full transitions</h2><p>Each starts with a complete 96-second piece. Silence is intentional; leave the player running to hear the next entrance.</p>");
         for(int i=0;i<3;i++)html.Append($"<article><h3>{MusicThemeNames[i]} → {MusicThemeNames[(i+1)%3]} · {MusicQuietIntervals[i]}s quiet</h3><audio controls preload='none' src='transition-{i}.wav'></audio></article>");
         html.Append("<p>Listen for repetition, harsh notes, abrupt endings, and whether the quiet intervals feel comfortable. Compare against the populated recordings in the soundscape review before choosing a final mix.</p></html>");

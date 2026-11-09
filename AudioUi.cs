@@ -19,7 +19,7 @@ public partial class Game
         row = new HBoxContainer(); column.AddChild(row); row.AddChild(Text("Nature", 14));
         _ambienceSlider = new HSlider { MinValue = 0, MaxValue = 100, Step = 5, Value = _ambienceVolume, CustomMinimumSize = new(90, 30), FocusMode = Control.FocusModeEnum.None };
         _ambienceSlider.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        row.AddChild(_ambienceSlider); _ambienceSlider.TooltipText = "Wind and birds; continues while paused";
+        row.AddChild(_ambienceSlider); _ambienceSlider.TooltipText = "Wind, birds and nearby river water; continues while paused";
         _ambienceSlider.ValueChanged += value => { _ambienceVolume = (float)value; AudioVolumeChanged(); };
         _ambienceSlider.DragEnded += changed => { if (changed) SaveAudioSettings(); };
         MakeMusicUi(column);

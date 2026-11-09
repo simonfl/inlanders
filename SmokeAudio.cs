@@ -9,7 +9,7 @@ public partial class Game
     private async void RunAudioSmoke()
     {
         try { if(OS.GetCmdlineUserArgs().Contains("--soundscape")) await CheckSoundscape();
-            else { await CheckAudio(); await CheckMusic(); }
+            else { await CheckAudio(); await CheckMusic(); if(OS.GetCmdlineUserArgs().Contains("--audio-refresh"))await CheckAudioRefresh(); }
             GD.Print("SMOKE PASS: audio checks."); GetTree().Quit(); }
         catch (Exception e) { GD.PrintErr("AUDIO SMOKE FAIL: " + e); GetTree().Quit(1); }
     }
@@ -24,7 +24,7 @@ public partial class Game
             var data = stream.Data; int peak = 0;
             for (int i = 0; i < data.Length; i += 2) peak = Math.Max(peak, Math.Abs((int)BitConverter.ToInt16(data, i)));
             Check(peak > 10 && peak < 30000, $"Silent/clipped PCM: {cue}");
-            if (cue == Cue.Wind) Check(Math.Abs(BitConverter.ToInt16(data, 0) - BitConverter.ToInt16(data, data.Length - 2)) < 500, "Wind loop discontinuity");
+            if (cue is Cue.Wind or Cue.River) Check(Math.Abs(BitConverter.ToInt16(data, 0) - BitConverter.ToInt16(data, data.Length - 2)) < 500, "Nature loop discontinuity: "+cue);
             Check(stream.SaveToWav($"artifacts/f10-audio/{cue.ToString().ToLowerInvariant()}.wav") == Error.Ok, "Audio preview export failed");
         }
         _soundMuted = false; _effectsSlider.Value = 65; _ambienceSlider.Value = 0;

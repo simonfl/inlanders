@@ -1,3 +1,9 @@
+# November 9 — acoustic music and everyday sound
+
+The owner authorized presentation work while waiting to play the longer level. Outcome 255 replaces the simple soundtrack with three original acoustic-inspired stereo arrangements, adds material/step variants and subtle water ambience, and gives completion feedback space in busy villages. Preserve the existing volume/mute controls and quiet intervals. [Implementation, preview and evidence](AUDIO_REFRESH_255.md).
+
+Keep this provisional until listening: the outstanding question is pleasantness and repetition, not more tracks or an adaptive soundtrack system. Before the river closes still awaits owner play; this audio pass does not establish campaign pacing or authorize further gameplay expansion.
+
 # November 9 — test a longer village-building arc
 
 The owner found recovery distinct but tutorial-sized. Outcome 254 adds **Before the river closes**: recover food for four residents, prepare housing and production for two announced arrivals, then prove the twelve-person village can feed itself. The default successful script lasts about 29 simulated minutes; a fully prepared village can advance events and finishes in about 15. Neither timing establishes engaging play.

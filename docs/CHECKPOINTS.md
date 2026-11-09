@@ -1,3 +1,7 @@
+# Acoustic presentation pass — November 9
+
+Outcome **255**: three original stereo string/woodwind arrangements, four variants of everyday work and bird sounds, softer footsteps/UI, reserved building-completion feedback, quieter wind and water ambience that fades inland. Native music/mute/settings/pause checks and 1x/6x actual game-mixer captures verify playback, bounds and unchanged simulation. Dry old/new previews and a comparison page are available locally. Independent source/PCM review remains distinct from listening; subjective quality is unverified. [Evidence and preview instructions](AUDIO_REFRESH_255.md). Hold for listening and the pending longer-level playtest.
+
 # Longer scenario experiment — November 9
 
 Outcome **254**: Before the river closes. Four residents grow to twelve through two announced boats; prepare homes and food, then sustain a four-minute self-sufficiency trial. Prepared villages can advance events. Opening-only control fails; staged and early expansion finish at 1,727s and 889s. Arrival and mid-trial exact saves, food conservation, compact native captures, and existing household/recovery regressions pass; zero-warning build. Independent still/source evaluation is distinct from ordinary interaction, motion/audio and owner enjoyment, which remain unverified. [Experiment record](RIVER_CLOSING_EXPERIMENT.md). Hold for owner play.
