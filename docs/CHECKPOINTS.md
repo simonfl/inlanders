@@ -1,3 +1,7 @@
+# Return-play experiment — November 9
+
+Outcome **252**: cleaned household objective cards and A lean landing, a separate four-person opening with twelve food portions, ten logs and new inlet/berry layout. Three food routes finish; a300s delayed branch reaches4/4 hungry then recovers through actual fishing and meals. Both baseline routes and exact saves pass. Independent native-still/source review supports compact presentation; ordinary input, motion and audio remain unverified. See [experiment record](LEAN_LANDING_EXPERIMENT.md). Stop for owner return play.
+
 # Owner-driven clarity revision — November 9
 
 Outcome **251**: First-home objectives now remain visible with real construction/material and meal progress, a contextual next action, and collapsed secondary tools. Initial/cancelled/timber-blocked/completed guidance and exact saves pass. Three native compact stills independently reviewed; ordinary interactions remain unverified. This consumes the bounded experiment's focused clarity revision. Return for owner play; no expansion authorized by this evidence. See [experiment record](FIRST_HOME_EXPERIMENT.md).

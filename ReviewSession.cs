@@ -67,6 +67,16 @@ public partial class Game
                 ToggleDrawer(2);UpdateCampaignUi();
                 if(!_objective.IsVisibleInTree() || !_neighborhoodGoals.IsVisibleInTree() || string.IsNullOrWhiteSpace(_objective.Text))throw new Exception("Neighborhood goals are missing");
             }
+            if(request.TryGetProperty("householdFoodChoices",out var householdChoices) && householdChoices.GetBoolean())
+            {
+                if(_world.Founding?.FirstHome==null || _world.ReadFirstHomeObjectives().Action!="food")
+                    throw new Exception("Household food-choice capture needs a household awaiting food planning");
+                _firstHomePinnedAction.EmitSignal(Godot.Button.SignalName.Pressed);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
+                if(!_firstHomeFoodChoices.IsVisibleInTree() || _firstHomeFoodChoices.GetChildCount()!=3)
+                    throw new Exception("Household food choices did not open through the action button");
+            }
             await CaptureReviewBundle();
             if(request.TryGetProperty("observeSeconds",out var observe) && observe.GetSingle()>0)
             {

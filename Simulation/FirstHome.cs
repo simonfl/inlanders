@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class FirstHomeProgress
 {
+    public bool LeanLanding { get; set; }
     public int? NewHomeId { get; set; }
     public HashSet<int> Served { get; set; } = new();
     public bool Complete => Served.Contains(2) && Served.Contains(3);
@@ -30,9 +31,11 @@ public sealed partial class World
             c.ConstructionPaused && !c.Complete ? "Construction paused" : c.Complete ? "Ready" :
             !c.MaterialsReady ? $"Timber {c.Delivered}/{c.Required}" : $"Building {c.Construction:P0}";
         string hint; string action; int? site = null;
-        var pending = !housed ? home : !produced ? food : null;
+        bool foodFirst = story.LeanLanding && !produced;
+        var pending = foodFirst ? food : !housed ? home : !produced ? food : null;
         if (story.Complete) { hint = "They have a home and have both eaten fresh food. You can keep playing."; action = "done"; }
-        else if (!housed && home == null) { hint = "Choose a spot for their cottage. The villagers do the building."; action = "home"; }
+        else if (foodFirst && food == null) { hint = ReachableEdibleStored == 0 ? "Provisions are gone. Establish fresh food to recover from hunger." : "Provisions are short. Start fresh food before they run out."; action = "food"; }
+        else if (!foodFirst && !housed && home == null) { hint = "Choose a spot for their cottage. The villagers do the building."; action = "home"; }
         else if (housed && food == null) { hint = "Choose one food source. Villagers work it automatically."; action = "food"; }
         else if (pending != null && (!Accessible(pending.Entrance) || pending.ConstructionPaused || pending.WorkPaused))
         { hint = "Inspect the blocked or paused building to resume progress."; action = "inspect"; site = pending.Id; }
@@ -40,7 +43,7 @@ public sealed partial class World
             !Trees.Any(t => !t.Preserved && t.Logs > 0 && Accessible(t.Access)))
         { hint = "Waiting for timber. Mark a grove to harvest and renew."; action = "grove"; }
         else if (pending != null)
-        { hint = pending.Complete ? ReadWorkplace(pending).State + ". " + ReadWorkplace(pending).Detail : "Villagers collect the timber and build automatically."; action = "inspect"; site = pending.Id; }
+        { hint = pending.Complete ? ReadWorkplace(pending).State + ". Inspect for details." : "Villagers collect the timber and build automatically."; action = "inspect"; site = pending.Id; }
         else { hint = "Jeanne and Pierre eat automatically when hungry. Starting provisions do not count as fresh food."; action = "watch"; }
         return new(housed ? "✓ Cottage ready" : "○ Cottage · " + Stage(home),
             produced ? "✓ Food produced" : "○ Food source · " + Stage(food),
@@ -48,7 +51,7 @@ public sealed partial class World
             hint, action, site, (housed ? 1 : 0) + (produced ? 1 : 0) + (story.Complete ? 1 : 0));
     }
 
-    public static World NewFirstHome()
+    public static World NewFirstHome(bool leanLanding = false)
     {
         var world = NewRiverFarmstead();
         world.People.Clear();
@@ -66,16 +69,27 @@ public sealed partial class World
             });
         }
         world.Founding!.TransformationHamlet = true;
-        world.Founding.FirstHome = new();
+        world.Founding.FirstHome = new() { LeanLanding = leanLanding };
+        if (leanLanding)
+        {
+            // A sheltered landing below a river inlet; berries lie inland beyond the woodlot.
+            for (int z = -2; z <= 0; z++)
+                for (int x = 3; x <= 9; x++) world.Map.Water.Add(new(x,z));
+            world.Cottages[0].Cell = new(4,3);
+            world.Bushes[0].Cell = new(-8,-7);
+            world.Bushes[1].Cell = new(-9,-10);
+            world.Trees.RemoveAll(t => world.Bushes.Any(b => (b.Cell.Point-t.Cell.Point).LengthSquared() <= 4));
+            foreach (var person in world.People) person.Position = world.Cottages[0].Entrance.Point;
+        }
         world.Founding.StartingBuildings = world.Cottages.Select(home =>
             new StartingBuilding { Id = home.Id, Cell = home.Cell, Rotation = home.Rotation, Kind = home.Kind }).ToList();
         foreach (var tree in world.Trees) tree.Preserved = true;
-        world._yardLogs = 0;
-        world.InitialLogs = world.Trees.Sum(tree => tree.Logs) + world.Cottages.Sum(home => home.Delivered);
-        world.Food.InitialBerries = world.Food.Berries = 20;
-        world.Map.Name = "Une première maison · A first home";
+        world._yardLogs = leanLanding ? 10 : 0;
+        world.InitialLogs = world.Trees.Sum(tree => tree.Logs) + world.Cottages.Sum(home => home.Delivered) + world._yardLogs;
+        world.Food.InitialBerries = world.Food.Berries = leanLanding ? 12 : 20;
+        world.Map.Name = leanLanding ? "Un débarquement difficile · A lean landing" : "Une première maison · A first home";
         world.History.Clear();
-        world.History.Add("Marie and Louis have offered Jeanne and Pierre a place to begin. Their stores will feed everyone for a while. Choose a little ground, take timber from a grove, and help the pair make a home and a living here.");
+        world.History.Add(leanLanding ? "The crossing cost us most of our provisions. Ten logs and twelve portions remain. The river offers fish; berries grow inland. Establish food, then help Jeanne and Pierre make their home. Hunger slows work, but a shortage can be recovered." : "Marie and Louis have offered Jeanne and Pierre a place to begin. Their stores will feed everyone for a while. Choose a little ground, take timber from a grove, and help the pair make a home and a living here.");
         world.ReconcileHomes();
         world.Validate();
         world.ValidateMapOccupancy();

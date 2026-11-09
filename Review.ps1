@@ -9,6 +9,7 @@ param(
     [string]$Bundle,
     [string]$Snapshot,
     [switch]$ProbeControls,
+    [switch]$HouseholdFoodChoices,
     [switch]$Storybook,
     [switch]$CommonsMats,
     [switch]$CourtControl,
@@ -28,6 +29,7 @@ $scenarioEntry=$scenarioEntry[0]
 if($Bundle -and $Action -notin @('Inspect','Capture','Check')) { throw '-Bundle applies to Inspect, Capture or Check.' }
 if($Snapshot -and ($Bundle -or $Action -notin @('Inspect','Capture','Check'))) { throw '-Snapshot applies to Inspect, Capture or Check, without -Bundle.' }
 if($ProbeControls -and $Action -ne 'Capture') { throw '-ProbeControls requires Capture.' }
+if($HouseholdFoodChoices -and $Action -notin @('Capture','Inspect')) { throw '-HouseholdFoodChoices requires Capture or Inspect.' }
 if(($Movie -or $ObserveSeconds -gt 0) -and $Action -ne 'Capture'){throw 'Observation output requires Capture.'}
 if($Movie -and $ObserveSeconds -eq 0){$ObserveSeconds=5}
 $env:DOTNET_ROOT=Join-Path $PSScriptRoot '.tools/dotnet'
@@ -131,6 +133,7 @@ $request.independentPlaces=if($Bundle){$bundleRecord.rendering.PSObject.Properti
 $request.plainFarmstead=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Name -contains "plainFarmstead" -and $bundleRecord.rendering.plainFarmstead}else{$PlainFarmstead.IsPresent}
 $request.commonsMats=if($Bundle){$bundleRecord.rendering.PSObject.Properties.Name -contains "commonsMats" -and $bundleRecord.rendering.commonsMats}else{$CommonsMats.IsPresent}
 if($ProbeControls) { $request.probeControls=$true }
+if($HouseholdFoodChoices) { $request.householdFoodChoices=$true }
 # Publish the complete request once; repeated immediate rewrites can collide with a sync/indexer mapping it.
 WriteJson $request $requestPath
 $engine=Join-Path $PSScriptRoot '.tools/godot/Godot_v4.6-stable_mono_win64/Godot_v4.6-stable_mono_win64_console.exe'

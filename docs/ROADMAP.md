@@ -1,3 +1,7 @@
+# November 9 — keep clear progress; test recoverable food pressure
+
+The owner found251 understandable and satisfying, and liked dwindling food. Keep the objective structure provisionally. Outcome252 cleans its hierarchy and introduces one return-play situation, A lean landing: fewer provisions, a small log stock, an inlet and food-first guidance, with the same three objectives. Use existing hunger and recovery; no new needs or punitive survival system. Prompt and delayed scripted routes work, but owner play must establish whether pressure changes choices and remains enjoyable. Hold expansion at this test. [Evidence and limitations](LEAN_LANDING_EXPERIMENT.md).
+
 # November 9 — clearer objectives before more features
 
 Owner feedback identified competing buttons and unclear progress. Outcome251 addresses that with a persistent three-part checklist, live construction and meal progress, one next action, and secondary tools behind Village tools. The independent visual review accepts the compact presentation for owner retry; it is not evidence that the core loop is rewarding. The single clarity revision is now used. Hold expansion and ask whether the revised experience is understandable and worth continuing. See [experiment evidence](FIRST_HOME_EXPERIMENT.md).

@@ -1,3 +1,13 @@
+# Active return-play experiment — clear goals under food pressure
+
+November9 owner reaction to251: much better; clear progression and moving forward felt good. The owner also valued dwindling initial food and wants some lurking danger. Keep the objective structure provisionally. Authorized next: clean its visual hierarchy and try one different situation, A lean landing.
+
+Hypothesis: familiar goals remain rewarding when a small opening food reserve and different geography make the player choose food work before housing. Use existing recoverable hunger/work slowdown; no new survival systems or arbitrary countdown. Give the scenario its own save. Compare quick action, different livelihoods and delayed recovery; show genuine food shortage rather than manufacture unavoidable failure. Inspect compact UI and request independent evaluation, distinguishing stills from direct interaction.
+
+Delivered252. The independent evaluator accepts the final compact UI for owner return play; all three food routes, delayed hunger recovery and separate exact saves pass. Final chooser and shortage captures include the review fixes. Stop for owner return play. A second satisfying situation can support this direction; it does not yet authorize chapters or needs expansion. Previous experiment history follows.
+
+---
+
 # Active experiment — a useful order becomes a home
 
 The user authorized work until human input is needed. One household challenger compares with After the flood at249.

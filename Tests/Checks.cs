@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--lean-landing")){LeanLandingChecks.Run();return;}
 if(args.Contains("--first-home")){FirstHomeChecks.Run();return;}
 if(args.Contains("--bridge-opportunity")){BridgeOpportunityChecks.Run();return;}
 if(args.Contains("--food-sources")){FoodSourceChecks.Run();return;}

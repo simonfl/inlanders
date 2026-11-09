@@ -6,10 +6,10 @@ using System.Linq;
 public partial class Game
 {
     private VBoxContainer _firstHomeGoals = null!;
-    private Label _firstHomeStory = null!;
+    private sealed record HouseholdCard(Label Title, Label Count, Label Home, Label Food, Label Meals, Label Supply, Label Hint);
+    private HouseholdCard _firstHomeCard = null!, _firstHomePinnedCard = null!;
     private Button _firstHomeAction = null!, _firstHomePinnedAction = null!;
     private PanelContainer _firstHomePinned = null!;
-    private Label _firstHomePinnedText = null!;
     private VBoxContainer _firstHomeFoodChoices = null!;
     private bool _firstHomeToolsOpen;
     private Button _firstHomeTools = null!;
@@ -19,39 +19,79 @@ public partial class Game
 
     private void FirstHomeMenu()
     {
-        MenuPage("A first home");
-        _mainColumn.AddChild(Text("Marie and Louis have offered Jeanne and Pierre a place to begin. Help the pair make a home and a living on this riverbank.", 17, true));
-        _mainColumn.AddChild(Text("Four neighbors. Real materials and meals. Choose where to build and which work to begin. Space pauses or resumes.", 14, true));
-        string path = Path.Combine(Path.GetDirectoryName(_creativeSavePath)!, "first-home.json");
+        MenuPage("Household stories");
+        MenuButton("A first home", () => FirstHomeMenu(false));
+        MenuButton("A lean landing · short provisions", () => FirstHomeMenu(true));
+        MenuButton("Back", ShowMainMenu);
+    }
+
+    private void FirstHomeMenu(bool lean)
+    {
+        MenuPage(lean ? "A lean landing" : "A first home");
+        _mainColumn.AddChild(Text(lean ? "The crossing cost most of your provisions. Four people, twelve portions and ten logs remain. Fish near the landing or seek food inland; establish a fresh supply, then a home for Jeanne and Pierre." : "Marie and Louis have offered Jeanne and Pierre a place to begin. Help the pair make a home and a living on this riverbank.", 17, true));
+        _mainColumn.AddChild(Text("Food runs down as people eat. Missed meals slow work; fresh food lets them recover. Space pauses or resumes.", 14, true));
+        string path = Path.Combine(Path.GetDirectoryName(_creativeSavePath)!, lean ? "lean-landing.json" : "first-home.json");
         if (File.Exists(path))
-            MenuButton("Resume first home", () => MenuAttempt(() => EnterFromMenu(World.LoadFile(path))));
-        void Start() => MenuAttempt(() => { var world = World.NewFirstHome(); world.SaveFile(path); EnterFromMenu(world); });
-        MenuButton("Begin a first home", () => {
-            if (File.Exists(path)) ConfirmMenu("Begin again?", "Replace this first-home village?", Start, FirstHomeMenu);
+            MenuButton("Resume this story", () => MenuAttempt(() => EnterFromMenu(World.LoadFile(path))));
+        void Start() => MenuAttempt(() => { var world = World.NewFirstHome(lean); world.SaveFile(path); EnterFromMenu(world); });
+        MenuButton("Begin this story", () => {
+            if (File.Exists(path)) ConfirmMenu("Begin again?", "Replace this story's village?", Start, () => FirstHomeMenu(lean));
             else Start();
         });
-        MenuButton("Back", ShowMainMenu);
+        MenuButton("Back", FirstHomeMenu);
+    }
+
+    private HouseholdCard MakeHouseholdCard(VBoxContainer column)
+    {
+        column.AddThemeConstantOverride("separation", 8);
+        var title = Text("", 17, true); title.Modulate = _cream; column.AddChild(title);
+        var count = Text("", 12); count.Modulate = new("a8bcb0"); column.AddChild(count);
+        column.AddChild(new HSeparator());
+        var home = Text("", 14, true); column.AddChild(home);
+        var food = Text("", 14, true); column.AddChild(food);
+        var meals = Text("", 14, true); column.AddChild(meals);
+        column.AddChild(new HSeparator());
+        var supply = Text("", 13, true); column.AddChild(supply);
+        var hint = Text("", 14, true); column.AddChild(hint);
+        return new(title, count, home, food, meals, supply, hint);
+    }
+
+    private void RenderHouseholdCard(HouseholdCard card, FirstHomeObjectives goal)
+    {
+        card.Title.Text = _world.Founding!.FirstHome!.LeanLanding ? "A lean landing" : "A home for Jeanne & Pierre";
+        card.Count.Text = goal.Done == 3 ? "ALL OBJECTIVES COMPLETE" : $"OBJECTIVES · {goal.Done} OF 3 COMPLETE";
+        bool lean = _world.Founding.FirstHome.LeanLanding;
+        card.Home.Text = lean ? goal.Food : goal.Home; card.Food.Text = lean ? goal.Home : goal.Food; card.Meals.Text = goal.Meals;
+        foreach(var row in new[] { card.Home, card.Food, card.Meals }) row.Modulate = new(row.Text.StartsWith("✓") ? "a9d8ae" : "e9e5d7");
+        int food = _world.ReachableEdibleStored, hungry = _world.People.Count(p => !p.Fed);
+        card.Supply.Text = hungry > 0 ? $"{hungry} hungry · work slows\n{food} food portions available" : $"{(food <= _world.Population * 2 ? "Low food reserve" : "Food in store")} · {food} portions";
+        card.Supply.Modulate = new(hungry > 0 ? "efb192" : food <= _world.Population * 2 ? "f0d397" : "a8bcb0");
+        card.Hint.Text = goal.Hint;
     }
 
     private void MakeFirstHomeUi(VBoxContainer column)
     {
         _firstHomeGoals = new VBoxContainer();
         column.AddChild(_firstHomeGoals);
-        _firstHomeStory = Text("", 16, true);
-        _firstHomeGoals.AddChild(_firstHomeStory);
+        _firstHomeCard = MakeHouseholdCard(_firstHomeGoals);
         _firstHomeAction = Button("", ActOnFirstHome);
         _firstHomeGoals.AddChild(_firstHomeAction);
         _firstHomeFoodChoices = new VBoxContainer();
         _firstHomeGoals.AddChild(_firstHomeFoodChoices);
-        foreach (var choice in new[] { ("Berry hut · gather nearby berries", BuildingKind.ForagerHut),
-            ("Garden · grow vegetables", BuildingKind.VegetableGarden), ("Landing · catch fish", BuildingKind.FishingDock) })
-            _firstHomeFoodChoices.AddChild(Button(choice.Item1, () => { _firstHomeFoodChoices.Hide(); CloseManagementUi(); BeginPlacement(choice.Item2); }));
+        foreach (var choice in new[] { ("Berry hut", BuildingKind.ForagerHut, "Gather wild berries. Place near berry bushes."),
+            ("Garden", BuildingKind.VegetableGarden, "Grow vegetables. The first crop takes time to ripen."),
+            ("Landing", BuildingKind.FishingDock, "Catch fish. Needs a dry shore and an open boat route.") })
+        {
+            var button = Button($"{choice.Item1} · {Buildings.Get(choice.Item2).CostText}", () => { _firstHomeFoodChoices.Hide(); CloseManagementUi(); BeginPlacement(choice.Item2); });
+            button.TooltipText = choice.Item3;
+            _firstHomeFoodChoices.AddChild(button);
+        }
         _firstHomeFoodChoices.Hide();
         _firstHomeTools = Button("Village tools ▸", () => _firstHomeToolsOpen = !_firstHomeToolsOpen);
         _firstHomeGoals.AddChild(_firstHomeTools);
         _firstHomePinned = HudPanel(_hud);
         var pinned = new VBoxContainer(); _firstHomePinned.AddChild(pinned);
-        _firstHomePinnedText = Text("", 14, true); pinned.AddChild(_firstHomePinnedText);
+        _firstHomePinnedCard = MakeHouseholdCard(pinned);
         _firstHomePinnedAction = Button("", ActOnFirstHome); pinned.AddChild(_firstHomePinnedAction);
         _firstHomePinned.Hide();
         _firstHomeGoals.Hide();
@@ -66,8 +106,10 @@ public partial class Game
             case "home": CloseManagementUi(); BeginPlacement(BuildingKind.Cottage); break;
             case "grove": BeginWoodlandCare(); break;
             case "food":
-                if (!_drawer.Visible || _tabs.CurrentTab != 2) ToggleDrawer(2);
-                _firstHomeFoodChoices.Show(); break;
+                _firstHomeToolsOpen = false;
+                if (!_drawer.Visible || _tabs.CurrentTab != 2) { ToggleDrawer(2); _firstHomeFoodChoices.Show(); }
+                else _firstHomeFoodChoices.Visible = !_firstHomeFoodChoices.Visible;
+                break;
             case "inspect": if (goal.Site is int id) SelectBuilding(id); break;
             case "watch": ShowDailyLife(_world.Founding!.FirstHome!.Served.Contains(2) ? 3 : 2); _followPerson = true; break;
             case "done": ReturnToMainMenu(); break;
@@ -87,20 +129,23 @@ public partial class Game
         _challengeGoals.Hide();
         _objective.Hide();
         _goalArrival.Hide();
-        _goalTitle.Text = "A FIRST HOME";
+        _goalTitle.Hide();
         var goal = _world.ReadFirstHomeObjectives();
         _menuButtons[2].Text = story.Complete ? "Objectives · complete" : $"Objectives · {goal.Done}/3";
         _menuButtons[2].TooltipText = "Objective and progress [G]";
-        if (_tabs.CurrentTab == 2) _drawerTitle.Text = "A first home";
-        string progress = $"A home for Jeanne and Pierre\n\n{goal.Home}\n{goal.Food}\n{goal.Meals}\n\n{goal.Hint}";
-        _firstHomeStory.Text = _firstHomePinnedText.Text = progress;
+        if (_tabs.CurrentTab == 2) _drawerTitle.Text = "Objectives";
+        RenderHouseholdCard(_firstHomeCard, goal);
+        RenderHouseholdCard(_firstHomePinnedCard, goal);
         _firstHomePinned.Position = new(_drawer.Visible ? (_inspector.Visible ? 344 : _hud.Size.X - 300) : 16, 92);
         _firstHomePinned.Size = new(284, 0);
         string action = _paused && goal.Action is "inspect" or "watch" ? "Resume village life" : goal.Action switch {
             "home" => "Build their cottage", "grove" => "Work a grove", "food" => "Choose a food source",
             "inspect" => "Inspect current work", "watch" => "Follow the next diner", _ => "Save and leave" };
+        if (goal.Action == "food" && _firstHomeFoodChoices.Visible) action = "Hide food choices";
         _firstHomeAction.Text = _firstHomePinnedAction.Text = action;
         if (goal.Action != "food") _firstHomeFoodChoices.Hide();
+        bool choosingFood = _firstHomeFoodChoices.Visible;
+        _firstHomeCard.Hint.Visible = _firstHomeCard.Supply.Visible = _firstHomeTools.Visible = !choosingFood;
         if (_firstHomeObserved == _world)
         {
             if (_firstHomeNoticed != story.NewHomeId && story.NewHomeId != null)

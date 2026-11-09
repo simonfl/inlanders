@@ -46,4 +46,4 @@ ROADMAP.md records the chosen experience and deferred bets. NEXT_CHUNKS.md holds
 
 ## Current decision
 
-The user resumed work until their input is needed. Prepare one smaller household experiment, A first home, against the existing After the flood baseline. Test useful orders and visible household payoff. Keep the bridge dilemma deferred. Independent ordinary-control evaluation precedes owner play; hold further implementation for a keep, revise or drop decision. See NEXT_CHUNKS.md for the experiment card and evidence.
+The owner found clear first-home objectives and progression satisfying, and valued dwindling provisions. Keep that structure provisionally and test a second situation, A lean landing, using existing recoverable hunger. Stop for owner return play after the authorized UI cleanup and bounded situation. Keep the bridge dilemma and broader expansion deferred. Desktop input tooling remains blocked; distinguish native scripted/still evidence from independent interaction. See NEXT_CHUNKS.md and LEAN_LANDING_EXPERIMENT.md.
