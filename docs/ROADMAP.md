@@ -1,5 +1,7 @@
 # November 9 — browser access comparison delivered
 
+Owner feedback now supports the reduced browser interface and reports surprisingly smooth actual phone rendering. Keep the focused action set; introduce choices only when they serve the situation. Reported blur has a concrete resolution-scaling cause. A capped-density correction is prepared for the next deployment; compare phone clarity and smoothness before increasing visual complexity or porting the full build catalogue. No new playable outcome is counted for an undeployed source fix.
+
 Outcome258 tests the accepted architecture with one recovery village: browser/touch presentation, shared validated commands for human and agent, pause/resume on interruption, and recorded sessions with bookmarks and a read-only timeline. Independent API play and ordinary browser-control play succeeded; private Tailscale HTTPS is live. [Evidence and limitations](BROWSER_PROTOTYPE_258.md).
 
 The owner confirmed that the link opens on the actual iPhone. Keep this as one comparison, not a campaign migration. Next: observe actual phone play/interruption/resume and review its recorded experience. Retain the independent C# model provisionally; require evidence of friction before a TypeScript simulation rewrite. Hold new buildings, needs and campaign chapters. Phone-size desktop screenshots and successful strategies do not establish real-device performance or enjoyable play.

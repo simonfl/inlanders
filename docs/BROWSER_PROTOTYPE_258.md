@@ -45,6 +45,10 @@ Defer framing refinements until real phone feedback: zoom controls can overlap t
 
 ## Decision and next work
 
+Subsequent actual-phone owner feedback: **a bit blurry, surprisingly smooth, and the reduced interface is liked**. The restricted actions are intentional for this slice. This supports retaining a focused interface provisionally, not a full-game enjoyment verdict or a requirement to restore the catalogue.
+
+Inspection found a resolution bug: Babylon divides CSS canvas dimensions by its hardware scaling level, but the old formula increased that level with device pixel ratio. At DPR3 it produced0.5render pixels per CSS pixel. The source correction uses the reciprocal of capped density, producing1.5render pixels per CSS pixel at DPR2/3 and keeping DPR1 at1. This increases raster work on dense screens, so actual-phone smoothness must be rechecked. The correction is built into a separate validation directory; the active A2CEE19B61A0 service/client remain available during the owner's play session. Prepared source is not deployed or counted as another playable outcome.
+
 The shared-action approach has demonstrated independent agent play, and ordinary UI play now exercises the same decisions. Private browser delivery also opens on the owner's actual iPhone. The focused presentation review accepts this bounded trial provisionally. Phone control comfort, interruption/resume and sustained enjoyment remain to be observed.
 
 The delivered client and server binaries are archived at `artifacts/browser/build-A2CEE19B61A0.zip`, preserving the exact build alongside its recorded evidence. The prior7CC comparison build is separately archived. These local artifacts are intentionally excluded from Git.

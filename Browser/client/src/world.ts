@@ -28,7 +28,9 @@ export class VillageView {
   onViewChange: () => void = () => {};
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement) {
     this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, false);
-    this.engine.setHardwareScalingLevel(Math.max(1, window.devicePixelRatio / 1.5));
+    // Babylon divides CSS size by this level. Use the reciprocal pixel density,
+    // capped at 1.5x to balance phone sharpness with the cost of drawing more pixels.
+    this.engine.setHardwareScalingLevel(1 / Math.min(1.5, Math.max(1, window.devicePixelRatio || 1)));
     this.scene = new Scene(this.engine); this.scene.clearColor = Color4.FromHexString('#b9d4cdff');
     this.camera = new ArcRotateCamera('village', Math.PI / 2, .63, 42, new Vector3(-1, 0, 0), this.scene);
     this.camera.mode = Camera.ORTHOGRAPHIC_CAMERA; this.setZoom(this.defaultZoom());
