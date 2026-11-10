@@ -79,7 +79,26 @@ public sealed partial class World
         if(RiverLivingProblem() is {} problem)return problem;
         var river=Founding!.FirstHome!.RiverClosing!;
         return river.StableSeconds>=240 && DeliveredEdible-river.TrialDeliveries<RiverMealsEaten-river.TrialMeals?
-            "Waiting for production to cover meals eaten during the trial.":null;
+            $"Still need {RiverMealsEaten-river.TrialMeals-(DeliveredEdible-river.TrialDeliveries)} food delivered to match meals eaten. Keep production running.":null;
+    }
+
+    private string RiverTrialGoalText()
+    {
+        var river=Founding!.FirstHome!.RiverClosing!;
+        if(river.Complete)return "✓ Self-sufficient\n✓ Four-minute trial passed\n✓ Food production covered meals";
+        if(!river.Closed)return "○ Self-sufficiency trial\nStarts when the river closes";
+        int seconds=(int)MathF.Floor(river.StableSeconds);
+        string stability=$"{(seconds>=240?"✓":"○")} Stable · {seconds/60}:{seconds%60:00} / 4:00";
+        // A reset ends the old measurement window; do not show its stale totals.
+        string food=river.StableSeconds<=0?"○ Food balance · trial not started":
+            $"{(DeliveredEdible-river.TrialDeliveries>=RiverMealsEaten-river.TrialMeals?"✓":"○")} Food delivered {DeliveredEdible-river.TrialDeliveries} / {RiverMealsEaten-river.TrialMeals} eaten";
+        return "○ Self-sufficiency trial\n"+stability+"\n"+food;
+    }
+
+    public string RiverTrialSupplyText()
+    {
+        var story=Founding!.FirstHome!;
+        return $"Fed · {People.Count(p=>p.Fed)}/{Population} neighbors\nReserve · {ReachableEdibleStored}/{Population} food minimum\nFresh meals · {story.Served.Count}/{Population} neighbors";
     }
     private string? RiverLivingProblem()
     {
@@ -115,14 +134,14 @@ public sealed partial class World
         else if(!river.Closed && AdvanceRiverScheduleProblem()==null){action="advance";hint="Ready early. Advance the next event now, or keep preparing.";}
         else if(river.Closed)
         {
-            hint=RiverStabilityProblem()??"Holding steady. Keep the supply working.";
+            hint=RiverStabilityProblem()??$"Keep everyone housed and fed for {Math.Max(0,240-(int)MathF.Floor(river.StableSeconds))} more seconds. Shortages reset the timer.";
             action=People.All(p=>p.Fed) && ReachableEdibleStored>=Population && river.StableSeconds<240?"watch":"food";
         }
         else {action="food";hint="Expand food capacity before the next arrival.";}
         var flow=ReadFoodFlow();
         return new($"{(supplied?"✓":"○")} Restore fresh food",
             $"{(Beds>=requiredBeds?"✓":"○")} Homes · {Beds}/{requiredBeds} beds · {housed}/{Population} housed",
-            $"{(river.Complete?"✓":"○")} Self-sufficient · {river.StableSeconds/60:0.0}/4 min",
-            timetable+"\n"+hint+$"\nLast {flow.Seconds:0}s: {flow.Delivered} food / {flow.Required} needed.",action,site,(supplied?1:0)+(Beds>=requiredBeds?1:0)+(river.Complete?1:0));
+            RiverTrialGoalText(),
+            river.Closed?hint:timetable+"\n"+hint+$"\nLast {flow.Seconds:0}s: {flow.Delivered} food / {flow.Required} needed.",action,site,(supplied?1:0)+(Beds>=requiredBeds?1:0)+(river.Complete?1:0));
     }
 }

@@ -68,6 +68,7 @@ public partial class Game
         foreach(var row in new[] { card.Home, card.Food, card.Meals }) row.Modulate = new(row.Text.StartsWith("✓") ? "a9d8ae" : "e9e5d7");
         int food = _world.ReachableEdibleStored, hungry = _world.People.Count(p => !p.Fed);
         card.Supply.Text = hungry > 0 ? $"{hungry} hungry · work slows\n{food} food portions available" : $"{(food <= _world.Population * 2 ? "Low food reserve" : "Food in store")} · {food} portions";
+        if(_world.Founding.FirstHome.RiverClosing is {Closed:true,Complete:false})card.Supply.Text=_world.RiverTrialSupplyText();
         card.Supply.Modulate = new(hungry > 0 ? "efb192" : food <= _world.Population * 2 ? "f0d397" : "a8bcb0");
         card.Hint.Text = goal.Hint;
     }

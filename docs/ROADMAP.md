@@ -1,3 +1,13 @@
+# November 9 — reassess delivery and observation before more features
+
+The owner wants agent-led play, observable owner sessions and access from an iPhone while the Windows laptop remains the development host. Five independent roles recommend browser delivery with shared player commands and session replay. [Assessment, alternatives and bounded comparison](STACK_REASSESSMENT_257.md).
+
+Retain clear purpose, recoverable pressure and a continuously animated village provisionally. Recommend a small browser/touch comparison using the independent C# simulation initially; a full TypeScript rewrite remains an evidence-driven option. Do not preserve the building/campaign catalogue as a migration requirement. Defer ordinary expansion until this access/observation direction is resolved. No browser migration, remote service or new playable outcome has been delivered by this assessment.
+
+# November 9 — make the longer level's finish legible
+
+Owner play exposed a full-looking4/4 timer without completion. Outcome257 separates elapsed stability from trial food delivered/meals eaten, displays exact missing portions and living-condition counters, and floors the clock to minutes/seconds. Reset and completed states avoid stale/live historical totals; no gameplay rule changes. [Evidence](RIVER_FINISH_UI_257.md). Return to the ongoing owner playtest before choosing further changes.
+
 # November 9 — villagers with clearer silhouettes and grounded poses
 
 The owner authorized a focused appearance/animation pass. Outcome 256 adds layered clothing, linen head coverings/wool caps/felt hats, restrained face/hair variation, articulated knees, distance-driven walking and smooth travel turning. Existing tool contacts and gameplay remain intact. The final linen palette is darker so sunlight preserves more of its shape. [Evidence and limitations](VILLAGERS_256.md).

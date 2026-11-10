@@ -33,7 +33,28 @@ static class RiverClosingChecks
             if(expand && (!river.Complete || !early && w.Food.Time<1680))throw new Exception($"Expanded village not proven: {w.Food.Time}, {w.RiverStabilityProblem()}");
             if(!expand && river.Complete)throw new Exception("Opening-only solution won the longer scenario");
             w.Validate();w.SaveFile($"artifacts/river-closing/{expand}-{early}-end.json");
+            if(expand && !early)CheckFinishUi(w);
             Console.WriteLine($"PASS expand={expand} early={early} time={w.Food.Time:0}s population={w.Population} beds={w.Beds} complete={river.Complete} stability={river.StableSeconds:0}s reason={w.RiverStabilityProblem()}");
         }
+    }
+
+    private static void CheckFinishUi(World completed)
+    {
+        var w=World.LoadJson(completed.SaveJson());var river=w.Founding!.FirstHome!.RiverClosing!;
+        int eaten=w.Food.EatenBerries+w.Food.EatenVegetables+w.Food.EatenBread+w.Food.EatenFish+w.Food.EatenGame+w.Food.EatenFruit;
+        river.Complete=false;river.StableSeconds=239.99f;river.TrialDeliveries=w.DeliveredVegetables-10;river.TrialMeals=eaten-16;
+        var goals=w.ReadFirstHomeObjectives();
+        if(!goals.Meals.Contains("3:59 / 4:00") || goals.Done==3)throw new Exception("Trial timer rounds up early");
+        w.SaveFile("artifacts/river-closing/finish-nearly.json");
+        river.StableSeconds=240;string before=w.SaveJson();goals=w.ReadFirstHomeObjectives();
+        if(!goals.Meals.Contains("✓ Stable · 4:00 / 4:00") || !goals.Meals.Contains("○ Food delivered 10 / 16 eaten") || !goals.Hint.Contains("Still need 6 food delivered") || goals.Done==3)throw new Exception("Trial deficit is hidden behind full timer");
+        if(before!=w.SaveJson())throw new Exception("Reading objectives changes trial");
+        w.Validate();w.SaveFile("artifacts/river-closing/finish-deficit.json");
+        river.StableSeconds=0;w.Founding.FirstHome.Served.Clear();goals=w.ReadFirstHomeObjectives();
+        if(!goals.Meals.Contains("0:00 / 4:00") || goals.Meals.Contains("10 / 16") || !goals.Hint.Contains("Fresh meals since closure: 0/12"))throw new Exception("Reset shows stale food trial");
+        w.SaveFile("artifacts/river-closing/finish-reset.json");
+        var done=completed.ReadFirstHomeObjectives();
+        if(done.Done!=3 || !done.Meals.Contains("✓ Four-minute trial passed"))throw new Exception("Completion lacks clear success");
+        Console.WriteLine("PASS finish UI: no rounding up, independent time/food checks, exact deficit, reset and completion");
     }
 }

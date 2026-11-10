@@ -1,3 +1,21 @@
+# Current direction assessment — browser access and agent-led play
+
+The owner requests reconsidering the stack for agent play, observing owner sessions and iPhone access while development stays on Windows. The five-role [strategic assessment](STACK_REASSESSMENT_257.md) recommends a browser client, shared validated commands and recorded sessions. No migration has been implemented or deployed.
+
+Recommended next comparison: one compact recovery village, TypeScript/Babylon.js world with HTML touch UI, and the existing independent C# simulation behind a small local service. First prove one rendered scene and one end-to-end command; reassess bridge cost before expanding. Then test ordinary agent decisions, separate visible-control interaction, phone interruption/resume and reconstruction of one recorded confusing moment. Keep continuous village life. Do not port the catalogue or add campaign systems to this comparison.
+
+This assessment replaces routine feature selection. The longer-level enjoyment question remains provisional; browser access is intended to make that evidence easier to obtain. One actual iPhone check remains necessary, but the agent can build and compare reversible alternatives without requiring the owner to supervise each decision. See the assessment for acceptance, costs, alternatives and explicit evidence limits. Await discussion of this recommendation; no automatic rewrite is selected by this planning record.
+
+---
+# Completed owner-feedback fix — finish requirements
+
+The owner reached a displayed self-sufficient 4/4 without the completion checkmark. Separate the stability timer from cumulative trial food deliveries versus meals eaten; show the exact remaining food deficit and the other living-condition counters. Floor the timer to minutes/seconds, suppress stale totals after reset, and keep completed objectives latched. Remove the competing last-180-seconds food total once the trial begins. Completion rules stay unchanged.
+
+Verify near-four-minute, full-time/food-deficit, reset and completed states, then inspect the native compact card with an independent read-only UX evaluator. Deliver this clarity fix and return to the owner's ongoing playtest.
+
+Delivered257. Boundary/deficit/reset/completion checks pass; all longer-scenario strategies retain their prior outcomes. Compact native panels show each remaining condition and fit their actions. Return to the ongoing owner playtest; no additional implementation selected.
+
+---
 # Authorized presentation work — villagers
 
 November 9: the owner requested a focused people appearance/animation pass. Test whether distinct clothing/headwear silhouettes and grounded locomotion make the residents easier to recognize and more pleasant to watch. Keep the existing tool/contact poses and all gameplay rules.

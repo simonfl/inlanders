@@ -1,5 +1,7 @@
 # Tooling investment for faster design iteration
 
+November 9 reassessment: the owner's explicit agent-play, owner-observation and iPhone-access requirements now justify a bounded shared-command/browser/session-journal comparison. See [the current stack assessment](STACK_REASSESSMENT_257.md) for prioritized investment, costs and acceptance. Its replay scope is one observed session, not a universal replay platform. The historical candidates and deferrals below do not override this new access bottleneck.
+
 Requested by the user during the checkpoint-eight strategic reset. Assess this alongside the game direction, before choosing the next implementation sequence. These are candidate investments, not an approved infrastructure backlog.
 
 ## Assessment outcome at checkpoint 8

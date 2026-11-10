@@ -1,3 +1,11 @@
+# Stack and observation assessment — November 9
+
+Five independent read-only roles assessed the project at `6d45ab8` plus the identified pending outcome-257 finish fix. Recommended browser/touch delivery, shared legal actions, owner-session recording and a bounded comparison before a wider rewrite. No fresh ordinary play, mobile test, continuous-motion viewing or listening occurred. [Synthesis and decision criteria](STACK_REASSESSMENT_257.md). This is planning only; playable count remains **257**.
+
+# Owner-play finish clarity — November 9
+
+Outcome **257**: distinct stability and food-delivery checks, floored m:ss timer, exact food shortfall, fed/reserve/fresh-meal counters, truthful reset/completion states. No completion-rule change. Near-full/deficit/reset/success checks and all three longer-scenario routes pass with unchanged timings; compact native cards inspected. [Evidence](RIVER_FINISH_UI_257.md). Return to owner play.
+
 # Villager presentation pass — November 9
 
 Outcome **256**: varied layered garments/headwear, simple faces/hair, articulated knees, travel-driven gait and smooth walking turns. Seated feet fall beneath knees. Native lineup/pose and actual-world 1x/6x samples, pose/pause checks, simulation independence and existing work-contact regressions verify the focused change. Independent visual review distinguishes silhouette/pose evidence from continuous playback and human preference. [Evidence](VILLAGERS_256.md). The longer-level gameplay test remains pending.
