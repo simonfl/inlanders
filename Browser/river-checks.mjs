@@ -9,7 +9,7 @@ async function api(path, body) {
 }
 const results = [];
 for (const route of process.argv.slice(2).length ? process.argv.slice(2) : ['fields', 'gardens', 'late-recovery']) {
-  let s = await api('/api/sessions?scenario=river-closing', {});
+  let s = process.env.INLANDERS_TEST_SESSION ? await api(`/api/sessions/${process.env.INLANDERS_TEST_SESSION}`) : await api('/api/sessions?scenario=river-closing', {});
   const id = s.id, milestones = [], ordered = [];
   assert(s.paused && s.resources.population === 4 && s.resources.beds === 4);
   assert(s.buildings.find(b => b.kind === 'Bridge')?.complete);

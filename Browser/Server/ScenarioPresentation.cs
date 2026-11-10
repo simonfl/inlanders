@@ -55,7 +55,20 @@ public sealed partial class VillageSessions
         if (w.Founding!.FirstHome!.Complete) return "Everyone has a home, fresh meals and a working food supply. Your village made it. You can keep playing.";
         var hungry = w.People.Count(p => !p.Fed);
         if (hungry > 0) return $"{hungry} neighbors are hungry. Grow food to recover; work slows during shortages.";
-        if (r.Closed) return w.RiverStabilityProblem() ?? $"Keep homes, meals and a reserve for {Math.Max(0, 240 - r.StableSeconds)} more seconds. A shortage resets the clock.";
+        if (r.Closed)
+        {
+            var problem = w.RiverStabilityProblem();
+            if (problem?.StartsWith("Fresh meals since closure:") == true)
+            {
+                var waiting = w.People.Where(p => !w.Founding!.FirstHome!.Served.Contains(p.Id)).Select(p => p.Name).ToArray();
+                return $"Fresh meals still needed: {string.Join(", ", waiting.Take(3))}{(waiting.Length > 3 ? $" and {waiting.Length - 3} more" : "")}. Neighbors eat when hungry; Village lists everyone.";
+            }
+            if (problem != null) return problem;
+            var flow = w.ReadFoodFlow();
+            return flow.Delivered < flow.Required
+                ? $"Recent harvests: {flow.Delivered} food / {flow.Required} meals needed. Harvests come in batches; add capacity if stores keep falling."
+                : $"Recent harvests: {flow.Delivered} food / {flow.Required} meals needed. Keep production running for {Math.Max(0, 240 - r.StableSeconds)} more steady seconds.";
+        }
         var plans = w.Cottages.Where(c => !c.Complete).ToArray();
         if (plans.Length > 0 && plans.Sum(c => c.Remaining(Resource.Logs)) > w.Available && !w.Trees.Any(t => !t.Preserved && t.Logs > 0))
             return "Your building plans need more timber. Work a grove so neighbors can finish them.";
@@ -63,7 +76,8 @@ public sealed partial class VillageSessions
         {
             int plannedBeds = plans.Count(c => c.Kind == BuildingKind.Cottage) * 2;
             if (w.Beds + plannedBeds >= r.TargetBeds) return "Enough cottages are planned. Neighbors must finish building them before their beds count.";
-            return $"Plan {(int)Math.Ceiling((r.TargetBeds - w.Beds - plannedBeds) / 2d)} more cottages for the arriving neighbors. Each sleeps two.";
+            int count = (int)Math.Ceiling((r.TargetBeds - w.Beds - plannedBeds) / 2d);
+            return $"Plan {count} more {(count == 1 ? "cottage" : "cottages")} for the arriving neighbors. Each sleeps two.";
         }
         if (r.Delivered < r.Needed) return "Grow food near homes and stores. Gardens start cheaply; larger fields yield more per harvest. Neighbors share the work automatically.";
         if (w.ReachableEdibleStored < r.ReserveTarget) return "Let the harvest build a reserve. If stores keep shrinking, plant another food source.";

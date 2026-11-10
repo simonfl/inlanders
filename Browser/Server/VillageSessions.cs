@@ -47,6 +47,8 @@ public sealed partial class VillageSessions
     }
     Session Get(string id)
     {
+        lock (gate)
+        {
         if (sessions.TryGetValue(id, out var s)) return s;
         var directory = Folder(id);
         if (!Directory.Exists(directory)) throw new KeyNotFoundException();
@@ -58,6 +60,7 @@ public sealed partial class VillageSessions
         sessions[id] = s;
         Record(s, "restored", new { message = "Restored safely paused" });
         return s;
+        }
     }
     public object Create(string scenario = "crossing")
     {
@@ -72,7 +75,7 @@ public sealed partial class VillageSessions
             return Observe(s);
         }
     }
-    public object Observe(string id) { lock (gate) return Observe(Get(id)); }
+    public object Observe(string id) { var s = Get(id); lock (s) return Observe(s); }
     object Observe(Session s)
     {
         var w = s.World;
@@ -95,7 +98,7 @@ public sealed partial class VillageSessions
             actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" })
         };
     }
-    public object Preview(string id, Order order) { lock (gate) return Preview(Get(id), order); }
+    public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
     object Preview(Session s, Order o)
     {
         var w = s.World;
@@ -128,9 +131,10 @@ public sealed partial class VillageSessions
     }
     public object Command(string id, Order o)
     {
-        lock (gate)
+        var s = Get(id);
+        lock (s)
         {
-            var s = Get(id); var w = s.World; string? problem = null; string message = "";
+            var w = s.World; string? problem = null; string message = "";
             CheckAction(w, o.Type);
             s.LastSeen = DateTime.UtcNow;
             switch (o.Type)
@@ -192,9 +196,10 @@ public sealed partial class VillageSessions
         Message = (v.Message ?? "")[..Math.Min(v.Message?.Length ?? 0, 500)], PreviewCells = v.PreviewCells?.Take(128).ToArray() };
     public object Heartbeat(string id, ClientView v)
     {
-        lock (gate)
+        var s = Get(id);
+        lock (s)
         {
-            var s = Get(id); s.LastSeen = DateTime.UtcNow; s.View = Clean(v);
+            s.LastSeen = DateTime.UtcNow; s.View = Clean(v);
             if (!v.Active && !s.Paused) { s.Paused = true; Record(s, "interrupted", null); Save(s); }
             return Observe(s);
         }
@@ -214,16 +219,23 @@ public sealed partial class VillageSessions
     }
     public void Tick()
     {
-        lock (gate)
+        Session[] active;
+        lock (gate) active = sessions.Values.ToArray();
+        foreach (var s in active)
         {
-            foreach (var s in sessions.Values.Where(s => !s.Paused))
+            // An agent advancing its own session must not block another village's
+            // clock, heartbeat or input. Each world still has one writer at a time.
+            if (!Monitor.TryEnter(s)) continue;
+            try
             {
+                if (s.Paused) continue;
                 if ((DateTime.UtcNow - s.LastSeen).TotalSeconds > 6)
                 { s.Paused = true; Record(s, "disconnected", null); Save(s); continue; }
                 for (int i = 0; i < s.Speed && !s.Paused; i++) Step(s);
                 if ((DateTime.UtcNow - s.LastFrame).TotalSeconds >= 1) Record(s, "frame", null);
                 if ((DateTime.UtcNow - s.LastSave).TotalSeconds >= 5) Save(s);
             }
+            finally { Monitor.Exit(s); }
         }
     }
     void Record(Session s, string type, object? data)
@@ -243,6 +255,11 @@ public sealed partial class VillageSessions
         File.Move(temporary, path);
         s.LastSave = DateTime.UtcNow;
     }
-    public string Recording(string id) { lock (gate) { Get(id); return File.ReadAllText(Path.Combine(Folder(id), "recording.jsonl")); } }
-    public void SaveAll() { lock (gate) foreach (var s in sessions.Values) { s.Paused = true; Save(s); } }
+    public string Recording(string id) { var s = Get(id); lock (s) return File.ReadAllText(Path.Combine(Folder(id), "recording.jsonl")); }
+    public void SaveAll()
+    {
+        Session[] active;
+        lock (gate) active = sessions.Values.ToArray();
+        foreach (var s in active) lock (s) { s.Paused = true; Save(s); }
+    }
 }

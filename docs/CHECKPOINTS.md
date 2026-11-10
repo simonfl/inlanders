@@ -1,3 +1,10 @@
+# Outcome259 — longer browser river settlement
+
+Delivered build `E023B6D3E615`: twelve-person preparation/sustain scenario, small grouped action set, visible timed arrivals with pauses, early-event readiness, explicit finish conditions and recorded view replay. Independent runtime review on fixed `f02769c`/`25F3938F2878` completed a lean strategy and identified passive later play as the remaining design risk. Follow-up hints name waiting residents and compare food supply with demand. Field/garden alternatives and recovery after neglect pass; final browser and exact restart checks pass. Parent inspected normal phone layout and replay phases; the specialist visual review was blocked and supplied no verdict. Session isolation reduced unrelated heartbeat delay from~2s to10–12ms in the recorded probe. [Evidence and limits](BROWSER_RIVER_259.md).
+
+Count advances once to259. Review-driven refinements, concurrency tooling, tests and documentation do not add outcomes. Hold further content for owner play of the longer comparison.
+
+---
 # Browser access and agent-play prototype — November 9
 
 Owner follow-up within258: deployed build `8F426BA89689` corrects dense-screen rendering and collapses completed objectives into a 52px success row with expandable details. TypeScript/client and zero-warning C# builds pass; legal-route, recording, interruption and rejection checks pass. Ordinary browser controls at390×700 verify expand/collapse and replay restoration; canvas585px across390CSSpx confirms the1.5× density. Actual-phone sharpness/smoothness after this correction remains unverified. Count remains258.

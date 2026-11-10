@@ -62,6 +62,7 @@ function renderGoalDetails() {
 el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDetails(); void recordView(); };
 function render(s: State) {
   if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
+  if (state?.id !== s.id && s.river) village.setZoom(15);
   if (state?.id !== s.id || replayId) goalsExpanded = s.view.goalsExpanded ?? false;
   state = s; sessionId = s.id;
   el('loading').hidden = true;

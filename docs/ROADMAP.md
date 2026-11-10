@@ -1,3 +1,12 @@
+# Current — longer browser comparison ready for owner play
+
+Outcome259 delivers **Before the river closes** through the private phone link. An intact crossing, growing field and two arrivals give the small action set a larger purpose: establish twelve neighbors and sustain them after closure. Keep the short recovery as a separate comparison. [Design, evidence and critical verdict](BROWSER_RIVER_259.md).
+
+The owner has accepted phone sharpness and smooth pan/zoom. Independent legal-action play, alternative strategies, neglect/recovery, normal phone-width UI inspection and current-format restart checks support handing over this comparison. They do not establish that its ending is enjoyable. A lean strategy can finish with no additional construction after early preparation; later play risks becoming passive. Keep effective preparation valuable. If owner play finds the sustain phase empty, replace it with a meaningful decision rather than adding timers, buildings or bookkeeping.
+
+Next: owner play of this one scenario, followed by review of its recorded decisions. No catalogue port, larger campaign, new needs or new presentation batch selected. Per-session locking is the bounded tooling investment justified by measured interference between agent and human villages; no larger framework selected.
+
+---
 # November 9 — browser access comparison delivered
 
 Owner feedback supports the reduced browser interface and reports surprisingly smooth actual phone rendering. Keep the focused action set; introduce choices only when they serve the situation. The blur correction and compact completed-goal row are deployed in build `8F426BA89689`. Compare phone clarity and smoothness before increasing visual complexity or porting the full build catalogue. This follow-up remains within outcome258.

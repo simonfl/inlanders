@@ -1,6 +1,6 @@
-# Active experiment — a village that must grow before the river closes
+# Ready for owner play — before the river closes
 
-Authorized overnight after the owner accepted the recommendation. One bounded browser scenario; no catalogue/campaign migration.
+Delivered259, final private build `E023B6D3E615`. [Evidence and review](BROWSER_RIVER_259.md). The longer comparison is ready at `/?scenario=river-closing`; hold further content pending owner play. Independent play found a legitimate fast-preparation route and a risk of passive later play. Keep early advancement, improve sustain guidance, and test that experience instead of imposing waiting. Session isolation also removed measured cross-village input blocking.
 
 - Experience hypothesis: preparing homes and food for arriving neighbors, then keeping everyone supplied after the river closes, gives the familiar small action set a sustained purpose.
 - Competing explanation: the crossing already becomes passive after a few orders; more residents and a longer timer might merely stretch that waiting.
