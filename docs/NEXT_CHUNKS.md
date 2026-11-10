@@ -1,4 +1,11 @@
-# Current direction assessment — browser access and agent-led play
+# Current comparison — phone-accessible browser village
+
+Outcome258 implements the accepted small browser prototype: one broken-crossing scenario, shared legal player/agent commands, touch-oriented UI, ordinary browser play and recorded view/objective/command timelines. A fresh independent evaluator completed the challenge without reading source or an authored solution. Private Tailscale HTTPS access is configured and verified from the host. [Evidence, limits and acceptance](BROWSER_PROTOTYPE_258.md).
+
+The owner confirmed that the private link opens on the actual iPhone. Next evidence is phone play/interruption/resume and a useful recorded owner moment. Use it to choose one concrete correction. Parent phone-size browser play does not establish real-device control comfort or performance. The independent presentation reviewer accepts this bounded trial with deferred framing refinements. Keep the C# bridge provisionally; no campaign/catalogue migration or new gameplay expansion is selected. The longer native scenario's enjoyment question remains provisional. Exact delivered binaries are archived alongside recordings; no save migrations.
+
+---
+# Previous direction assessment — browser access and agent-led play
 
 The owner requests reconsidering the stack for agent play, observing owner sessions and iPhone access while development stays on Windows. The five-role [strategic assessment](STACK_REASSESSMENT_257.md) recommends a browser client, shared validated commands and recorded sessions. No migration has been implemented or deployed.
 

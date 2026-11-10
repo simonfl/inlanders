@@ -1,3 +1,9 @@
+# November 9 — browser access comparison delivered
+
+Outcome258 tests the accepted architecture with one recovery village: browser/touch presentation, shared validated commands for human and agent, pause/resume on interruption, and recorded sessions with bookmarks and a read-only timeline. Independent API play and ordinary browser-control play succeeded; private Tailscale HTTPS is live. [Evidence and limitations](BROWSER_PROTOTYPE_258.md).
+
+The owner confirmed that the link opens on the actual iPhone. Keep this as one comparison, not a campaign migration. Next: observe actual phone play/interruption/resume and review its recorded experience. Retain the independent C# model provisionally; require evidence of friction before a TypeScript simulation rewrite. Hold new buildings, needs and campaign chapters. Phone-size desktop screenshots and successful strategies do not establish real-device performance or enjoyable play.
+
 # November 9 — reassess delivery and observation before more features
 
 The owner wants agent-led play, observable owner sessions and access from an iPhone while the Windows laptop remains the development host. Five independent roles recommend browser delivery with shared player commands and session replay. [Assessment, alternatives and bounded comparison](STACK_REASSESSMENT_257.md).

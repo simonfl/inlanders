@@ -1,0 +1,198 @@
+import './style.css';
+import { VillageView } from './world';
+import type { State, Order, Cell, Preview, View, Frame } from './types';
+
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+  <header><div><strong>Les Habitants</strong><span class="subtitle">The broken crossing</span></div><button id="tools-open" aria-label="Open village menu">Village ☰</button></header>
+  <section id="status" aria-label="Village resources"><span id="food">Food —</span><span id="logs">Timber —</span><span id="neighbors">4 neighbors</span><span id="clock">Paused</span></section>
+  <section id="goals" aria-label="Your objectives"><div class="goal-heading"><strong id="goal-title">Help four neighbors feed themselves again</strong><span id="connection">Connecting…</span></div><div id="checklist"></div><p id="hint"></p></section>
+  <main id="world"><canvas id="scene" aria-label="Village map. Drag to move, pinch or scroll to zoom, tap to inspect or choose a site."></canvas><div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="map-home" aria-label="Show whole village">⌂</button></div><div id="selection" hidden></div><div id="loading">Preparing your village…</div></main>
+  <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
+  <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
+  <dialog id="welcome"><p class="eyebrow">A small browser playtest</p><h1>The broken crossing</h1><p>The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
+  <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><p id="build" class="muted"></p></dialog>
+  <section id="replay-bar" hidden><strong>Recorded session · read only</strong><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Replay timeline"><div><button id="previous-mark">Previous bookmark</button><span id="frame-description"></span><button id="next-mark">Next bookmark</button><button id="leave-replay">Back to village</button></div></section>`;
+
+const el = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+const params = new URLSearchParams(location.search);
+const replayId = params.get('replay'), watchId = params.get('watch');
+const readonly = !!(replayId || watchId);
+let state: State | undefined, sessionId = '', mode = '', rotation = 0, firstCorner: Cell | null = null, chosen: Cell | null = null;
+let preview: Preview | null = null, previewSerial = 0, busy = false, refreshing = false, selection: string | null = null, frames: Frame[] = [], frameIndex = 0;
+let audio: AudioContext | undefined, soundOn = false, lastSound = 0, lastFood = -1, lastComplete = false;
+let messageUntil = 0;
+const village = new VillageView(el<HTMLCanvasElement>('scene'), el('world'));
+const view = (): View => ({ active: !document.hidden && !readonly, panel: el<HTMLDialogElement>('tools').open ? 'menu' : mode || 'village', selection,
+  ...village.getView(), width: innerWidth, height: innerHeight, message: el('order-help').textContent ?? '', previewCells: preview?.cells ?? [], previewValid: preview?.valid ?? false });
+
+async function request<T>(path: string, body?: unknown): Promise<T> {
+  const response = await fetch(path, body === undefined ? undefined : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  if (!response.ok) { let message = `Connection problem (${response.status})`; try { message = (await response.json()).error ?? message; } catch { /* keep useful status */ } throw new Error(message); }
+  return response.json();
+}
+function tell(message: string) { el('order-help').textContent = message; messageUntil = performance.now() + 5000; }
+function render(s: State) {
+  if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
+  state = s; sessionId = s.id;
+  el('loading').hidden = true;
+  el('connection').textContent = replayId ? 'Replay' : watchId ? 'Watching' : 'Saved locally';
+  el('food').textContent = `Food ${s.resources.food}`; el('food').classList.toggle('low', s.resources.food <= 4);
+  el('logs').textContent = `Logs ${s.resources.logs}`;
+  el('neighbors').textContent = s.resources.fed === s.resources.population ? `${s.resources.population} neighbors` : `${s.resources.population - s.resources.fed} hungry`;
+  el('clock').textContent = `${Math.floor(s.seconds / 60)}:${String(Math.floor(s.seconds % 60)).padStart(2, '0')} · ${s.paused ? 'paused' : s.speed + '×'}`;
+  el('goal-title').textContent = s.complete ? 'Your neighbors can feed themselves again' : 'Help four neighbors feed themselves again';
+  el('checklist').replaceChildren(...s.objectives.map(text => { const row = document.createElement('div'); row.textContent = text; row.className = text.startsWith('✓') ? 'done' : ''; return row; }));
+  el('hint').textContent = s.hint;
+  el('play').textContent = s.paused ? '▶ Resume' : 'Ⅱ Pause'; el('speed').textContent = `${s.speed}×`;
+  el<HTMLButtonElement>('advance').disabled = !s.paused || busy || readonly;
+  el<HTMLButtonElement>('repair').disabled = s.buildings.some(b => b.kind === 'Bridge');
+  el('build').textContent = `Build ${s.build} · session ${s.id.slice(0, 8)}`;
+  const people = s.people.map(p => { const row = document.createElement('p'); const name = document.createElement('strong'); name.textContent = `${p.name}${p.fed ? '' : ' · hungry'}`; row.append(name, document.createElement('br'), document.createTextNode(p.status), document.createElement('br'), document.createTextNode(p.freshMeal ? '✓ Has eaten fresh food' : '○ Still waiting for a fresh meal')); return row; }); el('people').replaceChildren(...people);
+  village.update(s);
+  if (!mode && !selection && performance.now() > messageUntil) tell(s.complete ? 'A useful beginning. You can keep watching your neighbors.' : 'Choose a plan. Neighbors take care of the work.');
+  if (selection) renderSelection();
+  if (soundOn && !s.paused && (s.resources.food > lastFood && lastFood >= 0 || s.complete && !lastComplete)) chime();
+  lastFood = s.resources.food; lastComplete = s.complete;
+}
+async function command(order: Order) {
+  if (!sessionId || readonly || busy) return;
+  busy = true; el<HTMLButtonElement>('confirm').disabled = true;
+  try {
+    const result = await request<{ accepted: boolean; message: string; state: State }>(`/api/sessions/${sessionId}/command`, { ...order, view: view() });
+    if (order.type === 'view') return result;
+    render(result.state); tell(result.message);
+    return result;
+  } catch (e) { tell((e as Error).message); el('connection').textContent = 'Disconnected · reconnect to resume'; }
+  finally { busy = false; el<HTMLButtonElement>('confirm').disabled = !preview?.valid; if (state) el<HTMLButtonElement>('advance').disabled = !state.paused || readonly; }
+}
+async function recordView() {
+  // Observing a camera/panel change must not lock out the player's next tap.
+  if (sessionId && !readonly && !busy) {
+    try { await request(`/api/sessions/${sessionId}/command`, { type: 'view', view: view() }); }
+    catch { /* The heartbeat reports connection state; never overwrite the placement explanation. */ }
+  }
+}
+function clearMode() { mode = ''; previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
+function startMode(type: string) {
+  if (readonly) return;
+  mode = type; rotation = 0; firstCorner = null; chosen = null; selection = null; el('selection').hidden = true;
+  preview = null; village.showPreview(null); el('choices').hidden = true; el('placement').hidden = false;
+  el('rotate').hidden = type !== 'garden'; el<HTMLButtonElement>('confirm').disabled = true;
+  tell(type === 'grove' ? 'Tap two corners around a grove on your bank. Dragging still moves the map.' : type === 'garden' ? 'Tap clear ground on this bank. Preview the footprint, then confirm.' : 'Repair this crossing to reach the ripe harvest.');
+  if (type === 'repair') { chosen = { x: 0, z: -3 }; void previewOrder(); } else void recordView();
+}
+function currentOrder(): Order | null {
+  if (mode === 'repair') return { type: 'repair' };
+  if (mode === 'garden' && chosen) return { type: 'garden', ...chosen, rotation };
+  if (mode === 'grove' && firstCorner && chosen) return { type: 'grove', ...firstCorner, x2: chosen.x, z2: chosen.z };
+  return null;
+}
+async function previewOrder() {
+  const order = currentOrder(); if (!order) return;
+  const serial = ++previewSerial;
+  el<HTMLButtonElement>('confirm').disabled = true;
+  try {
+    const p = await request<Preview>(`/api/sessions/${sessionId}/preview`, order);
+    if (serial !== previewSerial) return;
+    preview = p; village.showPreview(p); tell(p.valid ? `${p.label}. Confirm to order the work.` : p.problem ?? 'Choose another spot.');
+    el<HTMLButtonElement>('confirm').disabled = !p.valid; await recordView();
+  } catch (e) { if (serial === previewSerial) { preview = null; village.showPreview(null); tell((e as Error).message); } }
+}
+function renderSelection() {
+  if (!selection || !state) return;
+  const box = el('selection'); box.hidden = false;
+  const [kind, id] = selection.split(':');
+  const selected = kind === 'person' ? state.people.find(p => p.id === Number(id)) : state.buildings.find(b => b.id === Number(id));
+  if (!selected) { selection = null; box.hidden = true; return; }
+  const description = `${selected.name} · ${selected.status}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
+  const key = `${selection}:${'complete' in selected ? selected.complete : ''}`;
+  if (box.dataset.selection === key && box.firstElementChild) { box.firstElementChild.textContent = description; return; }
+  box.dataset.selection = key; box.replaceChildren();
+  const text = document.createElement('span'); text.textContent = description; box.append(text);
+  if (kind === 'building' && 'complete' in selected && !selected.complete && !readonly) {
+    const cancel = document.createElement('button'); cancel.textContent = 'Cancel plan'; cancel.onclick = async () => { const result = await command({ type: 'cancel', siteId: selected.id }); if (result?.accepted) { selection = null; box.hidden = true; } }; box.append(cancel);
+  }
+  const close = document.createElement('button'); close.textContent = '×'; close.ariaLabel = 'Close inspection'; close.onclick = () => { selection = null; box.hidden = true; void recordView(); }; box.append(close);
+}
+village.onPick = c => {
+  if (!state || readonly) return;
+  if (mode === 'grove') { if (!firstCorner || chosen) { firstCorner = c; chosen = null; preview = { valid: false, problem: null, cells: [c], logs: 0, label: 'First corner' }; village.showPreview(preview); el<HTMLButtonElement>('confirm').disabled = true; tell('First corner set. Tap the opposite corner to include your trees.'); void recordView(); } else { chosen = c; void previewOrder(); } return; }
+  if (mode === 'garden') { chosen = c; void previewOrder(); return; }
+  if (mode) return;
+  const p = state.people.find(p => Math.hypot(p.x - c.x, p.z - c.z) < .75), b = state.buildings.find(b => b.footprint.some(f => f.x === c.x && f.z === c.z));
+  selection = p ? `person:${p.id}` : b ? `building:${b.id}` : null;
+  if (selection) renderSelection(); else { el('selection').hidden = true; const tree = state.trees.find(t => t.x === c.x && t.z === c.z); if (tree) tell(tree.managed ? 'This grove is being harvested and renewed automatically.' : 'This tree is protected. Choose Work a grove to harvest and renew an area.'); }
+  void recordView();
+};
+village.onViewChange = () => { void recordView(); };
+el('repair').onclick = () => startMode('repair'); el('garden').onclick = () => startMode('garden'); el('grove').onclick = () => startMode('grove');
+el('rotate').onclick = () => { rotation = (rotation + 1) % 4; el('rotate').textContent = `Rotate ↻ ${rotation * 90}°`; void previewOrder(); };
+el('cancel-mode').onclick = () => { clearMode(); tell('Plan dismissed. Nothing was ordered.'); void recordView(); };
+el('confirm').onclick = async () => { const order = currentOrder(); if (!order || !preview?.valid) return; const result = await command(order); if (result?.accepted) { clearMode(); tell(result.message); await recordView(); } };
+el('play').onclick = async () => { if (!state) return; if (state.paused && soundOn) void audio?.resume(); await command(state.paused ? { type: 'resume', speed: state.speed } : { type: 'pause' }); };
+el('speed').onclick = async () => { if (!state) return; if (soundOn) void audio?.resume(); await command({ type: 'resume', speed: state.speed === 1 ? 3 : state.speed === 3 ? 6 : 1 }); };
+el('advance').onclick = () => { void command({ type: 'advance', seconds: 15, untilEvent: true }); };
+el('mark').onclick = () => { void command({ type: 'bookmark', note: 'Player marked this moment for review' }); };
+el('map-home').onclick = () => village.home(); el('zoom-in').onclick = () => { village.setZoom(village.zoom * .8); void recordView(); }; el('zoom-out').onclick = () => { village.setZoom(village.zoom * 1.25); void recordView(); };
+el('tools-open').onclick = () => { el<HTMLDialogElement>('tools').showModal(); void recordView(); };
+el('tools-close').onclick = () => { el<HTMLDialogElement>('tools').close(); void recordView(); };
+el('replay').onclick = async () => { await command({ type: 'pause' }); location.href = `/?replay=${sessionId}`; };
+el('restart').onclick = async () => { await command({ type: 'pause' }); localStorage.removeItem('inlanders-browser-session'); location.href = '/'; };
+el('begin').onclick = async () => { el<HTMLDialogElement>('welcome').close(); await command({ type: 'resume' }); };
+function chime() {
+  if (!audio || performance.now() - lastSound < 2500) return;
+  lastSound = performance.now();
+  for (const [i, frequency] of [392, 493.88, 587.33].entries()) {
+    const oscillator = audio.createOscillator(), gain = audio.createGain(), start = audio.currentTime + i * .12;
+    oscillator.type = 'sine'; oscillator.frequency.value = frequency; gain.gain.setValueAtTime(0, start); gain.gain.linearRampToValueAtTime(.035, start + .02); gain.gain.exponentialRampToValueAtTime(.001, start + .5);
+    oscillator.connect(gain); gain.connect(audio.destination); oscillator.start(start); oscillator.stop(start + .6);
+  }
+}
+el('sound').onclick = async () => { soundOn = !soundOn; if (soundOn) { audio ??= new AudioContext(); await audio.resume(); chime(); } el('sound').textContent = `Sound: ${soundOn ? 'on' : 'off'}`; };
+
+function showFrame(index: number) {
+  frameIndex = Math.max(0, Math.min(frames.length - 1, index)); const frame = frames[frameIndex]; if (!frame) return;
+  render(frame.state); village.restore(frame.state.view); selection = frame.state.view.selection; if (selection) renderSelection(); else el('selection').hidden = true;
+  if (frame.state.view.previewCells?.length) village.showPreview({ cells: frame.state.view.previewCells, valid: frame.state.view.previewValid ?? false, logs: 0, label: '', problem: null }); else village.showPreview(null);
+  tell(frame.state.view.message || frame.state.hint);
+  el<HTMLInputElement>('timeline').value = String(frameIndex);
+  el('frame-description').textContent = `${frame.type} · ${Math.floor(frame.state.seconds)}s · ${frame.state.view.panel}${frame.data?.message ? ' · ' + frame.data.message : ''}`;
+}
+el('timeline').oninput = () => showFrame(Number(el<HTMLInputElement>('timeline').value));
+el('previous-mark').onclick = () => { const index = frames.findLastIndex((f, i) => i < frameIndex && f.type === 'bookmark'); showFrame(index < 0 ? 0 : index); };
+el('next-mark').onclick = () => { const index = frames.findIndex((f, i) => i > frameIndex && f.type === 'bookmark'); showFrame(index < 0 ? frames.length - 1 : index); };
+el('leave-replay').onclick = () => { location.href = '/'; };
+async function boot() {
+  try {
+    if (replayId) {
+      const response = await fetch(`/api/sessions/${replayId}/recording`); if (!response.ok) throw new Error('This recording could not be opened.');
+      frames = (await response.text()).trim().split('\n').filter(Boolean).map(line => JSON.parse(line) as Frame);
+      el('choices').hidden = true; document.querySelector('footer')!.hidden = true; el('replay-bar').hidden = false; el<HTMLInputElement>('timeline').max = String(frames.length - 1);
+      showFrame(0); return;
+    }
+    let id = watchId || localStorage.getItem('inlanders-browser-session');
+    let fresh = false;
+    if (id) {
+      try { const saved = await request<State>(`/api/sessions/${id}`); render(saved); village.restore(saved.view); }
+      catch (e) { if (watchId) throw e; id = null; }
+    }
+    if (!id) { render(await request<State>('/api/sessions', {})); localStorage.setItem('inlanders-browser-session', sessionId); fresh = true; }
+    if (watchId) { el('orders').hidden = true; document.querySelector('footer')!.hidden = true; }
+    else if (fresh) el<HTMLDialogElement>('welcome').showModal();
+    else await command({ type: 'pause' });
+    setInterval(async () => {
+      if (refreshing || busy || document.hidden) return;
+      refreshing = true;
+      try { render(await request<State>(`/api/sessions/${sessionId}${watchId ? '' : '/heartbeat'}`, watchId ? undefined : view())); }
+      catch { el('connection').textContent = 'Connection lost · village pauses automatically'; }
+      finally { refreshing = false; }
+    }, 400);
+  } catch (e) { el('loading').textContent = (e as Error).message; }
+}
+function suspend() {
+  if (!sessionId || readonly) return;
+  navigator.sendBeacon(`/api/sessions/${sessionId}/heartbeat`, new Blob([JSON.stringify({ ...view(), active: false })], { type: 'application/json' }));
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) { suspend(); void audio?.suspend(); } });
+window.addEventListener('pagehide', suspend);
+void boot();

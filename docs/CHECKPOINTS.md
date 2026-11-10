@@ -1,3 +1,7 @@
+# Browser access and agent-play prototype — November 9
+
+Outcome **258**: one browser broken-crossing scenario with shared legal commands, touch-oriented placement/grove controls, clear objectives, current-format persistence, interruption pause, private Tailscale delivery, and recorded view/command/objective replay. Independent agent decision play and separate ordinary browser controls completed the scenario. Focused mechanics, recording and lifecycle checks pass; final client/server build passes. Independent visual review accepts the bounded trial with deferred framing refinements. Owner confirmed actual iPhone access; phone play/performance and subjective audiovisual preference remain unverified. [Evidence](BROWSER_PROTOTYPE_258.md). No wider port or next gameplay feature selected.
+
 # Stack and observation assessment — November 9
 
 Five independent read-only roles assessed the project at `6d45ab8` plus the identified pending outcome-257 finish fix. Recommended browser/touch delivery, shared legal actions, owner-session recording and a bounded comparison before a wider rewrite. No fresh ordinary play, mobile test, continuous-motion viewing or listening occurred. [Synthesis and decision criteria](STACK_REASSESSMENT_257.md). This is planning only; playable count remains **257**.
