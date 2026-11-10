@@ -1,7 +1,7 @@
 export type Cell = { x: number; z: number };
 export type Building = Cell & { id: number; kind: string; name: string; rotation: number; complete: boolean; construction: number; delivered: number; required: number; growth: number; harvest: number; footprint: Cell[]; entrance: Cell; status: string };
 export type Person = Cell & { id: number; name: string; status: string; task: string; fed: boolean; carried: number; cargo: string; freshMeal: boolean };
-export type View = { active: boolean; panel: string; selection: string | null; cameraX: number; cameraZ: number; zoom: number; width: number; height: number; message?: string; previewCells?: Cell[]; previewValid?: boolean };
+export type View = { active: boolean; panel: string; selection: string | null; cameraX: number; cameraZ: number; zoom: number; width: number; height: number; message?: string; previewCells?: Cell[]; previewValid?: boolean; goalsExpanded?: boolean };
 export type State = {
   id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; complete: boolean;
   resources: { food: number; logs: number; population: number; fed: number; housed: number };

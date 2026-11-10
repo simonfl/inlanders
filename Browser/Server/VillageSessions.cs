@@ -9,7 +9,7 @@ public sealed record Order(string Type, int X = 0, int Z = 0, int X2 = 0, int Z2
     int SiteId = -1, int Speed = 1, int Seconds = 15, bool UntilEvent = true, string? Note = null, ClientView? View = null);
 public sealed record ClientView(bool Active = true, string Panel = "village", string? Selection = null,
     float CameraX = 0, float CameraZ = 0, float Zoom = 19, int Width = 0, int Height = 0,
-    string Message = "", Cell[]? PreviewCells = null, bool PreviewValid = false);
+    string Message = "", Cell[]? PreviewCells = null, bool PreviewValid = false, bool GoalsExpanded = false);
 sealed class Session(string id, World world)
 {
     public string Id = id;

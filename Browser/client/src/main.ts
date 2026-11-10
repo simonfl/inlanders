@@ -5,7 +5,7 @@ import type { State, Order, Cell, Preview, View, Frame } from './types';
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header><div><strong>Les Habitants</strong><span class="subtitle">The broken crossing</span></div><button id="tools-open" aria-label="Open village menu">Village ☰</button></header>
   <section id="status" aria-label="Village resources"><span id="food">Food —</span><span id="logs">Timber —</span><span id="neighbors">4 neighbors</span><span id="clock">Paused</span></section>
-  <section id="goals" aria-label="Your objectives"><div class="goal-heading"><strong id="goal-title">Help four neighbors feed themselves again</strong><span id="connection">Connecting…</span></div><div id="checklist"></div><p id="hint"></p></section>
+  <section id="goals" aria-label="Your objectives"><div class="goal-heading"><strong id="goal-title">Help four neighbors feed themselves again</strong><span id="connection">Connecting…</span><button id="goal-toggle" hidden aria-expanded="false" aria-controls="goal-details">Details</button></div><div id="goal-details"><div id="checklist"></div><p id="hint"></p></div></section>
   <main id="world"><canvas id="scene" aria-label="Village map. Drag to move, pinch or scroll to zoom, tap to inspect or choose a site."></canvas><div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="map-home" aria-label="Show whole village">⌂</button></div><div id="selection" hidden></div><div id="loading">Preparing your village…</div></main>
   <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
@@ -20,10 +20,10 @@ const readonly = !!(replayId || watchId);
 let state: State | undefined, sessionId = '', mode = '', rotation = 0, firstCorner: Cell | null = null, chosen: Cell | null = null;
 let preview: Preview | null = null, previewSerial = 0, busy = false, refreshing = false, selection: string | null = null, frames: Frame[] = [], frameIndex = 0;
 let audio: AudioContext | undefined, soundOn = false, lastSound = 0, lastFood = -1, lastComplete = false;
-let messageUntil = 0;
+let messageUntil = 0, goalsExpanded = false;
 const village = new VillageView(el<HTMLCanvasElement>('scene'), el('world'));
 const view = (): View => ({ active: !document.hidden && !readonly, panel: el<HTMLDialogElement>('tools').open ? 'menu' : mode || 'village', selection,
-  ...village.getView(), width: innerWidth, height: innerHeight, message: el('order-help').textContent ?? '', previewCells: preview?.cells ?? [], previewValid: preview?.valid ?? false });
+  ...village.getView(), width: innerWidth, height: innerHeight, message: el('order-help').textContent ?? '', previewCells: preview?.cells ?? [], previewValid: preview?.valid ?? false, goalsExpanded });
 
 async function request<T>(path: string, body?: unknown): Promise<T> {
   const response = await fetch(path, body === undefined ? undefined : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -31,8 +31,18 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
   return response.json();
 }
 function tell(message: string) { el('order-help').textContent = message; messageUntil = performance.now() + 5000; }
+function renderGoalDetails() {
+  const complete = !!state?.complete;
+  el('goals').classList.toggle('complete', complete);
+  el('goal-toggle').hidden = !complete;
+  el('goal-toggle').textContent = goalsExpanded ? 'Hide details' : 'Details';
+  el('goal-toggle').setAttribute('aria-expanded', String(goalsExpanded));
+  el('goal-details').hidden = complete && !goalsExpanded;
+}
+el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDetails(); void recordView(); };
 function render(s: State) {
   if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
+  if (state?.id !== s.id || replayId) goalsExpanded = s.view.goalsExpanded ?? false;
   state = s; sessionId = s.id;
   el('loading').hidden = true;
   el('connection').textContent = replayId ? 'Replay' : watchId ? 'Watching' : 'Saved locally';
@@ -40,9 +50,10 @@ function render(s: State) {
   el('logs').textContent = `Logs ${s.resources.logs}`;
   el('neighbors').textContent = s.resources.fed === s.resources.population ? `${s.resources.population} neighbors` : `${s.resources.population - s.resources.fed} hungry`;
   el('clock').textContent = `${Math.floor(s.seconds / 60)}:${String(Math.floor(s.seconds % 60)).padStart(2, '0')} · ${s.paused ? 'paused' : s.speed + '×'}`;
-  el('goal-title').textContent = s.complete ? 'Your neighbors can feed themselves again' : 'Help four neighbors feed themselves again';
+  el('goal-title').textContent = s.complete ? '✓ Village recovered' : 'Help four neighbors feed themselves again';
   el('checklist').replaceChildren(...s.objectives.map(text => { const row = document.createElement('div'); row.textContent = text; row.className = text.startsWith('✓') ? 'done' : ''; return row; }));
   el('hint').textContent = s.hint;
+  renderGoalDetails();
   el('play').textContent = s.paused ? '▶ Resume' : 'Ⅱ Pause'; el('speed').textContent = `${s.speed}×`;
   el<HTMLButtonElement>('advance').disabled = !s.paused || busy || readonly;
   el<HTMLButtonElement>('repair').disabled = s.buildings.some(b => b.kind === 'Bridge');
