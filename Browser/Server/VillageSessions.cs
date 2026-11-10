@@ -22,8 +22,9 @@ sealed class Session(string id, World world)
     public DateTime LastFrame = DateTime.MinValue;
     public DateTime LastSave = DateTime.MinValue;
     public ClientView View = new();
+    public string Notice = "";
 }
-public sealed class VillageSessions
+public sealed partial class VillageSessions
 {
     public static readonly string Build = BuildHash();
     static string BuildHash()
@@ -53,20 +54,21 @@ public sealed class VillageSessions
         if (path == null) throw new KeyNotFoundException();
         var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(path), Json)!;
         if (saved.Build != Build) throw new ArgumentException("This village belongs to an earlier prototype build. Start a new village.");
-        s = new(id, World.LoadJson(saved.World)) { Step = saved.Step, Sequence = saved.Sequence, View = saved.View };
+        s = new(id, World.LoadJson(saved.World)) { Step = saved.Step, Sequence = saved.Sequence, View = saved.View, Notice = saved.Notice };
         sessions[id] = s;
         Record(s, "restored", new { message = "Restored safely paused" });
         return s;
     }
-    public object Create()
+    public object Create(string scenario = "crossing")
     {
         lock (gate)
         {
             if (sessions.Count >= 32) throw new ArgumentException("There are already 32 open villages. Restart the local service to release inactive villages.");
-            var s = new Session(Guid.NewGuid().ToString("N"), World.NewCrossingRecovery());
+            var world = scenario switch { "crossing" => World.NewCrossingRecovery(), "river-closing" => World.NewBrowserRiverClosing(), _ => throw new ArgumentException("Choose crossing or river-closing.") };
+            var s = new Session(Guid.NewGuid().ToString("N"), world);
             sessions[s.Id] = s;
             Directory.CreateDirectory(Folder(s.Id));
-            Record(s, "start", new { scenario = "broken-crossing" }); Save(s);
+            Record(s, "start", new { scenario }); Save(s);
             return Observe(s);
         }
     }
@@ -78,10 +80,11 @@ public sealed class VillageSessions
         return new
         {
             id = s.Id, build = Build, sequence = s.Sequence, step = s.Step, seconds = Math.Round(s.Step / 10d, 1), s.Paused, s.Speed,
-            title = "The broken crossing", complete = w.Founding!.FirstHome!.Complete,
-            resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed },
-            objectives = new[] { goals.Home, goals.Food, goals.Meals.Replace("Neighbors fed", "Fresh meals") }, hint = goals.Hint, nextAction = goals.Action,
-            map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile },
+            scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = w.Founding!.FirstHome!.Complete, river = River(w), notice = s.Notice,
+            resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed, beds = w.Beds },
+            objectives = ObjectiveLines(w), hint = Hint(w), nextAction = goals.Action,
+            map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile,
+                stone = w.Map.StoneDeposits.Select(d => new { d.Cell.X, d.Cell.Z, access = d.Access }), clearings = w.Map.Wildlife.Select(h => h.Cell) },
             trees = w.Trees.Select(t => new { t.Id, t.Cell.X, t.Cell.Z, t.Logs, t.Felled, t.Growth, managed = w.ManagedWoodland.Contains(t.Cell), t.Preserved }),
             bushes = w.Bushes.Select(b => new { b.Id, b.Cell.X, b.Cell.Z }),
             buildings = w.Cottages.Select(c => new { c.Id, kind = c.Kind.ToString(), name = Buildings.Get(c.Kind).Name, c.Cell.X, c.Cell.Z, c.Rotation, c.Complete,
@@ -89,13 +92,14 @@ public sealed class VillageSessions
                 status = c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
             people = w.People.Select(p => new { p.Id, p.Name, x = p.Position.X, z = p.Position.Y, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
             events = w.History.TakeLast(6), view = s.View,
-            actions = new[] { new { type = "repair", label = "Repair crossing", logs = 6 }, new { type = "garden", label = "Plant a local garden", logs = 4 }, new { type = "grove", label = "Harvest & renew a grove", logs = 0 } }
+            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" })
         };
     }
     public object Preview(string id, Order order) { lock (gate) return Preview(Get(id), order); }
     object Preview(Session s, Order o)
     {
         var w = s.World;
+        CheckAction(w, o.Type);
         if (o.Type == "grove")
         {
             CheckCell(w, o.X, o.Z); CheckCell(w, o.X2, o.Z2);
@@ -106,24 +110,32 @@ public sealed class VillageSessions
         CheckCell(w, cell.X, cell.Z);
         var problem = w.PlacementProblem(cell, rotation, kind);
         return new { valid = problem == null, problem, cells = World.Footprint(cell, rotation, kind), entrance = World.Door(cell, rotation), logs = Buildings.Get(kind).Cost,
-            label = kind == BuildingKind.Bridge ? "Repair the crossing · 6 logs" : "Plant a garden · 4 logs" };
+            label = $"{Buildings.Get(kind).Name} · {Buildings.Get(kind).Cost} logs" };
     }
     static void CheckCell(World w, int x, int z) { if (!w.Map.Contains(new(x, z))) throw new ArgumentException("Choose a location inside the village map."); }
     static (Cell, BuildingKind, int) Site(Order o) => o.Type switch
     {
         "repair" => (World.RecoveryCrossing, BuildingKind.Bridge, 0),
         "garden" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.VegetableGarden, o.Rotation),
-        _ => throw new ArgumentException("Choose repair, garden or grove with a valid orientation.")
+        "field" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.VegetableField, o.Rotation),
+        "home" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.Cottage, o.Rotation),
+        _ => throw new ArgumentException("Choose a building with a valid orientation.")
     };
+    static void CheckAction(World w, string type)
+    {
+        if (Scenario(w) == "crossing" && type is "home" or "field" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
+        if (Scenario(w) == "river-closing" && type == "repair") throw new ArgumentException("This settlement already has a working crossing.");
+    }
     public object Command(string id, Order o)
     {
         lock (gate)
         {
             var s = Get(id); var w = s.World; string? problem = null; string message = "";
+            CheckAction(w, o.Type);
             s.LastSeen = DateTime.UtcNow;
             switch (o.Type)
             {
-                case "repair": case "garden":
+                case "repair": case "garden": case "home": case "field":
                     var (cell, kind, rotation) = Site(o);
                     problem = w.PlacementProblem(cell, rotation, kind);
                     if (problem == null) { var site = w.Place(cell, rotation, kind); if (site == null) problem = "That site is no longer available."; else message = "Plan placed. Neighbors collect timber and build automatically."; }
@@ -139,22 +151,27 @@ public sealed class VillageSessions
                     if (planned == null || !w.Cancel(o.SiteId)) problem = "Only an unfinished plan can be cancelled.";
                     else message = "Plan cancelled.";
                     break;
+                case "next-season":
+                    problem = w.AdvanceRiverScheduleProblem();
+                    if (problem == null) { w.AdvanceRiverSchedule(); Step(s); message = "The next event arrived. Village paused so you can look around."; }
+                    break;
                 case "pause": s.Paused = true; message = "Village paused and saved."; break;
                 case "resume":
                     if (o.Speed is not (1 or 3 or 6)) problem = "Choose 1×, 3× or 6×.";
-                    else { s.Speed = o.Speed; s.Paused = false; message = $"Village running at {s.Speed}×."; }
+                    else { s.Speed = o.Speed; s.Paused = false; s.Notice = ""; message = $"Village running at {s.Speed}×."; }
                     break;
                 case "advance":
                     if (!s.Paused) problem = "Pause before advancing to the next decision.";
                     else if (o.Seconds is < 1 or > 30) problem = "Advance between 1 and 30 seconds.";
                     else
                     {
+                        s.Notice = "";
                         var before = w.ReadFirstHomeObjectives(); int events = w.History.Count;
                         for (int i = 0; i < o.Seconds * 10; i++)
                         {
-                            Step(s); if (i % 10 == 9) Record(s, "frame", null);
+                            bool milestone = Step(s); if (i % 10 == 9 || milestone) Record(s, "frame", null);
                             var after = w.ReadFirstHomeObjectives();
-                            if (o.UntilEvent && i >= 9 && (after.Done != before.Done || after.Action != before.Action || w.History.Count != events)) break;
+                            if (milestone || o.UntilEvent && i >= 9 && (after.Done != before.Done || after.Action != before.Action || w.History.Count != events)) break;
                         }
                         message = "Time advanced. Village remains paused.";
                     }
@@ -182,7 +199,19 @@ public sealed class VillageSessions
             return Observe(s);
         }
     }
-    static void Step(Session s) { s.World.Tick(.1f); s.Step++; }
+    static bool Step(Session s)
+    {
+        var r = s.World.Founding!.FirstHome!.RiverClosing;
+        var before = (r?.Boats, r?.Closed, r?.Complete);
+        s.World.Tick(.1f); s.Step++;
+        bool milestone = before != (r?.Boats, r?.Closed, r?.Complete);
+        if (milestone)
+        {
+            s.Paused = true;
+            s.Notice = r!.Complete ? "Your village made it. All twelve neighbors can stand on their own." : r.Closed ? "The river has closed. No more supplies are coming. Your final trial begins now." : r.Boats == 1 ? "The first boat is here: four neighbors and 24 food. Eight people now call this village home." : "The last boat is here: four neighbors, but no food. Twelve people now depend on your harvests.";
+        }
+        return milestone;
+    }
     public void Tick()
     {
         lock (gate)
@@ -191,7 +220,7 @@ public sealed class VillageSessions
             {
                 if ((DateTime.UtcNow - s.LastSeen).TotalSeconds > 6)
                 { s.Paused = true; Record(s, "disconnected", null); Save(s); continue; }
-                for (int i = 0; i < s.Speed; i++) Step(s);
+                for (int i = 0; i < s.Speed && !s.Paused; i++) Step(s);
                 if ((DateTime.UtcNow - s.LastFrame).TotalSeconds >= 1) Record(s, "frame", null);
                 if ((DateTime.UtcNow - s.LastSave).TotalSeconds >= 5) Save(s);
             }
@@ -203,14 +232,14 @@ public sealed class VillageSessions
         File.AppendAllText(Path.Combine(Folder(s.Id), "recording.jsonl"), JsonSerializer.Serialize(new { sequence = s.Sequence, utc = s.LastFrame, type, data, state = Observe(s) }, Json) + "\n");
         if (type == "bookmark") File.WriteAllText(Path.Combine(Folder(s.Id), $"bookmark-{s.Sequence}.json"), s.World.SaveJson());
     }
-    sealed record Saved(string Build, string World, long Step, long Sequence, ClientView View);
+    sealed record Saved(string Build, string World, long Step, long Sequence, ClientView View, string Notice);
     void Save(Session s)
     {
         // Immutable checkpoints avoid replacing files while Dropbox is indexing them.
         // Rename a complete new file into the journal; a crash can leave only an ignored .tmp.
         var path = Path.Combine(Folder(s.Id), $"snapshot-{s.Sequence:D12}-{Guid.NewGuid():N}.json");
         var temporary = path + ".tmp";
-        File.WriteAllText(temporary, JsonSerializer.Serialize(new Saved(Build, s.World.SaveJson(), s.Step, s.Sequence, s.View), Json));
+        File.WriteAllText(temporary, JsonSerializer.Serialize(new Saved(Build, s.World.SaveJson(), s.Step, s.Sequence, s.View, s.Notice), Json));
         File.Move(temporary, path);
         s.LastSave = DateTime.UtcNow;
     }

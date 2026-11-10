@@ -2,7 +2,7 @@
 const base = process.env.INLANDERS_URL || 'http://127.0.0.1:5180';
 const [action = 'guide', id, raw] = process.argv.slice(2);
 let path = '/api/guide', method = 'GET', body;
-if (action === 'new') { path = '/api/sessions'; method = 'POST'; body = {}; }
+if (action === 'new') { path = `/api/sessions?scenario=${encodeURIComponent(id || 'crossing')}`; method = 'POST'; body = {}; }
 else if (['observe', 'recording'].includes(action)) path = `/api/sessions/${id}${action === 'recording' ? '/recording' : ''}`;
 else if (action === 'command' || action === 'preview') { path = `/api/sessions/${id}/${action}`; method = 'POST'; body = JSON.parse(raw || '{}'); }
 else if (action !== 'guide') throw new Error('Use guide | new | observe ID | command ID JSON | preview ID JSON | recording ID');

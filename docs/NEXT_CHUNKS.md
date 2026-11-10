@@ -1,3 +1,16 @@
+# Active experiment — a village that must grow before the river closes
+
+Authorized overnight after the owner accepted the recommendation. One bounded browser scenario; no catalogue/campaign migration.
+
+- Experience hypothesis: preparing homes and food for arriving neighbors, then keeping everyone supplied after the river closes, gives the familiar small action set a sustained purpose.
+- Competing explanation: the crossing already becomes passive after a few orders; more residents and a longer timer might merely stretch that waiting.
+- Comparison: keep the short crossing available. Add a longer settlement with an intact crossing, a growing first field, two scheduled arrivals and a transparent self-sufficiency trial. Three top-level intents: homes, food, grove. Gardens versus fields are the only food choice.
+- Evidence: independent legal-action play, an alternate production strategy, recovery after neglect, and ordinary phone-width UI checks of placement, arrivals and exact finish requirements. Advance ready events early so idle waiting is optional. Aim for a 15–20 minute first visit including decisions; accelerated runs may be much shorter. Do not claim duration or enjoyment from simulation time.
+- Stop condition: one tested, privately deployed comparison with its evidence. The owner decides whether the growing-village arc feels worth continuing; hold additional features pending that response.
+
+Owner phone feedback now confirms improved clarity and smooth pan/zoom after the density fix. Recorded phone session `8bec994b13654f0580d69b8f67afabb3` chose a local garden and grove, completed at173.2 simulation seconds, and paused on backgrounding at218.2s. Actual replay inspection recovered the placement explanation, camera and completion state. No frustration or enjoyment is inferred from that action sequence. The earlier session also continued building after completion, which supports testing a longer purpose but does not prove it.
+
+---
 # Current comparison — phone-accessible browser village
 
 Owner phone feedback after258: the game works and is surprisingly smooth, but the village looks blurry; the reduced interface is liked. Retain the three focused actions provisionally. The owner-requested correction is now deployed as build `8F426BA89689`: render density capped at 1.5× CSS pixels, and completed objectives collapse to a short success row with expandable details. Browser checks confirm the density, phone-width layout and recorded disclosure state. Next evidence: actual-phone clarity versus smoothness after refresh. This is a focused correction within258, not a new feature experiment or checkpoint.

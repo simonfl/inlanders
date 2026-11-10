@@ -3,10 +3,11 @@ export type Building = Cell & { id: number; kind: string; name: string; rotation
 export type Person = Cell & { id: number; name: string; status: string; task: string; fed: boolean; carried: number; cargo: string; freshMeal: boolean };
 export type View = { active: boolean; panel: string; selection: string | null; cameraX: number; cameraZ: number; zoom: number; width: number; height: number; message?: string; previewCells?: Cell[]; previewValid?: boolean; goalsExpanded?: boolean };
 export type State = {
-  id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; complete: boolean;
-  resources: { food: number; logs: number; population: number; fed: number; housed: number };
+  id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; goalTitle: string; scenario: string; notice: string; complete: boolean;
+  river: { boats: number; closed: boolean; targetBeds: number; reserveTarget: number; delivered: number; needed: number; sampleSeconds: number; untilEvent: number; timetable: string; earlyLabel: string; earlyProblem: string | null; stableSeconds: number; supply: string; phase: string } | null;
+  resources: { food: number; logs: number; population: number; fed: number; housed: number; beds: number };
   objectives: string[]; hint: string; nextAction: string;
-  map: { minX: number; minZ: number; width: number; depth: number; water: Cell[]; excluded: Cell[]; stockpile: Cell };
+  map: { minX: number; minZ: number; width: number; depth: number; water: Cell[]; excluded: Cell[]; stockpile: Cell; stone: (Cell & { access: Cell })[]; clearings: Cell[] };
   trees: (Cell & { id: number; logs: number; felled: boolean; growth: number; managed: boolean; preserved: boolean })[];
   bushes: (Cell & { id: number })[]; buildings: Building[]; people: Person[]; events: string[]; view: View;
 };

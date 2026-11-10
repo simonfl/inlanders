@@ -24,6 +24,7 @@ export class VillageView {
   private pointers = new Map<number, { x: number; y: number }>();
   private down?: { x: number; y: number; moved: boolean }; private pinch = 0;
   private labels: HTMLDivElement;
+  private boat?: TransformNode;
   onPick: (cell: Cell) => void = () => {};
   onViewChange: () => void = () => {};
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement) {
@@ -83,8 +84,33 @@ export class VillageView {
       }
       const merged = Mesh.MergeMeshes(this.terrain.getChildMeshes() as Mesh[], true, true, undefined, false, true);
       if (merged) { merged.parent = this.terrain; merged.isPickable = false; merged.receiveShadows = true; }
+      for (const rock of state.map.stone) {
+        this.cone('stone-outcrop', rock.x, .4, rock.z, 1, .8, '#929584', this.terrain, .65);
+        this.cone('stone-outcrop', rock.x + .3, .2, rock.z + .35, .6, .4, '#a1a394', this.terrain, .35);
+      }
+      for (const clearing of state.map.clearings) this.box('woodland-clearing', clearing.x, .04, clearing.z, .9, .12, .9, '#c5be90', this.terrain, false);
       const ground = MeshBuilder.CreateGround('picking-ground', { width: 100, height: 100 }, this.scene); ground.visibility = 0; ground.isPickable = true; ground.parent = this.terrain;
+      this.boat = undefined;
+      if (state.river) {
+        // The landing and boat explain the timed arrivals; they add no building rules.
+        this.box('landing', 8, .15, -1.6, 1.2, .18, 1.5, '#9b7955', this.terrain);
+        this.boat = new TransformNode('arrival-boat', this.scene); this.boat.parent = this.terrain;
+        this.box('hull', 0, .12, 0, 2.8, .38, .85, '#69513b', this.boat);
+        this.box('deck', 0, .34, 0, 2.4, .08, .66, '#b1986c', this.boat);
+        for (const x of [-.8, -.25, .3, .85]) {
+          this.box('passenger', x, .63, 0, .2, .5, .25, '#697367', this.boat);
+          this.cone('passenger-head', x, .96, 0, .22, .22, '#d6b896', this.boat, .18);
+        }
+        this.box('mast', 0, 1.2, -.2, .07, 1.8, .07, '#765e44', this.boat);
+        this.box('sail', .4, 1.45, -.2, .75, 1, .04, '#e1d9be', this.boat);
+      }
       this.signature = '';
+    }
+    if (this.boat && state.river) {
+      const arriving = !state.river.closed && state.river.boats < 2 && state.river.untilEvent <= 45;
+      const landed = state.notice?.includes('boat is here');
+      this.boat.setEnabled(arriving || !!landed);
+      this.boat.position.set(landed ? 8 : 8 + state.river.untilEvent / 8, 0, -3);
     }
     const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {
@@ -144,7 +170,8 @@ export class VillageView {
       v.person = p; v.cargo.setEnabled(p.carried > 0);
     }
     this.labels.replaceChildren();
-    for (const item of [{ label: 'Ripe harvest', x: -7, z: -8 }, { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
+    const firstField = state.buildings.find(b => b.kind === 'VegetableField');
+    for (const item of [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }

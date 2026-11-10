@@ -29,6 +29,24 @@ public sealed partial class World
         return w;
     }
 
+    // Browser comparison: begin with working access, so the first decision is
+    // how to grow the settlement rather than repeating the crossing tutorial.
+    public static World NewBrowserRiverClosing()
+    {
+        var w = NewRiverClosing();
+        var crossing = w.Place(RecoveryCrossing, 0, BuildingKind.Bridge)!;
+        crossing.Delivered = crossing.Required; crossing.Construction = 1;
+        var field = w.Cottages.Single(c => c.Kind == BuildingKind.VegetableField);
+        field.Harvest = 0; field.Growth = .15f;
+        w.Food.GrownVegetables = 0;
+        w._yardLogs = 12;
+        w.InitialLogs = w.Trees.Sum(t => t.Logs) + w.Cottages.Sum(c => c.Delivered) + w._yardLogs;
+        w.History.Clear();
+        w.History.Add("The crossing stands and the first field is growing. Eight portions remain. Prepare homes and food for four neighbors at minute 8 (+24 food), then four more at minute 16 (no food). The river closes at minute 24. A shortage slows work but can be recovered.");
+        w.Validate(); w.ValidateMapOccupancy();
+        return w;
+    }
+
     private void AdvanceRiverClosing(float dt)
     {
         if(Founding?.FirstHome?.RiverClosing is not {} river || river.Complete)return;
