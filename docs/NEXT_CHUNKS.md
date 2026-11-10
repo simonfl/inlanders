@@ -1,4 +1,11 @@
-# Current — meaningful intervention with automatic work
+# Current — play the timber trade comparison
+
+Delivered260, private build `4490B590F21D`: [The price of provisions](TIMBER_TRADE_260.md), `/?scenario=timber-trade`. One optional exchange competes with cottage timber; a near-ripe crop variant and no-offer control share the same outcome-based ending. Keep routine work automatic.
+
+Independent play completed and found consequential timber delay/recovery, but a long production catch-up tail. The focused revision makes the moving delivered/eaten goal explicit and fixes remaining-home wording. Hold expansion for owner play. Ask what felt worth choosing and whether watching the consequence was satisfying; do not use action count or simulation duration as enjoyment. No further trader, needs, catalogue or presentation batch selected.
+
+---
+# Accepted experiment brief (historical)
 
 Owner play is complete. Food pressure created concern, but the owner reports too few choices even while placing many buildings. The [research and five-role direction assessment](AUTOMATION_AND_AGENCY_259.md) retains automatic ordinary labor and the reduced interface; it rejects treating more clicks or a longer sustain timer as depth.
 

@@ -95,7 +95,7 @@ public sealed partial class VillageSessions
                 status = c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
             people = w.People.Select(p => new { p.Id, p.Name, x = p.Position.X, z = p.Position.Y, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
             events = w.History.TakeLast(6), view = s.View,
-            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
+            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding.FirstHome.Trade != null ? new[] { "home", "garden", "field", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -112,6 +112,7 @@ public sealed partial class VillageSessions
         var (cell, kind, rotation) = Site(o);
         CheckCell(w, cell.X, cell.Z);
         var problem = w.PlacementProblem(cell, rotation, kind);
+        if (problem?.Contains("[C]") == true) problem = "A tree or stump occupies this site. Choose clear ground for this prototype.";
         return new { valid = problem == null, problem, cells = World.Footprint(cell, rotation, kind), entrance = World.Door(cell, rotation), logs = Buildings.Get(kind).Cost,
             label = $"{Buildings.Get(kind).Name} · {Buildings.Get(kind).Cost} logs" };
     }
@@ -126,6 +127,7 @@ public sealed partial class VillageSessions
     };
     static void CheckAction(World w, string type)
     {
+        if (w.Founding!.FirstHome!.Trade != null && type == "next-season") throw new ArgumentException("This visit follows the displayed arrival time; there is no supply-season advance.");
         if (Scenario(w) == "crossing" && type is "home" or "field" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
         if (Scenario(w) != "crossing" && type == "repair") throw new ArgumentException("This settlement already has a working crossing.");
     }

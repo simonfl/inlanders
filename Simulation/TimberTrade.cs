@@ -84,16 +84,17 @@ public sealed partial class World
     {
         var t = Founding!.FirstHome!.Trade!;
         int delivered = t.Arrived ? DeliveredEdible - t.ArrivalDeliveries : 0;
-        int needed = t.Arrived ? Math.Max(16, RiverMealsEaten - t.ArrivalMeals) : 16;
+        int eaten = t.Arrived ? RiverMealsEaten - t.ArrivalMeals : 0;
+        int needed = Math.Max(16, eaten);
         string hint = t.Complete ? "Everyone has a home and a fresh meal. Local harvests covered meals since arrival. Stay and enjoy your village." :
-            !t.Arrived ? "Prepare two cottages and food for the arrivals. Work a grove when you need more timber." :
-            Housed < 8 ? "Finish two more cottages. Neighbors collect timber and build automatically; work a grove if plans need logs." :
-            Founding.FirstHome.Served.Count < 8 ? "Each neighbor needs a local meal since arrival. Imported provisions do not count; Village lists who is still waiting." :
+            !t.Arrived ? "Prepare eight beds and food for the arrivals. Work a grove when you need more timber." :
+            Housed < 8 ? "Finish the remaining cottages. Neighbors collect timber and build automatically; work a grove if plans need logs." :
+            Founding.FirstHome.Served.Count < 8 ? "Local harvests must cover meals since arrival. Add food-growing space if stores keep falling. Each neighbor also needs a fresh meal; Village lists who is waiting." :
             $"Bring home local food: {delivered}/{needed} portions since arrival, and keep eight in reserve. The target grows with meals eaten.";
         if (!t.Complete && People.Any(p => !p.Fed)) hint = "Some neighbors are hungry. Keep local farming going; shortages slow work but are recoverable. " + (t.Decision == "open" ? "The trader can supply provisions while the crop grows." : "");
         return new($"{(t.Complete || Beds >= 8 ? "✓" : "○")} Homes · {Beds}/8 beds" + (t.Arrived ? $" · {Housed}/8 housed" : " for the arrivals"),
-            t.Arrived ? $"{(t.Complete || delivered >= needed ? "✓" : "○")} Local harvest · {delivered}/{needed} since arrival" : "○ Local harvest · assessed after arrival",
-            t.Arrived ? $"{(t.Complete || Founding.FirstHome.Served.Count == 8 && ReachableEdibleStored >= 8 ? "✓" : "○")} Fresh meals · {Founding.FirstHome.Served.Count}/8 · reserve {ReachableEdibleStored}/8" : $"○ Food reserve · {ReachableEdibleStored}/8 portions",
+            t.Arrived ? $"{(t.Complete || delivered >= needed ? "✓" : "○")} Local food · {delivered} delivered / {eaten} eaten" + (eaten < 16 ? " · minimum 16 delivered" : "") : "○ Local food · assessed after arrival",
+            t.Arrived ? $"{(t.Complete || Founding.FirstHome.Served.Count == 8 && ReachableEdibleStored >= 8 ? "✓" : "○")} Fresh meals · {Founding.FirstHome.Served.Count}/8 · reserve {ReachableEdibleStored}/8" : $"{(ReachableEdibleStored >= 8 ? "✓" : "○")} Food reserve · {ReachableEdibleStored}/8 portions",
             hint, t.Complete ? "done" : Housed < 8 ? "home" : "food", null, t.Complete ? 3 : 0);
     }
 }

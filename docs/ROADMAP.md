@@ -1,3 +1,10 @@
+# Current — consequential trade comparison delivered
+
+Outcome260 delivers [The price of provisions](TIMBER_TRADE_260.md) through the private browser link. Keep automatic labor and a compact action set. A one-time food purchase spends the timber needed for arriving neighbors’ cottages; paired crop starts expose different timing costs. This experiment ends on housing, fresh meals, reserve and actual local supply, without an extra stability timer. The old longer scenario remains a separate baseline.
+
+Decision: retain provisionally for owner comparison; hold expansion. Independent play confirms consequences and recoverability, but also substantial waiting during production catch-up. Final wording makes that accounting explicit. The experiment tests one opening choice, not proof of a sustained management loop. Do not expand trade, buildings or needs until owner play resolves whether the sacrifice and visible aftermath are enjoyable.
+
+---
 # Current — agency after owner play
 
 November10: the owner completed the longer browser village. Low food created useful anxiety, but the level lacked choices; automation versus boredom is now the design question. [Research, independent review and proposed comparison](AUTOMATION_AND_AGENCY_259.md).

@@ -1,3 +1,10 @@
+# Outcome260 — timber for provisions
+
+Delivered `4490B590F21D`: one optional twelve-log/sixteen-food trade, four incoming neighbors, paired crop readiness and a no-offer control; automatic work remains. Outcome-based completion replaces the extra stability clock for this experiment. Independent public-command play on `6867d7d`/`64BD230309FC` completed after housing recovery and two food expansions, identifying waiting and moving-target clarity concerns. The focused wording/phone-framing revision, route/conservation/save checks, final API interruption/restart checks and prior scenario regressions pass. [Evidence, limitations and provisional decision](TIMBER_TRADE_260.md).
+
+Count advances once to260. Research, review, recording summary tooling and follow-up wording fixes do not add outcomes. Hold expansion for owner play.
+
+---
 # Outcome259 — longer browser river settlement
 
 November10 owner follow-up: completed play produced useful food anxiety but too few choices. [Automation/agency research and five-role assessment](AUTOMATION_AND_AGENCY_259.md) revise the active recommendation toward one competing opportunity, while retaining routine automation. This is research/planning only; no new playable outcome, deployment or count increment. The historical handoff below is superseded by this feedback.
