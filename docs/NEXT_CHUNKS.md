@@ -1,4 +1,15 @@
-# Ready for owner play — before the river closes
+# Current — meaningful intervention with automatic work
+
+Owner play is complete. Food pressure created concern, but the owner reports too few choices even while placing many buildings. The [research and five-role direction assessment](AUTOMATION_AND_AGENCY_259.md) retains automatic ordinary labor and the reduced interface; it rejects treating more clicks or a longer sustain timer as depth.
+
+Accepted November10; active bounded experiment (one focused session). Desired moment: choosing whether food security is worth postponing homes, then watching that commitment take effect. Competing explanation: the level mainly needs a shorter ending and a trade is another obvious click. Minimum presentation: visible boat, cost and foregone cottages, crop readiness, real departure/arrival timers and three clear completion rows. Compare slow/near-ripe starts and a no-offer control with the same ending.
+
+One active experience hypothesis: a limited opportunity competing with a valuable village commitment creates a reason to revise the plan. Test one optional timber-for-food boat against keeping timber for homes and relying on local crops. Use existing controls first; add a task-bounded worksite priority only if needed to express that choice. Quantities/timing remain TBD. Two crop-readiness starts must support different defensible choices; an always-correct trade or repetitive priority maintenance fails the experiment.
+
+Remove unnecessary solved waiting with an honest completion condition shared by both comparison variants. Do not credit an imported food stockpile as proven local sustainability. No catalogue migration, needs expansion, per-person jobs or presentation batch. Implementation now authorized. Stop after tested delivery for owner comparison; no subsequent feature batch. Count remains259 until delivery. See the assessment for alternatives, evidence limits, acceptance and bounded tooling.
+
+---
+# Previous comparison — before the river closes
 
 Delivered259, final private build `E023B6D3E615`. [Evidence and review](BROWSER_RIVER_259.md). The longer comparison is ready at `/?scenario=river-closing`; hold further content pending owner play. Independent play found a legitimate fast-preparation route and a risk of passive later play. Keep early advancement, improve sustain guidance, and test that experience instead of imposing waiting. Session isolation also removed measured cross-village input blocking.
 

@@ -7,17 +7,18 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <section id="status" aria-label="Village resources"><span id="food">Food —</span><span id="logs">Timber —</span><span id="neighbors">4 neighbors</span><span id="clock">Paused</span></section>
   <section id="goals" aria-label="Your objectives"><div class="goal-heading"><strong id="goal-title">Help four neighbors feed themselves again</strong><span id="connection">Connecting…</span><button id="goal-toggle" hidden aria-expanded="false" aria-controls="goal-details">Details</button></div><div id="goal-details"><div id="checklist"></div><p id="hint"></p></div></section>
   <div id="river-status" hidden><span id="timetable"></span><button id="early-event" hidden></button></div>
+  <section id="trade-offer" hidden aria-label="Trader offer"><div><strong id="trade-title"></strong><span id="trade-consequence"></span></div><div class="trade-actions"><button id="trade-buy">Trade</button><button id="trade-decline">Keep timber</button></div></section>
   <main id="world"><canvas id="scene" aria-label="Village map. Drag to move, pinch or scroll to zoom, tap to inspect or choose a site."></canvas><div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="map-home" aria-label="Show whole village">⌂</button></div><div id="selection" hidden></div><div id="loading">Preparing your village…</div></main>
   <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="home" hidden>Build cottage <small>6 logs · 2 beds</small></button><button id="food-choice" hidden>Grow food <small>gardens & fields</small></button><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="food-options" hidden><button id="small-garden">Garden <small>4 logs · 8 per harvest</small></button><button id="large-field">Field <small>10 logs · 20 per harvest</small></button><button id="food-back">Back</button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
   <dialog id="welcome"><p class="eyebrow">A small browser playtest</p><h1 id="welcome-title">The broken crossing</h1><p id="welcome-story">The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p id="welcome-task"><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
-  <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><p id="build" class="muted"></p></dialog>
+  <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a><p id="build" class="muted"></p></dialog>
   <section id="replay-bar" hidden><strong>Recorded session · read only</strong><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Replay timeline"><div><button id="previous-mark">Previous bookmark</button><span id="frame-description"></span><button id="next-mark">Next bookmark</button><button id="leave-replay">Back to village</button></div></section>`;
 
 const el = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const params = new URLSearchParams(location.search);
 const replayId = params.get('replay'), watchId = params.get('watch');
-const requestedScenario = params.get('scenario') === 'river-closing' ? 'river-closing' : 'crossing';
+const requestedScenario = ['river-closing', 'timber-trade', 'timber-trade-ripe', 'timber-control'].includes(params.get('scenario') ?? '') ? params.get('scenario')! : 'crossing';
 const sessionKey = `inlanders-browser-${requestedScenario}`;
 const readonly = !!(replayId || watchId);
 let state: State | undefined, sessionId = '', mode = '', rotation = 0, firstCorner: Cell | null = null, chosen: Cell | null = null;
@@ -35,10 +36,10 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
 }
 function tell(message: string) { el('order-help').textContent = message; messageUntil = performance.now() + 5000; }
 function renderScenario(s: State) {
-  const river = s.river;
-  el('home').hidden = el('food-choice').hidden = !river;
-  el('repair').hidden = el('garden').hidden = !!river;
-  el('river-status').hidden = !river;
+  const river = s.river, trade = s.trade, settlement = !!(river || trade);
+  el('home').hidden = el('food-choice').hidden = !settlement;
+  el('repair').hidden = el('garden').hidden = settlement;
+  el('river-status').hidden = !settlement;
   if (river) {
     el('timetable').textContent = river.timetable;
     el('early-event').hidden = river.closed || !!river.earlyProblem || readonly;
@@ -46,6 +47,21 @@ function renderScenario(s: State) {
     el('welcome-title').textContent = s.title;
     el('welcome-story').textContent = 'The crossing stands and your first field is growing. Two boats will bring eight more neighbors before the river closes.';
     el('welcome-task').textContent = 'Eight portions remain. Prepare homes and food for the first four arrivals, then support all twelve. Shortages slow work, but you can recover. Major arrivals pause the village so you can plan.';
+  }
+  el('trade-offer').hidden = !trade || trade.decision !== 'open';
+  el('ripe-start').hidden = !trade;
+  if (trade) {
+    el('early-event').hidden = true;
+    el('timetable').textContent = s.complete ? 'Village established · stay as long as you like' : `${trade.arrived ? 'All eight neighbors are here' : `Four neighbors in ${Math.floor(trade.arrivalIn / 60)}:${String(trade.arrivalIn % 60).padStart(2, '0')}`} · ${trade.crop}`;
+    el('trade-title').textContent = `Trader: ${trade.cost} logs → ${trade.food} food · leaves in ${trade.departureIn}s`;
+    el('trade-consequence').textContent = `That timber builds two cottages. ${trade.availableLogs} uncommitted logs available.`;
+    el('trade-buy').textContent = `Trade ${trade.cost} logs`;
+    el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;
+    el('trade-buy').title = trade.problem ?? 'Buy provisions; harvest new timber for the cottages.';
+    el<HTMLButtonElement>('trade-decline').disabled = readonly || busy;
+    el('welcome-title').textContent = s.title;
+    el('welcome-story').textContent = 'Four neighbors are coming to join your village in two minutes. They need two cottages and food.';
+    el('welcome-task').textContent = `You have four portions and twelve logs. ${trade.offerEnabled ? 'A trader offers sixteen portions for those twelve logs—the price of two cottages. Keep the timber or trade for breathing room. ' : ''}${trade.nearHarvest ? 'Your first crop is almost ripe.' : 'Your first crop has only just started growing.'} Villagers handle ordinary work; shortages are recoverable.`;
   }
   const link = el<HTMLAnchorElement>('other-scenario');
   link.href = river ? '/' : '/?scenario=river-closing';
@@ -62,7 +78,7 @@ function renderGoalDetails() {
 el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDetails(); void recordView(); };
 function render(s: State) {
   if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
-  if (state?.id !== s.id && s.river) village.setZoom(15);
+  if (state?.id !== s.id && (s.river || s.trade)) village.setZoom(s.trade ? 9 : 15);
   if (state?.id !== s.id || replayId) goalsExpanded = s.view.goalsExpanded ?? false;
   state = s; sessionId = s.id;
   el('loading').hidden = true;
@@ -85,7 +101,7 @@ function render(s: State) {
   el('build').textContent = `Build ${s.build} · session ${s.id.slice(0, 8)}`;
   const people = s.people.map(p => { const row = document.createElement('p'); const name = document.createElement('strong'); name.textContent = `${p.name}${p.fed ? '' : ' · hungry'}`; row.append(name, document.createElement('br'), document.createTextNode(p.status), document.createElement('br'), document.createTextNode(p.freshMeal ? '✓ Has eaten fresh food' : '○ Still waiting for a fresh meal')); return row; }); el('people').replaceChildren(...people);
   village.update(s);
-  if (!mode && !selection && performance.now() > messageUntil) tell(s.complete ? 'You did it. You can keep watching your neighbors.' : s.river ? 'Neighbors share building, farming and timber work automatically.' : 'Choose a plan. Neighbors take care of the work.');
+  if (!mode && !selection && performance.now() > messageUntil) tell(s.complete ? 'You did it. You can keep watching your neighbors.' : s.river || s.trade ? 'Neighbors share building, farming and timber work automatically.' : 'Choose a plan. Neighbors take care of the work.');
   if (selection) renderSelection();
   if (soundOn && !s.paused && (s.resources.food > lastFood && lastFood >= 0 || s.complete && !lastComplete)) chime();
   lastFood = s.resources.food; lastComplete = s.complete;
@@ -165,6 +181,8 @@ el('home').onclick = () => startMode('home');
 el('food-choice').onclick = () => { mode = 'food'; el('choices').hidden = true; el('food-options').hidden = false; tell('Gardens fit small spaces. Fields cost more timber and produce larger harvests.'); void recordView(); };
 el('small-garden').onclick = () => startMode('garden'); el('large-field').onclick = () => startMode('field');
 el('food-back').onclick = () => { clearMode(); void recordView(); };
+el('trade-buy').onclick = () => { void command({ type: 'trade-buy' }); };
+el('trade-decline').onclick = () => { void command({ type: 'trade-decline' }); };
 el('early-event').onclick = () => { void command({ type: 'next-season' }); };
 el('repair').onclick = () => startMode('repair'); el('garden').onclick = () => startMode('garden'); el('grove').onclick = () => startMode('grove');
 el('rotate').onclick = () => { rotation = (rotation + 1) % 4; el('rotate').textContent = `Rotate ↻ ${rotation * 90}°`; void previewOrder(); };
@@ -178,7 +196,7 @@ el('map-home').onclick = () => village.home(); el('zoom-in').onclick = () => { v
 el('tools-open').onclick = () => { el<HTMLDialogElement>('tools').showModal(); void recordView(); };
 el('tools-close').onclick = () => { el<HTMLDialogElement>('tools').close(); void recordView(); };
 el('replay').onclick = async () => { await command({ type: 'pause' }); location.href = `/?scenario=${state?.scenario ?? requestedScenario}&replay=${sessionId}`; };
-el('restart').onclick = async () => { await command({ type: 'pause' }); localStorage.removeItem(sessionKey); location.href = requestedScenario === 'river-closing' ? '/?scenario=river-closing' : '/'; };
+el('restart').onclick = async () => { await command({ type: 'pause' }); localStorage.removeItem(sessionKey); location.href = `/?scenario=${requestedScenario}`; };
 el('begin').onclick = async () => { el<HTMLDialogElement>('welcome').close(); await command({ type: 'resume' }); };
 function chime() {
   if (!audio || performance.now() - lastSound < 2500) return;
@@ -202,7 +220,7 @@ function showFrame(index: number) {
 el('timeline').oninput = () => showFrame(Number(el<HTMLInputElement>('timeline').value));
 el('previous-mark').onclick = () => { const index = frames.findLastIndex((f, i) => i < frameIndex && f.type === 'bookmark'); showFrame(index < 0 ? 0 : index); };
 el('next-mark').onclick = () => { const index = frames.findIndex((f, i) => i > frameIndex && f.type === 'bookmark'); showFrame(index < 0 ? frames.length - 1 : index); };
-el('leave-replay').onclick = () => { location.href = state?.river ? '/?scenario=river-closing' : '/'; };
+el('leave-replay').onclick = () => { location.href = `/?scenario=${state?.scenario ?? requestedScenario}`; };
 async function boot() {
   try {
     if (replayId) {

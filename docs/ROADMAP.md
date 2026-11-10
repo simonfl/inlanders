@@ -1,4 +1,13 @@
-# Current — longer browser comparison ready for owner play
+# Current — agency after owner play
+
+November10: the owner completed the longer browser village. Low food created useful anxiety, but the level lacked choices; automation versus boredom is now the design question. [Research, independent review and proposed comparison](AUTOMATION_AND_AGENCY_259.md).
+
+Keep automatic routine work, clear objectives, recoverable pressure, the reduced phone interface and the current shared simulation/recording stack. Revise the largely additive economy and solved sustain ending before expanding the catalogue. More manual assignments, timers or needs are not selected as substitutes for meaningful alternatives.
+
+Next recommended comparison: one optional timber-for-food boat opportunity competing with real housing and crop commitments. Prove the opportunity cost with current controls first; a bounded worksite priority is conditional, not a new scheduler project. Compare different crop readiness and use the same honest shortened ending across variants. Reject dominant choices and babysitting. A risk-bearing arrival decision or spatial-planning redesign remain alternatives if this test fails. No new playable outcome or live-game change in this research pass; count259.
+
+---
+# Previous — longer browser comparison ready for owner play
 
 Outcome259 delivers **Before the river closes** through the private phone link. An intact crossing, growing field and two arrivals give the small action set a larger purpose: establish twelve neighbors and sustain them after closure. Keep the short recovery as a separate comparison. [Design, evidence and critical verdict](BROWSER_RIVER_259.md).
 

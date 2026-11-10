@@ -6,12 +6,13 @@ namespace Inlanders.Simulation;
 
 public sealed class FirstHomeProgress
 {
+    public TimberTradeProgress? Trade { get; set; }
     public RiverClosingProgress? RiverClosing { get; set; }
     public bool LeanLanding { get; set; }
     public bool Recovery { get; set; }
     public int? NewHomeId { get; set; }
     public HashSet<int> Served { get; set; } = new();
-    public bool Complete => RiverClosing != null ? RiverClosing.Complete : Served.Contains(2) && Served.Contains(3) && (!Recovery || Served.Contains(0) && Served.Contains(1));
+    public bool Complete => Trade != null ? Trade.Complete : RiverClosing != null ? RiverClosing.Complete : Served.Contains(2) && Served.Contains(3) && (!Recovery || Served.Contains(0) && Served.Contains(1));
 }
 
 public sealed record FirstHomeObjectives(string Home, string Food, string Meals, string Hint, string Action, int? Site, int Done);
@@ -21,6 +22,7 @@ public sealed partial class World
     public FirstHomeObjectives ReadFirstHomeObjectives()
     {
         var story = Founding!.FirstHome!;
+        if (story.Trade!=null) return ReadTimberTradeObjectives();
         if (story.RiverClosing!=null) return ReadRiverClosingObjectives();
         if (story.Recovery) return ReadCrossingRecoveryObjectives();
         var homes = Cottages.Where(c => c.Kind == BuildingKind.Cottage && !c.DemolitionRequested &&
@@ -135,7 +137,8 @@ public sealed partial class World
     {
         if (Founding?.FirstHome is not {} story) return;
         if(story.RiverClosing is {} r && (!story.Recovery || r.TrialDeliveries<0 || r.TrialDeliveries>DeliveredEdible || r.TrialMeals<0 || r.TrialMeals>RiverMealsEaten || r.Boats is <0 or >2 || !float.IsFinite(r.StableSeconds) || r.StableSeconds is <0 or >240 || r.Closed && (r.Boats!=2 || Food.Time<1440 && !r.AdvancedSchedule) || r.Complete && (!r.Closed || r.StableSeconds<240))) throw new InvalidOperationException("Invalid river closing progress");
-        if (Population != (story.RiverClosing is {} river ? 4+river.Boats*4 : 4) || Creative || Challenge != null || !Founding.TransformationHamlet ||
+        if (story.Trade is {} trade && (story.RiverClosing != null || !story.Recovery || trade.ExportedLogs != (trade.Decision == "traded" ? TradeLogCost : 0) || trade.ArrivalDeliveries < 0 || trade.ArrivalDeliveries > DeliveredEdible || trade.ArrivalMeals < 0 || trade.ArrivalMeals > RiverMealsEaten || trade.Arrived && Food.Time < TradeArrival || trade.Complete && !trade.Arrived || trade.Decision is not ("open" or "traded" or "declined" or "departed" or "unavailable"))) throw new InvalidOperationException("Invalid timber trade progress");
+        if (Population != (story.Trade is {} tr ? (tr.Arrived ? 8 : 4) : story.RiverClosing is {} river ? 4+river.Boats*4 : 4) || Creative || Challenge != null || !Founding.TransformationHamlet ||
             story.Recovery && story.LeanLanding || story.Served == null || story.Served.Any(id => story.Recovery ? id <0 || id>=Population : id is not (2 or 3)) ||
             story.NewHomeId is int id && (id < 1 || id >= _nextSite))
             throw new InvalidOperationException("Invalid first-home commission");

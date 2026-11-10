@@ -8,8 +8,8 @@ public sealed record RiverView(int Boats, bool Closed, int TargetBeds, int Reser
 
 public sealed partial class VillageSessions
 {
-    static string Scenario(World w) => w.Founding!.FirstHome!.RiverClosing == null ? "crossing" : "river-closing";
-    static string Title(World w) => Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
+    static string Scenario(World w) => w.Founding!.FirstHome!.Trade is {} t ? (!t.OfferEnabled ? "timber-control" : t.NearHarvest ? "timber-trade-ripe" : "timber-trade") : w.Founding!.FirstHome!.RiverClosing == null ? "crossing" : "river-closing";
+    static string Title(World w) => w.Founding!.FirstHome!.Trade is {} t ? "The price of provisions" + (t.NearHarvest ? " · near harvest" : "") : Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
     static RiverView? River(World w)
     {
         if (w.Founding!.FirstHome!.RiverClosing is not {} r) return null;
@@ -24,7 +24,13 @@ public sealed partial class VillageSessions
             w.AdvanceRiverScheduleProblem(), (int)MathF.Floor(r.StableSeconds), w.RiverTrialSupplyText(),
             r.Complete ? "complete" : r.Closed ? "sustain" : r.Boats == 2 ? "reserve" : r.Boats == 1 ? "last-arrival" : "first-arrival");
     }
-    static string GoalTitle(World w) => River(w) switch
+    static object? Trade(World w)
+    {
+        if (w.Founding!.FirstHome!.Trade is not {} t) return null;
+        var field = w.Cottages.First(c => c.Kind == BuildingKind.VegetableField);
+        return new { t.Decision, t.DecidedAt, t.Arrived, t.NearHarvest, t.OfferEnabled, cost = World.TradeLogCost, food = World.TradeFood, availableLogs = w.AvailableLogsAt(null), problem = w.TimberTradeProblem(), departureIn = Math.Max(0, (int)Math.Ceiling(World.TradeDeparture-w.Food.Time)), arrivalIn = Math.Max(0, (int)Math.Ceiling(World.TradeArrival-w.Food.Time)), crop = field.Harvest > 0 ? "First crop ripe" : field.Planted ? $"First crop {(int)(field.Growth*100)}% grown" : "Field being replanted" };
+    }
+    static string GoalTitle(World w) => w.Founding!.FirstHome!.Trade is {} t ? (t.Complete ? "✓ Eight neighbors are settled" : "Make a home and a living for eight") : River(w) switch
     {
         null => w.Founding!.FirstHome!.Complete ? "✓ Village recovered" : "Help four neighbors feed themselves again",
         { Phase: "complete" } => "✓ Twelve neighbors can stand on their own",

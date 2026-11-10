@@ -1,5 +1,7 @@
 # Outcome259 — longer browser river settlement
 
+November10 owner follow-up: completed play produced useful food anxiety but too few choices. [Automation/agency research and five-role assessment](AUTOMATION_AND_AGENCY_259.md) revise the active recommendation toward one competing opportunity, while retaining routine automation. This is research/planning only; no new playable outcome, deployment or count increment. The historical handoff below is superseded by this feedback.
+
 Delivered build `E023B6D3E615`: twelve-person preparation/sustain scenario, small grouped action set, visible timed arrivals with pauses, early-event readiness, explicit finish conditions and recorded view replay. Independent runtime review on fixed `f02769c`/`25F3938F2878` completed a lean strategy and identified passive later play as the remaining design risk. Follow-up hints name waiting residents and compare food supply with demand. Field/garden alternatives and recovery after neglect pass; final browser and exact restart checks pass. Parent inspected normal phone layout and replay phases; the specialist visual review was blocked and supplied no verdict. Session isolation reduced unrelated heartbeat delay from~2s to10–12ms in the recorded probe. [Evidence and limits](BROWSER_RIVER_259.md).
 
 Count advances once to259. Review-driven refinements, concurrency tooling, tests and documentation do not add outcomes. Hold further content for owner play of the longer comparison.

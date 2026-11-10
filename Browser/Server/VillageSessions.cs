@@ -67,7 +67,7 @@ public sealed partial class VillageSessions
         lock (gate)
         {
             if (sessions.Count >= 32) throw new ArgumentException("There are already 32 open villages. Restart the local service to release inactive villages.");
-            var world = scenario switch { "crossing" => World.NewCrossingRecovery(), "river-closing" => World.NewBrowserRiverClosing(), _ => throw new ArgumentException("Choose crossing or river-closing.") };
+            var world = scenario switch { "crossing" => World.NewCrossingRecovery(), "river-closing" => World.NewBrowserRiverClosing(), "timber-trade" => World.NewTimberTrade(), "timber-trade-ripe" => World.NewTimberTrade(true), "timber-control" => World.NewTimberTrade(false, false), _ => throw new ArgumentException("Choose crossing, river-closing, timber-trade, timber-trade-ripe or timber-control.") };
             var s = new Session(Guid.NewGuid().ToString("N"), world);
             sessions[s.Id] = s;
             Directory.CreateDirectory(Folder(s.Id));
@@ -83,7 +83,7 @@ public sealed partial class VillageSessions
         return new
         {
             id = s.Id, build = Build, sequence = s.Sequence, step = s.Step, seconds = Math.Round(s.Step / 10d, 1), s.Paused, s.Speed,
-            scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = w.Founding!.FirstHome!.Complete, river = River(w), notice = s.Notice,
+            scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = w.Founding!.FirstHome!.Complete, river = River(w), trade = Trade(w), notice = s.Notice,
             resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed, beds = w.Beds },
             objectives = ObjectiveLines(w), hint = Hint(w), nextAction = goals.Action,
             map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile,
@@ -95,7 +95,7 @@ public sealed partial class VillageSessions
                 status = c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
             people = w.People.Select(p => new { p.Id, p.Name, x = p.Position.X, z = p.Position.Y, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
             events = w.History.TakeLast(6), view = s.View,
-            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" })
+            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -127,7 +127,7 @@ public sealed partial class VillageSessions
     static void CheckAction(World w, string type)
     {
         if (Scenario(w) == "crossing" && type is "home" or "field" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
-        if (Scenario(w) == "river-closing" && type == "repair") throw new ArgumentException("This settlement already has a working crossing.");
+        if (Scenario(w) != "crossing" && type == "repair") throw new ArgumentException("This settlement already has a working crossing.");
     }
     public object Command(string id, Order o)
     {
@@ -154,6 +154,10 @@ public sealed partial class VillageSessions
                     var planned = w.Cottages.FirstOrDefault(c => c.Id == o.SiteId && !c.Complete);
                     if (planned == null || !w.Cancel(o.SiteId)) problem = "Only an unfinished plan can be cancelled.";
                     else message = "Plan cancelled.";
+                    break;
+                case "trade-buy": case "trade-decline":
+                    problem = w.DecideTimberTrade(o.Type == "trade-buy");
+                    if (problem == null) { message = w.History.Last(); s.Notice = ""; }
                     break;
                 case "next-season":
                     problem = w.AdvanceRiverScheduleProblem();
@@ -207,6 +211,8 @@ public sealed partial class VillageSessions
     static bool Step(Session s)
     {
         var r = s.World.Founding!.FirstHome!.RiverClosing;
+        var t = s.World.Founding.FirstHome.Trade;
+        var tradeBefore = (t?.Decision, t?.Arrived, t?.Complete);
         var before = (r?.Boats, r?.Closed, r?.Complete);
         s.World.Tick(.1f); s.Step++;
         bool milestone = before != (r?.Boats, r?.Closed, r?.Complete);
@@ -215,6 +221,8 @@ public sealed partial class VillageSessions
             s.Paused = true;
             s.Notice = r!.Complete ? "Your village made it. All twelve neighbors can stand on their own." : r.Closed ? "The river has closed. No more supplies are coming. Your final trial begins now." : r.Boats == 1 ? "The first boat is here: four neighbors and 24 food. Eight people now call this village home." : "The last boat is here: four neighbors, but no food. Twelve people now depend on your harvests.";
         }
+        if (tradeBefore != (t?.Decision, t?.Arrived, t?.Complete))
+        { milestone = true; s.Paused = true; s.Notice = s.World.History.Last(); }
         return milestone;
     }
     public void Tick()

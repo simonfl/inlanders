@@ -91,16 +91,17 @@ export class VillageView {
       for (const clearing of state.map.clearings) this.box('woodland-clearing', clearing.x, .04, clearing.z, .9, .12, .9, '#c5be90', this.terrain, false);
       const ground = MeshBuilder.CreateGround('picking-ground', { width: 100, height: 100 }, this.scene); ground.visibility = 0; ground.isPickable = true; ground.parent = this.terrain;
       this.boat = undefined;
-      if (state.river) {
+      if (state.river || state.trade) {
         // The landing and boat explain the timed arrivals; they add no building rules.
         this.box('landing', 8, .15, -1.6, 1.2, .18, 1.5, '#9b7955', this.terrain);
         this.boat = new TransformNode('arrival-boat', this.scene); this.boat.parent = this.terrain;
         this.box('hull', 0, .12, 0, 2.8, .38, .85, '#69513b', this.boat);
         this.box('deck', 0, .34, 0, 2.4, .08, .66, '#b1986c', this.boat);
-        for (const x of [-.8, -.25, .3, .85]) {
+        for (const x of (state.trade ? [-.8] : [-.8, -.25, .3, .85])) {
           this.box('passenger', x, .63, 0, .2, .5, .25, '#697367', this.boat);
           this.cone('passenger-head', x, .96, 0, .22, .22, '#d6b896', this.boat, .18);
         }
+        if (state.trade) for (const x of [-.1, .5]) this.box('provisions', x, .55, 0, .45, .35, .5, '#c6aa75', this.boat);
         this.box('mast', 0, 1.2, -.2, .07, 1.8, .07, '#765e44', this.boat);
         this.box('sail', .4, 1.45, -.2, .75, 1, .04, '#e1d9be', this.boat);
       }
@@ -111,6 +112,12 @@ export class VillageView {
       const landed = state.notice?.includes('boat is here');
       this.boat.setEnabled(arriving || !!landed);
       this.boat.position.set(landed ? 8 : 8 + state.river.untilEvent / 8, 0, -3);
+    }
+    if (this.boat && state.trade) {
+      const t = state.trade;
+      const departure = t.decision === 'open' ? 0 : Math.max(0, state.seconds-t.decidedAt-4) / 2;
+      this.boat.setEnabled(t.offerEnabled && (t.decision === "open" || state.seconds-t.decidedAt < 20));
+      this.boat.position.set(8 + departure, 0, -3);
     }
     const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {

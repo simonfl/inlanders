@@ -5,6 +5,7 @@ export type View = { active: boolean; panel: string; selection: string | null; c
 export type State = {
   id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; goalTitle: string; scenario: string; notice: string; complete: boolean;
   river: { boats: number; closed: boolean; targetBeds: number; reserveTarget: number; delivered: number; needed: number; sampleSeconds: number; untilEvent: number; timetable: string; earlyLabel: string; earlyProblem: string | null; stableSeconds: number; supply: string; phase: string } | null;
+  trade: { decision: string; decidedAt: number; arrived: boolean; nearHarvest: boolean; offerEnabled: boolean; cost: number; food: number; availableLogs: number; problem: string | null; departureIn: number; arrivalIn: number; crop: string } | null;
   resources: { food: number; logs: number; population: number; fed: number; housed: number; beds: number };
   objectives: string[]; hint: string; nextAction: string;
   map: { minX: number; minZ: number; width: number; depth: number; water: Cell[]; excluded: Cell[]; stockpile: Cell; stone: (Cell & { access: Cell })[]; clearings: Cell[] };
