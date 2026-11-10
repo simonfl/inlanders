@@ -1,5 +1,7 @@
 # Current — consequential trade comparison delivered
 
+Owner follow-up: completed the comparison and marked a concrete visual mismatch. Unbuilt browser cottages showed the full home. Build `D7576B352202` corrects this with actual construction stages and delivered-timber visuals. [Evidence](COTTAGE_STAGES_260.md). Retain the reduced interface and distinguish a correctable representation bug from the unresolved gameplay-enjoyment question. No expansion selected.
+
 Outcome260 delivers [The price of provisions](TIMBER_TRADE_260.md) through the private browser link. Keep automatic labor and a compact action set. A one-time food purchase spends the timber needed for arriving neighbors’ cottages; paired crop starts expose different timing costs. This experiment ends on housing, fresh meals, reserve and actual local supply, without an extra stability timer. The old longer scenario remains a separate baseline.
 
 Decision: retain provisionally for owner comparison; hold expansion. Independent play confirms consequences and recoverability, but also substantial waiting during production catch-up. Final wording makes that accounting explicit. The experiment tests one opening choice, not proof of a sustained management loop. Do not expand trade, buildings or needs until owner play resolves whether the sacrifice and visible aftermath are enjoyable.

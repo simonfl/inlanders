@@ -1,6 +1,8 @@
-# Current — play the timber trade comparison
+# Current — cottage clarity fixed after owner play
 
-Delivered260, private build `4490B590F21D`: [The price of provisions](TIMBER_TRADE_260.md), `/?scenario=timber-trade`. One optional exchange competes with cottage timber; a near-ripe crop variant and no-offer control share the same outcome-based ending. Keep routine work automatic.
+Owner completed session `a4bb04eaee0841df9a2da492edac3440` and marked unfinished cottages looking finished. The focused visual correction is deployed in `D7576B352202`: marked plots and delivered timber, foundation, framing, rafters and partial roof; full exterior only at completion. Phone-size replay and an independent visual specialist accept this fix, with intermediate-stage overlap noted. This is a correction within260. [Evidence](COTTAGE_STAGES_260.md). The owner has not yet assessed whether the trade itself was enjoyable; keep expansion on hold.
+
+Delivered260, original private build `4490B590F21D`: [The price of provisions](TIMBER_TRADE_260.md), `/?scenario=timber-trade`. One optional exchange competes with cottage timber; a near-ripe crop variant and no-offer control share the same outcome-based ending. Keep routine work automatic.
 
 Independent play completed and found consequential timber delay/recovery, but a long production catch-up tail. The focused revision makes the moving delivered/eaten goal explicit and fixes remaining-home wording. Hold expansion for owner play. Ask what felt worth choosing and whether watching the consequence was satisfying; do not use action count or simulation duration as enjoyment. No further trader, needs, catalogue or presentation batch selected.
 

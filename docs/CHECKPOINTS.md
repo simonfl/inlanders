@@ -1,5 +1,7 @@
 # Outcome260 — timber for provisions
 
+Owner-feedback correction within260: build `D7576B352202` replaces fully rendered unfinished cottages with marked ground, delivered timber, foundation, frame, rafters and partial roof. Bookmark133 at78.3s showed two zero-construction cottages with2/6 and0/6 logs. Ordinary-command stage recordings, four plan orientations, phone-size browser replay and an independent visual check verify the distinction. Client/service builds pass; simulation rules are unchanged. [Evidence](COTTAGE_STAGES_260.md). No additional outcome count.
+
 Delivered `4490B590F21D`: one optional twelve-log/sixteen-food trade, four incoming neighbors, paired crop readiness and a no-offer control; automatic work remains. Outcome-based completion replaces the extra stability clock for this experiment. Independent public-command play on `6867d7d`/`64BD230309FC` completed after housing recovery and two food expansions, identifying waiting and moving-target clarity concerns. The focused wording/phone-framing revision, route/conservation/save checks, final API interruption/restart checks and prior scenario regressions pass. [Evidence, limitations and provisional decision](TIMBER_TRADE_260.md).
 
 Count advances once to260. Research, review, recording summary tooling and follow-up wording fixes do not add outcomes. Hold expansion for owner play.

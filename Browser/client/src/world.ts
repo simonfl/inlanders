@@ -119,7 +119,7 @@ export class VillageView {
       this.boat.setEnabled(t.offerEnabled && (t.decision === "open" || state.seconds-t.decidedAt < 20));
       this.boat.position.set(8 + departure, 0, -3);
     }
-    const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
+    const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {
       this.signature = sig; this.fixtures.dispose(false, false); this.fixtures = new TransformNode('fixtures', this.scene);
       for (const t of state.trees) {
@@ -135,12 +135,41 @@ export class VillageView {
         const cx = b.footprint.reduce((n, c) => n + c.x, 0) / b.footprint.length, cz = b.footprint.reduce((n, c) => n + c.z, 0) / b.footprint.length;
         const root = new TransformNode(`building-${b.id}`, this.scene); root.parent = this.fixtures; root.position.set(cx, 0, cz); root.rotation.y = -b.rotation * Math.PI / 2;
         if (b.kind === 'Cottage') {
+          if (!b.complete) {
+            // A plan is a worksite, never an already inhabitable house. Geometry
+            // advances at the same quarter-build boundaries as the cache above.
+            for (const x of [-1.4, 1.4]) for (const z of [-.85, .85])
+              this.box('setting-out-stake', x, .3, z, .1, .6, .1, '#b39765', root);
+            for (let i = 0; i < b.delivered; i++)
+              this.box('delivered-timber', -.55, .22 + Math.floor(i / 3) * .18, -.35 + i % 3 * .22, 1.1, .16, .18, '#926542', root);
+            if (b.delivered >= b.required) {
+              this.box('unfinished-footing', 0, .12, 0, 3, .3, 2, '#8c8a75', root);
+              this.box('unfinished-floor', 0, .3, 0, 2.7, .1, 1.7, '#b29a72', root);
+            }
+            if (b.construction >= .25) {
+              for (const x of [-1.3, 1.3]) for (const z of [-.8, .8])
+                this.box('frame-post', x, .9, z, .15, 1.3, .15, '#99724c', root);
+              for (const z of [-.8, .8]) this.box('wall-plate', 0, 1.5, z, 2.75, .16, .16, '#99724c', root);
+              for (const x of [-1.3, 1.3]) this.box('cross-beam', x, 1.5, 0, .16, .16, 1.75, '#99724c', root);
+            }
+            if (b.construction >= .5) {
+              for (const x of [-1.3, 0, 1.3]) for (const side of [-1, 1]) {
+                const rafter = this.box('roof-rafter', x, 1.8, side * .52, .12, .13, 1.55, '#99724c', root);
+                rafter.rotation.x = side * .63;
+              }
+            }
+            if (b.construction >= .75) for (const side of [-1, 1]) {
+              const roof = this.box('partial-roof', -.8, 1.8, side * .52, 1.6, .13, 1.55, '#66534b', root);
+              roof.rotation.x = side * .63;
+            }
+          } else {
           this.box('stone-footing', 0, .12, 0, 3, .3, 2, '#8c8a75', root);
           this.box('plaster', 0, .83, 0, 2.85, 1.25, 1.9, '#e0d2ac', root);
           for (const side of [-1, 1]) { const roof = this.box('steep-roof', 0, 1.8, side * .52, 3.3, .13, 1.55, '#66534b', root); roof.rotation.x = side * .63; }
           this.box('door', -.45, .55, .97, .42, 1, .07, '#6b5142', root);
           this.box('window', .65, .88, .98, .43, .44, .08, '#e6b86f', root);
           this.box('chimney', 1, 2, -.3, .35, .85, .4, '#aaa08b', root);
+          }
         } else if (b.kind === 'Bridge') {
           this.box('bridge-deck', 0, .08, 0, .9, .18, 2.6, b.complete ? '#ac8458' : '#d8c7a1', root);
           for (const side of [-1, 1]) { this.box('handrail', side * .48, .65, 0, .08, .1, 2.5, '#80634b', root); for (const z of [-1, 0, 1]) this.box('post', side * .48, .35, z, .1, .7, .1, '#80634b', root); }
