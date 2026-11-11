@@ -59,7 +59,7 @@ public sealed partial class World
         }
         t.DecidedAt = Food.Time;
         t.Decision = buy ? "traded" : "declined";
-        History.Add(buy ? "Exchanged twelve logs for sixteen provisions. Timber for the two cottages must now come from a grove. These provisions do not count as local harvests." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
+        History.Add(buy ? $"Exchanged twelve logs for sixteen provisions. {AvailableLogsAt(null)} uncommitted logs remain for the village. These provisions do not count as local harvests." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
         _retry = 0;
         return null;
     }

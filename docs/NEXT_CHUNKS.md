@@ -1,6 +1,8 @@
-# Active correction — let the village come before the trade
+# Current — try the quieter opening; hold expansion
 
-Owner found the opening decision too early to understand. Give the same scenario a quiet opening with one suggestion: work a grove while the crop grows. Trader arrives at45 simulated seconds; automatic arrival pause protects thinking time, then the existing60-second offer window runs only during play. Remove the trade from welcome text and hide its boat/offer until arrival. Keep the existing objectives, costs and ordinary work. Verify both decisions, save before arrival, deadline and phone presentation. This is a correction within261, not another content expansion.
+Owner found the opening decision too early to understand. Delivered `4CD7923F0CB7`: a quiet opening with one suggestion, work a grove while the crop grows. Trader arrives at45 simulated seconds; automatic arrival pause protects thinking time, then the existing60-second offer window runs only during play. Welcome and initial scene omit the trade. Existing objectives, costs and ordinary work remain. Both decisions, save before arrival, deadline and phone-size presentation pass; independent public-command play began a grove and cottage before the paused, affordable offer. This is a correction within261, not another content expansion.
+
+Next evidence is whether the owner has enough context when the trader appears. Revised timing makes docks stronger in the controlled comparisons, so balance is unresolved. Hold more systems and balance changes until this opening has been tried. See [updated evidence](BROWSER_FISHING_261.md).
 
 ---
 # Previous handoff — play the fishing comparison; hold expansion

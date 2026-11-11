@@ -1,5 +1,17 @@
 # Outcome261 — a shoreline food choice
 
+## Owner-feedback correction — context before the trade
+
+Delivered private build `4CD7923F0CB7`, superseding the original fishing build below. Independent evaluator played fixed `6a7f95e`/`CDF312FFE65B`; final differences only correct purchase/tooltip wording and guide spacing. Session `e177791023404834862ea0439342e0ef` followed the grove hint and planned a cottage before arrival45.1s;16 logs were uncommitted, purchase succeeded, and both cottages were ready for neighbors at120.1s. The review's ordinary30s advance was interrupted by trader arrival even with `untilEvent:false`. Separate session `eced920da3a84fe788bc06d9fbffbeee` verified the full60s window,105.1s departure pause and late-purchase rejection. Narrow verdict passes; no human timing preference or full-game balance claim. Evidence: `artifacts/browser/fishing261/trader-arrival-review.md`. Client/server builds pass; private phone URL health verified. Exact builds archived.
+
+The owner found the opening choice too early to know what to do. The revised start suggests working a grove while the existing crop grows. The trader begins in a saved `waiting` state, with no boat or offer on screen and no trade discussion in the welcome. At45 simulated seconds the offer opens and the browser pauses automatically. Its60-second window then runs only when time advances; neighbor arrival remains120s. Buying reports actual remaining uncommitted timber rather than assuming the opening twelve logs were all the player had.
+
+Focused checks verify early buy/decline rejection, no early arrival, save/continuation before arrival, both decisions in slow/near-ripe crop starts, expiry, committed-log safety and completion. Ordinary402×681 UI play verified the opening, grove order, later offer, paused timer and purchase. Screenshots: `quiet-opening-phone.png`, `later-trader-phone.png`. This is a correction within261, not another playable-outcome count or proof that the timing now feels right on the owner's phone.
+
+Re-running the food comparison with the later purchase changes its results: full-ground field/dock finish358.2s/221.4s; depleted-ground field/dock358.2s/234.8s. First added-source delivery259.8s/199.5s. All routes still finish and loaded trips continue correctly, but **the earlier narrow balance argument below no longer applies to this timing**. Dock strength remains unresolved; do not claim equally attractive alternatives or tune further without observing the revised opening. Preserve the historical table as evidence of the previous build, with original data in `food-comparison-before-later-trader.json`.
+
+---
+
 Delivered private build `5D3C91582153`. Fresh play: `/?scenario=timber-trade`, Food sources → Fishing dock. Also available in the longer river settlement and trade variants; the short crossing keeps its original three actions. No native catalogue migration.
 
 ## Why this experiment

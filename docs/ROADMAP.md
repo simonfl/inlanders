@@ -1,10 +1,12 @@
 # Current — fishing comparison, then observe
 
+Owner follow-up: the opening decision appeared before they understood what to do. Give the village a quiet start with a grove suggestion; the trader now arrives45 simulated seconds later and pauses play for consideration. Remove the offer from the welcome and initial scene. This is a focused correction within261. Revised comparison runs favor the dock more strongly, so keep food-choice balance unresolved; the old depleted-field advantage is historical. Next evidence is whether the opening now provides enough context, not another building or mechanic.
+
 Owner feedback on the trade: **“A real choice, but quiet afterward.”** Retain the trade and automatic labor. Outcome261 adds one different food commitment: a12-log fishing dock with small early catches from shared renewing grounds, alongside larger field harvests. Grouped phone controls and visible boat work serve that comparison. [Implementation, balance probes and independent evidence](BROWSER_FISHING_261.md).
 
 Decision: keep provisionally for owner play; hold expansion. Independent play confirms a viable livelihood and real upfront commitments, but again finds mostly waiting after planning. The current short scenario may not make declining fish or adding a second dock interesting. No catalogue, needs, worker controls or dock-upgrade batch. If the owner still finds the aftermath empty, test a different sequence of situations that changes an existing commitment; do not answer with more food buttons. No such follow-up is selected yet.
 
-Build `5D3C91582153` is privately available. The short crossing stays small; fishing is in trade and longer settlement scenarios. A full native campaign/Creative review and actual phone play were not performed for this bounded slice. Outcome count261.
+Build `4CD7923F0CB7` is privately available with the later trade. The short crossing stays small; fishing is in trade and longer settlement scenarios. A full native campaign/Creative review and actual phone play were not performed for this bounded slice. Outcome count261.
 
 ---
 # Previous — consequential trade comparison delivered

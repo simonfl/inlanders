@@ -57,7 +57,7 @@ function renderScenario(s: State) {
     el('trade-consequence').textContent = `That timber builds two cottages. ${trade.availableLogs} uncommitted logs available. ${s.paused ? 'Paused—take your time. ' : ''}Leaves after ${trade.departureIn}s of play.`;
     el('trade-buy').textContent = `Trade ${trade.cost} logs`;
     el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;
-    el('trade-buy').title = trade.problem ?? 'Buy provisions; harvest new timber for the cottages.';
+    el('trade-buy').title = trade.problem ?? 'Buy provisions using timber that could fund homes or food sources.';
     el<HTMLButtonElement>('trade-decline').disabled = readonly || busy;
     el('welcome-title').textContent = s.title;
     el('welcome-story').textContent = 'Four neighbors are coming to join your village in two minutes. They need two cottages and food.';
