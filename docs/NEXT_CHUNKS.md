@@ -1,4 +1,9 @@
-# Current — play the fishing comparison; hold expansion
+# Active correction — let the village come before the trade
+
+Owner found the opening decision too early to understand. Give the same scenario a quiet opening with one suggestion: work a grove while the crop grows. Trader arrives at45 simulated seconds; automatic arrival pause protects thinking time, then the existing60-second offer window runs only during play. Remove the trade from welcome text and hide its boat/offer until arrival. Keep the existing objectives, costs and ordinary work. Verify both decisions, save before arrival, deadline and phone presentation. This is a correction within261, not another content expansion.
+
+---
+# Previous handoff — play the fishing comparison; hold expansion
 
 Delivered261, build `5D3C91582153`: [fishing evidence and decision](BROWSER_FISHING_261.md). Food sources → Fishing dock in `/?scenario=timber-trade` or the longer river settlement. Owner called the prior trade **“A real choice, but quiet afterward.”** This is one test of a further food commitment and a visible working payoff, not a declaration that the quiet stretch is solved.
 

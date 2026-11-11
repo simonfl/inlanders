@@ -53,15 +53,15 @@ function renderScenario(s: State) {
   if (trade) {
     el('early-event').hidden = true;
     el('timetable').textContent = s.complete ? 'Village established · stay as long as you like' : `${trade.arrived ? 'All eight neighbors are here' : `Four neighbors in ${Math.floor(trade.arrivalIn / 60)}:${String(trade.arrivalIn % 60).padStart(2, '0')}`} · ${trade.crop}`;
-    el('trade-title').textContent = `Trader: ${trade.cost} logs → ${trade.food} food · leaves in ${trade.departureIn}s`;
-    el('trade-consequence').textContent = `That timber builds two cottages. ${trade.availableLogs} uncommitted logs available.`;
+    el('trade-title').textContent = `A trader has arrived · ${trade.cost} logs → ${trade.food} food`;
+    el('trade-consequence').textContent = `That timber builds two cottages. ${trade.availableLogs} uncommitted logs available. ${s.paused ? 'Paused—take your time. ' : ''}Leaves after ${trade.departureIn}s of play.`;
     el('trade-buy').textContent = `Trade ${trade.cost} logs`;
     el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;
     el('trade-buy').title = trade.problem ?? 'Buy provisions; harvest new timber for the cottages.';
     el<HTMLButtonElement>('trade-decline').disabled = readonly || busy;
     el('welcome-title').textContent = s.title;
     el('welcome-story').textContent = 'Four neighbors are coming to join your village in two minutes. They need two cottages and food.';
-    el('welcome-task').textContent = `You have four portions and twelve logs. ${trade.offerEnabled ? 'A trader offers sixteen portions for those twelve logs—the price of two cottages. Keep the timber or trade for breathing room. ' : ''}${trade.nearHarvest ? 'Your first crop is almost ripe.' : 'Your first crop has only just started growing.'} Villagers handle ordinary work; shortages are recoverable.`;
+    el('welcome-task').textContent = `Start by working a grove: your neighbors will harvest and renew it for you. You'll need timber for two more cottages and a steady food supply. ${trade.nearHarvest ? 'Your first crop is almost ripe.' : 'Your first crop is already growing.'} You have four portions for now; shortages are recoverable.`;
   }
   const link = el<HTMLAnchorElement>('other-scenario');
   link.href = river ? '/' : '/?scenario=river-closing';

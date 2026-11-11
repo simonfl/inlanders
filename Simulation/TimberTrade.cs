@@ -7,7 +7,7 @@ public sealed class TimberTradeProgress
 {
     public bool NearHarvest { get; set; }
     public bool OfferEnabled { get; set; } = true;
-    public string Decision { get; set; } = "open";
+    public string Decision { get; set; } = "waiting";
     public float DecidedAt { get; set; }
     public bool Arrived { get; set; }
     public bool Complete { get; set; }
@@ -19,18 +19,18 @@ public sealed class TimberTradeProgress
 public sealed partial class World
 {
     public const int TradeLogCost = 12, TradeFood = 16;
-    public const int TradeDeparture = 60, TradeArrival = 120;
+    public const int TradeOfferArrival = 45, TradeDeparture = TradeOfferArrival + 60, TradeArrival = 120;
 
     public static World NewTimberTrade(bool nearHarvest = false, bool offer = true)
     {
         var w = NewBrowserRiverClosing();
         w.Founding!.FirstHome!.RiverClosing = null;
-        w.Founding.FirstHome.Trade = new() { NearHarvest = nearHarvest, OfferEnabled = offer, Decision = offer ? "open" : "unavailable" };
+        w.Founding.FirstHome.Trade = new() { NearHarvest = nearHarvest, OfferEnabled = offer, Decision = offer ? "waiting" : "unavailable" };
         w.Cottages.Single(c => c.Kind == BuildingKind.VegetableField).Growth = nearHarvest ? .9f : 0;
         w.Food.InitialBerries = w.Food.Berries = 4;
         w.Map.Name = "Le prix des provisions · The price of provisions";
         w.History.Clear();
-        w.History.Add("Four portions and twelve logs remain. Four neighbors arrive in two minutes without supplies. Two cottages cost twelve logs. " + (offer ? "The trader will exchange twelve logs for sixteen portions and leaves in one minute. " : "No trader is visiting. ") + (nearHarvest ? "The first crop is almost ripe." : "The first crop has only just started growing."));
+        w.History.Add("Four portions and twelve logs remain. Four neighbors arrive in two minutes without supplies. Start by working a grove for the timber their cottages will need. " + (nearHarvest ? "The first crop is almost ripe." : "The first crop has only just started growing."));
         w.Validate();
         return w;
     }
@@ -38,6 +38,7 @@ public sealed partial class World
     public string? TimberTradeProblem()
     {
         var t = Founding?.FirstHome?.Trade;
+        if (t?.Decision == "waiting") return "The trader has not arrived yet.";
         if (t == null || !t.OfferEnabled || t.Decision != "open" || Food.Time >= TradeDeparture) return "The trader's offer is no longer available.";
         if (AvailableLogsAt(null) < TradeLogCost) return $"Need {TradeLogCost} uncommitted logs in central storage; {AvailableLogsAt(null)} available. Timber already being carried to a plan is committed.";
         return null;
@@ -46,6 +47,7 @@ public sealed partial class World
     public string? DecideTimberTrade(bool buy)
     {
         var t = Founding?.FirstHome?.Trade;
+        if (t?.Decision == "waiting") return "The trader has not arrived yet.";
         if (t == null || t.Decision != "open" || Food.Time >= TradeDeparture) return "The trader's offer is no longer available.";
         if (buy && TimberTradeProblem() is {} problem) return problem;
         if (buy)
@@ -65,6 +67,11 @@ public sealed partial class World
     private void AdvanceTimberTrade()
     {
         if (Founding?.FirstHome?.Trade is not {} t || t.Complete) return;
+        if (t.Decision == "waiting" && Food.Time >= TradeOfferArrival)
+        {
+            t.Decision = "open";
+            History.Add("A trader has arrived with provisions. Trade twelve uncommitted logs for sixteen food, or keep your timber and rely on local harvests. The village is paused so you can consider the offer; the trader stays for one minute after play resumes.");
+        }
         if (t.Decision == "open" && Food.Time >= TradeDeparture)
         { t.DecidedAt = Food.Time; t.Decision = "departed"; History.Add("The trader has departed. Your timber stays here; local harvests will feed the village."); }
         if (!t.Arrived && Food.Time >= TradeArrival)
@@ -87,6 +94,7 @@ public sealed partial class World
         int eaten = t.Arrived ? RiverMealsEaten - t.ArrivalMeals : 0;
         int needed = Math.Max(16, eaten);
         string hint = t.Complete ? "Everyone has a home and a fresh meal. Local harvests covered meals since arrival. Stay and enjoy your village." :
+            t.Decision == "waiting" ? "Start by working a grove. Your neighbors will harvest and renew it, providing timber for two more cottages while the first crop grows." :
             !t.Arrived ? "Prepare eight beds and food for the arrivals. Work a grove when you need more timber." :
             Housed < 8 ? "Finish the remaining cottages. Neighbors collect timber and build automatically; work a grove if plans need logs." :
             Founding.FirstHome.Served.Count < 8 ? "Local harvests must cover meals since arrival. Add food-growing space if stores keep falling. Each neighbor also needs a fresh meal; Village lists who is waiting." :

@@ -8,7 +8,9 @@ static class BrowserFishingComparison
         var results = new List<object>();
         foreach(bool depleted in new[]{false,true}) foreach(var kind in new[]{BuildingKind.VegetableField,BuildingKind.FishingDock})
         {
-            var w=World.NewTimberTrade();w.DecideTimberTrade(true);
+            var w=World.NewTimberTrade();
+            while(w.Food.Time<World.TradeOfferArrival)w.Tick(.1f);
+            if(w.DecideTimberTrade(true)!=null)throw new Exception("Could not trade after trader arrival");
             int Place(BuildingKind type,Cell target)
             {
                 var p=ReviewPlacement.Find(w,type,target,(c,r)=>c.Z>=0,"food comparison") ?? throw new Exception("No site for "+type);
