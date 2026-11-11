@@ -87,15 +87,19 @@ public sealed partial class VillageSessions
             resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed, beds = w.Beds },
             objectives = ObjectiveLines(w), hint = Hint(w), nextAction = goals.Action,
             map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile,
+                fishing = w.Map.FishingGrounds.Select(g => new { g.Id, g.Name, g.Cell.X, g.Cell.Z, available = w.AvailableFish(g), g.Capacity, renewal = g.RegrowthPerSecond * 60 }),
                 stone = w.Map.StoneDeposits.Select(d => new { d.Cell.X, d.Cell.Z, access = d.Access }), clearings = w.Map.Wildlife.Select(h => h.Cell) },
             trees = w.Trees.Select(t => new { t.Id, t.Cell.X, t.Cell.Z, t.Logs, t.Felled, t.Growth, managed = w.ManagedWoodland.Contains(t.Cell), t.Preserved }),
             bushes = w.Bushes.Select(b => new { b.Id, b.Cell.X, b.Cell.Z }),
             buildings = w.Cottages.Select(c => new { c.Id, kind = c.Kind.ToString(), name = Buildings.Get(c.Kind).Name, c.Cell.X, c.Cell.Z, c.Rotation, c.Complete,
-                c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest, footprint = World.Footprint(c), entrance = c.Entrance,
+                c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest,
+                launch = c.Kind == BuildingKind.FishingDock ? (Cell?)c.Launch : null,
+                fishing = c.Kind == BuildingKind.FishingDock ? w.FishingSurvey(c.Cell, c.Rotation) + " All docks share these stocks." : null,
+                boat = c.Boat == null ? null : new { x = c.Boat.Position.X, z = c.Boat.Position.Y, c.Boat.Heading, phase = c.Boat.Phase.ToString(), c.Boat.FisherId, c.Boat.Fish }, footprint = World.Footprint(c), entrance = c.Entrance,
                 status = c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
-            people = w.People.Select(p => new { p.Id, p.Name, x = p.Position.X, z = p.Position.Y, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
+            people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
             events = w.History.TakeLast(6), view = s.View,
-            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding.FirstHome.Trade != null ? new[] { "home", "garden", "field", "grove" } : new[] { "home", "garden", "field", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
+            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding.FirstHome.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -113,14 +117,15 @@ public sealed partial class VillageSessions
         CheckCell(w, cell.X, cell.Z);
         var problem = w.PlacementProblem(cell, rotation, kind);
         if (problem?.Contains("[C]") == true) problem = "A tree or stump occupies this site. Choose clear ground for this prototype.";
-        return new { valid = problem == null, problem, cells = World.Footprint(cell, rotation, kind), entrance = World.Door(cell, rotation), logs = Buildings.Get(kind).Cost,
-            label = $"{Buildings.Get(kind).Name} · {Buildings.Get(kind).Cost} logs" };
+        return new { valid = problem == null, problem, cells = World.Footprint(cell, rotation, kind), entrance = kind == BuildingKind.FishingDock ? w.DockEntrance(cell, rotation) : World.Door(cell, rotation), launch = kind == BuildingKind.FishingDock ? (Cell?)w.DockLaunch(cell, rotation) : null, logs = Buildings.Get(kind).Cost,
+            label = $"{Buildings.Get(kind).Name} · {Buildings.Get(kind).Cost} logs" + (kind == BuildingKind.FishingDock && problem == null ? ". Up to 4 fish per trip. " + w.FishingSurvey(cell, rotation).Replace("\n", " ") + " Shared by all docks." : "") };
     }
     static void CheckCell(World w, int x, int z) { if (!w.Map.Contains(new(x, z))) throw new ArgumentException("Choose a location inside the village map."); }
     static (Cell, BuildingKind, int) Site(Order o) => o.Type switch
     {
         "repair" => (World.RecoveryCrossing, BuildingKind.Bridge, 0),
         "garden" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.VegetableGarden, o.Rotation),
+        "dock" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.FishingDock, o.Rotation),
         "field" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.VegetableField, o.Rotation),
         "home" when o.Rotation is >= 0 and <= 3 => (new(o.X, o.Z), BuildingKind.Cottage, o.Rotation),
         _ => throw new ArgumentException("Choose a building with a valid orientation.")
@@ -128,7 +133,7 @@ public sealed partial class VillageSessions
     static void CheckAction(World w, string type)
     {
         if (w.Founding!.FirstHome!.Trade != null && type == "next-season") throw new ArgumentException("This visit follows the displayed arrival time; there is no supply-season advance.");
-        if (Scenario(w) == "crossing" && type is "home" or "field" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
+        if (Scenario(w) == "crossing" && type is "home" or "field" or "dock" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
         if (Scenario(w) != "crossing" && type == "repair") throw new ArgumentException("This settlement already has a working crossing.");
     }
     public object Command(string id, Order o)
@@ -141,7 +146,7 @@ public sealed partial class VillageSessions
             s.LastSeen = DateTime.UtcNow;
             switch (o.Type)
             {
-                case "repair": case "garden": case "home": case "field":
+                case "repair": case "garden": case "home": case "field": case "dock":
                     var (cell, kind, rotation) = Site(o);
                     problem = w.PlacementProblem(cell, rotation, kind);
                     if (problem == null) { var site = w.Place(cell, rotation, kind); if (site == null) problem = "That site is no longer available."; else message = "Plan placed. Neighbors collect timber and build automatically."; }

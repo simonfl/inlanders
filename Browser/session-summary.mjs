@@ -5,7 +5,7 @@ const id = process.argv[2];
 if (!/^[a-f0-9]{32}$/.test(id ?? '')) throw Error('Provide one recorded session id.');
 const frames = (await readFile(path.join('artifacts/browser/sessions',id,'recording.jsonl'),'utf8')).trim().split('\n').map(JSON.parse);
 const first = frames[0], last = frames.at(-1);
-const gameplay = new Set(['repair','home','garden','field','grove','cancel','next-season','trade-buy','trade-decline']);
+const gameplay = new Set(['repair','home','garden','field','dock','grove','cancel','next-season','trade-buy','trade-decline']);
 const orders = frames.filter(f => f.type === 'command' && gameplay.has(f.data?.order?.type)).map(f => ({seconds:f.state.seconds,...f.data}));
 const phase = s => s.complete ? 'complete' : s.trade ? `${s.trade.decision}/${s.trade.arrived?'arrived':'preparing'}` : s.river?.phase ?? 'recovery';
 const milestones = frames.filter((f,i) => i === 0 || phase(f.state) !== phase(frames[i-1].state)).map(f => ({seconds:f.state.seconds,phase:phase(f.state),resources:f.state.resources}));

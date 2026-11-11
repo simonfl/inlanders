@@ -1,3 +1,14 @@
+# Active — fishing as a different food-expansion choice
+
+User authorized choosing and building the next step. Hypothesis: small early catches from shared river stocks versus establishing another large crop makes food expansion worth considering. The desired moment is choosing a shoreline livelihood when more food is needed, then watching a boat bring the catch home. This uses the existing simulation and one option in the food group; no worker panel or new needs.
+
+Competing explanation: more food options simply add catalogue breadth, or fresh fish stocks make docks universally better. Compare field and dock routes with identical inputs, both full and depleted grounds; attempt a second dock to expose shared supply. Preserve ordinary automation and existing objectives. Do not infer enjoyment from the owner's completed trade run (283.5s, last expansion163.7s).
+
+Minimum presentation: legible shoreline preview, stock/renewal explanation, unfinished dock distinct from finished, moving boat/passenger and actual cargo delivery. Budget one focused session. Independent runtime evaluation must try legal placement, a mistaken plan/recovery and resource sharing. Acceptance requires materially different timing/capacity costs and no manual staffing. Failure is a dominant dock, misleading unlimited-fish promise or controls needing a scheduler. Hold further expansion after delivery for owner play.
+
+The design specialist rejected job-priority and early-harvest additions for now: normal automation already prioritizes executable food work; early harvesting can become a chore whose future cost disappears at the scenario ending. Another broken crossing would repeat the prior tutorial. Fishing is the selected bounded alternative, subject to actual balance probes.
+
+---
 # Current — cottage clarity fixed after owner play
 
 Owner completed session `a4bb04eaee0841df9a2da492edac3440` and marked unfinished cottages looking finished. The focused visual correction is deployed in `D7576B352202`: marked plots and delivered timber, foundation, framing, rafters and partial roof; full exterior only at completion. Phone-size replay and an independent visual specialist accept this fix, with intermediate-stage overlap noted. This is a correction within260. [Evidence](COTTAGE_STAGES_260.md). The owner has not yet assessed whether the trade itself was enjoyable; keep expansion on hold.

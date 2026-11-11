@@ -9,7 +9,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div id="river-status" hidden><span id="timetable"></span><button id="early-event" hidden></button></div>
   <section id="trade-offer" hidden aria-label="Trader offer"><div><strong id="trade-title"></strong><span id="trade-consequence"></span></div><div class="trade-actions"><button id="trade-buy">Trade</button><button id="trade-decline">Keep timber</button></div></section>
   <main id="world"><canvas id="scene" aria-label="Village map. Drag to move, pinch or scroll to zoom, tap to inspect or choose a site."></canvas><div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="map-home" aria-label="Show whole village">⌂</button></div><div id="selection" hidden></div><div id="loading">Preparing your village…</div></main>
-  <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="home" hidden>Build cottage <small>6 logs · 2 beds</small></button><button id="food-choice" hidden>Grow food <small>gardens & fields</small></button><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="food-options" hidden><button id="small-garden">Garden <small>4 logs · 8 per harvest</small></button><button id="large-field">Field <small>10 logs · 20 per harvest</small></button><button id="food-back">Back</button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
+  <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="home" hidden>Build cottage <small>6 logs · 2 beds</small></button><button id="food-choice" hidden>Food sources <small>gardens, fields & fishing</small></button><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="food-options" hidden><button id="small-garden">Garden <small>4 logs · 8 per harvest</small></button><button id="large-field">Field <small>10 logs · 20 per harvest</small></button><button id="fishing-dock">Fishing dock <small>12 logs · small catches</small></button><button id="food-back">Back</button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
   <dialog id="welcome"><p class="eyebrow">A small browser playtest</p><h1 id="welcome-title">The broken crossing</h1><p id="welcome-story">The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p id="welcome-task"><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
   <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a><p id="build" class="muted"></p></dialog>
@@ -124,18 +124,19 @@ async function recordView() {
     catch { /* The heartbeat reports connection state; never overwrite the placement explanation. */ }
   }
 }
-function clearMode() { el('food-options').hidden = true; mode = ''; previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
+function clearMode() { el('food-options').hidden = true; mode = ''; village.showFishingGrounds(false); previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
 function startMode(type: string) {
   if (readonly) return;
   el('food-options').hidden = true; mode = type; rotation = 0; firstCorner = null; chosen = null; selection = null; el('selection').hidden = true;
   preview = null; village.showPreview(null); el('choices').hidden = true; el('placement').hidden = false;
-  el('rotate').hidden = !['garden', 'field', 'home'].includes(type); el<HTMLButtonElement>('confirm').disabled = true;
-  tell(type === 'grove' ? 'Tap two corners around a grove on your bank. Dragging still moves the map.' : ['garden', 'field', 'home'].includes(type) ? 'Tap clear ground. Preview the footprint, then confirm. Neighbors build automatically.' : 'Repair this crossing to reach the ripe harvest.');
+  el('rotate').hidden = !['garden', 'field', 'home', 'dock'].includes(type); el<HTMLButtonElement>('confirm').disabled = true;
+  tell(type === 'grove' ? 'Tap two corners around a grove on your bank. Dragging still moves the map.' : ['garden', 'field', 'home', 'dock'].includes(type) ? 'Tap clear ground. Preview the footprint, then confirm. Neighbors build automatically.' : 'Repair this crossing to reach the ripe harvest.');
+  if (type === 'dock') { village.showFishingGrounds(true); village.focus({x:8,z:0}); tell('Tap the dry riverbank, then Rotate until the blue launch faces water. Fish stocks are shared by all docks.'); }
   if (type === 'repair') { chosen = { x: 0, z: -3 }; void previewOrder(); } else void recordView();
 }
 function currentOrder(): Order | null {
   if (mode === 'repair') return { type: 'repair' };
-  if (['garden', 'field', 'home'].includes(mode) && chosen) return { type: mode, ...chosen, rotation };
+  if (['garden', 'field', 'home', 'dock'].includes(mode) && chosen) return { type: mode, ...chosen, rotation };
   if (mode === 'grove' && firstCorner && chosen) return { type: 'grove', ...firstCorner, x2: chosen.x, z2: chosen.z };
   return null;
 }
@@ -156,7 +157,8 @@ function renderSelection() {
   const [kind, id] = selection.split(':');
   const selected = kind === 'person' ? state.people.find(p => p.id === Number(id)) : state.buildings.find(b => b.id === Number(id));
   if (!selected) { selection = null; box.hidden = true; return; }
-  const description = `${selected.name} · ${selected.status}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
+  village.showFishingGrounds(kind === 'building' && 'kind' in selected && selected.kind === 'FishingDock');
+  const description = `${selected.name} · ${selected.status}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
   const key = `${selection}:${'complete' in selected ? selected.complete : ''}`;
   if (box.dataset.selection === key && box.firstElementChild) { box.firstElementChild.textContent = description; return; }
   box.dataset.selection = key; box.replaceChildren();
@@ -164,12 +166,12 @@ function renderSelection() {
   if (kind === 'building' && 'complete' in selected && !selected.complete && !readonly) {
     const cancel = document.createElement('button'); cancel.textContent = 'Cancel plan'; cancel.onclick = async () => { const result = await command({ type: 'cancel', siteId: selected.id }); if (result?.accepted) { selection = null; box.hidden = true; } }; box.append(cancel);
   }
-  const close = document.createElement('button'); close.textContent = '×'; close.ariaLabel = 'Close inspection'; close.onclick = () => { selection = null; box.hidden = true; void recordView(); }; box.append(close);
+  const close = document.createElement('button'); close.textContent = '×'; close.ariaLabel = 'Close inspection'; close.onclick = () => { selection = null; box.hidden = true; village.showFishingGrounds(false); void recordView(); }; box.append(close);
 }
 village.onPick = c => {
   if (!state || readonly) return;
   if (mode === 'grove') { if (!firstCorner || chosen) { firstCorner = c; chosen = null; preview = { valid: false, problem: null, cells: [c], logs: 0, label: 'First corner' }; village.showPreview(preview); el<HTMLButtonElement>('confirm').disabled = true; tell('First corner set. Tap the opposite corner to include your trees.'); void recordView(); } else { chosen = c; void previewOrder(); } return; }
-  if (['garden', 'field', 'home'].includes(mode)) { chosen = c; void previewOrder(); return; }
+  if (['garden', 'field', 'home', 'dock'].includes(mode)) { chosen = c; void previewOrder(); return; }
   if (mode) return;
   const p = state.people.find(p => Math.hypot(p.x - c.x, p.z - c.z) < .75), b = state.buildings.find(b => b.footprint.some(f => f.x === c.x && f.z === c.z));
   selection = p ? `person:${p.id}` : b ? `building:${b.id}` : null;
@@ -178,7 +180,8 @@ village.onPick = c => {
 };
 village.onViewChange = () => { void recordView(); };
 el('home').onclick = () => startMode('home');
-el('food-choice').onclick = () => { mode = 'food'; el('choices').hidden = true; el('food-options').hidden = false; tell('Gardens fit small spaces. Fields cost more timber and produce larger harvests.'); void recordView(); };
+el('food-choice').onclick = () => { mode = 'food'; el('choices').hidden = true; el('food-options').hidden = false; tell('Fields yield large crops after growing. Docks bring small catches sooner, but share a limited river supply.'); void recordView(); };
+el('fishing-dock').onclick = () => startMode('dock');
 el('small-garden').onclick = () => startMode('garden'); el('large-field').onclick = () => startMode('field');
 el('food-back').onclick = () => { clearMode(); void recordView(); };
 el('trade-buy').onclick = () => { void command({ type: 'trade-buy' }); };

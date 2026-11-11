@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--browser-fishing")){BrowserFishingComparison.Run();return;}
 if(args.Contains("--timber-trade")){TimberTradeChecks.Run();return;}
 if(args.Contains("--river-closing")){RiverClosingChecks.Run();return;}
 if(args.Contains("--crossing-recovery")){CrossingRecoveryChecks.Run();return;}

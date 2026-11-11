@@ -25,6 +25,9 @@ export class VillageView {
   private down?: { x: number; y: number; moved: boolean }; private pinch = 0;
   private labels: HTMLDivElement;
   private boat?: TransformNode;
+  private fishingVisible = false;
+  private fishingBoats = new Map<number, { node: TransformNode; last: Vector3; goal: Vector3; arrived: number; cargo: Mesh; oars: Mesh[]; net: Mesh; phase: string }>();
+  showFishingGrounds(visible: boolean) { if (this.fishingVisible === visible) return; this.fishingVisible = visible; if (this.state) this.update(this.state); }
   onPick: (cell: Cell) => void = () => {};
   onViewChange: () => void = () => {};
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement) {
@@ -75,6 +78,7 @@ export class VillageView {
   update(state: State) {
     this.state = state;
     if (this.mapKey !== state.id) {
+      this.fishingBoats.clear();
       this.mapKey = state.id; this.terrain.dispose(false, false); this.terrain = new TransformNode('terrain', this.scene);
       const water = new Set(state.map.water.map(c => `${c.x},${c.z}`)), excluded = new Set(state.map.excluded.map(c => `${c.x},${c.z}`));
       for (let x = state.map.minX; x < state.map.minX + state.map.width; x++) for (let z = state.map.minZ; z < state.map.minZ + state.map.depth; z++) {
@@ -170,6 +174,16 @@ export class VillageView {
           this.box('window', .65, .88, .98, .43, .44, .08, '#e6b86f', root);
           this.box('chimney', 1, 2, -.3, .35, .85, .4, '#aaa08b', root);
           }
+        } else if (b.kind === 'FishingDock') {
+          for (const x of [-1.3, 1.3]) for (const z of [-.35, .35])
+            this.box('dock-pile', x, .2, z, .15, .8, .15, '#816343', root);
+          if (b.complete || b.construction >= .5) for (const z of [-.3, 0, .3])
+            this.box('dock-plank', b.complete ? 0 : -.7, .3, z, b.complete ? 3 : 1.5, .13, .26, '#b29365', root);
+          if (b.complete) {
+            this.box('net-rack', -1, .65, 0, .12, .7, .12, '#785b3e', root);
+            this.box('folded-net', -.8, .65, 0, .45, .45, .08, '#8c9d87', root);
+            this.box('fish-crate', .95, .55, 0, .5, .4, .55, '#806449', root);
+          }
         } else if (b.kind === 'Bridge') {
           this.box('bridge-deck', 0, .08, 0, .9, .18, 2.6, b.complete ? '#ac8458' : '#d8c7a1', root);
           for (const side of [-1, 1]) { this.box('handrail', side * .48, .65, 0, .08, .1, 2.5, '#80634b', root); for (const z of [-1, 0, 1]) this.box('post', side * .48, .35, z, .1, .7, .1, '#80634b', root); }
@@ -189,6 +203,29 @@ export class VillageView {
         }
       }
     }
+    const activeBoats = new Set<number>();
+    for (const building of state.buildings) {
+      const boat = building.boat; if (!boat) continue;
+      activeBoats.add(building.id);
+      let visual = this.fishingBoats.get(building.id);
+      if (!visual) {
+        const node = new TransformNode(`fishing-boat-${building.id}`, this.scene); node.parent = this.terrain;
+        this.box('keel', 0, .08, 0, .55, .16, 1.7, '#715039', node);
+        for (const side of [-1, 1]) this.box('gunwale', side * .34, .25, 0, .12, .28, 1.8, '#99724f', node);
+        for (const end of [-1, 1]) this.box('bow', 0, .23, end * .86, .65, .24, .14, '#99724f', node);
+        this.box('seat', 0, .3, .15, .65, .1, .25, '#bb9967', node);
+        const oars = [-1,1].map(side => this.box('oar',side*.75,.36,.15,1.1,.06,.09,'#c2a374',node));
+        const net = this.box('casting-net',.9,.02,0,.8,.025,.85,'#8ca79a',node);
+        const cargo = this.box('catch', 0, .32, -.45, .4, .2, .45, '#91b6b0', node);
+        node.position.set(boat.x, 0, boat.z);
+        visual = {node,last:node.position.clone(),goal:node.position.clone(),arrived:performance.now(),cargo,oars,net,phase:boat.phase}; this.fishingBoats.set(building.id,visual);
+      }
+      if (visual.goal.x !== boat.x || visual.goal.z !== boat.z) { visual.last.copyFrom(visual.node.position); visual.goal.set(boat.x,0,boat.z); visual.arrived=performance.now(); }
+      visual.phase=boat.phase;visual.net.setEnabled(boat.phase === "Fishing");
+      visual.node.rotation.y = boat.heading; visual.cargo.setEnabled(boat.fish > 0);
+    }
+    for (const [id, boat] of this.fishingBoats) if (!activeBoats.has(id)) { boat.node.dispose(); this.fishingBoats.delete(id); }
+    for (const [id, person] of this.villagers) if (!state.people.some(p=>p.id===id)) { person.node.dispose(); this.villagers.delete(id); }
     for (const p of state.people) {
       let v = this.villagers.get(p.id);
       if (!v) {
@@ -202,24 +239,35 @@ export class VillageView {
         const cargo = this.box('basket', 0, .53, .32, .38, .28, .29, '#af8653', n);
         v = { node: n, legs, arms, cargo, goal: n.position.clone(), last: n.position.clone(), arrived: performance.now(), person: p }; this.villagers.set(p.id, v);
       }
-      if (v.goal.x !== p.x || v.goal.z !== p.z) { v.last.copyFrom(v.node.position); v.goal.set(p.x, 0, p.z); v.arrived = performance.now(); }
+      if (v.goal.x !== p.x || v.goal.z !== p.z) { v.last.copyFrom(v.node.position); v.goal.set(p.x, p.aboard ? .12 : 0, p.z); v.arrived = performance.now(); }
+      v.node.scaling.setAll(p.aboard ? .75 : 1);
+      v.node.position.y = p.aboard ? .12 : 0;
+      if (p.aboard) v.node.rotation.y = p.heading;
       v.person = p; v.cargo.setEnabled(p.carried > 0);
     }
     this.labels.replaceChildren();
+    if (this.fishingVisible) for (const g of state.map.fishing ?? []) {
+      const label=document.createElement("span"); label.textContent=`${g.name} · ${g.available} fish · +${g.renewal.toFixed(0)}/min`; label.dataset.x=String(g.x);label.dataset.z=String(g.z);this.labels.append(label);
+    }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
     for (const item of [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }
   private animate() {
+    for (const b of this.fishingBoats.values()) {
+      Vector3.LerpToRef(b.last,b.goal,Math.min(1,(performance.now()-b.arrived)/400),b.node.position);
+      const rowing = !this.state?.paused && ["Outbound","Returning"].includes(b.phase);
+      b.oars.forEach((o,i)=>{o.rotation.y=(i ? -1 : 1)*(rowing ? Math.sin((this.state?.seconds ?? 0)*5)*.4 : .2)});
+    }
     for (const v of this.villagers.values()) {
       const t = Math.min(1, (performance.now() - v.arrived) / 400);
       Vector3.LerpToRef(v.last, v.goal, t, v.node.position);
       const delta = v.goal.subtract(v.last); const moving = delta.lengthSquared() > .001 && t < 1;
-      if (moving) v.node.rotation.y = Math.atan2(delta.x, delta.z);
+      if (moving && !v.person.aboard) v.node.rotation.y = Math.atan2(delta.x, delta.z);
       const phase = (this.state?.seconds ?? 0) * 7 + v.person.id;
       const swing = !this.state?.paused && moving ? Math.sin(phase) * .55 : 0;
-      v.legs[0].rotation.x = swing; v.legs[1].rotation.x = -swing;
+      v.legs[0].rotation.x = v.person.aboard ? -1.1 : swing; v.legs[1].rotation.x = v.person.aboard ? -1.1 : -swing;
       v.arms[0].rotation.x = v.person.carried ? -.9 : -swing; v.arms[1].rotation.x = v.person.carried ? -.9 : swing;
       if (!this.state?.paused && ['Chopping', 'Building', 'Harvesting', 'Planting'].includes(v.person.task)) v.arms[0].rotation.x = -1 + Math.sin(phase) * .6;
     }
@@ -228,6 +276,7 @@ export class VillageView {
     this.preview.dispose(false, false); this.preview = new TransformNode('preview', this.scene);
     if (!p) return;
     for (const c of p.cells) this.box('preview-tile', c.x, .2, c.z, .95, .08, .95, p.valid ? '#eed27b' : '#ca7562', this.preview, false);
+    if (p.launch) this.box('launch', p.launch.x, .21, p.launch.z, .6, .1, .6, '#67c4cf', this.preview, false);
     if (p.entrance) this.box('entrance', p.entrance.x, .21, p.entrance.z, .5, .1, .5, '#f8f1d6', this.preview, false);
   }
   private placeLabels() {

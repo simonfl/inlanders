@@ -73,6 +73,9 @@ public sealed partial class World
         var boat=dock.Boat!;
         if(person.Task==Work.ToDock)
         {
+            // Repathing can finish inside the rounded entrance tile. Walk the
+            // remaining fraction before boarding, including after another repath.
+            if(person.Position!=dock.Entrance.Point) { person.Route.Enqueue(dock.Entrance); return; }
             boat.Route=new Queue<Cell>(FindBoatRoute(dock.Launch,Map.FishingGrounds.Single(g=>g.Id==boat.GroundId).Cell)
                 ?? throw new InvalidOperationException("Fishing route changed before boarding"));
             boat.Phase=BoatPhase.Outbound; boat.Timer=0; person.Task=Work.Aboard; person.Status="Rowing to fishing grounds";
@@ -146,7 +149,7 @@ public sealed partial class World
         foreach(var person in People.Where(p=>p.Task is Work.ToDock or Work.Aboard))
         {
             Check(Cottages.Any(c=>c.Id==person.WorkplaceId && c.Boat?.FisherId==person.Id),"Fisher without boat ownership");
-            if(person.Task==Work.Aboard) Check(person.Route.Count==0 && person.Position==Cottages.Single(c=>c.Id==person.WorkplaceId).Entrance.Point && person.Carried==0,"Invalid passenger land state");
+            if(person.Task==Work.Aboard) Check(person.Route.Count==0 && person.Position==Cottages.Single(c=>c.Id==person.WorkplaceId).Entrance.Point && person.Carried==0,$"Invalid passenger land state: {person.Id}, position {person.Position}, entrance {Cottages.Single(c=>c.Id==person.WorkplaceId).Entrance.Point}, route {person.Route.Count}, cargo {person.Carried}");
         }
     }
 }
