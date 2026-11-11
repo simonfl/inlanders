@@ -37,7 +37,7 @@ static class BrowserFishingComparison
                 }
             }
             w.Validate();
-            if(first<0 || kind==BuildingKind.FishingDock && !saved)throw new Exception($"No actual delivery/loaded trip: first={first}, saved={saved}, caught={w.Food.CaughtFish}");
+            if(first<0 || completion<0 || kind==BuildingKind.FishingDock && !saved)throw new Exception($"No completion/delivery/loaded trip: completion={completion}, first={first}, saved={saved}, caught={w.Food.CaughtFish}");
             var result=new{depleted,kind=kind.ToString(),first,at240,delivered,completion,food=w.ReachableEdibleStored,fishStock=w.Map.FishingGrounds.Sum(g=>g.Available)};
             results.Add(result);Console.WriteLine(JsonSerializer.Serialize(result));
         }

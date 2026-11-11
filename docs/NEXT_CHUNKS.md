@@ -1,4 +1,13 @@
-# Active — fishing as a different food-expansion choice
+# Current — play the fishing comparison; hold expansion
+
+Delivered261, build `5D3C91582153`: [fishing evidence and decision](BROWSER_FISHING_261.md). Food sources → Fishing dock in `/?scenario=timber-trade` or the longer river settlement. Owner called the prior trade **“A real choice, but quiet afterward.”** This is one test of a further food commitment and a visible working payoff, not a declaration that the quiet stretch is solved.
+
+Independent public-command play completed and recovered placement/cancellation; a second dock shares depleted/renewing grounds. Builder compared field/dock timing with full/depleted stocks, verified saves, phone-size controls and boat presentation. Revised dock cost8→12 before independent play. The dock's faster early supply costs more timber; wider balance is unproven. Independent verdict still reports waiting after planning.
+
+Next evidence: owner's reaction to choosing and watching the livelihood. Keep if the distinction and consequence feel worth considering; revise or replace if it is an obvious purchase or still empty afterward. Do not queue another food source, fishing upgrades, worker controls, needs or decoration. If quiet persists despite understanding, the next hypothesis should challenge scenario pacing/commitments, not catalogue size. One active experiment, now awaiting experience evidence.
+
+---
+# Accepted brief — fishing as a different food-expansion choice
 
 User authorized choosing and building the next step. Hypothesis: small early catches from shared river stocks versus establishing another large crop makes food expansion worth considering. The desired moment is choosing a shoreline livelihood when more food is needed, then watching a boat bring the catch home. This uses the existing simulation and one option in the food group; no worker panel or new needs.
 

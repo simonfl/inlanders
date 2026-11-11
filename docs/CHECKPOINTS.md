@@ -1,3 +1,12 @@
+# Outcome261 — shoreline fishing comparison
+
+Delivered `5D3C91582153`: one grouped food option in browser settlements,12-log dock, shared renewing fish grounds, automatic work and visible boats/passengers/net/catch. Planned docks differ from finished docks. Dock entrance repathing fixed so saved passengers have valid land positions. Cost applies to shared native simulation too.
+
+Independent source-blind API play on `c1b0be7`/`8B274056F3E3` completed194.2s, recovered wrong placement/cancellation and checked a second dock's shared stocks. It still found mostly waiting after the initial commitments. Four field/dock full/depleted comparisons, native fishing/lake and trade regression checks pass. Phone-size ordinary controls, partial cancellation and1×/3× presentation observed; independent static visual review accepts the bounded prototype. Final service restart retained a returning loaded boat exactly; its mixed-food route then completed170.8s. Client/server builds pass. [Evidence and limits](BROWSER_FISHING_261.md).
+
+Count advances once to261; balancing, fixes, reviewers and supporting tests do not add outcomes. Owner's trade feedback was “A real choice, but quiet afterward.” Hold expansion for experience evidence; no claim that fishing resolves sustained engagement.
+
+---
 # Outcome260 — timber for provisions
 
 Owner-feedback correction within260: build `D7576B352202` replaces fully rendered unfinished cottages with marked ground, delivered timber, foundation, frame, rafters and partial roof. Bookmark133 at78.3s showed two zero-construction cottages with2/6 and0/6 logs. Ordinary-command stage recordings, four plan orientations, phone-size browser replay and an independent visual check verify the distinction. Client/service builds pass; simulation rules are unchanged. [Evidence](COTTAGE_STAGES_260.md). No additional outcome count.

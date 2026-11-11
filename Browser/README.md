@@ -32,6 +32,8 @@ The laptop must be awake and connected. No cloud hosting, port-forwarding or nat
 
 ## Play
 
+In the trade and longer settlement scenarios, **Food sources** groups gardens (4 logs), fields (10) and fishing docks (12). Place a dock on dry shore and rotate its blue launch toward water. Workers handle fishing automatically. Each trip catches up to four fish from renewing grounds shared by all docks; inspection shows stocks, renewal and route distance. The short crossing deliberately keeps its smaller action set. See [the fishing comparison](../docs/BROWSER_FISHING_261.md) for evidence and remaining design questions.
+
 - Repair the existing crossing for six logs, or place a garden on the home bank for four.
 - Work a grove by tapping two corners around trees, then confirming. Neighbors harvest and renew the selected trees automatically.
 - Drag to move the map; pinch/scroll or use the zoom buttons. Tap people/buildings to inspect. Unfinished plans can be cancelled.

@@ -147,7 +147,7 @@ async function previewOrder() {
   try {
     const p = await request<Preview>(`/api/sessions/${sessionId}/preview`, order);
     if (serial !== previewSerial) return;
-    preview = p; village.showPreview(p); tell(p.valid ? `${p.label}. Confirm to order the work.` : p.problem ?? 'Choose another spot.');
+    preview = p; village.showPreview(p); tell(p.valid ? `${p.label.replace(/\.$/, '')}. Confirm to order the work.` : p.problem ?? 'Choose another spot.');
     el<HTMLButtonElement>('confirm').disabled = !p.valid; await recordView();
   } catch (e) { if (serial === previewSerial) { preview = null; village.showPreview(null); tell((e as Error).message); } }
 }
@@ -156,7 +156,7 @@ function renderSelection() {
   const box = el('selection'); box.hidden = false;
   const [kind, id] = selection.split(':');
   const selected = kind === 'person' ? state.people.find(p => p.id === Number(id)) : state.buildings.find(b => b.id === Number(id));
-  if (!selected) { selection = null; box.hidden = true; return; }
+  if (!selected) { selection = null; box.hidden = true; village.showFishingGrounds(false); return; }
   village.showFishingGrounds(kind === 'building' && 'kind' in selected && selected.kind === 'FishingDock');
   const description = `${selected.name} · ${selected.status}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
   const key = `${selection}:${'complete' in selected ? selected.complete : ''}`;
@@ -164,7 +164,7 @@ function renderSelection() {
   box.dataset.selection = key; box.replaceChildren();
   const text = document.createElement('span'); text.textContent = description; box.append(text);
   if (kind === 'building' && 'complete' in selected && !selected.complete && !readonly) {
-    const cancel = document.createElement('button'); cancel.textContent = 'Cancel plan'; cancel.onclick = async () => { const result = await command({ type: 'cancel', siteId: selected.id }); if (result?.accepted) { selection = null; box.hidden = true; } }; box.append(cancel);
+    const cancel = document.createElement('button'); cancel.textContent = 'Cancel plan'; cancel.onclick = async () => { const result = await command({ type: 'cancel', siteId: selected.id }); if (result?.accepted) { selection = null; box.hidden = true; village.showFishingGrounds(false); } }; box.append(cancel);
   }
   const close = document.createElement('button'); close.textContent = '×'; close.ariaLabel = 'Close inspection'; close.onclick = () => { selection = null; box.hidden = true; village.showFishingGrounds(false); void recordView(); }; box.append(close);
 }
