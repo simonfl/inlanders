@@ -32,7 +32,7 @@ The laptop must be awake and connected. No cloud hosting, port-forwarding or nat
 
 ## Play
 
-The trade scenario opens with time to begin a grove and watch the village. A trader arrives after45 simulated seconds and automatically pauses play for the decision; the offer lasts another60 seconds of advancing game time. It is absent from the opening screen.
+The trade scenario opens with time to begin a grove and watch the village. A trader arrives after45 simulated seconds and automatically pauses play. Agree within60 further seconds to pack12logs for16provisions, even with0logs stored. Available central timber is packed automatically before new worker claims, while existing loads remain safe. Provisions arrive only when all12logs are ready. Agreed orders have no delivery deadline; cancel an unfinished order to reclaim packed timber. [Shipment evidence](../docs/TIMBER_SHIPMENT_262.md).
 
 In the trade and longer settlement scenarios, **Food sources** groups gardens (4 logs), fields (10) and fishing docks (12). Place a dock on dry shore and rotate its blue launch toward water. Workers handle fishing automatically. Each trip catches up to four fish from renewing grounds shared by all docks; inspection shows stocks, renewal and route distance. The short crossing deliberately keeps its smaller action set. See [the fishing comparison](../docs/BROWSER_FISHING_261.md) for evidence and remaining design questions.
 

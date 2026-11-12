@@ -1,5 +1,7 @@
 # Inlanders working instructions
 
+- The owner supplies playtest reactions; the lead selects, implements and verifies the response. Do not require the owner to prescribe fixes or approve routine design decisions. Ask only for genuinely missing information or consequential choices, and keep human preference separate from automated verification.
+
 - Follow [the development process](docs/DEVELOPMENT_PROCESS.md). It supersedes checkpoint batches and the previous every-ten review schedule under the user's November 8 process reset.
 - Keep one active experience hypothesis and bounded playable experiment in docs/NEXT_CHUNKS.md. Update docs/ROADMAP.md when evidence changes direction, and docs/CHECKPOINTS.md when a playable outcome is delivered. Count outcomes once. Documentation, tooling and commits alone do not advance the count.
 - Use one independent read-only runtime evaluator for each playable experiment. Additional specialist agents require a named unresolved question. These evaluator and specialist subagents are authorized.

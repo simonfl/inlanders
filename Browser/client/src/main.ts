@@ -56,8 +56,8 @@ function renderScenario(s: State) {
     const ordered = trade.decision === 'ordered';
     el('trade-title').textContent = ordered ? `Timber packed · ${trade.packedLogs}/${trade.cost} logs` : `Trader · ${trade.cost} logs for ${trade.food} food`;
     el('trade-consequence').textContent = ordered
-      ? `${trade.food} food arrives when all logs are packed. Workers set aside available timber before new building deliveries. Work a grove if timber runs out. No delivery deadline.`
-      : `You can start with no logs. Workers pack the next available timber; food arrives when all ${trade.cost} are ready. This delays timber for new buildings. ${s.paused ? 'Paused. ' : ''}Offer lasts ${trade.departureIn}s of play.`;
+      ? `${trade.food} food when ready. Available timber goes here before new buildings. Work a grove if needed. No delivery deadline.`
+      : `Agree even with no logs. The next ${trade.cost} available logs go here before new buildings; receive ${trade.food} food when ready. ${s.paused ? 'Paused. ' : ''}Decide within ${trade.departureIn}s of play.`;
     el('trade-buy').hidden = ordered;
     el('trade-buy').textContent = `Prepare ${trade.cost} logs`;
     el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;

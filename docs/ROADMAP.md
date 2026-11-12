@@ -1,4 +1,13 @@
-# Current — fishing comparison, then observe
+# Current — trade upcoming timber, then assess
+
+Owner spent timber on a dock and ordered a grove before the delayed trader appeared. The old cash purchase therefore demanded foreknowledge; availability-gating would merely hide it in the recorded route. Outcome262 replaces it with a cancellable timber order, accepted even at0logs. Free central timber is packed automatically before new worker claims;16provisions arrive only once12logs are ready. Existing worker reservations remain safe. No credit, extra staffing or new catalogue entry. [Evidence and provisional decision](TIMBER_SHIPMENT_262.md).
+
+Keep this bounded revision for owner play. It supplies food before newcomers in the recorded-layout comparison while delaying housing; decline remains faster in those runs. Independent play also found a case where provisions precede the first observed local food. This establishes usability and a consequence, not sustained depth or broad balance. If the understood order remains pointless, replace the opportunity rather than layering another timer or merchant feature. The owner supplies reactions; the lead chooses and tests the response.
+
+Private build `1B01F85B1539`, outcome count262. Full campaign/Creative, audio, real iPhone comfort and dense performance remain unobserved in this bounded revision. Hold expansion; next evidence concerns usefulness of the commitment in normal play.
+
+---
+# Previous — fishing comparison, then observe
 
 Owner follow-up: the opening decision appeared before they understood what to do. Give the village a quiet start with a grove suggestion; the trader now arrives45 simulated seconds later and pauses play for consideration. Remove the offer from the welcome and initial scene. This is a focused correction within261. Revised comparison runs favor the dock more strongly, so keep food-choice balance unresolved; the old depleted-field advantage is historical. Next evidence is whether the opening now provides enough context, not another building or mechanic.
 

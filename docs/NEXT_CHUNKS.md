@@ -1,4 +1,11 @@
-# Active — a timber order after the village starts
+# Current — timber shipment delivered; judge its usefulness
+
+Delivered262, build `1B01F85B1539`: [evidence and decision](TIMBER_SHIPMENT_262.md). Accept even with no logs, automatically pack12 available logs for16 provisions, or cancel an unfinished shipment and reclaim packed timber. The order has no surprise fulfillment deadline. Existing objectives and automatic work remain. This replaces the failed cash-at-arrival setup; no third timing patch.
+
+Independent ordinary-command play completed a village and verified zero-log agreement, partial refund/recovery and no duplicate rewards. Matched owner-route comparisons show food before newcomers with roughly27–30s housing delay; declining still finishes faster. Phone-size controls and exact current-format save continuation pass. Keep provisionally; no claim that this solves the quiet period after planning. Next evidence is whether the commitment feels worth considering during normal play. Do not expand merchants, needs or catalogue. The lead owns implementing the response to feedback rather than requiring the owner to prescribe fixes.
+
+---
+# Accepted brief — a timber order after the village starts
 
 Owner feedback disproved the cash-at-arrival setup: their dock18.1s, grove24.5s, offer45.1s left4 logs; normal later plans kept available timber below12 throughout the recorded run. Waiting until they can afford the old purchase would make the trader absent or irrelevant. The owner delegates decisions and implementation; feedback is evidence to act on, not a request for them to prescribe the fix.
 

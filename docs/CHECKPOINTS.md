@@ -1,3 +1,12 @@
+# Outcome262 — timber shipment instead of upfront purchase
+
+Delivered `1B01F85B1539`: one cancellable order accepts an empty store, packs available central timber automatically without stealing worker claims, and pays16provisions only after12logs. Packed timber survives saves and refunds correctly; agreed orders outlive the offer deadline. Persistent card explains progress, construction consequence and cancellation. Retains quiet opening/paused arrival.
+
+Independent source-blind public-command play on `b5de300`/`A7DE08841F8A` completed372s, received food before first observed local harvest, and checked zero-log acceptance, expiry survival, partial refund/recovery and duplicate rejection. Matched owner-route tests complete with accept/decline and both crop starts, showing earlier food versus delayed housing. Phone-size ordinary acceptance/cancellation and final progress/refund pass; service restart preserves a half-packed order and it subsequently delivers. Builds and focused trade/shipment checks pass. [Evidence and limits](TIMBER_SHIPMENT_262.md).
+
+Count advances once to262. This is a changed economic commitment, not another documentation/wording checkpoint. No new full-game or human-enjoyment claim; hold expansion for experience evidence. The lead owns decisions and implementation in response to owner feedback.
+
+---
 # Outcome261 — shoreline fishing comparison
 
 Owner-feedback correction within261, build `4CD7923F0CB7`: trader offer delayed to45 simulated seconds, with a quiet grove-first opening and automatic arrival pause. Offer stays60 further seconds of advancing game time. Pre-arrival saves/early rejection, both decisions/crop starts, deadline/reservation and fishing-route checks pass; phone-size UI verifies later presentation and paused thinking time. Independent runtime check on `6a7f95e`/`CDF312FFE65B` followed the hint, planned a cottage before arrival, bought and housed all arrivals; separate expiry probe passed. Final wording reflects actual remaining timber. Updated food comparisons now strongly favor the dock; record that uncertainty instead of carrying forward the prior balance claim. No new outcome count.

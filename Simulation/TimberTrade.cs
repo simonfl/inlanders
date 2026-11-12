@@ -52,7 +52,7 @@ public sealed partial class World
         if (buy && TimberTradeProblem() is {} problem) return problem;
         t.DecidedAt = Food.Time;
         t.Decision = buy ? "ordered" : "declined";
-        History.Add(buy ? "Timber order agreed. Available logs go to the trader before new building deliveries; already claimed loads stay with their workers. Sixteen provisions arrive when all twelve logs are packed. Cancel before then to reclaim the timber." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
+        History.Add(buy ? "Timber order agreed. Resume to pack available logs automatically." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
         if(buy) PackTradeTimber(t);
         _retry = 0;
         return null;
@@ -89,7 +89,7 @@ public sealed partial class World
         if (t.Decision == "waiting" && Food.Time >= TradeOfferArrival)
         {
             t.Decision = "open";
-            History.Add("A trader offers sixteen provisions for a shipment of twelve logs. You can agree now even with an empty store; workers supply the timber automatically. This postpones timber for new buildings. The village is paused so you can decide.");
+            History.Add("A trader has arrived. Consider the timber order below; the village is paused.");
         }
         if (t.Decision == "open" && Food.Time >= TradeDeparture)
         { t.DecidedAt = Food.Time; t.Decision = "departed"; History.Add("The trader has departed. Your timber stays here; local harvests will feed the village."); }

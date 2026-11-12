@@ -22,6 +22,8 @@ Keep one challenger active. Budget one focused development session, at most half
 
 ## Build, observe, decide
 
+The owner clarified November11 that they primarily provide feedback and the lead is in charge. Translate that evidence into a concrete decision and tested revision without asking the owner to micromanage the solution. Holding expansion for experience evidence does not mean leaving an actionable reported problem as an explanation or a proposal. Choose and execute the bounded response; seek input only when it is genuinely necessary.
+
 The builder makes the slice usable and verifies relevant mechanics, failure recovery and current-format saves. A fresh evaluator then uses ordinary controls, attempts an unintended shortcut and tries a recoverable mistake. Report scripted simulation, direct UI interaction, motion inspection and human play separately. Source review alone cannot satisfy the interaction step.
 
 Prepare a fresh start that launches in one action. Ask the owner for roughly 10–15 minutes per design decision, at a convenient time. Provide a neutral premise and functioning controls. Observe intention, confusion, anticipation, moments worth watching, voluntary continuation and what they want to try next. Two useful questions are “What felt worth doing?” and “What would you try next?” The owner owes no metrics spreadsheet or formal bug report.
