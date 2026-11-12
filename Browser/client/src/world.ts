@@ -119,8 +119,8 @@ export class VillageView {
     }
     if (this.boat && state.trade) {
       const t = state.trade;
-      const departure = t.decision === 'open' ? 0 : Math.max(0, state.seconds-t.decidedAt-4) / 2;
-      this.boat.setEnabled(t.offerEnabled && t.decision !== 'waiting' && (t.decision === "open" || state.seconds-t.decidedAt < 20));
+      const departure = ['open','ordered'].includes(t.decision) ? 0 : Math.max(0, state.seconds-t.decidedAt-4) / 2;
+      this.boat.setEnabled(t.offerEnabled && t.decision !== 'waiting' && (['open','ordered'].includes(t.decision) || state.seconds-t.decidedAt < 20));
       this.boat.position.set(8 + departure, 0, -3);
     }
     const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);

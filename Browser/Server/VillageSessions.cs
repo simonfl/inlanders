@@ -99,7 +99,7 @@ public sealed partial class VillageSessions
                 status = c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
             people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Founding!.FirstHome!.Served.Contains(p.Id) }),
             events = w.History.TakeLast(6), view = s.View,
-            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding.FirstHome.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline" } : Array.Empty<string>())
+            actions = (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding.FirstHome.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding.FirstHome.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -165,6 +165,10 @@ public sealed partial class VillageSessions
                 case "trade-buy": case "trade-decline":
                     problem = w.DecideTimberTrade(o.Type == "trade-buy");
                     if (problem == null) { message = w.History.Last(); s.Notice = ""; }
+                    break;
+                case "trade-cancel":
+                    problem = w.CancelTimberTrade();
+                    if(problem==null){message=w.History.Last();s.Notice="";}
                     break;
                 case "next-season":
                     problem = w.AdvanceRiverScheduleProblem();

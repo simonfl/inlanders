@@ -490,7 +490,7 @@ public sealed partial class World
         void Check(bool condition, string error) { if (!condition) throw new InvalidOperationException(error); }
         Check(Population >= (Founding?.FirstHome!=null ? 4 : InitialPopulation) && People.Select(v => v.Id).SequenceEqual(Enumerable.Range(0, Population)), "Invalid population identifiers");
         Check(Stored >= 0 && Available >= 0, "Negative or over-reserved storage");
-        Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs + (Founding?.FirstHome?.Trade?.ExportedLogs ?? 0) == InitialLogs + GrownLogs + CreativeNet(Resource.Logs), "Timber conservation failed");
+        Check(Trees.Where(t => t.Material == Resource.Logs).Sum(t => t.Logs) + Stored + People.Where(v => v.Cargo == Resource.Logs).Sum(v => v.Carried) + Cottages.Where(c => c.Material == Resource.Logs).Sum(c => c.Delivered) + Cottages.Sum(c => c.InputLogs) + SawnLogs + (Founding?.FirstHome?.Trade?.ExportedLogs ?? 0) + (Founding?.FirstHome?.Trade?.PackedLogs ?? 0) == InitialLogs + GrownLogs + CreativeNet(Resource.Logs), "Timber conservation failed");
         Check(GrownLogs >= 0, "Invalid grown timber total");
         ValidateWildlife(); ValidateQuarry(); Map.ValidateFishingGrounds(); ValidateFishing(); ValidateHomes(); ValidateRiverCampaign(); ValidateLakeCampaign(); ValidateQuarryCampaign(); ValidateWoodsCampaign(); ValidateFinaleCampaign(); ValidateDemolition(); ValidateVisitor();
         ValidateCameraViews();ValidateSessionView();

@@ -12,6 +12,7 @@ public sealed class TimberTradeProgress
     public bool Arrived { get; set; }
     public bool Complete { get; set; }
     public int ExportedLogs { get; set; }
+    public int PackedLogs { get; set; }
     public int ArrivalDeliveries { get; set; }
     public int ArrivalMeals { get; set; }
 }
@@ -40,7 +41,6 @@ public sealed partial class World
         var t = Founding?.FirstHome?.Trade;
         if (t?.Decision == "waiting") return "The trader has not arrived yet.";
         if (t == null || !t.OfferEnabled || t.Decision != "open" || Food.Time >= TradeDeparture) return "The trader's offer is no longer available.";
-        if (AvailableLogsAt(null) < TradeLogCost) return $"Need {TradeLogCost} uncommitted logs in central storage; {AvailableLogsAt(null)} available. Timber already being carried to a plan is committed.";
         return null;
     }
 
@@ -50,27 +50,46 @@ public sealed partial class World
         if (t?.Decision == "waiting") return "The trader has not arrived yet.";
         if (t == null || t.Decision != "open" || Food.Time >= TradeDeparture) return "The trader's offer is no longer available.";
         if (buy && TimberTradeProblem() is {} problem) return problem;
-        if (buy)
-        {
-            // The trader exchanges cargo at the central landing. Committed worker
-            // reservations are excluded, so existing trips remain valid.
-            _yardLogs -= TradeLogCost; t.ExportedLogs = TradeLogCost;
-            Food.InitialBerries += TradeFood; Food.Berries += TradeFood;
-        }
         t.DecidedAt = Food.Time;
-        t.Decision = buy ? "traded" : "declined";
-        History.Add(buy ? $"Exchanged twelve logs for sixteen provisions. {AvailableLogsAt(null)} uncommitted logs remain for the village. These provisions do not count as local harvests." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
+        t.Decision = buy ? "ordered" : "declined";
+        History.Add(buy ? "Timber order agreed. Available logs go to the trader before new building deliveries; already claimed loads stay with their workers. Sixteen provisions arrive when all twelve logs are packed. Cancel before then to reclaim the timber." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
+        if(buy) PackTradeTimber(t);
         _retry = 0;
         return null;
     }
 
+    public string? CancelTimberTrade()
+    {
+        var t=Founding?.FirstHome?.Trade;
+        if(t?.Decision!="ordered")return "Only an unfinished timber order can be cancelled.";
+        int reclaimed=t.PackedLogs;_yardLogs+=reclaimed;t.PackedLogs=0;
+        t.Decision="cancelled";t.DecidedAt=Food.Time;_retry=0;
+        History.Add($"Timber order cancelled. {reclaimed} packed logs returned to village storage; no provisions were received.");
+        return null;
+    }
+
+    private void PackTradeTimber(TimberTradeProgress t)
+    {
+        if(t.Decision!="ordered")return;
+        // Use only genuinely free central timber. A worker's existing reservation
+        // and carried load remain attached to that work, even after this agreement.
+        int packed=Math.Min(TradeLogCost-t.PackedLogs,AvailableLogsAt(null));
+        _yardLogs-=packed;t.PackedLogs+=packed;
+        if(t.PackedLogs<TradeLogCost)return;
+        t.PackedLogs=0;t.ExportedLogs=TradeLogCost;t.Decision="traded";t.DecidedAt=Food.Time;
+        Food.InitialBerries+=TradeFood;Food.Berries+=TradeFood;_retry=0;
+        History.Add($"Timber shipment complete: twelve logs exchanged for sixteen provisions. {AvailableLogsAt(null)} available logs remain. These provisions do not count as local harvests.");
+    }
+
     private void AdvanceTimberTrade()
     {
-        if (Founding?.FirstHome?.Trade is not {} t || t.Complete) return;
+        if (Founding?.FirstHome?.Trade is not {} t) return;
+        PackTradeTimber(t);
+        if(t.Complete)return;
         if (t.Decision == "waiting" && Food.Time >= TradeOfferArrival)
         {
             t.Decision = "open";
-            History.Add("A trader has arrived with provisions. Trade twelve uncommitted logs for sixteen food, or keep your timber and rely on local harvests. The village is paused so you can consider the offer; the trader stays for one minute after play resumes.");
+            History.Add("A trader offers sixteen provisions for a shipment of twelve logs. You can agree now even with an empty store; workers supply the timber automatically. This postpones timber for new buildings. The village is paused so you can decide.");
         }
         if (t.Decision == "open" && Food.Time >= TradeDeparture)
         { t.DecidedAt = Food.Time; t.Decision = "departed"; History.Add("The trader has departed. Your timber stays here; local harvests will feed the village."); }

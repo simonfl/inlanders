@@ -1,4 +1,13 @@
-# Current — try the quieter opening; hold expansion
+# Active — a timber order after the village starts
+
+Owner feedback disproved the cash-at-arrival setup: their dock18.1s, grove24.5s, offer45.1s left4 logs; normal later plans kept available timber below12 throughout the recorded run. Waiting until they can afford the old purchase would make the trader absent or irrelevant. The owner delegates decisions and implementation; feedback is evidence to act on, not a request for them to prescribe the fix.
+
+Selected bounded revision after independent design consultation: accept one timber shipment even at0 logs. Automatically pack free central timber before new worker claims, preserving existing reservations/carried loads. Deliver16 provisions only at12 packed logs; no credit or debt. Cancel an unfinished order to reclaim packed logs. The60s offer window governs acceptance, not fulfillment. Keep the quiet opening,45s paused arrival, ordinary work and existing village objectives. Show packed progress, delayed construction consequence and cancellation on the existing trader card.
+
+Hypothesis: committing upcoming timber to food remains a usable choice after normal early spending. Competing explanation: food arrives after local production already solved the need, making the order predictably inferior. Test exact owner dock-first route with accept/decline and slow/near-ripe crop, zero-log acceptance, partial cancellation, reservations, saves and deadline. Reject or narrow if provisions arrive too late; do not add another timing patch. Minimum presentation: explicit food-on-completion wording, persistent progress/cancel, trader waits while packing. Budget one session, independent ordinary-command runtime check plus actual phone-size UI. No other catalogue/economy changes. Hold expansion after delivery for experience evidence.
+
+---
+# Previous — try the quieter opening; hold expansion
 
 Owner found the opening decision too early to understand. Delivered `4CD7923F0CB7`: a quiet opening with one suggestion, work a grove while the crop grows. Trader arrives at45 simulated seconds; automatic arrival pause protects thinking time, then the existing60-second offer window runs only during play. Welcome and initial scene omit the trade. Existing objectives, costs and ordinary work remain. Both decisions, save before arrival, deadline and phone-size presentation pass; independent public-command play began a grove and cottage before the paused, affordable offer. This is a correction within261, not another content expansion.
 

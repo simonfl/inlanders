@@ -48,16 +48,21 @@ function renderScenario(s: State) {
     el('welcome-story').textContent = 'The crossing stands and your first field is growing. Two boats will bring eight more neighbors before the river closes.';
     el('welcome-task').textContent = 'Eight portions remain. Prepare homes and food for the first four arrivals, then support all twelve. Shortages slow work, but you can recover. Major arrivals pause the village so you can plan.';
   }
-  el('trade-offer').hidden = !trade || trade.decision !== 'open';
+  el('trade-offer').hidden = !trade || !['open','ordered'].includes(trade.decision);
   el('ripe-start').hidden = !trade;
   if (trade) {
     el('early-event').hidden = true;
     el('timetable').textContent = s.complete ? 'Village established · stay as long as you like' : `${trade.arrived ? 'All eight neighbors are here' : `Four neighbors in ${Math.floor(trade.arrivalIn / 60)}:${String(trade.arrivalIn % 60).padStart(2, '0')}`} · ${trade.crop}`;
-    el('trade-title').textContent = `A trader has arrived · ${trade.cost} logs → ${trade.food} food`;
-    el('trade-consequence').textContent = `That timber builds two cottages. ${trade.availableLogs} uncommitted logs available. ${s.paused ? 'Paused—take your time. ' : ''}Leaves after ${trade.departureIn}s of play.`;
-    el('trade-buy').textContent = `Trade ${trade.cost} logs`;
+    const ordered = trade.decision === 'ordered';
+    el('trade-title').textContent = ordered ? `Timber packed · ${trade.packedLogs}/${trade.cost} logs` : `Trader · ${trade.cost} logs for ${trade.food} food`;
+    el('trade-consequence').textContent = ordered
+      ? `${trade.food} food arrives when all logs are packed. Workers set aside available timber before new building deliveries. Work a grove if timber runs out. No delivery deadline.`
+      : `You can start with no logs. Workers pack the next available timber; food arrives when all ${trade.cost} are ready. This delays timber for new buildings. ${s.paused ? 'Paused. ' : ''}Offer lasts ${trade.departureIn}s of play.`;
+    el('trade-buy').hidden = ordered;
+    el('trade-buy').textContent = `Prepare ${trade.cost} logs`;
     el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;
-    el('trade-buy').title = trade.problem ?? 'Buy provisions using timber that could fund homes or food sources.';
+    el('trade-buy').title = trade.problem ?? 'Agree to a shipment, even with no logs stored. Provisions arrive only when the timber is ready.';
+    el('trade-decline').textContent = ordered ? `Cancel · reclaim ${trade.packedLogs} logs` : 'Keep timber for village';
     el<HTMLButtonElement>('trade-decline').disabled = readonly || busy;
     el('welcome-title').textContent = s.title;
     el('welcome-story').textContent = 'Four neighbors are coming to join your village in two minutes. They need two cottages and food.';
@@ -185,7 +190,7 @@ el('fishing-dock').onclick = () => startMode('dock');
 el('small-garden').onclick = () => startMode('garden'); el('large-field').onclick = () => startMode('field');
 el('food-back').onclick = () => { clearMode(); void recordView(); };
 el('trade-buy').onclick = () => { void command({ type: 'trade-buy' }); };
-el('trade-decline').onclick = () => { void command({ type: 'trade-decline' }); };
+el('trade-decline').onclick = () => { void command({ type: state?.trade?.decision === 'ordered' ? 'trade-cancel' : 'trade-decline' }); };
 el('early-event').onclick = () => { void command({ type: 'next-season' }); };
 el('repair').onclick = () => startMode('repair'); el('garden').onclick = () => startMode('garden'); el('grove').onclick = () => startMode('grove');
 el('rotate').onclick = () => { rotation = (rotation + 1) % 4; el('rotate').textContent = `Rotate ↻ ${rotation * 90}°`; void previewOrder(); };

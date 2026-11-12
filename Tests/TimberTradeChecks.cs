@@ -51,7 +51,15 @@ static class TimberTradeChecks
         var reserved=World.NewTimberTrade();while(reserved.Food.Time<World.TradeOfferArrival)reserved.Tick(.1f);
         var site=ReviewPlacement.Find(reserved,BuildingKind.Cottage,new(1,6),(c,r)=>c.Z>0,"reservation")!;
         reserved.Place(site.Actual,site.Rotation,BuildingKind.Cottage);for(int i=0;i<20;i++)reserved.Tick(.1f);
-        if(reserved.TimberTradeProblem()==null)throw new Exception("Trade steals committed construction logs");reserved.Validate();
+        int committed=reserved.ReservedLogsAt(null),free=reserved.AvailableLogsAt(null),food=reserved.ReachableEdibleStored;
+        if(reserved.DecideTimberTrade(true)!=null || reserved.Founding!.FirstHome!.Trade!.PackedLogs!=free || reserved.ReservedLogsAt(null)!=committed || reserved.ReachableEdibleStored!=food)
+            throw new Exception("Shipment stole reserved logs or gave unpaid food");
+        var packedSave=World.LoadJson(reserved.SaveJson());
+        for(int i=0;i<20;i++){reserved.Tick(.1f);packedSave.Tick(.1f);}
+        if(reserved.SaveJson()!=packedSave.SaveJson())throw new Exception("Packed shipment save diverged");
+        int returned=reserved.Founding.FirstHome.Trade.PackedLogs,stored=reserved.Stored;
+        if(reserved.CancelTimberTrade()!=null || reserved.Stored!=stored+returned || reserved.CancelTimberTrade()==null)throw new Exception("Shipment refund duplicated or lost logs");
+        reserved.Validate();
         var neglected=World.NewTimberTrade();for(int i=0;i<3000;i++)neglected.Tick(.1f);
         if(neglected.Founding!.FirstHome!.Complete)throw new Exception("Neglect wins");
         Directory.CreateDirectory("artifacts/browser/trade260");File.WriteAllText("artifacts/browser/trade260/routes.json",JsonSerializer.Serialize(results,new JsonSerializerOptions{WriteIndented=true}));

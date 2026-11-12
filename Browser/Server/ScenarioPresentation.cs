@@ -28,7 +28,7 @@ public sealed partial class VillageSessions
     {
         if (w.Founding!.FirstHome!.Trade is not {} t) return null;
         var field = w.Cottages.First(c => c.Kind == BuildingKind.VegetableField);
-        return new { t.Decision, t.DecidedAt, t.Arrived, t.NearHarvest, t.OfferEnabled, cost = World.TradeLogCost, food = World.TradeFood, availableLogs = w.AvailableLogsAt(null), problem = w.TimberTradeProblem(), departureIn = Math.Max(0, (int)Math.Ceiling(World.TradeDeparture-w.Food.Time)), arrivalIn = Math.Max(0, (int)Math.Ceiling(World.TradeArrival-w.Food.Time)), crop = field.Harvest > 0 ? "First crop ripe" : field.Planted ? $"First crop {(int)(field.Growth*100)}% grown" : "Field being replanted" };
+        return new { t.Decision, t.DecidedAt, t.PackedLogs, t.Arrived, t.NearHarvest, t.OfferEnabled, cost = World.TradeLogCost, food = World.TradeFood, availableLogs = w.AvailableLogsAt(null), problem = w.TimberTradeProblem(), departureIn = Math.Max(0, (int)Math.Ceiling(World.TradeDeparture-w.Food.Time)), arrivalIn = Math.Max(0, (int)Math.Ceiling(World.TradeArrival-w.Food.Time)), crop = field.Harvest > 0 ? "First crop ripe" : field.Planted ? $"First crop {(int)(field.Growth*100)}% grown" : "Field being replanted" };
     }
     static string GoalTitle(World w) => w.Founding!.FirstHome!.Trade is {} t ? (t.Complete ? "✓ Eight neighbors are settled" : "Make a home and a living for eight") : River(w) switch
     {
