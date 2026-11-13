@@ -16,6 +16,8 @@ F13 seasons remains removed. The setting is not authorization for a seasonal sim
 
 ## The experience to test
 
+**November 13 direction:** [one connected village story](VILLAGE_DIRECTION_262.md), first testing the missing middle in an established settlement. Useful land, actual journeys and a chosen improvement should give the player a reason to shape the same place after its first livelihood works. The [roadmap](ROADMAP.md) and [single active experiment](NEXT_CHUNKS.md) supersede older implementation tracks and first-test prescriptions below. No new gameplay or experience acceptance is claimed by this planning update.
+
 **Current primary contract, following the completed October 18 playtest:** authored settlement challenges supply a clear purpose, with freedom in layouts and livelihood choices. Building groups and renewable woodland help solve them; residents take needed work automatically. Free tending remains a secondary mode and continuation after success. [The checkpoint-210 challenge synthesis](CHALLENGE_REVIEW_210.md) selects one small newcomer scenario before further content. Growth can be that scenario's explicit premise without becoming a universal requirement. Prior open-ended experiments below remain useful ingredients, not the primary invitation.
 
 Read the land → establish cultivation and complementary food → connect homes and useful work → adjust an imperfect arrangement → improve the village or finish when satisfied.

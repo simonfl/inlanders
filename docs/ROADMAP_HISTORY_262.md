@@ -1,0 +1,427 @@
+# Current — trade upcoming timber, then assess
+
+Owner spent timber on a dock and ordered a grove before the delayed trader appeared. The old cash purchase therefore demanded foreknowledge; availability-gating would merely hide it in the recorded route. Outcome262 replaces it with a cancellable timber order, accepted even at0logs. Free central timber is packed automatically before new worker claims;16provisions arrive only once12logs are ready. Existing worker reservations remain safe. No credit, extra staffing or new catalogue entry. [Evidence and provisional decision](TIMBER_SHIPMENT_262.md).
+
+Keep this bounded revision for owner play. It supplies food before newcomers in the recorded-layout comparison while delaying housing; decline remains faster in those runs. Independent play also found a case where provisions precede the first observed local food. This establishes usability and a consequence, not sustained depth or broad balance. If the understood order remains pointless, replace the opportunity rather than layering another timer or merchant feature. The owner supplies reactions; the lead chooses and tests the response.
+
+Private build `1B01F85B1539`, outcome count262. Full campaign/Creative, audio, real iPhone comfort and dense performance remain unobserved in this bounded revision. Hold expansion; next evidence concerns usefulness of the commitment in normal play.
+
+---
+# Previous — fishing comparison, then observe
+
+Owner follow-up: the opening decision appeared before they understood what to do. Give the village a quiet start with a grove suggestion; the trader now arrives45 simulated seconds later and pauses play for consideration. Remove the offer from the welcome and initial scene. This is a focused correction within261. Revised comparison runs favor the dock more strongly, so keep food-choice balance unresolved; the old depleted-field advantage is historical. Next evidence is whether the opening now provides enough context, not another building or mechanic.
+
+Owner feedback on the trade: **“A real choice, but quiet afterward.”** Retain the trade and automatic labor. Outcome261 adds one different food commitment: a12-log fishing dock with small early catches from shared renewing grounds, alongside larger field harvests. Grouped phone controls and visible boat work serve that comparison. [Implementation, balance probes and independent evidence](BROWSER_FISHING_261.md).
+
+Decision: keep provisionally for owner play; hold expansion. Independent play confirms a viable livelihood and real upfront commitments, but again finds mostly waiting after planning. The current short scenario may not make declining fish or adding a second dock interesting. No catalogue, needs, worker controls or dock-upgrade batch. If the owner still finds the aftermath empty, test a different sequence of situations that changes an existing commitment; do not answer with more food buttons. No such follow-up is selected yet.
+
+Build `4CD7923F0CB7` is privately available with the later trade. The short crossing stays small; fishing is in trade and longer settlement scenarios. A full native campaign/Creative review and actual phone play were not performed for this bounded slice. Outcome count261.
+
+---
+# Previous — consequential trade comparison delivered
+
+Owner follow-up: completed the comparison and marked a concrete visual mismatch. Unbuilt browser cottages showed the full home. Build `D7576B352202` corrects this with actual construction stages and delivered-timber visuals. [Evidence](COTTAGE_STAGES_260.md). Retain the reduced interface and distinguish a correctable representation bug from the unresolved gameplay-enjoyment question. No expansion selected.
+
+Outcome260 delivers [The price of provisions](TIMBER_TRADE_260.md) through the private browser link. Keep automatic labor and a compact action set. A one-time food purchase spends the timber needed for arriving neighbors’ cottages; paired crop starts expose different timing costs. This experiment ends on housing, fresh meals, reserve and actual local supply, without an extra stability timer. The old longer scenario remains a separate baseline.
+
+Decision: retain provisionally for owner comparison; hold expansion. Independent play confirms consequences and recoverability, but also substantial waiting during production catch-up. Final wording makes that accounting explicit. The experiment tests one opening choice, not proof of a sustained management loop. Do not expand trade, buildings or needs until owner play resolves whether the sacrifice and visible aftermath are enjoyable.
+
+---
+# Current — agency after owner play
+
+November10: the owner completed the longer browser village. Low food created useful anxiety, but the level lacked choices; automation versus boredom is now the design question. [Research, independent review and proposed comparison](AUTOMATION_AND_AGENCY_259.md).
+
+Keep automatic routine work, clear objectives, recoverable pressure, the reduced phone interface and the current shared simulation/recording stack. Revise the largely additive economy and solved sustain ending before expanding the catalogue. More manual assignments, timers or needs are not selected as substitutes for meaningful alternatives.
+
+Next recommended comparison: one optional timber-for-food boat opportunity competing with real housing and crop commitments. Prove the opportunity cost with current controls first; a bounded worksite priority is conditional, not a new scheduler project. Compare different crop readiness and use the same honest shortened ending across variants. Reject dominant choices and babysitting. A risk-bearing arrival decision or spatial-planning redesign remain alternatives if this test fails. No new playable outcome or live-game change in this research pass; count259.
+
+---
+# Previous — longer browser comparison ready for owner play
+
+Outcome259 delivers **Before the river closes** through the private phone link. An intact crossing, growing field and two arrivals give the small action set a larger purpose: establish twelve neighbors and sustain them after closure. Keep the short recovery as a separate comparison. [Design, evidence and critical verdict](BROWSER_RIVER_259.md).
+
+The owner has accepted phone sharpness and smooth pan/zoom. Independent legal-action play, alternative strategies, neglect/recovery, normal phone-width UI inspection and current-format restart checks support handing over this comparison. They do not establish that its ending is enjoyable. A lean strategy can finish with no additional construction after early preparation; later play risks becoming passive. Keep effective preparation valuable. If owner play finds the sustain phase empty, replace it with a meaningful decision rather than adding timers, buildings or bookkeeping.
+
+Next: owner play of this one scenario, followed by review of its recorded decisions. No catalogue port, larger campaign, new needs or new presentation batch selected. Per-session locking is the bounded tooling investment justified by measured interference between agent and human villages; no larger framework selected.
+
+---
+# November 9 — browser access comparison delivered
+
+Owner feedback supports the reduced browser interface and reports surprisingly smooth actual phone rendering. Keep the focused action set; introduce choices only when they serve the situation. The blur correction and compact completed-goal row are deployed in build `8F426BA89689`. Compare phone clarity and smoothness before increasing visual complexity or porting the full build catalogue. This follow-up remains within outcome258.
+
+Outcome258 tests the accepted architecture with one recovery village: browser/touch presentation, shared validated commands for human and agent, pause/resume on interruption, and recorded sessions with bookmarks and a read-only timeline. Independent API play and ordinary browser-control play succeeded; private Tailscale HTTPS is live. [Evidence and limitations](BROWSER_PROTOTYPE_258.md).
+
+The owner confirmed that the link opens on the actual iPhone. Keep this as one comparison, not a campaign migration. Next: observe actual phone play/interruption/resume and review its recorded experience. Retain the independent C# model provisionally; require evidence of friction before a TypeScript simulation rewrite. Hold new buildings, needs and campaign chapters. Phone-size desktop screenshots and successful strategies do not establish real-device performance or enjoyable play.
+
+# November 9 — reassess delivery and observation before more features
+
+The owner wants agent-led play, observable owner sessions and access from an iPhone while the Windows laptop remains the development host. Five independent roles recommend browser delivery with shared player commands and session replay. [Assessment, alternatives and bounded comparison](STACK_REASSESSMENT_257.md).
+
+Retain clear purpose, recoverable pressure and a continuously animated village provisionally. Recommend a small browser/touch comparison using the independent C# simulation initially; a full TypeScript rewrite remains an evidence-driven option. Do not preserve the building/campaign catalogue as a migration requirement. Defer ordinary expansion until this access/observation direction is resolved. No browser migration, remote service or new playable outcome has been delivered by this assessment.
+
+# November 9 — make the longer level's finish legible
+
+Owner play exposed a full-looking4/4 timer without completion. Outcome257 separates elapsed stability from trial food delivered/meals eaten, displays exact missing portions and living-condition counters, and floors the clock to minutes/seconds. Reset and completed states avoid stale/live historical totals; no gameplay rule changes. [Evidence](RIVER_FINISH_UI_257.md). Return to the ongoing owner playtest before choosing further changes.
+
+# November 9 — villagers with clearer silhouettes and grounded poses
+
+The owner authorized a focused appearance/animation pass. Outcome 256 adds layered clothing, linen head coverings/wool caps/felt hats, restrained face/hair variation, articulated knees, distance-driven walking and smooth travel turning. Existing tool contacts and gameplay remain intact. The final linen palette is darker so sunlight preserves more of its shape. [Evidence and limitations](VILLAGERS_256.md).
+
+Keep this bounded. Check the people in ordinary play before adding more costume families, facial acting or a larger animation system. Normal-zoom identity comes from headwear and garment groups; tiny faces are close-up detail. The longer campaign scenario still awaits owner feedback.
+
+# November 9 — acoustic music and everyday sound
+
+The owner authorized presentation work while waiting to play the longer level. Outcome 255 replaces the simple soundtrack with three original acoustic-inspired stereo arrangements, adds material/step variants and subtle water ambience, and gives completion feedback space in busy villages. Preserve the existing volume/mute controls and quiet intervals. [Implementation, preview and evidence](AUDIO_REFRESH_255.md).
+
+Keep this provisional until listening: the outstanding question is pleasantness and repetition, not more tracks or an adaptive soundtrack system. Before the river closes still awaits owner play; this audio pass does not establish campaign pacing or authorize further gameplay expansion.
+
+# November 9 — test a longer village-building arc
+
+The owner found recovery distinct but tutorial-sized. Outcome 254 adds **Before the river closes**: recover food for four residents, prepare housing and production for two announced arrivals, then prove the twelve-person village can feed itself. The default successful script lasts about 29 simulated minutes; a fully prepared village can advance events and finishes in about 15. Neither timing establishes engaging play.
+
+Keep this as one provisional experiment. Real pressure comes from population growth; closure is the final assessment, not a weather system. Hold more chapters, seasons and needs until owner play resolves whether this creates useful preparation and adaptation or merely a longer construction checklist. [Experiment, evidence and limits](RIVER_CLOSING_EXPERIMENT.md).
+
+# November 9 — recovery must change the task
+
+Owner feedback retained clear progress and helping villagers, but rejected252 as sufficiently different from251. Outcome253 tests The broken crossing: all four residents housed, an existing ripe field cut off, repair6logs versus new localgarden4logs, and actual harvest transport to the village store. Goals are access, delivery and4/4 fed; no new-home step. Both routes and delayed recovery pass. Stop for owner play; do not equate altered reserves/layout with a new level. [Evidence and limitations](CROSSING_RECOVERY_EXPERIMENT.md).
+
+# November 9 — keep clear progress; test recoverable food pressure
+
+The owner found251 understandable and satisfying, and liked dwindling food. Keep the objective structure provisionally. Outcome252 cleans its hierarchy and introduces one return-play situation, A lean landing: fewer provisions, a small log stock, an inlet and food-first guidance, with the same three objectives. Use existing hunger and recovery; no new needs or punitive survival system. Prompt and delayed scripted routes work, but owner play must establish whether pressure changes choices and remains enjoyable. Hold expansion at this test. [Evidence and limitations](LEAN_LANDING_EXPERIMENT.md).
+
+# November 9 — clearer objectives before more features
+
+Owner feedback identified competing buttons and unclear progress. Outcome251 addresses that with a persistent three-part checklist, live construction and meal progress, one next action, and secondary tools behind Village tools. The independent visual review accepts the compact presentation for owner retry; it is not evidence that the core loop is rewarding. The single clarity revision is now used. Hold expansion and ask whether the revised experience is understandable and worth continuing. See [experiment evidence](FIRST_HOME_EXPERIMENT.md).
+
+# Current process — November 8 reset
+
+[Development process](DEVELOPMENT_PROCESS.md) supersedes the historical checkpoint cadence and batch queue below. The 249 game is the baseline. A first home is the single active challenger: four named residents, a useful forestry order, a new home and actual household meals. Obtain direct play evidence and decide keep, revise or drop before expanding. The bridge dilemma stays deferred. Full reviews occur at substantial direction decisions and production gates.
+
+---
+
+# Les Habitants — roadmap
+
+**Review cadence (updated October18,2026):** full whole-game review with all five independent roles every ten playable checkpoints; next240. Continue roadmap/queue reassessment after each chunk. Immediate direction reviews and presentation-triggered visual/audio reviews still apply. Ten outcomes222–231 and review230 complete; stopped231. October19 authorizes232–241, with full review240 and stop241.
+
+**A home for generations.** A settlement game about 17th-century French settlers in New France, in the region now called Quebec: farming, making a living from the land, establishing homes and improving everyday life.
+
+**Descendants are a theme, not a system.** No inheritance, genealogy, aging, succession, generational handoffs or legacy scores. The player builds a better village for the people living there; writing and the enduring place carry the longer-term aspiration.
+
+**Inlanders remains the internal codename:** repository, files, project, namespaces, assemblies, scripts, identifiers retain the internal name. Les Habitants is now the public menu/HUD/window identity.
+
+## Current direction and next step
+
+**Bounded household experiment.** Compare A first home with After the flood. Test whether initiating useful work and seeing its household payoff gives the owner a reason to care. Preserve the existing game as a baseline, freeze new systems and chapters, and stop for owner play after an independent ordinary-control evaluation. A functioning simulation is only the handoff gate; it does not promote this design. The active experiment card is in NEXT_CHUNKS.md. Mechanical checks and native still capture pass; independent ordinary-control play is blocked by desktop tooling. Owner play is the next gate, not another implementation chunk. Evidence is in FIRST_HOME_EXPERIMENT.md. The checkpoint notes below are historical evidence, not an implementation queue.
+
+**Checkpoint 249.** The restoration panel opens a focused fish and berry survey, with direct landing and hut planning. Inspecting the cut-off fields opens the existing crossing action. Native compact controls exercised both livelihoods and a reversible bridge plan alongside save, completion and both-mode reconnection. Zero-warning build. Implementation stopped here at user request. The [five-role strategic review and research](STRATEGIC_REVIEW_249.md) concluded that a working simulation has outpaced evidence of a rewarding loop. If work resumes, first compare this fixed build with a single compact river dilemma where a bridge opens productive land but cuts a working boat route. Use short uncoached play to decide whether a consequential choice and visible human payoff deserve another iteration. The [queue](NEXT_CHUNKS.md) is held at that decision.
+
+**Checkpoint 248.** After the Flood now has one crossing to the two ripe northern fields. The bridge preview agrees with actual restored access to both fields and 40 harvestable portions. Both-mode native reconnection and reachable food, blocked demolition recovery, food-source attribution and exact saves pass. All six scripted branches completed with twelve fed residents at 600 simulated seconds. In Normal, first source deliveries were 60–70 seconds and all finished at 127–129 seconds. In Relaxed, completion ranged from 124 to 140 seconds. The choices are feasible and the common meal gate still dominates pacing. See the [active queue](NEXT_CHUNKS.md).
+
+**Checkpoint247:** Bridge placement previews newly accessible land, workplaces, beds, ripe crops and stored food, plus any fishing routes it blocks. Pure-preview checks agree with actual reconnection, boat-route loss and cancellation recovery. Native compact placement and Normal/Relaxed restoration controls pass; screenshot inspected and zero-warning build. User requested stopping after this playable chunk: stop247; map simplification remains proposed.
+
+**Checkpoint246:** Edible workplace cards show fresh portions that producer delivered during the recent food window. History records producer identity, independent of storage destination; transfers remain excluded. Both-mode real fishing, zero local reserve/distribution, contribution totals, pure queries and exact saves pass; native restoration/control regression and zero-warning build pass. Next preview crossing benefits and fishing-route costs; source-labelled evidence will inform the simplified restoration comparison.
+
+**Checkpoint245:** Economy opens with reachable food, recent delivery versus demand and direct meal/production actions; reserve tuning and inventory move below immediate problems. Detailed flow remains in its tooltip. Relaxed retains meal inspection because residents still eat. Both-mode compact native checks and inspected screenshot pass; zero-warning build. Next make actual workplace contributions visible, then preview crossing consequences.
+
+**Checkpoint244:** Ordinary house placement no longer opens yard styling. Explicit Y opt-in and later home furnishing remain available; default recovery foregrounds the world and material commitment. Native compact placement/status/recovery checks pass; screenshot inspected and zero-warning build. Same-start six-branch comparison completed: all livelihoods viable, with completion limited by the two-meal objective. Next put operational food information before reserve tuning.
+
+**Checkpoint243:** Collapsed restoration status now shows missed meals or a low, falling food supply alongside housing progress. Opening grace avoids a false trend warning; resolving meals clears it. Native compact recovery/status/control checks pass; zero-warning build. Added a same-start livelihood comparison runner as supporting evidence, not another outcome; comparison runs next.
+
+**Checkpoint242:** Removed the Food-first/Balanced switch and its saved policy. Automatic workers still protect urgent meals, complete committed work and favor edible harvest during shortages. Native restoration, crop orders, save/continue and both-mode reachable-food recovery pass; zero-warning build. Next compare real home-bank fishing/gathering with salvage before adding mechanics.
+
+**Checkpoint241:** The main FOOD count and low-reserve warning now use reachable provisions; the tooltip distinguishes total and closed/disconnected stock. Native Normal/Relaxed checks show12 usable out of60, then rebuild real crossings and verify recovered availability; existing restoration controls/save/continue pass. Zero-warning build and inspected compact still. Full five-role review240 selects a fair near-home versus distant salvage experiment before expansion; all ten outcomes232–241 complete. Validation closeout completed: all84 distinct current-experience suites pass across preserved/resumed runs; zero-warning build and native public-HUD sample. See review240 for corrected test assumptions and limitations. No242 authorized.
+
+**Review240 direction:** [five independent whole-game verdicts](REVIEW_CHECKPOINT_240.md) are partially convincing. Keep trustworthy physical work and automatic labor, freeze breadth, and test a smaller authored restoration game. Distant salvage currently has a large cost/ripe-stock advantage over empty island cultivation. Next compare a credible near-home livelihood; if choices remain dominated or place-and-wait, redesign the situation or reduce scale. Final authorized241 fixes reachable-food HUD consistency, not campaign depth. Food-first is provisional; simplify before adding controls. No new needs, chapters or decorative expansion. [Current queue](NEXT_CHUNKS.md) supersedes historical checkpoint notes below.
+
+**Checkpoint240:** During scarce food, farmers favor ready edible crops over nearer grain; stocked villages retain nearest-crop selection. Reproduced the wrong choice with a controlled validated fixture; both modes now deliver actual vegetables and save exactly. Native restoration, work controls, newcomer/archive/free-play and follow/save/continue checks pass; zero-warning build. Supporting current-experience registry now includes recent mechanics and observation-before-status prerequisites. Nine outcomes232–240 complete; freeze for full five-role review before selecting241. Adaptive island versus single-field control comparison and broad regression run on the frozen build.
+
+**Checkpoint239:** Food reserves and public challenge readiness now count reachable open stores rather than stranded stock. Economy distinguishes reachable and total food. A synthetic stranded-food case reproduced another unreachable-route exception in pantry hauling; haulers now validate both access and worker route before reserving a shipment. Both modes build real crossings, restore food availability and retain exact saves; zero-warning build. Next protect ready edible harvests during shortages, then freeze240 for the whole-game review.
+
+**Checkpoint238:** Reproduced an unreachable-work exception when ordering demolition of a cut-off field. Demolition now waits for a real worker route, explains missing access and remains cancellable; rebuilding both crossings lets builders recover crops/materials and finish removal. Actual wait/cancel/reconnect/recovery and exact-save checks pass; zero-warning build. Next prevent inaccessible food stores from falsely satisfying the working reserve or restoration goal.
+
+**Checkpoint237:** Building and field placement now previews new material cost against queued orders and reachable unreserved supplies, including the additional shortfall. This informs investment without blocking plans. Tests cover real competing home/bridge orders, pause/cancel, claimed deliveries, plot size and Relaxed; native960 placement budget and restoration/work controls pass. Next make abandoning a disconnected workplace safely recoverable instead of letting demolition claim an impossible route.
+
+**Checkpoint236:** Restoration exposes independent housing and food-supply actions, plus recent deliveries versus meal demand so an undersized livelihood can be recognized. Compacted progress and reduced unnecessary opening actions; hungry residents remain directly inspectable. Native960 food/housing navigation, work focus, crop order and save/continue pass; image inspected. Next show construction commitments before placing another order, supporting deliberate food-versus-expansion investment.
+
+**Checkpoint235:** Players can prioritize food reserves over starting expansion jobs while automatic labor, urgent meal protection and existing commitments remain intact. Normal/Relaxed scheduling, actual harvest delivery, no-interruption toggles and exact saves pass. Native People control and crop-order UI/save pass at960, alongside restoration entry/continue. Next expose food and housing as independent recovery choices instead of always prescribing housing first.
+
+**Checkpoint234:** Fields can finish their current crop and automatically pause before sowing again. The ordinary field card offers the order and resume; ripe harvest stays on its original land, collected output still reaches stores, and empty ground can then be moved or revised. Normal/Relaxed actual crop completion, delivery, resume and exact-save checks pass; zero-warning build. Corrected restoration comparison shows one island field does not reach the food objective within360s; next add player control over food versus expansion work and test recovery rather than assume every food plan suffices.
+
+**Checkpoint233:** Blocked-field job searches now reuse reachability only during one worker claim, then discard it before world geometry can change. Same100-tick state is byte-identical; model time3.43 to0.63s, matched native1x simulation p95 160.3 to6.6ms and frame p95 181 to39.5ms. No persistent cache/invalidation framework. Six-route comparison rerunning; next allow harvesting a final crop before pausing production.
+
+**Checkpoint232:** Ripe field crops now stay on their land, including group moves. Flood restoration begins with40 recoverable portions; island cultivation is a new paid plot. Corrected a two-cell bypass around the second channel. Normal bridge branch completes130s; native island-open state validates and runs, but measured1x simulation p95 is160ms and a long comparison was stopped. Full six-branch comparison remains pending. Next fix this reproduced blocked-state slowdown before further mechanics.
+
+**October19 priority correction — gameplay before player-controlled decoration.** Prioritize meaningful choices, resource/labor tradeoffs, distinct objectives and recoverable mistakes. Functional placement of fields, homes, docks, storage, paths and bridges remains gameplay when it changes access, transport or production. Freeze expansion of cosmetic placement, roof/plaster choices, furnishing/yard styling, ornamental landscaping and group-composition tools. Existing optional controls need no wholesale removal. New France remains the setting; automatic visual detail and readable work/crop/access feedback support gameplay without becoming additional player chores. This direction supersedes older art/composition priorities below.
+
+[Review230](REVIEW_CHECKPOINT_230.md): five independent partially-convincing verdicts. Automatic work, proactive reserves, grouped buildings and woodland renewal address real player feedback. Keep a short newcomer introduction and experimental non-growing restoration; cut the overlapping far-bank variation from primary selection.231 delivered two direct choices with map previews and Normal/Relaxed; native flows pass. This authorization is complete and stopped231.
+
+**Core question:** does changing an inhabited landscape produce understandable choices and satisfying visible benefits? The island branches demonstrate viable preplanned layouts, not discovered second decisions. No longer quotas, extra mandatory needs or new buildings to manufacture depth. Keep the broader catalogue optional.
+
+**Next evidence-led sequence, conditional on authorization:** first compare salvaging disconnected productive land with establishing replacement food nearby. Make material commitments, labor, access and available alternatives differ in understandable ways; do not merely penalize moving fields or extend waiting. Require two viable plans, a recoverable mistake and a reason to reconsider after seeing consequences. Address clarity and reproduced player-facing performance alongside that experiment. Defer aesthetic flood recomposition until it supports a demonstrated gameplay need. Observe self-directed recovery before more chapters; a smaller restoration or farmstead game remains a valid redesign.
+
+**Tooling:** repair current-suite coverage/prerequisite discovery and add compact intervention/consequence timelines using existing runners. Obtain actual motion/listening evidence with existing capture tools. See review230 for costs, beneficiaries, validation and limitations. Tooling alone does not count as playable progress.
+
+**Reserve policy delivered222–226:**32 logs and24 planks/stone plus pending demand, four edible portions per resident, grain buffering, visible targets and recoverable manual caps. Actual food finishing and bread-chain checks pass; broader catalogue balance remains provisional. No save compatibility work.
+
+## Earlier direction notes — historical
+
+**Checkpoint221:** Timber reserve raised from8 (24 maximum with orders) to32 logs plus unfinished, unpaused construction. Enough for two cottages, a standard vegetable field and a dock (30 logs). Logs tooltip and workforce explain the target and resumption. Actual automatic harvesting, stop, construction/replenishment and exact-save simulation checks pass; automatic-work regression and native Normal/Relaxed controls/target checks pass; zero-warning build. Plank/stone and food policy follow-up recorded, not implemented.
+
+**Checkpoint 220:** Live challenge status exposes readiness, incoming neighbors and settling progress; arrival/success notices and a direct resident-follow action connect goals to village life. Actual192s invitation/arrival/completion fixtures and native960/1440 follow plus entry/recovery/free-play checks pass; final automatic-work check passes. Stop implementation for the full220 review, then close this authorized ten-outcome batch.
+
+**Checkpoint 219:** Free play is one river settlement with optional prepared food production, not two apparent levels. Completed challenges support continued optional growth; Normal/Relaxed in both situations reach18 residents and retain exact saves/restart identity. Native consolidated setup and existing challenge/recovery flows pass. Public staffing copy follows automatic work. Final220 will connect milestones to visible people, then full review and stop.
+
+**Checkpoint 218:** Cut-off fields are directly inspectable from the challenge; crossing and pause/move actions precede optional controls and fit960. Native ordinary move cancellation and crossing placement restore actual construction, access and field food delivery. Build passes; screenshots inspected. Next consolidate free-play setup and allow optional growth after success; deeper challenge remains unproven.
+
+**Checkpoint 217:** Optional far-bank repair situation has two cut-off existing fields, a real crossing or relocation choice and separate saves. Bridge/move complete in Normal192/263s and Relaxed173/249s; untouched60s control retains inaccessible crops, not a long-run failure proof. Fixed unreachable-farmer crash. Native entry/save passes. This is a short repair variation, not a proven harder level; next make recovery directly actionable and demonstrate restored production through UI.
+
+**Checkpoint 216:** The full success contract and invitation now precede generic tools; settling names actual blockers and checks assigned reachable homes. Native compact-window entry/completion passes. Comparison: homes alone fail by1200s; one field and a farther field finish at367/333s without missed meals, two fields at267s. Retain as introduction; next test a repair situation rather than pretend distance alone supplies challenge.
+
+**Review215:** [whole-game synthesis](REVIEW_CHECKPOINT_215.md) retains the challenge-led correction but rejects claiming sustained challenge from a 197–259 simulated-second solver. Prioritize one complete objective flow and a minimum-intervention/repair comparison; deepen or replace the situation rather than raise quotas. Catalogue grouping is liked; spatial group manipulation remains unproven. Scope216–220 is evidence-led.
+
+**Checkpoint 215:** Challenge now uses a crowded inlet with retained kitchen garden, northern growing ground and an optional crossing. North-bank fields/homes and compact-bank fishing/cultivation both complete in Normal/Relaxed with real work and exact saves; 197–259 simulated seconds. Native inlet entry/completion pass. This is still brief and not evidence of sustained challenge; pause for the full-game review before216.
+
+**Checkpoint 214:** Complete newcomer challenge is playable: prepare, invite, actual arrivals/homes/two meals and fresh deliveries, explicit success and continued building. Normal/Relaxed simulations finish at291/241 simulated seconds; native entry/save/Continue/completion pass. This remains a short baseline, not a proven substantial challenge; 215 changes the spatial situation before review.
+
+**Checkpoint 213:** Ordinary timber now opens area renewal of existing trees; planting bare ground is explicit. Cancel/apply retain the supplied project and view. Pure selection and all six Normal/Relaxed woodland intent checks pass; native area action and return pass. Next: complete the newcomer challenge.
+
+**Checkpoint 212:** Food reserve rest is explicit; fixed fishers no longer falsely report reserve suppression. Workforce counts distinguish work, personal time and availability. Actual dispatch trace is optional and pure. Simulation and native Normal/Relaxed staffing checks pass. Next: area timber, then the challenge.
+
+**Active 211–220 batch:** authorized October 18. 211 delivers one automatic public workforce without interrupting current jobs. Next: explain genuine inactivity, then area timber and the newcomer challenge; review the whole game at 215 before choosing the remaining scope. No claim of human acceptance.
+
+**Completed-playtest decision (October 18): challenges become the primary game.** The user liked building grouping and grove renewal, but found the job/shared-worker distinction confusing and free tending pointless without a goal. [Strategic synthesis](CHALLENGE_REVIEW_210.md) replaces the previous free-play-first direction: prototype one meaningful newcomer-settlement challenge, with automatic useful work, visible outcomes and freedom in how to solve it. Keep free play secondary. Fishing may intentionally rest when food reserves suffice; manual assignment is not required to activate the dock, and the actual idle cause remains unverified. Keep the liked tools, simplify public staffing, and make blocked work versus sufficient reserves clear. Do not restore archived service assessments or add needs to manufacture challenge.
+
+**Earlier feedback from the same playtest (superseded in priority by the completed-session decision above):** individual tree harvesting is tedious; renewable grove management was enjoyed but hidden; the two public starts look identical because they share the landscape and homes. [Immediate strategic review](PLAYTEST_REVIEW_210.md) supersedes the prior request to compare these as separate experiences. Select area renewal as ordinary timber management and consolidate the starts into one river settlement with an optional prepared food supply. A genuinely different second place remains a later design task, not a renamed setup variant. Broader enjoyment, sound and sustained motivation remain unestablished. Proposed scope is in [the active queue](NEXT_CHUNKS.md); no new playable checkpoint in this review.
+
+**Review210 decision:** all five independent whole-game verdicts are partially convincing. [Full synthesis](REVIEW_CHECKPOINT_210.md) retains freely establishing/tending a river settlement, actual work and meals, reversible spatial choices and optional stopping. The central uncertainty is whether a player wants another alteration or enjoys quiet observation after food becomes dependable. More controls, buildings and passing tests cannot establish that desire.
+
+**Completed201–210, authorized October18,2026:** actionable construction and ingredient recovery; actual forestry/cultivation access; uninterrupted committed staffing work; smaller workplace cards; supply and journey return context; relevant source navigation; and measured bulk ground submission. Whole-game reviews205/210 and the206 presentation supplement are complete. Fixed205's67 simulation suites, targeted208 checks, current210 native public/recovery/menu checks and two fresh dense generations passed. Overall stutter remains unresolved; listening remains unobserved. Subsequent human feedback is recorded above.
+
+**Stopped at 210; no new batch started.** Freeze automatic catalogue, inspector and prop expansion. The next scope addresses the actual woodland feedback and duplicate public beginnings above, then observes one player-chosen change. A direct-ground composition interaction and a deeper working frontage are substantial conditional alternatives, not an automatic feature queue. Keep the campaign archived; do not restore service assessments or add needs to manufacture purpose. See [completed batch and handoff](NEXT_CHUNKS.md).
+
+**Completed171–200:** authorized October9; all thirty outcomes implemented. The public candidate is a freely chosen livelihood and an inhabited riverside place worth shaping. Complementary hour-long food portfolios work without hunger; do not add needs, food buffs or compulsory growth to manufacture decisions.
+
+171–180 connected ordinary first-food choice, resource siting, real source/worker trips, food-shortage recovery and sustainable timber.181–185 made gathering and planting credible, then [review185](REVIEW_CHECKPOINT_185.md) rejected an automatic pose queue.186–190 now support a whole land intention: keep woodland, harvest and renew, prepare a desired building footprint, reconsider clearing, or establish a spaced grove elsewhere. Actual routes govern subsequent shared visits.
+
+[Full190 review](REVIEW_CHECKPOINT_190.md) retains land care but freezes editor expansion. 191 delivers one explicit addition through preparation, construction and actual use, including cancellation, disclosed blockers and saved intent. 192 corrects whole material trips for building, processing and home improvements. 193 reduces sustained rendering cost through colored static batches; large intermittent stalls remain. 194 reveals inspected activity/proposed ground through occluding canopies and restores woodland afterward. 195 corrects visible roof/resident picking across window sizes and zoom, including real occlusion. [Full195 review](REVIEW_CHECKPOINT_195.md) retains these corrections and selects returning to chosen work and reconciling later woodland intentions. 196 restores saved view/inspection across ordinary returns, including safe missing targets. 197 reconciles later woodland choices with the pending addition through explicit resume/cancel and actual use. 198 moves normal saves/settings to local application data after matched workspace/local tests and100 error-free native save cycles. No migration; external lock ownership remains unknown.199 corrects reproduced Watch framing of communal destinations and their actual approaches.200 completes safe app-switching interruption with optional background running. [Final200 review](REVIEW_CHECKPOINT_200.md) is complete. All64 final current-experience suites passed. Stop200. Future priorities are player-chosen intention and noticed payoff, with existing establish/tend alternatives; no201 queue is authorized. Human enjoyment and listening remain unobserved. [Batch handoff](NEXT_CHUNKS.md).
+
+**Completed161–170:** Matched founding, bounded arrangement recovery, the river-farmstead landscape, row-sized field collection and measured actor/HUD fixes are committed. Public Play now offers **Establish life by the river** or **Tend a river settlement**, with Normal/Relaxed and earlier beginnings retained. Whole-game reviews [165](REVIEW_CHECKPOINT_165.md) and [170](REVIEW_CHECKPOINT_170.md) choose provisional retention and **stop170**. Final52-suite regression passed on the reviewed build; delivery closes the batch. No171 authorized. [Batch outcomes and future hypotheses](NEXT_CHUNKS.md).
+
+[The thematic review](THEME_REVIEW_36.md) redirects the generic shore/woodland comparison toward a small agrarian settlement shaped by river frontage, useful growing ground and retained woodland. The [theme/reference brief](LES_HABITANTS.md) gives the historical frame and deliberately leaves exact location, decade and balance TBD.
+
+**Completed151–160:** user authorized another ten on October7. 151 delivered batched path strokes with measured active-route savings. 152 adds actual-trip path proposals and a focused journey card. 153 exposes actual household journeys and return context. 154 adds actual shared-place visitors with follow/return. 155 adds chosen path approaches. 156 consolidates world path proposals and removes transient scraps/duplicate controls. 157 delivers atomic translated/turned home groups with actual model preview. 158 includes productive ground with growing/ripe crop consequences and continued real meals. 159 makes carried approaches explicit and preserves external junctions. 160 delivers matched arrangement comparison and direct observation of actual use. Ten outcomes complete; [full review160](REVIEW_CHECKPOINT_160.md) retains the group experiment provisionally, freezes further control expansion and stops160. Final47-suite regression passed on corrected02f1193; delivery closes the batch. First five complete; [review155](REVIEW_CHECKPOINT_155.md) cuts further trip-panel expansion and chooses a bounded farmstead-group composition experiment156–160; full reviews155/160. No new human play evidence. [Batch handoff](NEXT_CHUNKS.md).
+
+**Completed141–150:** full reviews [145](REVIEW_CHECKPOINT_145.md) and [150](REVIEW_CHECKPOINT_150.md). The combined field/shared-ground test rejected the forced binary dilemma. Shared places now support small independent arrangements and ordinary bounded visits; varied homes, blended ground, nearer cultivation and contextual paths form the retained ensemble. **Stop150** after final regression/push. [Handoff and future hypotheses](NEXT_CHUNKS.md); no automatically scheduled151 or new needs/resources/growth.
+
+**Earlier checkpoint120:** Ten outcomes111–120 and whole-game reviews [115](REVIEW_CHECKPOINT_115.md)/[120](REVIEW_CHECKPOINT_120.md) delivered the river-frontage comparison and a more coherent look/act/observe interaction. The subsequently authorized121–130 batch is now complete.
+
+The verdict remains partially convincing. A practical landing, inland fields and woodland provide a stronger place; fewer diet/UI obligations help authorship. Whether players want to reshape an already functioning hamlet remains unproven. Public qualitative mood has been replaced by descriptive daily life. Keep founded/inhabited, inlet/frontage and Normal/relaxed comparisons; no new needs/resources/catalogue expansion to manufacture purpose.
+
+The inhabited frontage now compares livelihoods, not just composition: two fields plus a dock and shared meal ground,40vegetables per combined crop plus fish,8loose logs instead of12 with equal total timber investment. Keep these differences explicit. Retain existing rendering provisionally; broad lawn, small productive extent and stepped banks remain aesthetic hypotheses for human reaction. Dense stutter, intermittent save replacement and unauditioned sound remain limitations. Below is a hypothesis inventory, not an execution queue.
+
+## Review170 direction — historical
+
+The public candidate is clearer; its central pleasure is still unproven. Test a wanted livelihood or alteration through real use, including a plausible mistake and recovery. The two tested food approaches both contain vegetables; catalogue-wide food balance and woodland-food discovery are not established. Short satisfied observation is valid. Freeze automatic start/tool/prop expansion. Do not add needs or mandatory growth to manufacture purpose.
+
+Retain the connected woodland and entrance-facing view;20 smaller trees preserve total timber but change clearance/habitat/access. Row collection changes throughput, not yield. Remaining stepped banks and broad lawn are secondary to actual motion/audio and intention evidence. Specific pose/HUD costs improved, but outside-callback stalls and historical save denial remain unresolved. See [review170](REVIEW_CHECKPOINT_170.md) for alternatives, falsifiers and conditional profiling investment.
+
+## Review160 priorities (historical)
+
+Compare wanted change in the clearing with founding a useful farmstead before another capability batch. Post-application recovery is an open design issue: restoring an arrangement must not rewind elapsed food/work. A river-farmstead landscape with substantial productive strips and revised framing is the structural visual alternative to the current lawn/stepped shore; it is not an approved prop list. Preserve full catalogue access, but stop automatic generalization of group tools, templates and inspection panels.
+
+Measured ordinary resident-animation and dense outside-callback stalls remain unresolved. A bounded attribution/intervention and actual synchronized motion/audio audition are higher-value evidence investments than new infrastructure. See [review160](REVIEW_CHECKPOINT_160.md) for experiment falsifiers, costs and evidence limits. No161 is authorized by the completed batch.
+
+## What stays, what changes
+
+| Area | Direction |
+| --- | --- |
+| Core loop | Read the land, establish homes and a visibly working livelihood, connect work and daily life, recover from mistakes, improve or finish. Test the first productive payoff separately from mature reserve control. Keep shared work, physical materials/meals, optional arrivals and forgiving housing/public-space moves. |
+| Land and maps — F01/F02/F12 | River frontage, long cultivated areas, kitchen gardens, woodlots and useful paths give the settlement its structure. Reuse current clearing, preservation, water and route rules. Exact plots remain freely arranged; no land-ownership bureaucracy. |
+| Food — F05/F07/F24/F26 | Put cultivation and food processing in the foreground; use fish, gathered foods and woodland as complementary choices. Compare adaptive food plans at equal investment; current batch bread is retained provisionally. Storage should solve actual access/batch problems, not serve a required building checklist. |
+| Homes and community — F04/F25 | Comfortable occupied homes and modest shared places express improvement. Keep food, home rest and recreation; no automatic education, religion, warmth or additional satisfaction meters. |
+| Buildings — F08/F23/F26 | Reassess names, scale, construction and environment as one small period-informed palette. Keep public buildings available while comparing their usefulness; archived Carpenter dependency remains excluded. A historical setting does not require every historical institution. |
+| Campaign/onboarding — F11/F18/F19/F21 | Give each situation a practical land/labor problem, two plausible approaches and recoverable mistakes. Teach ordinary rules in the place being built. Remove population expansion and first-visitor recipes as the default definition of achievement. |
+| Visual life — F03/F09/F20/F22/F23 | Make fields, homes, work yards and water approaches readable at ordinary zoom. Retain warm style; reconsider massing and terrain together. Clothes/tools/materials need dated references, not generic period decoration. |
+| Sound/music — F10/F17 | Audition work, construction, footsteps, water and quiet intervals first. Extend the existing system toward the selected setting after listening; no automatic new soundtrack framework. |
+| Free arrangement — F16 | Keep a relaxed option with the same recognizable place and daily life. Be clear about free construction and relaxed hunger; do not confuse it with older foodless Creative rules. |
+| Reliability/tooling | Godot/C# and local Windows remain. Current saves must be correct; migrations are unnecessary. Reuse snapshots, held-input checks and frame summaries; investigate performance when reproduced. |
+
+## New France art direction — F40
+
+**Deferred presentation track, updated October19.** Preserve the New France identity; gameplay now takes priority over aesthetic expansion, especially player-controlled decoration. Earlier art priorities below are a reference backlog, not the next execution queue. [F40 — New France art direction](NEW_FRANCE_ART_DIRECTION.md) turns the provisional F34 palette into concrete work:
+
+| Priority | Item |
+| --- | --- |
+| Partial66–71; whole-scene identity unaccepted | **F40a — substantial habitant houses**, with researched forms, deep openings, foundations, chimneys and material contrast. |
+| Fields/ground advanced through 81; connected ensemble next | **F40b — cultivated landscape** and **F40c — lived-in domestic yards**: real fields, useful forecourts, woodlots, earth paths and river frontage. |
+| Landing 82 and oven 83 delivered; ensemble still provisional | **F40d — distinctive oven/work/storage structures** and **F40e — working river landing and boats**. |
+| Extend the chosen scene | **F40f — clothing, tools and everyday poses**; **F40g — light, atmosphere, sound and music**. |
+| Across relevant UI work | **F40h — French names, local writing, menu art and restrained typography/material styling**. |
+
+Review100 advances the connected farmstead into an asymmetric river-facing landscape comparison using the existing low houses, fields, landing and oven. Domestic/work ground, bank transitions and woodland margins must respond to real placement and use; do not substitute preset decorative templates. The older colorful menu diorama should give way to the selected public village language. Judge the whole view at ordinary zoom before spreading the style across the catalogue. Specific historical forms need date/place references; the working anchor remains rural St. Lawrence,1670–1680. Details and later ordering stay TBD. This art track does not add seasons, inheritance, needs or compulsory buildings.
+
+## Feature priorities after the first situation
+
+These are conditional candidates, not an execution queue. The October19 gameplay-first direction supersedes review90's composition-first ordering. F34/F40 retain their historical IDs; aesthetic expansion is deferred while existing production, access and resource choices are evaluated.
+
+| Priority | Candidate | Decision it should add / smallest scope |
+| --- | --- | --- |
+| Deferred; functional readability only when needed | **F34b — worked land and farmstead presentation** | Fields/gardens, homes, stored produce and shore access form a coherent visible whole. Start with representative assets and actual activity, not 18 simultaneous building replacements. |
+| Delivered, evaluate | **F34c — cultivated ground** | Real 3 × 5 grain fields with walking/work, compact gardens retained. Whether grain deserves its larger footprint remains an open design question. |
+| Conditional | **F34d — milling and bread** | A mill or combined milling/baking treatment may give grain a recognizable, geographically meaningful chain. Test siting/labor payoff; do not add flour plus another mandatory wait solely for historical completeness. The farm/bakery chain already exists; compare its value under current rules. |
+| Later | **F26/F34e — pasture or river exchange** | Livestock could compete for cleared land/feed; a landing could carry actual goods. Prototype one only when it differs from gardens or land hauling. Animal breeding, full trade markets and fleets are not implied. |
+| First step delivered | **F25/F34f — improve daily life** | Quiet residents now return home and yield to new work.  Home repairs/comfort, a common oven, work gathering or contextual chapel identity only where there is a useful activity and supported reference. No compulsory civic ladder or faith/education meter. |
+| Across relevant chunks | **F21/F34 — understandable choices** | Preserve compact category browsing, direct inspection and visible phase actions. Show the need, terrain/input and practical result. Avoid another permanent dashboard. |
+
+Costs, outputs, field dimensions, chapter length, specific crops, new resource types and precise architectural variants remain TBD. The theme changes priorities, not every balance constant at once.
+
+## Campaign concepts
+
+[Five situation sketches](CAMPAIGN_SYSTEMS.md) explore getting established, cultivating food, woodland/shore choices, useful connections and improving an existing village. They are a source of distinct scenarios, not five promised levels or a family chronology. Introduce one unfamiliar building group at a time, keep the full catalogue available, and let the player solve the situation in more than one way.
+
+## Explicit exclusions and deferred work
+
+- No inheritance, generational handoff, family simulation or legacy scoring; “for generations” is narrative tone only.
+- **F13 seasons stays removed.** Do not reintroduce an annual cycle, winter deadline or cold-survival system through the theme.
+- No combat, conquest, multiplayer, large technology tree, compulsory religious/education systems, detailed seigneurial taxation or full historical economy.
+- No internal rename or save migration. F34a ships public branding only; further historical art remains provisional.
+- Avoid expanding the catalogue, polishing every model, or adding needs before the livelihood-and-improvement experience proves useful.
+
+## Delivered foundation and history
+
+Current public game: recommended working clearing plus player-founded and inhabited comparisons, with Normal/relaxed constraints and voluntary finishing. Earlier farmstead, court, lake/gathering and campaign experiments remain behind developer access. Nineteen buildings, meals/material routes, homes/rest/recreation, optional comfort, fishing/stone/wildlife, woodland/landscaping, four-way buildings, paths, save/resume, audio and menus provide the working base.
+
+Recent outcomes: [F33a action/food-choice clarity](CHOICES_F33A.md), [T07 interaction sampling](INTERACTION_T07.md), [F32 landscape comparison](HAMLET_F32A.md), [simulation performance](HAMLET_PERFORMANCE_F32B.md), [rearrangement](HAMLET_REARRANGEMENT_F32C.md), [connected paths](HAMLET_PATHS_F32D.md). Their tests do not establish enjoyment or historical authenticity.
+
+The [pre-theme roadmap](ROADMAP_PRE_HABITANTS.md) preserves delivered feature tables, IDs and older concepts; [earlier F31/F32 queue](DELIVERED_F31_F32_QUEUE.md) and [pre-theme F33 queue](F33_QUEUE_BEFORE_THEME.md) preserve prior decisions. Historical proposals do not override the active scope or explicit exclusions above.
+
+After every chunk, reevaluate this roadmap and the active queue; record outcomes in [CHECKPOINTS.md](CHECKPOINTS.md). Follow the [critical review mandate](DESIGN_REVIEW_MANDATE.md) and [whole-game reviewer cadence](REVIEW_CADENCE_PROPOSAL.md). Count playable outcomes once, and keep unobserved play/listening/preferences explicit.
+
+Checkpoints41–45 delivered real cultivated ground, home waiting, resident journeys, workplace relocation and an inhabited inlet. Checkpoints46–50 delivered [provisioning](PROVISIONED_LIFE_F36A.md), [normal shared meals](NORMAL_COMMONS_F36B.md), [furnished forecourts](HOME_YARDS_F36C.md), [grain capacity](FOOD_LIVELIHOOD_F36D.md) and [world workplace cards](WORKPLACE_READING_F36E.md). Reviews [40](REVIEW_CHECKPOINT_40.md), [45](REVIEW_CHECKPOINT_45.md) and [50](REVIEW_CHECKPOINT_50.md) record retention, rejected assumptions and evidence limits. Corrections/tooling do not advance the count.
+
+Checkpoints56–60 delivered contested cultivation/shared ground, paused garden relocation with replanting, actual approach paths and fuller crops, concise entry/action hierarchy, and paired current food-access inspection. [Review60](REVIEW_CHECKPOINT_60.md) records the five-role critique and final evidence. The hands-on reviewer was blocked before any input by a window-state tool hang; scripted controls, simulation and stills remain distinct from play or enjoyment evidence. Save replacement denial remains open. F38 was the following implementation queue; F39/F40 now define the active priorities.
+
+
+Checkpoints61–65 delivered coherent public entry, voluntary finish/watch/reopen, the cultivated-bank comparison, compact home/construction actions and saved opening-footprint comparison. [Review65](REVIEW_CHECKPOINT_65.md) records independent findings, concrete public-flow corrections and replacement priorities. Checkpoint66 subsequently delivered direct furnishing and the first limited house/yard treatment; see [review66](REVIEW_PRESENTATION_66.md).
+
+Checkpoints67–71 deliver larger working fields, the broader bank composition, four real yard locations, candidate previews and an explicit furnishing transaction. [Review70](REVIEW_CHECKPOINT_70.md) challenges motivation and scene structure; [the active queue](NEXT_CHUNKS.md) pauses for human play and makes the next five scopes conditional. Ground overlap fixes count zero. Current saves remain required; intermittent replacement denial remains unresolved. See the ledger for validation and chronology.
+
+
+Checkpoints72–75 add place watching, direct ground-side choice, shared-meal world controls and the matched-inventory grouped farmstead. [Review75](REVIEW_CHECKPOINT_75.md) records the whole-game critique, reviewer-independence limits, evidence and reliability closeout. The next queue prioritizes a wanted transformation rather than another convenience batch.
+
+
+
+Checkpoint106: everyday palette now offers home, cultivated ground, river landing and existing timber gathering. Bridge/forager remain in the full catalogue. Shared-worker clearing guidance no longer incorrectly requires manual logger assignment. Native960 all choices fit; mark/cancel/reorder and actual shared timber collection/root clearing pass20261003-065259-799-essentials-4c3590. The fixture preserves all trees; the probe explicitly chooses one for clearing, rather than assuming an unpreserved tree exists. Zero-warning build; simulation unchanged. Next107 removes overlapping food inspection surfaces.
+
+
+Checkpoint107: public food inspection temporarily replaces place/person cards with store labels and a compact Back/Esc control; menus close the overlay. Returning restores selected-place context. Removes the large stale notice and immediate toggle feedback delay; provision-rest uses a semantic report flag. Native960 food view/open/back and unchanged state passed20261003-065531-251-household-24346b; focused crop/revision checks pass, zero-warning build. Next108 groups occasional home alterations, then109 simpler public navigation.
+
+
+Checkpoint108: home selection leads with residents/use/watching; Move, furnishing and yard changes join occasional actions under Change this home. Native960 household exchange passes065738-923-household-move-c8b9f6. Broader bank probe updated from obsolete Follow resident to actual roster: full yard previews/apply/cancel/furnish, Normal/relaxed, saves/menu and shared-place flow passes20261003-070014-940-cultivated-bank-fc309b. Prior run065904-231 reproduced known replace-target0x80070005,11 attempts414ms; village correctly stayed open. Successful retry is not a fix; cause remains unknown, diagnostics retained. Zero-warning build, simulation unchanged. Next109 reduces public navigation with all management still reachable.
+
+
+Checkpoint109: public persistent navigation is Build/Village; Village has People, Supplies and Options links, while existing V/I/O shortcuts remain. Archived worlds restore the five domains. Shared native menu helper now follows visible public controls. Native960 all three secondary pages/Escape preserve simulation20261003-070234-747-household-7eb426; founding menu/placement/cancel/save-load/relaxed entry passed070246-356-first-place-6b6450. Zero-warning build; no simulation change.110 completes place watching with return context and compact controls, validates the batch and stops after full review.
+
+
+Checkpoint110: watching a selected place retains it for return without changing pause/speed; public watch mode starts with Return, clock controls and expandable view options. Expanded controls fit compact view. Native960 navigation/household/watch/return/supply/optional finish/watch/reopen/exact save-load passed20261003-070608-239-quiet-visit-993d74; image inspected. Zero-warning build. Final broad regression and refreshed full20-minute founding session underway; freeze for whole-game110 plus visual/audio, then stop. No claim of human discovery, enjoyment or listening.
+
+
+Checkpoint111: public founding menu now compares inlet and river frontage, with distinct current save/restart identity in Normal/relaxed. Same eight people,48logs/4planks/120food and existing rules. Native960 actual menu/save/load plus construction, meals and home rest passed20261003-130234-242-river-frontage-f7aa6d. Focused both-mode garden/fishing routes and exact continuation pass; zero-warning build. Landing tests choose legal bend geometry rather than assume the inlet coordinate. Next112 supplies an inhabited comparison; preference unobserved.
+
+
+Checkpoint112: inhabited frontage is selectable beside the inlet, with six homes, two fields and a kitchen garden at equal population/reserves/crop capacity. Actual960 menu, household/watch/food controls pass130826-298-river-hamlet-a95b57; overview inspected. Both-mode actual meals/restart/exact continuation plus open garden/fishing routes pass, zero-warning build. Authored fields run inland; no objective recipe added. Next113 reuses existing resource survey with land-orientation access instead of adding another management overlay.
+
+
+Checkpoint113: Village now opens the existing resource survey with optional shore/open-land/woodlot views, computed from actual ground and standing trees. No soil bonus or prescribed site implied. Finish/Esc restores the entry camera; clock and simulation stay unchanged. Native960 all three views and exact return pass131111-488-river-hamlet-36bb44, zero-warning build. Reuses one inspector rather than adding an overlay. Next114 addresses broad water depth/shore readability, with115 presentation review.
+
+
+Checkpoint114: public river water now grades from shallow banks to deeper channel with fewer calmer ripple marks; distant water follows actual map-edge geometry rather than the old straight shore. Land/boat/placement rules unchanged. Zero-warning build, frontage1440 overview inspected131352-803-river-hamlet-cce182 and opposite inlet960 capture131425-838-across-inlet-bbbfe4. No motion/audio acceptance claimed. Next115 gives existing workable woodland distinct silhouettes and a coherent ground edge, then full presentation-inclusive review.
+
+
+Checkpoint115: existing workable trees now have mixed tall conifer and branched/light-bark silhouettes; overlapping canopy ground joins into a forest floor and clears with the real trees. No new resources/obstacles. Frontage1440 before/after8s1x captures131558-762-river-hamlet-1ade4e inspected; this is snapshots, not motion acceptance or isolated performance (another capture overlapped). Actual timber mark/cancel/collection/root clearing passed131613-218-essentials-f2337f, zero-warning build.37 current suites running; freeze for whole-game115 with visual/audio before116. Remaining outcomes are contingent on synthesis, not automatically more decoration.
+
+
+Checkpoint116: resource survey can hand its current camera directly to everyday building/clearing choices. Back/Esc still returns to the original view; Build in this view deliberately keeps the chosen ground. Native960 survey/action/field-preview/cancel preserves simulation and camera132408-091-river-hamlet-af946d; zero-warning build. Next117 aligns the first-place vocabulary with that same small palette, retaining full catalogue access.
+
+
+Checkpoint117: first-place and everyday Build now share home/cultivated-strip/landing choices plus timber gathering. Opening cultivation uses the same directly drawn ground as later play; kitchen gardens and grain remain in the full catalogue. Native960 all choices/cancel/timber/catalogue/Normal-relaxed/save/firstplacement pass132514-141-first-place-3c3bc5; zero-warning build. No new building/rule. Next118 makes the river a practical livelihood and explicitly accounts for the changed investment mix.
+
+
+Checkpoint118: inhabited frontage now uses two inland fields, an existing fishing landing and shared outdoor ground. Landing replaces kitchen garden and costs4additional invested logs, leaving8rather than12 in yard; total initial timber, people and72food stay matched. Crop capacity now40vegetables plus actual catches, not the old48vegetable claim. Both-mode fish/crop meals/exact continuation pass;960 native menu/household/survey/actions pass132702-230-river-hamlet-3866ea.1440 actual60simseconds at6x inspected132623-160-river-hamlet-98439a; no preference claim. Next119 removes public diet-score pressure rather than adding another purpose through needs.
+
+
+Checkpoint119: public resident mood no longer rewards a three-food diet or displays a completion score. It reflects actual meals/home/rest/breaks; relaxed missing meals remain penalty-free but are reported honestly. Public People and meal summaries omit variety grading; archive happiness/variety remains unchanged. Both-mode one-food versus varied-food independence, actual continuation and archive happiness checks pass.960 native mood inspection (person API-selected) plus menu/survey paths passed132905-348-river-hamlet-e2e0da, zero-warning build. Next120 completes observation camera return, full review and stop.
+
+
+Checkpoint120: following a resident now remembers the original place and camera (position/zoom/orientation); Back restores that view without rewinding time or changing the clock. Cycling residents preserves the observation origin. Native960 actual household follow/return now asserts exact camera and simulation, plus survey/action/mood paths passed133032-719-river-hamlet-16bdc6; zero-warning build. Ten authorized outcomes complete. Freeze for whole-game120, isolated ordinary/dense1x frame samples and final regression; no121.
+
+
+120 review follow-up (zero new playable count): independent design/UX reviewers found mandatory-sounding recreation wording beside shared meal ground. Public RecreationSummary now neutrally distinguishes commons meals from a separate recreation venue; no leisure simulation or grade added. PublicMood and archived happiness checks pass. Base120review/performance fixed2c240c3 remains recorded; narrow text correction is separately committed and presented to reviewers.
+
+
+Checkpoint121: existing cultivated strips can extend to eight rows with two logs per extra row and ordinary shared preparation in Normal; relaxed remains free. Stored food, identity and prior work setting stay; growing crops restart. Native960 existing plot shrink/cancel/extension and actual preparation passed 20261003-134951-417-plot-revision-da5692 (43.74s); proposal image inspected. Both-mode real delivery/crop/meals and exact continuation checks plus previous plot revisions pass. Zero-warning builds. Next122 tests direct home orientation; no new economy system.
+
+
+Checkpoint122: homes can turn around their existing anchor from Change this home, with pure footprint/entrance preview, authoritative access/yard checks and explicit apply/cancel. Identity, household, goods and clock stay. Native960 turn cancellation and legal application passed20261003-135444-003-river-hamlet-4d7d66 (29.03s), including existing observation/survey paths; zero-warning build. Initial residents standing at doors correctly prevented turns until actual life moved them; scripted probe now observes that wait. Next123 brings appearance choices into the same home interaction.
+
+
+Checkpoint123: home appearance is directly selectable in Change this home, with free reversible existing roof/plaster finishes and immediate world feedback. Editing hides observation controls, keeping the compact960 card above navigation (also fixes122 expanded-card overlap). Native dropdown selection, turn/cancel and exact save/load passed20261003-135653-456-river-hamlet-a1995f (31.92s); actual image inspected. Zero-warning build. Next124 connects selected places directly rather than expanding the general toolbar.
+
+
+Checkpoint124: selected homes/workplaces can start a path at their actual entrance, preview the existing route algorithm to another place/ground, and return to the origin after apply or cancel. No new path rules or resources. Native960 real click route/cancel/origin return and exact save/load passed20261003-135931-864-river-hamlet-5af888 (34.6s), zero-warning build. Next125 improves the legibility of worked ground and freezes for the full direction review; additional home controls remain a review concern.
+
+
+Checkpoint125: cultivated strips now have raised earth shoulders, dark furrows and a low working edge instead of permanent floating field placards. Ground tint invalidates on changed field depth, so released/restored ground updates with editing. Same actual footprints/yields.1440 ordinary1x10-second before/after captures20261003-140134-628-river-hamlet-902d35 inspected;960 relaxed overview140207-122-cultivated-bank-relaxed-5f8d69. Both-mode extension checks pass; zero-warning build. Five playable outcomes committed; freeze for independent whole-game125 plus visual/audio before126. Furrows improve local legibility; broad scene appeal and motivation remain unproven.
+
+
+Checkpoint126: Play now offers A working clearing: eight housed residents, two small strips apart from four homes,16 spare logs/4planks/80food, Normal/relaxed and distinct current save/restart identity. It is a different starting situation, not equal-population comparison with the finished hamlet. One four-row strip failed a60-minute no-change test despite passing20minutes; replaced with two two-row strips at identical area/investment to give sufficient concurrent farm work. Keep, move-one-field and add-landing alternatives each pass60simminutes with zero hungry ticks in both modes and exact continuation. Native960 actual menu/household/save and ordinary life passed142319-713-working-clearing-7dabc9 (24.9s), zero-warning build. Next127 tests direct manipulation of an existing field edge; no new needs or prescribed completion.
+
+
+Checkpoint127: existing strips expose a gold far-edge handle that can be dragged directly on the land. Dragging changes only the proposal; explicit apply/cancel, timber/preparation and crop-loss rules remain shared with button controls. Native960 actual mouse press/move/release, unchanged-world proposal, apply and preparation passed142636-635-plot-revision-2f484c (55.47s), zero-warning build. Next128 reuses route previews while moving existing places to connect arrangement with possible daily journeys.
+
+
+Checkpoint128: relocation previews now show possible food/work connections using the same authoritative route query as new placement. They describe opportunities, not promised meals. Queries restore the original building/order without changing saved state. Four Normal/relaxed home/field move cases pass actual food production and exact continuation after15 simulated minutes; the initial five-minute test ended before starting food reserves triggered field work. Native960 actual move/cancel preview passed142928-586-working-clearing-cb312b, zero-warning build. Next129 removes qualitative public resident grades in favor of observed daily life.
+
+
+Checkpoint129: public resident panels now say Daily life and show actual activity, eating history and home/recreation visits. Public rest feedback no longer expires into a deficit, the staffing panel drops its recent-rest quota, and public idle poses no longer use hidden mood grades. Archived happiness rules remain available with archived play. Both-mode descriptive/pure-history and exact-save checks plus archived happiness pass; native960 actual panel and village controls passed143711-232-river-hamlet-d23d32 (23.78s), zero-warning build. Next130 gives shared meal ground a quieter furnished presence, then freezes for the full review.
+
+
+Checkpoint130: shared meal ground now has six permanent low stools at the actual eating positions, replacing empty target rings; the existing eating pose uses these seats without duplicate furniture. Carried food remains tied to real meals. The development mats comparison remains available. Ordinary1440 shared-place before/after15seconds1x capture143934-282-commons-recurring-a90a8c inspected; native960 working-clearing menu, household/save and relocation preview passed144016-477-working-clearing-89962c. Zero-warning build. All ten authorized playable outcomes are complete; freeze for whole-game130, broadened41-suite current regression and review synthesis. No131.
+
+
+Final130 validation: all41 current-experience suites passed exit0, run bef67629662c4de8beefe27a569bfb1a, assembly 558ab58f-6ece-4486-b425-0ec5473e255a, log artifacts/checkpoint130-current.log. This includes extension cancellation, relocation connections, descriptive life and all six60-minute working-clearing branches. Corrected DLL FF13CE9E2CB5FA7F0B18C0C87150B66F791A02AB31AC213C91DEB124B4BA78E1 built with zero warnings. The only postreview game delta is the independently verified limited-preview wording; fixed130 native controls/scene evidence remains explicitly before that text correction. Ten outcomes and both whole-game reviews complete. Stop130, no131.
+
+
+Checkpoint131: Play recommends the existing working clearing while retaining the founded/inhabited alternatives. The clearing mode page shows Normal and relaxed descriptions with compact New/Resume action rows, avoiding inventory paragraphs and hidden mode choices. Native960 actual menu rectangle assertions, entry, save and household controls passed154643-572-working-clearing-920beb (36.71s including build), zero-warning build. Next132 begins the continuous riverbank treatment; no new starting variant or rule system.
+
+
+Checkpoint132: public riverbanks now slope into a continuous silt/shallow-water band with joined corner normals and interpolated colors. Authoritative land/water, terrain height, fishing and placement remain unchanged; the build boundary stays explicit in tools. Rejected an initial segmented border after inspecting it; revised whole-scene1440 capture155042-668-working-clearing-56664a removes the ladder-like seams (16.46s including build). Zero warnings. The large grid bends remain visible and are not claimed solved. Next133 makes existing woodland read as a connected margin; assess the entire landscape at135.
+
+
+Checkpoint133: low irregular woodland undergrowth now joins the actual standing mature trees into a wooded margin. It clears from building footprints, paths, home yards, shared places and actual well-used ground; felled/removed trees leave the margin and regrown trees restore it through the existing visual refresh. Single batched mesh, no resource or collision introduced. Opposite1440 view155253-009 inspected and density softened; final960155403-183-working-clearing-3d3c12 inspected, zero-warning build. Next134 treats the remaining open lawn and actual walking wear together; whole-scene acceptance remains for135.
+
+
+Checkpoint134: open meadow now has broad restrained color variation and low grass distinct from woodland cover. Buildings, domestic space, paths and repeated real footfall suppress it, making occupied and traveled ground stand out without changing movement or resources. Ordinary1440 before/after12seconds1x155625-560-working-clearing-31e345 inspected; native960 actual home-to-field path through the meadow and updated ground passed155722-305-working-clearing-008c76 (35.58s including build). Zero warnings. Next135 completes readable crop cover, then the review must judge whether this is enough of a scene-level change rather than merely more detail.
+
+
+Checkpoint135: public vegetable fields develop spreading faceted leaf cover from seedlings to mature rows; each visible plant still represents one actual remaining portion, and harvesting exposes stubble/soil. Same footprint, yields and timing.1440 ordinary12-second1x scene155920-347-river-hamlet-57b182 inspected; native960 existing field drag/extend and real preparation passed155950-254-plot-revision-77c06a (43.4s), zero-warning build. First five committed outcomes complete; freeze for full135 plus independent visual/audio review. Presentation is not accepted merely because more detail exists. Ordinary trace includes a486ms wall outlier and67ms process maximum; investigate provenance before attributing it or claiming smoothness.
+
+Checkpoint145: quiet neighbors can visit actual nearby shared seats between jobs, with seated poses and truthful resident/place readings. Furnished home use remains; new work and ordinary meals take priority. Selected removal/moving interrupts only that place. Both-mode checks passed actual visits, food, single-worker construction preemption and exact active save. Native960 multiple-place controls222510-359 passed; ordinary1440 twelve-second1x quiet scene222438-628 inspected. Zero-warning build. Freeze for full145 with five independent roles before choosing146–150; quiet activity is not evidence of enjoyment.
+
+Checkpoint146: all shared workers may make bounded nearby visits, including furnished-home residents. Visits alternate with home time, use actual paths, yield to work/meals and clear on edits; actual arrived companions mutually face/gesture, without a relationship need. Save54 records visit intent/timing. Four ten-minute Normal/relaxed single/split-place comparisons kept ordinary work active and demonstrated domestic use, vegetables/meals, both previously eligible/excluded residents, companion activity and exact continuation. Native960223856-175 passed visible-ground selection and Watch camera/selection return alongside prior multi-place controls. Ordinary1440 twelve-second1x active-work snapshot223908-638 inspected. Corrected meal-only wording and moved-building surface invalidation, no extra count. Next147 addresses house massing rather than more routine substeps.
+
+Checkpoint147: public cottages now form a stable three-part massing family: low horizontal timber dwelling, compact steeper-roofed framed home, and expanded dwelling with a lower adjoining room. Foundations, wall courses, openings, roof proportions and chimney positions differ; same beds/cost/footprints and saved building-ID appearance. Museum reference supports modest timber construction and expanded one-room dwellings; this is stylized, not a reconstruction.1440 overview224207-230 inspected; native960 opposite-camera working-clearing224215-567 passed menu/household/save, movement, paths and Watch return. Zero-warning build. Next148 integrates shared ground; presentation supplement due now without changing regular150 cadence.
+
+Checkpoint148: public shared places now blend into the existing domestic/path/worked ground instead of sitting on a hard polygon pad. Linear seats form simple joined benches with a clear outward orientation, used by actual diners/quiet visitors and marked in the proposal; gathered seats remain separate stools. Layout/direction now participate in geometry invalidation. No occupancy/cost/collision change. Native960224625-114 passed line turn, gap selection, Watch return, independent editing/removal/save; ordinary active mixed-place1440 twelve-second1x224525-693 inspected. Zero warnings. Next149 composes houses, growing strips and approaches together, not additional furniture variants.
+
+Checkpoint149: recommended clearing now staggers homes, turns two toward village approaches and brings both real growing strips closer to the domestic group. Initial eight people/eight beds, two fields/four rows, growth, building investment,16logs/4planks/80food remain matched with the former layout. Default public framing is closer. The old composition remains development-only. Matched ten-minute Normal/relaxed comparisons passed actual vegetable meals (former13/recomposed15),32grown each, no hunger and exact continuation; this is not a throughput-equivalent or preference claim. Six60-minute branches passed. Native960225130-924 passed menu/household/save/move/path/Watch. Same-camera1440 ordinary12s1x225218-443(recomposed) and225237-545(former) inspected: retain recomposed provisionally for its closer home/field relationship. Next150 completes selected shared-place path approaches, then full review and stop.
+
+Checkpoint150: selected shared places now start an actual path proposal to homes, workplaces, other shared ground or open land. Existing route computation/commit remains authoritative; visible shared ground snaps to its center. Apply and cancel return to the selected origin and previous camera, also consistently for building-origin paths. Native960225453-056 passed preview, no-mutation cancellation, actual connection, selection/camera return, multi-place edits and current save/load. Zero-warning build. Ten authorized outcomes141–150 are committed next; freeze for full150 review, final regression and push. No151.
+
+Checkpoint 202: forestry choices now use actual walking paths: full worker→tree→available storage for timber, walking access for planting and roots. Reproduced apparent-near tree 10 versus shorter complete trip to tree 0 from (-10,-11); corrected journey delivers real timber and continues exactly from an active save. Proactive grove renewal in both modes and reconsidered clearing before/after felling pass; zero-warning build. No new forestry state or tool. Next examine crop-work locality: farmers currently prefer the oldest eligible plot regardless of their position.
+
+Checkpoint 203: automatic cultivation and workplace selection now follows actual walking access instead of older-building order. Removed completed workplace/stockpile use of construction Priority, which was an invisible permanent preference with no completed-building control; Build first still governs unfinished work. Ripe crops retain collection precedence. Nearby sowing through real harvest/delivery and exact save pass even with retained high construction metadata; field row collection across both modes and full stockpile/material journey checks pass. Zero-warning build. Initial test incorrectly assumed completed SetPriority was available; source inspection exposed the hidden historical coupling and the test now exercises that retained metadata explicitly. Next make missing production ingredients actionable from the ordinary card.
+
+Checkpoint 204: missing grain/log inputs lead from the ordinary bakery/sawmill card to an existing supply workplace or the relevant field/timber planning action. The semantic production report supplies the action; no string-matched diagnosis or duplicate planner. Native 960 initially exposed card overflow, corrected with a concise blocked summary while retaining Details. Final native planning, inspection/resume of an existing paused field and actual grain→bread→eaten meal passed; zero-warning build. Next preserve committed work when dedicating/releasing workers, then freeze for review 205.
+
+Checkpoint 205: dedicating a shared worker already in the same profession preserves their current task, claims, cargo and boat; releasing dedicated staffing finishes current work before returning to shared dispatch. Explicit changes to a different profession retain safe existing interruption behavior. Normal and Relaxed actual at-sea dedication/release retain the exact boat/claim and reach catch, delivery and eaten fish with exact save continuation. Shared construction/bread/staffing regression passes; zero-warning build. Freeze gameplay for full independent review 205 before selecting 206–210.

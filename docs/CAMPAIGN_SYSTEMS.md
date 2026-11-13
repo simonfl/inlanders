@@ -1,5 +1,7 @@
 # Les Habitants — campaign situations and building roles
 
+November 13: these concepts are a reference palette, not parallel implementation tracks. The [selected connected-village direction](VILLAGE_DIRECTION_262.md) combines useful land, access and everyday improvement in one place; [NEXT_CHUNKS](NEXT_CHUNKS.md) defines the only active experiment. Use the [current development process](DEVELOPMENT_PROCESS.md), not an archived numeric review cadence.
+
 Working concepts under the [theme brief](LES_HABITANTS.md) and [active roadmap](ROADMAP.md). Farming, living from the land and improving the present settlement are the gameplay focus. Descendants are narrative motivation only: no inheritance, genealogy, aging or handoffs. Seasons remain removed.
 
 Prefer a first normal-rule settlement that teaches through useful actions, with an optional finish and continued play. Five concepts below provide future variety; they are not a committed five-level sequence, calendar, or generation story. Start with one. Exact dates, names, objectives, durations, costs and population remain TBD.
