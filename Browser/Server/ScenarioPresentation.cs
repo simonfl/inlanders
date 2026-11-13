@@ -8,8 +8,10 @@ public sealed record RiverView(int Boats, bool Closed, int TargetBeds, int Reser
 
 public sealed partial class VillageSessions
 {
-    static string Scenario(World w) => w.Founding!.FirstHome!.Trade is {} t ? (!t.OfferEnabled ? "timber-control" : t.NearHarvest ? "timber-trade-ripe" : "timber-trade") : w.Founding!.FirstHome!.RiverClosing == null ? "crossing" : "river-closing";
-    static string Title(World w) => w.Founding!.FirstHome!.Trade is {} t ? "The price of provisions" + (t.NearHarvest ? " · near harvest" : "") : Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
+    static bool Complete(World w)=>w.Riverside?.Complete ?? w.Founding!.FirstHome!.Complete;
+    static IEnumerable<Cottage> VisibleBuildings(World w)=>w.Cottages.Concat(w.Riverside?.Plans.Select(p=>new Cottage{Id=p.Id,Cell=p.Cell,Kind=p.Kind,Rotation=p.Rotation}) ?? Enumerable.Empty<Cottage>());
+    static string Scenario(World w) => w.Riverside is {} room ? (room.FarGarden?"room-by-river-far":"room-by-river") : w.Founding!.FirstHome!.Trade is {} t ? (!t.OfferEnabled ? "timber-control" : t.NearHarvest ? "timber-trade-ripe" : "timber-trade") : w.Founding!.FirstHome!.RiverClosing == null ? "crossing" : "river-closing";
+    static string Title(World w) => w.Riverside!=null ? "Room by the river" : w.Founding!.FirstHome!.Trade is {} t ? "The price of provisions" + (t.NearHarvest ? " · near harvest" : "") : Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
     static RiverView? River(World w)
     {
         if (w.Founding!.FirstHome!.RiverClosing is not {} r) return null;
@@ -30,7 +32,7 @@ public sealed partial class VillageSessions
         var field = w.Cottages.First(c => c.Kind == BuildingKind.VegetableField);
         return new { t.Decision, t.DecidedAt, t.PackedLogs, t.Arrived, t.NearHarvest, t.OfferEnabled, cost = World.TradeLogCost, food = World.TradeFood, availableLogs = w.AvailableLogsAt(null), problem = w.TimberTradeProblem(), departureIn = Math.Max(0, (int)Math.Ceiling(World.TradeDeparture-w.Food.Time)), arrivalIn = Math.Max(0, (int)Math.Ceiling(World.TradeArrival-w.Food.Time)), crop = field.Harvest > 0 ? "First crop ripe" : field.Planted ? $"First crop {(int)(field.Growth*100)}% grown" : "Field being replanted" };
     }
-    static string GoalTitle(World w) => w.Founding!.FirstHome!.Trade is {} t ? (t.Complete ? "✓ Eight neighbors are settled" : "Make a home and a living for eight") : River(w) switch
+    static string GoalTitle(World w) => w.Riverside!=null ? w.ReadRiverside().Title : w.Founding!.FirstHome!.Trade is {} t ? (t.Complete ? "✓ Eight neighbors are settled" : "Make a home and a living for eight") : River(w) switch
     {
         null => w.Founding!.FirstHome!.Complete ? "✓ Village recovered" : "Help four neighbors feed themselves again",
         { Phase: "complete" } => "✓ Twelve neighbors can stand on their own",
@@ -41,6 +43,7 @@ public sealed partial class VillageSessions
     };
     static string[] ObjectiveLines(World w)
     {
+        if(w.Riverside!=null)return w.ReadRiverside().Objectives;
         var goals = w.ReadFirstHomeObjectives();
         var river = River(w);
         if (river == null) return new[] { goals.Home, goals.Food, goals.Meals.Replace("Neighbors fed", "Fresh meals") };
@@ -56,6 +59,7 @@ public sealed partial class VillageSessions
     }
     static string Hint(World w)
     {
+        if(w.Riverside!=null)return w.ReadRiverside().Hint;
         var r = River(w);
         if (r == null) return w.ReadFirstHomeObjectives().Hint;
         if (w.Founding!.FirstHome!.Complete) return "Everyone has a home, fresh meals and a working food supply. Your village made it. You can keep playing.";

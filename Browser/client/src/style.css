@@ -16,3 +16,7 @@ dialog{background:var(--cream);border:1px solid #cad0b6;border-radius:18px;paddi
 
 #selection span{white-space:pre-line}#food-options{flex-wrap:wrap}#food-options button{min-width:75px}#food-options small{font-size:10px}
 #selection{display:grid;grid-template-columns:minmax(0,1fr) auto}#selection span{grid-column:1;grid-row:1}#selection button[aria-label]{grid-column:2;grid-row:1;align-self:start}#selection button:not([aria-label]){grid-column:1 / -1;justify-self:start}
+
+#room-actions{position:absolute;left:10px;bottom:10px;display:flex;gap:6px;z-index:2}#room-actions button{font-size:12px;background:#f8f4e7ed;box-shadow:0 2px 7px #263e3520}.riverside #goals{padding:7px 13px}.riverside #checklist{gap:3px;font-size:11px;margin-top:3px}.riverside #goal-toggle{padding:3px 7px;min-height:32px}.riverside #order-help{font-size:11px;min-height:0}.riverside #world{min-height:200px}.riverside #selection{bottom:70px}.riverside #hint{margin-top:5px}
+
+@media(max-height:550px){.riverside #world{min-height:110px}.riverside #checklist{display:flex;font-size:10px}.riverside #goals{max-height:29dvh;overflow:auto}.riverside #room-actions button{min-height:36px;padding:5px 8px}}

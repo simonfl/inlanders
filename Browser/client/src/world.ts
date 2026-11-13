@@ -24,6 +24,8 @@ export class VillageView {
   private pointers = new Map<number, { x: number; y: number }>();
   private down?: { x: number; y: number; moved: boolean }; private pinch = 0;
   private labels: HTMLDivElement;
+  private journey?: TransformNode;
+  private journeyKey = "";
   private boat?: TransformNode;
   private fishingVisible = false;
   private fishingBoats = new Map<number, { node: TransformNode; last: Vector3; goal: Vector3; arrived: number; cargo: Mesh; oars: Mesh[]; net: Mesh; phase: string }>();
@@ -58,7 +60,7 @@ export class VillageView {
     this.camera.orthoTop = this.zoom; this.camera.orthoBottom = -this.zoom;
   }
   private defaultZoom() { return this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight) > 1.4 ? 12 : 19; }
-  home() { this.camera.target.set(-1, 0, 0); this.setZoom(this.defaultZoom()); this.onViewChange(); }
+  home() { this.camera.target.set(-1, 0, 0); this.setZoom(this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
   focus(c: Cell) { this.camera.target.set(c.x, 0, c.z); this.setZoom(11); this.onViewChange(); }
   getView(): Pick<View, 'cameraX' | 'cameraZ' | 'zoom'> { return { cameraX: this.camera.target.x, cameraZ: this.camera.target.z, zoom: this.zoom }; }
   restore(v: View) { this.camera.target.set(v.cameraX, 0, v.cameraZ); this.setZoom(v.zoom); }
@@ -140,6 +142,8 @@ export class VillageView {
         const root = new TransformNode(`building-${b.id}`, this.scene); root.parent = this.fixtures; root.position.set(cx, 0, cz); root.rotation.y = -b.rotation * Math.PI / 2;
         if (b.kind === 'Cottage') {
           if (!b.complete) {
+            for(const z of [-.9,.9])this.box('plot-edge',0,.13,z,3,.07,.08,'#ead6a6',root,false);
+            for(const x of [-1.5,1.5])this.box('plot-edge',x,.13,0,.08,.07,1.8,'#ead6a6',root,false);
             // A plan is a worksite, never an already inhabitable house. Geometry
             // advances at the same quarter-build boundaries as the cache above.
             for (const x of [-1.4, 1.4]) for (const z of [-.85, .85])
@@ -185,8 +189,8 @@ export class VillageView {
             this.box('fish-crate', .95, .55, 0, .5, .4, .55, '#806449', root);
           }
         } else if (b.kind === 'Bridge') {
-          this.box('bridge-deck', 0, .08, 0, .9, .18, 2.6, b.complete ? '#ac8458' : '#d8c7a1', root);
-          for (const side of [-1, 1]) { this.box('handrail', side * .48, .65, 0, .08, .1, 2.5, '#80634b', root); for (const z of [-1, 0, 1]) this.box('post', side * .48, .35, z, .1, .7, .1, '#80634b', root); }
+          if(b.complete || b.construction>=.5)this.box('bridge-deck', 0, .08, b.complete?0:.65, .9, .18, b.complete?2.6:1.3, '#ac8458', root);
+          for (const side of [-1, 1]) { if(b.complete)this.box('handrail', side * .48, .65, 0, .08, .1, 2.5, '#80634b', root); for (const z of [-1, 0, 1]) this.box('post', side * .48, .35, z, .1, .7, .1, '#80634b', root); }
         } else {
           for (const c of b.footprint) this.box('garden-soil', c.x - cx, .05, c.z - cz, .9, .12, .9, b.complete ? '#82654c' : '#b3a381', root);
           // Crop positions use world footprint; keep their root unrotated to match valid cells.
@@ -250,7 +254,7 @@ export class VillageView {
       const label=document.createElement("span"); label.textContent=`${g.name} · ${g.available} fish · +${g.renewal.toFixed(0)}/min`; label.dataset.x=String(g.x);label.dataset.z=String(g.z);this.labels.append(label);
     }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
-    for (const item of [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
+    for (const item of state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }
@@ -272,9 +276,16 @@ export class VillageView {
       if (!this.state?.paused && ['Chopping', 'Building', 'Harvesting', 'Planting'].includes(v.person.task)) v.arms[0].rotation.x = -1 + Math.sin(phase) * .6;
     }
   }
+  showJourney(route: Cell[]) {
+    const key=JSON.stringify(route);if(key===this.journeyKey)return;this.journeyKey=key;
+    this.journey?.dispose(false,false);this.journey=new TransformNode('selected-journey',this.scene);
+    for(const c of route)this.box('footstep',c.x,.18,c.z,.22,.04,.22,'#eee3ae',this.journey,false);
+  }
   showPreview(p: Preview | null) {
     this.preview.dispose(false, false); this.preview = new TransformNode('preview', this.scene);
     if (!p) return;
+    for(const c of p.route??[])this.box('existing-route',c.x,.15,c.z,.3,.04,.3,'#c9aa74',this.preview,false);
+    for(const c of p.shortcutRoute??[])this.box('shorter-route',c.x,.18,c.z,.24,.05,.24,'#e8f2cd',this.preview,false);
     for (const c of p.cells) this.box('preview-tile', c.x, .2, c.z, .95, .08, .95, p.valid ? '#eed27b' : '#ca7562', this.preview, false);
     if (p.launch) this.box('launch', p.launch.x, .21, p.launch.z, .6, .1, .6, '#67c4cf', this.preview, false);
     if (p.entrance) this.box('entrance', p.entrance.x, .21, p.entrance.z, .5, .1, .5, '#f8f1d6', this.preview, false);
