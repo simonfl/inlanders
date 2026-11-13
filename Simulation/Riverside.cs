@@ -56,9 +56,9 @@ public sealed partial class World
         Built(new(-5,2),BuildingKind.Cottage);Built(new(1,2),BuildingKind.Cottage);
         Built(new(-8,-1),BuildingKind.Bridge);
         var garden=Built(farGarden?new(-3,-6):new(-6,6),BuildingKind.VegetableGarden);garden.Planted=true;garden.Growth=.7f;
-        foreach(var cell in new[]{new Cell(2,5),new(5,5),new(-6,8),new(-3,8),new(0,8),new(3,8),new(-7,-8),new(5,-8)})
+        foreach(var cell in new[]{new Cell(2,5),new(5,5),new(-7,4),new(-2,6),new(5,7),new(3,8),new(-2,1),new(5,1)})
             w.Trees.Add(new(){Id=w._nextTree++,Cell=cell,Logs=8,Preserved=true});
-        foreach(var c in new[]{new Cell(2,5),new(5,5),new(0,8),new(3,8)})w.SetHarvestGrove(c);
+        foreach(var c in new[]{new Cell(2,5),new(5,5),new(5,7),new(3,8)})w.SetHarvestGrove(c);
         w._yardLogs=10;w.InitialLogs=w.Trees.Sum(t=>t.Logs)+w.Cottages.Sum(c=>c.Delivered)+w._yardLogs;
         w.Food.InitialBerries=w.Food.Berries=12;
         w.Founding!.FirstHome=new(){Recovery=true};w.Riverside=new(){FarGarden=farGarden};

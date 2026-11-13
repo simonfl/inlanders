@@ -29,8 +29,16 @@ static class RiversideChecks
                     if(w.SaveJson()!=copy.SaveJson())throw new Exception("Riverside continuation diverged");saved=true;
                 }
             }
+            bool initialPlanComplete=w.Riverside!.Complete;
+            // A badly placed livelihood is allowed to need another decision. Prove
+            // recovery without the shortcut, rather than requiring every fixed script to win.
+            if(!initialPlanComplete)
+            {
+                Plan(BuildingKind.VegetableGarden,new(5,7));
+                while(w.Food.Time<1800 && !w.Riverside.Complete)w.Tick(.1f);
+            }
             w.Validate();
-            var row=new{farGarden,farHomes,shortcut,complete=w.Riverside!.Complete,time=w.Food.Time,homesAt,hungry,food=w.ReachableEdibleStored,logs=w.Available,initialGrove,grove=w.ManagedWoodland.Count,walkBefore=report.WalkNow,walkAfter=w.ReadRiverside().WalkNow};rows.Add(row);Console.WriteLine(JsonSerializer.Serialize(row));
+            var row=new{farGarden,farHomes,shortcut,initialPlanComplete,recovery=initialPlanComplete?null:"added a near-bank garden; no shortcut",complete=w.Riverside!.Complete,time=w.Food.Time,homesAt,hungry,food=w.ReachableEdibleStored,logs=w.Available,initialGrove,grove=w.ManagedWoodland.Count,walkBefore=report.WalkNow,walkAfter=w.ReadRiverside().WalkNow};rows.Add(row);Console.WriteLine(JsonSerializer.Serialize(row));
             if(!w.Riverside.Complete)throw new Exception("Riverside branch failed: "+JsonSerializer.Serialize(row));
         }
         var cancel=World.NewRiverside();
@@ -39,6 +47,14 @@ static class RiversideChecks
         if(cancel.PlanRiverside(pending.Cell,0,pending.Kind))throw new Exception("Duplicate clearing plan accepted");
         if(!cancel.CancelRiversidePlan(pending.Id) || cancel.Riverside.Plans.Count!=0 || cancel.Trees.Any(t=>t.ClearRequested) || !cancel.ManagedWoodland.Contains(new(2,5)))throw new Exception("Clearing cancellation failed");
         cancel.Validate();
+        if(!cancel.PlanRiverside(new(-2,6),0,BuildingKind.Cottage))throw new Exception("Protected clearing setup");
+        if(!cancel.CancelRiversidePlan(cancel.Riverside.Plans.Single().Id) || !cancel.Trees.Single(t=>t.Cell==new Cell(-2,6)).Preserved)throw new Exception("Protected tree not restored on cancellation");
+        var cut=World.NewRiverside();cut.PlanRiverside(new(2,6),0,BuildingKind.Cottage);
+        while(cut.Food.Time<180 && !cut.Trees.Single(t=>t.Cell==new Cell(2,5)).Felled)cut.Tick(.1f);
+        if(!cut.Trees.Single(t=>t.Cell==new Cell(2,5)).Felled || !cut.CancelRiversidePlan(cut.Riverside!.Plans.Single().Id))throw new Exception("Cancel after felling unavailable");
+        cut.Validate();var cutCopy=World.LoadJson(cut.SaveJson());
+        for(int i=0;i<100;i++){cut.Tick(.1f);cutCopy.Tick(.1f);}
+        if(cut.SaveJson()!=cutCopy.SaveJson())throw new Exception("Cancelled clearing save differs");
         var fishing=World.NewRiverside();
         if(!fishing.PlanRiverside(new(7,4),1,BuildingKind.FishingDock))throw new Exception("Riverside shore fishing rejected");
         var bridge=fishing.ReadBridgeOpportunity(World.RiversideShortcut,0);
