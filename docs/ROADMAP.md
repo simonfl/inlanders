@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November14,2026. Playable outcome **264**, browser build `38C598F4FC0D`: **A home on the river** is delivered as one complete three-chapter level. The owner finished playing and liked accumulating resources for others. Keep outward contribution as a supported part of the core loop; overall pacing and replay appeal remain open. [Review and evidence](VILLAGE_STORY_264.md). The lead handles intermediate revisions; the owner provides experience feedback when convenient.
+Current direction, November14,2026. Playable outcome **265**, browser build `1FC52A64171C`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
 
 ## The game we are building toward
 
@@ -17,8 +17,8 @@ These are evidence gates, not a checkpoint batch or permission to build every ro
 | Order | Playable outcome | What earns the next step |
 | --- | --- | --- |
 | **Delivered: full village story** | A home on the river: establish food, settle newcomers, then provision and send help upriver. Real food/log cargo creates an outward purpose for developing this same village. | Owner completed play and specifically liked accumulating resources for others. Retain that purpose; do not infer acceptance of every phase or balance choice. [Active hypothesis](NEXT_CHUNKS.md). |
-| **Next: make returning worthwhile** | Preserve helping another settlement in a complete situation with a materially different starting livelihood/layout, requiring a different production plan with the same small vocabulary. | A second play supports adapting the village and enjoying the contribution. Larger quotas alone do not earn this step. Cut dominant or redundant options before adding types. |
-| **Later: a second distinct situation** | A different inhabited village with a different practical problem, retaining the successful core. | The first complete story survives actual owner play and return. Do not schedule a ten-level curriculum in advance. |
+| **Now delivered: a different livelihood** | A harvest to share: eight already-housed neighbors, working fishing dock, inland meadow/woodland, one48food/16logs request after another holding loses its crop. Gardens, fields and fishing-only approaches work. | Await owner experience of this whole situation. One extra dock can solve it, so viability does not prove sustained management. Keep useful accumulation if it remains enjoyable; revise pacing if it is mainly endured. |
+| **Later: choose the next situation from play** | A different inhabited village with a different practical problem, retaining the successful core. | Both delivered situations support useful purpose and a desire to return. Choose from that experience; do not schedule a ten-level curriculum in advance. |
 
 If connected later work feels imposed, pivot to an anthology of shorter restoration challenges. If the owner chiefly values composing and watching, reconsider a village-making sandbox. Neither fallback requires pretending the present direction succeeded.
 
@@ -40,6 +40,8 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 Keep progression in one small saved state and authoritative query for this slice. No campaign framework, analytics platform, catalogue conversion or stack migration project.
 
 ## Current evidence and history
+
+Outcome265: independent mixed cultivation and fishing-only completions, scripted alternative production/recovery checks, phone-size placement/request/departure/ending and real restarts support delivery. Full review corrections improved ecology honesty, packing consequences and reconnect reliability. The efficient fishing plan is one new dock followed by quiet accumulation; no sustained-decision or fun claim. Keep provisionally, hold catalogue expansion until owner experience. [Evidence](HARVEST_RELIEF_265.md).
 
 Outcome264 owner play: “Done. I liked the part of having to accumulate resources for others.” This directly supports the contribution goal. No chosen route, duration, quiet-interval reaction or voluntary post-completion play was reported. Keep the useful surplus loop and test its return in a different complete situation; avoid turning this into presumed demand for more resources, larger shipments or new systems. Count remains264.
 

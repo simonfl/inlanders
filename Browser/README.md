@@ -1,6 +1,6 @@
 # Les Habitants browser prototype
 
-The default level is **A home on the river**: establish food for four, make room for four newcomers, then send a real contribution upriver. Earlier comparisons remain under Village → Earlier playtests. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
+The default level is **A harvest to share**: develop an established fishing hamlet's surplus to help another holding after a lost crop. **A home on the river** remains directly available in Village. Earlier comparisons remain under Village → Earlier playtests. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
 
 ## Run
 
@@ -13,7 +13,7 @@ From the repository root, with the local .NET SDK and Node available:
 ./Browser.ps1 Stop
 ```
 
-Open `http://127.0.0.1:5180` or `/?scenario=river-home` for the complete village story; `/?scenario=crossing` explicitly opens the earlier short recovery. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
+Open `http://127.0.0.1:5180` or `/?scenario=harvest-relief` for the new relief situation; `/?scenario=river-home` opens the first village story and `/?scenario=crossing` the earlier short recovery. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
 
 Client dependencies are pinned in `client/package-lock.json`. Standard Node installations can use `npm ci` and `npm run build` in `Browser/client`. This laptop has Node without npm on PATH; the project-local npm bootstrap is `.tools/npm/package/bin/npm-cli.js`. The launcher currently uses that local installation. No global packages are required.
 
@@ -29,6 +29,16 @@ Install/sign in to Tailscale on the laptop and iPhone using the same account. Wi
 Complete Tailscale's HTTPS enablement if prompted. Open the resulting `https://…ts.net` URL in Safari while Tailscale is connected. Use **Serve**, not public Funnel. The service deliberately trusts this private access boundary; there is no additional application login. Do not publish it to the open internet unchanged.
 
 The laptop must be awake and connected. No cloud hosting, port-forwarding or native iOS packaging is needed. Actual iPhone performance and Safari lifecycle/audio still require device testing; a desktop phone-size viewport is not that evidence.
+
+## A harvest to share
+
+Eight residents already have four homes and a working dock, with24food and12logs. Anse aux Saules lost its crop and needs48food/16logs. One explicit packing order; no arrivals, extra homes, deadline or authored bridge shortcut. The connected inland path, wooded village plots, open meadow and outer fishing reach support different food plans. Starting dock supply alone cannot finish the request in the tested30simulated-minute baseline; additional gardens, fields and fishing-only plans all complete.
+
+Packing takes available logs ahead of new construction, protects existing claims and packs local food only above16available portions. Residents continue eating that reserve. Cancel to return all packed goods for use in your village, then resume the same request. Full cargo is not permission to leave with an empty pantry: current local food, housed/fed people and the exact blocker remain visible. The boat leaves at1×, then restores prior speed at the paused ending. Continued tending remains available.
+
+Use `node Browser/agent.mjs new harvest-relief`. Ordinary `shipment-food`, `shipment-cancel`, `shipment-send`, placement and grove commands share the human rules. `state.story` is authoritative; `state.riverside.shortcutAvailable` is false and route counts are0. Focused checks: `--harvest-relief` (optionally `baseline`, `gardens`, `fields`, `fishing` or `recovery`) on `Tests/SimulationTests.csproj`. [Delivery and critical review](../docs/HARVEST_RELIEF_265.md).
+
+An open client identifies server process changes and accepts the restored paused checkpoint even when its simulation step is older than the last observed frame. Same-process out-of-order responses and late responses from retired processes remain rejected. This supports laptop restarts; it is not a promise of crash-proof saving of every frame.
 
 ## A home on the river
 
