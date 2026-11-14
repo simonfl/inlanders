@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--village-story-pacing")){VillageStoryChecks.Pacing();return;}
 if(args.Contains("--village-story")){VillageStoryChecks.Run();return;}
 if(args.Contains("--riverside-entrance")){RiversideEntranceChecks.Run();return;}
 if(args.Contains("--riverside")){RiversideChecks.Run();return;}

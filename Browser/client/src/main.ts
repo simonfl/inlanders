@@ -14,7 +14,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
   <dialog id="welcome"><p id="welcome-eyebrow" class="eyebrow">A village story</p><h1 id="welcome-title">A home on the river</h1><p id="welcome-story">The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p id="welcome-task"><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
   <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a href="/?scenario=river-home">Play A home on the river</a><details id="earlier-playtests"><summary>Earlier playtests</summary><a href="/?scenario=crossing">The broken crossing</a><a href="/?scenario=room-by-river">Try Room by the river</a><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a></details><p id="build" class="muted"></p></dialog>
-  <dialog id="shipment-dialog" aria-labelledby="shipment-heading"><div class="dialog-heading"><h2 id="shipment-heading">Send help upriver</h2><button id="shipment-close" aria-label="Close cargo details">×</button></div><p id="shipment-explanation"></p><div id="shipment-options"></div><div id="shipment-progress" hidden><p id="shipment-packed"></p><p id="shipment-safety" class="muted"></p><button id="shipment-send" class="primary">Send the boat</button><p id="shipment-blocker" role="status"></p><button id="shipment-cancel">Cancel and return packed goods</button></div></dialog>
+  <dialog id="shipment-dialog" aria-labelledby="shipment-heading"><div class="dialog-heading"><h2 id="shipment-heading">Send help upriver</h2><button id="shipment-close" aria-label="Close cargo details">×</button></div><p id="shipment-explanation"></p><div id="shipment-options"></div><div id="shipment-progress" hidden><p id="shipment-packed"></p><p id="shipment-safety" class="muted"></p><p id="shipment-supply" class="muted"></p><button id="shipment-send" class="primary">Send the boat</button><p id="shipment-blocker" role="status"></p><button id="shipment-cancel">Cancel and return packed goods</button></div></dialog>
   <dialog id="story-ending" aria-labelledby="ending-heading"><p class="eyebrow">A home on the river</p><h1 id="ending-heading">A village that can give back</h1><p>Your neighbors have made a home here. The boat carries help to another beginning upriver.</p><ul id="ending-summary"></ul><button id="ending-continue" class="primary">Keep tending this village</button></dialog>
   <section id="replay-bar" hidden><strong>Recorded session · read only</strong><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Replay timeline"><div><button id="previous-mark">Previous bookmark</button><span id="frame-description"></span><button id="next-mark">Next bookmark</button><button id="leave-replay">Back to village</button></div></section>`;
 
@@ -106,12 +106,12 @@ function renderStory(s: State) {
     }));
   }
   el('welcome-title').textContent=s.title;
-  el('welcome-story').textContent='Four neighbors have made it to the river. Their homes are standing, but twelve portions are all that remain. Four more people are on their way.';
+  el('welcome-story').textContent='Four neighbors have made it to the river. Their homes are standing, but twelve portions are all that remain. Four more people arrive after eight minutes of play, or earlier when you are ready.';
   el('welcome-task').textContent='First, establish a livelihood. Then welcome the newcomers. Together, grow this holding into a village that can send food and logs to help another settlement upriver. Your choices shape the same place throughout; shortages are recoverable.';
   el('welcome-neighbors').hidden=!!story.welcomeProblem || story.chapter>=3;
   el<HTMLButtonElement>('welcome-neighbors').disabled=readonly || busy;
   const ordered=story.manifest!=='none';
-  el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:'Your village can help another settlement. Choose what to send.';
+  el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:'Choose your contribution upriver.';
   el('shipment-open').textContent=ordered?(story.sendProblem?'Review cargo':'Send help upriver'):'Choose cargo';
   el<HTMLButtonElement>('shipment-open').disabled=readonly;
   el('shipment-explanation').textContent=ordered?'Your neighbors pack available logs and surplus local food automatically. Packing gets logs before new construction; existing jobs keep their claims. Cancel to return packed goods and choose again.':'The settlement upriver needs both food and building supplies. Choose the cargo your village can provide. Choose more logs or more food to match the livelihood you build.';
@@ -131,6 +131,7 @@ function renderStory(s: State) {
   }
   el('shipment-packed').textContent=`Packed: ${story.packedLogs} of ${story.logTarget} logs and ${story.packedFood} of ${story.foodTarget} food.`;
   el('shipment-safety').textContent=`Packing leaves at least ${story.foodFloor} available food for your neighbors. Their meals and existing work claims come first. Packed supplies are separate from the top resource bar.`;
+  el('shipment-supply').textContent=story.supply;
   el('shipment-blocker').textContent=story.sendProblem ?? 'Cargo is ready. Send the boat when you are ready to say farewell.';
   el<HTMLButtonElement>('shipment-send').disabled=!!story.sendProblem || readonly || busy || story.departed;
   el<HTMLButtonElement>('shipment-cancel').disabled=readonly || busy || story.departed;
@@ -151,7 +152,7 @@ el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDe
 function render(s: State) {
   if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
   const showEnding=!!s.story && s.complete && state?.id===s.id && !state.complete && !readonly;
-  if (state?.id !== s.id && (s.river || s.trade || s.riverside)) { if(s.story){village.focus({x:1,z:0});village.setZoom(13);}else village.setZoom(s.riverside ? 12 : s.trade ? 9 : 15); }
+  if (state?.id !== s.id && (s.river || s.trade || s.riverside)) { if(s.story){village.focus({x:1,z:0});village.setZoom(11.5);}else village.setZoom(s.riverside ? 12 : s.trade ? 9 : 15); }
   if (state?.id !== s.id || replayId) goalsExpanded = s.view.goalsExpanded ?? false;
   state = s; sessionId = s.id;
   el('loading').hidden = true;
@@ -174,7 +175,7 @@ function render(s: State) {
   el('build').textContent = `Build ${s.build} · session ${s.id.slice(0, 8)}`;
   const people = s.people.map(p => { const row = document.createElement('p'); const name = document.createElement('strong'); name.textContent = `${p.name}${p.fed ? '' : ' · hungry'}`; row.append(name, document.createElement('br'), document.createTextNode(p.status), document.createElement('br'), document.createTextNode(p.freshMeal ? '✓ Has eaten fresh food' : '○ Still waiting for a fresh meal')); return row; }); el('people').replaceChildren(...people);
   village.update(s);
-  if (!mode && !selection && performance.now() > messageUntil) tell(s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? 'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and logging automatically.' : 'Choose a plan. Neighbors take care of the work.');
+  if (!mode && !selection && performance.now() > messageUntil) tell(s.story && s.notice && !s.complete ? (s.story.phase==='ready'?'Review cargo and send the boat when ready.':s.story.chapter===3?'Choose or review your cargo. Resume when ready.':'Chapter updated. Check your objectives; resume when ready.') : s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? 'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and logging automatically.' : 'Choose a plan. Neighbors take care of the work.');
   if (selection) renderSelection();
   workSound?.update(s, village.getView(), soundOn && !readonly);
   if (soundOn && !readonly && s.complete && !lastComplete) chime();
@@ -202,7 +203,7 @@ async function recordView() {
 function clearMode() { if(state?.story)el('shipment-panel').hidden=state.story.chapter<3 || state.story.departed; el('room-actions').hidden=!state?.riverside || readonly; el('food-options').hidden = true; mode = ''; village.showFishingGrounds(false); previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
 function startMode(type: string) {
   if (readonly) return;
-  village.showJourney([]); el('shipment-panel').hidden=true; el('room-actions').hidden=true; el('food-options').hidden = true; mode = type; rotation = 0; firstCorner = null; chosen = null; selection = null; el('selection').hidden = true;
+  village.showJourney([]); el('shipment-panel').hidden=true; el('room-actions').hidden=true; el('food-options').hidden = true; mode = type; rotation = 0; el('rotate').textContent='Rotate ↻'; firstCorner = null; chosen = null; selection = null; el('selection').hidden = true;
   preview = null; village.showPreview(null); el('choices').hidden = true; el('placement').hidden = false;
   el('rotate').hidden = !['garden', 'field', 'home', 'dock'].includes(type); el<HTMLButtonElement>('confirm').disabled = true;
   tell(state?.riverside && ['home','garden','field'].includes(type) ? 'Choose clear or wooded ground. The preview explains any clearing; neighbors do both jobs automatically.' : type === 'grove' ? 'Tap two corners around a grove on your bank. Dragging still moves the map.' : ['garden', 'field', 'home', 'dock'].includes(type) ? 'Tap clear ground. Preview the footprint, then confirm. Neighbors build automatically.' : 'Repair this crossing to reach the ripe harvest.');

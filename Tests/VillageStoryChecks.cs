@@ -3,6 +3,42 @@ using System.Text.Json;
 
 static class VillageStoryChecks
 {
+    public static void Pacing()
+    {
+        var w=World.NewVillageStory();
+        void Plan(World v,BuildingKind kind,Cell at,int facing=0)
+        {
+            for(int attempt=0;!v.PlanRiverside(at,facing,kind);attempt++)
+            {if(attempt>=60)throw new Exception(v.RiversideSiteProblem(at,facing,kind));for(int i=0;i<10;i++)v.Tick(.1f);}
+        }
+        Plan(w,BuildingKind.VegetableGarden,new(-6,6));
+        while(!w.VillageStory!.Established)w.Tick(.1f);
+        Plan(w,BuildingKind.Cottage,new(5,3));Plan(w,BuildingKind.Cottage,new(2,7));
+        Plan(w,BuildingKind.VegetableField,new(3,-5));Plan(w,BuildingKind.Bridge,World.RiversideShortcut);
+        while(!w.VillageStory.Settled)
+        {w.Tick(.1f);if(w.StoryWelcomeProblem()==null)w.WelcomeStory();}
+        w.SetHarvestGrove(new(-7,4));w.SetHarvestGrove(new(-2,1));w.OrderStoryShipment("building");
+        while(w.Food.Time<500)w.Tick(.1f);
+        var saved=w.SaveJson();var rows=new List<object>();
+        foreach(bool moreFood in new[]{false,true})
+        {
+            var v=World.LoadJson(saved);if(moreFood)Plan(v,BuildingKind.VegetableField,new(-4,-4));
+            int next=500;var samples=new List<object>();
+            while(v.Food.Time<1800 && !v.VillageStory!.Complete)
+            {
+                if(v.Food.Time>=next)
+                {
+                    var flow=v.ReadFoodFlow();
+                    samples.Add(new{time=v.Food.Time,v.VillageStory!.PackedLogs,packedFood=v.VillageStory.PackedFood.Values.Sum(),food=v.ReachableEdibleStored,flow.Delivered,flow.Eaten,
+                        fields=v.Cottages.Where(c=>World.IsVegetablePlot(c.Kind)).Select(c=>new{c.Cell,c.Growth,c.Harvest}).ToArray()});next+=200;
+                }
+                if(v.StorySendProblem()==null)v.SendStoryShipment();
+                v.Tick(.1f);
+            }
+            v.Validate();var row=new{moreFood,time=v.Food.Time,complete=v.VillageStory!.Complete,samples};rows.Add(row);Console.WriteLine(JsonSerializer.Serialize(row));
+        }
+        Directory.CreateDirectory("artifacts/browser/village264");File.WriteAllText("artifacts/browser/village264/pacing.json",JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true}));
+    }
     public static void Run()
     {
         var rows=new List<object>();
@@ -10,7 +46,13 @@ static class VillageStoryChecks
         {
             var w=World.NewVillageStory();
             void Plan(BuildingKind kind,Cell at,int rotation=0)
-            {if(!w.PlanRiverside(at,rotation,kind))throw new Exception($"Cannot plan {kind} at {at}: {w.RiversideSiteProblem(at,rotation,kind)}");}
+            {
+                for(int attempt=0;!w.PlanRiverside(at,rotation,kind);attempt++)
+                {
+                    if(attempt>=60)throw new Exception($"Cannot plan {kind} at {at}: {w.RiversideSiteProblem(at,rotation,kind)}");
+                    for(int tick=0;tick<10;tick++)w.Tick(.1f);
+                }
+            }
             void ExactSave()
             {
                 var copy=World.LoadJson(w.SaveJson());

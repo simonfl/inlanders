@@ -26,7 +26,7 @@ public sealed class VillageStoryProgress
 public sealed record ShipmentOption(string Id,string Label,int Logs,int Food,string Description);
 public sealed record VillageStoryReport(string Phase,string Title,string[] Objectives,string Hint,int Chapter,string[] Chapters,
     string Notice,int Event,int ArrivalIn,string? WelcomeProblem,string Manifest,int LogTarget,int FoodTarget,int PackedLogs,int PackedFood,
-    int FoodFloor,string? OrderProblem,string? SendProblem,bool Departed,float DepartureProgress,string[] Summary,ShipmentOption[] Options);
+    int FoodFloor,string? OrderProblem,string? SendProblem,bool Departed,float DepartureProgress,string[] Summary,ShipmentOption[] Options,string Supply);
 
 public sealed partial class World
 {
@@ -60,7 +60,7 @@ public sealed partial class World
         VillageStory!.Event++;VillageStory.Notice=notice;History.Add(notice);
     }
     public string? StoryWelcomeProblem() => VillageStory is not {Arrived:false} ? "The neighbors have already arrived." :
-        !VillageStory.Established ? "First help the four founders eat fresh local food." : Beds<8 ? "Finish eight beds before welcoming the neighbors early." :
+        !VillageStory.Established ? "First bring home local food and serve a fresh meal." : Beds<8 ? "Finish eight beds before welcoming the neighbors early." :
         ReachableEdibleStored<12 ? "Keep twelve food portions for the arrival." : null;
     public string? WelcomeStory()
     {
@@ -73,10 +73,12 @@ public sealed partial class World
         foreach(var name in new[]{"Anne","Jacques","Madeleine","Étienne"})
             People.Add(new(){Id=Population,Name=name,Position=YardAccess.Point,Role=Role.Unassigned,SharedWorker=true,NextMealTime=Food.Time+20,Status="Arrived — finding a home and useful work"});
         ReconcileHomes();_retry=0;
-        StoryEvent("Anne, Jacques, Madeleine and Étienne have arrived. Help them settle and eat from this land. They bring news: another riverside holding could use supplies. Once everyone is settled, choose what your village can send.");
+        if(s.Established && Housed==8 && People.All(p=>p.Fed))
+        {s.Settled=true;StoryEvent("The newcomers have arrived and found homes. Choose how your eight-person village will help upriver.");}
+        else StoryEvent("Four neighbors have arrived. Finish their homes and food supply, then choose what to send upriver.");
     }
     public string? StoryOrderProblem() => VillageStory is not {} s ? "This shipment belongs to A home on the river." :
-        s.Departed ? "Your supply boat has already departed." : !s.Settled ? "First settle all eight neighbors into homes and fresh meals." :
+        s.Departed ? "Your supply boat has already departed." : !s.Settled ? "First give all eight neighbors homes and enough to eat." :
         s.Manifest!="none" ? "Cancel the current cargo order before choosing another." : null;
     public string? OrderStoryShipment(string manifest)
     {
@@ -110,7 +112,7 @@ public sealed partial class World
             ChangeCentralFood(kind,-count);s.PackedFood[kind]=s.PackedFood.GetValueOrDefault(kind)+count;surplus-=count;
         }
         if(!s.ReadyAnnounced && s.PackedLogs==manifest.Logs && s.PackedFood.Values.Sum()==manifest.Food)
-        {s.ReadyAnnounced=true;StoryEvent("The cargo is ready. Check that eight neighbors have homes, everyone is fed and sixteen food portions remain. Then send your boat upriver.");}
+        {s.ReadyAnnounced=true;StoryEvent("Cargo ready. Check local food and send your boat when ready.");}
     }
     public string? StorySendProblem() => VillageStory is not {Departed:false} s ? "The supply boat has already departed." :
         StoryManifest is not {} manifest ? "Choose a cargo order first." :
@@ -129,11 +131,11 @@ public sealed partial class World
     {
         if(VillageStory is not {} s)return;
         if(s.Complete)return;
-        if(!s.Established && DeliveredEdible>=4 && s.FreshMeals.Count(id=>id<4)==4)
-        {s.Established=true;StoryEvent("The first four have eaten from this land. Your livelihood has begun. Make room for four neighbors: finish eight beds and twelve food portions to welcome them early, or keep preparing until their boat arrives.");}
+        if(!s.Established && DeliveredEdible>=4 && s.FreshMeals.Any(id=>id<4))
+        {s.Established=true;StoryEvent("Your first harvest is feeding the village. Prepare homes and food for four newcomers.");}
         if(!s.Arrived && Food.Time>=StoryArrival)ArriveStory();
-        if(s.Arrived && !s.Settled && Housed==8 && s.FreshMeals.Count==8 && People.All(p=>p.Fed))
-        {s.Settled=true;StoryEvent("Eight people now call this village home. Choose your contribution to the next holding: building supplies or a larger food shipment. Your earlier harvests count, and local meals stay protected while you pack.");}
+        if(s.Arrived && s.Established && !s.Settled && Housed==8 && People.All(p=>p.Fed))
+        {s.Settled=true;StoryEvent("Eight neighbors have homes and enough to eat. Choose the supplies your village will send upriver.");}
         PackStoryShipment();
         if(s.Departed && Food.Time-s.DepartedAt>=StoryBoatJourney)
         {s.Complete=true;StoryEvent("Your boat is on its way. From a few provisions, you made a home for eight and helped another holding begin. This village is yours to keep tending.");}
@@ -153,15 +155,15 @@ public sealed partial class World
             var sources=Cottages.Where(c=>c.Kind is BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.FishingDock).ToArray();
             title="Feed the first four";
             objectives=new[]{ $"{Mark(sources.Any(c=>c.Complete))} Food source · {(sources.Any(c=>c.Complete)?"working":sources.Length>0?"under construction":"choose garden, field or fishing")}",
-                $"{Mark(DeliveredEdible>=4)} Local food delivered · {Math.Min(4,DeliveredEdible)}/4",$"{Mark(s.FreshMeals.Count>=4)} First fresh meals · {s.FreshMeals.Count(id=>id<4)}/4"};
+                $"{Mark(DeliveredEdible>=4)} Local food delivered · {Math.Min(4,DeliveredEdible)}/4",$"{Mark(s.FreshMeals.Any(id=>id<4))} First fresh meal · {Math.Min(1,s.FreshMeals.Count(id=>id<4))}/1"};
             hint=sources.Length==0?"Open Food sources and choose a livelihood. Twelve provisions will not last forever. Your grove renews automatically; add more grove area when you need logs.":
-                "Neighbors build, grow and deliver automatically. The first four need fresh meals from your food source; they eat when hungry. More homes will be needed next.";
+                "Neighbors build, grow and deliver automatically. The first fresh meal shows your livelihood is working; neighbors eat when hungry. More homes will be needed next.";
         }
         else if(chapter==2)
         {
             title=s.Arrived?"Make the newcomers at home":"Make room for four neighbors";
             objectives=new[]{ $"{Mark(Beds>=8)} Homes · {Beds}/8 beds"+(s.Arrived?$" · {Housed}/8 housed":""),
-                s.Arrived?$"{Mark(s.FreshMeals.Count==8)} Newcomers' fresh meals · {s.FreshMeals.Count(id=>id>=4)}/4":$"○ Neighbors in {arrival/60}:{arrival%60:00} · or welcome early",
+                s.Arrived?"✓ Four newcomers have arrived":$"○ Neighbors in {arrival/60}:{arrival%60:00} · or welcome early",
                 s.Arrived?$"{Mark(People.All(p=>p.Fed))} Everyone fed · {People.Count(p=>p.Fed)}/8":$"{Mark(ReachableEdibleStored>=12)} Arrival food · {ReachableEdibleStored}/12"};
             hint=s.Arrived?"New hands help with work, but eight people eat more. Strengthen food supply or shorten a useful route. Once they are settled, choose the supplies your village will send upriver.":
                 "Fit homes nearby, clear woodland if needed, or use the far bank. The old crossing works; a shortcut is optional. Earlier preparation lets you welcome the boat without waiting.";
@@ -181,7 +183,13 @@ public sealed partial class World
         return new(phase,title,objectives,hint,chapter,new[]{"Find a livelihood","Welcome neighbors","Send help upriver"},s.Notice,s.Event,arrival,StoryWelcomeProblem(),s.Manifest,
             manifest?.Logs??0,manifest?.Food??0,packedLogs,packedFood,StoryFoodFloor,StoryOrderProblem(),StorySendProblem(),s.Departed,
             s.Departed?Math.Clamp((Food.Time-s.DepartedAt)/StoryBoatJourney,0,1):0,
-            new[]{"Eight neighbors made their home here",$"{s.ExportedLogs} logs and {s.ExportedFood.Values.Sum()} food sent upriver",$"{Cottages.Count(c=>c.Complete && c.Kind is BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.FishingDock)} food workplaces · {ManagedWoodland.Count} renewing tree spots"},StoryShipments);
+            new[]{"Eight neighbors made their home here",$"{s.ExportedLogs} logs and {s.ExportedFood.Values.Sum()} food sent upriver",$"{Cottages.Count(c=>c.Complete && c.Kind is BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.FishingDock)} food workplaces · {ManagedWoodland.Count} renewing tree spots"},StoryShipments,StorySupplyText());
+    }
+    private string StorySupplyText()
+    {
+        var f=ReadFoodFlow();
+        string observation=$"Last {(int)f.Seconds/60}:{(int)f.Seconds%60:00}: {f.Delivered} food brought home, {f.Eaten} eaten by neighbors.";
+        return observation+" Crops arrive in batches. Another food source or a shorter delivery route can leave more for the boat.";
     }
     private void ValidateVillageStory()
     {
@@ -190,7 +198,7 @@ public sealed partial class World
         if(Riverside==null || Population!=(s.Arrived?8:4) || s.FreshMeals==null || s.FreshMeals.Any(id=>id<0 || id>=Population) ||
             s.PackedFood==null || s.ExportedFood==null || s.PackedFood.Concat(s.ExportedFood).Any(p=>p.Key==Resource.Berries || !EdibleKinds.Contains(p.Key) || p.Value<0) ||
             s.PackedLogs<0 || s.ExportedLogs<0 || s.Event<0 || !float.IsFinite(s.DepartedAt) || s.DepartedAt<0 || s.DepartedAt>Food.Time ||
-            s.Settled && (!s.Established || !s.Arrived || s.FreshMeals.Count!=8) || s.Complete&&!s.Departed ||
+            s.Settled && (!s.Established || !s.Arrived) || s.Complete&&!s.Departed ||
             manifest==null && (s.Manifest!="none" || StoryLogsAway!=0 || s.PackedFood.Values.Sum()+s.ExportedFood.Values.Sum()!=0 || s.Departed) ||
             manifest!=null && (StoryLogsAway>manifest.Logs || s.PackedFood.Values.Sum()+s.ExportedFood.Values.Sum()>manifest.Food) ||
             !s.Departed && (s.ExportedLogs!=0 || s.ExportedFood.Values.Sum()!=0) ||

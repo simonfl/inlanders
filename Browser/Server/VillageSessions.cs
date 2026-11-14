@@ -16,6 +16,7 @@ sealed class Session(string id, World world)
     public World World = world;
     public bool Paused = true;
     public int Speed = 1;
+    public int? DepartureSpeed;
     public long Step;
     public long Sequence;
     public DateTime LastSeen = DateTime.UtcNow;
@@ -56,7 +57,7 @@ public sealed partial class VillageSessions
         if (path == null) throw new KeyNotFoundException();
         var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(path), Json)!;
         if (saved.Build != Build) throw new ArgumentException("This village belongs to an earlier prototype build. Start a new village.");
-        s = new(id, World.LoadJson(saved.World)) { Step = saved.Step, Sequence = saved.Sequence, View = saved.View, Notice = saved.Notice };
+        s = new(id, World.LoadJson(saved.World)) { Step = saved.Step, Sequence = saved.Sequence, View = saved.View, Notice = saved.Notice, DepartureSpeed=saved.DepartureSpeed };
         sessions[id] = s;
         Record(s, "restored", new { message = "Restored safely paused" });
         return s;
@@ -161,11 +162,11 @@ public sealed partial class VillageSessions
                     problem=w.WelcomeStory();if(problem==null){s.Paused=true;s.Notice=w.VillageStory!.Notice;message=s.Notice;}break;
                 case "shipment-building": case "shipment-food":
                     problem=w.OrderStoryShipment(o.Type=="shipment-building"?"building":"food");
-                    if(problem==null){s.Paused=true;s.Notice="";message=w.History.Last();}break;
+                    if(problem==null){s.Paused=true;s.Notice="";message=$"Cargo ordered. Packing keeps {w.StoryFoodFloor} food for local meals. Resume when ready.";}break;
                 case "shipment-cancel":
                     problem=w.CancelStoryShipment();if(problem==null){s.Notice="";message=w.History.Last();}break;
                 case "shipment-send":
-                    problem=w.SendStoryShipment();if(problem==null){s.Paused=false;s.Notice="";message=w.History.Last();}break;
+                    problem=w.SendStoryShipment();if(problem==null){s.DepartureSpeed=s.Speed;s.Speed=1;s.Paused=false;s.Notice="";message="Your supply boat is departing. Watch it leave at 1×.";}break;
                 case "garden-entrance":
                     problem=w.ReadGardenEntrance(o.SiteId)?.Problem;
                     if(problem==null){if(!w.ChangeGardenEntrance(o.SiteId))problem="Choose a completed garden with an open new entrance.";else message=w.History.Last();}break;
@@ -264,7 +265,7 @@ public sealed partial class VillageSessions
         if (tradeBefore != (t?.Decision, t?.Arrived, t?.Complete))
         { milestone = true; s.Paused = true; s.Notice = s.World.History.Last(); }
         if(roomBefore!=(s.World.Riverside?.Arrived,s.World.Riverside?.Complete)){milestone=true;s.Paused=true;s.Notice=s.World.History.Last();}
-        if(storyBefore!=s.World.VillageStory?.Event){milestone=true;s.Paused=true;s.Notice=s.World.VillageStory!.Notice;}
+        if(storyBefore!=s.World.VillageStory?.Event){milestone=true;s.Paused=true;s.Notice=s.World.VillageStory!.Notice;if(s.World.VillageStory.Complete && s.DepartureSpeed is int preferred){s.Speed=preferred;s.DepartureSpeed=null;}}
         return milestone;
     }
     public void Tick()
@@ -294,14 +295,14 @@ public sealed partial class VillageSessions
         File.AppendAllText(Path.Combine(Folder(s.Id), "recording.jsonl"), JsonSerializer.Serialize(new { sequence = s.Sequence, utc = s.LastFrame, type, data, state = Observe(s) }, Json) + "\n");
         if (type == "bookmark") File.WriteAllText(Path.Combine(Folder(s.Id), $"bookmark-{s.Sequence}.json"), s.World.SaveJson());
     }
-    sealed record Saved(string Build, string World, long Step, long Sequence, ClientView View, string Notice);
+    sealed record Saved(string Build, string World, long Step, long Sequence, ClientView View, string Notice,int? DepartureSpeed);
     void Save(Session s)
     {
         // Immutable checkpoints avoid replacing files while Dropbox is indexing them.
         // Rename a complete new file into the journal; a crash can leave only an ignored .tmp.
         var path = Path.Combine(Folder(s.Id), $"snapshot-{s.Sequence:D12}-{Guid.NewGuid():N}.json");
         var temporary = path + ".tmp";
-        File.WriteAllText(temporary, JsonSerializer.Serialize(new Saved(Build, s.World.SaveJson(), s.Step, s.Sequence, s.View, s.Notice), Json));
+        File.WriteAllText(temporary, JsonSerializer.Serialize(new Saved(Build, s.World.SaveJson(), s.Step, s.Sequence, s.View, s.Notice,s.DepartureSpeed), Json));
         File.Move(temporary, path);
         s.LastSave = DateTime.UtcNow;
     }

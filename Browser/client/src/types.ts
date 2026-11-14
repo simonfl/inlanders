@@ -7,7 +7,7 @@ export type Story = {
   notice: string; event: number; arrivalIn: number; welcomeProblem: string | null;
   manifest: 'none' | 'building' | 'food'; logTarget: number; foodTarget: number; packedLogs: number; packedFood: number;
   foodFloor: number; orderProblem: string | null; sendProblem: string | null; departed: boolean; departureProgress: number;
-  summary: string[]; options: { id: 'building' | 'food'; label: string; logs: number; food: number; description: string }[];
+  summary: string[]; supply: string; options: { id: 'building' | 'food'; label: string; logs: number; food: number; description: string }[];
 };
 export type State = {
   id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; goalTitle: string; scenario: string; notice: string; complete: boolean;

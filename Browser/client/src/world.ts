@@ -56,12 +56,13 @@ export class VillageView {
     this.zoom = Math.max(7, Math.min(26, value));
     const aspect = this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight);
     // Keep a usable horizontal view in portrait, instead of cropping both shores.
-    const halfWidth = this.zoom * Math.max(.7, aspect);
+    const halfWidth = this.zoom * (this.state?.story ? Math.max(1.25,aspect*.75) : Math.max(.7,aspect));
     this.camera.orthoLeft = -halfWidth; this.camera.orthoRight = halfWidth;
-    this.camera.orthoTop = this.zoom; this.camera.orthoBottom = -this.zoom;
+    const halfHeight=this.state?.story?halfWidth/aspect:this.zoom;
+    this.camera.orthoTop = halfHeight; this.camera.orthoBottom = -halfHeight;
   }
   private defaultZoom() { return this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight) > 1.4 ? 12 : 19; }
-  home() { this.camera.target.set(this.state?.story?1:-1, 0, 0); this.setZoom(this.state?.story?13:this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
+  home() { this.camera.target.set(this.state?.story?1:-1, 0, 0); this.setZoom(this.state?.story?11.5:this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
   focus(c: Cell) { this.camera.target.set(c.x, 0, c.z); this.setZoom(11); this.onViewChange(); }
   getView(): Pick<View, 'cameraX' | 'cameraZ' | 'zoom'> { return { cameraX: this.camera.target.x, cameraZ: this.camera.target.z, zoom: this.zoom }; }
   restore(v: View) { this.camera.target.set(v.cameraX, 0, v.cameraZ); this.setZoom(v.zoom); }
@@ -79,7 +80,9 @@ export class VillageView {
     mesh.position.set(x, y, z); mesh.parent = parent; mesh.material = this.material(color); mesh.isPickable = false; this.shadows.addShadowCaster(mesh); return mesh;
   }
   update(state: State) {
+    const changedStory=!!this.state?.story!==!!state.story;
     this.state = state;
+    if(changedStory)this.setZoom(this.zoom);
     if (this.mapKey !== state.id) {
       this.fishingBoats.clear();
       this.mapKey = state.id; this.terrain.dispose(false, false); this.terrain = new TransformNode('terrain', this.scene);

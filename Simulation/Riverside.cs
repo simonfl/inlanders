@@ -131,6 +131,11 @@ public sealed partial class World
         int walk=FindPath(YardAccess,destination,Blocked)?.Count??0;
         int shortcut=FindPath(YardAccess,destination,c=>c!=RiversideShortcut && Blocked(c))?.Count??0;
         bool built=Cottages.Any(c=>c.Kind==BuildingKind.Bridge && c.Cell==RiversideShortcut && c.Complete);
+        if(VillageStory!=null)
+        {
+            var story=ReadVillageStory();
+            return new(story.Phase,story.Title,story.Objectives,story.Hint,story.ArrivalIn,story.WelcomeProblem,RiversideShortcut,built,walk,shortcut,VillageStory.FreshMeals.Count,DeliveredEdible,ManagedWoodland.Count);
+        }
         string phase=r.Complete?"complete":!r.Arrived?"prepare":Housed<8?"settle":"feed";
         string hint=r.Complete?"Your village has grown around your choices. Keep watching, or improve a route you use.":
             People.Any(p=>!p.Fed)?"Some neighbors are hungry. Add food close to useful routes; shortages slow work but can be recovered.":
