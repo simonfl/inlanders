@@ -27,6 +27,7 @@ sealed class Session(string id, World world)
 }
 public sealed partial class VillageSessions
 {
+    public static readonly string ServerRun = Guid.NewGuid().ToString("N");
     public static readonly string Build = BuildHash();
     static string BuildHash()
     {
@@ -84,7 +85,7 @@ public sealed partial class VillageSessions
         return new
         {
             id = s.Id, build = Build, sequence = s.Sequence, step = s.Step, seconds = Math.Round(s.Step / 10d, 1), s.Paused, s.Speed,
-            scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = Complete(w), story = w.VillageStory==null?null:w.ReadVillageStory(), riverside = w.Riverside==null?null:w.ReadRiverside(), river = River(w), trade = Trade(w), notice = s.Notice,
+            serverRun=ServerRun, scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = Complete(w), story = w.VillageStory==null?null:w.ReadVillageStory(), riverside = w.Riverside==null?null:w.ReadRiverside(), river = River(w), trade = Trade(w), notice = s.Notice,
             resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed, beds = w.Beds },
             objectives = ObjectiveLines(w), hint = Hint(w), nextAction = goals.Action,
             map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile,

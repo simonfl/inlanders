@@ -29,6 +29,7 @@ let preview: Preview | null = null, previewSerial = 0, busy = false, refreshing 
 let workSound: VillageSound | undefined;
 let audio: AudioContext | undefined, soundOn = false, lastSound = 0, lastComplete = false;
 let messageUntil = 0, goalsExpanded = false, entranceSiteId = -1;
+const retiredServerRuns = new Set<string>();
 const village = new VillageView(el<HTMLCanvasElement>('scene'), el('world'));
 const view = (): View => ({ active: !document.hidden && !readonly, panel: el<HTMLDialogElement>('tools').open ? 'menu' : el<HTMLDialogElement>('shipment-dialog').open ? 'shipment' : el<HTMLDialogElement>('story-ending').open ? 'ending' : mode || 'village', selection,
   ...village.getView(), width: innerWidth, height: innerHeight, message: el('order-help').textContent ?? '', previewCells: preview?.cells ?? [], previewValid: preview?.valid ?? false, goalsExpanded });
@@ -159,7 +160,13 @@ function renderGoalDetails() {
 }
 el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDetails(); void recordView(); };
 function render(s: State) {
-  if (!replayId && state?.id === s.id && (s.step < state.step || s.sequence < state.sequence)) return;
+  if (!replayId && state?.id === s.id) {
+    if(retiredServerRuns.has(s.serverRun))return;
+    if(s.serverRun===state.serverRun && (s.step<state.step || s.sequence<state.sequence))return;
+    // A restart can restore an earlier checkpoint. Accept that authoritative
+    // paused state, while rejecting any late response from the retired process.
+    if(s.serverRun!==state.serverRun)retiredServerRuns.add(state.serverRun);
+  }
   const showEnding=!!s.story && s.complete && state?.id===s.id && !state.complete && !readonly;
   if (state?.id !== s.id && (s.river || s.trade || s.riverside)) { if(s.story){village.focus({x:1,z:0});village.setZoom(11.5);}else village.setZoom(s.riverside ? 12 : s.trade ? 9 : 15); }
   if (state?.id !== s.id || replayId) goalsExpanded = s.view.goalsExpanded ?? false;

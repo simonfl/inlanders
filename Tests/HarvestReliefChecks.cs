@@ -6,7 +6,7 @@ static class HarvestReliefChecks
     public static void Run(string? only=null)
     {
         var rows=new List<object>();
-        foreach(string plan in new[]{"baseline","gardens","fields","fishing"}.Where(p=>only==null || p==only))
+        foreach(string plan in new[]{"baseline","gardens","fields","fishing","recovery"}.Where(p=>only==null || p==only))
         {
             var w=World.NewHarvestRelief();
             void Advance(float seconds){for(int i=0;i<(int)(seconds*10);i++)w.Tick(.1f);}
@@ -22,6 +22,13 @@ static class HarvestReliefChecks
             if(plan=="fishing"){Plan(BuildingKind.FishingDock,new(7,-6),1);Plan(BuildingKind.FishingDock,new(7,-10),1);}
             Advance(20);SaveCheck();
             if(w.OrderStoryShipment("food")!=null)throw new Exception("Relief request rejected");
+            if(plan=="recovery")
+            {
+                Advance(480);SaveCheck();
+                if(w.CancelStoryShipment()!=null)throw new Exception("Delayed relief cancellation failed");
+                Plan(BuildingKind.VegetableField,new(4,-4));Plan(BuildingKind.VegetableField,new(-3,-5));
+                Advance(20);if(w.OrderStoryShipment("food")!=null)throw new Exception("Delayed relief reorder failed");
+            }
             bool refunded=false,partialSaved=false,departureSaved=false;float hungry=0;int minimum=1000;
             while(w.Food.Time<1800 && !w.VillageStory!.Complete)
             {
