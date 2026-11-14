@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November14,2026. Playable outcome **264**, browser build `38C598F4FC0D`: **A home on the river** is delivered as one complete three-chapter level. The [integrated review and evidence](VILLAGE_STORY_264.md) support a provisional full-level handoff, not an accepted production direction. The lead handles intermediate revisions; the owner provides experience feedback when convenient.
+Current direction, November14,2026. Playable outcome **264**, browser build `38C598F4FC0D`: **A home on the river** is delivered as one complete three-chapter level. The owner finished playing and liked accumulating resources for others. Keep outward contribution as a supported part of the core loop; overall pacing and replay appeal remain open. [Review and evidence](VILLAGE_STORY_264.md). The lead handles intermediate revisions; the owner provides experience feedback when convenient.
 
 ## The game we are building toward
 
@@ -16,8 +16,8 @@ These are evidence gates, not a checkpoint batch or permission to build every ro
 
 | Order | Playable outcome | What earns the next step |
 | --- | --- | --- |
-| **Now: delivered full village story** | A home on the river: establish food, settle newcomers, then provision and send help upriver. Real food/log cargo creates an outward purpose for developing this same village. | Full runs, recovery/current saves, phone-size UI and five-role fixed-build review completed. Await ordinary owner experience of the whole level, with no midpoint approval queue. [Active hypothesis](NEXT_CHUNKS.md). |
-| **Then: make returning worthwhile** | A second layout or materially different starting livelihood changes what is worth doing with the same small vocabulary. | A second play supports a different intention, not memorizing the correct recipe. Cut dominant or redundant options before adding types. |
+| **Delivered: full village story** | A home on the river: establish food, settle newcomers, then provision and send help upriver. Real food/log cargo creates an outward purpose for developing this same village. | Owner completed play and specifically liked accumulating resources for others. Retain that purpose; do not infer acceptance of every phase or balance choice. [Active hypothesis](NEXT_CHUNKS.md). |
+| **Next: make returning worthwhile** | Preserve helping another settlement in a complete situation with a materially different starting livelihood/layout, requiring a different production plan with the same small vocabulary. | A second play supports adapting the village and enjoying the contribution. Larger quotas alone do not earn this step. Cut dominant or redundant options before adding types. |
 | **Later: a second distinct situation** | A different inhabited village with a different practical problem, retaining the successful core. | The first complete story survives actual owner play and return. Do not schedule a ten-level curriculum in advance. |
 
 If connected later work feels imposed, pivot to an anthology of shorter restoration challenges. If the owner chiefly values composing and watching, reconsider a village-making sandbox. Neither fallback requires pretending the present direction succeeded.
@@ -40,6 +40,8 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 Keep progression in one small saved state and authoritative query for this slice. No campaign framework, analytics platform, catalogue conversion or stack migration project.
 
 ## Current evidence and history
+
+Outcome264 owner play: “Done. I liked the part of having to accumulate resources for others.” This directly supports the contribution goal. No chosen route, duration, quiet-interval reaction or voluntary post-completion play was reported. Keep the useful surplus loop and test its return in a different complete situation; avoid turning this into presumed demand for more resources, larger shipments or new systems. Count remains264.
 
 Owner evidence supports clear objectives, automatic useful work, phone access, grouped actions and some food pressure. The trade was a real choice but quiet afterward. Shipment262 fixes normal early spending blocking that trade; its appeal remains unassessed. It stays playable as a provisional comparison, with no further trader refinement selected.
 

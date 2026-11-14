@@ -40,6 +40,12 @@ The reviewer found the session summary omitted story commands and selected legac
 
 ## What remains uncertain
 
-There is no fresh owner play of this level, physical iPhone verification of these changes, audio audition, dense performance run or complete native-mode playthrough. Earlier owner evidence supports objectives, useful work, grouped actions, phone access and mild food pressure; trade was a real choice but quiet afterward. None of that proves this larger arc enjoyable. The final level is available for the owner's next convenient session without another intermediate request.
+At delivery there was no fresh owner play of this level. The follow-up below supplies specific preference evidence. Physical device used, audio audition, dense performance and complete native-mode playthrough remain unverified. Earlier owner evidence supports objectives, useful work, grouped actions, phone access and mild food pressure; trade was a real choice but quiet afterward.
 
 Keep this as the active complete-level hypothesis. If later production is an understood wait, shorten or replace that act before increasing quotas or adding systems. If the owner voluntarily improves the village or wants to remain, use those observations to choose the next complete situation. Feedback should inform direction, not become a daily approval queue for small implementation decisions.
+
+## Owner play follow-up
+
+The owner reported completing the playthrough: “Done. I liked the part of having to accumulate resources for others.” This is direct human preference for producing a useful contribution. Keep that goal as a supported component of the loop. It does not establish that all pacing, layout or economic choices worked, which cargo they chose, or whether they continued tending.
+
+Decision: carry the helping-others purpose into the next complete situation with a different starting livelihood/layout and a different production plan. Use the same small building/resource vocabulary. Do not translate this into larger quotas, repeated shipment chores or additional needs. The next question is whether the purpose survives a different plan and another play. This evidence update changes direction confidence, not the playable outcome count;264 remains the delivered level.
