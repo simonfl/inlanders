@@ -1,6 +1,6 @@
-# Small browser prototype
+# Les Habitants browser prototype
 
-The active comparison is **Room by the river**. Earlier crossing, longer river and timber-trade scenarios remain available. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
+The default level is **A home on the river**: establish food for four, make room for four newcomers, then send a real contribution upriver. Earlier comparisons remain under Village → Earlier playtests. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
 
 ## Run
 
@@ -13,7 +13,7 @@ From the repository root, with the local .NET SDK and Node available:
 ./Browser.ps1 Stop
 ```
 
-Open `http://127.0.0.1:5180` for the short recovery, or `http://127.0.0.1:5180/?scenario=river-closing` for the longer settlement. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
+Open `http://127.0.0.1:5180` or `/?scenario=river-home` for the complete village story; `/?scenario=crossing` explicitly opens the earlier short recovery. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
 
 Client dependencies are pinned in `client/package-lock.json`. Standard Node installations can use `npm ci` and `npm run build` in `Browser/client`. This laptop has Node without npm on PATH; the project-local npm bootstrap is `.tools/npm/package/bin/npm-cli.js`. The launcher currently uses that local installation. No global packages are required.
 
@@ -30,7 +30,17 @@ Complete Tailscale's HTTPS enablement if prompted. Open the resulting `https://�
 
 The laptop must be awake and connected. No cloud hosting, port-forwarding or native iOS packaging is needed. Actual iPhone performance and Safari lifecycle/audio still require device testing; a desktop phone-size viewport is not that evidence.
 
-## Room by the river
+## A home on the river
+
+Begin with four residents, two homes, twelve food and ten logs. Choose a garden, field or fishing; four local deliveries and a first fresh meal establish the livelihood. Four newcomers arrive at eight simulated minutes, or welcome them early with eight beds and twelve food. When all eight are housed and fed, choose either 64 logs + 24 food or 24 logs + 64 food for the settlement upriver.
+
+Packing takes unclaimed central logs and surplus locally produced food. It excludes opening provisions, existing claims and carried goods, leaving two available portions per resident before packing more. Residents can subsequently eat that reserve; it is not a permanent food guarantee. Packed cargo is separate from the top resource bar. Cancel an unfinished shipment to return everything; existing construction can be delayed by log packing. Cargo details show recent food brought home versus eaten, so improving production or routes has a visible purpose.
+
+Send deliberately when cargo is full and all eight are housed/fed with sixteen food still stored. The boat leaves at 1× for twelve simulated seconds, restores the prior speed at the paused ending, and reports the actual contribution. Keep tending remains available. There is no forced sustain timer or promised real-time duration. [Delivery and critical review](../docs/VILLAGE_STORY_264.md).
+
+Agent commands: `story-welcome`, `shipment-building`, `shipment-food`, `shipment-cancel`, `shipment-send`. `state.story` is authoritative for objectives, choices and rejection reasons. `node Browser/agent.mjs new river-home` starts a disposable ordinary session. Focused simulation checks: `--village-story`; the matched additional-field pacing diagnostic is `--village-story-pacing`. Both use `Tests/SimulationTests.csproj`.
+
+## Earlier comparison: Room by the river
 
 Open `/?scenario=room-by-river` for an established four-person settlement expecting four neighbors. Fit homes nearby, clear woodland as part of a building order, or use the far bank. The existing crossing already works; the six-log shortcut is optional. Preview explains woodland loss and reference travel distance. Arrivals pause at180 simulated seconds, or welcome early with eight beds and eight food.
 
@@ -99,7 +109,7 @@ The build identity covers the server and built client assets. Keep the matching 
 
 State is checkpointed after commands, on interruption, and every five seconds while running. Unexpected process termination can lose the last few seconds of free-running simulation. Recordings/checkpoints are kept locally without automatic pruning in this first slice. A running session writes roughly one visible frame per second; long sessions consume more disk space. Normal disconnected sessions pause instead of recording indefinitely.
 
-Sound is a small optional fresh-food/completion chime, enabled by an explicit browser gesture. The desktop music and full asset catalogue are deliberately not ported. Continuous movement, carrying and simple work poses remain visible.
+Sound is optional and enabled through Village → Sound by an explicit browser gesture. It includes sparse activity/water sounds and fresh-food/completion cues; this release's review did not audition it. The desktop music and full asset catalogue are deliberately not ported. Continuous movement, carrying and simple work poses remain visible.
 
 Checks:
 

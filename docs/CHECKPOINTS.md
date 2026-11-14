@@ -1,3 +1,12 @@
+# Outcome264 — A home on the river
+
+November14,2026. Full browser level delivered as one outcome, build `38C598F4FC0D`, candidate source `714f8f6`: establish a livelihood, welcome four neighbors into the same village, choose real log-heavy or food-heavy cargo, and send a visible boat upriver. Explicit ending and continued tending. Full-level handoffs replace owner midpoint approvals.
+
+Five independent roles reviewed fixed candidate `c88ae6e`/`2FB99C49141A` across the whole project and stated unobserved areas. Revisions removed personal meal-clock gates, made supply/consumption visible, fixed rotation feedback, retained phone map scale, and staged departure at1×. Four scripted economic routes, independent ordinary-command recovery/completion, real partial-cargo/departure restarts, phone-size browser controls/ending, focused Riverside/trade regressions and builds pass. Full reports and limits in [the delivery record](VILLAGE_STORY_264.md).
+
+Keep provisionally. Completion/time/test counts do not establish fun. Efficient initial queues and quiet production remain the main design risk; a matched extra-field intervention shortened a food-bound run1208→745simseconds, so expose useful capacity choices instead of padding duration. Owner experience and actual iPhone/audio checks remain distinct. Count advances once to264, including internal review corrections.
+
+---
 # Outcome263 — Room by the river
 
 Owner follow-up November14, build `B5D26BBF5D03`: the owner played and reported confusion from using “timber” and “logs” interchangeably. Standardize the browser interface and shared simulation messages on **logs**: construction, worker status, goals/hints, trade, cancellation and placement. Use “logging” for the activity and “log yard” for the location. Internal identifiers/scenario URLs remain unchanged. This is a terminology correction within263, not a new experiment or evidence of overall enjoyment. Client/server build and ordinary API construction, garden preview, worker/goal and trader-arrival wording checks pass; private endpoint ready. No mechanics changed and no new full review required.
