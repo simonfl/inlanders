@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November 13, 2026. Playable outcome **263**, browser build `C1C658CEB4A2`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. The established-village experiment is delivered provisionally; the full story is not implemented.
+Current direction, November 13, 2026. Playable outcome **263**, browser build `B5D26BBF5D03`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. The established-village experiment is delivered provisionally; the full story is not implemented.
 
 ## The game we are building toward
 
@@ -25,7 +25,7 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 
 ## Integrated requirements
 
-**Purpose and choice.** Keep clear progress, mild recoverable food pressure and useful automatic work. Trade, food types and buildings earn a place through different land, timing or access consequences. No more arrival waves solely to enlarge the counters. No mandatory producer recipes, diet ratios, recent-service certificates or worker assignment panel.
+**Purpose and choice.** Call the raw wood resource “logs” consistently in player text. Keep clear progress, mild recoverable food pressure and useful automatic work. Trade, food types and buildings earn a place through different land, timing or access consequences. No more arrival waves solely to enlarge the counters. No mandatory producer recipes, diet ratios, recent-service certificates or worker assignment panel.
 
 **A village worth observing.** Preserve a substantial phone viewport as commitments accumulate. Compact persistent purpose/progress; detailed explanations on inspection. Compose homes, fields, woodlot and working routes as one inhabited place. Show clearing, delivered materials, construction, occupation and actual journeys. A small auditioned work/river sound layer belongs with the slice. No separate decoration backlog or large soundtrack project.
 

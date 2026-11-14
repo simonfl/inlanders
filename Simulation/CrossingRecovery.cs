@@ -48,7 +48,7 @@ public sealed partial class World
         if(story.Complete){action="done";hint="All four neighbors have eaten fresh food. The village has a way to feed itself again.";access=delivered=true;route="✓ Food route restored";}
         else if(pending!=null)
         {
-            route=$"○ {(pending.Kind==BuildingKind.Bridge?"Crossing":"Local food")} · "+(pending.MaterialsReady?$"building {pending.Construction:P0}":$"timber {pending.Delivered}/{pending.Required}");
+            route=$"○ {(pending.Kind==BuildingKind.Bridge?"Crossing":"Local food")} · "+(pending.MaterialsReady?$"building {pending.Construction:P0}":$"logs {pending.Delivered}/{pending.Required}");
             action="inspect";site=pending.Id;
             hint=pending.ConstructionPaused?"Construction is paused. Inspect the plan to resume it.":"Villagers collect materials and finish the plan automatically.";
             if(!pending.ConstructionPaused && !pending.MaterialsReady && Available<pending.Remaining(Resource.Logs) && !Trees.Any(t=>!t.Preserved && t.Logs>0 && Accessible(t.Access)))

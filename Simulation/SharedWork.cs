@@ -65,7 +65,7 @@ public sealed partial class World
     // and deliveries finish normally, so the stock can briefly exceed this target.
     public int TimberStockTarget => TimberReserve+Cottages.Where(c=>!c.Complete && !c.ConstructionPaused && c.Material==Resource.Logs).Sum(c=>c.Remaining(Resource.Logs));
     private bool SharedTimberNeeded => Stored<TimberStockTarget;
-    public string TimberReserveSummary => $"Timber: {Stored}/{TimberStockTarget} logs stored · {TimberReserve} in reserve, plus unfinished construction. " +
+    public string TimberReserveSummary => $"Logs: {Stored}/{TimberStockTarget} logs stored · {TimberReserve} in reserve, plus unfinished construction. " +
         (SharedTimberNeeded?"Harvesting is needed; workers need permitted, reachable trees and time between other jobs.":"Reserve ready. Harvesting resumes as logs are used; committed deliveries finish.");
     // Development-only observations of the actual dispatch path; never saved or used to choose work.
     public bool TraceSharedWork { get; set; }

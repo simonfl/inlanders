@@ -146,7 +146,7 @@ public sealed partial class World
             {
                 site=plans[0].Id;action="inspect";hint="Enough homes are planned. Finish their construction.";
                 if(Available<plans.Sum(c=>c.Remaining(Resource.Logs)) && !Trees.Any(t=>!t.Preserved && t.Logs>0 && Accessible(t.Access)))
-                {action="grove";hint="The planned homes need timber. Work an accessible grove.";}
+                {action="grove";hint="The planned homes need logs. Work an accessible grove.";}
             }
         }
         else if(!river.Closed && AdvanceRiverScheduleProblem()==null){action="advance";hint="Ready early. Advance the next event now, or keep preparing.";}

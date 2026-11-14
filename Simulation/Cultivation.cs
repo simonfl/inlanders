@@ -58,7 +58,7 @@ public sealed partial class World
         site.Construction=1;site.ConstructionPaused=false;site.ExtensionFromRows=site.ExtensionFromPrepared=0;
         if(salvage is Cell at){RemovePaths(new[]{at});Trees.Add(new(){Id=_nextTree++,Cell=at,Logs=extra,Material=Resource.Logs,Felled=true,Salvage=true});}
         foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.Destination);
-        History.Add($"Cancelled extension of cultivated strip {site.Id}; original ground and stored food retained. Extra delivered timber is salvage.");_retry=0;return true;
+        History.Add($"Cancelled extension of cultivated strip {site.Id}; original ground and stored food retained. Extra delivered logs are salvage.");_retry=0;return true;
     }
     public bool ReviseCultivation(int id,int rows)
     {
@@ -77,6 +77,6 @@ public sealed partial class World
         site.PreparedRows=PreparedPlotRows(site);site.PlotRows=rows;site.Planted=false;site.Growth=0;
         RemovePaths(Footprint(site));ManagedWoodland.ExceptWith(Footprint(site));
         foreach(var person in People.Where(p=>p.Route.Count>0))SetRoute(person,person.Destination);
-        History.Add($"Cultivated strip {id} now uses {rows} rows. Timber and stored food retained; sow a fresh crop.");_retry=0;return true;
+        History.Add($"Cultivated strip {id} now uses {rows} rows. Logs and stored food retained; sow a fresh crop.");_retry=0;return true;
     }
 }

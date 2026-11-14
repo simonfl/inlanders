@@ -36,7 +36,7 @@ public sealed partial class World
         if (story.Complete) { housed = true; produced = true; }
         string Stage(Cottage? c) => c == null ? "Not planned" : !Accessible(c.Entrance) ? "No route" :
             c.ConstructionPaused && !c.Complete ? "Construction paused" : c.Complete ? "Ready" :
-            !c.MaterialsReady ? $"Timber {c.Delivered}/{c.Required}" : $"Building {c.Construction:P0}";
+            !c.MaterialsReady ? $"Logs {c.Delivered}/{c.Required}" : $"Building {c.Construction:P0}";
         string hint; string action; int? site = null;
         bool foodFirst = story.LeanLanding && !produced;
         var pending = foodFirst ? food : !housed ? home : !produced ? food : null;
@@ -48,9 +48,9 @@ public sealed partial class World
         { hint = "Inspect the blocked or paused building to resume progress."; action = "inspect"; site = pending.Id; }
         else if (pending is { Complete: false, MaterialsReady: false } && Available < pending.Remaining(Resource.Logs) &&
             !Trees.Any(t => !t.Preserved && t.Logs > 0 && Accessible(t.Access)))
-        { hint = "Waiting for timber. Mark a grove to harvest and renew."; action = "grove"; }
+        { hint = "Waiting for logs. Mark a grove to harvest and renew."; action = "grove"; }
         else if (pending != null)
-        { hint = pending.Complete ? ReadWorkplace(pending).State + ". Inspect for details." : "Villagers collect the timber and build automatically."; action = "inspect"; site = pending.Id; }
+        { hint = pending.Complete ? ReadWorkplace(pending).State + ". Inspect for details." : "Villagers collect the logs and build automatically."; action = "inspect"; site = pending.Id; }
         else { hint = "Jeanne and Pierre eat automatically when hungry. Starting provisions do not count as fresh food."; action = "watch"; }
         return new(housed ? "✓ Cottage ready" : "○ Cottage · " + Stage(home),
             produced ? "✓ Food produced" : "○ Food source · " + Stage(food),
@@ -96,7 +96,7 @@ public sealed partial class World
         world.Food.InitialBerries = world.Food.Berries = leanLanding ? 12 : 20;
         world.Map.Name = leanLanding ? "Un débarquement difficile · A lean landing" : "Une première maison · A first home";
         world.History.Clear();
-        world.History.Add(leanLanding ? "The crossing cost us most of our provisions. Ten logs and twelve portions remain. The river offers fish; berries grow inland. Establish food, then help Jeanne and Pierre make their home. Hunger slows work, but a shortage can be recovered." : "Marie and Louis have offered Jeanne and Pierre a place to begin. Their stores will feed everyone for a while. Choose a little ground, take timber from a grove, and help the pair make a home and a living here.");
+        world.History.Add(leanLanding ? "The crossing cost us most of our provisions. Ten logs and twelve portions remain. The river offers fish; berries grow inland. Establish food, then help Jeanne and Pierre make their home. Hunger slows work, but a shortage can be recovered." : "Marie and Louis have offered Jeanne and Pierre a place to begin. Their stores will feed everyone for a while. Choose a little ground, take logs from a grove, and help the pair make a home and a living here.");
         world.ReconcileHomes();
         world.Validate();
         world.ValidateMapOccupancy();

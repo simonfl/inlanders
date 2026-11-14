@@ -33,16 +33,16 @@ public sealed partial class World
             new(CampaignGoalKind.ForagerHut, "Forager hut", 1), new(CampaignGoalKind.DeliveredBerries, "Fresh berries delivered", 24), new(CampaignGoalKind.Housing, "Neighbors housed", 8)),
         new(2, "Bread for the table", "The berry hamlet has homes. Add a farm and bakery to bring bread to the table.",
             new(CampaignGoalKind.Farm, "Farm", 1), new(CampaignGoalKind.Bakery, "Bakery", 1), new(CampaignGoalKind.DeliveredBread, "Loaves delivered", 16)),
-        new(3, "Room among the trees", "Four neighbors still need beds. Turn timber into planks for a lodge, and plant the next generation of woodland.",
+        new(3, "Room among the trees", "Four neighbors still need beds. Turn logs into planks for a lodge, and plant the next generation of woodland.",
             new(CampaignGoalKind.Sawmill, "Sawmill", 1), new(CampaignGoalKind.Lodge, "Lodge", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.TreesPlanted, "Trees planted by loggers", 4)),
         new(4, "A place for everyone", "Your homes, farm, and bakery are ready. Build a village square and set aside two loaves per person. Host supper from Goals and watch everyone gather.",
             new(CampaignGoalKind.Square, "Village square", 1), new(CampaignGoalKind.Housing, "Neighbors housed", 8), new(CampaignGoalKind.Supper, "Village supper shared", 1)),
         new(5, "More for the table", "The village has homes and berries. Add a vegetable garden, then serve two full meals with at least a quarter vegetables and a quarter other food. The gardener visit is optional.",
             new(CampaignGoalKind.VegetableGarden, "Vegetable garden", 1), new(CampaignGoalKind.DeliveredVegetables, "Vegetables delivered", 16), new(CampaignGoalKind.VegetableChoiceMeals, "Full meals: at least ¼ vegetables and ¼ other food", 2)),
-        new(6, "Across the river", "The west bank is a home, but room and timber are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
-        new(7, "Life by the lake", "The home shore has little spare room and only two timber trees. Reserve space for village life or use it for food production; the far shore offers more land and timber. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available."),
+        new(6, "Across the river", "The west bank is a home, but room and logs are limited. Choose a crossing, prepare homes and food for newcomers, and build a working village on both banks. Goals explains each expansion; all buildings remain available."),
+        new(7, "Life by the lake", "The home shore has little spare room and only two trees to harvest. Reserve space for village life or use it for food production; the far shore offers more land and logs. Fishing stocks replenish slowly. Bring home a catch, then prepare a mixed economy for twelve. All buildings remain available."),
         new(8, "Built to last", "Build a gathering hall for this working village. Nearby stone holds 8; the hall needs 12. Use both outcrops for shorter hauling, or only the distant one to save a camp. Keep food working and place the hall where residents will use it. All buildings remain available."),
-        new(9, "The living woods", "Two woods shelter wildlife and hold convenient timber. Preserve them and harvest farther away, or selectively cut for cultivation. Bring home game, then support twelve residents while leaving both woods able to recover. All buildings remain available."),
+        new(9, "The living woods", "Two woods shelter wildlife and hold convenient logs. Preserve them and harvest farther away, or selectively cut for cultivation. Bring home game, then support twelve residents while leaving both woods able to recover. All buildings remain available."),
         new(10, "A lasting village", "An established village has little central space. Cross the channel, support twelve residents, then twenty, and prepare a shared supper. Decide which homes, production and services belong near the center or in the new neighborhood. All buildings remain available.")
     };
     public int DeliveredBerries => DeliveredFood(Resource.Berries);
@@ -119,7 +119,7 @@ public sealed partial class World
         Hint("hunger", CampaignHungerGuidance(), Food.Hunger > 0);
         Hint("welcome", "WASD moves the camera; the wheel zooms. Space pauses. Open Build [B] for a forager hut, then cottages. R rotates entrances.", Campaign.Level == 1 && Cottages.Count == 0);
         Hint("builders", "Plans need builders. Open People [V] and use + beside Builder.", planned && !People.Any(v => v.Role == Role.Builder));
-        Hint("loggers", "Assign loggers in People. Timber must reach the yard or a stockpile before builders can collect it.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
+        Hint("loggers", "Assign loggers in People. Logs must reach the yard or a stockpile before builders can collect them.", planned && Available == 0 && !People.Any(v => v.Role == Role.Logger));
         Hint("hut", "Build a forager hut to keep the village fed. Each hut supports two foragers.", !HasForagerHut);
         Hint("foragers", "Assign foragers in People to staff the hut. Berries count after arriving at storage.", HasForagerHut && !People.Any(v => v.Role == Role.Forager));
         if (Campaign.Level == 1)

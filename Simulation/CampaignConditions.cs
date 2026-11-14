@@ -39,7 +39,7 @@ public sealed partial class World
             rows.Add(new("housing","Residents housed",Housed,Population,"Every resident needs an assigned completed home."));
             foreach(var h in Map.Wildlife)
             {
-                rows.Add(new($"wood-trees-{h.Id}",$"{WoodsName(h)} · mature trees",HabitatTrees(h),4,"Four mature trees support capacity eight and recovery two game/minute. Young saplings do not count. Collect felled timber, clear roots and plant replacements, then preserve those planting orders so loggers leave them standing. Growth takes three in-game minutes after planting. Explicit clearing overrides preservation."));
+                rows.Add(new($"wood-trees-{h.Id}",$"{WoodsName(h)} · mature trees",HabitatTrees(h),4,"Four mature trees support capacity eight and recovery two game/minute. Young saplings do not count. Collect cut logs, clear roots and plant replacements, then preserve those planting orders so loggers leave them standing. Growth takes three in-game minutes after planting. Explicit clearing overrides preservation."));
                 rows.Add(new($"wood-stock-{h.Id}",$"{WoodsName(h)} · unclaimed game",AvailableGame(h),2,"Maintain two game beyond existing hunter reservations. If mature trees remain, pause hunting to restore stock and keep other food working. If trees are missing, restore protected woodland first. These conditions stay current during assessment; a brief earlier recovery does not bank them."));
             }
             return rows;

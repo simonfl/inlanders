@@ -1,6 +1,6 @@
 # One active experiment — Room by the river
 
-Delivered November 13, 2026 as outcome **263**, build `C1C658CEB4A2`, implementation commit `5cd0fd1`. [Play privately](https://xps-13.tailb76fc1.ts.net/?scenario=room-by-river). [Evidence and decision](RIVERSIDE_263.md). This is the established-village midpoint selected by the [direction review](VILLAGE_DIRECTION_262.md), not the complete 20–30 minute story.
+Delivered November 13, 2026 as outcome **263**, current wording build `B5D26BBF5D03`, implementation commit `5cd0fd1`. [Play privately](https://xps-13.tailb76fc1.ts.net/?scenario=room-by-river). [Evidence and decision](RIVERSIDE_263.md). This is the established-village midpoint selected by the [direction review](VILLAGE_DIRECTION_262.md), not the complete 20–30 minute story.
 
 ## Experience hypothesis
 
@@ -20,7 +20,7 @@ Independent ordinary-command play found free nearby sites in both the initial ma
 
 The revised run did create a long food journey through the evaluator's own layout. They wanted to change the completed garden entrance; the bounded correction now permits that. Independent follow-up observed the actual trip fall from22 steps to1 and a complete harvest/regrowth cycle. This verifies a usable response to an observed problem, not the larger experience hypothesis.
 
-Human preference for this experiment is still unknown. No further mechanic, map revision, arrival wave or story integration is selected. Preserve this playable build and its failures. If the understood experience still feels empty, reconsider the direction instead of adding another system.
+The owner has played and reported inconsistent resource terminology; this is corrected to “logs.” Broader preference for this experiment is still unknown. No further mechanic, map revision, arrival wave or story integration is selected. Preserve this playable build and its failures. If the understood experience still feels empty, reconsider the direction instead of adding another system.
 
 ## Next evidence
 

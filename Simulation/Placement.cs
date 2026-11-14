@@ -17,7 +17,7 @@ public sealed partial class World
         if (Food.Celebrating) return "Wait until the village supper is over.";
         if (tree != null && (tree.Salvage || !tree.Felled || tree.Logs > 0 || tree.Owner != null))
             return tree.NeedsPlanting ? "This spot is already marked for planting." : tree.Growth < 1 ? "A sapling is already growing here." :
-                tree.Felled ? "Collect the remaining timber or salvage before replanting." : "A living tree already occupies this spot.";
+                tree.Felled ? "Collect the remaining logs or salvage before replanting." : "A living tree already occupies this spot.";
         return CheckPlacement(new HashSet<Cell> { cell }, new(cell.X + 1, cell.Z), tree);
     }
 
@@ -29,7 +29,7 @@ public sealed partial class World
         if (footprint.Any(c => !Inside(c)) || !Inside(entrance)) return "Keep the footprint and its entrance inside the buildable map.";
         if (footprint.Any(Map.Water.Contains)) return "Water needs a bridge; buildings and planting require dry land.";
         if (Decorations.Any(d => footprint.Contains(d.Cell))) return "Remove decorations from this footprint first.";
-        if (footprint.Contains(Stockpile)) return "The timber yard occupies this spot.";
+        if (footprint.Contains(Stockpile)) return "The log yard occupies this spot.";
         if(Map.Wildlife.Any(h=>footprint.Contains(h.Cell))) return "Keep the woodland tracking clearing open.";
         if(Map.StoneDeposits.Any(d=>footprint.Contains(d.Cell) || footprint.Contains(d.Access))) return "Keep the stone outcrop and its working access clear.";
         var tree = Trees.FirstOrDefault(t => t != reusableStump && !Removed(t) && footprint.Contains(t.Cell));
@@ -41,7 +41,7 @@ public sealed partial class World
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";
         if (Cottages.SelectMany(ClaimedHomeYardPlaces).Any(footprint.Contains)) return "A furnished or ordered home yard uses this ground. Move or cancel the yard first.";
-        if (footprint.Contains(YardAccess)) return "Keep the timber yard's collection point clear.";
+        if (footprint.Contains(YardAccess)) return "Keep the log yard's collection point clear.";
         if (Cottages.Any(c => c.Kind == BuildingKind.Bridge && (footprint.Contains(FarBank(c.Cell, c.Rotation)) || footprint.Contains(Door(c.Cell, c.Rotation))))) return "Keep the far bank of the bridge clear.";
         if (Cottages.Any(c => footprint.Contains(c.Entrance))) return "This would cover another building's entrance.";
         if (Trees.Any(t => !Removed(t) && footprint.Contains(t.Access)) || Bushes.Any(b => footprint.Contains(b.Access))) return "Workers need this spot to reach trees or berry bushes.";
@@ -55,7 +55,7 @@ public sealed partial class World
         var before = Reachable(YardAccess, Blocked);
         access=access.Concat(People.Where(p=>ComfortWork(p) || IdleHomeJourney(p)).Select(p=>p.Destination));
         if (!reached.Contains(entrance) || access.Where(before.Contains).Concat(People.Select(At)).Any(c => !reached.Contains(c)))
-            return "This would cut off a route between villagers, resources, or buildings and the timber yard.";
+            return "This would cut off a route between villagers, resources, or buildings and the log yard.";
         return null;
     }
 }

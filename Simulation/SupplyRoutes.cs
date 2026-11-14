@@ -25,7 +25,7 @@ public sealed partial class World
             Work.ToComfortPlanks or Work.ToComfortHome or Work.ToComfortInstall or Work.ToComfortRecovery or Work.ToSawLogs or Work.ToSawmill or Work.ToPlanks or Work.ToHaulPickup or Work.ToHaulDrop or Work.ToDock or Work.ToQuarry or Work.ToHunt)) return null;
         int amount=water ? boat!.Fish : p.Carried;
         Resource? cargo=amount>0 ? water ? Resource.Fish : p.Cargo : null;
-        string store=p.StorageId is int id ? $"Stockpile {id}" : p.Cargo==Resource.Stone ? "Central stone store" : p.Cargo==Resource.Planks ? "Central plank store" : "Timber yard";
+        string store=p.StorageId is int id ? $"Stockpile {id}" : p.Cargo==Resource.Stone ? "Central stone store" : p.Cargo==Resource.Planks ? "Central plank store" : "Log yard";
         string destination=water ? boat!.Phase==BoatPhase.Returning ? "Fishing dock" : "Fishing ground" : p.Task switch {
             Work.ToPantry=>p.GrainDestinationId is int grainStore?$"Farm {grainStore} grain store":FoodStoreName(p.FoodDestinationId),
             Work.ToGrain=>p.GrainSourceId is int grainSource?$"Farm {grainSource} grain store":"Central pantry",
@@ -37,7 +37,7 @@ public sealed partial class World
             Work.ToHaulPickup or Work.ToHaulDrop or Work.ToSawLogs=>store,
             Work.ToMaterials or Work.ToComfortPlanks=>store,
             Work.ToComfortHome or Work.ToComfortInstall or Work.ToComfortRecovery=>$"Home {p.ComfortHomeId}",
-            Work.ToTree=>"Timber", Work.ToBush=>"Berry patch", Work.ToFarm=>"Field / garden",
+            Work.ToTree=>"Logs", Work.ToBush=>"Berry patch", Work.ToFarm=>"Field / garden",
             Work.ToOven or Work.ToBread=>"Bakery", Work.ToSawmill or Work.ToPlanks=>"Sawmill",
             Work.ToHunt=>"Woodland habitat", Work.ToQuarry=>"Stone outcrop", Work.ToDock=>"Fishing dock", _=>"Construction site"
         };

@@ -18,7 +18,7 @@ public sealed partial class World
         if(site.Kind==BuildingKind.Farm) CloseGrainStore(id);
         ReconcileHomes();
         foreach (var person in People.Where(p => p.SiteId == id || p.WorkplaceId == id || p.StorageId == id || p.HaulTargetId == id || p.LeisureSiteId == id).ToArray()) Interrupt(person);
-        History.Add($"Demolition ordered for {site.Kind} {id}; builders recover goods and timber."); _retry = 0; return true;
+        History.Add($"Demolition ordered for {site.Kind} {id}; builders recover goods and logs."); _retry = 0; return true;
     }
     public bool CancelDemolition(int id)
     {
@@ -69,7 +69,7 @@ public sealed partial class World
         if (RemovalProblem(site.Id) is string problem) { v.Status = "Demolition waiting: " + problem; return; }
         site.Builder = null; Finish(v); Cottages.Remove(site);
         foreach (var person in People.Where(p => p.Route.Count > 0)) SetRoute(person, person.Destination);
-        History.Add($"Demolished {site.Kind} {site.Id}; goods and timber recovered."); _retry = 0;
+        History.Add($"Demolished {site.Kind} {site.Id}; goods and logs recovered."); _retry = 0;
     }
     private void ValidateDemolition()
     {

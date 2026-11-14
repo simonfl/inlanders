@@ -81,7 +81,7 @@ public sealed partial class VillageSessions
         }
         var plans = w.Cottages.Where(c => !c.Complete).ToArray();
         if (plans.Length > 0 && plans.Sum(c => c.Remaining(Resource.Logs)) > w.Available && !w.Trees.Any(t => !t.Preserved && t.Logs > 0))
-            return "Your building plans need more timber. Work a grove so neighbors can finish them.";
+            return "Your building plans need more logs. Work a grove so neighbors can finish them.";
         if (w.Beds < r.TargetBeds)
         {
             int plannedBeds = plans.Count(c => c.Kind == BuildingKind.Cottage) * 2;

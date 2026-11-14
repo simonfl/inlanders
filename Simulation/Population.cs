@@ -17,7 +17,7 @@ public sealed partial class World
         if (SpareBeds < 2) return "Finish two spare beds to welcome newcomers.";
         if (!Creative && EdibleStored < ArrivalFoodRequired)
             return $"Store {ArrivalFoodRequired} edible portions (berries, vegetables, bread, fish or game): two meals for {Population + 2} people. Carried portions do not count.";
-        if (ArrivalSpots().Length < 2) return "Leave two clear arrival spots near the timber yard.";
+        if (ArrivalSpots().Length < 2) return "Leave two clear arrival spots near the log yard.";
         return null;
     }
 

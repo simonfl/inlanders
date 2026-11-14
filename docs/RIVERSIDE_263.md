@@ -1,5 +1,7 @@
 # Room by the river — outcome263
 
+Owner follow-up November14, build `B5D26BBF5D03`: the owner played and reported confusion from using “timber” and “logs” interchangeably. Standardize the browser interface and shared simulation messages on **logs**: construction, worker status, goals/hints, trade, cancellation and placement. Use “logging” for the activity and “log yard” for the location. Internal identifiers/scenario URLs remain unchanged. This is a terminology correction within263, not a new experiment or evidence of overall enjoyment. Client/server build and ordinary API construction, garden preview, worker/goal and trader-arrival wording checks pass; private endpoint ready. No mechanics changed and no new full review required.
+
 Delivered November13,2026. Mechanics implementation `5cd0fd1`; delivered browser build `C1C658CEB4A2`. Final change after independent/UI checks is opening/guide wording only, accurately allowing nearby placement without clearing. Reviewed mechanics/UI build `2CD7EDA0B457` remains archived. Private entry: `https://xps-13.tailb76fc1.ts.net/?scenario=room-by-river`. Default crossing and earlier river/trade scenarios remain available. This is one bounded playable outcome; corrections, tests and documentation do not add counts.
 
 ## Delivered behavior

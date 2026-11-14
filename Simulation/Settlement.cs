@@ -364,12 +364,12 @@ public sealed partial class World
                 Go(v, planting.Access, Work.ToSapling, "Walking to plant an alder"); return;
             }
             if(ClaimGrovePlanting(v)) return;
-            if(v.SharedWorker && !SharedTimberNeeded){v.Status="Timber reserve ready — renewal waits for clear access";return;}
+            if(v.SharedWorker && !SharedTimberNeeded){v.Status="Log reserve ready — renewal waits for clear access";return;}
             var tree = Trees.Where(t => !t.Preserved && t.Logs > 0 && t.Owner == null && Accessible(t.Access))
                 .OrderBy(t => TimberTripCost(v,t)).ThenBy(t => t.Id).FirstOrDefault();
-            if (tree == null) { v.Status = Trees.Any(t => !t.Preserved && (t.Logs > 0 || t.NeedsPlanting || t.ClearRequested)) ? "Waiting — timber work claimed or across water; build a bridge" : Trees.Any(t => !t.Preserved && t.Growth < 1) ? "Waiting for saplings to grow" : Trees.Any(t=>t.Preserved) ? "Preserved trees stay standing — allow harvesting or mark new planting" : "No timber — mark planting spots with T"; return; }
+            if (tree == null) { v.Status = Trees.Any(t => !t.Preserved && (t.Logs > 0 || t.NeedsPlanting || t.ClearRequested)) ? "Waiting — logging claimed or across water; build a bridge" : Trees.Any(t => !t.Preserved && t.Growth < 1) ? "Waiting for saplings to grow" : Trees.Any(t=>t.Preserved) ? "Preserved trees stay standing — allow harvesting or mark new planting" : "No logs — mark planting spots with T"; return; }
             tree.Owner = v.Id; v.TreeId = tree.Id;
-            Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to felled timber" : "Walking to an alder"); return;
+            Go(v, tree.Access, Work.ToTree, tree.Felled ? "Walking to cut logs" : "Walking to an alder"); return;
         }
         if (ClaimDemolition(v)) return;
         if(ClaimComfortRecovery(v)) return;
@@ -396,7 +396,7 @@ public sealed partial class World
             sites.All(c => c.Remaining(c.Material)==0 && c.Remaining(Resource.Stone)==0) ? "Waiting — deliveries or another builder already cover each site" :
             sites.Any(c => c.Material == Resource.Planks && c.Delivered + c.Incoming < c.Required) && AvailablePlanks == 0 ? (SharedWork?"Waiting for planks — inspect or build a sawmill":"Waiting for planks — build a sawmill and assign a sawyer") :
             sites.Any(c=>c.Remaining(Resource.Stone)>0) && AvailableStone==0 ? (SharedWork?"Waiting for stone — inspect a quarry and its outcrop":"Waiting for stone — build a quarry near an outcrop and assign a quarrier") :
-            Stored == 0 ? (SharedWork?"Waiting for timber — shared workers need reachable trees":"Waiting for timber — assign loggers") : "Waiting — stored timber is reserved by other builders";
+            Stored == 0 ? (SharedWork?"Waiting for logs — shared workers need reachable trees":"Waiting for logs — assign loggers") : "Waiting — stored logs are reserved by other builders";
     }
     public void Tick(float dt)
     {
@@ -456,7 +456,7 @@ public sealed partial class World
                     if (v.Timer < 4) break;
                     var sapling = Trees.Single(t => t.Id == v.TreeId);
                     sapling.NeedsPlanting = false; TreesPlanted++; sapling.Owner = null; Finish(v); break;
-                case Work.ToTree: v.Task = Work.Chopping; v.Timer = 0; v.Status = "Cutting and collecting timber"; break;
+                case Work.ToTree: v.Task = Work.Chopping; v.Timer = 0; v.Status = "Cutting and collecting logs"; break;
                 case Work.Chopping:
                     var tree = Trees.Single(t => t.Id == v.TreeId);
                     if (v.Timer < (tree.Felled ? 1.2f : 4f)) break;

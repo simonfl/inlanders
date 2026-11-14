@@ -111,7 +111,7 @@ public sealed partial class World
         foreach(var c in plan.Clearing)if(Trees.Any(t=>t.Cell==c && t.ClearRequested))SetClearing(c,false);
         foreach(var c in plan.Preserved)if(PreserveTreeProblem(c)==null)SetTreePreserved(c,true);
         foreach(var c in plan.Renewing)if(ManagedWoodlandProblem(c)==null)SetHarvestGrove(c);
-        Riverside!.Plans.Remove(plan);History.Add("Clearing/building plan cancelled. Felled timber stays felled; the former managed grove is renewed where possible.");return true;
+        Riverside!.Plans.Remove(plan);History.Add("Clearing/building plan cancelled. Harvested logs are kept; the former managed grove is renewed where possible.");return true;
     }
     private void AdvanceRiverside()
     {

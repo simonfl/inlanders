@@ -16,7 +16,7 @@ public sealed partial class World
     public string? WoodsHabitatProblem()
     {
         foreach(var h in Map.Wildlife)
-            if(HabitatTrees(h)<4)return $"{WoodsName(h)} has {HabitatTrees(h)}/4 mature trees. Collect felled timber, clear roots, plant replacements and preserve those planting orders. Saplings take three in-game minutes after planting to mature; unprotected trees may be harvested again. Waiting alone cannot restore cleared habitat.";
+            if(HabitatTrees(h)<4)return $"{WoodsName(h)} has {HabitatTrees(h)}/4 mature trees. Collect cut logs, clear roots, plant replacements and preserve those planting orders. Saplings take three in-game minutes after planting to mature; unprotected trees may be harvested again. Waiting alone cannot restore cleared habitat.";
         foreach(var h in Map.Wildlife)
             if(AvailableGame(h)<2)return $"{WoodsName(h)} has {AvailableGame(h)}/2 unclaimed game. Pause hunting lodges to let stock recover; existing outings still hold their catch. Trees support +{HabitatRecovery(h):0.#} game/minute here. Keep other food working.";
         return null;

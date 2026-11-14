@@ -60,8 +60,8 @@ public sealed partial class World
             bool timberNeeded=Need(Resource.Logs)>Available || (Need(Resource.Planks)>AvailablePlanks && Available<2);
             if(timberNeeded)
             {
-                if(!Staffed(Role.Logger)) issues.Add(new("loggers","Construction needs more timber. Assign loggers to supply the yard.",Staff:Role.Logger));
-                else if(!Trees.Any(t=>t.Logs>0 || t.Growth<1 || t.NeedsPlanting)) issues.Add(new("plant","Harvestable timber is exhausted. Mark new alders for loggers to plant.",Plant:true));
+                if(!Staffed(Role.Logger)) issues.Add(new("loggers","Construction needs more logs. Assign loggers to supply the yard.",Staff:Role.Logger));
+                else if(!Trees.Any(t=>t.Logs>0 || t.Growth<1 || t.NeedsPlanting)) issues.Add(new("plant","Harvestable logs are exhausted. Mark new alders for loggers to plant.",Plant:true));
             }
             Workplace(BuildingKind.ForagerHut,Role.Forager,Staffed(Role.Forager) || HasBuilding(BuildingKind.ForagerHut));
             bool hasGarden = Planned(BuildingKind.VegetableGarden);

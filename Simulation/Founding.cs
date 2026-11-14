@@ -50,7 +50,7 @@ public sealed partial class World
     {
         if(SpareBeds<2)return "Finish a home for two more neighbors first.";
         if(!Creative && People.Any(p=>!p.Fed))return "Some neighbors missed a meal. Restore food service before inviting more.";
-        if(ArrivalSpots().Length<2)return "Leave two arrival spots clear near the timber yard.";
+        if(ArrivalSpots().Length<2)return "Leave two arrival spots clear near the log yard.";
         return null;
     }
     public string? FinishFoundingProblem()=>Founding==null?"This is not a founding settlement.":

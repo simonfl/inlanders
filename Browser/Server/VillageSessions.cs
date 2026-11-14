@@ -96,7 +96,7 @@ public sealed partial class VillageSessions
                 launch = c.Kind == BuildingKind.FishingDock ? (Cell?)c.Launch : null,
                 fishing = c.Kind == BuildingKind.FishingDock ? w.FishingSurvey(c.Cell, c.Rotation) + " All docks share these stocks." : null,
                 boat = c.Boat == null ? null : new { x = c.Boat.Position.X, z = c.Boat.Position.Y, c.Boat.Heading, phase = c.Boat.Phase.ToString(), c.Boat.FisherId, c.Boat.Fish }, footprint = World.Footprint(c), entrance = c.Entrance,
-                status = c.Id<0 ? "Clearing ground, then building automatically" : c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }).ToArray(),
+                status = c.Id<0 ? "Clearing ground, then building automatically" : c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Logs {c.Delivered}/{c.Required} · building {c.Construction:P0}" }).ToArray(),
             people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Riverside?.Served.Contains(p.Id) ?? w.Founding!.FirstHome!.Served.Contains(p.Id), homeId=p.HomeId, route=p.Route.ToArray() }).ToArray(),
             events = w.History.TakeLast(6).ToArray(), view = s.View,
             actions = w.Riverside!=null ? new[]{"home","garden","field","dock","grove","shortcut","welcome","garden-entrance"} : (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding!.FirstHome!.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding!.FirstHome!.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
@@ -110,7 +110,7 @@ public sealed partial class VillageSessions
         if(o.Type=="garden-entrance")
         {
             var change=w.ReadGardenEntrance(o.SiteId)??throw new ArgumentException("Choose a completed garden in this village.");
-            return new{valid=change.Problem==null,problem=change.Problem,cells=World.Footprint(change.Cell,change.Rotation,BuildingKind.VegetableGarden),entrance=change.Entrance,route=change.Route,shortcutRoute=change.NewRoute,logs=0,label=$"Change garden entrance · food-store walk {change.Before} → {change.After} steps. Same crop and ground; no timber cost"};
+            return new{valid=change.Problem==null,problem=change.Problem,cells=World.Footprint(change.Cell,change.Rotation,BuildingKind.VegetableGarden),entrance=change.Entrance,route=change.Route,shortcutRoute=change.NewRoute,logs=0,label=$"Change garden entrance · food-store walk {change.Before} → {change.After} steps. Same crop and ground; no logs needed"};
         }
         if (o.Type == "grove")
         {
@@ -162,7 +162,7 @@ public sealed partial class VillageSessions
                     var (cell, kind, rotation) = Site(o);
                     if(w.Riverside!=null){problem=w.RiversideSiteProblem(cell,rotation,kind);if(problem==null){if(!w.PlanRiverside(cell,rotation,kind))problem="That ground is no longer available.";else message="Work ordered. Neighbors clear any trees, then build automatically.";}break;}
                     problem = w.PlacementProblem(cell, rotation, kind);
-                    if (problem == null) { var site = w.Place(cell, rotation, kind); if (site == null) problem = "That site is no longer available."; else message = "Plan placed. Neighbors collect timber and build automatically."; }
+                    if (problem == null) { var site = w.Place(cell, rotation, kind); if (site == null) problem = "That site is no longer available."; else message = "Plan placed. Neighbors collect logs and build automatically."; }
                     break;
                 case "grove":
                     CheckCell(w, o.X, o.Z); CheckCell(w, o.X2, o.Z2);
@@ -171,7 +171,7 @@ public sealed partial class VillageSessions
                     if (problem == null) { w.ApplyWoodlandCare(new(o.X, o.Z), new(o.X2, o.Z2), WoodlandIntent.Renew, false); message = $"Grove ordered: {p.Timber} logs. Neighbors harvest and replant automatically."; }
                     break;
                 case "cancel":
-                    if(w.CancelRiversidePlan(o.SiteId)){message="Ground plan cancelled; harvested timber is kept.";break;}
+                    if(w.CancelRiversidePlan(o.SiteId)){message="Ground plan cancelled; harvested logs are kept.";break;}
                     var planned = w.Cottages.FirstOrDefault(c => c.Id == o.SiteId && !c.Complete);
                     if (planned == null || !w.Cancel(o.SiteId)) problem = "Only an unfinished plan can be cancelled.";
                     else message = "Plan cancelled.";

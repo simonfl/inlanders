@@ -34,7 +34,7 @@ public sealed partial class World
         if (tree == null) return false;
         tree.Owner = v.Id; v.TreeId = tree.Id;
         Go(v, tree.Access, tree.Logs > 0 ? Work.ToTree : Work.ToClearStump,
-            tree.Logs > 0 ? "Collecting timber from a clearing order" : "Walking to clear roots");
+            tree.Logs > 0 ? "Collecting logs from a clearing order" : "Walking to clear roots");
         return true;
     }
 }

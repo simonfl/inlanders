@@ -18,7 +18,7 @@ public sealed partial class World
         if(PendingAddition is not {} p)return "No addition is waiting for ground.";
         if(PreparedAdditionConflict())return "Woodland care changed here: trees are now kept or renewed. This building waits for clearance.";
         int clearing=p.Clearing.Count(c=>Trees.Any(t=>t.Cell==c && t.ClearRequested));
-        if(clearing>0)return $"Preparing ground: {clearing} trees or roots remain. Workers collect timber, then remove roots.";
+        if(clearing>0)return $"Preparing ground: {clearing} trees or roots remain. Workers collect logs, then remove roots.";
         return PlacementProblem(p.Cell,p.Rotation,p.Kind,p.Rows) ?? "Ground ready; ordinary construction begins next.";
     }
     public bool CancelPreparedAddition()

@@ -31,7 +31,7 @@ public sealed partial class World
         w.Food.InitialBerries = w.Food.Berries = 4;
         w.Map.Name = "Le prix des provisions · The price of provisions";
         w.History.Clear();
-        w.History.Add("Four portions and twelve logs remain. Four neighbors arrive in two minutes without supplies. Start by working a grove for the timber their cottages will need. " + (nearHarvest ? "The first crop is almost ripe." : "The first crop has only just started growing."));
+        w.History.Add("Four portions and twelve logs remain. Four neighbors arrive in two minutes without supplies. Start by working a grove for the logs their cottages will need. " + (nearHarvest ? "The first crop is almost ripe." : "The first crop has only just started growing."));
         w.Validate();
         return w;
     }
@@ -52,7 +52,7 @@ public sealed partial class World
         if (buy && TimberTradeProblem() is {} problem) return problem;
         t.DecidedAt = Food.Time;
         t.Decision = buy ? "ordered" : "declined";
-        History.Add(buy ? "Timber order agreed. Resume to pack available logs automatically." : "Kept the timber for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
+        History.Add(buy ? "Log order agreed. Resume to pack available logs automatically." : "Kept the logs for the village. Neighbors will rely on the local harvest; the trader departs without a sale.");
         if(buy) PackTradeTimber(t);
         _retry = 0;
         return null;
@@ -61,10 +61,10 @@ public sealed partial class World
     public string? CancelTimberTrade()
     {
         var t=Founding?.FirstHome?.Trade;
-        if(t?.Decision!="ordered")return "Only an unfinished timber order can be cancelled.";
+        if(t?.Decision!="ordered")return "Only an unfinished log order can be cancelled.";
         int reclaimed=t.PackedLogs;_yardLogs+=reclaimed;t.PackedLogs=0;
         t.Decision="cancelled";t.DecidedAt=Food.Time;_retry=0;
-        History.Add($"Timber order cancelled. {reclaimed} packed logs returned to village storage; no provisions were received.");
+        History.Add($"Log order cancelled. {reclaimed} packed logs returned to village storage; no provisions were received.");
         return null;
     }
 
@@ -78,7 +78,7 @@ public sealed partial class World
         if(t.PackedLogs<TradeLogCost)return;
         t.PackedLogs=0;t.ExportedLogs=TradeLogCost;t.Decision="traded";t.DecidedAt=Food.Time;
         Food.InitialBerries+=TradeFood;Food.Berries+=TradeFood;_retry=0;
-        History.Add($"Timber shipment complete: twelve logs exchanged for sixteen provisions. {AvailableLogsAt(null)} available logs remain. These provisions do not count as local harvests.");
+        History.Add($"Log shipment complete: twelve logs exchanged for sixteen provisions. {AvailableLogsAt(null)} available logs remain. These provisions do not count as local harvests.");
     }
 
     private void AdvanceTimberTrade()
@@ -89,10 +89,10 @@ public sealed partial class World
         if (t.Decision == "waiting" && Food.Time >= TradeOfferArrival)
         {
             t.Decision = "open";
-            History.Add("A trader has arrived. Consider the timber order below; the village is paused.");
+            History.Add("A trader has arrived. Consider the log order below; the village is paused.");
         }
         if (t.Decision == "open" && Food.Time >= TradeDeparture)
-        { t.DecidedAt = Food.Time; t.Decision = "departed"; History.Add("The trader has departed. Your timber stays here; local harvests will feed the village."); }
+        { t.DecidedAt = Food.Time; t.Decision = "departed"; History.Add("The trader has departed. Your logs stay here; local harvests will feed the village."); }
         if (!t.Arrived && Food.Time >= TradeArrival)
         {
             foreach (var name in new[] { "Anne", "Jacques", "Madeleine", "Étienne" })
@@ -113,9 +113,9 @@ public sealed partial class World
         int eaten = t.Arrived ? RiverMealsEaten - t.ArrivalMeals : 0;
         int needed = Math.Max(16, eaten);
         string hint = t.Complete ? "Everyone has a home and a fresh meal. Local harvests covered meals since arrival. Stay and enjoy your village." :
-            t.Decision == "waiting" ? "Start by working a grove. Your neighbors will harvest and renew it, providing timber for two more cottages while the first crop grows." :
-            !t.Arrived ? "Prepare eight beds and food for the arrivals. Work a grove when you need more timber." :
-            Housed < 8 ? "Finish the remaining cottages. Neighbors collect timber and build automatically; work a grove if plans need logs." :
+            t.Decision == "waiting" ? "Start by working a grove. Your neighbors will harvest and renew it, providing logs for two more cottages while the first crop grows." :
+            !t.Arrived ? "Prepare eight beds and food for the arrivals. Work a grove when you need more logs." :
+            Housed < 8 ? "Finish the remaining cottages. Neighbors collect logs and build automatically; work a grove if plans need logs." :
             Founding.FirstHome.Served.Count < 8 ? "Local harvests must cover meals since arrival. Add food-growing space if stores keep falling. Each neighbor also needs a fresh meal; Village lists who is waiting." :
             $"Bring home local food: {delivered}/{needed} portions since arrival, and keep eight in reserve. The target grows with meals eaten.";
         if (!t.Complete && People.Any(p => !p.Fed)) hint = "Some neighbors are hungry. Keep local farming going; shortages slow work but are recoverable. " + (t.Decision == "open" ? "The trader can supply provisions while the crop grows." : "");

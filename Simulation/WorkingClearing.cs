@@ -44,7 +44,7 @@ public sealed partial class World
             w.Founding.PlayerFounded=true;w.Founding.StartingBuildings.Clear();w.Founding.Settled.Clear();
             foreach(var person in w.People){person.HomeId=null;person.Position=w.YardAccess.Point;}
             w.ReconcileHomes();w.Map.Name="La clairière à fonder · Found the clearing";
-            w.History.Clear();w.History.Add("The same clearing, eight neighbors and eighty food portions. The timber invested in the four homes and two fields is here as loose supplies. Choose your own homes and livelihood. Construction and crop growth begin with your choices; no required layout or deadline.");
+            w.History.Clear();w.History.Add("The same clearing, eight neighbors and eighty food portions. The logs invested in the four homes and two fields are here as loose supplies. Choose your own homes and livelihood. Construction and crop growth begin with your choices; no required layout or deadline.");
         }
         w.Validate();w.ValidateMapOccupancy();return relaxed?RelaxedHamletFrom(w):w;
     }

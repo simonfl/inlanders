@@ -5,10 +5,10 @@ import type { State, Order, Cell, Preview, View, Frame } from './types';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header><div><strong>Les Habitants</strong><span id="scenario-title" class="subtitle">The broken crossing</span></div><button id="tools-open" aria-label="Open village menu">Village ☰</button></header>
-  <section id="status" aria-label="Village resources"><span id="food">Food —</span><span id="logs">Timber —</span><span id="neighbors">4 neighbors</span><span id="clock">Paused</span></section>
+  <section id="status" aria-label="Village resources"><span id="food">Food —</span><span id="logs">Logs —</span><span id="neighbors">4 neighbors</span><span id="clock">Paused</span></section>
   <section id="goals" aria-label="Your objectives"><div class="goal-heading"><strong id="goal-title">Help four neighbors feed themselves again</strong><span id="connection">Connecting…</span><button id="goal-toggle" hidden aria-expanded="false" aria-controls="goal-details">Details</button></div><div id="goal-details"><div id="checklist"></div><p id="hint"></p></div></section>
   <div id="river-status" hidden><span id="timetable"></span><button id="early-event" hidden></button></div>
-  <section id="trade-offer" hidden aria-label="Trader offer"><div><strong id="trade-title"></strong><span id="trade-consequence"></span></div><div class="trade-actions"><button id="trade-buy">Trade</button><button id="trade-decline">Keep timber</button></div></section>
+  <section id="trade-offer" hidden aria-label="Trader offer"><div><strong id="trade-title"></strong><span id="trade-consequence"></span></div><div class="trade-actions"><button id="trade-buy">Trade</button><button id="trade-decline">Keep logs</button></div></section>
   <main id="world"><canvas id="scene" aria-label="Village map. Drag to move, pinch or scroll to zoom, tap to inspect or choose a site."></canvas><div class="map-tools"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="map-home" aria-label="Show whole village">⌂</button></div><div id="room-actions" hidden><button id="shortcut">Shortcut <small>6 logs · optional</small></button><button id="welcome-neighbors" hidden>Welcome neighbors</button></div><div id="selection" hidden></div><div id="loading">Preparing your village…</div></main>
   <section id="orders" aria-label="Village orders"><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="home" hidden>Build cottage <small>6 logs · 2 beds</small></button><button id="food-choice" hidden>Food sources <small>gardens, fields & fishing</small></button><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="food-options" hidden><button id="small-garden">Garden <small>4 logs · 8 per harvest</small></button><button id="large-field">Field <small>10 logs · 20 per harvest</small></button><button id="fishing-dock">Fishing dock <small>12 logs · small catches</small></button><button id="food-back">Back</button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
@@ -67,19 +67,19 @@ function renderScenario(s: State) {
     el('early-event').hidden = true;
     el('timetable').textContent = s.complete ? 'Village established · stay as long as you like' : `${trade.arrived ? 'All eight neighbors are here' : `Four neighbors in ${Math.floor(trade.arrivalIn / 60)}:${String(trade.arrivalIn % 60).padStart(2, '0')}`} · ${trade.crop}`;
     const ordered = trade.decision === 'ordered';
-    el('trade-title').textContent = ordered ? `Timber packed · ${trade.packedLogs}/${trade.cost} logs` : `Trader · ${trade.cost} logs for ${trade.food} food`;
+    el('trade-title').textContent = ordered ? `Logs packed · ${trade.packedLogs}/${trade.cost} logs` : `Trader · ${trade.cost} logs for ${trade.food} food`;
     el('trade-consequence').textContent = ordered
-      ? `${trade.food} food when ready. Available timber goes here before new buildings. Work a grove if needed. No delivery deadline.`
+      ? `${trade.food} food when ready. Available logs go here before new buildings. Work a grove if needed. No delivery deadline.`
       : `Agree even with no logs. The next ${trade.cost} available logs go here before new buildings; receive ${trade.food} food when ready. ${s.paused ? 'Paused. ' : ''}Decide within ${trade.departureIn}s of play.`;
     el('trade-buy').hidden = ordered;
     el('trade-buy').textContent = `Prepare ${trade.cost} logs`;
     el<HTMLButtonElement>('trade-buy').disabled = !!trade.problem || readonly || busy;
-    el('trade-buy').title = trade.problem ?? 'Agree to a shipment, even with no logs stored. Provisions arrive only when the timber is ready.';
-    el('trade-decline').textContent = ordered ? `Cancel · reclaim ${trade.packedLogs} logs` : 'Keep timber for village';
+    el('trade-buy').title = trade.problem ?? 'Agree to a shipment, even with no logs stored. Provisions arrive only when the logs are ready.';
+    el('trade-decline').textContent = ordered ? `Cancel · reclaim ${trade.packedLogs} logs` : 'Keep logs for village';
     el<HTMLButtonElement>('trade-decline').disabled = readonly || busy;
     el('welcome-title').textContent = s.title;
     el('welcome-story').textContent = 'Four neighbors are coming to join your village in two minutes. They need two cottages and food.';
-    el('welcome-task').textContent = `Start by working a grove: your neighbors will harvest and renew it for you. You'll need timber for two more cottages and a steady food supply. ${trade.nearHarvest ? 'Your first crop is almost ripe.' : 'Your first crop is already growing.'} You have four portions for now; shortages are recoverable.`;
+    el('welcome-task').textContent = `Start by working a grove: your neighbors will harvest and renew it for you. You'll need logs for two more cottages and a steady food supply. ${trade.nearHarvest ? 'Your first crop is almost ripe.' : 'Your first crop is already growing.'} You have four portions for now; shortages are recoverable.`;
   }
   const link = el<HTMLAnchorElement>('other-scenario');
   link.href = river ? '/' : '/?scenario=river-closing';
@@ -120,7 +120,7 @@ function render(s: State) {
   el('build').textContent = `Build ${s.build} · session ${s.id.slice(0, 8)}`;
   const people = s.people.map(p => { const row = document.createElement('p'); const name = document.createElement('strong'); name.textContent = `${p.name}${p.fed ? '' : ' · hungry'}`; row.append(name, document.createElement('br'), document.createTextNode(p.status), document.createElement('br'), document.createTextNode(p.freshMeal ? '✓ Has eaten fresh food' : '○ Still waiting for a fresh meal')); return row; }); el('people').replaceChildren(...people);
   village.update(s);
-  if (!mode && !selection && performance.now() > messageUntil) tell(s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? 'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and timber work automatically.' : 'Choose a plan. Neighbors take care of the work.');
+  if (!mode && !selection && performance.now() > messageUntil) tell(s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? 'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and logging automatically.' : 'Choose a plan. Neighbors take care of the work.');
   if (selection) renderSelection();
   workSound?.update(s, village.getView(), soundOn && !readonly);
   if (soundOn && !readonly && s.complete && !lastComplete) chime();
