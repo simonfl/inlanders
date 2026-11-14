@@ -119,6 +119,7 @@ public sealed partial class World
         foreach(var plan in r.Plans.ToArray())
             if(!Trees.Any(t=>plan.Clearing.Contains(t.Cell)) && PlacementProblem(plan.Cell,plan.Rotation,plan.Kind)==null)
             {if(Place(plan.Cell,plan.Rotation,plan.Kind)!=null){r.Plans.Remove(plan);History.Add("Ground cleared. Construction now follows the original plan.");}}
+        if(VillageStory!=null)return;
         if(!r.Arrived && Food.Time>=RiversideArrival)ArriveRiverside();
         if(!r.Complete && r.Arrived && Housed==8 && People.All(p=>p.Fed) && r.Served.Count==4 && DeliveredEdible-r.ArrivalDeliveries>=16 && ReachableEdibleStored>=8)
         {r.Complete=true;History.Add("Eight neighbors have a home here. The newcomers have eaten fresh local food, with food still in reserve. Keep tending this place if you like.");}
@@ -146,7 +147,7 @@ public sealed partial class World
     private void ValidateRiverside()
     {
         if(Riverside is not {} r)return;
-        if(r.Served==null || r.Plans==null || r.Served.Any(id=>id<4 || id>=Population) || Population!=(r.Arrived?8:4) || r.Complete&&!r.Arrived || r.ArrivalDeliveries<0 || r.ArrivalDeliveries>DeliveredEdible || r.NextPlan>-1000 || r.Plans.Select(p=>p.Id).Distinct().Count()!=r.Plans.Count || r.Plans.Any(p=>p.Clearing==null || p.Renewing==null || p.Preserved==null || !Map.Contains(p.Cell) || p.Renewing.Any(c=>!p.Clearing.Contains(c)) || p.Preserved.Any(c=>!p.Clearing.Contains(c)) || p.Id<=r.NextPlan || p.Id>-1000 || p.Rotation is <0 or >3 || p.Kind is not (BuildingKind.Cottage or BuildingKind.VegetableGarden or BuildingKind.VegetableField)))
+        if(r.Served==null || r.Plans==null || r.Served.Any(id=>id<4 || id>=Population) || Population!=(VillageStory is {} story ? (story.Arrived?8:4) : r.Arrived?8:4) || r.Complete&&!r.Arrived || r.ArrivalDeliveries<0 || r.ArrivalDeliveries>DeliveredEdible || r.NextPlan>-1000 || r.Plans.Select(p=>p.Id).Distinct().Count()!=r.Plans.Count || r.Plans.Any(p=>p.Clearing==null || p.Renewing==null || p.Preserved==null || !Map.Contains(p.Cell) || p.Renewing.Any(c=>!p.Clearing.Contains(c)) || p.Preserved.Any(c=>!p.Clearing.Contains(c)) || p.Id<=r.NextPlan || p.Id>-1000 || p.Rotation is <0 or >3 || p.Kind is not (BuildingKind.Cottage or BuildingKind.VegetableGarden or BuildingKind.VegetableField)))
             throw new InvalidOperationException("Invalid riverside progress");
     }
 }

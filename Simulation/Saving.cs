@@ -9,6 +9,7 @@ namespace Inlanders.Simulation;
 public sealed class WorldSave
 {
     public RiversideProgress? Riverside { get; set; }
+    public VillageStoryProgress? VillageStory { get; set; }
     public PreparedAddition? PendingAddition {get;set;}
     public SessionView? SessionView {get;set;}
     public int Version { get; set; } = 54;
@@ -55,7 +56,7 @@ public sealed partial class World
         Validate();
         return JsonSerializer.Serialize(new WorldSave
         {
-            Riverside=Riverside,SessionView=SessionView,PendingAddition=PendingAddition,GroundUse=ReadGroundUse(),Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
+            VillageStory=VillageStory,Riverside=Riverside,SessionView=SessionView,PendingAddition=PendingAddition,GroundUse=ReadGroundUse(),Founding=Founding,Neighborhood=Neighborhood,SharedWork=SharedWork,LocalGrainSupply=LocalGrainSupply,CreativeAdded=_creativeAdded,CreativeRemoved=_creativeRemoved,
             Creative = Creative, Gardener = Gardener, CameraViews = CameraViews, Decorations = Decorations, TreesPlanted = TreesPlanted, Paths = Paths, Map = Map, Campaign = Campaign, InitialLogs = InitialLogs, GrownLogs = GrownLogs, Stored = _yardLogs, Planks = _yardPlanks, Stone=_stone, QuarriedStone=QuarriedStone, SawnLogs = SawnLogs, NextSite = _nextSite, NextTree = _nextTree, Retry = _retry,
             People = People, Trees = Trees, Buildings = Cottages, Bushes = Bushes, Food = Food, MeetingSpots = MeetingSpots, History = History, RecentFood = RecentFood, ManagedWoodland=ManagedWoodland
         }, SaveOptions);
@@ -85,7 +86,7 @@ public sealed partial class World
                 !Finite(b.BakeProgress) || b.BakeProgress > 1 || b.Priority is < 0 or > 2) throw new InvalidDataException("Invalid building state");
         var w = new World(0) { TreesPlanted = s.TreesPlanted, InitialLogs = s.InitialLogs, GrownLogs = s.GrownLogs, _yardLogs = s.Stored, _yardPlanks = s.Planks, _stone=s.Stone, QuarriedStone=s.QuarriedStone, SawnLogs = s.SawnLogs, _nextSite = s.NextSite, _nextTree = s.NextTree, _retry = s.Retry, Food = s.Food };
         if (s.Creative && s.Campaign != null) throw new InvalidDataException("Creative campaign is invalid");
-        w.Riverside=s.Riverside;w.PendingAddition=s.PendingAddition;w.Founding=s.Founding;w.Neighborhood=s.Neighborhood;w.SharedWork=s.SharedWork;w.LocalGrainSupply=s.LocalGrainSupply;w.Creative = s.Creative; w.Campaign = s.Campaign; w.Map = map; w.RecentFood = s.RecentFood;
+        w.VillageStory=s.VillageStory;w.Riverside=s.Riverside;w.PendingAddition=s.PendingAddition;w.Founding=s.Founding;w.Neighborhood=s.Neighborhood;w.SharedWork=s.SharedWork;w.LocalGrainSupply=s.LocalGrainSupply;w.Creative = s.Creative; w.Campaign = s.Campaign; w.Map = map; w.RecentFood = s.RecentFood;
         w._creativeAdded=s.CreativeAdded;w._creativeRemoved=s.CreativeRemoved;
         w.People.Clear(); w.People.AddRange(s.People); w.Trees.Clear(); w.Trees.AddRange(s.Trees);
         w.Cottages.AddRange(s.Buildings); w.Bushes.Clear(); w.Bushes.AddRange(s.Bushes);

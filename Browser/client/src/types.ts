@@ -2,8 +2,16 @@ export type Cell = { x: number; z: number };
 export type Building = Cell & { id: number; kind: string; name: string; rotation: number; complete: boolean; construction: number; delivered: number; required: number; growth: number; harvest: number; footprint: Cell[]; entrance: Cell; launch: Cell | null; fishing: string | null; boat: { x: number; z: number; heading: number; phase: string; fisherId: number | null; fish: number } | null; status: string; entranceChange: { before: number; after: number; problem: string | null } | null };
 export type Person = Cell & { id: number; name: string; status: string; task: string; fed: boolean; carried: number; cargo: string; freshMeal: boolean; aboard: boolean; heading: number; homeId: number | null; route: Cell[] };
 export type View = { active: boolean; panel: string; selection: string | null; cameraX: number; cameraZ: number; zoom: number; width: number; height: number; message?: string; previewCells?: Cell[]; previewValid?: boolean; goalsExpanded?: boolean };
+export type Story = {
+  phase: string; title: string; objectives: string[]; hint: string; chapter: number; chapters: string[];
+  notice: string; event: number; arrivalIn: number; welcomeProblem: string | null;
+  manifest: 'none' | 'building' | 'food'; logTarget: number; foodTarget: number; packedLogs: number; packedFood: number;
+  foodFloor: number; orderProblem: string | null; sendProblem: string | null; departed: boolean; departureProgress: number;
+  summary: string[]; options: { id: 'building' | 'food'; label: string; logs: number; food: number; description: string }[];
+};
 export type State = {
   id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; goalTitle: string; scenario: string; notice: string; complete: boolean;
+  story: Story | null;
   riverside: { phase: string; title: string; objectives: string[]; hint: string; arrivalIn: number; welcomeProblem: string | null; shortcut: Cell; shortcutBuilt: boolean; walkNow: number; walkWithShortcut: number; freshMeals: number; delivered: number; woodland: number } | null;
   river: { boats: number; closed: boolean; targetBeds: number; reserveTarget: number; delivered: number; needed: number; sampleSeconds: number; untilEvent: number; timetable: string; earlyLabel: string; earlyProblem: string | null; stableSeconds: number; supply: string; phase: string } | null;
   trade: { decision: string; decidedAt: number; packedLogs: number; arrived: boolean; nearHarvest: boolean; offerEnabled: boolean; cost: number; food: number; availableLogs: number; problem: string | null; departureIn: number; arrivalIn: number; crop: string } | null;

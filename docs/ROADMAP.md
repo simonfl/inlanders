@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November 13, 2026. Playable outcome **263**, browser build `B5D26BBF5D03`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. The established-village experiment is delivered provisionally; the full story is not implemented.
+Current direction, November 13, 2026. Playable outcome **263**, browser build `B5D26BBF5D03`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. The established-village experiment is delivered provisionally. The owner now requests the full story as the next handoff; autonomous internal revisions replace midpoint approvals.
 
 ## The game we are building toward
 
@@ -16,8 +16,7 @@ These are evidence gates, not a checkpoint batch or permission to build every ro
 
 | Order | Playable outcome | What earns the next step |
 | --- | --- | --- |
-| **Now: Room by the river** | Delivered: working four-person village, four expected neighbors, nearby/far land, optional shortcut and same-ground garden entrance changes. Near homes need not consume woodland. [Evidence](RIVERSIDE_263.md). | Hold expansion for owner experience: does shaping and improving this particular place feel worthwhile? Independent play verifies a route consequence/correction, not the richer arc. [One active experiment](NEXT_CHUNKS.md). |
-| **Then: one complete village story** | Join livelihood, settlement expansion and a useful chosen improvement into one continuous place. Clear human objectives; an honest ending instead of timed service certification. | The midpoint earns a changed-layout repeat. The full arc adds meaningful context and attachment rather than stretching the same opening queue. |
+| **Now: one complete village story** | A home on the river: establish food, settle newcomers, then provision and send help upriver. Real food/log cargo creates an outward purpose for developing this same village. | Lead-owned internal iteration, independent full run/recovery, mobile controls, saves and five-role fixed-build review. Handoff a full level, not another midpoint. [Active delivery](NEXT_CHUNKS.md). |
 | **Then: make returning worthwhile** | A second layout or materially different starting livelihood changes what is worth doing with the same small vocabulary. | A second play supports a different intention, not memorizing the correct recipe. Cut dominant or redundant options before adding types. |
 | **Later: a second distinct situation** | A different inhabited village with a different practical problem, retaining the successful core. | The first complete story survives actual owner play and return. Do not schedule a ten-level curriculum in advance. |
 
@@ -49,3 +48,5 @@ Outcome263 independent play found free nearby sites after one map revision, so m
 Use [the development process](DEVELOPMENT_PROCESS.md): one bounded experiment, one independent runtime evaluator, separate UI/audiovisual checks and human preference evidence. Full reviews occur at direction/promotion decisions, not numeric intervals. Current review limitations and alternatives are in [the assessment](VILLAGE_DIRECTION_262.md).
 
 Earlier F-items, checkpoint queues and repeated “current” sections are preserved in [roadmap history through262](ROADMAP_HISTORY_262.md), [experiment history](NEXT_CHUNKS_HISTORY_262.md) and [CHECKPOINTS](CHECKPOINTS.md). They are historical, not parallel active work. Broader [campaign concepts](CAMPAIGN_SYSTEMS.md) remain a source of situations; this roadmap determines selection.
+
+November14 process evidence: the owner feels they are babysitting tiny handoffs and can usually play only once daily. This authorizes full-level integration before another response; it does not claim the prior mechanics are enjoyable. Prior provisional holds are historical, superseded by this delivery decision.

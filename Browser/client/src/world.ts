@@ -27,6 +27,7 @@ export class VillageView {
   private journey?: TransformNode;
   private journeyKey = "";
   private boat?: TransformNode;
+  private cargoBoat?: { node: TransformNode; logs: TransformNode; food: TransformNode; last: Vector3; goal: Vector3; arrived: number };
   private fishingVisible = false;
   private fishingBoats = new Map<number, { node: TransformNode; last: Vector3; goal: Vector3; arrived: number; cargo: Mesh; oars: Mesh[]; net: Mesh; phase: string }>();
   showFishingGrounds(visible: boolean) { if (this.fishingVisible === visible) return; this.fishingVisible = visible; if (this.state) this.update(this.state); }
@@ -60,7 +61,7 @@ export class VillageView {
     this.camera.orthoTop = this.zoom; this.camera.orthoBottom = -this.zoom;
   }
   private defaultZoom() { return this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight) > 1.4 ? 12 : 19; }
-  home() { this.camera.target.set(-1, 0, 0); this.setZoom(this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
+  home() { this.camera.target.set(this.state?.story?1:-1, 0, 0); this.setZoom(this.state?.story?13:this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
   focus(c: Cell) { this.camera.target.set(c.x, 0, c.z); this.setZoom(11); this.onViewChange(); }
   getView(): Pick<View, 'cameraX' | 'cameraZ' | 'zoom'> { return { cameraX: this.camera.target.x, cameraZ: this.camera.target.z, zoom: this.zoom }; }
   restore(v: View) { this.camera.target.set(v.cameraX, 0, v.cameraZ); this.setZoom(v.zoom); }
@@ -96,7 +97,25 @@ export class VillageView {
       }
       for (const clearing of state.map.clearings) this.box('woodland-clearing', clearing.x, .04, clearing.z, .9, .12, .9, '#c5be90', this.terrain, false);
       const ground = MeshBuilder.CreateGround('picking-ground', { width: 100, height: 100 }, this.scene); ground.visibility = 0; ground.isPickable = true; ground.parent = this.terrain;
-      this.boat = undefined;
+      this.boat = undefined; this.cargoBoat=undefined;
+      if(state.story){
+        // A broad working barge is visually distinct from the small fishing canoes.
+        const node=new TransformNode('upriver-cargo-boat',this.scene);node.parent=this.terrain;
+        this.box('cargo-hull',0,.1,0,1.65,.35,3.4,'#664b37',node);
+        this.box('cargo-deck',0,.3,0,1.45,.12,3.05,'#bd9b6e',node);
+        for(const x of [-.77,.77])this.box('cargo-gunwale',x,.49,0,.13,.3,3.4,'#92704c',node);
+        for(const z of [-1.65,1.65])this.box('cargo-end',0,.42,z,1.6,.26,.15,'#92704c',node);
+        this.box('cargo-mast',.58,1.12,1.05,.08,1.7,.08,'#795d3f',node);
+        this.box('cargo-pennant',.84,1.8,1.05,.55,.35,.04,'#56798c',node);
+        const logs=new TransformNode('packed-logs',this.scene);logs.parent=node;
+        for(let i=0;i<6;i++)this.box('cargo-log',-.3+(i%2)*.38,.52+Math.floor(i/2)*.16,-.65,.27,.16,1.15,'#9a7048',logs);
+        const food=new TransformNode('packed-provisions',this.scene);food.parent=node;
+        for(const x of [-.36,.34])for(const z of [.25,.85]){
+          this.box('provision-crate',x,.6,z,.54,.48,.5,'#bda276',food);
+          this.box('crate-binding',x,.61,z,.57,.07,.53,'#806d4d',food);
+        }
+        node.position.set(10,0,4);this.cargoBoat={node,logs,food,last:node.position.clone(),goal:node.position.clone(),arrived:performance.now()};
+      }
       if (state.river || state.trade) {
         // The landing and boat explain the timed arrivals; they add no building rules.
         this.box('landing', 8, .15, -1.6, 1.2, .18, 1.5, '#9b7955', this.terrain);
@@ -124,6 +143,16 @@ export class VillageView {
       const departure = ['open','ordered'].includes(t.decision) ? 0 : Math.max(0, state.seconds-t.decidedAt-4) / 2;
       this.boat.setEnabled(t.offerEnabled && t.decision !== 'waiting' && (['open','ordered'].includes(t.decision) || state.seconds-t.decidedAt < 20));
       this.boat.position.set(8 + departure, 0, -3);
+    }
+    if(this.cargoBoat && state.story){
+      const boat=this.cargoBoat,story=state.story;
+      const z=4-14*Math.max(0,Math.min(1,story.departureProgress));
+      if(boat.goal.z!==z){boat.last.copyFrom(boat.node.position);boat.goal.set(10,0,z);boat.arrived=performance.now();}
+      boat.node.setEnabled(story.departureProgress<1);
+      boat.logs.setEnabled(story.packedLogs>0 || story.departed);
+      boat.food.setEnabled(story.packedFood>0 || story.departed);
+      boat.logs.scaling.y=story.departed?1:Math.max(.35,Math.min(1,story.packedLogs/Math.max(1,story.logTarget)));
+      boat.food.scaling.y=story.departed?1:Math.max(.35,Math.min(1,story.packedFood/Math.max(1,story.foodTarget)));
     }
     const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.rotation, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {
@@ -254,12 +283,17 @@ export class VillageView {
     if (this.fishingVisible) for (const g of state.map.fishing ?? []) {
       const label=document.createElement("span"); label.textContent=`${g.name} · ${g.available} fish · +${g.renewal.toFixed(0)}/min`; label.dataset.x=String(g.x);label.dataset.z=String(g.z);this.labels.append(label);
     }
+    if(state.story && state.story.departureProgress<1){
+      const label=document.createElement('span');label.textContent=state.story.departed?'Help on its way':state.story.manifest==='none'?'Cargo boat':'Loading for upriver';
+      label.dataset.x='10';label.dataset.z=String(4-14*state.story.departureProgress);this.labels.append(label);
+    }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
     for (const item of state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }
   private animate() {
+    if(this.cargoBoat)Vector3.LerpToRef(this.cargoBoat.last,this.cargoBoat.goal,Math.min(1,(performance.now()-this.cargoBoat.arrived)/400),this.cargoBoat.node.position);
     for (const b of this.fishingBoats.values()) {
       Vector3.LerpToRef(b.last,b.goal,Math.min(1,(performance.now()-b.arrived)/400),b.node.position);
       const rowing = !this.state?.paused && ["Outbound","Returning"].includes(b.phase);
