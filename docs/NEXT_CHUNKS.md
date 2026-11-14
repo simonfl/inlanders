@@ -1,28 +1,15 @@
-# Active full-level hypothesis — A home on the river
+# Active complete situation — A harvest to share
 
-November14: user requests a substantial complete level and autonomous internal iteration, replacing the midpoint handoff/hold. Outcome264 is delivered at build `38C598F4FC0D`, source `714f8f6`. Owner subsequently finished playing and specifically enjoyed accumulating resources for others. This supports the contribution goal; whole-level pacing and replay appeal remain open. [Evidence and decisions](VILLAGE_STORY_264.md).
+Owner completed264 and liked accumulating resources for others, then instructed the lead to work. Keep that purpose and test its return in one complete level. Previous card: [264](VILLAGE_STORY_264_CARD.md). Count stays264 until delivery.
 
-## Hypothesis and scope
+## Experience hypothesis
 
-A connected village story gives clear purpose and more rewarding ownership than isolated openings: establish food for four, make room for four neighbors, then use the resulting village to send real help upriver. Existing work retains value. The ending is an outbound shipment and inhabited village, not a sustain certificate. Competing explanation: automatic production still becomes an initial queue followed by waiting; extra cargo quantities may merely prolong it.
+Helping another holding remains rewarding when the player inherits a working fishing hamlet and adapts its food economy. Eight residents already have homes; there is no newcomer tutorial. A lost crop at Anse aux Saules motivates one request for48food and16logs. The main choice is production and land, not two cargo buttons. Same resource/building vocabulary, one shipment, visible departure and continued tending.
 
-Use homes, logs, grove, gardens/fields/fishing, actual routes, optional shortcut and garden entrance changes. One new commitment: choose a log-heavy or food-heavy supply shipment after the village is established. Pack actual unreserved goods automatically while protecting local meals; cancellation refunds unfinished cargo. Both intentions must be viable. Earlier stock counts. No seasons, inheritance, new needs, production tiers, hidden forced losses or compulsory route optimization.
+Competing explanation: this is264's cargo stage with another opening and the same garden+dock queue. Reject or revise if starting production completes without meaningful change, no alternative approach works, or capacity investment does not improve the passive tail. No padded quotas, surprise losses or more arrival waves.
 
-Three chapters are announced from the start and progress visibly. Start with four residents/two homes and limited provisions; player establishes food. Four announced newcomers arrive or can be welcomed early. Once housed and fed, choose the shipment and develop surplus supply. A deliberate send action launches the visible boat; show actual contribution, clear completion and continued tending.
+## Bounded delivery
 
-## Delivery contract and result
+One focused session, at most half a day. A bay/inlet and connected inland meadow replace the two-bank bridge map. Four finished cottages and one working dock. Near-home woodland competes with compact planting; open meadow has longer routes; fishing uses real shared grounds. No authored bridge shortcut. One reversible packing commitment with visible local-meal protection. Keep264 directly playable. Clear phone request/progress, loaded departure and recipient-specific ending are minimum presentation.
 
-Build the whole level before the next owner handoff. Independently play both economic approaches and an efficient attempted opening queue; inspect actual decisions and recovery, not just completion. Verify reservation/conservation, cancellation, phase-boundary saves, restart, mobile controls and end-state presentation. Run independent game designer, UX, playtest, development lead and visual/audio review on a fixed complete candidate; record unobserved areas and address material blockers internally. Do not call the game fun based on agents or tests.
-
-The complete arc guides scope; no real-time duration is promised. Accelerated/efficient play is shorter, and passive production must not be counted as design success. Tune through meaningful choices and useful work, not waiting padding. No repeated owner questions for internal choices. Handoff one reliable link, premise and concise account of what is ready and uncertain.
-
-The [prior card](RIVERSIDE_263_CARD.md) and [direction review](VILLAGE_DIRECTION_262.md) supply history. [Development process](DEVELOPMENT_PROCESS.md) records the user's revised cadence.
-
-
-## Decision after integrated review
-
-Keep provisionally and hand over the whole level. The lead completed both manifests, farming/fishing comparisons, independent ordinary-command play and recovery, phase/save/conservation checks, real server restarts, phone-size chapter/cargo/departure/ending checks and five-role review. Revisions removed personal meal-clock gates, exposed actual food surplus, preserved map scale and slowed the farewell to1×. No additional mechanic or artificial duration quota was introduced.
-
-The owner has now completed the playthrough and reported: “I liked the part of having to accumulate resources for others.” Keep purposeful outward contribution as a supported part of the loop. This is direct human preference, separate from the scripted additional-field intervention and independent agent play. It does not establish which manifest they chose, whether every quiet interval worked, or whether they enjoyed arranging or continuing to tend the village.
-
-The next bounded comparison should preserve helping another settlement while changing the starting livelihood/layout enough to require a different production plan. Deliver another complete situation with the same small vocabulary; no larger quotas, repeated shipment treadmill, new needs or production tiers inferred from this reaction. The active question becomes whether that purpose remains rewarding when the player must adapt their village, rather than repeat a known opening. A clear different plan and a satisfying contribution support keeping the loop; an understood but empty wait calls for revising the production pacing. Lead owns the design and internal checks; no follow-up questionnaire or micro-test is required before choosing the concrete situation.
+Before handoff: baseline and two production approaches, useful intervention comparison, current saves/cargo/restart/recovery, phone controls and ending. Independent source-blind runtime evaluator chooses without supplied coordinates. Review integrated candidate on a fixed build; state unobserved areas and reuse264 evidence for unchanged systems. All revisions stay inside this deliverable. Keep if adapting the village and helping others remains rewarding; revise if it is mainly an understood wait. Human preference stays separate from completion/tests.

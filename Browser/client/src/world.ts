@@ -291,7 +291,7 @@ export class VillageView {
       label.dataset.x='10';label.dataset.z=String(4-14*state.story.departureProgress);this.labels.append(label);
     }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
-    for (const item of state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
+    for (const item of state.scenario==='harvest-relief' ? [{label:'Inland meadow',x:2,z:-8},{label:'Village woodlot',x:-3,z:6},{label:'Fishing hamlet',x:5,z:2}] : state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }

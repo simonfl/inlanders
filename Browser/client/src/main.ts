@@ -13,15 +13,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <section id="orders" aria-label="Village orders"><div id="shipment-panel" hidden><span id="shipment-status"></span><button id="shipment-open">Choose cargo</button></div><div id="order-help" role="status">Choose how to bring fresh food home.</div><div id="choices"><button id="home" hidden>Build cottage <small>6 logs · 2 beds</small></button><button id="food-choice" hidden>Food sources <small>gardens, fields & fishing</small></button><button id="repair">Repair crossing <small>6 logs</small></button><button id="garden">Plant a garden <small>4 logs</small></button><button id="grove">Work a grove <small>harvest & renew</small></button></div><div id="food-options" hidden><button id="small-garden">Garden <small>4 logs · 8 per harvest</small></button><button id="large-field">Field <small>10 logs · 20 per harvest</small></button><button id="fishing-dock">Fishing dock <small>12 logs · small catches</small></button><button id="food-back">Back</button></div><div id="placement" hidden><button id="rotate">Rotate ↻</button><button id="confirm" class="primary" disabled>Confirm</button><button id="cancel-mode">Cancel</button></div></section>
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
   <dialog id="welcome"><p id="welcome-eyebrow" class="eyebrow">A village story</p><h1 id="welcome-title">A home on the river</h1><p id="welcome-story">The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p id="welcome-task"><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
-  <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a href="/?scenario=river-home">Play A home on the river</a><details id="earlier-playtests"><summary>Earlier playtests</summary><a href="/?scenario=crossing">The broken crossing</a><a href="/?scenario=room-by-river">Try Room by the river</a><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a></details><p id="build" class="muted"></p></dialog>
+  <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a href="/?scenario=harvest-relief">Play A harvest to share</a><a href="/?scenario=river-home">Play A home on the river</a><details id="earlier-playtests"><summary>Earlier playtests</summary><a href="/?scenario=crossing">The broken crossing</a><a href="/?scenario=room-by-river">Try Room by the river</a><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a></details><p id="build" class="muted"></p></dialog>
   <dialog id="shipment-dialog" aria-labelledby="shipment-heading"><div class="dialog-heading"><h2 id="shipment-heading">Send help upriver</h2><button id="shipment-close" aria-label="Close cargo details">×</button></div><p id="shipment-explanation"></p><div id="shipment-options"></div><div id="shipment-progress" hidden><p id="shipment-packed"></p><p id="shipment-safety" class="muted"></p><p id="shipment-supply" class="muted"></p><button id="shipment-send" class="primary">Send the boat</button><p id="shipment-blocker" role="status"></p><button id="shipment-cancel">Cancel and return packed goods</button></div></dialog>
-  <dialog id="story-ending" aria-labelledby="ending-heading"><p class="eyebrow">A home on the river</p><h1 id="ending-heading">A village that can give back</h1><p>Your neighbors have made a home here. The boat carries help to another beginning upriver.</p><ul id="ending-summary"></ul><button id="ending-continue" class="primary">Keep tending this village</button></dialog>
+  <dialog id="story-ending" aria-labelledby="ending-heading"><p id="ending-eyebrow" class="eyebrow">A home on the river</p><h1 id="ending-heading">A village that can give back</h1><p id="ending-description">Your neighbors have made a home here. The boat carries help to another beginning upriver.</p><ul id="ending-summary"></ul><button id="ending-continue" class="primary">Keep tending this village</button></dialog>
   <section id="replay-bar" hidden><strong>Recorded session · read only</strong><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Replay timeline"><div><button id="previous-mark">Previous bookmark</button><span id="frame-description"></span><button id="next-mark">Next bookmark</button><button id="leave-replay">Back to village</button></div></section>`;
 
 const el = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const params = new URLSearchParams(location.search);
 const replayId = params.get('replay'), watchId = params.get('watch');
-const requestedScenario = ['river-home', 'crossing', 'room-by-river', 'room-by-river-far', 'river-closing', 'timber-trade', 'timber-trade-ripe', 'timber-control'].includes(params.get('scenario') ?? '') ? params.get('scenario')! : 'river-home';
+const requestedScenario = ['harvest-relief', 'river-home', 'crossing', 'room-by-river', 'room-by-river-far', 'river-closing', 'timber-trade', 'timber-trade-ripe', 'timber-control'].includes(params.get('scenario') ?? '') ? params.get('scenario')! : 'harvest-relief';
 const sessionKey = `inlanders-browser-${requestedScenario}`;
 const readonly = !!(replayId || watchId);
 let state: State | undefined, sessionId = '', mode = '', rotation = 0, firstCorner: Cell | null = null, chosen: Cell | null = null;
@@ -45,7 +45,7 @@ function renderScenario(s: State) {
   el('app').classList.toggle('story',!!s.story);
   el('welcome-eyebrow').textContent=s.story?'A village story':'A small browser playtest';
   el('welcome-title').textContent=s.title;
-  el('room-actions').hidden=!s.riverside || readonly || !!mode;
+  el('room-actions').hidden=!s.riverside || s.scenario==='harvest-relief' || readonly || !!mode;
   if(s.riverside){
     const room=s.riverside;
     el<HTMLButtonElement>('shortcut').disabled=s.buildings.some(b=>b.kind==='Bridge' && b.x===room.shortcut.x && b.z===room.shortcut.z);
@@ -94,7 +94,7 @@ function renderScenario(s: State) {
 function renderStory(s: State) {
   const story=s.story;
   el('story-chapters').hidden=!story;
-  el('shipment-panel').hidden=!story || story.chapter<3 || story.departed || !!mode;
+  el('shipment-panel').hidden=!story || (s.scenario!=='harvest-relief' && story.chapter<3) || story.departed || !!mode;
   if(!story)return;
   const chapterKey=JSON.stringify([story.chapter,story.chapters,s.complete]);
   if(el('story-chapters').dataset.chapter!==chapterKey){
@@ -110,11 +110,20 @@ function renderStory(s: State) {
   el('welcome-task').textContent='First, establish a livelihood. Then welcome the newcomers. Together, grow this holding into a village that can send food and logs to help another settlement upriver. Your choices shape the same place throughout; shortages are recoverable.';
   el('welcome-neighbors').hidden=!!story.welcomeProblem || story.chapter>=3;
   el<HTMLButtonElement>('welcome-neighbors').disabled=readonly || busy;
+  const relief=s.scenario==='harvest-relief';
+  if(relief){
+    el('welcome-story').textContent='The eight people of this fishing hamlet have homes and a working dock. Upriver, the families of Anse aux Saules have lost their crop.';
+    el('welcome-task').textContent='Send them 48 food and 16 logs so they can eat and replant. Your dock helps with local meals; develop a surplus through nearby gardens, fields inland or another fishing route. No newcomers are coming. The relief boat waits for you, and shortages are recoverable.';
+  }
+  el('ending-eyebrow').textContent=s.title;
+  el('ending-heading').textContent=relief?'A harvest shared':'A village that can give back';
+  el('ending-description').textContent=relief?'Your boat carries food to Anse aux Saules. Those families can eat while they replant, thanks to the village you shaped here.':'Your neighbors have made a home here. The boat carries help to another beginning upriver.';
+  el('shipment-heading').textContent=relief?'Supplies for Anse aux Saules':'Send help upriver';
   const ordered=story.manifest!=='none';
-  el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:'Choose your contribution upriver.';
-  el('shipment-open').textContent=ordered?(story.sendProblem?'Review cargo':'Send help upriver'):'Choose cargo';
+  el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:relief?'Anse aux Saules · 48 food + 16 logs':'Choose your contribution upriver.';
+  el('shipment-open').textContent=ordered?(story.sendProblem?'Review cargo':'Send help upriver'):relief?'Prepare relief':'Choose cargo';
   el<HTMLButtonElement>('shipment-open').disabled=readonly;
-  el('shipment-explanation').textContent=ordered?'Your neighbors pack available logs and surplus local food automatically. Packing gets logs before new construction; existing jobs keep their claims. Cancel to return packed goods and choose again.':'The settlement upriver needs both food and building supplies. Choose the cargo your village can provide. Choose more logs or more food to match the livelihood you build.';
+  el('shipment-explanation').textContent=ordered?'Your neighbors pack available logs and surplus local food automatically. Packing gets logs before new construction; existing jobs keep their claims. Cancel to return packed goods and choose again.':relief?'A flood spoiled the crop at Anse aux Saules. Their families need 48 food to eat and 16 logs to repair their garden fences. Choose when to start packing; you can cancel and reclaim the supplies.':'The settlement upriver needs both food and building supplies. Choose the cargo your village can provide. Choose more logs or more food to match the livelihood you build.';
   el('shipment-options').hidden=ordered;
   el('shipment-progress').hidden=!ordered;
   const optionKey=JSON.stringify([story.options,story.orderProblem,readonly,busy]);
@@ -175,7 +184,7 @@ function render(s: State) {
   el('build').textContent = `Build ${s.build} · session ${s.id.slice(0, 8)}`;
   const people = s.people.map(p => { const row = document.createElement('p'); const name = document.createElement('strong'); name.textContent = `${p.name}${p.fed ? '' : ' · hungry'}`; row.append(name, document.createElement('br'), document.createTextNode(p.status), document.createElement('br'), document.createTextNode(p.freshMeal ? '✓ Has eaten fresh food' : '○ Still waiting for a fresh meal')); return row; }); el('people').replaceChildren(...people);
   village.update(s);
-  if (!mode && !selection && performance.now() > messageUntil) tell(s.story && s.notice && !s.complete ? (s.story.phase==='ready'?'Review cargo and send the boat when ready.':s.story.chapter===3?'Choose or review your cargo. Resume when ready.':'Chapter updated. Check your objectives; resume when ready.') : s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? 'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and logging automatically.' : 'Choose a plan. Neighbors take care of the work.');
+  if (!mode && !selection && performance.now() > messageUntil) tell(s.story && s.notice && !s.complete ? (s.story.phase==='ready'?'Review cargo and send the boat when ready.':(s.scenario==='harvest-relief' || s.story.chapter===3)?'Choose or review your cargo. Resume when ready.':'Chapter updated. Check your objectives; resume when ready.') : s.riverside && s.notice && !s.complete ? s.notice + ' Resume when ready.' : s.complete ? 'You did it. You can keep watching your neighbors.' : s.riverside ? s.scenario==='harvest-relief'?'Make a food surplus for the families upriver. Tap workplaces to inspect.':'Tap homes or people to see their work. Drag to explore both banks.' : s.river || s.trade ? 'Neighbors share building, farming and logging automatically.' : 'Choose a plan. Neighbors take care of the work.');
   if (selection) renderSelection();
   workSound?.update(s, village.getView(), soundOn && !readonly);
   if (soundOn && !readonly && s.complete && !lastComplete) chime();
@@ -200,7 +209,7 @@ async function recordView() {
     catch { /* The heartbeat reports connection state; never overwrite the placement explanation. */ }
   }
 }
-function clearMode() { if(state?.story)el('shipment-panel').hidden=state.story.chapter<3 || state.story.departed; el('room-actions').hidden=!state?.riverside || readonly; el('food-options').hidden = true; mode = ''; village.showFishingGrounds(false); previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
+function clearMode() { if(state?.story)el('shipment-panel').hidden=(state.scenario!=='harvest-relief' && state.story.chapter<3) || state.story.departed; el('room-actions').hidden=!state?.riverside || state?.scenario==='harvest-relief' || readonly; el('food-options').hidden = true; mode = ''; village.showFishingGrounds(false); previewSerial++; firstCorner = null; chosen = null; preview = null; village.showPreview(null); el('choices').hidden = false; el('placement').hidden = true; }
 function startMode(type: string) {
   if (readonly) return;
   village.showJourney([]); el('shipment-panel').hidden=true; el('room-actions').hidden=true; el('food-options').hidden = true; mode = type; rotation = 0; el('rotate').textContent='Rotate ↻'; firstCorner = null; chosen = null; selection = null; el('selection').hidden = true;

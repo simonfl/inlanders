@@ -88,6 +88,7 @@ public sealed partial class World
     {
         if(Riverside==null)return "This plan belongs to Room by the river.";
         if(kind is not (BuildingKind.Cottage or BuildingKind.VegetableGarden or BuildingKind.VegetableField or BuildingKind.FishingDock or BuildingKind.Bridge))return "Choose a home, food source or shortcut.";
+        if(kind==BuildingKind.Bridge && IsHarvestRelief)return "The inland path is open. This bay has no marked shortcut.";
         if(kind==BuildingKind.Bridge && at!=RiversideShortcut)return "Use the marked shortcut; the old crossing already works.";
         var occupied=Footprint(at,rotation,kind).Append(Door(at,rotation)).ToHashSet();
         if(Riverside.Plans.Any(p=>Footprint(p.Cell,p.Rotation,p.Kind).Append(Door(p.Cell,p.Rotation)).Any(occupied.Contains)))return "A ground-clearing plan already uses this space.";

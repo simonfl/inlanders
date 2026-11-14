@@ -6,6 +6,7 @@ namespace Inlanders.Simulation;
 
 public sealed class VillageStoryProgress
 {
+    public string Situation { get; set; } = "river-home";
     public bool Established { get; set; }
     public bool Arrived { get; set; }
     public bool Settled { get; set; }
@@ -37,7 +38,9 @@ public sealed partial class World
         new("building","Help them build",64,24,"More logging, less surplus food. Keep a renewing grove and enough food for this village."),
         new("food","Help them eat",24,64,"More surplus food, fewer logs. Invest in fields or fishing while keeping local meals safe.")
     };
-    private ShipmentOption? StoryManifest => StoryShipments.FirstOrDefault(o=>o.Id==VillageStory?.Manifest);
+    public bool IsHarvestRelief => VillageStory?.Situation=="harvest-relief";
+    public ShipmentOption[] CurrentStoryShipments => IsHarvestRelief ? ReliefShipments : StoryShipments;
+    private ShipmentOption? StoryManifest => CurrentStoryShipments.FirstOrDefault(o=>o.Id==VillageStory?.Manifest);
     public int StoryFoodAway(Resource kind) => VillageStory is {} s ? s.PackedFood.GetValueOrDefault(kind)+s.ExportedFood.GetValueOrDefault(kind) : 0;
     public int StoryLogsAway => VillageStory is {} s ? s.PackedLogs+s.ExportedLogs : 0;
     public int StoryFoodFloor => Population*2;
@@ -83,7 +86,7 @@ public sealed partial class World
     public string? OrderStoryShipment(string manifest)
     {
         if(StoryOrderProblem() is {} problem)return problem;
-        if(!StoryShipments.Any(o=>o.Id==manifest))return "Choose building supplies or food supplies.";
+        if(!CurrentStoryShipments.Any(o=>o.Id==manifest))return IsHarvestRelief?"This holding needs food relief. Choose Prepare their supplies.":"Choose building supplies or food supplies.";
         var s=VillageStory!;s.Manifest=manifest;s.ReadyAnnounced=false;
         History.Add($"Cargo ordered: {StoryManifest!.Logs} logs and {StoryManifest.Food} local food. Spare food above {StoryFoodFloor} portions is packed automatically; claimed meals and carried goods stay with their workers. New construction may wait for logs. Cancel to return packed supplies.");
         PackStoryShipment();_retry=0;return null;
@@ -125,7 +128,7 @@ public sealed partial class World
         if(StorySendProblem() is {} problem)return problem;
         var s=VillageStory!;s.ExportedLogs=s.PackedLogs;s.PackedLogs=0;
         s.ExportedFood=new(s.PackedFood);s.PackedFood.Clear();s.Departed=true;s.DepartedAt=Food.Time;
-        History.Add($"The boat leaves with {s.ExportedLogs} logs and {s.ExportedFood.Values.Sum()} food. Eight neighbors have a home here; another settlement now shares in your work.");return null;
+        History.Add($"The boat leaves with {s.ExportedLogs} logs and {s.ExportedFood.Values.Sum()} food. "+(IsHarvestRelief?"The families at Anse aux Saules can eat while they replant.":"Eight neighbors have a home here; another settlement now shares in your work."));return null;
     }
     private void AdvanceVillageStory()
     {
@@ -138,10 +141,11 @@ public sealed partial class World
         {s.Settled=true;StoryEvent("Eight neighbors have homes and enough to eat. Choose the supplies your village will send upriver.");}
         PackStoryShipment();
         if(s.Departed && Food.Time-s.DepartedAt>=StoryBoatJourney)
-        {s.Complete=true;StoryEvent("Your boat is on its way. From a few provisions, you made a home for eight and helped another holding begin. This village is yours to keep tending.");}
+        {s.Complete=true;StoryEvent(IsHarvestRelief?"Help is on its way to Anse aux Saules. Your fishing hamlet grew enough to share while keeping its own people fed. Stay and tend the village if you wish.":"Your boat is on its way. From a few provisions, you made a home for eight and helped another holding begin. This village is yours to keep tending.");}
     }
     public VillageStoryReport ReadVillageStory()
     {
+        if(IsHarvestRelief)return ReadHarvestRelief();
         var s=VillageStory!;var manifest=StoryManifest;
         int arrival=Math.Max(0,(int)Math.Ceiling(StoryArrival-Food.Time));
         int chapter=!s.Established?1:!s.Settled?2:3;
@@ -195,7 +199,7 @@ public sealed partial class World
     {
         if(VillageStory is not {} s)return;
         var manifest=StoryManifest;
-        if(Riverside==null || Population!=(s.Arrived?8:4) || s.FreshMeals==null || s.FreshMeals.Any(id=>id<0 || id>=Population) ||
+        if(s.Situation is not ("river-home" or "harvest-relief") || IsHarvestRelief && (!s.Arrived || !s.Established || !s.Settled) || Riverside==null || Population!=(s.Arrived?8:4) || s.FreshMeals==null || s.FreshMeals.Any(id=>id<0 || id>=Population) ||
             s.PackedFood==null || s.ExportedFood==null || s.PackedFood.Concat(s.ExportedFood).Any(p=>p.Key==Resource.Berries || !EdibleKinds.Contains(p.Key) || p.Value<0) ||
             s.PackedLogs<0 || s.ExportedLogs<0 || s.Event<0 || !float.IsFinite(s.DepartedAt) || s.DepartedAt<0 || s.DepartedAt>Food.Time ||
             s.Settled && (!s.Established || !s.Arrived) || s.Complete&&!s.Departed ||
