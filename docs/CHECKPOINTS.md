@@ -1,3 +1,12 @@
+# Outcome263 — Room by the river
+
+Delivered `C1C658CEB4A2`: established four-person village, four expected neighbors, nearby/far development, automatic clear-then-build intentions, optional shortcut, compact phone objectives and same-ground garden entrance correction. One root saved progression state; ordinary player/agent controls and recordings.
+
+Independent initial/revised-map public-command play exposed free nearby sites, then an owned layout with a long food route. Do not claim compulsory woodland sacrifice. Independent correction check verified22→1 steps, preserved crop/ground and actual harvest/delivery/regrowth. Mechanical branches, cancellation, conservation, exact save continuation, relevant legacy regressions and builds pass. Phone-size ordinary controls pass. Server restart retains changed entrance and pending clearing; private endpoint ready. Sound implemented but not auditioned. [Evidence](RIVERSIDE_263.md), [independent report](RIVERSIDE_263_RUNTIME.md).
+
+Count advances once to263. Map and entrance corrections are part of this experiment. Keep provisionally; hold expansion for human experience. This is the midpoint comparison, not the complete longer village story.
+
+---
 # Outcome262 — timber shipment instead of upfront purchase
 
 Delivered `1B01F85B1539`: one cancellable order accepts an empty store, packs available central timber automatically without stealing worker claims, and pays16provisions only after12logs. Packed timber survives saves and refunds correctly; agreed orders outlive the offer deadline. Persistent card explains progress, construction consequence and cancellation. Retains quiet opening/paused arrival.

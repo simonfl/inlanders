@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November 13, 2026. Playable outcome **262**, browser build `1B01F85B1539`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. This plan is not a new playable delivery.
+Current direction, November 13, 2026. Playable outcome **263**, browser build `C1C658CEB4A2`. The [five-role direction review](VILLAGE_DIRECTION_262.md) replaces the former queue of isolated experiments. The established-village experiment is delivered provisionally; the full story is not implemented.
 
 ## The game we are building toward
 
@@ -16,7 +16,7 @@ These are evidence gates, not a checkpoint batch or permission to build every ro
 
 | Order | Playable outcome | What earns the next step |
 | --- | --- | --- |
-| **Now: Room by the river** | Start in a working four-person village. Make room for four expected neighbors by using convenient woodland or a farther clearing. An optional paid shortcut can improve the resulting daily routes. Test the middle, not another opening. | Both approaches remain viable; different arrangements make different commitments sensible; the owner finds a reason to shape or watch this particular place. [One active experiment](NEXT_CHUNKS.md). |
+| **Now: Room by the river** | Delivered: working four-person village, four expected neighbors, nearby/far land, optional shortcut and same-ground garden entrance changes. Near homes need not consume woodland. [Evidence](RIVERSIDE_263.md). | Hold expansion for owner experience: does shaping and improving this particular place feel worthwhile? Independent play verifies a route consequence/correction, not the richer arc. [One active experiment](NEXT_CHUNKS.md). |
 | **Then: one complete village story** | Join livelihood, settlement expansion and a useful chosen improvement into one continuous place. Clear human objectives; an honest ending instead of timed service certification. | The midpoint earns a changed-layout repeat. The full arc adds meaningful context and attachment rather than stretching the same opening queue. |
 | **Then: make returning worthwhile** | A second layout or materially different starting livelihood changes what is worth doing with the same small vocabulary. | A second play supports a different intention, not memorizing the correct recipe. Cut dominant or redundant options before adding types. |
 | **Later: a second distinct situation** | A different inhabited village with a different practical problem, retaining the successful core. | The first complete story survives actual owner play and return. Do not schedule a ten-level curriculum in advance. |
@@ -35,8 +35,8 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 
 ## Tooling that serves the next decision
 
-1. Add named established-village starts through the existing session launcher, with variant/build identity. Target one action to reach either arrangement; verify reuse on the next comparison. Estimated 1–2 hours, not a general scenario editor.
-2. Extend the existing session summary with a compact commitment/payoff timeline only if interpreting the journal is costly. Estimated under two hours; verify against a recording and measure reuse. Do not label idle time as boredom.
+1. Delivered named established-village starts through the existing launcher, with variant/build identity. Reused for eight mechanical comparisons and independent play; no general scenario editor.
+2. Existing session summary recognizes the new phase and commitments. No analytics expansion selected. Retain raw journals and distinguish visible inactivity from boredom.
 
 Keep progression in one small saved state and authoritative query for this slice. No campaign framework, analytics platform, catalogue conversion or stack migration project.
 
@@ -44,7 +44,7 @@ Keep progression in one small saved state and authoritative query for this slice
 
 Owner evidence supports clear objectives, automatic useful work, phone access, grouped actions and some food pressure. The trade was a real choice but quiet afterward. Shipment262 fixes normal early spending blocking that trade; its appeal remains unassessed. It stays playable as a provisional comparison, with no further trader refinement selected.
 
-A fresh independent ordinary-command river run again completed after one early expansion plan; the later arrival and sustain trial needed no new construction. This supports testing the missing middle. It does not prove that forced difficulty or more decisions will be enjoyable.
+Outcome263 independent play found free nearby sites after one map revision, so mandatory woodland-versus-far-bank framing is dropped. A compact arrangement did create a long food journey; its new entrance correction reduced an actually observed delivery trip from22steps to1 while retaining crops. Keep provisionally, hold story integration and another map revision. No human enjoyment evidence yet. [Full evidence](RIVERSIDE_263.md).
 
 Use [the development process](DEVELOPMENT_PROCESS.md): one bounded experiment, one independent runtime evaluator, separate UI/audiovisual checks and human preference evidence. Full reviews occur at direction/promotion decisions, not numeric intervals. Current review limitations and alternatives are in [the assessment](VILLAGE_DIRECTION_262.md).
 

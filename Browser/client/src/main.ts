@@ -48,7 +48,7 @@ function renderScenario(s: State) {
     el('welcome-neighbors').hidden=!!room.welcomeProblem;
     el('welcome-title').textContent=s.title;
     el('welcome-story').textContent='Four neighbors already live here. Their garden and renewing woodlot are working. Four more people are coming to make this their home.';
-    el('welcome-task').textContent='Make room nearby by clearing useful woodland, or preserve it and build across the stream. The old crossing works; an optional shortcut can shorten the journey. Prepare homes and food before the neighbors arrive in three minutes. You can recover from shortages.';
+    el('welcome-task').textContent='Fit homes around the village, clear more room if needed, or build across the stream. The old crossing works; an optional shortcut can shorten the journey. Prepare homes and food before the neighbors arrive in three minutes. You can recover from shortages.';
   }
   el('home').hidden = el('food-choice').hidden = !settlement;
   el('repair').hidden = el('garden').hidden = settlement;

@@ -1,40 +1,33 @@
 # One active experiment — Room by the river
 
-Selected November 13, 2026 after the [whole-project direction assessment](VILLAGE_DIRECTION_262.md). **Planned, not implemented.** Baseline remains outcome262 / build `1B01F85B1539`. This supersedes the shipment-usefulness hold as the active question; shipment262 remains provisional and playable. No count increment for this plan.
+Delivered November 13, 2026 as outcome **263**, build `C1C658CEB4A2`, implementation commit `5cd0fd1`. [Play privately](https://xps-13.tailb76fc1.ts.net/?scenario=room-by-river). [Evidence and decision](RIVERSIDE_263.md). This is the established-village midpoint selected by the [direction review](VILLAGE_DIRECTION_262.md), not the complete 20–30 minute story.
 
 ## Experience hypothesis
 
-An established village becomes worth continuing when the player can choose how to make room for neighbors, preserve or change useful land, and then see a reason to improve the daily routes created by that choice. The desired moment is “I made this arrangement; now I want to make it work better,” followed by watching residents use the result.
+An established village becomes worth continuing when the player chooses how to make room for neighbors and can improve the daily routes created by that arrangement. The desired moment is “I made this arrangement; now I want to make it work better,” followed by watching residents use the result.
 
-Strongest competing explanations: the owner wants visible care and authorship more than logistical difficulty; the current village is unrewarding to watch; or the existing loop is better as short restoration challenges. A second instruction followed by waiting would not support this hypothesis.
+The strongest competing explanations remain that the owner wants visible care/authorship more than logistics, that the village is unrewarding to watch, or that short restoration challenges suit the game better. More orders and elapsed time do not establish enjoyment.
 
-## Smallest fair slice
+## Playable comparison
 
-- Start with four housed residents, working food and a managed woodlot. Four expected neighbors give a clear purpose. Skip the founding tutorial.
-- Both banks are already accessible by a roundabout route. Clear some useful near-bank woodland or develop a farther clearing. Keep both ordinary approaches viable; no forced demolition or scripted loss.
-- Expose one authored six-log shortcut bridge through ordinary preview/confirm/cancel. It can shorten actual work and food journeys. Show it from the start; the player may build early, later or never. Do not require it for completion.
-- Reuse existing ground preparation and bridge/pathfinding rules. Do not add pantries, furnished meal places, secondary needs, production tiers, priorities or more trader mechanics.
-- Compare two authored arrangements of the same situation so the shortcut's value depends on where useful work and homes are. Keep population and food provision comparable. The current river scenario is the established long-level baseline; these are engineering variants of one challenger, not two active feature tracks.
-- Finish on the announced people being housed and fed with a clear food provision goal. Set and display exact quantities during the mechanical comparison. No arbitrary four-minute sustain proof; optional improvement and post-success tending remain optional.
+Four housed people, a working garden and renewing grove; four expected neighbors. Fit homes and food nearby, clear woodland if desired, or develop across the stream. Both banks already have access. An optional six-log bridge shortens a reference route to the far clearing; usefulness depends on the actual arrangement. No compulsory bridge or final sustain clock.
 
-## Minimum presentation
+Wooded placement previews its loss and queues clearing then construction as one intention. Inspect people to see routes. Inspect a completed vegetable garden to reverse its entrance on the same ground; preview its actual food-store walk, with crop retained and no cost. Compact objectives and three grouped actions preserve world space on the phone. `room-by-river-far` is a matched engineering variant with the existing garden across the stream, not another feature track.
 
-One coherent inhabited scene with readable near/far ground and existing crossing. Visible ground clearing, carried timber, staged construction, occupied homes and real journeys through the chosen arrangement. Keep substantial stable world space on the phone with compact purpose/progress and contextual detail. Inspect normal-speed motion and audition sparse actual-work/river cues; test accelerated playback separately. Stills and API output cannot accept those qualities.
+## Decision: keep provisionally; hold expansion
 
-## Evidence, failure and budget
+Independent ordinary-command play found free nearby sites in both the initial map and its one revision. **Drop the claim that near homes necessarily sacrifice woodland.** Do not keep tightening the map to manufacture that choice.
 
-First compare ordinary near/far plans and immediate/deferred/no shortcut. Check food recovery, useful woodland loss, actual travel, material costs, blocked placements, cancel and current-save continuation. Validate that a new bridge does not silently strand fishing boats. If geography makes one plan universally obvious or the shortcut immaterial, revise the map once or reject the proposal rather than adding rules.
+The revised run did create a long food journey through the evaluator's own layout. They wanted to change the completed garden entrance; the bounded correction now permits that. Independent follow-up observed the actual trip fall from22 steps to1 and a complete harvest/regrowth cycle. This verifies a usable response to an observed problem, not the larger experience hypothesis.
 
-One independent read-only evaluator plays through ordinary commands without an authored solution, tries a shortcut and a recoverable mistake. A separate visible-control pass checks phone placement/inspection and goal clarity. Record observed facts separately from experience judgments.
+Human preference for this experiment is still unknown. No further mechanic, map revision, arrival wave or story integration is selected. Preserve this playable build and its failures. If the understood experience still feels empty, reconsider the direction instead of adding another system.
 
-Supporting human evidence: the owner can explain what they preserved or sacrificed; notices a consequence; voluntarily improves or watches this village; wants to try a different arrangement. Falsifying evidence: initial queue solves everything unchanged, later work is a compulsory checkbox, alternatives differ only by waiting, or clearly understood/visible results still feel empty. Do not count clicks, elapsed time or completed counters as enjoyment. Effective anticipation is valid play, not a reason to hide options.
+## Next evidence
 
-Budget one focused development session, at most half a day, then reassess. Target a useful 10–15 minute first comparison, not enforced duration. A successful first play earns a changed-layout repeat before connecting the full story. No automatic following feature batch.
+The owner can try the village whenever convenient, with no prescribed solution or requirement to optimize. The lead should inspect recorded intentions, routes, confusion and voluntary changes afterward. Supporting evidence: noticing a consequence, wanting to improve or watch this particular place, or wanting to try another arrangement. Falsifying evidence: an initial queue solves the meaningful part, later changes feel like chores, or understood results remain uninteresting.
 
-## Implementation boundary and tooling
+A promising first human play earns a changed-layout repeat before connecting the full story. Current independent runs took roughly4–7 simulation minutes; human duration and enjoyment are unmeasured. Do not pad the level to hit a duration target.
 
-Use the current browser/C# seam. Add one small saved progression state and authoritative query only as needed; avoid additional nested FirstHome scenario exceptions. Named midpoint starts through current session creation are the only planned setup investment (estimated 1–2 hours). Extend the existing summary timeline only if necessary to interpret the first recording. No universal editor or replay rewrite.
+The one-hour implementation session included one map revision, a narrowly evidenced entrance correction, focused mechanics/save checks, independent API play and visible mobile controls. Audio was generated and enabled without browser errors, but could not be auditioned through the available audio input. Broader native campaign/Creative, dense-village performance and actual iPhone behavior on this build are unobserved.
 
-The lead owns implementation and the response to feedback. No generic design approval is pending. Latest shipment experience is unknown, but does not block making this distinct comparison concrete. Preserve its build as a baseline; do not continue merchant iteration in parallel.
-
-Previous experiments and handoffs are preserved in [NEXT_CHUNKS_HISTORY_262](NEXT_CHUNKS_HISTORY_262.md). Only this card is active. See [ROADMAP](ROADMAP.md) for the larger destination and [DEVELOPMENT_PROCESS](DEVELOPMENT_PROCESS.md) for review and evidence rules.
+Previous experiments remain in [history](NEXT_CHUNKS_HISTORY_262.md). [ROADMAP](ROADMAP.md) gives the destination; [DEVELOPMENT_PROCESS](DEVELOPMENT_PROCESS.md) governs evidence and selection. The lead owns decisions; no generic design approval is pending.

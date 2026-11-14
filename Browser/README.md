@@ -1,6 +1,6 @@
 # Small browser prototype
 
-Two bounded comparisons: **The broken crossing** and **Before the river closes**. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
+The active comparison is **Room by the river**. Earlier crossing, longer river and timber-trade scenarios remain available. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
 
 ## Run
 
@@ -29,6 +29,14 @@ Install/sign in to Tailscale on the laptop and iPhone using the same account. Wi
 Complete Tailscale's HTTPS enablement if prompted. Open the resulting `https://…ts.net` URL in Safari while Tailscale is connected. Use **Serve**, not public Funnel. The service deliberately trusts this private access boundary; there is no additional application login. Do not publish it to the open internet unchanged.
 
 The laptop must be awake and connected. No cloud hosting, port-forwarding or native iOS packaging is needed. Actual iPhone performance and Safari lifecycle/audio still require device testing; a desktop phone-size viewport is not that evidence.
+
+## Room by the river
+
+Open `/?scenario=room-by-river` for an established four-person settlement expecting four neighbors. Fit homes nearby, clear woodland as part of a building order, or use the far bank. The existing crossing already works; the six-log shortcut is optional. Preview explains woodland loss and reference travel distance. Arrivals pause at180 simulated seconds, or welcome early with eight beds and eight food.
+
+Inspect a completed garden to **Change garden entrance**. This reverses its entrance on the same planted ground, retains the crop and costs no timber. Preview compares actual walking distance to food stores; a change can help or hurt. Inspect a person to show their actual current route.
+
+The matched engineering start `/?scenario=room-by-river-far` places the working garden across the stream. It is not a separate campaign level. Completion has no extra sustain timer. [Evidence and remaining question](../docs/RIVERSIDE_263.md).
 
 ## Play
 
@@ -59,6 +67,7 @@ This is a longer simulation, not a promised15–20-minute real-time duration. Ef
 ```powershell
 node Browser/agent.mjs guide
 node Browser/agent.mjs new
+node Browser/agent.mjs new room-by-river
 node Browser/agent.mjs new river-closing
 node Browser/agent.mjs observe SESSION_ID
 node Browser/agent.mjs preview SESSION_ID '{"type":"garden","x":0,"z":6}'
