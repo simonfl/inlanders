@@ -162,7 +162,7 @@ public sealed partial class VillageSessions
                     problem=w.WelcomeStory();if(problem==null){s.Paused=true;s.Notice=w.VillageStory!.Notice;message=s.Notice;}break;
                 case "shipment-building": case "shipment-food":
                     problem=w.OrderStoryShipment(o.Type=="shipment-building"?"building":"food");
-                    if(problem==null){s.Paused=true;s.Notice="";message=$"Cargo ordered. Packing keeps {w.StoryFoodFloor} food for local meals. Resume when ready.";}break;
+                    if(problem==null){s.Paused=true;s.Notice="";message=$"Cargo ordered. Only food above {w.StoryFoodFloor} available portions is packed. Resume when ready.";}break;
                 case "shipment-cancel":
                     problem=w.CancelStoryShipment();if(problem==null){s.Notice="";message=w.History.Last();}break;
                 case "shipment-send":

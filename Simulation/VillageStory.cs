@@ -98,7 +98,7 @@ public sealed partial class World
         _yardLogs+=logs;s.PackedLogs=0;
         foreach(var (kind,count) in s.PackedFood)ChangeCentralFood(kind,count);
         s.PackedFood.Clear();s.Manifest="none";s.ReadyAnnounced=false;
-        History.Add($"Cargo cancelled: {logs} logs and {food} food returned. Choose a different contribution whenever ready.");_retry=0;return null;
+        History.Add($"Cargo cancelled: {logs} logs and {food} food returned. "+(IsHarvestRelief?"Use them in your village and resume the relief order when ready.":"Choose a different contribution whenever ready."));_retry=0;return null;
     }
     private void PackStoryShipment()
     {
@@ -115,7 +115,7 @@ public sealed partial class World
             ChangeCentralFood(kind,-count);s.PackedFood[kind]=s.PackedFood.GetValueOrDefault(kind)+count;surplus-=count;
         }
         if(!s.ReadyAnnounced && s.PackedLogs==manifest.Logs && s.PackedFood.Values.Sum()==manifest.Food)
-        {s.ReadyAnnounced=true;StoryEvent("Cargo ready. Check local food and send your boat when ready.");}
+        {s.ReadyAnnounced=true;StoryEvent("Cargo packed. Check local food before sending your boat.");}
     }
     public string? StorySendProblem() => VillageStory is not {Departed:false} s ? "The supply boat has already departed." :
         StoryManifest is not {} manifest ? "Choose a cargo order first." :

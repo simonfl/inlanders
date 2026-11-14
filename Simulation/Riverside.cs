@@ -25,7 +25,7 @@ public sealed class RiversideProgress
     public int NextPlan { get; set; } = -1000;
 }
 public sealed record RiversideReport(string Phase, string Title, string[] Objectives, string Hint, int ArrivalIn,
-    string? WelcomeProblem, Cell Shortcut, bool ShortcutBuilt, int WalkNow, int WalkWithShortcut, int FreshMeals, int Delivered, int Woodland);
+    string? WelcomeProblem, Cell Shortcut, bool ShortcutBuilt, int WalkNow, int WalkWithShortcut, int FreshMeals, int Delivered, int Woodland, bool ShortcutAvailable);
 
 public sealed partial class World
 {
@@ -135,7 +135,7 @@ public sealed partial class World
         if(VillageStory!=null)
         {
             var story=ReadVillageStory();
-            return new(story.Phase,story.Title,story.Objectives,story.Hint,story.ArrivalIn,story.WelcomeProblem,RiversideShortcut,built,walk,shortcut,VillageStory.FreshMeals.Count,DeliveredEdible,ManagedWoodland.Count);
+            return new(story.Phase,story.Title,story.Objectives,story.Hint,story.ArrivalIn,story.WelcomeProblem,RiversideShortcut,built,IsHarvestRelief?0:walk,IsHarvestRelief?0:shortcut,VillageStory.FreshMeals.Count,DeliveredEdible,ManagedWoodland.Count,!IsHarvestRelief);
         }
         string phase=r.Complete?"complete":!r.Arrived?"prepare":Housed<8?"settle":"feed";
         string hint=r.Complete?"Your village has grown around your choices. Keep watching, or improve a route you use.":
@@ -148,7 +148,7 @@ public sealed partial class World
             $"{(r.Complete || Beds>=8?"✓":"○")} Homes · {Beds}/8 beds"+(r.Arrived?$" · {Housed}/8 housed":""),
             r.Arrived?$"{(r.Complete || r.Served.Count==4?"✓":"○")} Newcomers' fresh meals · {r.Served.Count}/4":$"○ Neighbors arrive in {Math.Max(0,(int)Math.Ceiling(RiversideArrival-Food.Time))}s · or welcome when ready",
             r.Arrived?$"{(r.Complete || delivered>=16 && ReachableEdibleStored>=8 && People.All(p=>p.Fed)?"✓":"○")} Local food {delivered}/16 · reserve {ReachableEdibleStored}/8 · fed {People.Count(p=>p.Fed)}/8":$"{(ReachableEdibleStored>=8?"✓":"○")} Food for arrival · {ReachableEdibleStored}/8 portions"},hint,
-            Math.Max(0,(int)Math.Ceiling(RiversideArrival-Food.Time)),RiversideWelcomeProblem(),RiversideShortcut,built,walk,shortcut,r.Served.Count,delivered,ManagedWoodland.Count);
+            Math.Max(0,(int)Math.Ceiling(RiversideArrival-Food.Time)),RiversideWelcomeProblem(),RiversideShortcut,built,walk,shortcut,r.Served.Count,delivered,ManagedWoodland.Count,true);
     }
     private void ValidateRiverside()
     {

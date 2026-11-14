@@ -3,10 +3,10 @@ using System.Text.Json;
 
 static class HarvestReliefChecks
 {
-    public static void Run()
+    public static void Run(string? only=null)
     {
         var rows=new List<object>();
-        foreach(string plan in new[]{"baseline","gardens","fields","fishing"})
+        foreach(string plan in new[]{"baseline","gardens","fields","fishing"}.Where(p=>only==null || p==only))
         {
             var w=World.NewHarvestRelief();
             void Advance(float seconds){for(int i=0;i<(int)(seconds*10);i++)w.Tick(.1f);}
@@ -17,9 +17,9 @@ static class HarvestReliefChecks
             }
             if(w.Population!=8 || w.Beds!=8 || w.Cottages.Count!=5 || w.Cottages.Any(c=>!c.Complete) || w.StoryWelcomeProblem()==null || w.RiversideSiteProblem(World.RiversideShortcut,0,BuildingKind.Bridge)==null)throw new Exception("Relief opening/commands wrong");
             if(w.OrderStoryShipment("building")==null || w.SendStoryShipment()==null)throw new Exception("Wrong shipment accepted");
-            if(plan=="gardens"){Plan(BuildingKind.VegetableGarden,new(-4,6));Plan(BuildingKind.VegetableGarden,new(-1,8));Plan(BuildingKind.VegetableGarden,new(4,4));}
-            if(plan=="fields"){Plan(BuildingKind.VegetableField,new(3,-4));Plan(BuildingKind.VegetableField,new(-4,-5));}
-            if(plan=="fishing"){Plan(BuildingKind.FishingDock,new(7,-6),1);Plan(BuildingKind.VegetableGarden,new(-1,8));}
+            if(plan=="gardens"){Plan(BuildingKind.VegetableGarden,new(-3,6));Plan(BuildingKind.VegetableGarden,new(-1,8));Plan(BuildingKind.VegetableGarden,new(4,4));}
+            if(plan=="fields"){Plan(BuildingKind.VegetableField,new(4,-4));Plan(BuildingKind.VegetableField,new(-3,-5));}
+            if(plan=="fishing"){Plan(BuildingKind.FishingDock,new(7,-6),1);Plan(BuildingKind.FishingDock,new(7,-10),1);}
             Advance(20);SaveCheck();
             if(w.OrderStoryShipment("food")!=null)throw new Exception("Relief request rejected");
             bool refunded=false,partialSaved=false,departureSaved=false;float hungry=0;int minimum=1000;
@@ -40,7 +40,7 @@ static class HarvestReliefChecks
             if(plan=="baseline" && w.VillageStory.Complete)throw new Exception("Starting dock alone completes relief; revise starting economy");
             if(plan!="baseline" && (!w.VillageStory.Complete || !refunded || !partialSaved || !departureSaved))throw new Exception($"{plan} failed full route");
         }
-        Directory.CreateDirectory("artifacts/browser/relief265");File.WriteAllText("artifacts/browser/relief265/comparisons.json",JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true}));
+        Directory.CreateDirectory("artifacts/browser/relief265");File.WriteAllText($"artifacts/browser/relief265/comparisons-{only??"all"}.json",JsonSerializer.Serialize(rows,new JsonSerializerOptions{WriteIndented=true}));
         Console.WriteLine("PASS established opening, inactive baseline, distinct supply plans, refunds, exact saves, dispatch and conservation");
     }
 }

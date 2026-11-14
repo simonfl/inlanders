@@ -20,7 +20,7 @@ public sealed partial class World
             else if(x<-9 && z>0 || x<-10 && z<-7 || z==10 && x<3 || z==-12 && x<0)w.Map.Excluded.Add(new(x,z));
         }
         w.Map.FishingGrounds.Add(new(){Id=0,Name="Village shallows",Cell=new(10,5),Capacity=10,Stock=10,RegrowthPerSecond=1f/30});
-        w.Map.FishingGrounds.Add(new(){Id=1,Name="Outer reach",Cell=new(10,-8),Capacity=20,Stock=20,RegrowthPerSecond=1f/12});
+        w.Map.FishingGrounds.Add(new(){Id=1,Name="Outer reach",Cell=new(10,-8),Capacity=20,Stock=20,RegrowthPerSecond=1f/6});
         w.Bushes.Add(new(){Id=0,Cell=new(-9,-8)});
         foreach(var p in w.People){p.HomeId=null;p.Position=w.YardAccess.Point;}
         foreach(var name in new[]{"Anne","Jacques","Madeleine","Étienne"})
@@ -41,7 +41,15 @@ public sealed partial class World
         w.VillageStory=new(){Situation="harvest-relief",Established=true,Arrived=true,Settled=true};
         w.Riverside=new();
         w.Founding!.StartingBuildings=w.Cottages.Select(c=>new StartingBuilding{Id=c.Id,Cell=c.Cell,Kind=c.Kind,Rotation=c.Rotation}).ToList();
-        w.ReconcileHomes();w.History.Clear();
+        w.ReconcileHomes();
+        // This is an inhabited hamlet, not eight arrivals stacked at the store.
+        foreach(var p in w.People)
+        {
+            var home=w.Cottages.Single(c=>c.Id==p.HomeId);
+            var doorstep=new Cell(home.Entrance.X+(p.Id%2),home.Entrance.Z);
+            p.Position=(!w.Blocked(doorstep) && !w.Map.Water.Contains(doorstep)?doorstep:home.Entrance).Point;
+        }
+        w.History.Clear();
         w.History.Add("The eight people of this fishing hamlet already have homes. Upriver, Anse aux Saules has lost its crop. Prepare 48 food and 16 logs so they can eat and replant. Your one dock cannot supply everyone and a relief boat alone: develop a food surplus. Clear gardens near home, cultivate the inland meadow, or reach more fishing water. No newcomers or deadline; shortages can be recovered.");
         w.Validate();w.ValidateMapOccupancy();return w;
     }

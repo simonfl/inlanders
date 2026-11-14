@@ -32,11 +32,12 @@ public sealed partial class World
         if (footprint.Contains(Stockpile)) return "The log yard occupies this spot.";
         if(Map.Wildlife.Any(h=>footprint.Contains(h.Cell))) return "Keep the woodland tracking clearing open.";
         if(Map.StoneDeposits.Any(d=>footprint.Contains(d.Cell) || footprint.Contains(d.Access))) return "Keep the stone outcrop and its working access clear.";
+        // Report permanent building overlap before trees that could otherwise be cleared.
+        var site = Cottages.FirstOrDefault(c => Footprint(c).Any(footprint.Contains));
+        if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
         var tree = Trees.FirstOrDefault(t => t != reusableStump && !Removed(t) && footprint.Contains(t.Cell));
         if (tree != null) return tree.Salvage ? "A salvage pile occupies this spot; let loggers collect it." : tree.ClearRequested ? "Loggers must finish clearing this spot before you can build." : tree.Felled ? "A stump occupies this spot. Use Clear trees & stumps [C] to make it buildable, or replant it." : "A tree or planting spot occupies this footprint.";
         if (Bushes.Any(b => footprint.Contains(b.Cell))) return "Berry bushes occupy this footprint.";
-        var site = Cottages.FirstOrDefault(c => Footprint(c).Any(footprint.Contains));
-        if (site != null) return $"This overlaps {site.Kind} {site.Id}{(site.Complete ? "" : " (under construction)")}.";
         if (Blocks(entrance)) return "The marked entrance is blocked. Move or rotate the plan.";
         if (footprint.Any(MealSpotReserved)) return "Keep reserved meal seating clear until residents finish eating.";
         if(footprint.Any(ComfortSpotReserved)) return "Keep the carpenter's installation spot clear.";

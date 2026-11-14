@@ -12,7 +12,7 @@ export type Story = {
 export type State = {
   id: string; build: string; sequence: number; step: number; seconds: number; paused: boolean; speed: number; title: string; goalTitle: string; scenario: string; notice: string; complete: boolean;
   story: Story | null;
-  riverside: { phase: string; title: string; objectives: string[]; hint: string; arrivalIn: number; welcomeProblem: string | null; shortcut: Cell; shortcutBuilt: boolean; walkNow: number; walkWithShortcut: number; freshMeals: number; delivered: number; woodland: number } | null;
+  riverside: { phase: string; title: string; objectives: string[]; hint: string; arrivalIn: number; welcomeProblem: string | null; shortcut: Cell; shortcutAvailable: boolean; shortcutBuilt: boolean; walkNow: number; walkWithShortcut: number; freshMeals: number; delivered: number; woodland: number } | null;
   river: { boats: number; closed: boolean; targetBeds: number; reserveTarget: number; delivered: number; needed: number; sampleSeconds: number; untilEvent: number; timetable: string; earlyLabel: string; earlyProblem: string | null; stableSeconds: number; supply: string; phase: string } | null;
   trade: { decision: string; decidedAt: number; packedLogs: number; arrived: boolean; nearHarvest: boolean; offerEnabled: boolean; cost: number; food: number; availableLogs: number; problem: string | null; departureIn: number; arrivalIn: number; crop: string } | null;
   resources: { food: number; logs: number; population: number; fed: number; housed: number; beds: number };
