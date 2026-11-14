@@ -125,7 +125,7 @@ export class VillageView {
       this.boat.setEnabled(t.offerEnabled && t.decision !== 'waiting' && (['open','ordered'].includes(t.decision) || state.seconds-t.decidedAt < 20));
       this.boat.position.set(8 + departure, 0, -3);
     }
-    const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
+    const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.rotation, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {
       this.signature = sig; this.fixtures.dispose(false, false); this.fixtures = new TransformNode('fixtures', this.scene);
       for (const t of state.trees) {
@@ -195,6 +195,7 @@ export class VillageView {
           for (const c of b.footprint) this.box('garden-soil', c.x - cx, .05, c.z - cz, .9, .12, .9, b.complete ? '#82654c' : '#b3a381', root);
           // Crop positions use world footprint; keep their root unrotated to match valid cells.
           root.rotation.y = 0;
+          if(b.complete && b.kind==='VegetableGarden'){this.box('garden-entrance',b.entrance.x-cx,.13,b.entrance.z-cz,.6,.12,.6,'#d6c7a1',root,false);}
           if (b.complete) for (const c of b.footprint) for (const dx of [-.24, .24]) {
             const height = b.harvest > 0 ? .45 : .12 + b.growth * .33;
             this.cone('crops', c.x - cx + dx, height / 2 + .1, c.z - cz, .3, height, b.harvest > 0 ? '#c5ad5b' : '#5c8450', root, .14);

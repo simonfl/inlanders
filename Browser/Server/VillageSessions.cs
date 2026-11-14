@@ -91,15 +91,15 @@ public sealed partial class VillageSessions
                 stone = w.Map.StoneDeposits.Select(d => new { d.Cell.X, d.Cell.Z, access = d.Access }), clearings = w.Map.Wildlife.Select(h => h.Cell) },
             trees = w.Trees.Select(t => new { t.Id, t.Cell.X, t.Cell.Z, t.Logs, t.Felled, t.Growth, managed = w.ManagedWoodland.Contains(t.Cell), t.Preserved }),
             bushes = w.Bushes.Select(b => new { b.Id, b.Cell.X, b.Cell.Z }),
-            buildings = VisibleBuildings(w).Select(c => new { c.Id, kind = c.Kind.ToString(), name = Buildings.Get(c.Kind).Name, c.Cell.X, c.Cell.Z, c.Rotation, c.Complete,
-                c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest,
+            buildings = VisibleBuildings(w).ToArray().Select(c => new { c.Id, kind = c.Kind.ToString(), name = Buildings.Get(c.Kind).Name, c.Cell.X, c.Cell.Z, c.Rotation, c.Complete,
+                c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest, entranceChange = w.ReadGardenEntrance(c.Id),
                 launch = c.Kind == BuildingKind.FishingDock ? (Cell?)c.Launch : null,
                 fishing = c.Kind == BuildingKind.FishingDock ? w.FishingSurvey(c.Cell, c.Rotation) + " All docks share these stocks." : null,
                 boat = c.Boat == null ? null : new { x = c.Boat.Position.X, z = c.Boat.Position.Y, c.Boat.Heading, phase = c.Boat.Phase.ToString(), c.Boat.FisherId, c.Boat.Fish }, footprint = World.Footprint(c), entrance = c.Entrance,
-                status = c.Id<0 ? "Clearing ground, then building automatically" : c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }),
-            people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Riverside?.Served.Contains(p.Id) ?? w.Founding!.FirstHome!.Served.Contains(p.Id), homeId=p.HomeId, route=p.Route.ToArray() }),
-            events = w.History.TakeLast(6), view = s.View,
-            actions = w.Riverside!=null ? new[]{"home","garden","field","dock","grove","shortcut","welcome"} : (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding!.FirstHome!.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding!.FirstHome!.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
+                status = c.Id<0 ? "Clearing ground, then building automatically" : c.Complete ? c.Kind == BuildingKind.Cottage ? "Home" : c.Kind == BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(c).State : $"Timber {c.Delivered}/{c.Required} · building {c.Construction:P0}" }).ToArray(),
+            people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.Riverside?.Served.Contains(p.Id) ?? w.Founding!.FirstHome!.Served.Contains(p.Id), homeId=p.HomeId, route=p.Route.ToArray() }).ToArray(),
+            events = w.History.TakeLast(6).ToArray(), view = s.View,
+            actions = w.Riverside!=null ? new[]{"home","garden","field","dock","grove","shortcut","welcome","garden-entrance"} : (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding!.FirstHome!.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding!.FirstHome!.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -107,6 +107,11 @@ public sealed partial class VillageSessions
     {
         var w = s.World;
         CheckAction(w, o.Type);
+        if(o.Type=="garden-entrance")
+        {
+            var change=w.ReadGardenEntrance(o.SiteId)??throw new ArgumentException("Choose a completed garden in this village.");
+            return new{valid=change.Problem==null,problem=change.Problem,cells=World.Footprint(change.Cell,change.Rotation,BuildingKind.VegetableGarden),entrance=change.Entrance,route=change.Route,shortcutRoute=change.NewRoute,logs=0,label=$"Change garden entrance · food-store walk {change.Before} → {change.After} steps. Same crop and ground; no timber cost"};
+        }
         if (o.Type == "grove")
         {
             CheckCell(w, o.X, o.Z); CheckCell(w, o.X2, o.Z2);
@@ -134,7 +139,7 @@ public sealed partial class VillageSessions
     };
     static void CheckAction(World w, string type)
     {
-        if(type is "shortcut" or "welcome" && w.Riverside==null)throw new ArgumentException("That action belongs to Room by the river.");
+        if(type is "shortcut" or "welcome" or "garden-entrance" && w.Riverside==null)throw new ArgumentException("That action belongs to Room by the river.");
         if(w.Riverside!=null && type is "next-season" or "repair" or "trade-buy" or "trade-decline" or "trade-cancel")throw new ArgumentException("That action is not part of this village.");
         if (w.Founding!.FirstHome!.Trade != null && type == "next-season") throw new ArgumentException("This visit follows the displayed arrival time; there is no supply-season advance.");
         if (Scenario(w) == "crossing" && type is "home" or "field" or "dock" or "next-season") throw new ArgumentException("That action belongs to the longer river scenario.");
@@ -150,6 +155,9 @@ public sealed partial class VillageSessions
             s.LastSeen = DateTime.UtcNow;
             switch (o.Type)
             {
+                case "garden-entrance":
+                    problem=w.ReadGardenEntrance(o.SiteId)?.Problem;
+                    if(problem==null){if(!w.ChangeGardenEntrance(o.SiteId))problem="Choose a completed garden with an open new entrance.";else message=w.History.Last();}break;
                 case "shortcut": case "repair": case "garden": case "home": case "field": case "dock":
                     var (cell, kind, rotation) = Site(o);
                     if(w.Riverside!=null){problem=w.RiversideSiteProblem(cell,rotation,kind);if(problem==null){if(!w.PlanRiverside(cell,rotation,kind))problem="That ground is no longer available.";else message="Work ordered. Neighbors clear any trees, then build automatically.";}break;}

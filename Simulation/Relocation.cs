@@ -33,8 +33,12 @@ public sealed partial class World
     public string? RelocationProblem(int id,Cell at,int rotation)
     {
         string? problem=RelocationProblem(id);if(problem!=null)return problem;
+        return RelocationGeometryProblem(Cottages.Single(c=>c.Id==id),at,rotation);
+    }
+    private string? RelocationGeometryProblem(Cottage site,Cell at,int rotation)
+    {
+        string? problem;int id=site.Id;
         if(rotation is <0 or >3)return "Choose one of four building orientations.";
-        var site=Cottages.Single(c=>c.Id==id);
         if(site.Cell==at && site.Rotation==rotation)return null;
         var before=Reachable(YardAccess,Blocked);
         var access=Cottages.Where(c=>c!=site).Select(c=>c.Entrance).Concat(Trees.Select(t=>t.Access)).Concat(Bushes.Select(b=>b.Access))

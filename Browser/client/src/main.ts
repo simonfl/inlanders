@@ -26,7 +26,7 @@ let state: State | undefined, sessionId = '', mode = '', rotation = 0, firstCorn
 let preview: Preview | null = null, previewSerial = 0, busy = false, refreshing = false, selection: string | null = null, frames: Frame[] = [], frameIndex = 0;
 let workSound: VillageSound | undefined;
 let audio: AudioContext | undefined, soundOn = false, lastSound = 0, lastComplete = false;
-let messageUntil = 0, goalsExpanded = false;
+let messageUntil = 0, goalsExpanded = false, entranceSiteId = -1;
 const village = new VillageView(el<HTMLCanvasElement>('scene'), el('world'));
 const view = (): View => ({ active: !document.hidden && !readonly, panel: el<HTMLDialogElement>('tools').open ? 'menu' : mode || 'village', selection,
   ...village.getView(), width: innerWidth, height: innerHeight, message: el('order-help').textContent ?? '', previewCells: preview?.cells ?? [], previewValid: preview?.valid ?? false, goalsExpanded });
@@ -152,10 +152,12 @@ function startMode(type: string) {
   el('rotate').hidden = !['garden', 'field', 'home', 'dock'].includes(type); el<HTMLButtonElement>('confirm').disabled = true;
   tell(state?.riverside && ['home','garden','field'].includes(type) ? 'Choose clear or wooded ground. The preview explains any clearing; neighbors do both jobs automatically.' : type === 'grove' ? 'Tap two corners around a grove on your bank. Dragging still moves the map.' : ['garden', 'field', 'home', 'dock'].includes(type) ? 'Tap clear ground. Preview the footprint, then confirm. Neighbors build automatically.' : 'Repair this crossing to reach the ripe harvest.');
   if (type === 'dock') { village.showFishingGrounds(true); village.focus({x:8,z:0}); tell('Tap the dry riverbank, then Rotate until the blue launch faces water. Fish stocks are shared by all docks.'); }
+  if(type === 'garden-entrance'){void previewOrder();return;}
   if (type === 'shortcut' && state?.riverside) { chosen=state.riverside.shortcut; village.focus(chosen); void previewOrder(); return; }
   if (type === 'repair') { chosen = { x: 0, z: -3 }; void previewOrder(); } else void recordView();
 }
 function currentOrder(): Order | null {
+  if(mode === 'garden-entrance')return {type:'garden-entrance',siteId:entranceSiteId};
   if (mode === 'shortcut') return { type: 'shortcut' };
   if (mode === 'repair') return { type: 'repair' };
   if (['garden', 'field', 'home', 'dock'].includes(mode) && chosen) return { type: mode, ...chosen, rotation };
@@ -181,7 +183,7 @@ function renderSelection() {
   if (!selected) { village.showJourney([]); selection = null; box.hidden = true; village.showFishingGrounds(false); return; }
   village.showFishingGrounds(kind === 'building' && 'kind' in selected && selected.kind === 'FishingDock');
   village.showJourney('route' in selected ? selected.route : []);
-  const description = `${selected.name} · ${selected.status}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
+  const description = `${selected.name} · ${selected.status}${'entranceChange' in selected && selected.entranceChange ? ` · Food-store walk: ${selected.entranceChange.before} steps` : ''}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
   const key = `${selection}:${'complete' in selected ? selected.complete : ''}`;
   if (box.dataset.selection === key && box.firstElementChild) { box.firstElementChild.textContent = description; return; }
   box.dataset.selection = key; box.replaceChildren();
@@ -189,6 +191,7 @@ function renderSelection() {
   if (kind === 'building' && 'complete' in selected && !selected.complete && !readonly) {
     const cancel = document.createElement('button'); cancel.textContent = 'Cancel plan'; cancel.onclick = async () => { const result = await command({ type: 'cancel', siteId: selected.id }); if (result?.accepted) { selection = null; box.hidden = true; village.showFishingGrounds(false); } }; box.append(cancel);
   }
+  if('entranceChange' in selected && selected.entranceChange && !readonly){const change=document.createElement('button');change.textContent='Change garden entrance';change.onclick=()=>{entranceSiteId=selected.id;startMode('garden-entrance');};box.append(change);}
   const close = document.createElement('button'); close.textContent = '×'; close.ariaLabel = 'Close inspection'; close.onclick = () => { village.showJourney([]); selection = null; box.hidden = true; village.showFishingGrounds(false); void recordView(); }; box.append(close);
 }
 village.onPick = c => {
