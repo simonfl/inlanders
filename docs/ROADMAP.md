@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November14,2026. Playable outcome **265**, browser build `6639F0101660`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
+Current direction, November14,2026. Playable outcome **265**, browser build `88E2F151D169`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
 
 ## The game we are building toward
 
@@ -24,7 +24,7 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 
 ## Integrated requirements
 
-**Action text.** Owner found the shipment collection/send panels too wordy. Default to quantities, one clear action and the exact blocker. Keep a consequential warning to one line; optional rules and production detail belong behind a disclosure. Do not repeat the story inside every action.
+**Action text.** Owner found the shipment collection/send panels too wordy. Default to quantities, one clear action and the exact blocker. Keep a consequential warning to one line; optional rules and production detail belong behind a disclosure. Do not repeat the story inside every action. Keep shipment readiness and any final local-needs blocker visible beside the existing cargo counts. The boat can open the compact cargo panel; it must distinguish packing from ready without inventing hauling jobs.
 
 **Purpose and choice.** Call the raw wood resource “logs” consistently in player text. Keep clear progress, mild recoverable food pressure and useful automatic work. Trade, food types and buildings earn a place through different land, timing or access consequences. No more arrival waves solely to enlarge the counters. No mandatory producer recipes, diet ratios, recent-service certificates or worker assignment panel.
 
@@ -45,7 +45,7 @@ Keep progression in one small saved state and authoritative query for this slice
 
 Outcome265: independent mixed cultivation and fishing-only completions, scripted alternative production/recovery checks, phone-size placement/request/departure/ending and real restarts support delivery. Full review corrections improved ecology honesty, packing consequences and reconnect reliability. The efficient fishing plan is one new dock followed by quiet accumulation; no sustained-decision or fun claim. Keep provisionally, hold catalogue expansion until owner experience. [Evidence](HARVEST_RELIEF_265.md).
 
-Outcome264 owner play: “Done. I liked the part of having to accumulate resources for others.” This directly supports the contribution goal. No chosen route, duration, quiet-interval reaction or voluntary post-completion play was reported. Keep the useful surplus loop and test its return in a different complete situation; avoid turning this into presumed demand for more resources, larger shipments or new systems. Count remains264.
+Outcome264 owner play: “Done. I liked the part of having to accumulate resources for others.” This directly supports the contribution goal. No chosen route, duration, quiet-interval reaction or voluntary post-completion play was reported. Keep the useful surplus loop and test its return in a different complete situation; avoid turning this into presumed demand for more resources, larger shipments or new systems. That delivery counted once as264.
 
 Owner evidence supports clear objectives, automatic useful work, phone access, grouped actions and some food pressure. The trade was a real choice but quiet afterward. Shipment262 fixes normal early spending blocking that trade; its appeal remains unassessed. It stays playable as a provisional comparison, with no further trader refinement selected.
 

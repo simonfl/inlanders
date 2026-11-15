@@ -1,5 +1,7 @@
 # Outcome265 — A harvest to share
 
+Lead continuation, build `88E2F151D169`: truthful boat captions and a short full-cargo local-needs status make dispatch readiness visible in the village. Boat/caption taps open the existing compact panel; placement/dragging and the first level's staged controls remain protected. This is a usability correction within265, with no resource-rule change or additional outcome. [Independent runtime check](SHIPMENT_WORKSITE_265_REVIEW.md).
+
 Owner text correction, build `6639F0101660`: shipment actions now show quantities, one action and any current blocker. Keep the pre-order log priority consequence to one line; optional packing/supply rules are collapsed. Remove repeated story and button descriptions. This updates265 without advancing the outcome count or changing mechanics. [Correction evidence](HARVEST_RELIEF_265.md).
 
 November14,2026. Complete second browser situation, candidate `21cca36`, build `1FC52A64171C`. Eight established residents/four homes/working dock; help Anse aux Saules recover from a lost crop by sending48food/16logs. Connected inland geography, one request, viable garden/field/fishing plans, explicit dispatch and continued tending. No arrivals, new resource tier or padded quota.

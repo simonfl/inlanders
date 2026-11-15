@@ -12,4 +12,4 @@ Independent targeted engineering/runtime evaluation, November 14, 2026. Live bui
 
 Evidence boundaries: request, disclosure/reset, packing, cancellation/reorder and dispatch were actual CUA interactions. Two legal field placements with valid public previews and 13 ordinary public API advances of at most 30 seconds prepared readiness; this was not a full UI playthrough or human enjoyment evidence. No source edits, service restarts, hidden state edits or owner-save access. Audio, full departure completion, other scenarios, desktop layout and whole-game design remain unobserved by this narrow check. The session was paused, temporary viewport reset and temporary tab closed afterward.
 
-Screenshots: [request](request.jpg), [packing](packing.jpg), [ready](ready.jpg), [dispatch](dispatched.jpg). JPEG is the browser's native screenshot format.
+Screenshots: [request](../artifacts/browser/compact-cargo/request.jpg), [packing](../artifacts/browser/compact-cargo/packing.jpg), [ready](../artifacts/browser/compact-cargo/ready.jpg), [dispatch](../artifacts/browser/compact-cargo/dispatched.jpg). JPEG is the browser's native screenshot format.

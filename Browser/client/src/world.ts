@@ -14,6 +14,7 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { State, Cell, View, Person, Preview } from './types';
+import { shipmentStatus } from './shipment';
 
 export class VillageView {
   engine: Engine; scene: Scene; camera: ArcRotateCamera;
@@ -24,6 +25,7 @@ export class VillageView {
   private pointers = new Map<number, { x: number; y: number }>();
   private down?: { x: number; y: number; moved: boolean }; private pinch = 0;
   private labels: HTMLDivElement;
+  private cargoLabel = document.createElement('button');
   private journey?: TransformNode;
   private journeyKey = "";
   private boat?: TransformNode;
@@ -32,6 +34,7 @@ export class VillageView {
   private fishingBoats = new Map<number, { node: TransformNode; last: Vector3; goal: Vector3; arrived: number; cargo: Mesh; oars: Mesh[]; net: Mesh; phase: string }>();
   showFishingGrounds(visible: boolean) { if (this.fishingVisible === visible) return; this.fishingVisible = visible; if (this.state) this.update(this.state); }
   onPick: (cell: Cell) => void = () => {};
+  onCargoPick: () => boolean = () => false;
   onViewChange: () => void = () => {};
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement) {
     this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, false);
@@ -47,6 +50,8 @@ export class VillageView {
     this.shadows = new ShadowGenerator(1024, sun); this.shadows.useBlurExponentialShadowMap = true; this.shadows.blurKernel = 8; this.shadows.darkness = .28;
     this.terrain = new TransformNode('terrain', this.scene); this.fixtures = new TransformNode('village', this.scene); this.preview = new TransformNode('preview', this.scene);
     this.labels = document.createElement('div'); this.labels.className = 'world-labels'; host.append(this.labels);
+    this.cargoLabel.className='cargo-label';
+    this.cargoLabel.onclick=e=>{if(e.detail===0)this.onCargoPick();};
     this.inputs();
     new ResizeObserver(() => { this.engine.resize(); this.setZoom(this.zoom); }).observe(host);
     this.engine.runRenderLoop(() => { this.animate(); this.scene.render(); this.placeLabels(); });
@@ -282,13 +287,17 @@ export class VillageView {
       if (p.aboard) v.node.rotation.y = p.heading;
       v.person = p; v.cargo.setEnabled(p.carried > 0);
     }
-    this.labels.replaceChildren();
+    // Keep the actionable caption mounted so updates do not steal keyboard focus.
+    for(const label of [...this.labels.children])if(label!==this.cargoLabel)label.remove();
+    if(!state.story || state.story.departureProgress>=1)this.cargoLabel.remove();
     if (this.fishingVisible) for (const g of state.map.fishing ?? []) {
       const label=document.createElement("span"); label.textContent=`${g.name} · ${g.available} fish · +${g.renewal.toFixed(0)}/min`; label.dataset.x=String(g.x);label.dataset.z=String(g.z);this.labels.append(label);
     }
     if(state.story && state.story.departureProgress<1){
-      const label=document.createElement('span');label.textContent=state.story.departed?'Help on its way':state.story.manifest==='none'?'Cargo boat':'Loading for upriver';
-      label.dataset.x='10';label.dataset.z=String(4-14*state.story.departureProgress);this.labels.append(label);
+      const label=this.cargoLabel;label.textContent=shipmentStatus(state).caption;
+      label.disabled=state.story.departed || (state.scenario!=='harvest-relief' && state.story.chapter<3);
+      label.setAttribute('aria-label',label.disabled?label.textContent:`${label.textContent} · review cargo`);
+      label.dataset.x='10';label.dataset.z=String(4-14*state.story.departureProgress);if(!label.isConnected)this.labels.append(label);
     }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
     for (const item of state.scenario==='harvest-relief' ? [{label:'Inland meadow',x:2,z:-8},{label:'Village woodlot',x:-3,z:6},{label:'Fishing hamlet',x:5,z:2}] : state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
@@ -336,7 +345,7 @@ export class VillageView {
   }
   private inputs() {
     const c = this.canvas;
-    c.addEventListener('pointerdown', e => { c.setPointerCapture(e.pointerId); this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); this.down = { x: e.clientX, y: e.clientY, moved: this.pointers.size > 1 }; if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch = Math.hypot(a.x - b.x, a.y - b.y); } });
+    this.host.addEventListener('pointerdown', e => { if(e.target!==c && e.target!==this.cargoLabel)return; c.setPointerCapture(e.pointerId); this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); this.down = { x: e.clientX, y: e.clientY, moved: this.pointers.size > 1 }; if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch = Math.hypot(a.x - b.x, a.y - b.y); } });
     c.addEventListener('pointermove', e => {
       const previous = this.pointers.get(e.pointerId); if (!previous) return;
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -357,7 +366,10 @@ export class VillageView {
       if (tap) {
         const rect = c.getBoundingClientRect(), ray = this.scene.createPickingRay(e.clientX - rect.left, e.clientY - rect.top, Matrix.Identity(), this.camera);
         const distance = -ray.origin.y / ray.direction.y, point = ray.origin.add(ray.direction.scale(distance));
-        this.onPick({ x: Math.round(point.x), z: Math.round(point.z) });
+        const label=this.cargoLabel.getBoundingClientRect();
+        const onLabel=this.cargoLabel.isConnected && e.clientX>=label.left && e.clientX<=label.right && e.clientY>=label.top && e.clientY<=label.bottom;
+        const onBoat=this.cargoBoat?.node.isEnabled() && Math.abs(point.x-this.cargoBoat.node.position.x)<1.1 && Math.abs(point.z-this.cargoBoat.node.position.z)<1.9;
+        if(!(onLabel || onBoat) || !this.onCargoPick())this.onPick({ x: Math.round(point.x), z: Math.round(point.z) });
       }
       if (!this.pointers.size) { this.down = undefined; this.onViewChange(); }
     });

@@ -1,6 +1,7 @@
 import './style.css';
 import { VillageView } from './world';
 import { VillageSound } from './workSound';
+import { shipmentStatus } from './shipment';
 import type { State, Order, Cell, Preview, View, Frame } from './types';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -122,6 +123,8 @@ function renderStory(s: State) {
   el('shipment-heading').textContent=relief?'Help Anse aux Saules':'Send help upriver';
   const ordered=story.manifest!=='none';
   el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:relief?'Anse aux Saules · 48 food + 16 logs':'Choose your contribution upriver.';
+  const cargoStatus=shipmentStatus(s);
+  if(ordered && cargoStatus.detail){const detail=document.createElement('small');detail.textContent=cargoStatus.detail;el('shipment-status').append(detail);}
   el('shipment-open').textContent=ordered?(story.sendProblem?'Review cargo':'Send help upriver'):relief?'Prepare relief':'Choose cargo';
   el<HTMLButtonElement>('shipment-open').disabled=readonly;
   el('shipment-explanation').hidden=ordered;
@@ -282,7 +285,12 @@ village.onPick = c => {
 village.onViewChange = () => { void recordView(); };
 el('shortcut').onclick=()=>startMode('shortcut');
 el('welcome-neighbors').onclick=()=>{void command({type:state?.story?'story-welcome':'welcome'});};
-el('shipment-open').onclick=()=>{el<HTMLDetailsElement>('shipment-help').open=false;el<HTMLDialogElement>('shipment-dialog').showModal();void recordView();};
+function openShipment() {
+  if(readonly || mode || !state?.story || state.story.departed || (state.scenario!=='harvest-relief' && state.story.chapter<3)) return false;
+  el<HTMLDetailsElement>('shipment-help').open=false;el<HTMLDialogElement>('shipment-dialog').showModal();void recordView();return true;
+}
+el('shipment-open').onclick=openShipment;
+village.onCargoPick=openShipment;
 el('shipment-close').onclick=()=>{el<HTMLDialogElement>('shipment-dialog').close();void recordView();};
 el('shipment-send').onclick=async()=>{const result=await command({type:'shipment-send'});if(result?.accepted){el<HTMLDialogElement>('shipment-dialog').close();village.focus({x:4,z:0});}};
 el('shipment-cancel').onclick=async()=>{const result=await command({type:'shipment-cancel'});if(result?.accepted)el<HTMLDialogElement>('shipment-dialog').close();};
