@@ -14,7 +14,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <footer><button id="play">▶ Begin</button><button id="speed" aria-label="Change game speed">1×</button><button id="advance" title="While paused, advance 15 seconds or until a goal/event changes">Next event</button><button id="mark" aria-label="Mark a confusing moment">? Mark moment</button></footer>
   <dialog id="welcome"><p id="welcome-eyebrow" class="eyebrow">A village story</p><h1 id="welcome-title">A home on the river</h1><p id="welcome-story">The flood spared your neighbors’ homes. Their ripe harvest is stranded across the river.</p><p id="welcome-task"><strong>Eight portions remain.</strong> Repair the crossing, or grow food on this bank. Your neighbors do the work automatically.</p><p class="muted">Drag to explore · pinch to zoom · tap to inspect.<br>Play pauses when you leave. Actions and your game view are recorded locally so we can review confusing moments.</p><button id="begin" class="primary">Help the village</button></dialog>
   <dialog id="tools"><div class="dialog-heading"><h2>Your village</h2><button id="tools-close" aria-label="Close village menu">×</button></div><div id="people"></div><p class="muted">Your playtest is saved on this laptop. “Mark moment” saves a bookmark with the view you were looking at.</p><button id="replay">Review this session</button><button id="sound">Sound: off</button><button id="restart">Start a fresh village</button><a href="/?scenario=harvest-relief">Play A harvest to share</a><a href="/?scenario=river-home">Play A home on the river</a><details id="earlier-playtests"><summary>Earlier playtests</summary><a href="/?scenario=crossing">The broken crossing</a><a href="/?scenario=room-by-river">Try Room by the river</a><a id="other-scenario" href="/?scenario=river-closing">Try the longer river settlement</a><a href="/?scenario=timber-trade">Try The price of provisions</a><a id="ripe-start" hidden href="/?scenario=timber-trade-ripe">Try the nearly ripe crop</a></details><p id="build" class="muted"></p></dialog>
-  <dialog id="shipment-dialog" aria-labelledby="shipment-heading"><div class="dialog-heading"><h2 id="shipment-heading">Send help upriver</h2><button id="shipment-close" aria-label="Close cargo details">×</button></div><p id="shipment-explanation"></p><div id="shipment-options"></div><div id="shipment-progress" hidden><p id="shipment-packed"></p><p id="shipment-safety" class="muted"></p><p id="shipment-supply" class="muted"></p><button id="shipment-send" class="primary">Send the boat</button><p id="shipment-blocker" role="status"></p><button id="shipment-cancel">Cancel and return packed goods</button></div></dialog>
+  <dialog id="shipment-dialog" aria-labelledby="shipment-heading"><div class="dialog-heading"><h2 id="shipment-heading">Send help upriver</h2><button id="shipment-close" aria-label="Close cargo details">×</button></div><p id="shipment-explanation"></p><div id="shipment-options"></div><div id="shipment-progress" hidden><p id="shipment-packed"></p><p id="shipment-local" class="muted"></p><button id="shipment-send" class="primary">Send the boat</button><p id="shipment-blocker" role="status"></p><button id="shipment-cancel">Cancel · return supplies</button></div><details id="shipment-help"><summary>How packing works</summary><p id="shipment-safety" class="muted"></p><p id="shipment-supply" class="muted"></p></details></dialog>
   <dialog id="story-ending" aria-labelledby="ending-heading"><p id="ending-eyebrow" class="eyebrow">A home on the river</p><h1 id="ending-heading">A village that can give back</h1><p id="ending-description">Your neighbors have made a home here. The boat carries help to another beginning upriver.</p><ul id="ending-summary"></ul><button id="ending-continue" class="primary">Keep tending this village</button></dialog>
   <section id="replay-bar" hidden><strong>Recorded session · read only</strong><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Replay timeline"><div><button id="previous-mark">Previous bookmark</button><span id="frame-description"></span><button id="next-mark">Next bookmark</button><button id="leave-replay">Back to village</button></div></section>`;
 
@@ -119,12 +119,13 @@ function renderStory(s: State) {
   el('ending-eyebrow').textContent=s.title;
   el('ending-heading').textContent=relief?'A harvest shared':'A village that can give back';
   el('ending-description').textContent=relief?'Your boat carries food to Anse aux Saules. Those families can eat while they replant, thanks to the village you shaped here.':'Your neighbors have made a home here. The boat carries help to another beginning upriver.';
-  el('shipment-heading').textContent=relief?'Supplies for Anse aux Saules':'Send help upriver';
+  el('shipment-heading').textContent=relief?'Help Anse aux Saules':'Send help upriver';
   const ordered=story.manifest!=='none';
   el('shipment-status').textContent=ordered?`Cargo · ${story.packedLogs}/${story.logTarget} logs · ${story.packedFood}/${story.foodTarget} food`:relief?'Anse aux Saules · 48 food + 16 logs':'Choose your contribution upriver.';
   el('shipment-open').textContent=ordered?(story.sendProblem?'Review cargo':'Send help upriver'):relief?'Prepare relief':'Choose cargo';
   el<HTMLButtonElement>('shipment-open').disabled=readonly;
-  el('shipment-explanation').textContent=ordered&&relief?'Your neighbors pack available logs and surplus local food automatically. Packing gets logs before new construction; existing jobs keep their claims. Cancel to return supplies for your village; the relief request will wait.':ordered?'Your neighbors pack available logs and surplus local food automatically. Packing gets logs before new construction; existing jobs keep their claims. Cancel to return packed goods and choose again.':relief?'A flood spoiled the crop at Anse aux Saules. Their families need 48 food to eat and 16 logs to repair their garden fences. Starting packing takes available logs before new construction. You can cancel and reclaim them if your village needs to build first.':'The settlement upriver needs both food and building supplies. Choose the cargo your village can provide. Choose more logs or more food to match the livelihood you build.';
+  el('shipment-explanation').hidden=ordered;
+  el('shipment-explanation').textContent='Packing takes logs before new buildings.';
   el('shipment-options').hidden=ordered;
   el('shipment-progress').hidden=!ordered;
   const optionKey=JSON.stringify([story.options,story.orderProblem,readonly,busy]);
@@ -132,17 +133,19 @@ function renderStory(s: State) {
     el('shipment-options').dataset.options=optionKey;
     el('shipment-options').replaceChildren(...story.options.map(option=>{
       const button=document.createElement('button');button.disabled=readonly || busy || !!story.orderProblem;
-      const label=document.createElement('strong');label.textContent=option.label;
-      const cost=document.createElement('span');cost.textContent=`${option.logs} logs + ${option.food} food`;
-      const description=document.createElement('small');description.textContent=option.description;
-      button.append(label,cost,description);button.onclick=async()=>{const result=await command({type:`shipment-${option.id}`});if(result?.accepted)el<HTMLDialogElement>('shipment-dialog').close();};return button;
+      const label=document.createElement('strong');label.textContent=relief?'Start packing':option.label;
+      const cost=document.createElement('span');cost.textContent=`${option.food} food · ${option.logs} logs`;
+      button.append(label,cost);button.onclick=async()=>{const result=await command({type:`shipment-${option.id}`});if(result?.accepted)el<HTMLDialogElement>('shipment-dialog').close();};return button;
     }));
     if(story.orderProblem){const p=document.createElement('p');p.className='muted';p.textContent=story.orderProblem;el('shipment-options').append(p);}
   }
-  el('shipment-packed').textContent=`Packed: ${story.packedLogs} of ${story.logTarget} logs and ${story.packedFood} of ${story.foodTarget} food.`;
-  el('shipment-safety').textContent=`Packing takes food only above ${story.foodFloor} available portions. Your neighbors can still eat that reserve; keep food production working. Existing work claims come first. Packed supplies are separate from the top resource bar.`;
+  el('shipment-packed').textContent=`Food ${story.packedFood}/${story.foodTarget} · Logs ${story.packedLogs}/${story.logTarget}`;
+  el('shipment-local').textContent=`Food at home: ${s.resources.food} · keep ${story.foodFloor} to send`;
+  el('shipment-safety').textContent=`Neighbors pack automatically. Only food above ${story.foodFloor} available portions is packed; their meals still use that reserve. Logs go here before new construction. Cancel to return packed supplies.`;
+  el('shipment-supply').hidden=!ordered;
   el('shipment-supply').textContent=story.supply;
-  el('shipment-blocker').textContent=story.sendProblem ?? 'Cargo is ready. Send the boat when you are ready to say farewell.';
+  el('shipment-blocker').hidden=!story.sendProblem;
+  el('shipment-blocker').textContent=story.sendProblem ?? '';
   el<HTMLButtonElement>('shipment-send').disabled=!!story.sendProblem || readonly || busy || story.departed;
   el<HTMLButtonElement>('shipment-cancel').disabled=readonly || busy || story.departed;
   el('story-summary').replaceChildren(...story.summary.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
@@ -279,7 +282,7 @@ village.onPick = c => {
 village.onViewChange = () => { void recordView(); };
 el('shortcut').onclick=()=>startMode('shortcut');
 el('welcome-neighbors').onclick=()=>{void command({type:state?.story?'story-welcome':'welcome'});};
-el('shipment-open').onclick=()=>{el<HTMLDialogElement>('shipment-dialog').showModal();void recordView();};
+el('shipment-open').onclick=()=>{el<HTMLDetailsElement>('shipment-help').open=false;el<HTMLDialogElement>('shipment-dialog').showModal();void recordView();};
 el('shipment-close').onclick=()=>{el<HTMLDialogElement>('shipment-dialog').close();void recordView();};
 el('shipment-send').onclick=async()=>{const result=await command({type:'shipment-send'});if(result?.accepted){el<HTMLDialogElement>('shipment-dialog').close();village.focus({x:4,z:0});}};
 el('shipment-cancel').onclick=async()=>{const result=await command({type:'shipment-cancel'});if(result?.accepted)el<HTMLDialogElement>('shipment-dialog').close();};

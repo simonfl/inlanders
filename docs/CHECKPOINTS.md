@@ -1,5 +1,7 @@
 # Outcome265 — A harvest to share
 
+Owner text correction, build `6639F0101660`: shipment actions now show quantities, one action and any current blocker. Keep the pre-order log priority consequence to one line; optional packing/supply rules are collapsed. Remove repeated story and button descriptions. This updates265 without advancing the outcome count or changing mechanics. [Correction evidence](HARVEST_RELIEF_265.md).
+
 November14,2026. Complete second browser situation, candidate `21cca36`, build `1FC52A64171C`. Eight established residents/four homes/working dock; help Anse aux Saules recover from a lost crop by sending48food/16logs. Connected inland geography, one request, viable garden/field/fishing plans, explicit dispatch and continued tending. No arrivals, new resource tier or padded quota.
 
 Five independent roles reviewed a fixed candidate and reused whole-project264 evidence with stated limits. Corrected scenario fishing renewal, packing priority/reserve wording, misleading placement reason, legacy shortcut metadata and initial resident placement. Independent mixed cultivation and pure-fishing runs complete; baseline cannot, three scripted production plans and delayed recovery do. Exact saves/refunds/conservation, current mixed-cargo restart, prior264 regressions and phone-size UI ending pass. Actual UI restart exposed a stale-state rejection bug; process identity now allows restored paused checkpoints without reloading. [Evidence and review decisions](HARVEST_RELIEF_265.md).

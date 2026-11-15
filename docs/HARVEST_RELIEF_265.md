@@ -66,3 +66,10 @@ On `1FC52A64171C`, an open running browser reconnected after a real server stop/
 Final capture set is local under `artifacts/browser/relief265/phone-*-final.png`; exact server/client build archive is `artifacts/browser/build-1FC52A64171C.zip`. The ordinary recording remains available to session-summary; reports are preserved in the repository. No owner saves or journals were altered or deleted by these checks.
 
 Final visual addendum on the five corrected-build stills found no release blocker: cargo retains map scale, cultivated land makes the investment visible, and the departure/ending communicate the contribution. This is independent still inspection; root motion observation remains separately attributed, and audio is unverified.
+
+
+## Owner correction — shorter shipment actions
+
+Owner clarified that the excessive text was inside the collection/dispatch panels, not assistant updates. Reduce the default request to one log-priority consequence and a Start packing button with quantities. Reduce progress to packed counts, local food requirement, Send/Cancel and the current blocking reason. Remove repeated recipient story, option descriptions and ready-state filler. Move mechanics and recent supply behind collapsed How packing works; reopening the panel returns to the compact view. Apply to both village stories. No economy or progression change and no new outcome count. Targeted phone runtime verification is recorded below; do not repeat the full strategic review for this correction.
+
+Build `6639F0101660` verification: client/server build passed. Independent actual402×681 browser check found about22 visible request words and33 partial-cargo words, versus the prior approximately90/150. Optional detail opens and resets on reopening; current blocker remains visible until ready, then disappears. UI cancellation returned exactly3food/16logs, reordering worked, and Send started the visible1×departure. No blocker found. [Narrow runtime report](CARGO_TEXT_265_REVIEW.md). No new strategic review, economy test battery or playable outcome was added.

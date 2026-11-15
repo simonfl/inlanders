@@ -30,3 +30,5 @@ dialog{background:var(--cream);border:1px solid #cad0b6;border-radius:18px;paddi
 @media(max-height:550px){#story-chapters{margin-bottom:3px}#story-chapters span{padding-top:2px}.story #world{min-height:100px}#shipment-panel{margin-bottom:3px;padding:2px 0 4px}#shipment-open{min-height:32px}.story #goals{max-height:30dvh}}
 
 #earlier-playtests{margin:10px 0;border-top:1px solid #d8dcc8;padding-top:10px}#earlier-playtests summary{cursor:pointer;font-size:13px;min-height:36px;padding:8px 0;color:#62765e}#earlier-playtests a{display:block;padding:10px 0;color:#335c48;font-size:13px}
+
+#shipment-help{margin-top:16px;border-top:1px solid #d8d8c1;padding-top:10px}#shipment-help summary{cursor:pointer;font-size:12px;color:#526343;min-height:32px;display:flex;align-items:center;gap:6px}#shipment-help summary::before{content:"▸"}#shipment-help[open] summary::before{content:"▾"}#shipment-help p{line-height:1.5}#shipment-local{margin:8px 0}#shipment-packed{font-size:17px;line-height:1.4;margin:18px 0 8px}
