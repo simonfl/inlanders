@@ -174,19 +174,21 @@ function renderWillow(s: State) {
   el('welcome-task').textContent='Rescue the last crop across the broken crossing, or start fresh on this bank. Restore their homes and grow tomorrow’s food. Then sit down together.';
   el('begin').textContent='Bring them home';
   el('willow-progress').hidden=false;el('willow-progress').textContent=w.supperProblem?.startsWith('Leave clear space')?w.supperProblem:w.progress;
+  el('neighbors').textContent=`Homes ${s.resources.housed}/${s.resources.population}`;
   el('home').hidden=s.resources.housed>=s.resources.population;
   el('supper-panel').hidden=readonly || !!mode || s.complete || w.gathering || s.resources.housed<s.resources.population;
   el<HTMLButtonElement>('willow-supper').disabled=!!w.supperProblem || busy;
-  el('willow-supper').textContent=w.supperProblem?'Supper · prepare 24 local food':'Set the table · share 8 food';
+  el('willow-supper').textContent='Set the table · share 8 food';
+  if(!el('supper-panel').hidden && w.supperProblem)el('willow-progress').textContent=w.supperProblem;
   el('ending-eyebrow').textContent='Anse aux Saules';
   el('ending-heading').textContent='Home again.';
-  el('ending-description').textContent='A roof for every neighbor. Food coming home from the land and river. Tonight, they can sit down together—and leave something for tomorrow.';
-  el('ending-summary').replaceChildren(...[`${s.resources.housed} neighbors at home`,`${w.restored} old sites brought back to life`,`${s.resources.food} food kept for tomorrow`].map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));
+  el('ending-description').textContent='A roof for every neighbor. Fresh food is coming home again. Tonight, they can sit down together—and leave something for tomorrow.';
+  el('ending-summary').replaceChildren(...[`${s.resources.housed} neighbors at home`,...(w.restored?[`${w.restored} old sites brought back to life`]:[]),`${s.resources.food} food kept for tomorrow`].map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));
   el('ending-continue').textContent='Stay with the village';
 }
 el('willow-supper').onclick=async()=>{
   const result=await command({type:'willow-supper'});
-  if(result?.accepted){selection=null;el('selection').hidden=true;village.showJourney([]);village.focus({x:-1,z:3});}
+  if(result?.accepted){selection=null;el('selection').hidden=true;village.showJourney([]);village.focus({x:-2,z:3},7.5);}
 };
 el('goal-toggle').onclick = () => { goalsExpanded = !goalsExpanded; renderGoalDetails(); void recordView(); };
 function render(s: State) {
@@ -286,7 +288,7 @@ function renderSelection() {
   if (!selected) { village.showJourney([]); selection = null; box.hidden = true; village.showFishingGrounds(false); return; }
   village.showFishingGrounds(kind === 'building' && 'kind' in selected && selected.kind === 'FishingDock');
   village.showJourney('route' in selected ? selected.route : []);
-  const description = `${selected.name} · ${selected.status}${'salvageCrop' in selected && selected.salvageCrop ? ' · Last crop; ground needs 6 logs of restoration afterward.' : ''}${'restoration' in selected && selected.restoration && !selected.restoration.reachable ? ' · Reopen the crossing to reach this site.' : ''}${'entranceChange' in selected && selected.entranceChange ? ` · Food-store walk: ${selected.entranceChange.before} steps` : ''}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected && !state.willow ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
+  const description = `${selected.name} · ${selected.status}${'salvageCrop' in selected && selected.salvageCrop ? ' · Last crop: '+selected.harvest+' portions; ground needs 6 logs afterward.' : ''}${'restoration' in selected && selected.restoration && !selected.restoration.reachable ? ' · Reopen the crossing to reach this site.' : ''}${'entranceChange' in selected && selected.entranceChange ? ` · Food-store walk: ${selected.entranceChange.before} steps` : ''}${'fishing' in selected && selected.fishing ? ' · ' + selected.fishing : ''}${'freshMeal' in selected && !state.willow ? selected.freshMeal ? ' · ✓ Fresh meal eaten' : ' · Waiting for a fresh meal' : ''}`;
   const key = `${selection}:${'complete' in selected ? selected.complete : ''}:${'restoration' in selected ? selected.restoration?.paused : ''}`;
   if (box.dataset.selection === key && box.firstElementChild) { box.firstElementChild.textContent = description; return; }
   box.dataset.selection = key; box.replaceChildren();
@@ -342,8 +344,8 @@ el('repair').onclick = () => startMode('repair'); el('garden').onclick = () => s
 el('rotate').onclick = () => { rotation = (rotation + 1) % 4; el('rotate').textContent = `Rotate ↻ ${rotation * 90}°`; void previewOrder(); };
 el('cancel-mode').onclick = () => { clearMode(); tell('Plan dismissed. Nothing was ordered.'); void recordView(); };
 el('confirm').onclick = async () => { const order = currentOrder(); if (!order || !preview?.valid) return; const result = await command(order); if (result?.accepted) { clearMode(); tell(result.message); await recordView(); } };
-el('play').onclick = async () => { if (!state) return; if (state.paused && soundOn) void audio?.resume(); await command(state.paused ? { type: 'resume', speed: state.speed } : { type: 'pause' }); };
-el('speed').onclick = async () => { if (!state) return; if (soundOn) void audio?.resume(); await command({ type: 'resume', speed: state.speed === 1 ? 3 : state.speed === 3 ? 6 : 1 }); };
+el('play').onclick = async () => { if (!state) return; if (state.paused) startSound(); await command(state.paused ? { type: 'resume', speed: state.speed } : { type: 'pause' }); };
+el('speed').onclick = async () => { if (!state) return; startSound(); await command({ type: 'resume', speed: state.speed === 1 ? 3 : state.speed === 3 ? 6 : 1 }); };
 el('advance').onclick = () => { void command({ type: 'advance', seconds: 15, untilEvent: true }); };
 el('mark').onclick = () => { void command({ type: 'bookmark', note: 'Player marked this moment for review' }); };
 el('map-home').onclick = () => village.home(); el('zoom-in').onclick = () => { village.setZoom(village.zoom * .8); void recordView(); }; el('zoom-out').onclick = () => { village.setZoom(village.zoom * 1.25); void recordView(); };

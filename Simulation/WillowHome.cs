@@ -86,16 +86,35 @@ public sealed partial class World
     {
         if(WillowSupperProblem() is {} problem)return problem;
         MeetingSpots.Clear();MeetingSpots.AddRange(SupperSpots());
+        VillageStory!.SupperFood.Clear();
         int remaining=Population;
         foreach(var kind in EdibleKinds.Where(k=>k!=Resource.Berries))
         {
             int count=Math.Min(remaining,CentralFoodAvailable(kind));if(count==0)continue;
             ChangeCentralFood(kind,-count);remaining-=count;
+            for(int i=0;i<count;i++)VillageStory.SupperFood.Add(kind);
             switch(kind){case Resource.Berries:Food.EatenBerries+=count;break;case Resource.Vegetables:Food.EatenVegetables+=count;break;case Resource.Fish:Food.EatenFish+=count;break;case Resource.Bread:Food.EatenBread+=count;break;case Resource.Fruit:Food.EatenFruit+=count;break;case Resource.Game:Food.EatenGame+=count;break;}
         }
         foreach(var p in People)Interrupt(p);
         Food.Celebrating=true;Food.MeetingClock=0;_retry=0;
         History.Add("Eight portions are set out. Sixteen remain for tomorrow. The neighbors are coming to supper.");return null;
+    }
+    private void FinishWillowSupper()
+    {
+        // The portions were paid once when the table was set. Ordinary meal
+        // cargo has been returned before anybody can reach their supper seat.
+        foreach(var p in People)
+        {
+            if(p.Carried!=0 || p.Meal is {Reserved:true} or {Carrying:true})throw new InvalidOperationException("Supper still owns ordinary meal cargo");
+            var old=p.Meal;
+            if(old is {Eaten:true,Closed:false})
+            {Food.MealOutcomes.Add(new(old.Id,p.Id,Food.Time,true));RecentFood.Add(new(Food.Time,Required:1));}
+            int request=old is {Eaten:false,Closed:false}?old.Id:Food.NextMealId++;
+            Food.MealConsumptions.Add(new(request,p.Id,Food.Time,VillageStory!.SupperFood[p.Id],false));
+            Food.MealOutcomes.Add(new(request,p.Id,Food.Time,true));
+            p.Meal=null;p.Fed=true;p.NextMealTime=Food.Time+60;
+        }
+        RecentFood.Add(new(Food.Time,Eaten:Population,Required:Population));Food.Hunger=0;
     }
     private void AdvanceWillowHome()
     {
@@ -114,7 +133,7 @@ public sealed partial class World
     {
         if(!IsWillowHome)return null;
         string focus=VillageStory!.Complete?"Les Saules is home again":Food.Celebrating?"The neighbors are coming home":!WillowLivelihood?(DeliveredEdible>0?"Grow the next harvest":"Bring fresh food home"):Housed<Population?"Put roofs over your neighbors":"Set the table for eight";
-        string progress=Food.Celebrating?$"At supper · {People.Count(p=>p.Task==Work.Supper)}/{Population}":!WillowLivelihood?(VillageStory.SalvageExhausted?"The old crop bought time. Restore the field or build another food source.":"Rescue the last crop, repair the landing, or plant nearby."):Housed<Population?$"Neighbors housed · {Housed}/{Population}":$"Local food · {WillowAvailableFood}/{Population*3} · 8 to share, 16 to keep";
+        string progress=VillageStory.Complete?"Supper shared. Eight neighbors are home again.":Food.Celebrating?$"At supper · {People.Count(p=>p.Task==Work.Supper)}/{Population}":!WillowLivelihood?(VillageStory.SalvageExhausted?"The old crop bought time. Restore the field or build another food source.":"Rescue the last crop, repair the landing, or plant nearby."):Housed<Population?$"Neighbors housed · {Housed}/{Population}":$"Local food · {WillowAvailableFood}/{Population*3} · 8 to share, 16 to keep";
         return new(focus,progress,WillowSupperProblem(),Food.Celebrating,People.Count(p=>p.Task==Work.Supper),VillageStory.Ruins.Count(id=>(id!=VillageStory.SalvageField || VillageStory.SalvageExhausted) && Cottages.Any(c=>c.Id==id && c.Complete)),VillageStory.Ruins.Count,Population,Population*2);
     }
     private VillageStoryReport ReadWillowHome()
@@ -130,6 +149,7 @@ public sealed partial class World
     private void ValidateWillowHome()
     {
         var s=VillageStory!;
+        if(s.SupperFood==null || s.SupperFood.Count!=(Food.Celebrating || Food.SupperComplete?Population:0) || s.SupperFood.Any(k=>k==Resource.Berries || !EdibleKinds.Contains(k)))throw new InvalidOperationException("Invalid supper provisions");
         if(Riverside==null || Population!=8 || !s.Arrived || s.Ruins==null || s.Ruins.Count!=5 || s.Ruins.Distinct().Count()!=5 || s.Ruins.Any(id=>!Cottages.Any(c=>c.Id==id)) || !s.Ruins.Contains(s.SalvageField) || Cottages.Any(c=>c.RestorationCost<0 || c.RestorationCost>32 || c.RestorationCost>0 && c.Id!=s.SalvageField) || s.Manifest!="none" || s.PackedLogs!=0 || s.ExportedLogs!=0 || s.PackedFood.Count!=0 || s.ExportedFood.Count!=0 || s.Departed || s.Complete&&!Food.SupperComplete || s.FreshMeals.Any(id=>id<0 || id>=Population))
             throw new InvalidOperationException("Invalid Les Saules restoration");
     }

@@ -70,7 +70,7 @@ export class VillageView {
   }
   private defaultZoom() { return this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight) > 1.4 ? 12 : 19; }
   home() { this.camera.target.set(this.state?.story?1:-1, 0, 0); this.setZoom(this.state?.story?11.5:this.state?.riverside ? 12 : this.defaultZoom()); this.onViewChange(); }
-  focus(c: Cell) { this.camera.target.set(c.x, 0, c.z); this.setZoom(11); this.onViewChange(); }
+  focus(c: Cell,zoom=11) { this.camera.target.set(c.x, 0, c.z); this.setZoom(zoom); this.onViewChange(); }
   getView(): Pick<View, 'cameraX' | 'cameraZ' | 'zoom'> { return { cameraX: this.camera.target.x, cameraZ: this.camera.target.z, zoom: this.zoom }; }
   restore(v: View) { this.camera.target.set(v.cameraX, 0, v.cameraZ); this.setZoom(v.zoom); }
   private material(hex: string) {
@@ -99,7 +99,16 @@ export class VillageView {
         if (excluded.has(`${x},${z}`)) continue;
         const wet = water.has(`${x},${z}`), shore=!wet && [[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dz])=>water.has(`${x+dx},${z+dz}`));
         const colors = state.willow ? wet?['#77aaa8','#7bafac']:shore?['#c4bc95','#c6be98']:['#a8b58a','#aab78c','#a7b48a','#adb98e'] : wet ? ['#70aeb2', '#75b1b4'] : ['#a7b77c', '#a2b378', '#acba81', '#a8b67d'];
-        this.box('ground', x, wet ? -.2 : state.willow?-.18:-.08, z, 1, wet ? .12 : state.willow?.4:.2, 1, colors[Math.abs(x * 7 + z * 13) % colors.length], this.terrain, false);
+        // Adjacent box sides produced dotted coplanar seams at oblique angles.
+        // Render a single top per cell; only exposed banks need vertical sides.
+        const top=wet?-.14:state.willow?.02:.02;
+        const tile=MeshBuilder.CreateGround('ground',{width:1,height:1},this.scene);
+        tile.position.set(x,top,z);tile.parent=this.terrain;tile.material=this.material(colors[Math.abs(x*7+z*13)%colors.length]);tile.isPickable=false;tile.receiveShadows=true;
+        if(!wet)for(const [dx,dz]of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nx=x+dx,nz=z+dz,key=`${nx},${nz}`;
+          if(water.has(key)||excluded.has(key)||nx<state.map.minX||nx>=state.map.minX+state.map.width||nz<state.map.minZ||nz>=state.map.minZ+state.map.depth)
+            this.box('exposed-bank',x+dx*.495,-.13,z+dz*.495,dx?.01:1,.3,dz?.01:1,'#8c9572',this.terrain,false);
+        }
       }
       const merged = Mesh.MergeMeshes(this.terrain.getChildMeshes() as Mesh[], true, true, undefined, false, true);
       if (merged) { merged.parent = this.terrain; merged.isPickable = false; merged.receiveShadows = true; }

@@ -237,6 +237,7 @@ public sealed partial class World
             if (People.All(v => v.Task == Work.Supper)) Food.MeetingClock += dt;
             if (Food.MeetingClock >= 6)
             {
+                if(IsWillowHome)FinishWillowSupper();
                 Food.Celebrating = false; Food.SupperComplete = true; History.Add("The first village supper");
                 foreach (var person in People) Finish(person);
                 // Gathering destinations reserve access only while supper is active.

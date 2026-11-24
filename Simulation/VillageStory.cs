@@ -25,6 +25,7 @@ public sealed class VillageStoryProgress
     public List<int> Ruins { get; set; } = new();
     public int SalvageField { get; set; }
     public bool SalvageExhausted { get; set; }
+    public List<Resource> SupperFood { get; set; } = new();
 }
 
 public sealed record ShipmentOption(string Id,string Label,int Logs,int Food,string Description);

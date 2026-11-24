@@ -33,9 +33,12 @@ static class WillowHomeChecks
             Advance(350);SaveCheck();
             if(plan is "shore" or "gardens")
             {
-                for(int retry=0;retry<200 && w.RiversideSiteProblem(new(-6,5),0,BuildingKind.Cottage)?.Contains("standing")==true;retry++)Advance(10);Check(w.PlanRiverside(new(-6,5),0,BuildingKind.Cottage),"Near home west invalid: "+w.RiversideSiteProblem(new(-6,5),0,BuildingKind.Cottage));
-                Check(w.PlanRiverside(new(2,7),0,BuildingKind.Cottage),"Near home east invalid");
-            }
+                foreach(var preferred in new[]{new Cell(-6,5),new Cell(2,7)})
+                {
+                    var choices=new[]{preferred}.Concat(Enumerable.Range(-6,11).SelectMany(x=>Enumerable.Range(0,8).Select(z=>new Cell(x,z))));
+                    var home=choices.First(c=>w.RiversideSiteProblem(c,0,BuildingKind.Cottage)==null);
+                    Check(w.PlanRiverside(home,0,BuildingKind.Cottage),"Near home invalid");Console.WriteLine($"{plan} home {home}");
+                }            }
             else Restore(BuildingKind.Cottage);
             w.ApplyWoodlandCare(new(5,7),new(5,7),WoodlandIntent.Renew,false);
             bool routeUsed=false;float hungry=0;
@@ -45,12 +48,19 @@ static class WillowHomeChecks
                 if(plan is "crossing" or "recovery" && w.VillageStory!.SalvageExhausted && w.Cottages.Single(c=>c.Id==w.VillageStory.SalvageField).ConstructionPaused)
                 {Check(w.RestoreWillow(w.VillageStory.SalvageField)==null,"Field restoration rejected");w.ApplyWoodlandCare(new(-6,-8),new(-6,-8),WoodlandIntent.Renew,false);Check(w.PlanRiverside(new(4,4),0,BuildingKind.VegetableGarden),"Support garden invalid");}
             }
-            w.Validate();SaveCheck();Check(w.WillowSupperProblem()==null,$"{plan}: not ready at {w.Food.Time}: {w.WillowSupperProblem()}");
+            w.Validate();SaveCheck();
+            // Ordinary meals can claim a portion during the continuation check.
+            for(int i=0;i<1200 && w.WillowSupperProblem()!=null;i++)w.Tick(.1f);
+            Check(w.WillowSupperProblem()==null,$"{plan}: not ready at {w.Food.Time}: {w.WillowSupperProblem()}");
             int before=w.ReachableEdibleStored;
+            // Edge fixture: a real paid supper must settle missed ordinary meals,
+            // not merely charge food while leaving everyone flagged hungry.
+            if(plan=="recovery")foreach(var p in w.People)p.Fed=false;
             Check(w.BeginWillowSupper()==null,"Ready supper refused");Check(w.ReachableEdibleStored==before-8,"Supper didn't consume exactly eight");
             Check(w.BeginWillowSupper()!=null,"Duplicate supper accepted");SaveCheck();
             for(int i=0;i<2400 && !w.VillageStory!.Complete;i++)w.Tick(.1f);
             Check(w.VillageStory!.Complete && w.Food.SupperComplete && !w.Food.Celebrating,"Supper failed to finish");SaveCheck();
+            Check(w.People.All(p=>p.Fed && p.Meal==null) && w.Food.Hunger==0,"Supper did not satisfy the neighbors");
             Console.WriteLine(JsonSerializer.Serialize(new{plan,seconds=w.Food.Time,hungry,routeUsed,food=w.ReachableEdibleStored,homes=w.Housed,restored=w.ReadWillowHomeProgress()!.Restored}));
         }
         Console.WriteLine("PASS alternative livelihoods, shortage recovery, repairs, actual supper consumption, exact save continuation and gathering.");
