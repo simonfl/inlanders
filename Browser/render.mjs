@@ -10,7 +10,9 @@ if(url.hostname!=='127.0.0.1'||url.port!=='5180')throw Error('Only the local gam
 const folder=resolve(arg('--out','artifacts/browser/willow-home/render'));
 if(!folder.startsWith(resolve('artifacts')+'\\'))throw Error('Keep capture output inside repository artifacts.');
 await mkdir(folder,{recursive:true});
-const profile=join(folder,`profile-${Date.now()}`);await mkdir(profile,{recursive:true});
+const profile=resolve(arg('--profile',join(folder,`profile-${Date.now()}`)));
+if(!profile.startsWith(resolve('artifacts')+'\\'))throw Error('Use an isolated profile inside repository artifacts.');
+await mkdir(profile,{recursive:true});
 const browser=spawn('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',[
   '--headless=new','--no-first-run','--no-default-browser-check',`--user-data-dir=${profile}`,'--remote-debugging-port=0',
   '--use-angle=swiftshader','--enable-unsafe-swiftshader','--hide-scrollbars','about:blank'
@@ -41,10 +43,13 @@ try{
   const steps=args.includes('--steps')?JSON.parse(await readFile(arg('--steps'),'utf8')):[];
   await capture('opening');
   for(const step of steps){
-    if(step.click){const rect=await value(`(()=>{const e=document.querySelector(${JSON.stringify(step.click)});if(!e)return null;const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);if(!rect)throw Error(`Missing control ${step.click}`);await tap(rect.x,rect.y);}
+    if(step.click){const rect=await value(`(()=>{const e=document.querySelector(${JSON.stringify(step.click)});if(!e||e.disabled)return null;const r=e.getBoundingClientRect();if(!r.width||!r.height)return null;return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);if(!rect)throw Error(`Missing, hidden or disabled control ${step.click}`);await tap(rect.x,rect.y);}
     if(step.tap)await tap(step.tap.x,step.tap.y);
+    if(step.drag){const {from,to}=step.drag;await call('Input.dispatchMouseEvent',{type:'mousePressed',x:from.x,y:from.y,button:'left',clickCount:1});for(let i=1;i<=12;i++){await call('Input.dispatchMouseEvent',{type:'mouseMoved',x:from.x+(to.x-from.x)*i/12,y:from.y+(to.y-from.y)*i/12,button:'left',buttons:1});await sleep(25);}await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:to.x,y:to.y,button:'left',clickCount:1});await sleep(450);}
     if(step.command)for(let i=0;i<(step.repeat??1);i++){const r=await fetch(`${url.origin}/api/sessions/${gameId}/command`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(step.command)});const result=await r.json();if(!r.ok||!result.accepted)throw Error(JSON.stringify(result));}
+    if(step.until){let matched=false;for(let i=0;i<=Math.min(60,step.maxSteps??40);i++){const state=await(await fetch(`${url.origin}/api/sessions/${gameId}`)).json();if(step.until.split('.').reduce((v,k)=>v?.[k],state)===step.equals){matched=true;break;}const r=await fetch(`${url.origin}/api/sessions/${gameId}/command`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{"type":"advance","seconds":15,"untilEvent":false}'});const result=await r.json();if(!r.ok||!result.accepted)throw Error(JSON.stringify(result));}if(!matched)throw Error(`Public condition not reached: ${step.until}`);await sleep(600);}
     if(step.wait)await sleep(Math.min(step.wait,15000));
+    if(step.motion)for(let i=0;i<Math.min(30,step.motion);i++){await capture(`motion-${String(i).padStart(2,'0')}`);await sleep(400);}
     if(step.capture)await capture(step.capture);
   }
   await capture('final');
