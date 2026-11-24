@@ -4,7 +4,7 @@ November24,2026. The owner explicitly requests a new level worth a full play ses
 
 ## Experience hypothesis
 
-Helping others becomes more satisfying when the beneficiaries and the result remain in the playable world. Visit Anse aux Saules, the recipient of the last relief effort. Eight people have four usable beds, roofless cottages, a broken crossing to a ripe field, and a damaged fishing landing. Choose what to restore first, bring useful food home, and rebuild enough homes. New buildings remain valid alternatives.
+Helping others becomes more satisfying when the beneficiaries and the result remain in the playable world. Visit Anse aux Saules, the recipient of the last relief effort. Eight people have four usable beds, roofless cottages, a broken crossing to a finite last crop, and a damaged fishing landing. Choose what to restore first, bring useful food home, and rebuild enough homes. New buildings remain valid alternatives. This tests visible recovery and attachment; it does not assume continuous intervention is required for enjoyment.
 
 The strongest competing explanation is another small bridge/housing tutorial with a different title. Reject a prescribed repair sequence, forced new arrivals, larger export quotas or waiting certificates. Two different recovery approaches must work; useful construction/access must produce real changes in journeys, food and occupancy. A competent early plan is allowed to finish efficiently.
 
@@ -25,3 +25,9 @@ Check reconnect-first and near-bank livelihood alternatives; mistaken commitment
 The first route finished in82seconds because the inherited crop economy and opening provisions solved nearly everything. Reject that candidate. The authored crop now holds12 finite portions; its ground needs6 additional logs after the final haul before planting again. Two ruined homes and the old woodlot lie beyond the crossing. Near-bank homes, gardens and landing remain valid alternatives. Supper requires24 locally produced non-berry portions, consumes8 once, and keeps16 available at commitment. No additional export or time gate.
 
 Independent ordinary play on6ebd85b /831A2A13BF19 restored the landing, crossing and homes, then supplied supper without restoring the old field. Actual headless UI gathering and one-action continuation worked. Last strategic order60.5s, ready270.5s: an efficient queue still has a substantial passive tail. Do not hide that through quotas or count this as enjoyment evidence. Internal fixes address truthful completion, exact blockers, visible housing, meal satisfaction, closer ending framing and terrain seams. Shared native/current-save engineering checks passed; native play and physical phone remain unobserved.
+
+## Delivery decision
+
+**Keep provisionally and hand over266 as one complete level.** Final d778e99 /7FA6196EBDD4; [integrated evidence and five-role decisions](WILLOW_HOME_266.md). Three livelihoods and delayed shortage recovery pass; independent ordinary play and actual headless controls/gathering pass. The saved4/8 gathering survives a real server restart and same-profile reconnect. Final close framing and sharp-village ending have independent visual acceptance. Native fresh/save checks are engineering evidence; audio is source-only, physical iPhone and enjoyment remain unobserved.
+
+The next useful evidence is the owner's whole-level reaction to this visible recovery, at their convenience. Do not append more resource tiers or similar levels now. If it is understood but mainly waiting, choose the substantial local-storage/delivery-geography comparison described in ROADMAP; do not inflate quotas or force every ruin to be repaired. No further implementation is automatically scheduled by this card.

@@ -1,3 +1,9 @@
+# Outcome266 — Home again at Les Saules
+
+November24,2026, build `7FA6196EBDD4`: a complete recipient-restoration situation. Eight residents, damaged homes/access/landing and a finite stranded crop; restore the old holding or build a near-bank livelihood. Prepare24 local portions, share8 through actual gathering and meal satisfaction, retain16 at commitment. Direct repair, compact objectives/housing, staged before/after buildings, closer supper and immediate continued tending.
+
+Five independent read-only disciplines reviewed direction and integration. Ordinary independent play, four scripted approaches including shortage recovery, exact saves, shared native/browser opening checks, rendered phone controls,1×gathering and real server restart/reconnect support delivery. Quiet production intervals remain; human enjoyment, physical phone play and fresh audio audition are unclaimed. [Review, decisions and evidence](WILLOW_HOME_266.md). Count this complete outcome once, including internal corrections; tooling/docs/review commits do not advance it.
+
 # Outcome265 — A harvest to share
 
 November24,2026, build `0FEF517B76A7`: unfinished-building inspection now explains missing logs, incoming deliveries and builder availability; log-starved plans identify supplies packed aboard the boat. Uses existing simulation diagnostics and the existing inspection surface. Independent ordinary-command shortage/refund/recovery checks and the prior full-cargo/local-food edge are recorded in [the runtime review](SHORTAGE_CLARITY_265_REVIEW.md). Browser automation access failed, so no new phone presentation check is claimed. Count remains265; no economy or progression change.

@@ -1,6 +1,6 @@
 # Les Habitants browser prototype
 
-The default level is **A harvest to share**: develop an established fishing hamlet's surplus to help another holding after a lost crop. **A home on the river** remains directly available in Village. Earlier comparisons remain under Village → Earlier playtests. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
+The default level is **Home again at Les Saules**: visit the people helped by the previous harvest, restore their holding or build a new livelihood nearby, then share an actual supper. **A harvest to share** and **A home on the river** remain directly available in Village. Earlier comparisons remain under Village → Earlier playtests. The C# simulation runs on this Windows laptop; Babylon.js renders a touch-friendly village in the browser. The browser and agent use the same ordinary commands. No Godot window is needed.
 
 ## Run
 
@@ -13,7 +13,7 @@ From the repository root, with the local .NET SDK and Node available:
 ./Browser.ps1 Stop
 ```
 
-Open `http://127.0.0.1:5180` or `/?scenario=harvest-relief` for the new relief situation; `/?scenario=river-home` opens the first village story and `/?scenario=crossing` the earlier short recovery. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
+Open `http://127.0.0.1:5180` or `/?scenario=willow-home` for the restoration level; `/?scenario=harvest-relief` retains the relief situation; `/?scenario=river-home` opens the first village story and `/?scenario=crossing` the earlier short recovery. The private Tailscale URL accepts the same query. Each scenario keeps its own browser session. The server listens only on loopback. Start runs a hidden background process; it does not install a startup service or change sleep settings. Stop verifies the recorded process identity before stopping it. Stop before rebuilding; a prototype build has its own save/recording identity.
 
 Client dependencies are pinned in `client/package-lock.json`. Standard Node installations can use `npm ci` and `npm run build` in `Browser/client`. This laptop has Node without npm on PATH; the project-local npm bootstrap is `.tools/npm/package/bin/npm-cli.js`. The launcher currently uses that local installation. No global packages are required.
 
@@ -119,7 +119,7 @@ The build identity covers the server and built client assets. Keep the matching 
 
 State is checkpointed after commands, on interruption, and every five seconds while running. Unexpected process termination can lose the last few seconds of free-running simulation. Recordings/checkpoints are kept locally without automatic pruning in this first slice. A running session writes roughly one visible frame per second; long sessions consume more disk space. Normal disconnected sessions pause instead of recording indefinitely.
 
-Sound is optional and enabled through Village → Sound by an explicit browser gesture. It includes sparse activity/water sounds and fresh-food/completion cues; this release's review did not audition it. The desktop music and full asset catalogue are deliberately not ported. Continuous movement, carrying and simple work poses remain visible.
+Sound is optional, with its preference saved in this browser. Les Saules enables the existing sparse river/work layer on the Begin gesture unless previously muted; Village → Sound changes the preference. It includes sparse activity/water sounds and fresh-food/completion cues; this release's review did not audition it. The desktop music and full asset catalogue are deliberately not ported. Continuous movement, carrying and simple work poses remain visible.
 
 Checks:
 
@@ -135,3 +135,11 @@ node Browser/checks.mjs --restored
 Checks cover rejected actions, both food routes, cancellation/recovery after shortage, recorded preview/objective/bookmark state, pause on interruption/disconnect, cross-site request rejection and exact saved state after service restart. Actual visible-control play and independent decision play are separately recorded in the experiment report.
 
 Sessions have separate simulation locks. Advancing one agent village does not hold another village's input/heartbeat behind that simulation; commands within a village remain serialized. The clock skips a busy world instead of holding up every world. This removes cross-session simulation blocking, not CPU or storage contention under unlimited load.
+
+## Les Saules and isolated rendered checks
+
+`willow-home` uses `restore-site` / `pause-restoration` with an existing siteId, ordinary food/home/grove placement, and `willow-supper`. Public `state.willow.supperProblem` is the authoritative readiness explanation. The old field has12 salvage portions, then needs6 logs to restore cultivation. Supper requires24 non-berry local portions, consumes8 once, and satisfies each resident at the gathering. `--willow-home` runs alternative layouts, shortage recovery and exact save-continuation checks.
+
+When the Windows desktop is unavailable, `node Browser/render.mjs --out artifacts/browser/capture --height 681 --steps artifacts/browser/steps.json` launches isolated headless Chrome on localhost only. Steps support CSS-selector pointer clicks, pointer taps/drags, ordinary API commands, public-state `until` conditions, PNG/DOM/state captures and short1×motion frame sequences. Disabled/hidden controls fail rather than count as clicks. Use `--profile artifacts/browser/owned-profile` to test reconnecting the same isolated browser. Never point it at a personal browser profile. Output remains in repository artifacts. Examples and evidence are under `artifacts/browser/willow-home`.
+
+This is actual headless browser integration/render evidence. API-prepared states, timed frame sequences, source audio review and real physical-phone play remain distinct; the helper does not prove touch feel, an audible mix or enjoyment.

@@ -1,12 +1,12 @@
 # Les Habitants — roadmap
 
-Current direction, November24,2026. Playable outcome **265**, browser build `0FEF517B76A7`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
+Current direction, November24,2026. Playable outcome **266**, browser build `7FA6196EBDD4`: **Home again at Les Saules** visits the people helped by the previous relief effort. Restore their holding or build a new livelihood, then share an actual supper. The owner's request for a substantial, thoughtful next level superseded the earlier content hold. [Five-role review and evidence](WILLOW_HOME_266.md). Internal revisions are one deliverable, not separate owner handoffs.
 
 ## The game we are building toward
 
 **Make a home by the river, make room for others, and make the resulting village worth staying in.** One authored settlement should develop through connected decisions about land, livelihood and useful improvements. People handle ordinary work. The player chooses what to commit to, sees the consequence and shapes the same place over time.
 
-Aim for a substantial complete story without enforced waiting. Real play duration is unmeasured; accelerated and efficient routes can be short. Begin with food concern, develop an established village, and end with an inhabited village sending real help upriver. Good preparation should pay off. Later situations must not arbitrarily invalidate an efficient beginning. Continued tending remains available after success.
+Aim for a complete story without enforced waiting: help people establish or recover a place, and leave a visible, inhabited result. Contribution can mean supplies sent upriver or sharing the restored holding with its residents. Real human duration is unmeasured; efficient accelerated routes can be short. Good preparation should pay off. Continued tending remains available after success.
 
 New France is expressed through the inhabited farmstead, river frontage, cultivated ground, retained woodland, practical timber buildings and daily work. Descendants are narrative only. Seasons and inheritance remain excluded.
 
@@ -17,8 +17,9 @@ These are evidence gates, not a checkpoint batch or permission to build every ro
 | Order | Playable outcome | What earns the next step |
 | --- | --- | --- |
 | **Delivered: full village story** | A home on the river: establish food, settle newcomers, then provision and send help upriver. Real food/log cargo creates an outward purpose for developing this same village. | Owner completed play and specifically liked accumulating resources for others. Retain that purpose; do not infer acceptance of every phase or balance choice. [Active hypothesis](NEXT_CHUNKS.md). |
-| **Now delivered: a different livelihood** | A harvest to share: eight already-housed neighbors, working fishing dock, inland meadow/woodland, one48food/16logs request after another holding loses its crop. Gardens, fields and fishing-only approaches work. | Await owner experience of this whole situation. One extra dock can solve it, so viability does not prove sustained management. Keep useful accumulation if it remains enjoyable; revise pacing if it is mainly endured. |
-| **Later: choose the next situation from play** | A different inhabited village with a different practical problem, retaining the successful core. | Both delivered situations support useful purpose and a desire to return. Choose from that experience; do not schedule a ten-level curriculum in advance. |
+| **Delivered: a different livelihood** | A harvest to share: eight housed neighbors, working landing, one48food/16logs relief request. | Owner experience remains unreported. A viable fishing solution does not prove sustained management. |
+| **Now delivered: the people you helped** | Home again at Les Saules: finite stranded crop, damaged homes/access/landing, repair-in-place or new construction, locally provisioned supper. | Does seeing these people get their home back make the interval after planning worth watching? Independent play and presentation work; human enjoyment remains unknown. Do not commission more similar levels yet. |
+| **Conditional next substantial bet** | Local storage and delivery geography within an established village, replacing part of passive accumulation. | Only if the owner finds the current situation clear but mostly waiting. A receiving point must change real journeys and productive capacity, not add a prerequisite. If calm transformation is rewarding, develop that pleasure instead. |
 
 If connected later work feels imposed, pivot to an anthology of shorter restoration challenges. If the owner chiefly values composing and watching, reconsider a village-making sandbox. Neither fallback requires pretending the present direction succeeded.
 
@@ -39,9 +40,11 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 1. Delivered named established-village starts through the existing launcher, with variant/build identity. Reused for eight mechanical comparisons and independent play; no general scenario editor.
 2. Existing session summary recognizes the new phase and commitments. No analytics expansion selected. Retain raw journals and distinguish visible inactivity from boredom.
 
-Keep progression in one small saved state and authoritative query for this slice. No campaign framework, analytics platform, catalogue conversion or stack migration project.
+Keep progression in one small saved state and authoritative query. The local-only headless Chrome helper now produces exact viewport PNG/DOM/public-state evidence and reconnect checks when the desktop is locked; it has already been reused. Keep this bounded tool, not a new automation platform. Before another authored scenario compounds the inherited factory chain, extract a small shared fresh-world initializer. No campaign framework, catalogue conversion or stack migration project.
 
 ## Current evidence and history
+
+Outcome266: four scripted production/recovery routes and independent landing/crossing/home play succeed. Direct headless UI repair,1×gathering, continued tending and actual server-restart/reconnect checks support delivery. Review fixes resolved meal satisfaction, exact local-food blockers, completed progress, terrain seams and final framing. An efficient independent plan had210simseconds after its last strategic order: sustained management remains unproven. Keep the narrower visible-beneficiaries hypothesis, drop mandatory repair lists/larger quotas as pacing fixes. [Evidence and five-role synthesis](WILLOW_HOME_266.md).
 
 Outcome265: independent mixed cultivation and fishing-only completions, scripted alternative production/recovery checks, phone-size placement/request/departure/ending and real restarts support delivery. Full review corrections improved ecology honesty, packing consequences and reconnect reliability. The efficient fishing plan is one new dock followed by quiet accumulation; no sustained-decision or fun claim. Keep provisionally, hold catalogue expansion until owner experience. [Evidence](HARVEST_RELIEF_265.md).
 

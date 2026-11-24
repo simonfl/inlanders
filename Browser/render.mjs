@@ -1,7 +1,7 @@
 // Local development only: isolated headless Chrome, real DOM controls, ordinary game API.
 // Produces rendered evidence when the Windows desktop is unavailable; not a phone playtest.
 import { spawn } from 'node:child_process';
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile, unlink } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
 const args=process.argv.slice(2),arg=(name,fallback)=>args.includes(name)?args[args.indexOf(name)+1]:fallback;
@@ -13,6 +13,7 @@ await mkdir(folder,{recursive:true});
 const profile=resolve(arg('--profile',join(folder,`profile-${Date.now()}`)));
 if(!profile.startsWith(resolve('artifacts')+'\\'))throw Error('Use an isolated profile inside repository artifacts.');
 await mkdir(profile,{recursive:true});
+await unlink(join(profile,'DevToolsActivePort')).catch(e=>{if(e.code!=='ENOENT')throw e;});
 const browser=spawn('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',[
   '--headless=new','--no-first-run','--no-default-browser-check',`--user-data-dir=${profile}`,'--remote-debugging-port=0',
   '--use-angle=swiftshader','--enable-unsafe-swiftshader','--hide-scrollbars','about:blank'
@@ -57,4 +58,5 @@ try{
 }finally{
   if(gameId&&!url.searchParams.has('watch')&&!url.searchParams.has('replay'))await fetch(`${url.origin}/api/sessions/${gameId}/command`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{"type":"pause"}'}).catch(()=>{});
   if(socket?.readyState===1){await call('Browser.close',{},null).catch(()=>{});socket.close();}else browser.kill();
+  if(browser.exitCode===null)await Promise.race([new Promise(r=>browser.once('exit',r)),sleep(3000)]);
 }
