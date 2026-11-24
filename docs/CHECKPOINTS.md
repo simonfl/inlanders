@@ -1,5 +1,7 @@
 # Outcome265 — A harvest to share
 
+November24,2026, build `0FEF517B76A7`: unfinished-building inspection now explains missing logs, incoming deliveries and builder availability; log-starved plans identify supplies packed aboard the boat. Uses existing simulation diagnostics and the existing inspection surface. Independent ordinary-command shortage/refund/recovery checks and the prior full-cargo/local-food edge are recorded in [the runtime review](SHORTAGE_CLARITY_265_REVIEW.md). Browser automation access failed, so no new phone presentation check is claimed. Count remains265; no economy or progression change.
+
 Lead continuation, build `88E2F151D169`: truthful boat captions and a short full-cargo local-needs status make dispatch readiness visible in the village. Boat/caption taps open the existing compact panel; placement/dragging and the first level's staged controls remain protected. This is a usability correction within265, with no resource-rule change or additional outcome. [Independent runtime check](SHIPMENT_WORKSITE_265_REVIEW.md).
 
 Owner text correction, build `6639F0101660`: shipment actions now show quantities, one action and any current blocker. Keep the pre-order log priority consequence to one line; optional packing/supply rules are collapsed. Remove repeated story and button descriptions. This updates265 without advancing the outcome count or changing mechanics. [Correction evidence](HARVEST_RELIEF_265.md).

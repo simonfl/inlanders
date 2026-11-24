@@ -1,6 +1,6 @@
 # Les Habitants — roadmap
 
-Current direction, November14,2026. Playable outcome **265**, browser build `88E2F151D169`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
+Current direction, November24,2026. Playable outcome **265**, browser build `0FEF517B76A7`: **A harvest to share** is delivered as a complete second situation. The owner's264 feedback supports accumulating resources for others. The new established fishing hamlet tests that pleasure with a different starting economy and one food-relief request. [Review and evidence](HARVEST_RELIEF_265.md). The lead handles internal revisions; no midpoint approval queue.
 
 ## The game we are building toward
 
@@ -24,7 +24,7 @@ If connected later work feels imposed, pivot to an anthology of shorter restorat
 
 ## Integrated requirements
 
-**Action text.** Owner found the shipment collection/send panels too wordy. Default to quantities, one clear action and the exact blocker. Keep a consequential warning to one line; optional rules and production detail belong behind a disclosure. Do not repeat the story inside every action. Keep shipment readiness and any final local-needs blocker visible beside the existing cargo counts. The boat can open the compact cargo panel; it must distinguish packing from ready without inventing hauling jobs.
+**Action text.** Owner found the shipment collection/send panels too wordy. Default to quantities, one clear action and the exact blocker. Keep a consequential warning to one line; optional rules and production detail belong behind a disclosure. Do not repeat the story inside every action. An inspected construction plan should name its actual wait: missing supplies, incoming deliveries, or a builder. If unavailable logs are packed aboard the boat, show that amount rather than implying idle workers need manual assignment. Keep shipment readiness and any final local-needs blocker visible beside the existing cargo counts. The boat can open the compact cargo panel; it must distinguish packing from ready without inventing hauling jobs.
 
 **Purpose and choice.** Call the raw wood resource “logs” consistently in player text. Keep clear progress, mild recoverable food pressure and useful automatic work. Trade, food types and buildings earn a place through different land, timing or access consequences. No more arrival waves solely to enlarge the counters. No mandatory producer recipes, diet ratios, recent-service certificates or worker assignment panel.
 
