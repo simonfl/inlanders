@@ -135,7 +135,7 @@ public sealed partial class World
         if(VillageStory!=null)
         {
             var story=ReadVillageStory();
-            return new(story.Phase,story.Title,story.Objectives,story.Hint,story.ArrivalIn,story.WelcomeProblem,RiversideShortcut,built,IsHarvestRelief?0:walk,IsHarvestRelief?0:shortcut,VillageStory.FreshMeals.Count,DeliveredEdible,ManagedWoodland.Count,!IsHarvestRelief);
+            return new(story.Phase,story.Title,story.Objectives,story.Hint,story.ArrivalIn,story.WelcomeProblem,RiversideShortcut,built,IsHarvestRelief || IsWillowHome?0:walk,IsHarvestRelief || IsWillowHome?0:shortcut,VillageStory.FreshMeals.Count,DeliveredEdible,ManagedWoodland.Count,!IsHarvestRelief && !IsWillowHome);
         }
         string phase=r.Complete?"complete":!r.Arrived?"prepare":Housed<8?"settle":"feed";
         string hint=r.Complete?"Your village has grown around your choices. Keep watching, or improve a route you use.":

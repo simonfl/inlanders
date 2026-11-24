@@ -11,7 +11,7 @@ public sealed partial class VillageSessions
     static bool Complete(World w)=>w.VillageStory?.Complete ?? w.Riverside?.Complete ?? w.Founding!.FirstHome!.Complete;
     static IEnumerable<Cottage> VisibleBuildings(World w)=>w.Cottages.Concat(w.Riverside?.Plans.Select(p=>new Cottage{Id=p.Id,Cell=p.Cell,Kind=p.Kind,Rotation=p.Rotation}) ?? Enumerable.Empty<Cottage>());
     static string Scenario(World w) => w.VillageStory!=null ? w.VillageStory.Situation : w.Riverside is {} room ? (room.FarGarden?"room-by-river-far":"room-by-river") : w.Founding!.FirstHome!.Trade is {} t ? (!t.OfferEnabled ? "timber-control" : t.NearHarvest ? "timber-trade-ripe" : "timber-trade") : w.Founding!.FirstHome!.RiverClosing == null ? "crossing" : "river-closing";
-    static string Title(World w) => w.IsHarvestRelief ? "A harvest to share" : w.VillageStory!=null ? "A home on the river" : w.Riverside!=null ? "Room by the river" : w.Founding!.FirstHome!.Trade is {} t ? "The price of provisions" + (t.NearHarvest ? " · near harvest" : "") : Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
+    static string Title(World w) => w.IsWillowHome ? "Home again at Les Saules" : w.IsHarvestRelief ? "A harvest to share" : w.VillageStory!=null ? "A home on the river" : w.Riverside!=null ? "Room by the river" : w.Founding!.FirstHome!.Trade is {} t ? "The price of provisions" + (t.NearHarvest ? " · near harvest" : "") : Scenario(w) == "crossing" ? "The broken crossing" : "Before the river closes";
     static RiverView? River(World w)
     {
         if (w.Founding!.FirstHome!.RiverClosing is not {} r) return null;

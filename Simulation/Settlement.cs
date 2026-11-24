@@ -147,7 +147,8 @@ public sealed class Cottage
     public Cell Entrance => (Kind == BuildingKind.Bridge && BridgeFromFar || Kind == BuildingKind.FishingDock && DockFromFar) ? World.FarBank(Cell, Rotation) : World.Door(Cell, Rotation);
     public Cell Launch => DockFromFar ? World.Door(Cell, Rotation) : World.FarBank(Cell, Rotation);
     public Resource Material => Buildings.Get(Kind).Material;
-    public int Required => PlotRows>0?Math.Max(PlotRows,PreparedRows)*2:Buildings.Get(Kind).Cost;
+    public int RestorationCost { get; set; }
+    public int Required => RestorationCost>0?RestorationCost:PlotRows>0?Math.Max(PlotRows,PreparedRows)*2:Buildings.Get(Kind).Cost;
 }
 
 // Commands and fixed-step Tick run on one thread. Claiming a job, storage units,
@@ -506,6 +507,7 @@ public sealed partial class World
         ValidateComfort();
         foreach (var site in Cottages)
         {
+            Check(site.RestorationCost==0 || IsWillowHome && site.Id==VillageStory!.SalvageField && VillageStory.SalvageExhausted && site.Kind==BuildingKind.VegetableField && site.RestorationCost==16,"Invalid restoration cost");
             Check(Enum.IsDefined(site.Finish) && (site.Kind==BuildingKind.Cottage || site.Finish==CottageFinish.Automatic),"Invalid cottage finish");
             Check(Enum.IsDefined(site.Identity) && (site.Kind==BuildingKind.GatheringHall || site.Identity==CivicIdentity.Hall),"Invalid civic identity");
             Check(!site.ConstructionPaused || !site.Complete && site.Builder==null && site.Incoming==0 && site.IncomingStone==0,"Paused construction still owns work");

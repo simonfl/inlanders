@@ -10,7 +10,7 @@ public sealed partial class VillageSessions
         if(site.Id<0)return "Clearing ground, then building automatically";
         if(site.Complete)return site.Kind==BuildingKind.Cottage ? "Home" :
             site.Kind==BuildingKind.Bridge ? "Crossing open" : w.ReadWorkplace(site).State;
-        if(site.ConstructionPaused)return "Construction paused";
+        if(site.ConstructionPaused)return w.IsWillowRuin(site)?$"Restore · {site.Required-site.Delivered} logs":"Construction paused";
         if(site.MaterialsReady)return $"Building {site.Construction:P0}" +
             (site.Builder==null ? " · Waiting for a builder" : " · Builder assigned");
 

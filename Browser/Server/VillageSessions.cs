@@ -69,7 +69,7 @@ public sealed partial class VillageSessions
         lock (gate)
         {
             if (sessions.Count >= 32) throw new ArgumentException("There are already 32 open villages. Restart the local service to release inactive villages.");
-            var world = scenario switch { "harvest-relief" => World.NewHarvestRelief(), "river-home" => World.NewVillageStory(), "room-by-river" => World.NewRiverside(), "room-by-river-far" => World.NewRiverside(true), "crossing" => World.NewCrossingRecovery(), "river-closing" => World.NewBrowserRiverClosing(), "timber-trade" => World.NewTimberTrade(), "timber-trade-ripe" => World.NewTimberTrade(true), "timber-control" => World.NewTimberTrade(false, false), _ => throw new ArgumentException("Choose harvest-relief, river-home, crossing, room-by-river, river-closing or timber-trade.") };
+            var world = scenario switch { "willow-home" => World.NewWillowHome(), "harvest-relief" => World.NewHarvestRelief(), "river-home" => World.NewVillageStory(), "room-by-river" => World.NewRiverside(), "room-by-river-far" => World.NewRiverside(true), "crossing" => World.NewCrossingRecovery(), "river-closing" => World.NewBrowserRiverClosing(), "timber-trade" => World.NewTimberTrade(), "timber-trade-ripe" => World.NewTimberTrade(true), "timber-control" => World.NewTimberTrade(false, false), _ => throw new ArgumentException("Choose harvest-relief, river-home, crossing, room-by-river, river-closing or timber-trade.") };
             var s = new Session(Guid.NewGuid().ToString("N"), world);
             sessions[s.Id] = s;
             Directory.CreateDirectory(Folder(s.Id));
@@ -85,7 +85,7 @@ public sealed partial class VillageSessions
         return new
         {
             id = s.Id, build = Build, sequence = s.Sequence, step = s.Step, seconds = Math.Round(s.Step / 10d, 1), s.Paused, s.Speed,
-            serverRun=ServerRun, scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = Complete(w), story = w.VillageStory==null?null:w.ReadVillageStory(), riverside = w.Riverside==null?null:w.ReadRiverside(), river = River(w), trade = Trade(w), notice = s.Notice,
+            serverRun=ServerRun, scenario = Scenario(w), title = Title(w), goalTitle = GoalTitle(w), complete = Complete(w), willow = w.ReadWillowHomeProgress(), story = w.VillageStory==null?null:w.ReadVillageStory(), riverside = w.Riverside==null?null:w.ReadRiverside(), river = River(w), trade = Trade(w), notice = s.Notice,
             resources = new { food = w.ReachableEdibleStored, logs = w.Available, population = w.Population, fed = w.People.Count(p => p.Fed), housed = w.Housed, beds = w.Beds },
             objectives = ObjectiveLines(w), hint = Hint(w), nextAction = goals.Action,
             map = new { w.Map.MinX, w.Map.MinZ, w.Map.Width, w.Map.Depth, water = w.Map.Water, excluded = w.Map.Excluded, stockpile = w.Stockpile,
@@ -94,14 +94,14 @@ public sealed partial class VillageSessions
             trees = w.Trees.Select(t => new { t.Id, t.Cell.X, t.Cell.Z, t.Logs, t.Felled, t.Growth, managed = w.ManagedWoodland.Contains(t.Cell), t.Preserved }),
             bushes = w.Bushes.Select(b => new { b.Id, b.Cell.X, b.Cell.Z }),
             buildings = VisibleBuildings(w).ToArray().Select(c => new { c.Id, kind = c.Kind.ToString(), name = Buildings.Get(c.Kind).Name, c.Cell.X, c.Cell.Z, c.Rotation, c.Complete,
-                c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest, entranceChange = w.ReadGardenEntrance(c.Id),
+                salvageCrop = w.IsWillowHome && c.Id==w.VillageStory!.SalvageField && !w.VillageStory.SalvageExhausted, restoration = w.IsWillowRuin(c) ? new { reachable=w.WillowSiteAccessible(c), paused=c.ConstructionPaused, logs=c.Required-c.Delivered, problem=w.RestoreWillowProblem(c.Id) } : null, c.Construction, c.Delivered, c.Required, c.Growth, c.Harvest, entranceChange = w.ReadGardenEntrance(c.Id),
                 launch = c.Kind == BuildingKind.FishingDock ? (Cell?)c.Launch : null,
                 fishing = c.Kind == BuildingKind.FishingDock ? w.FishingSurvey(c.Cell, c.Rotation) + " All docks share these stocks." : null,
                 boat = c.Boat == null ? null : new { x = c.Boat.Position.X, z = c.Boat.Position.Y, c.Boat.Heading, phase = c.Boat.Phase.ToString(), c.Boat.FisherId, c.Boat.Fish }, footprint = World.Footprint(c), entrance = c.Entrance,
                 status = BuildingStatus(w,c) }).ToArray(),
             people = w.People.Select(p => new { p.Id, p.Name, x = w.PassengerBoat(p)?.Position.X ?? p.Position.X, z = w.PassengerBoat(p)?.Position.Y ?? p.Position.Y, aboard = p.Task == Work.Aboard, heading = w.PassengerBoat(p)?.Heading ?? 0, p.Status, task = p.Task.ToString(), p.Fed, p.Carried, cargo = p.Cargo.ToString(), freshMeal = w.VillageStory?.FreshMeals.Contains(p.Id) ?? w.Riverside?.Served.Contains(p.Id) ?? w.Founding!.FirstHome!.Served.Contains(p.Id), homeId=p.HomeId, route=p.Route.ToArray() }).ToArray(),
             events = w.History.TakeLast(6).ToArray(), view = s.View,
-            actions = w.IsHarvestRelief ? new[]{"home","garden","field","dock","grove","garden-entrance","shipment-food","shipment-cancel","shipment-send"} : w.VillageStory!=null ? new[]{"home","garden","field","dock","grove","shortcut","garden-entrance","story-welcome","shipment-building","shipment-food","shipment-cancel","shipment-send"} : w.Riverside!=null ? new[]{"home","garden","field","dock","grove","shortcut","welcome","garden-entrance"} : (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding!.FirstHome!.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding!.FirstHome!.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
+            actions = w.IsWillowHome ? new[]{"home","garden","field","dock","grove","garden-entrance","restore-site","pause-restoration","willow-supper"} : w.IsHarvestRelief ? new[]{"home","garden","field","dock","grove","garden-entrance","shipment-food","shipment-cancel","shipment-send"} : w.VillageStory!=null ? new[]{"home","garden","field","dock","grove","shortcut","garden-entrance","story-welcome","shipment-building","shipment-food","shipment-cancel","shipment-send"} : w.Riverside!=null ? new[]{"home","garden","field","dock","grove","shortcut","welcome","garden-entrance"} : (Scenario(w) == "crossing" ? new[] { "repair", "garden", "grove" } : w.Founding!.FirstHome!.Trade != null ? new[] { "home", "garden", "field", "dock", "grove" } : new[] { "home", "garden", "field", "dock", "grove", "next-season" }).Concat(w.Founding!.FirstHome!.Trade != null ? new[] { "trade-buy", "trade-decline", "trade-cancel" } : Array.Empty<string>())
         };
     }
     public object Preview(string id, Order order) { var s = Get(id); lock (s) return Preview(s, order); }
@@ -141,6 +141,8 @@ public sealed partial class VillageSessions
     };
     static void CheckAction(World w, string type)
     {
+        if(type is "restore-site" or "pause-restoration" or "willow-supper" && !w.IsWillowHome)throw new ArgumentException("That action belongs to Les Saules.");
+        if(w.IsWillowHome && (type.StartsWith("shipment-") || type is "story-welcome" or "welcome" or "shortcut"))throw new ArgumentException("Restore the existing sites, build nearby, or prepare supper.");
         if((type=="story-welcome" || type.StartsWith("shipment-")) && w.VillageStory==null)throw new ArgumentException("That action belongs to A home on the river.");
         if(type=="welcome" && w.VillageStory!=null)throw new ArgumentException("Use story-welcome for this village.");
         if(type is "shortcut" or "welcome" or "garden-entrance" && w.Riverside==null)throw new ArgumentException("That action belongs to Room by the river.");
@@ -159,6 +161,12 @@ public sealed partial class VillageSessions
             s.LastSeen = DateTime.UtcNow;
             switch (o.Type)
             {
+                case "restore-site":
+                    problem=w.RestoreWillow(o.SiteId);if(problem==null){s.Notice="";message="Restoration ordered. Neighbors will do the work.";}break;
+                case "pause-restoration":
+                    problem=w.PauseWillow(o.SiteId);if(problem==null)message=w.History.Last();break;
+                case "willow-supper":
+                    problem=w.BeginWillowSupper();if(problem==null){s.DepartureSpeed=s.Speed;s.Speed=1;s.Paused=false;s.Notice="";message="The table is set. Watch your neighbors come together.";}break;
                 case "story-welcome":
                     problem=w.WelcomeStory();if(problem==null){s.Paused=true;s.Notice=w.VillageStory!.Notice;message=s.Notice;}break;
                 case "shipment-building": case "shipment-food":
@@ -184,6 +192,7 @@ public sealed partial class VillageSessions
                     if (problem == null) { w.ApplyWoodlandCare(new(o.X, o.Z), new(o.X2, o.Z2), WoodlandIntent.Renew, false); message = $"Grove ordered: {p.Timber} logs. Neighbors harvest and replant automatically."; }
                     break;
                 case "cancel":
+                    if(w.Cottages.FirstOrDefault(c=>c.Id==o.SiteId) is {} ruin && w.IsWillowRuin(ruin)){problem=w.PauseWillow(o.SiteId);if(problem==null)message=w.History.Last();break;}
                     if(w.CancelRiversidePlan(o.SiteId)){message="Ground plan cancelled; harvested logs are kept.";break;}
                     var planned = w.Cottages.FirstOrDefault(c => c.Id == o.SiteId && !c.Complete);
                     if (planned == null || !w.Cancel(o.SiteId)) problem = "Only an unfinished plan can be cancelled.";

@@ -26,6 +26,7 @@ export class VillageView {
   private down?: { x: number; y: number; moved: boolean }; private pinch = 0;
   private labels: HTMLDivElement;
   private cargoLabel = document.createElement('button');
+  private siteLabels = new Map<number,HTMLButtonElement>();
   private journey?: TransformNode;
   private journeyKey = "";
   private boat?: TransformNode;
@@ -35,6 +36,7 @@ export class VillageView {
   showFishingGrounds(visible: boolean) { if (this.fishingVisible === visible) return; this.fishingVisible = visible; if (this.state) this.update(this.state); }
   onPick: (cell: Cell) => void = () => {};
   onCargoPick: () => boolean = () => false;
+  onSitePick: (id:number) => boolean = () => false;
   onViewChange: () => void = () => {};
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement) {
     this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, false);
@@ -89,13 +91,15 @@ export class VillageView {
     this.state = state;
     if(changedStory)this.setZoom(this.zoom);
     if (this.mapKey !== state.id) {
+      this.camera.alpha=state.willow?Math.PI*.58:Math.PI/2;this.camera.beta=state.willow?.72:.63;
       this.fishingBoats.clear();
       this.mapKey = state.id; this.terrain.dispose(false, false); this.terrain = new TransformNode('terrain', this.scene);
       const water = new Set(state.map.water.map(c => `${c.x},${c.z}`)), excluded = new Set(state.map.excluded.map(c => `${c.x},${c.z}`));
       for (let x = state.map.minX; x < state.map.minX + state.map.width; x++) for (let z = state.map.minZ; z < state.map.minZ + state.map.depth; z++) {
         if (excluded.has(`${x},${z}`)) continue;
-        const wet = water.has(`${x},${z}`), colors = wet ? ['#70aeb2', '#75b1b4'] : ['#a7b77c', '#a2b378', '#acba81', '#a8b67d'];
-        this.box('ground', x, wet ? -.14 : -.08, z, 1.005, wet ? .12 : .2, 1.005, colors[Math.abs(x * 7 + z * 13) % colors.length], this.terrain, false);
+        const wet = water.has(`${x},${z}`), shore=!wet && [[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dz])=>water.has(`${x+dx},${z+dz}`));
+        const colors = state.willow ? wet?['#77aaa8','#7bafac']:shore?['#c4bc95','#c6be98']:['#a8b58a','#aab78c','#a7b48a','#adb98e'] : wet ? ['#70aeb2', '#75b1b4'] : ['#a7b77c', '#a2b378', '#acba81', '#a8b67d'];
+        this.box('ground', x, wet ? -.2 : state.willow?-.18:-.08, z, 1, wet ? .12 : state.willow?.4:.2, 1, colors[Math.abs(x * 7 + z * 13) % colors.length], this.terrain, false);
       }
       const merged = Mesh.MergeMeshes(this.terrain.getChildMeshes() as Mesh[], true, true, undefined, false, true);
       if (merged) { merged.parent = this.terrain; merged.isPickable = false; merged.receiveShadows = true; }
@@ -106,7 +110,18 @@ export class VillageView {
       for (const clearing of state.map.clearings) this.box('woodland-clearing', clearing.x, .04, clearing.z, .9, .12, .9, '#c5be90', this.terrain, false);
       const ground = MeshBuilder.CreateGround('picking-ground', { width: 100, height: 100 }, this.scene); ground.visibility = 0; ground.isPickable = true; ground.parent = this.terrain;
       this.boat = undefined; this.cargoBoat=undefined;
-      if(state.story){
+      if(state.willow){
+        for(const c of state.map.water)if((c.x*7+c.z*3)%4===0 && state.map.water.some(n=>n.x===c.x && n.z===c.z+1) && c.x===8){
+          for(const dx of [-.24,0,.22])this.cone('shore-reed',c.x-.42+dx,.15,c.z+dx,.1,.65,'#a2a471',this.terrain,.035);
+          this.cone('shore-stone',c.x-.6,.04,c.z+.35,.45,.25,'#929d8e',this.terrain,.2);
+        }
+        // Authored remnants belong to the damaged farmstead, not a decoration menu.
+        for(const x of [-4.6,-1.4])for(const z of [-8.6,-7.6,-6.6,-5.6,-4.6]){
+          this.box('old-field-post',x,.3,z,.1,.65,.1,'#8d8061',this.terrain);
+          if(z!==-6.6)this.box('split-rail',x,.4,z+.35,.08,.09,.8,'#a49372',this.terrain);
+        }
+      }
+      if(state.story && !state.willow){
         // A broad working barge is visually distinct from the small fishing canoes.
         const node=new TransformNode('upriver-cargo-boat',this.scene);node.parent=this.terrain;
         this.box('cargo-hull',0,.1,0,1.65,.35,3.4,'#664b37',node);
@@ -162,23 +177,43 @@ export class VillageView {
       boat.logs.scaling.y=story.departed?1:Math.max(.35,Math.min(1,story.packedLogs/Math.max(1,story.logTarget)));
       boat.food.scaling.y=story.departed?1:Math.max(.35,Math.min(1,story.packedFood/Math.max(1,story.foodTarget)));
     }
-    const sig = JSON.stringify([state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.rotation, b.complete, b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
+    const sig = JSON.stringify([!!state.willow?.gathering,state.complete,state.trees.map(t => [t.id, t.felled, Math.round(t.growth * 5), t.managed]), state.buildings.map(b => [b.id, b.rotation, b.complete, b.restoration?.paused,b.delivered, Math.floor(b.construction * 4), Math.floor(b.growth * 5), b.harvest])]);
     if (sig !== this.signature) {
       this.signature = sig; this.fixtures.dispose(false, false); this.fixtures = new TransformNode('fixtures', this.scene);
       for (const t of state.trees) {
         this.cone('trunk', t.x, .35, t.z, .25, .7, '#795d42', this.fixtures, .19);
-        if (!t.felled) for (let j = 0; j < 3; j++) this.cone('pine', t.x, .85 + j * .55, t.z, (1.7 - j * .35) * Math.max(.35, t.growth), 1.2, t.managed ? '#4b7652' : '#376455', this.fixtures);
+        if (!t.felled) {
+          if(state.willow && t.x>=4){
+            for(const [dx,dz,y] of [[-.45,0,1.6],[.4,.2,1.8],[0,-.35,2.2]]){
+              const crown=MeshBuilder.CreateSphere('willow-crown',{diameter:1.35*Math.max(.4,t.growth),segments:4},this.scene);
+              crown.position.set(t.x+dx,y*Math.max(.5,t.growth),t.z+dz);crown.scaling.y=1.2;crown.parent=this.fixtures;crown.material=this.material(t.managed?'#829666':'#71875e');crown.isPickable=false;this.shadows.addShadowCaster(crown);
+            }
+          }else for (let j = 0; j < 3; j++) this.cone('pine', t.x, .85 + j * .55, t.z, (1.7 - j * .35) * Math.max(.35, t.growth), 1.2, t.managed ? '#4b7652' : '#376455', this.fixtures);
+        }
         if (t.managed) this.box('grove-sign', t.x + .45, .12, t.z + .45, .24, .24, .24, '#edd39c', this.fixtures);
       }
       for (const b of state.bushes) this.cone('bush', b.x, .35, b.z, .9, .65, '#66825a', this.fixtures, .6);
       const yard = state.map.stockpile;
       this.box('timber-yard', yard.x, .04, yard.z, 1.5, .1, 1.5, '#99876b', this.fixtures);
-      for (let i = 0; i < 4; i++) this.box('logs', yard.x, .18 + (i % 2) * .2, yard.z + Math.floor(i / 2) * .3 - .3, 1.2, .19, .23, '#916747', this.fixtures);
+      if(!state.willow?.gathering && !(state.willow && state.complete))for (let i = 0; i < 4; i++) this.box('logs', yard.x, .18 + (i % 2) * .2, yard.z + Math.floor(i / 2) * .3 - .3, 1.2, .19, .23, '#916747', this.fixtures);
+      if(state.willow?.gathering || state.willow && state.complete){
+        this.box('supper-table',yard.x,.62,yard.z,1.5,.14,.95,'#a37e52',this.fixtures);
+        for(const x of [-.55,.55])for(const z of [-.32,.32])this.box('table-leg',yard.x+x,.3,yard.z+z,.1,.6,.1,'#7e6447',this.fixtures);
+        this.box('table-linen',yard.x,.7,yard.z,1.35,.03,.54,'#e8dec1',this.fixtures,false);
+        for(const x of [-.45,0,.45])for(const z of [-.2,.2])this.cone('supper-bowl',yard.x+x,.75,yard.z+z,.16,.07,'#b78851',this.fixtures,.2);
+      }
       for (const b of state.buildings) {
         const cx = b.footprint.reduce((n, c) => n + c.x, 0) / b.footprint.length, cz = b.footprint.reduce((n, c) => n + c.z, 0) / b.footprint.length;
         const root = new TransformNode(`building-${b.id}`, this.scene); root.parent = this.fixtures; root.position.set(cx, 0, cz); root.rotation.y = -b.rotation * Math.PI / 2;
         if (b.kind === 'Cottage') {
           if (!b.complete) {
+            if(b.restoration){
+              this.box('old-stone-foundation',0,.15,0,3.1,.4,2.1,'#929482',root);
+              this.box('surviving-wall',0,.65,-.85,2.8,.85,.18,'#cec4a1',root);
+              this.box('surviving-gable',-1.3,.55,0,.18,.65,1.8,'#c3b794',root);
+              this.box('old-hearth',1,1.05,-.3,.4,1.9,.42,'#a5a38d',root);
+              for(const x of [-1.2,.2]){const beam=this.box('fallen-roof',x,.4,.45,.18,.16,1.4,'#766552',root);beam.rotation.y=.7;}
+            }
             for(const z of [-.9,.9])this.box('plot-edge',0,.13,z,3,.07,.08,'#ead6a6',root,false);
             for(const x of [-1.5,1.5])this.box('plot-edge',x,.13,0,.08,.07,1.8,'#ead6a6',root,false);
             // A plan is a worksite, never an already inhabitable house. Geometry
@@ -214,8 +249,22 @@ export class VillageView {
           this.box('door', -.45, .55, .97, .42, 1, .07, '#6b5142', root);
           this.box('window', .65, .88, .98, .43, .44, .08, '#e6b86f', root);
           this.box('chimney', 1, 2, -.3, .35, .85, .4, '#aaa08b', root);
+          if(state.willow){
+            for(const side of [-1,1]){
+              const gable=new Mesh('plaster-gable',this.scene);gable.parent=root;
+              gable.setVerticesData('position',[side*1.43,1.43,-.94,side*1.43,1.43,.94,side*1.43,2.25,0]);
+              gable.setVerticesData('normal',[side,0,0,side,0,0,side,0,0]);gable.setIndices(side>0?[0,2,1]:[0,1,2]);gable.material=this.material('#d5c9a5');gable.isPickable=false;this.shadows.addShadowCaster(gable);
+            }
+            for(const x of [-1.3,1.3])this.box('corner-timber',x,.85,.93,.12,1.3,.12,'#867258',root);
+            for(const dx of [-.31,.31])this.box('window-shutter',.65+dx,.88,1.04,.15,.5,.08,'#647c71',root);
+            this.box('window-cross',.65,.88,1.045,.035,.42,.04,'#71654e',root);
+            this.box('window-sill',.65,.65,1.05,.6,.07,.17,'#b6a27d',root);
+            this.box('doorstep',-.45,.1,1.15,.8,.2,.42,'#aeaf99',root);
+            for(const z of [-.9,.9])this.box('roof-edge',0,1.49,z,3.45,.13,.12,'#8b7761',root);
+          }
           }
         } else if (b.kind === 'FishingDock') {
+          if(b.restoration){const plank=this.box('broken-landing',-.6,.25,0,1.3,.1,.6,'#8f8063',root);plank.rotation.z=.18;}
           for (const x of [-1.3, 1.3]) for (const z of [-.35, .35])
             this.box('dock-pile', x, .2, z, .15, .8, .15, '#816343', root);
           if (b.complete || b.construction >= .5) for (const z of [-.3, 0, .3])
@@ -239,7 +288,7 @@ export class VillageView {
           }
           for (const x of [-1.55, 1.55]) this.box('garden-stake', x, .25, 0, .08, .5, .08, '#baa079', root);
         }
-        if (!b.complete) {
+        if (!b.complete && !b.restoration?.paused) {
           for (const c of b.footprint) this.box('plan-outline', c.x, .12, c.z, .92, .05, .92, '#e8ce8a', this.fixtures, false);
           this.box('construction-marker', cx, .6, cz, .12, 1.2, .12, '#82694c', this.fixtures);
         }
@@ -288,19 +337,27 @@ export class VillageView {
       v.person = p; v.cargo.setEnabled(p.carried > 0);
     }
     // Keep the actionable caption mounted so updates do not steal keyboard focus.
-    for(const label of [...this.labels.children])if(label!==this.cargoLabel)label.remove();
+    for(const label of [...this.labels.children])if(label!==this.cargoLabel && ![...this.siteLabels.values()].includes(label as HTMLButtonElement))label.remove();
+    const activeSites=new Set(state.willow?state.buildings.filter(b=>b.restoration?.paused || b.salvageCrop).map(b=>b.id):[]);
+    for(const [id,label]of this.siteLabels)if(!activeSites.has(id)){label.remove();this.siteLabels.delete(id);}
+    for(const b of state.buildings.filter(b=>activeSites.has(b.id))){
+      let label=this.siteLabels.get(b.id);
+      if(!label){label=document.createElement('button');label.className='site-label';label.dataset.site=String(b.id);label.onclick=e=>{if(e.detail===0)this.onSitePick(b.id);};this.siteLabels.set(b.id,label);this.labels.append(label);}
+      label.textContent=b.salvageCrop?'Last crop':b.kind==='Cottage'?'Rebuild home':b.kind==='Bridge'?'Broken crossing':b.kind==='VegetableField'?'Restore field':'Repair landing';
+      label.dataset.x=String(b.x);label.dataset.z=String(b.z+(b.salvageCrop?-2.4:b.kind==='Cottage'?1.3:0));label.setAttribute('aria-label',`Inspect ${label.textContent.toLowerCase()}`);
+    }
     if(!state.story || state.story.departureProgress>=1)this.cargoLabel.remove();
     if (this.fishingVisible) for (const g of state.map.fishing ?? []) {
       const label=document.createElement("span"); label.textContent=`${g.name} · ${g.available} fish · +${g.renewal.toFixed(0)}/min`; label.dataset.x=String(g.x);label.dataset.z=String(g.z);this.labels.append(label);
     }
-    if(state.story && state.story.departureProgress<1){
+    if(state.story && !state.willow && state.story.departureProgress<1){
       const label=this.cargoLabel;label.textContent=shipmentStatus(state).caption;
       label.disabled=state.story.departed || (state.scenario!=='harvest-relief' && state.story.chapter<3);
       label.setAttribute('aria-label',label.disabled?label.textContent:`${label.textContent} · review cargo`);
       label.dataset.x='10';label.dataset.z=String(4-14*state.story.departureProgress);if(!label.isConnected)this.labels.append(label);
     }
     const firstField = state.buildings.find(b => b.kind === 'VegetableField');
-    for (const item of state.scenario==='harvest-relief' ? [{label:'Inland meadow',x:2,z:-8},{label:'Village woodlot',x:-3,z:6},{label:'Fishing hamlet',x:5,z:2}] : state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
+    for (const item of state.willow ? [] : state.scenario==='harvest-relief' ? [{label:'Inland meadow',x:2,z:-8},{label:'Village woodlot',x:-3,z:6},{label:'Fishing hamlet',x:5,z:2}] : state.riverside ? [{label:state.buildings.some(b=>b.kind==='Cottage' && b.z < -1)?'Far-bank homes':'Open far bank',x:3,z:-7},{label:state.trees.some(t=>t.managed && t.z>0)?'Renewing grove':'Cleared ground',x:3,z:7},{label:'Old crossing',x:-8,z:-1}] : [{ label: firstField && firstField.harvest > 0 ? 'Ripe harvest' : 'Growing field', x: -7, z: -8 }, state.river ? { label: state.river.closed ? 'Landing closed' : 'Boat landing', x: 8, z: -1 } : { label: state.buildings.some(b => b.kind === 'Bridge' && b.complete) ? 'Crossing restored' : 'Washed-out crossing', x: 0, z: -3 }]) {
       const label = document.createElement('span'); label.textContent = item.label; label.dataset.x = String(item.x); label.dataset.z = String(item.z); this.labels.append(label);
     }
   }
@@ -321,6 +378,10 @@ export class VillageView {
       v.legs[0].rotation.x = v.person.aboard ? -1.1 : swing; v.legs[1].rotation.x = v.person.aboard ? -1.1 : -swing;
       v.arms[0].rotation.x = v.person.carried ? -.9 : -swing; v.arms[1].rotation.x = v.person.carried ? -.9 : swing;
       if (!this.state?.paused && ['Chopping', 'Building', 'Harvesting', 'Planting'].includes(v.person.task)) v.arms[0].rotation.x = -1 + Math.sin(phase) * .6;
+      if(this.state?.willow && v.person.task==='Supper'){
+        v.node.rotation.y=Math.atan2(-3-v.node.position.x,3-v.node.position.z);
+        v.arms[0].rotation.x=-.7+(!this.state.paused?Math.sin(phase*.35)*.18:0);v.arms[1].rotation.x=-.5;
+      }
     }
   }
   showJourney(route: Cell[]) {
@@ -345,7 +406,7 @@ export class VillageView {
   }
   private inputs() {
     const c = this.canvas;
-    this.host.addEventListener('pointerdown', e => { if(e.target!==c && e.target!==this.cargoLabel)return; c.setPointerCapture(e.pointerId); this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); this.down = { x: e.clientX, y: e.clientY, moved: this.pointers.size > 1 }; if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch = Math.hypot(a.x - b.x, a.y - b.y); } });
+    this.host.addEventListener('pointerdown', e => { if(e.target!==c && e.target!==this.cargoLabel && !(e.target instanceof HTMLElement && e.target.classList.contains('site-label')))return; c.setPointerCapture(e.pointerId); this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); this.down = { x: e.clientX, y: e.clientY, moved: this.pointers.size > 1 }; if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch = Math.hypot(a.x - b.x, a.y - b.y); } });
     c.addEventListener('pointermove', e => {
       const previous = this.pointers.get(e.pointerId); if (!previous) return;
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -354,9 +415,10 @@ export class VillageView {
         if (this.pinch > 0 && distance > 0) this.setZoom(this.zoom * this.pinch / distance); this.pinch = distance;
         if (this.down) this.down.moved = true;
       } else if (this.down && Math.hypot(e.clientX - this.down.x, e.clientY - this.down.y) > 6) {
-        this.down.moved = true; const scale = this.zoom * 2 / c.clientHeight;
-        this.camera.target.x += (e.clientX - previous.x) * scale;
-        this.camera.target.z -= (e.clientY - previous.y) * scale / Math.cos(.63);
+        this.down.moved = true; const scale = ((this.camera.orthoRight??this.zoom)-(this.camera.orthoLeft??-this.zoom))/c.clientWidth;
+        const dx=(e.clientX-previous.x)*scale,dy=(e.clientY-previous.y)*scale/Math.cos(this.camera.beta),a=this.camera.alpha;
+        this.camera.target.x += dx*Math.sin(a)-dy*Math.cos(a);
+        this.camera.target.z -= dx*Math.cos(a)+dy*Math.sin(a);
         this.camera.target.x = Math.max(-18, Math.min(18, this.camera.target.x)); this.camera.target.z = Math.max(-18, Math.min(18, this.camera.target.z));
       }
     });
@@ -369,7 +431,8 @@ export class VillageView {
         const label=this.cargoLabel.getBoundingClientRect();
         const onLabel=this.cargoLabel.isConnected && e.clientX>=label.left && e.clientX<=label.right && e.clientY>=label.top && e.clientY<=label.bottom;
         const onBoat=this.cargoBoat?.node.isEnabled() && Math.abs(point.x-this.cargoBoat.node.position.x)<1.1 && Math.abs(point.z-this.cargoBoat.node.position.z)<1.9;
-        if(!(onLabel || onBoat) || !this.onCargoPick())this.onPick({ x: Math.round(point.x), z: Math.round(point.z) });
+        const site=[...this.siteLabels].find(([,el])=>{const r=el.getBoundingClientRect();return e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom;});
+        if(!(site && this.onSitePick(site[0])) && (!(onLabel || onBoat) || !this.onCargoPick()))this.onPick({ x: Math.round(point.x), z: Math.round(point.z) });
       }
       if (!this.pointers.size) { this.down = undefined; this.onViewChange(); }
     });

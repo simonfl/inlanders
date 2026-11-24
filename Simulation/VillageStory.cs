@@ -22,6 +22,9 @@ public sealed class VillageStoryProgress
     public bool Complete { get; set; }
     public int Event { get; set; }
     public string Notice { get; set; } = "";
+    public List<int> Ruins { get; set; } = new();
+    public int SalvageField { get; set; }
+    public bool SalvageExhausted { get; set; }
 }
 
 public sealed record ShipmentOption(string Id,string Label,int Logs,int Food,string Description);
@@ -39,7 +42,8 @@ public sealed partial class World
         new("food","Help them eat",24,64,"More surplus food, fewer logs. Invest in fields or fishing while keeping local meals safe.")
     };
     public bool IsHarvestRelief => VillageStory?.Situation=="harvest-relief";
-    public ShipmentOption[] CurrentStoryShipments => IsHarvestRelief ? ReliefShipments : StoryShipments;
+    public bool IsWillowHome => VillageStory?.Situation=="willow-home";
+    public ShipmentOption[] CurrentStoryShipments => IsWillowHome ? Array.Empty<ShipmentOption>() : IsHarvestRelief ? ReliefShipments : StoryShipments;
     private ShipmentOption? StoryManifest => CurrentStoryShipments.FirstOrDefault(o=>o.Id==VillageStory?.Manifest);
     public int StoryFoodAway(Resource kind) => VillageStory is {} s ? s.PackedFood.GetValueOrDefault(kind)+s.ExportedFood.GetValueOrDefault(kind) : 0;
     public int StoryLogsAway => VillageStory is {} s ? s.PackedLogs+s.ExportedLogs : 0;
@@ -62,7 +66,7 @@ public sealed partial class World
     {
         VillageStory!.Event++;VillageStory.Notice=notice;History.Add(notice);
     }
-    public string? StoryWelcomeProblem() => VillageStory is not {Arrived:false} ? "The neighbors have already arrived." :
+    public string? StoryWelcomeProblem() => IsWillowHome ? "Everyone already lives here." : VillageStory is not {Arrived:false} ? "The neighbors have already arrived." :
         !VillageStory.Established ? "First bring home local food and serve a fresh meal." : Beds<8 ? "Finish eight beds before welcoming the neighbors early." :
         ReachableEdibleStored<12 ? "Keep twelve food portions for the arrival." : null;
     public string? WelcomeStory()
@@ -80,7 +84,7 @@ public sealed partial class World
         {s.Settled=true;StoryEvent("The newcomers have arrived and found homes. Choose how your eight-person village will help upriver.");}
         else StoryEvent("Four neighbors have arrived. Finish their homes and food supply, then choose what to send upriver.");
     }
-    public string? StoryOrderProblem() => VillageStory is not {} s ? "This shipment belongs to A home on the river." :
+    public string? StoryOrderProblem() => IsWillowHome ? "This village needs rebuilding, not another shipment." : VillageStory is not {} s ? "This shipment belongs to A home on the river." :
         s.Departed ? "Your supply boat has already departed." : !s.Settled ? "First give all eight neighbors homes and enough to eat." :
         s.Manifest!="none" ? "Cancel the current cargo order before choosing another." : null;
     public string? OrderStoryShipment(string manifest)
@@ -133,6 +137,7 @@ public sealed partial class World
     private void AdvanceVillageStory()
     {
         if(VillageStory is not {} s)return;
+        if(IsWillowHome){AdvanceWillowHome();return;}
         if(s.Complete)return;
         if(!s.Established && DeliveredEdible>=4 && s.FreshMeals.Any(id=>id<4))
         {s.Established=true;StoryEvent("Your first harvest is feeding the village. Prepare homes and food for four newcomers.");}
@@ -145,6 +150,7 @@ public sealed partial class World
     }
     public VillageStoryReport ReadVillageStory()
     {
+        if(IsWillowHome)return ReadWillowHome();
         if(IsHarvestRelief)return ReadHarvestRelief();
         var s=VillageStory!;var manifest=StoryManifest;
         int arrival=Math.Max(0,(int)Math.Ceiling(StoryArrival-Food.Time));
@@ -198,6 +204,7 @@ public sealed partial class World
     private void ValidateVillageStory()
     {
         if(VillageStory is not {} s)return;
+        if(IsWillowHome){ValidateWillowHome();return;}
         var manifest=StoryManifest;
         if(s.Situation is not ("river-home" or "harvest-relief") || IsHarvestRelief && (!s.Arrived || !s.Established || !s.Settled) || Riverside==null || Population!=(s.Arrived?8:4) || s.FreshMeals==null || s.FreshMeals.Any(id=>id<0 || id>=Population) ||
             s.PackedFood==null || s.ExportedFood==null || s.PackedFood.Concat(s.ExportedFood).Any(p=>p.Key==Resource.Berries || !EdibleKinds.Contains(p.Key) || p.Value<0) ||

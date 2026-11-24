@@ -1,4 +1,5 @@
 using Inlanders.Simulation;
+if(args.Contains("--willow-home")){WillowHomeChecks.Run();return;}
 if(args.Contains("--harvest-relief")){HarvestReliefChecks.Run(args.SkipWhile(a=>a!="--harvest-relief").Skip(1).FirstOrDefault());return;}
 if(args.Contains("--village-story-pacing")){VillageStoryChecks.Pacing();return;}
 if(args.Contains("--village-story")){VillageStoryChecks.Run();return;}
